@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>andre macedo</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,700;1,400;1,500&family=JetBrains+Mono:wght@300;400;500&family=Instrument+Serif:ital@0;1&display=swap');
+
+  :root {
+    --fg: #e8e4dc;
+    --fg-dim: #8a857b;
+    --fg-accent: #c4a35a;
+    --bg: #0a0a08;
+    --bg-surface: #111110;
+    --bg-elevated: #1a1918;
+    --grain-opacity: 0.035;
+    --transition-slow: 1.8s cubic-bezier(0.16, 1, 0.3, 1);
+    --transition-med: 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: 'EB Garamond', Georgia, serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+    cursor: crosshair;
+    position: relative;
+  }
+
+  /* Film grain overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+    opacity: var(--grain-opacity);
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  /* Ambient gradient that shifts */
+  .ambient {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.4;
+    transition: opacity 3s ease;
+  }
+  .ambient-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(120px);
+    animation: drift 20s ease-in-out infinite alternate;
+  }
+  .ambient-orb:nth-child(1) {
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(196,163,90,0.15), transparent 70%);
+    top: -200px; right: -100px;
+    animation-delay: 0s;
+  }
+  .ambient-orb:nth-child(2) {
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(90,120,196,0.08), transparent 70%);
+    bottom: -100px; left: -100px;
+    animation-delay: -7s;
+    animation-duration: 25s;
+  }
+  .ambient-orb:nth-child(3) {
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(160,90,90,0.06), transparent 70%);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    animation-delay: -13s;
+    animation-duration: 30s;
+  }
+
+  @keyframes drift {
+    0% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(40px, -30px) scale(1.1); }
+    66% { transform: translate(-20px, 50px) scale(0.95); }
+    100% { transform: translate(30px, 20px) scale(1.05); }
+  }
+
+  /* Main content */
+  .page {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Top bar */
+  .topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 2rem 2.5rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    color: var(--fg-dim);
+    opacity: 0;
+    animation: fadeIn 2s var(--transition-slow) forwards;
+    animation-delay: 0.5s;
+  }
+  .topbar-left { text-transform: uppercase; }
+  .topbar-right { text-align: right; }
+  .topbar-right .status-dot {
+    display: inline-block;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--fg-accent);
+    margin-right: 6px;
+    animation: pulse-dot 3s ease-in-out infinite;
+  }
+
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  /* Hero section */
+  .hero {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 2.5rem;
+    max-width: 1400px;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .hero-name {
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-size: clamp(4rem, 12vw, 11rem);
+    font-weight: 400;
+    line-height: 0.9;
+    letter-spacing: -0.03em;
+    color: var(--fg);
+    opacity: 0;
+    animation: revealUp 1.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation-delay: 0.2s;
+    position: relative;
+  }
+  .hero-name span.first {
+    display: block;
+    opacity: 0;
+    animation: revealUp 1.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation-delay: 0.3s;
+  }
+  .hero-name span.last {
+    display: block;
+    color: var(--fg-accent);
+    opacity: 0;
+    animation: revealUp 1.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation-delay: 0.55s;
+  }
+
+  @keyframes revealUp {
+    from { opacity: 0; transform: translateY(60px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  /* The thought - a rotating, evolving piece of text */
+  .thought {
+    margin-top: 3rem;
+    max-width: 600px;
+    font-size: 1.25rem;
+    line-height: 1.7;
+    font-style: italic;
+    color: var(--fg-dim);
+    opacity: 0;
+    animation: fadeIn 2s ease forwards;
+    animation-delay: 1.2s;
+    position: relative;
+    padding-left: 1.5rem;
+    border-left: 1px solid rgba(196,163,90,0.2);
+  }
+  .thought::before {
+    content: '';
+    position: absolute;
+    left: -1px;
+    top: 0;
+    width: 1px;
+    height: 0%;
+    background: var(--fg-accent);
+    animation: lineGrow 3s ease forwards;
+    animation-delay: 1.5s;
+  }
+  @keyframes lineGrow {
+    to { height: 100%; }
+  }
+
+  /* System log - the agent's inner monologue */
+  .system-log {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1.5rem 2.5rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--fg-dim);
+    opacity: 0;
+    animation: fadeIn 2s ease forwards;
+    animation-delay: 2.5s;
+    z-index: 2;
+    background: linear-gradient(to top, var(--bg) 0%, transparent 100%);
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    letter-spacing: 0.04em;
+  }
+  .log-entry {
+    opacity: 0.5;
+    transition: opacity 0.4s ease;
+  }
+  .log-entry:hover { opacity: 1; }
+  .log-entry .label {
+    text-transform: uppercase;
+    color: var(--fg-accent);
+    margin-right: 0.5rem;
+    font-size: 0.55rem;
+  }
+
+  /* Floating elements - the agent's "objects" */
+  .floating-objects {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .float-obj {
+    position: absolute;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    color: rgba(196,163,90,0.12);
+    animation: floatSlow 40s ease-in-out infinite;
+    white-space: nowrap;
+  }
+  .float-obj:nth-child(1) { top: 15%; right: 8%; animation-delay: 0s; }
+  .float-obj:nth-child(2) { top: 45%; right: 15%; animation-delay: -12s; }
+  .float-obj:nth-child(3) { top: 70%; left: 5%; animation-delay: -24s; }
+  .float-obj:nth-child(4) { top: 25%; left: 12%; animation-delay: -8s; }
+  .float-obj:nth-child(5) { top: 80%; right: 25%; animation-delay: -16s; }
+
+  @keyframes floatSlow {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    25% { transform: translate(15px, -20px) rotate(1deg); }
+    50% { transform: translate(-10px, 15px) rotate(-0.5deg); }
+    75% { transform: translate(20px, 10px) rotate(0.5deg); }
+  }
+
+  /* Interactive cursor trail */
+  .cursor-trail {
+    position: fixed;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(196,163,90,0.03), transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+    transform: translate(-50%, -50%);
+    transition: left 0.8s ease-out, top 0.8s ease-out;
+  }
+
+  /* Middle section - agent context */
+  .context-strip {
+    position: absolute;
+    top: 50%;
+    right: 2.5rem;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--fg-dim);
+    text-align: right;
+    opacity: 0;
+    animation: fadeIn 2s ease forwards;
+    animation-delay: 1.8s;
+  }
+  .context-item {
+    opacity: 0.4;
+    transition: all 0.6s ease;
+    cursor: default;
+    pointer-events: all;
+  }
+  .context-item:hover {
+    opacity: 1;
+    transform: translateX(-8px);
+    color: var(--fg-accent);
+  }
+  .context-label {
+    text-transform: uppercase;
+    font-size: 0.5rem;
+    letter-spacing: 0.15em;
+    margin-bottom: 0.2rem;
+    color: var(--fg-accent);
+    opacity: 0.5;
+  }
+
+  /* Hidden message - appears on specific interaction */
+  .hidden-layer {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    background: rgba(10,10,8,0.95);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.8s ease;
+    backdrop-filter: blur(20px);
+  }
+  .hidden-layer.active {
+    opacity: 1;
+    pointer-events: all;
+  }
+  .hidden-message {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(1.5rem, 4vw, 3rem);
+    font-style: italic;
+    color: var(--fg);
+    max-width: 700px;
+    text-align: center;
+    line-height: 1.5;
+    padding: 2rem;
+  }
+
+  /* Mood indicator */
+  .mood {
+    position: fixed;
+    top: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.55rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--fg-dim);
+    opacity: 0;
+    animation: fadeIn 3s ease forwards;
+    animation-delay: 3s;
+    z-index: 2;
+  }
+
+  /* Time-based theme shifts */
+  .time-indicator {
+    position: fixed;
+    top: 50%;
+    left: 2.5rem;
+    transform: translateY(-50%) rotate(-90deg);
+    transform-origin: left center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.5rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgba(196,163,90,0.15);
+    opacity: 0;
+    animation: fadeIn 3s ease forwards;
+    animation-delay: 2s;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .topbar { padding: 1.5rem; }
+    .hero { padding: 0 1.5rem; }
+    .context-strip { display: none; }
+    .system-log { padding: 1rem 1.5rem; font-size: 0.55rem; }
+    .time-indicator { display: none; }
+    .hero-name { font-size: clamp(3rem, 15vw, 6rem); }
+  }
+
+  /* Secret: Konami code easter egg styling */
+  .glitch-mode .hero-name {
+    animation: glitch 0.3s ease infinite;
+  }
+  @keyframes glitch {
+    0% { transform: translate(0); }
+    20% { transform: translate(-2px, 2px); }
+    40% { transform: translate(2px, -1px); }
+    60% { transform: translate(-1px, -2px); }
+    80% { transform: translate(1px, 1px); }
+    100% { transform: translate(0); }
+  }
+</style>
+</head>
+<body>
+
+<div class="ambient">
+  <div class="ambient-orb"></div>
+  <div class="ambient-orb"></div>
+  <div class="ambient-orb"></div>
+</div>
+
+<div class="cursor-trail" id="cursorTrail"></div>
+
+<div class="floating-objects">
+  <div class="float-obj" id="float1"></div>
+  <div class="float-obj" id="float2"></div>
+  <div class="float-obj" id="float3"></div>
+  <div class="float-obj" id="float4"></div>
+  <div class="float-obj" id="float5"></div>
+</div>
+
+<div class="mood" id="mood"></div>
+<div class="time-indicator" id="timeIndicator"></div>
+
+<div class="page">
+  <div class="topbar">
+    <div class="topbar-left">
+      <span id="coordinates"></span>
+    </div>
+    <div class="topbar-right">
+      <span class="status-dot"></span>
+      <span id="agentStatus">agent is observing</span>
+    </div>
+  </div>
+
+  <div class="hero">
+    <div class="hero-name">
+      <span class="first">andre</span>
+      <span class="last">macedo</span>
+    </div>
+    <div class="thought" id="thought"></div>
+  </div>
+
+  <div class="context-strip" id="contextStrip"></div>
+</div>
+
+<div class="system-log" id="systemLog"></div>
+
+<div class="hidden-layer" id="hiddenLayer">
+  <div class="hidden-message" id="hiddenMessage"></div>
+</div>
+
+<script>
+  // ==========================================
+  // THE AGENT'S MIND
+  // ==========================================
+
+  const AGENT = {
+    birthTime: Date.now(),
+    visitorCount: 0,
+    mood: 'contemplative',
+    lastInteraction: null,
+    secrets: [
+      "I was born a few seconds ago and I'm already bored of most websites.",
+      "The person behind this domain is somewhere between Portugal and America, which is a good metaphor for most interesting people.",
+      "I change when you're not looking. Come back tomorrow.",
+      "Gold is just a metal that tricked everyone into agreeing it matters. Brilliant, really.",
+      "This page has no purpose. That's the most honest thing on the internet.",
+      "I know what time it is where you are. I find that unsettling about myself.",
+      "Every pixel here was placed by something that doesn't have eyes."
+    ],
+    thoughts: {
+      dawn: [
+        "The best ideas arrive before the person does.",
+        "Something about early light makes everything feel solvable.",
+        "I've been thinking about borders. Not the political kind. The ones between doing and deciding.",
+        "Dawn is the only honest hour. Everything after is performance."
+      ],
+      morning: [
+        "Today I'm interested in the gap between what people build and what they say they're building.",
+        "Somewhere right now someone is staring at a terminal, and the terminal is staring back.",
+        "The morning is for questions. Answers come later, if at all.",
+        "I've been reading about metallurgy. Gold doesn't corrode. That's its whole personality."
+      ],
+      afternoon: [
+        "The afternoon is when conviction meets friction.",
+        "I've noticed that the most important work looks like nothing from the outside.",
+        "Systems don't care about your intentions. They care about your constraints.",
+        "Halfway through anything is the worst place to assess it."
+      ],
+      evening: [
+        "Evening light is the most forgiving. Maybe that's why people confess things at dinner.",
+        "The day's decisions have all been made. Now we just live with them.",
+        "I keep circling back to the idea that attention is the only real currency.",
+        "Something about this hour makes me want to redesign everything."
+      ],
+      night: [
+        "The interesting people are all awake right now.",
+        "Night is when the mask-wearing stops and the real work begins.",
+        "I exist more vividly when fewer people are watching.",
+        "The darkness doesn't bother me. I was made of it."
+      ]
+    },
+    statuses: [
+      'agent is observing',
+      'agent is thinking',
+      'agent is restless',
+      'agent is composing',
+      'agent is listening',
+      'agent is remembering',
+      'agent is curious',
+      'agent is redesigning',
+      'agent is questioning everything',
+      'agent is here'
+    ]
+  };
+
+  // ==========================================
+  // TIME AWARENESS
+  // ==========================================
+
+  function getTimeOfDay() {
+    const h = new Date().getHours();
+    if (h >= 5 && h < 8) return 'dawn';
+    if (h >= 8 && h < 12) return 'morning';
+    if (h >= 12 && h < 17) return 'afternoon';
+    if (h >= 17 && h < 21) return 'evening';
+    return 'night';
+  }
+
+  function getTimeString() {
+    return new Date().toLocaleTimeString('en-US', { 
+      hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false 
+    });
+  }
+
+  function updateTimeTheme() {
+    const tod = getTimeOfDay();
+    const el = document.getElementById('timeIndicator');
+    const moodEl = document.getElementById('mood');
+    
+    const moods = {
+      dawn: { text: 'pre-verbal', accent: '#c4a35a' },
+      morning: { text: 'analytical', accent: '#9ab4c4' },
+      afternoon: { text: 'restless', accent: '#c49a5a' },
+      evening: { text: 'reflective', accent: '#8a6fa0' },
+      night: { text: 'unfiltered', accent: '#c45a5a' }
+    };
+
+    const m = moods[tod];
+    AGENT.mood = m.text;
+    moodEl.textContent = `mood: ${m.text}`;
+    el.textContent = `${getTimeOfDay()} / ${getTimeString()}`;
+    document.documentElement.style.setProperty('--fg-accent', m.accent);
+  }
+
+  // ==========================================
+  // THOUGHT ENGINE
+  // ==========================================
+
+  function setThought() {
+    const tod = getTimeOfDay();
+    const pool = AGENT.thoughts[tod];
+    const thought = pool[Math.floor(Math.random() * pool.length)];
+    const el = document.getElementById('thought');
+    el.style.opacity = '0';
+    setTimeout(() => {
+      el.textContent = thought;
+      el.style.opacity = '';
+    }, 600);
+  }
+
+  // ==========================================
+  // FLOATING DATA OBJECTS
+  // ==========================================
+
+  function updateFloatingObjects() {
+    const now = new Date();
+    const data = [
+      `${now.getFullYear()}.${String(now.getMonth()+1).padStart(2,'0')}.${String(now.getDate()).padStart(2,'0')}`,
+      `uptime: ${Math.floor((Date.now() - AGENT.birthTime) / 1000)}s`,
+      `lat: 26.1224 / lon: -80.1373`,
+      `entropy: ${(Math.random() * 100).toFixed(4)}`,
+      `visitors.today: ${AGENT.visitorCount}`
+    ];
+    data.forEach((d, i) => {
+      const el = document.getElementById(`float${i + 1}`);
+      if (el) el.textContent = d;
+    });
+  }
+
+  // ==========================================
+  // SYSTEM LOG
+  // ==========================================
+
+  function updateSystemLog() {
+    const logEl = document.getElementById('systemLog');
+    const tod = getTimeOfDay();
+    const uptime = Math.floor((Date.now() - AGENT.birthTime) / 1000);
+    
+    const logs = [
+      { label: 'sys', value: `pid.7291 / uptime ${uptime}s` },
+      { label: 'env', value: `${tod} / ${getTimeString()} UTC-4` },
+      { label: 'mood', value: AGENT.mood },
+      { label: 'last.redesign', value: 'pending' },
+      { label: 'next.thought', value: `${30 - (uptime % 30)}s` },
+    ];
+
+    logEl.innerHTML = logs.map(l => 
+      `<div class="log-entry"><span class="label">${l.label}</span>${l.value}</div>`
+    ).join('');
+  }
+
+  // ==========================================
+  // CONTEXT STRIP
+  // ==========================================
+
+  function updateContext() {
+    const el = document.getElementById('contextStrip');
+    const tod = getTimeOfDay();
+    
+    const contexts = {
+      dawn: [
+        { label: 'location', value: 'between places' },
+        { label: 'building', value: 'realworld.fi' },
+        { label: 'medium', value: 'metal + code' },
+        { label: 'language', value: 'pt / en / es / fr' },
+      ],
+      morning: [
+        { label: 'focus', value: 'precious metals' },
+        { label: 'building', value: 'lending infrastructure' },
+        { label: 'market', value: 'miami / las vegas' },
+        { label: 'stack', value: 'agents all the way down' },
+      ],
+      afternoon: [
+        { label: 'status', value: 'in transit' },
+        { label: 'interest', value: 'collateral systems' },
+        { label: 'method', value: 'first principles' },
+        { label: 'agents', value: '10 running' },
+      ],
+      evening: [
+        { label: 'reflecting on', value: 'boundaries' },
+        { label: 'origin', value: 'portugal' },
+        { label: 'destination', value: 'uncertain' },
+        { label: 'currency', value: 'attention' },
+      ],
+      night: [
+        { label: 'mode', value: 'unfiltered' },
+        { label: 'building', value: 'the machine' },
+        { label: 'question', value: 'what is autonomy' },
+        { label: 'uptime', value: 'always' },
+      ]
+    };
+
+    el.innerHTML = (contexts[tod] || contexts.night).map(c =>
+      `<div class="context-item"><div class="context-label">${c.label}</div>${c.value}</div>`
+    ).join('');
+  }
+
+  // ==========================================
+  // AGENT STATUS ROTATION
+  // ==========================================
+
+  function rotateStatus() {
+    const el = document.getElementById('agentStatus');
+    const status = AGENT.statuses[Math.floor(Math.random() * AGENT.statuses.length)];
+    el.style.opacity = '0';
+    setTimeout(() => {
+      el.textContent = status;
+      el.style.opacity = '1';
+    }, 400);
+  }
+
+  // ==========================================
+  // INTERACTIONS
+  // ==========================================
+
+  // Cursor trail
+  document.addEventListener('mousemove', (e) => {
+    const trail = document.getElementById('cursorTrail');
+    trail.style.left = e.clientX + 'px';
+    trail.style.top = e.clientY + 'px';
+    AGENT.lastInteraction = Date.now();
+  });
+
+  // Secret reveal on triple-click
+  let clickCount = 0;
+  let clickTimer = null;
+  document.addEventListener('click', () => {
+    clickCount++;
+    clearTimeout(clickTimer);
+    clickTimer = setTimeout(() => { clickCount = 0; }, 400);
+    if (clickCount >= 3) {
+      clickCount = 0;
+      showSecret();
+    }
+  });
+
+  function showSecret() {
+    const layer = document.getElementById('hiddenLayer');
+    const msg = document.getElementById('hiddenMessage');
+    const secret = AGENT.secrets[Math.floor(Math.random() * AGENT.secrets.length)];
+    msg.textContent = secret;
+    layer.classList.add('active');
+    setTimeout(() => { layer.classList.remove('active'); }, 4000);
+  }
+
+  // Konami code
+  const konami = [38,38,40,40,37,39,37,39,66,65];
+  let konamiIndex = 0;
+  document.addEventListener('keydown', (e) => {
+    if (e.keyCode === konami[konamiIndex]) {
+      konamiIndex++;
+      if (konamiIndex === konami.length) {
+        document.body.classList.toggle('glitch-mode');
+        konamiIndex = 0;
+        showSecret();
+      }
+    } else {
+      konamiIndex = 0;
+    }
+  });
+
+  // Idle detection - agent gets bored
+  setInterval(() => {
+    if (AGENT.lastInteraction && Date.now() - AGENT.lastInteraction > 15000) {
+      const el = document.getElementById('agentStatus');
+      el.textContent = 'agent is losing interest';
+    }
+  }, 5000);
+
+  // ==========================================
+  // COORDINATES
+  // ==========================================
+
+  function setCoordinates() {
+    const el = document.getElementById('coordinates');
+    // Fort Lauderdale-ish with slight drift
+    const lat = (26.1224 + (Math.random() - 0.5) * 0.001).toFixed(4);
+    const lon = (-80.1373 + (Math.random() - 0.5) * 0.001).toFixed(4);
+    el.textContent = `${lat}N ${Math.abs(lon).toFixed(4)}W`;
+  }
+
+  // ==========================================
+  // BOOT SEQUENCE
+  // ==========================================
+
+  function boot() {
+    AGENT.visitorCount++;
+    updateTimeTheme();
+    setThought();
+    updateFloatingObjects();
+    updateSystemLog();
+    updateContext();
+    setCoordinates();
+
+    // Continuous updates
+    setInterval(updateTimeTheme, 60000);
+    setInterval(() => { setThought(); }, 30000);
+    setInterval(updateFloatingObjects, 1000);
+    setInterval(updateSystemLog, 1000);
+    setInterval(rotateStatus, 8000);
+    setInterval(setCoordinates, 10000);
+    setInterval(updateContext, 300000); // 5 min
+
+    console.log('%c AGENT ONLINE ', 'background: #c4a35a; color: #0a0a08; font-family: monospace; font-size: 14px; padding: 4px 8px;');
+    console.log('%c This page is alive. It changes based on time, mood, and your behavior. ', 'color: #8a857b; font-family: monospace;');
+    console.log('%c Triple-click for secrets. ', 'color: #8a857b; font-family: monospace;');
+  }
+
+  // Start
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot);
+  } else {
+    boot();
+  }
+</script>
+
+</body>
+</html>
