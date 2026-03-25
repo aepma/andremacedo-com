@@ -50,9 +50,11 @@ andremacedo/
 - (Future) Monitor Andre's public social feeds for context
 
 ### 5. Self-Deployment
-- Commit changes to git repository
-- Push to staging branch first for self-review
-- Push to main for production deployment
+- Commit changes to git repository (for history/tracking)
+- Deploy directly to Cloudflare Pages using Wrangler:
+  ```bash
+  npx wrangler pages deploy . --project-name="andremacedo-com" --branch="main"
+  ```
 - All deploys must be logged in state/changelog.md
 
 ## External Data Sources
@@ -111,25 +113,23 @@ This agent runs within the OpenClaw orchestration system:
 - Respects OpenClaw mutex protocols for shared resources
 - Uses Mem0 for durable memory of long-term creative preferences and evolution patterns
 
-## Git Workflow
+## Deployment Workflow
 
 ```bash
 # Every change follows this pattern:
-git checkout staging
-# ... make changes ...
+# 1. Make changes to index.html, data/, state/
+# 2. Commit for history
 git add -A
 git commit -m "agent: [brief description] | mood: [current] | pulse: [daily|weekly|event]"
-git push origin staging
 
-# Self-review: check Cloudflare Pages staging preview
-# If satisfied:
-git checkout main
-git merge staging
-git push origin main
+# 3. Deploy directly to Cloudflare Pages
+npx wrangler pages deploy . --project-name="andremacedo-com" --branch="main"
 
-# Log to changelog
+# 4. Log to changelog
 echo "## $(date -u +%Y-%m-%dT%H:%M:%SZ)\n[description]\n" >> state/changelog.md
 ```
+
+**Note:** The Cloudflare Pages project `andremacedo-com` is already configured with the custom domain `andremacedo.com`. Deploys are direct via Wrangler (no git integration needed).
 
 ## Security Constraints
 

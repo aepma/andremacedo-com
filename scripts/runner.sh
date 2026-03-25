@@ -137,17 +137,21 @@ CURRENT_MOOD="$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1])).
 
 log "Applied: $SUMMARY"
 
-# ── Git commit and push ───────────────────────────────────────────
+# ── Git commit (for history) ──────────────────────────────────────
 git add -A
 git commit -m "agent: ${SUMMARY} | mood: ${CURRENT_MOOD} | pulse: ${PULSE_TYPE}" || log "Nothing to commit"
 
-git push origin main 2>&1 | tee -a "$LOG_FILE" || {
-  log "ERROR: git push failed"
-  telegram "andremacedo.com: deploy failed. Manual intervention needed."
+# ── Deploy to Cloudflare Pages ────────────────────────────────────
+log "Deploying to Cloudflare Pages..."
+
+# Deploy directly using wrangler (project already configured)
+npx wrangler pages deploy "$SITE_DIR" --project-name="andremacedo-com" --branch="main" 2>&1 | tee -a "$LOG_FILE" || {
+  log "ERROR: wrangler deploy failed"
+  telegram "andremacedo.com: deploy failed. Check logs."
   exit 1
 }
 
-log "Deployed."
+log "Deployed to andremacedo.com"
 
 # ── Notify ─────────────────────────────────────────────────────────
 case "$PULSE_TYPE" in
