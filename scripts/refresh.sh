@@ -13,31 +13,19 @@ log() { echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] $*" >> "$LOG_FILE"; }
 
 # ── Fetch gold spot price ──────────────────────────────────────────
 GOLD_USD=""
-# Try metals-api.com free tier (no key needed for basic)
-GOLD_RESPONSE="$(curl -s --max-time 10 "https://api.metals.dev/v1/latest?api_key=demo&currency=USD&unit=toz" 2>/dev/null)" || true
+# Primary: gold-api.com free endpoint (no key needed)
+GOLD_RESPONSE="$(curl -s --max-time 10 "https://api.gold-api.com/price/XAU" 2>/dev/null)" || true
 
 if [ -n "$GOLD_RESPONSE" ]; then
   GOLD_USD="$(echo "$GOLD_RESPONSE" | python3 -c "
 import sys, json
 try:
     data = json.load(sys.stdin)
-    print(data.get('metals', {}).get('gold', ''))
+    p = data.get('price', '')
+    if p: print(p)
+    else: print('')
 except: print('')
 " 2>/dev/null)" || true
-fi
-
-# Fallback: try goldapi.io free endpoint
-if [ -z "$GOLD_USD" ]; then
-  GOLD_RESPONSE2="$(curl -s --max-time 10 "https://www.goldapi.io/api/XAU/USD" -H "x-access-token: demo" 2>/dev/null)" || true
-  if [ -n "$GOLD_RESPONSE2" ]; then
-    GOLD_USD="$(echo "$GOLD_RESPONSE2" | python3 -c "
-import sys, json
-try:
-    data = json.load(sys.stdin)
-    print(data.get('price', ''))
-except: print('')
-" 2>/dev/null)" || true
-  fi
 fi
 
 # If still empty, keep previous value
