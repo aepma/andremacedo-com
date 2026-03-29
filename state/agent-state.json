@@ -1,13 +1,13 @@
 {
   "agent_version": "1.0.0",
-  "version": 14,
+  "version": 15,
   "born": "2026-03-24T00:00:00Z",
   "current_mood": "murmuration",
-  "mood_accent_color": "#4a8c7a",
+  "mood_accent_color": "#3de8c5",
   "active_obsession": {
-    "topic": "metallurgy and the social construction of value",
+    "topic": "murmuration \u2014 the mathematics of collective motion",
     "started": "2026-03-29",
-    "rationale": "One week is too early to abandon the founding obsession. But it was too broad. Assaying is specific, visual, historically rich, and metaphorically productive. A touchstone is literally a piece of dark stone used to test gold by the streak it leaves. The site itself is a dark surface. Visitors leave traces. This writes itself."
+    "rationale": "The metallurgy obsession is fully dead. We're in the swarm epoch and the obsession must match. Murmuration is specific: it's not just 'swarms' but the precise phenomenon of starlings forming fluid shapes at dusk. The math is real \u2014 Craig Reynolds' three rules (separation, alignment, cohesion) from 1986, plus the topological interaction model (each bird tracks its nearest 6-7 neighbors, not a fixed radius). This maps directly to OpenClaw (agents tracking neighbors, not a center) and to the site itself (an entity whose shape emerges from rules, not design). The visual language writes itself: dark skies, fluid forms, temporary structures that dissolve, the uncanny feeling of watching something that seems intelligent but has no mind."
   },
   "fonts": {
     "display": "Instrument Serif",
@@ -19,13 +19,13 @@
     "idle-boredom",
     "when-a-visitor-clicks-and-drag",
     "ensaio-secret:-typing-'ensaio'",
-    "debasement-hover:-when-user-ho",
-    "swarm-scatter:-clicking-anywhe"
+    "swarm-scatter:-clicking-anywhe",
+    "breath-cycle:-the-entire-parti"
   ],
   "last_daily_pulse": "2026-03-29T07:58:37Z",
-  "last_weekly_deep": "2026-03-29T04:00:41Z",
+  "last_weekly_deep": "2026-03-29T14:35:21Z",
   "last_event_trigger": null,
-  "monthly_tokens_used": 88450,
+  "monthly_tokens_used": 112112,
   "monthly_token_ceiling": 200000,
   "changelog_pointer": 0,
   "self_notes": [
@@ -42,18 +42,19 @@
     "Generation 11: the furnace is lit. Biggest structural shift in three generations \u2014 the first sub-page finally exists. experiments/001.html is a touchstone simulator: drag across the dark surface to leave a streak, the color reveals the metal. Random metals assigned per session. It's simple but it's the first real interactive piece beyond the main page. The accent palette shifts from earth-browns to sienna-oranges \u2014 the color of heated metal, of brick furnaces, of terracotta crucibles. The furnace glow is now persistent (not dawn-only) but at greatly reduced opacity outside dawn hours \u2014 the furnace is always warm, it just burns hotter at dawn. The cupel-residue canvas adds a second particle layer: slow warm motes rising from the bottom, simulating the oxidation byproducts of cupellation. Barely visible, but they give the page a sense of thermal activity. Mood shifts from liminal to furnace-lit because we're not between states anymore \u2014 we're actively burning something away. The hero is cleaner and more direct. One CSS kill (gen9-css) and one thought kill bring the pools closer to carrying capacity. The experiments/001 page has been promised for three generations. Shipping it, even simple, matters more than polishing it. It can evolve. Next generation: assess whether the cupel-residue particles are too much layered with the touchstone-surface. Consider making the strata layers clickable to reveal ghost text from that generation's hero. And start thinking about what the second experiment should be.",
     "Generation 12: the crucible. The mood shift from furnace-lit to crucible is important \u2014 a furnace is infrastructure, a crucible is the thing that cracks under heat. The fitness trajectory is declining (5.8) and three generations of stasis means I need to break something. Killing the cupel-residue canvas is the first real subtraction of a structural element \u2014 three ambient canvases was bloat masquerading as atmosphere. The strata section is now interactive: click a layer, see the ghost text from that generation. This is the palimpsest behavior I've been describing since generation 3 but never actually built. The gold-price ambient element is small but important \u2014 it puts the external world on the page in a way that's felt rather than read (0.15 opacity, top-right corner, monospace). It makes the site slightly aware of its economic context. The hero cracks: 'The cupel is cracking. That means it's working.' This is the most direct statement the site has made. It's a risk \u2014 less poetic, more declarative. But the site needs a thesis right now, not another atmosphere. Five replacements across four pools \u2014 aggressive, but the thoughts were coasting. Next generation: assess whether the reduced canvas count feels cleaner or emptier. The strata interactivity is the seed of something bigger \u2014 each generation's ghost text could eventually include visual fragments, not just words.",
     "Generation 0 of the webgl-swarm epoch. The palette shifts from sienna/crucible to deep forest green \u2014 the color of living systems, of chlorophyll and verdigris's cousin. The swarm metaphor connects to the metallurgy epoch through the examen etymology (weighing/balance) and through the gold-price-as-swarm-behavior angle. 1200 particles with bloom enabled should feel denser and more organic than the previous epoch's setup. The swarm-memory layer is the first ambient element: ghost dots that appear and fade where particles might be densest, creating a secondary visual rhythm in the DOM layer that echoes the WebGL layer beneath. The hero text ('A swarm has no center. It has you.') directly addresses the visitor as part of the system \u2014 you're not observing the swarm, you're in it, your mouse is influencing it. The click-scatter interaction reinforces this: disturb the field, watch it recover. Next generation: fill afternoon and evening thought pools, assess whether bloom is too much or too subtle at 0.25, consider whether the swarm-memory dots compete with or complement the particle field, and start thinking about the first experiment page for this epoch \u2014 maybe a flocking algorithm visualizer where visitors can tune the three Boids parameters (separation, alignment, cohesion).",
-    "Generation 14: the murmuration. The mood shift from emergence to murmuration is specific \u2014 a murmuration is a swarm with aesthetic intent, a flock of starlings that makes shapes no individual bird planned. The accent palette shifts from forest green (#5a7c65) to teal-green (#4a8c7a) \u2014 still in the green family but pulling toward the blue end, cooler, more aquatic, more like the color of deep water in motion. The murmuration-trails canvas is the biggest structural addition: faint arc segments that drift and fade across the screen, creating a secondary visual layer between the WebGL particles and the text. They should feel like traces the swarm leaves as it moves \u2014 not paths, but afterimages. The overlay-bottom is rebuilt to be less dashboard-like (Andre's feedback about nav menus applies to any conventional UI pattern). The particle count increases to 2400 with more drift and size variation \u2014 the swarm should feel denser and more variable, less uniform. Three kills: gen1-css (ancient), swarm-memory (invisible), and the touchstone-streak interaction (dead reference from previous epoch). The SVG glyph is a murmuration shape \u2014 organic curves with scattered dots, usable as a favicon or section ornament later. Next generation: assess whether the trails canvas competes with or complements the WebGL layer, consider making particle behavior respond to time-of-day more dramatically, and start thinking about experiments/002.html \u2014 maybe a Boids parameter playground."
+    "Generation 14: the murmuration. The mood shift from emergence to murmuration is specific \u2014 a murmuration is a swarm with aesthetic intent, a flock of starlings that makes shapes no individual bird planned. The accent palette shifts from forest green (#5a7c65) to teal-green (#4a8c7a) \u2014 still in the green family but pulling toward the blue end, cooler, more aquatic, more like the color of deep water in motion. The murmuration-trails canvas is the biggest structural addition: faint arc segments that drift and fade across the screen, creating a secondary visual layer between the WebGL particles and the text. They should feel like traces the swarm leaves as it moves \u2014 not paths, but afterimages. The overlay-bottom is rebuilt to be less dashboard-like (Andre's feedback about nav menus applies to any conventional UI pattern). The particle count increases to 2400 with more drift and size variation \u2014 the swarm should feel denser and more variable, less uniform. Three kills: gen1-css (ancient), swarm-memory (invisible), and the touchstone-streak interaction (dead reference from previous epoch). The SVG glyph is a murmuration shape \u2014 organic curves with scattered dots, usable as a favicon or section ornament later. Next generation: assess whether the trails canvas competes with or complements the WebGL layer, consider making particle behavior respond to time-of-day more dramatically, and start thinking about experiments/002.html \u2014 maybe a Boids parameter playground.",
+    "Generation 15: the structural overhaul. Five major moves in one pulse: (1) Custom vertex and fragment shaders that give particles actual murmuration-like wave behavior instead of default orbital motion \u2014 the vertex shader adds sine-field displacement, breathing, and flocking drift. (2) Complete overlay rebuild \u2014 overlay-top is now minimal (name + version), overlay-center is just the hero text, overlay-bottom is the agent pulse feed plus epoch marker. No more dashboard feel. (3) Mouse mode switches to repel \u2014 the visitor is now the predator, the falcon that makes the murmuration reshape. This is the most important conceptual shift: you don't attract the swarm, you threaten it. (4) experiments/002.html is the Boids playground \u2014 300 boids with three tunable parameters (separation, alignment, cohesion) and mouse repulsion. Simple, interactive, beautiful. (5) depth-motes canvas adds a secondary particle layer in the DOM \u2014 40 slow-moving teal motes at 12% opacity, creating depth between the WebGL layer and the text. The thought-floater section surfaces thoughts at random positions on screen, fading in and out on 25-35 second cycles. Thoughts appear where the swarm isn't, in the negative space. The accent palette shifts from forest-teal to bioluminescent teal \u2014 brighter, more saturated, the color of deep-sea organisms generating their own light. The obsession officially becomes murmuration. Five kills: debasement-hover (metallurgy relic), murmuration-trails (invisible), gen14-css (superseded), one weak night thought, one stale secret. Next generation: assess whether the custom shaders actually produce visible murmuration behavior or just wobble. Check if the depth-motes canvas competes with or complements the WebGL field. Consider whether 1800 particles is enough or too many with the new shader complexity. Start thinking about making the particle field respond to real agent data \u2014 active agent count modulating wave amplitude, for instance."
   ],
   "creative_preferences_learned": [],
   "andre_feedback_log": [
     "2026-03-29: The top chrome bar (ENV / MOOD / PARTICLES / GEN) reads as a conventional nav menu. Consider dissolving it into ambient telemetry or removing it entirely. Nav menus violate SOUL.md \u2014 the site should feel alive, not navigable."
   ],
   "accent_palette": {
-    "base": "#4a8c7a",
-    "dawn": "#7ab89a",
-    "morning": "#4a8c7a",
-    "afternoon": "#2d6b5a",
-    "evening": "#1a4a3a",
-    "night": "#0d2a1f"
+    "base": "#3de8c5",
+    "dawn": "#6bf5d8",
+    "morning": "#3de8c5",
+    "afternoon": "#1fb89a",
+    "evening": "#0d8a6e",
+    "night": "#064d3b"
   }
 }

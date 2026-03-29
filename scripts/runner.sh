@@ -102,14 +102,14 @@ bash "$SCRIPT_DIR/screenshot.sh" >> "$LOG_FILE" 2>&1 || {
 # ── Build prompt ───────────────────────────────────────────────────
 PROMPT_FILE="$(mktemp)"
 HTTP_RESPONSE_FILE="$(mktemp)"
-trap 'rm -f "$PROMPT_FILE" "$HTTP_RESPONSE_FILE"' EXIT
+trap 'rm -f "$PROMPT_FILE" "$HTTP_RESPONSE_FILE"' EXIT  # updated below if REQUEST_FILE created
 
 SCREENSHOT_ARG=""
 [ -f "$SCREENSHOT" ] && SCREENSHOT_ARG="--screenshot=$SCREENSHOT"
 
 python3 "$SCRIPT_DIR/build_prompt.py" "$PULSE_TYPE" "$STATE_FILE" "$EXTERNAL_FILE" "$INDEX_FILE" "$SOUL_FILE" "$CHANGELOG" "$TODAY" "$DAY_OF_WEEK" "$TOD" $SCREENSHOT_ARG > "$PROMPT_FILE"
 
-if [ "$PULSE_TYPE" = "weekly" ]; then MAX_TOKENS=8000
+if [ "$PULSE_TYPE" = "weekly" ]; then MAX_TOKENS=16000
 elif [ "$PULSE_TYPE" = "daily" ]; then MAX_TOKENS=8000
 else MAX_TOKENS=6000
 fi
@@ -117,13 +117,15 @@ fi
 # ── Call Anthropic API ─────────────────────────────────────────────
 log "Starting $PULSE_TYPE pulse..."
 
-REQUEST_JSON="$(python3 "$SCRIPT_DIR/build_request.py" "$PROMPT_FILE" "$MODEL" "$MAX_TOKENS" "${SCREENSHOT:-}")"
+REQUEST_FILE="$(mktemp)"
+trap 'rm -f "$PROMPT_FILE" "$HTTP_RESPONSE_FILE" "$REQUEST_FILE"' EXIT
+python3 "$SCRIPT_DIR/build_request.py" "$PROMPT_FILE" "$MODEL" "$MAX_TOKENS" "${SCREENSHOT:-}" > "$REQUEST_FILE"
 
 HTTP_CODE=$(curl -s -o "$HTTP_RESPONSE_FILE" -w '%{http_code}' -X POST "$API_URL" \
   -H 'Content-Type: application/json' \
   -H "x-api-key: $API_KEY" \
   -H 'anthropic-version: 2023-06-01' \
-  -d "$REQUEST_JSON") || {
+  -d @"$REQUEST_FILE") || {
   log "ERROR: API call failed"
   telegram "andremacedo.com: API call failed ($PULSE_TYPE)"
   exit 1

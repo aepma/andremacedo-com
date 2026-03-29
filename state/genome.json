@@ -1,18 +1,21 @@
 {
-  "generation": 14,
+  "generation": 15,
   "epoch": "webgl-swarm",
   "epoch_started": "2026-03-29",
   "traits": {
     "color": {
-      "accent_base": "#4a8c7a",
-      "accent_dawn": "#7ab89a",
-      "accent_morning": "#4a8c7a",
-      "accent_afternoon": "#2d6b5a",
-      "accent_evening": "#1a4a3a",
-      "accent_night": "#0d2a1f",
-      "bg": "#060a08",
-      "fg": "#c0cfc4",
-      "grain_opacity": "0.04"
+      "accent_base": "#3de8c5",
+      "accent_dawn": "#6bf5d8",
+      "accent_morning": "#3de8c5",
+      "accent_afternoon": "#1fb89a",
+      "accent_evening": "#0d8a6e",
+      "accent_night": "#064d3b",
+      "bg": "#030807",
+      "fg": "#d0e8e0",
+      "grain_opacity": "0.03",
+      "fg_dim": "#5a7a6d",
+      "bg_surface": "#060e0b",
+      "bg_elevated": "#0c1a15"
     },
     "typography": {},
     "atmosphere": {},
@@ -20,14 +23,17 @@
       "sections": [
         "overlay-top",
         "overlay-center",
-        "overlay-bottom",
-        "murmuration-trails"
+        "thought-floater",
+        "depth-motes",
+        "overlay-bottom"
       ],
       "pages": [
         "index-new.html",
+        "experiments/002.html",
         "experiments/001.html"
       ],
       "svg_assets": [
+        "murmuration-glyph-002.svg",
         "murmuration-glyph-001.svg",
         "swarm-glyph-001.svg"
       ]
@@ -37,20 +43,20 @@
       "idle-boredom",
       "when-a-visitor-clicks-and-drag",
       "ensaio-secret:-typing-'ensaio'",
-      "debasement-hover:-when-user-ho",
-      "swarm-scatter:-clicking-anywhe"
+      "swarm-scatter:-clicking-anywhe",
+      "breath-cycle:-the-entire-parti"
     ],
     "content": {
       "mood": "murmuration",
-      "obsession": "metallurgy and the social construction of value",
+      "obsession": "murmuration \u2014 the mathematics of collective motion",
       "thought_pools": {
         "dawn": 6,
         "morning": 6,
         "afternoon": 4,
         "evening": 3,
-        "night": 7
+        "night": 6
       },
-      "secrets_count": 18
+      "secrets_count": 17
     }
   },
   "fitness_log": [
@@ -125,6 +131,15 @@
       "tension": 4,
       "note": "The screenshot shows the swarm epoch is functioning \u2014 particles visible as a diffuse green cloud, hero text centered and legible, bottom-left telemetr",
       "total": 4.8
+    },
+    {
+      "gen": 15,
+      "coherence": 6,
+      "novelty": 5,
+      "identity": 5,
+      "tension": 4,
+      "note": "The screenshot shows something that's starting to work: the particle cloud is visible, centered, glowing white-to-teal, with the hero text 'A swarm ha",
+      "total": 5.0
     }
   ],
   "mutation_log": [
@@ -296,6 +311,34 @@
         "interaction:touchstone-streak:-when-user-c"
       ],
       "timestamp": "2026-03-29T07:58:37Z"
+    },
+    {
+      "gen": 15,
+      "mutations": [
+        "content.obsession",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "interaction.breath-cycle:-the-entire-parti",
+        "section.overlay-top",
+        "section.overlay-center",
+        "section.overlay-bottom",
+        "section.delete.murmuration-trails",
+        "section.thought-floater",
+        "section.depth-motes",
+        "page.experiments/002.html",
+        "svg.murmuration-glyph-002.svg",
+        "scene.config",
+        "scene.shaders"
+      ],
+      "kills": [
+        "section:murmuration-trails",
+        "interaction:debasement-hover:-when-user-ho",
+        "css_rule:gen14-css",
+        "thought:night[3]",
+        "secret[4]"
+      ],
+      "timestamp": "2026-03-29T14:35:21Z"
     }
   ],
   "graveyard": [
@@ -467,6 +510,36 @@
       "value": "touchstone-streak:-when-user-c",
       "died_gen": 14,
       "epitaph": "Carried over from the metallurgy epoch. The touchstone-surface canvas no longer exists in this epoch \u2014 the interaction description references dead infrastructure. The swarm-scatter click interaction is the new primary interaction."
+    },
+    {
+      "type": "section",
+      "value": "murmuration-trails",
+      "died_gen": 15,
+      "epitaph": "Invisible in the screenshot. A canvas layer drawing faint arc segments that no one could see against the particle field. The idea was good \u2014 afterimages of swarm motion \u2014 but the implementation was too subtle to register. If the concept returns, it should be in the WebGL layer, not a separate DOM canvas."
+    },
+    {
+      "type": "interaction",
+      "value": "debasement-hover:-when-user-ho",
+      "died_gen": 15,
+      "epitaph": "A metallurgy-epoch relic. Text flickering between real and debased versions \u2014 clever when the obsession was assaying and counterfeit detection, meaningless in the swarm epoch. The trust-erosion concept was interesting but never visible enough to register. If trust becomes a theme again, rebuild it from scratch."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen14-css",
+      "died_gen": 15,
+      "epitaph": "One generation old. Superseded by the gen15 overhaul \u2014 new overlay structure, new color palette, new section architecture."
+    },
+    {
+      "type": "thought",
+      "value": "A palimpsest is a manuscript that was scraped and rewritten. But the scraping is",
+      "died_gen": 15,
+      "epitaph": "Weak. Too abstract, not enough image. The night pool is at 7, which is fine, but the weakest entries drag the pool down."
+    },
+    {
+      "type": "secret",
+      "value": "This page has no purpose. That's the most honest thing on the internet.",
+      "died_gen": 15,
+      "epitaph": "Metallurgy-era secret about ensaio that's been superseded by the evolved version in the new secrets list."
     }
   ],
   "carrying_capacity": {

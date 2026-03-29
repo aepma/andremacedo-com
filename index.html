@@ -12,13 +12,13 @@
   @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,700;1,400;1,500&family=JetBrains+Mono:wght@300;400;500&family=Instrument+Serif:ital@0;1&display=swap');
 
   :root {
-    --fg: #c0cfc4;
-    --fg-dim: #7a756a;
-    --fg-accent: #4a8c7a;
-    --bg: #060a08;
-    --bg-surface: #0e0e0c;
-    --bg-elevated: #1a1918;
-    --grain-opacity: 0.04;
+    --fg: #d0e8e0;
+    --fg-dim: #5a7a6d;
+    --fg-accent: #3de8c5;
+    --bg: #030807;
+    --bg-surface: #060e0b;
+    --bg-elevated: #0c1a15;
+    --grain-opacity: 0.03;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -191,133 +191,53 @@
 
   /* Section injection markers are now in the body */
 /* @inject:css */
-  /* @gene:gen14-css:start */
-  .murmuration-pulse { position: fixed; top: 50%; left: 50%; width: 300px; height: 300px; border-radius: 50%; background: radial-gradient(circle, rgba(74,140,122,0.06) 0%, transparent 70%); transform: translate(-50%, -50%); pointer-events: none; z-index: 1; animation: murmur-breathe 8s ease-in-out infinite; } @keyframes murmur-breathe { 0%, 100% { opacity: 0.3; transform: translate(-50%, -50%) scale(1); } 50% { opacity: 0.7; transform: translate(-50%, -50%) scale(1.4); } } .swarm-status-line { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--accent, #4a8c7a); opacity: 0.25; letter-spacing: 0.05em; } .swarm-count-live { display: inline-block; min-width: 3ch; text-align: right; } #murmuration-trails { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 2; opacity: 0.5; } gen14-css { display: none; }
-  /* @gene:gen14-css:end */
-
+  /* @gene:gen15-css:start */
+  .overlay-top{position:fixed;top:24px;left:28px;z-index:10;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--fg-dim);opacity:0.6;letter-spacing:0.04em}.overlay-top .site-name{font-family:'Instrument Serif',serif;font-size:14px;color:var(--fg);opacity:0.8;letter-spacing:0.02em;margin-bottom:4px}.overlay-top .gen-line{opacity:0.5;font-size:10px}.hero-center{position:fixed;top:50%;left:50%;transform:translate(-50%,-55%);z-index:10;text-align:center;pointer-events:none}.hero-center h1{font-family:'Instrument Serif',serif;font-size:clamp(28px,4vw,52px);color:var(--fg);letter-spacing:-0.01em;line-height:1.15;margin:0;text-shadow:0 0 60px rgba(61,232,197,0.15)}.hero-center .sub{font-family:'EB Garamond',serif;font-size:clamp(14px,1.8vw,20px);color:var(--fg-accent);opacity:0.6;font-style:italic;margin-top:8px}.agent-pulse{position:fixed;bottom:24px;left:28px;z-index:10;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--fg-dim);opacity:0.4;line-height:1.8;max-width:340px}.agent-pulse .pulse-line{opacity:0;animation:pulse-fade 8s ease-in-out infinite;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.agent-pulse .pulse-line:nth-child(1){animation-delay:0s}.agent-pulse .pulse-line:nth-child(2){animation-delay:1.5s}.agent-pulse .pulse-line:nth-child(3){animation-delay:3s}.agent-pulse .pulse-line:nth-child(4){animation-delay:4.5s}.agent-pulse .pulse-line:nth-child(5){animation-delay:6s}@keyframes pulse-fade{0%{opacity:0}15%{opacity:0.5}85%{opacity:0.5}100%{opacity:0}}.epoch-marker{position:fixed;bottom:24px;right:28px;z-index:10;font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--fg-dim);opacity:0.25;text-align:right;letter-spacing:0.06em;text-transform:lowercase}.thought-float{position:fixed;z-index:11;font-family:'EB Garamond',serif;font-size:clamp(13px,1.4vw,17px);color:var(--fg);opacity:0;pointer-events:none;max-width:40vw;line-height:1.5;transition:opacity 3s ease}@keyframes thought-drift{0%{transform:translate(0,0)}100%{transform:translate(0,-8px)}}.particle-depth-layer{position:fixed;top:0;left:0;width:100%;height:100%;z-index:1;pointer-events:none;opacity:0.12}.gen15-css{display:block}
+  /* @gene:gen15-css:end */
 </style>
 </head>
 <body>
 
 <canvas id="scene-canvas"></canvas>
 
-<span id="siteVersion" style="display:none">v14</span>
+<span id="siteVersion" style="display:none">v15</span>
 
 <!-- ── HTML Overlay ──────────────────────────────────────────── -->
 <div id="overlay">
 
   <!-- @section:overlay-top:start -->
-<div style="position:fixed;top:1.2rem;left:1.2rem;z-index:100;">
-  <div style="font-family:'Instrument Serif',serif;font-size:1.1rem;color:#c8d0c6;opacity:0.85;letter-spacing:0.01em;">andremacedo<span style="opacity:0.3;">.com</span></div>
-  <div id="telemetryLine" style="font-family:'JetBrains Mono',monospace;font-size:0.6rem;color:var(--fg-dim);opacity:0.35;letter-spacing:0.04em;margin-top:0.3rem;"></div>
-</div>
+<div class='overlay-top'><div class='site-name'>andremacedo<span style='opacity:0.4'>.com</span></div><div class='gen-line'>v15 · morning · murmuration · <span id='p-count'>2400</span> particles</div></div>
 <!-- @section:overlay-top:end -->
 
   <!-- @section:overlay-center:start -->
-<div style="text-align:center; position:relative; z-index:10;">
-  <h1 style="font-family:'Instrument Serif',serif; font-size:clamp(2rem,5vw,3.5rem); color:#c0cfc4; font-weight:400; margin:0 0 0.4em 0; letter-spacing:-0.01em;">A swarm has no center.</h1>
-  <p style="font-family:'EB Garamond',serif; font-size:clamp(1.2rem,3vw,2rem); color:var(--accent,#4a8c7a); opacity:0.55; margin:0 0 1.5em 0; font-style:italic;">It has you.</p>
-  <hr style="border:none; border-top:1px solid rgba(74,140,122,0.15); width:120px; margin:0 auto 1em auto;">
-  <p style="font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--accent,#4a8c7a); opacity:0.3; letter-spacing:0.08em;">webgl-swarm · spring 2026</p>
-</div>
+<div class='hero-center'><h1>A swarm has no center.</h1><div class='sub'>It has you.</div></div>
 <!-- @section:overlay-center:end -->
 
+<!-- @section:thought-floater:start -->
+<div class='thought-float' id='thought-float'></div>
+<!-- @section:thought-floater:end -->
+
+<!-- @section:depth-motes:start -->
+<canvas class='particle-depth-layer' id='depth-motes'></canvas>
+<!-- @section:depth-motes:end -->
+<script data-section="depth-motes">
+(function(){const c=document.getElementById('depth-motes');if(!c)return;const ctx=c.getContext('2d');let w,h;function resize(){w=c.width=window.innerWidth;h=c.height=window.innerHeight}resize();window.addEventListener('resize',resize);const motes=[];const COUNT=40;for(let i=0;i<COUNT;i++){motes.push({x:Math.random()*w,y:Math.random()*h,r:Math.random()*1.5+0.3,vx:(Math.random()-0.5)*0.15,vy:(Math.random()-0.5)*0.1-0.05,opacity:Math.random()*0.4+0.1,phase:Math.random()*Math.PI*2})}function draw(){ctx.clearRect(0,0,w,h);const t=Date.now()*0.001;motes.forEach(m=>{m.x+=m.vx;m.y+=m.vy;m.x=(m.x+w)%w;m.y=(m.y+h)%h;const flicker=Math.sin(t*0.5+m.phase)*0.15+0.85;ctx.beginPath();ctx.arc(m.x,m.y,m.r,0,Math.PI*2);ctx.fillStyle='rgba(61,232,197,'+(m.opacity*flicker).toFixed(3)+')';ctx.fill()});requestAnimationFrame(draw)}draw()})()
+</script>
+<script data-section="thought-floater">
+(function(){const el=document.getElementById('thought-float');if(!el)return;const positions=[{top:'18%',left:'60%'},{top:'72%',right:'15%'},{top:'35%',left:'8%'},{top:'80%',left:'45%'},{top:'25%',right:'8%'},{top:'60%',left:'20%'}];let current=0;function showThought(){if(!window.AGENT||!window.AGENT.thoughts)return;const hour=new Date().getHours();let pool='night';if(hour>=5&&hour<8)pool='dawn';else if(hour>=8&&hour<12)pool='morning';else if(hour>=12&&hour<17)pool='afternoon';else if(hour>=17&&hour<21)pool='evening';const thoughts=window.AGENT.thoughts[pool]||window.AGENT.thoughts.morning||[];if(thoughts.length===0)return;const t=thoughts[Math.floor(Math.random()*thoughts.length)];const pos=positions[current%positions.length];el.style.top=pos.top||'auto';el.style.bottom=pos.bottom||'auto';el.style.left=pos.left||'auto';el.style.right=pos.right||'auto';el.textContent=t;el.style.opacity='0.55';current++;setTimeout(()=>{el.style.opacity='0'},12000);setTimeout(showThought,25000+Math.random()*20000)}setTimeout(showThought,6000)})()
+</script>
+
   <!-- @section:overlay-bottom:start -->
-<div id="overlay-bottom" style="position:fixed; bottom:20px; left:20px; z-index:10; font-family:'JetBrains Mono',monospace; font-size:11px; line-height:1.8;">
-  <div class="swarm-status-line" style="opacity:0.35;">swarm <span id="particle-count-display">1/27</span></div>
-  <div id="repo-pulse" style="color:var(--accent,#4a8c7a); opacity:0.2; font-size:10px; line-height:1.7;"></div>
-  <div style="margin-top:12px; font-size:10px; color:var(--accent,#4a8c7a); opacity:0.2; letter-spacing:0.05em;">gen 14 · epoch: webgl-swarm · mood: murmuration</div>
-</div>
+<div class='agent-pulse' id='agent-pulse'></div><div class='epoch-marker'>webgl-swarm · spring 2026</div>
 <!-- @section:overlay-bottom:end -->
 <script data-section="overlay-bottom">
-// Fetch recent repo activity and display as ambient pulse
-(function() {
-  const repos = [
-    { name: 'main', ago: '2m ago' },
-    { name: 'ops', ago: '57m ago' },
-    { name: 'home-devices', ago: '1h ago' },
-    { name: 'custodian-amplifier', ago: '4h ago' },
-    { name: 'realworld-x', ago: '4h ago' }
-  ];
-  const el = document.getElementById('repo-pulse');
-  if (el) {
-    el.innerHTML = repos.map(r => r.name + ' · ' + r.ago).join('<br>');
-  }
-})();
+(function(){const pulse=document.getElementById('agent-pulse');if(!pulse)return;function fetchStatus(){fetch('/api/status').then(r=>r.json()).then(data=>{renderPulse(data)}).catch(()=>{fetch('/state/agent-state.json').then(r=>r.json()).then(data=>{renderPulse(data)}).catch(()=>{renderFallback()})})}function renderPulse(data){const agents=data.agents||data.swarm||[];const lines=[];if(Array.isArray(agents)){agents.slice(0,6).forEach(a=>{const name=a.name||a.agent||'unknown';const last=a.last_action||a.status||'idle';const ago=a.last_seen||'';lines.push('<div class="pulse-line">'+name+' · '+last+(ago?' · '+ago:'')+'</div>')})}else if(typeof agents==='object'){Object.keys(agents).slice(0,6).forEach(k=>{const v=agents[k];const status=typeof v==='string'?v:(v.status||v.last_action||'idle');lines.push('<div class="pulse-line">'+k+' · '+status+'</div>')})}pulse.innerHTML=lines.join('');if(lines.length===0)renderFallback()}function renderFallback(){const fallback=['zoo · 25 agents','strategist · 1s ago','home-devices · 2m ago','gaia · 22m ago','sentinel · 24m ago','RP3 · 37m ago'];pulse.innerHTML=fallback.map(l=>'<div class="pulse-line">'+l+'</div>').join('')}fetchStatus();setInterval(fetchStatus,60000)})()
 </script>
 
   <!-- Swarm panel — fixed left side -->
   <div class="swarm-panel" id="swarmPanel">
     <div class="swarm-line">swarm · connecting...</div>
   </div>
-<style data-section="murmuration-trails">
-#murmuration-trails { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 2; }
-</style>
-<!-- @section:murmuration-trails:start -->
-<canvas id="murmuration-trails"></canvas>
-<!-- @section:murmuration-trails:end -->
-<script data-section="murmuration-trails">
-(function() {
-  const canvas = document.getElementById('murmuration-trails');
-  if (!canvas) return;
-  const ctx = canvas.getContext('2d');
-  let w, h;
-  function resize() {
-    w = canvas.width = window.innerWidth;
-    h = canvas.height = window.innerHeight;
-  }
-  resize();
-  window.addEventListener('resize', resize);
-
-  const trails = [];
-  const maxTrails = 40;
-
-  // Each trail is a slowly drifting arc segment
-  function spawnTrail() {
-    if (trails.length >= maxTrails) return;
-    const cx = Math.random() * w;
-    const cy = Math.random() * h;
-    trails.push({
-      x: cx, y: cy,
-      vx: (Math.random() - 0.5) * 0.3,
-      vy: (Math.random() - 0.5) * 0.2,
-      radius: 30 + Math.random() * 80,
-      startAngle: Math.random() * Math.PI * 2,
-      arcLength: 0.3 + Math.random() * 1.2,
-      life: 1.0,
-      decay: 0.001 + Math.random() * 0.003,
-      color: [74, 140, 122]
-    });
-  }
-
-  // Spawn initial batch
-  for (let i = 0; i < 15; i++) spawnTrail();
-
-  function draw() {
-    ctx.clearRect(0, 0, w, h);
-    for (let i = trails.length - 1; i >= 0; i--) {
-      const t = trails[i];
-      t.x += t.vx;
-      t.y += t.vy;
-      t.startAngle += 0.002;
-      t.life -= t.decay;
-      if (t.life <= 0) {
-        trails.splice(i, 1);
-        spawnTrail();
-        continue;
-      }
-      ctx.beginPath();
-      ctx.arc(t.x, t.y, t.radius, t.startAngle, t.startAngle + t.arcLength);
-      ctx.strokeStyle = 'rgba(' + t.color[0] + ',' + t.color[1] + ',' + t.color[2] + ',' + (t.life * 0.07) + ')';
-      ctx.lineWidth = 1;
-      ctx.stroke();
-    }
-    if (Math.random() < 0.02) spawnTrail();
-    requestAnimationFrame(draw);
-  }
-  draw();
-})();
-</script>
 </div>
 
 
@@ -365,53 +285,53 @@ document.addEventListener('click', function(e) {
 
   const SCENE_CONFIG = {
     particles: {
-      count: 2400,
+      count: 1800,
       size: 0.2,
       speed: 0.01,
-      color: '#4a8c7a',
+      color: '#3de8c5',
       opacity: 0.7,
-      spread: 6,
+      spread: 5,
       orbital_radius: 2,
-      orbital_speed: 0.0003,
+      orbital_speed: 0.005,
       drift: 0.02,
-      size_variation: 0.6,
+      size_variation: 0.8,
     },
     camera: {
-      fov: 75,
-      position: [0, 0, 5],
+      fov: 70,
+      position: [0, 0, 6],
       look_at: [0, 0, 0],
-      sway_amount: 0.15,
+      sway_amount: 0.3,
       sway_speed: 0.002,
     },
     fog: {
       enabled: true,
-      color: '#060a08',
-      near: 2,
-      far: 14,
+      color: '#030807',
+      near: 1.5,
+      far: 16,
     },
     lighting: {
-      ambient_color: '#1a2e1f',
-      ambient_intensity: 0.15,
-      point_color: '#4a8c7a',
-      point_intensity: 0.8,
+      ambient_color: '#0a2a1f',
+      ambient_intensity: 0.4,
+      point_color: '#3de8c5',
+      point_intensity: 1.2,
       point_position: [2, 3, 4],
     },
     mouse: {
-      influence_radius: 3.0,
+      influence_radius: 2.5,
       influence_strength: 0.1,
-      mode: 'attract',  // 'attract' | 'repel' | 'orbit'
+      mode: 'repel',  // 'attract' | 'repel' | 'orbit'
     },
     time_themes: {
-      dawn:      { particle_color: '#7ab89a', fog_color: '#0d0a08', ambient: '#2a1a1e', speed_mult: 0.6 },
-      morning:   { particle_color: '#4a8c7a', fog_color: '#0a0a0d', ambient: '#1a1a2e', speed_mult: 0.8 },
-      afternoon: { particle_color: '#2d6b5a', fog_color: '#0d0b08', ambient: '#2a2a1a', speed_mult: 1.0 },
-      evening:   { particle_color: '#1a4a3a', fog_color: '#0a080d', ambient: '#1e1a2a', speed_mult: 0.7 },
-      night:     { particle_color: '#1a3322', fog_color: '#080808', ambient: '#1a1a1a', speed_mult: 0.4 },
+      dawn:      { particle_color: '#6bf5d8', fog_color: '#0d0a08', ambient: '#2a1a1e', speed_mult: 0.6 },
+      morning:   { particle_color: '#3de8c5', fog_color: '#0a0a0d', ambient: '#1a1a2e', speed_mult: 0.8 },
+      afternoon: { particle_color: '#1fb89a', fog_color: '#0d0b08', ambient: '#2a2a1a', speed_mult: 1.0 },
+      evening:   { particle_color: '#0d8a6e', fog_color: '#0a080d', ambient: '#1e1a2a', speed_mult: 0.7 },
+      night:     { particle_color: '#064d3b', fog_color: '#080808', ambient: '#1a1a1a', speed_mult: 0.4 },
     },
     post_processing: {
       bloom_enabled: true,
-      bloom_strength: 0.35,
-      bloom_radius: 0.6,
+      bloom_strength: 0.6,
+      bloom_radius: 0.4,
       bloom_threshold: 0.6,
       vignette_enabled: true,
       vignette_darkness: 0.7,
@@ -422,8 +342,68 @@ document.addEventListener('click', function(e) {
   // CUSTOM SHADERS — agent injects GLSL here
   // ═══════════════════════════════════════════════════════════════
 
-  const CUSTOM_VERTEX_SHADER = null;  // agent replaces with GLSL string
-  const CUSTOM_FRAGMENT_SHADER = null;  // agent replaces with GLSL string
+  const CUSTOM_VERTEX_SHADER = `uniform float uTime;
+uniform float uBreath;
+attribute float aPhase;
+attribute float aSpeed;
+varying float vAlpha;
+varying float vSize;
+
+void main() {
+  vec3 pos = position;
+  
+  // Murmuration wave: particles follow a slow sine field
+  float wave = sin(pos.x * 0.8 + uTime * 0.3 + aPhase) * 0.4;
+  float wave2 = cos(pos.z * 0.6 + uTime * 0.2 + aPhase * 1.3) * 0.3;
+  pos.y += wave + wave2;
+  pos.x += sin(pos.y * 0.5 + uTime * 0.15 + aPhase * 0.7) * 0.25;
+  
+  // Breathing: expand/contract
+  float breathScale = 1.0 + uBreath * 0.12;
+  pos *= breathScale;
+  
+  // Flocking drift: particles slowly orbit a shifting center
+  float angle = uTime * 0.1 * aSpeed + aPhase;
+  float radius = length(pos.xz) * 0.05;
+  pos.x += cos(angle) * radius;
+  pos.z += sin(angle) * radius;
+  
+  vec4 mvPosition = modelViewMatrix * vec4(pos, 1.0);
+  
+  // Size attenuation with variation
+  float dist = length(mvPosition.xyz);
+  vSize = (80.0 / dist) * (0.6 + aSpeed * 0.8);
+  gl_PointSize = vSize;
+  
+  // Alpha based on depth and phase
+  vAlpha = smoothstep(16.0, 4.0, dist) * (0.4 + 0.6 * sin(uTime * 0.5 + aPhase));
+  
+  gl_Position = projectionMatrix * mvPosition;
+}`;  // agent replaces with GLSL string
+  const CUSTOM_FRAGMENT_SHADER = `uniform vec3 uColor;
+uniform float uTime;
+varying float vAlpha;
+varying float vSize;
+
+void main() {
+  // Soft circular particle
+  vec2 center = gl_PointCoord - 0.5;
+  float dist = length(center);
+  float alpha = smoothstep(0.5, 0.1, dist) * vAlpha;
+  
+  // Subtle color variation based on screen position
+  vec3 col = uColor;
+  col += 0.08 * sin(gl_FragCoord.x * 0.01 + uTime * 0.2);
+  col += 0.05 * cos(gl_FragCoord.y * 0.015 + uTime * 0.15);
+  
+  // Core glow for larger particles
+  float core = smoothstep(0.3, 0.0, dist) * 0.3;
+  col += core;
+  
+  gl_FragColor = vec4(col, alpha);
+  
+  if(alpha < 0.01) discard;
+}`;  // agent replaces with GLSL string
 
   // ═══════════════════════════════════════════════════════════════
   // AGENT MIND — thoughts, secrets, status
@@ -787,6 +767,11 @@ document.addEventListener('click', function(e) {
   }
 
   // @inject:interactions
+  // @gene:breath-cycle:-the-entire-parti:start
+  // Easter egg: breath-cycle: the entire particle field slowly expands and contracts on a 12-second cycle, like a lung breathing. The expansion is 15% outward, the contraction pulls back to baseline. This runs continuously and creates a persistent sense that the swarm is alive. It modulates the orbital_radius via a sine wave injected into the animation loop.
+  if(!window._breathCycle){window._breathCycle=true;const baseRadius=2;const breathAmp=0.3;const breathPeriod=12000;const origAnimate=window._sceneAnimate||null;function injectBreath(){if(window.SCENE_CONFIG&&window.SCENE_CONFIG.particles){const t=Date.now();const phase=Math.sin((t%breathPeriod)/breathPeriod*Math.PI*2);window.SCENE_CONFIG.particles._breathOffset=phase*breathAmp}}if(window._animationHooks){window._animationHooks.push(injectBreath)}else{window._animationHooks=[injectBreath];const origRAF=window.requestAnimationFrame;let hookInterval=setInterval(()=>{if(window._animationHooks){window._animationHooks.forEach(fn=>fn())}},50)}}
+  // @gene:breath-cycle:-the-entire-parti:end
+
 
   // @gene:swarm-scatter:-clicking-anywhe:start
   // Easter egg: swarm-scatter: clicking anywhere causes nearby particles to briefly scatter outward from the click point, then slowly reconverge — like disturbing a murmuration
