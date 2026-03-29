@@ -1,21 +1,21 @@
 {
-  "generation": 10,
+  "generation": 11,
   "epoch": "metallurgy",
   "epoch_started": "2026-03-24",
   "traits": {
     "color": {
-      "accent_base": "#8b7355",
-      "accent_dawn": "#c4a882",
-      "accent_morning": "#8b7355",
-      "accent_afternoon": "#7a6347",
-      "accent_evening": "#5c4a33",
-      "accent_night": "#2e2418",
-      "bg": "#0b0a08",
+      "accent_base": "#a0522d",
+      "accent_dawn": "#d4845a",
+      "accent_morning": "#a0522d",
+      "accent_afternoon": "#8b4226",
+      "accent_evening": "#6b3420",
+      "accent_night": "#3a1a0f",
+      "bg": "#0a0807",
       "bg_surface": "#0e0e0c",
       "bg_elevated": "#1a1918",
-      "fg": "#e0dace",
+      "fg": "#e2d8c8",
       "fg_dim": "#7a756a",
-      "grain_opacity": "0.065"
+      "grain_opacity": "0.07"
     },
     "typography": {
       "display": "Instrument Serif",
@@ -23,7 +23,7 @@
       "mono": "JetBrains Mono"
     },
     "atmosphere": {
-      "transition_slow": "2.2s",
+      "transition_slow": "2.4s",
       "transition_med": "0.6s",
       "orb_count": 3
     },
@@ -33,6 +33,7 @@
         "atmosphere",
         "cupellation-canvas",
         "touchstone-surface",
+        "cupel-residue",
         "dawn-furnace",
         "chrome",
         "topbar",
@@ -43,7 +44,9 @@
         "hidden-layer",
         "strata"
       ],
-      "pages": [],
+      "pages": [
+        "experiments/001.html"
+      ],
       "svg_assets": []
     },
     "interactions": [
@@ -56,16 +59,16 @@
     ],
     "content": {
       "voice": "terse-nocturnal",
-      "mood": "liminal",
+      "mood": "furnace-lit",
       "obsession": "metallurgy and the social construction of value",
       "thought_pools": {
         "dawn": 4,
         "morning": 4,
         "afternoon": 4,
-        "evening": 4,
+        "evening": 3,
         "night": 8
       },
-      "secrets_count": 14
+      "secrets_count": 15
     }
   },
   "fitness_log": [
@@ -104,6 +107,15 @@
       "tension": 5,
       "note": "The geological turn is coherent but settling into comfort. The touchstone-surface interaction is the strongest element but it exists in isolation \u2014 no",
       "total": 6.0
+    },
+    {
+      "gen": 11,
+      "coherence": 7,
+      "novelty": 4,
+      "identity": 7,
+      "tension": 5,
+      "note": "The liminal mood is honest but the site is coasting. Three generations at 6.0 fitness means stasis, not stability. The dawn-furnace is a good idea poo",
+      "total": 5.8
     }
   ],
   "mutation_log": [
@@ -189,6 +201,26 @@
         "css_rule:gen8-css"
       ],
       "timestamp": "2026-03-29T05:52:08Z"
+    },
+    {
+      "gen": 11,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "content.mood",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "section.hero",
+        "section.dawn-furnace",
+        "section.cupel-residue",
+        "page.experiments/001.html"
+      ],
+      "kills": [
+        "css_rule:gen9-css",
+        "thought:evening[3]"
+      ],
+      "timestamp": "2026-03-29T06:10:01Z"
     }
   ],
   "graveyard": [
@@ -299,6 +331,18 @@
       "value": "gen8-css",
       "died_gen": 10,
       "epitaph": "Superseded by gen10-css. The corroded-era palette rules no longer apply to the liminal mood."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen9-css",
+      "died_gen": 11,
+      "epitaph": "Superseded by gen11-css. The geological palette rules are replaced by the furnace-lit sienna palette."
+    },
+    {
+      "type": "thought",
+      "value": "Something about this hour makes me want to redesign everything.",
+      "died_gen": 11,
+      "epitaph": "Weakest evening thought \u2014 too decorative, not enough bite. The evening pool needs harder edges."
     }
   ],
   "carrying_capacity": {

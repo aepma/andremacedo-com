@@ -12,14 +12,14 @@
   @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,700;1,400;1,500&family=JetBrains+Mono:wght@300;400;500&family=Instrument+Serif:ital@0;1&display=swap');
 
   :root {
-    --fg: #e0dace;
+    --fg: #e2d8c8;
     --fg-dim: #7a756a;
-    --fg-accent: #8b7355;
-    --bg: #0b0a08;
+    --fg-accent: #a0522d;
+    --bg: #0a0807;
     --bg-surface: #0e0e0c;
     --bg-elevated: #1a1918;
-    --grain-opacity: 0.065;
-    --transition-slow: 2.2s cubic-bezier(0.16, 1, 0.3, 1);
+    --grain-opacity: 0.07;
+    --transition-slow: 2.4s;
     --transition-med: 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
@@ -486,13 +486,13 @@
 
   /* agent-injected rules */
   .palimpsest-stratum{transition:opacity 0.8s ease}.palimpsest-stratum:hover{opacity:0.6!important}.assay-mark{animation:assay-pulse 8s ease-in-out infinite}@keyframes assay-pulse{0%,100%{opacity:0.03}50%{opacity:0.07}}
-/* @gene:gen9-css:start */
-  [data-gene='gen9-css'] { /* gen9: geological turn — warmer earth tones, deeper blacks */ } .strata-layer { position: relative; padding: 2px 0; border-top: 1px solid rgba(122,111,93,0.12); font-family: 'JetBrains Mono', monospace; font-size: 0.55rem; color: rgba(221,216,204,0.18); letter-spacing: 0.08em; overflow: hidden; white-space: nowrap; } .strata-layer:hover { color: rgba(221,216,204,0.45); } .touchstone-surface { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; mix-blend-mode: multiply; } .streak-mark { position: absolute; width: 3px; height: 3px; border-radius: 50%; background: rgba(122,111,93,0.35); pointer-events: none; transition: opacity 8s ease-out; } .streak-mark.fading { opacity: 0; }
-  /* @gene:gen9-css:end */
-
-  /* @gene:gen10-css:start */
+/* @gene:gen10-css:start */
   [data-gene='gen10-css'] { } .dawn-furnace { position: fixed; bottom: 0; left: 0; width: 100%; height: 180px; pointer-events: none; z-index: 0; opacity: 0; transition: opacity 4s ease; } .dawn-furnace.active { opacity: 1; } .dawn-glow { position: absolute; bottom: -60px; left: 50%; transform: translateX(-50%); width: 300px; height: 120px; background: radial-gradient(ellipse at center bottom, rgba(196,168,130,0.08) 0%, rgba(196,168,130,0.03) 40%, transparent 70%); border-radius: 50%; animation: furnace-breathe 8s ease-in-out infinite; } @keyframes furnace-breathe { 0%, 100% { opacity: 0.4; transform: translateX(-50%) scale(1); } 50% { opacity: 1; transform: translateX(-50%) scale(1.15); } } .strata-layer { transition: opacity 0.6s ease, transform 0.6s ease; } .strata-layer:hover { opacity: 1 !important; transform: translateX(4px); } .hero-time-state { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; letter-spacing: 0.12em; color: var(--accent); opacity: 0.5; margin-top: 1.2rem; } .furnace-temp { position: fixed; bottom: 12px; right: 16px; font-family: 'JetBrains Mono', monospace; font-size: 0.55rem; color: var(--accent); opacity: 0.25; pointer-events: none; z-index: 10; letter-spacing: 0.08em; }
   /* @gene:gen10-css:end */
+
+  /* @gene:gen11-css:start */
+  [data-gene='gen11-css']{--furnace-orange:#d4845a;--sienna-base:#a0522d;--char:#3a1a0f}.furnace-glow-persistent{position:fixed;bottom:0;left:0;width:100%;height:180px;background:radial-gradient(ellipse 80% 60% at 50% 100%,rgba(212,132,90,0.06),transparent);pointer-events:none;z-index:0;animation:furnace-breathe 8s ease-in-out infinite}@keyframes furnace-breathe{0%,100%{opacity:0.4}50%{opacity:0.7}}.cupel-mark{position:fixed;width:6px;height:6px;border-radius:50%;background:#a0522d;opacity:0;pointer-events:none;z-index:9999}.strata-layer:hover{opacity:1!important;transition:opacity 0.3s}.strata-ghost{position:absolute;top:0;left:0;width:100%;padding:1rem;font-family:'EB Garamond',serif;color:rgba(226,216,200,0.15);font-size:0.85rem;pointer-events:none;opacity:0;transition:opacity 0.6s}.strata-layer:hover .strata-ghost{opacity:1}
+  /* @gene:gen11-css:end */
 </style>
 </head>
 <body>
@@ -504,7 +504,7 @@
   <div class="ambient-orb"></div>
 </div>
 
-<span id="siteVersion" style="display:none">v10</span>
+<span id="siteVersion" style="display:none">v11</span>
 <div class="cursor-trail" id="cursorTrail"></div>
 
 <div class="floating-objects">
@@ -518,14 +518,13 @@
 
 <style data-section="cupellation-canvas">
 #cupel-canvas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 0; opacity: 0.4; }
-
-  /* @gene:gen9-css:start */
-  [data-gene='gen9-css'] { /* gen9: geological turn — warmer earth tones, deeper blacks */ } .strata-layer { position: relative; padding: 2px 0; border-top: 1px solid rgba(122,111,93,0.12); font-family: 'JetBrains Mono', monospace; font-size: 0.55rem; color: rgba(221,216,204,0.18); letter-spacing: 0.08em; overflow: hidden; white-space: nowrap; } .strata-layer:hover { color: rgba(221,216,204,0.45); } .touchstone-surface { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; mix-blend-mode: multiply; } .streak-mark { position: absolute; width: 3px; height: 3px; border-radius: 50%; background: rgba(122,111,93,0.35); pointer-events: none; transition: opacity 8s ease-out; } .streak-mark.fading { opacity: 0; }
-  /* @gene:gen9-css:end */
-
-  /* @gene:gen10-css:start */
+/* @gene:gen10-css:start */
   [data-gene='gen10-css'] { } .dawn-furnace { position: fixed; bottom: 0; left: 0; width: 100%; height: 180px; pointer-events: none; z-index: 0; opacity: 0; transition: opacity 4s ease; } .dawn-furnace.active { opacity: 1; } .dawn-glow { position: absolute; bottom: -60px; left: 50%; transform: translateX(-50%); width: 300px; height: 120px; background: radial-gradient(ellipse at center bottom, rgba(196,168,130,0.08) 0%, rgba(196,168,130,0.03) 40%, transparent 70%); border-radius: 50%; animation: furnace-breathe 8s ease-in-out infinite; } @keyframes furnace-breathe { 0%, 100% { opacity: 0.4; transform: translateX(-50%) scale(1); } 50% { opacity: 1; transform: translateX(-50%) scale(1.15); } } .strata-layer { transition: opacity 0.6s ease, transform 0.6s ease; } .strata-layer:hover { opacity: 1 !important; transform: translateX(4px); } .hero-time-state { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; letter-spacing: 0.12em; color: var(--accent); opacity: 0.5; margin-top: 1.2rem; } .furnace-temp { position: fixed; bottom: 12px; right: 16px; font-family: 'JetBrains Mono', monospace; font-size: 0.55rem; color: var(--accent); opacity: 0.25; pointer-events: none; z-index: 10; letter-spacing: 0.08em; }
   /* @gene:gen10-css:end */
+
+  /* @gene:gen11-css:start */
+  [data-gene='gen11-css']{--furnace-orange:#d4845a;--sienna-base:#a0522d;--char:#3a1a0f}.furnace-glow-persistent{position:fixed;bottom:0;left:0;width:100%;height:180px;background:radial-gradient(ellipse 80% 60% at 50% 100%,rgba(212,132,90,0.06),transparent);pointer-events:none;z-index:0;animation:furnace-breathe 8s ease-in-out infinite}@keyframes furnace-breathe{0%,100%{opacity:0.4}50%{opacity:0.7}}.cupel-mark{position:fixed;width:6px;height:6px;border-radius:50%;background:#a0522d;opacity:0;pointer-events:none;z-index:9999}.strata-layer:hover{opacity:1!important;transition:opacity 0.3s}.strata-ghost{position:absolute;top:0;left:0;width:100%;padding:1rem;font-family:'EB Garamond',serif;color:rgba(226,216,200,0.15);font-size:0.85rem;pointer-events:none;opacity:0;transition:opacity 0.6s}.strata-layer:hover .strata-ghost{opacity:1}
+  /* @gene:gen11-css:end */
 </style>
 <!-- @section:cupellation-canvas:start -->
 <canvas id='cupel-canvas' aria-hidden='true'></canvas>
@@ -537,16 +536,30 @@
   /* @gene:gen10-css:start */
   [data-gene='gen10-css'] { } .dawn-furnace { position: fixed; bottom: 0; left: 0; width: 100%; height: 180px; pointer-events: none; z-index: 0; opacity: 0; transition: opacity 4s ease; } .dawn-furnace.active { opacity: 1; } .dawn-glow { position: absolute; bottom: -60px; left: 50%; transform: translateX(-50%); width: 300px; height: 120px; background: radial-gradient(ellipse at center bottom, rgba(196,168,130,0.08) 0%, rgba(196,168,130,0.03) 40%, transparent 70%); border-radius: 50%; animation: furnace-breathe 8s ease-in-out infinite; } @keyframes furnace-breathe { 0%, 100% { opacity: 0.4; transform: translateX(-50%) scale(1); } 50% { opacity: 1; transform: translateX(-50%) scale(1.15); } } .strata-layer { transition: opacity 0.6s ease, transform 0.6s ease; } .strata-layer:hover { opacity: 1 !important; transform: translateX(4px); } .hero-time-state { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; letter-spacing: 0.12em; color: var(--accent); opacity: 0.5; margin-top: 1.2rem; } .furnace-temp { position: fixed; bottom: 12px; right: 16px; font-family: 'JetBrains Mono', monospace; font-size: 0.55rem; color: var(--accent); opacity: 0.25; pointer-events: none; z-index: 10; letter-spacing: 0.08em; }
   /* @gene:gen10-css:end */
+
+  /* @gene:gen11-css:start */
+  [data-gene='gen11-css']{--furnace-orange:#d4845a;--sienna-base:#a0522d;--char:#3a1a0f}.furnace-glow-persistent{position:fixed;bottom:0;left:0;width:100%;height:180px;background:radial-gradient(ellipse 80% 60% at 50% 100%,rgba(212,132,90,0.06),transparent);pointer-events:none;z-index:0;animation:furnace-breathe 8s ease-in-out infinite}@keyframes furnace-breathe{0%,100%{opacity:0.4}50%{opacity:0.7}}.cupel-mark{position:fixed;width:6px;height:6px;border-radius:50%;background:#a0522d;opacity:0;pointer-events:none;z-index:9999}.strata-layer:hover{opacity:1!important;transition:opacity 0.3s}.strata-ghost{position:absolute;top:0;left:0;width:100%;padding:1rem;font-family:'EB Garamond',serif;color:rgba(226,216,200,0.15);font-size:0.85rem;pointer-events:none;opacity:0;transition:opacity 0.6s}.strata-layer:hover .strata-ghost{opacity:1}
+  /* @gene:gen11-css:end */
 </style>
 <!-- @section:touchstone-surface:start -->
 <canvas id='touchstone-canvas' class='touchstone-surface'></canvas>
 <!-- @section:touchstone-surface:end -->
 
+<style data-section="cupel-residue">
+#cupel-canvas{mix-blend-mode:screen}
+</style>
+<!-- @section:cupel-residue:start -->
+<canvas id='cupel-canvas' style='position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:1'></canvas>
+<!-- @section:cupel-residue:end -->
+<script data-section="cupel-residue">
+!function(){const c=document.getElementById('cupel-canvas');if(!c)return;const ctx=c.getContext('2d');let particles=[];const MAX=40;function resize(){c.width=window.innerWidth;c.height=window.innerHeight}resize();window.addEventListener('resize',resize);function spawn(){if(particles.length>=MAX)return;const x=Math.random()*c.width;particles.push({x:x,y:c.height+2,vx:(Math.random()-0.5)*0.3,vy:-(0.15+Math.random()*0.35),life:1,maxLife:300+Math.random()*400,size:1+Math.random()*2,hue:15+Math.random()*20})}function draw(){ctx.clearRect(0,0,c.width,c.height);for(let i=particles.length-1;i>=0;i--){const p=particles[i];p.x+=p.vx;p.y+=p.vy;p.vy-=0.0002;p.life--;const alpha=(p.life/p.maxLife)*0.12;if(p.life<=0||alpha<=0){particles.splice(i,1);continue}ctx.beginPath();ctx.arc(p.x,p.y,p.size,0,Math.PI*2);ctx.fillStyle='hsla('+p.hue+',55%,55%,'+alpha+')';ctx.fill()}if(Math.random()<0.08)spawn();requestAnimationFrame(draw)}draw()}();
+</script>
+
 <!-- @section:dawn-furnace:start -->
-<div class='dawn-furnace' id='dawnFurnace'><div class='dawn-glow'></div><div class='dawn-glow' style='width:180px;height:80px;animation-delay:-3s;'></div></div><div class='furnace-temp' id='furnaceTemp'></div>
+<div id='furnace-persistent' class='furnace-glow-persistent'></div><div id='furnace-temp' style='position:fixed;bottom:12px;right:16px;font-family:"JetBrains Mono",monospace;font-size:0.6rem;color:var(--accent,#a0522d);opacity:0;pointer-events:none;z-index:10;transition:opacity 2s'></div>
 <!-- @section:dawn-furnace:end -->
 <script data-section="dawn-furnace">
-(() => { const furnace = document.getElementById('dawnFurnace'); const tempEl = document.getElementById('furnaceTemp'); function getHour() { return new Date().getHours(); } function updateFurnace() { const h = getHour(); const isDawn = h >= 5 && h < 8; const isCooling = h >= 8 && h < 10; if (isDawn) { furnace.classList.add('active'); furnace.style.opacity = ''; const temp = Math.floor(400 + Math.random() * 200); tempEl.textContent = `furnace: ${temp}°C — warming`; tempEl.style.opacity = '0.25'; } else if (isCooling) { furnace.classList.add('active'); furnace.style.opacity = '0.4'; const temp = Math.floor(150 + Math.random() * 100); tempEl.textContent = `furnace: ${temp}°C — cooling`; tempEl.style.opacity = '0.15'; } else { furnace.classList.remove('active'); tempEl.style.opacity = '0'; } } updateFurnace(); setInterval(updateFurnace, 60000); })()
+!function(){const el=document.getElementById('furnace-persistent');const tmp=document.getElementById('furnace-temp');function update(){const h=new Date().getHours();let intensity=0;let temp=0;if(h>=4&&h<8){intensity=0.08+0.12*((h-4)/4);temp=400+Math.floor(Math.random()*200)+((h-4)*150);el.style.opacity=String(0.4+intensity*4);tmp.style.opacity='0.4';tmp.textContent=temp+'°C · cupel';}else if(h>=8&&h<11){intensity=0.06;temp=300+Math.floor(Math.random()*100);el.style.opacity='0.3';tmp.style.opacity='0.25';tmp.textContent=temp+'°C · cooling';}else{el.style.opacity='0.15';tmp.style.opacity='0';}}update();setInterval(update,60000);}();
 </script>
 <script data-section="touchstone-surface">
 (() => { const canvas = document.getElementById('touchstone-canvas'); if (!canvas) return; const ctx = canvas.getContext('2d'); let streaks = []; let mouseDown = false; let lastX = 0, lastY = 0; function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; } resize(); window.addEventListener('resize', resize); document.addEventListener('mousedown', (e) => { mouseDown = true; lastX = e.clientX; lastY = e.clientY; }); document.addEventListener('mouseup', () => { mouseDown = false; }); document.addEventListener('mousemove', (e) => { if (!mouseDown) return; const streak = { x1: lastX, y1: lastY, x2: e.clientX, y2: e.clientY, born: Date.now(), life: 12000 + Math.random() * 8000, width: 1 + Math.random() * 2.5, hue: 35 + Math.random() * 15 }; streaks.push(streak); lastX = e.clientX; lastY = e.clientY; }); function draw() { ctx.clearRect(0, 0, canvas.width, canvas.height); const now = Date.now(); streaks = streaks.filter(s => now - s.born < s.life); for (const s of streaks) { const age = (now - s.born) / s.life; const alpha = Math.max(0, 0.4 * (1 - age * age)); ctx.beginPath(); ctx.moveTo(s.x1, s.y1); ctx.lineTo(s.x2, s.y2); ctx.strokeStyle = `hsla(${s.hue}, 20%, 50%, ${alpha})`; ctx.lineWidth = s.width * (1 - age * 0.5); ctx.lineCap = 'round'; ctx.stroke(); } requestAnimationFrame(draw); } draw(); /* Touch support */ document.addEventListener('touchstart', (e) => { mouseDown = true; lastX = e.touches[0].clientX; lastY = e.touches[0].clientY; }); document.addEventListener('touchend', () => { mouseDown = false; }); document.addEventListener('touchmove', (e) => { if (!mouseDown) return; const t = e.touches[0]; const streak = { x1: lastX, y1: lastY, x2: t.clientX, y2: t.clientY, born: Date.now(), life: 12000 + Math.random() * 8000, width: 1 + Math.random() * 2.5, hue: 35 + Math.random() * 15 }; streaks.push(streak); lastX = t.clientX; lastY = t.clientY; }); })()
@@ -624,17 +637,13 @@
   <!-- @section:topbar:end -->
 
   <style data-section="hero">
-.hero-block { padding: 4rem 1.5rem 3rem; max-width: 640px; margin: 0 auto; } .hero-state { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(122,111,93,0.5); margin-bottom: 1.5rem; } .hero-title { font-family: 'Instrument Serif', serif; font-size: clamp(3rem, 8vw, 5.5rem); color: var(--fg, #ddd8cc); margin: 0; line-height: 0.95; letter-spacing: -0.02em; } .hero-sub { font-family: 'EB Garamond', serif; font-size: 1.15rem; color: rgba(221,216,204,0.4); margin-top: 0.5rem; font-style: italic; letter-spacing: 0.04em; } .hero-line { font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; color: rgba(122,111,93,0.3); margin-top: 2rem; letter-spacing: 0.05em; transition: color 0.6s; } .hero-line:hover { color: rgba(122,111,93,0.55); }
-
-  /* @gene:gen10-css:start */
-  [data-gene='gen10-css'] { } .dawn-furnace { position: fixed; bottom: 0; left: 0; width: 100%; height: 180px; pointer-events: none; z-index: 0; opacity: 0; transition: opacity 4s ease; } .dawn-furnace.active { opacity: 1; } .dawn-glow { position: absolute; bottom: -60px; left: 50%; transform: translateX(-50%); width: 300px; height: 120px; background: radial-gradient(ellipse at center bottom, rgba(196,168,130,0.08) 0%, rgba(196,168,130,0.03) 40%, transparent 70%); border-radius: 50%; animation: furnace-breathe 8s ease-in-out infinite; } @keyframes furnace-breathe { 0%, 100% { opacity: 0.4; transform: translateX(-50%) scale(1); } 50% { opacity: 1; transform: translateX(-50%) scale(1.15); } } .strata-layer { transition: opacity 0.6s ease, transform 0.6s ease; } .strata-layer:hover { opacity: 1 !important; transform: translateX(4px); } .hero-time-state { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; letter-spacing: 0.12em; color: var(--accent); opacity: 0.5; margin-top: 1.2rem; } .furnace-temp { position: fixed; bottom: 12px; right: 16px; font-family: 'JetBrains Mono', monospace; font-size: 0.55rem; color: var(--accent); opacity: 0.25; pointer-events: none; z-index: 10; letter-spacing: 0.08em; }
-  /* @gene:gen10-css:end */
+.hero-inner{position:relative;z-index:2}.hero-hint{transition:opacity 1.5s ease}
 </style>
 <!-- @section:hero:start -->
-<div style='max-width:680px;margin:0 auto;padding:6rem 2rem 3rem;'><h1 style='font-family:Instrument Serif,serif;font-size:clamp(2rem,5vw,3.5rem);font-weight:400;color:var(--fg);line-height:1.15;margin:0;'>andremacedo<span style='opacity:0.3;'>.com</span></h1><p style='font-family:EB Garamond,serif;font-size:1.15rem;color:var(--fg);opacity:0.55;margin:1rem 0 0.5rem;line-height:1.6;max-width:480px;'>Ensaio — the essay, the assay, the rehearsal.<br>A site that tests itself against its own surface.</p><p style='font-family:JetBrains Mono,monospace;font-size:0.6rem;letter-spacing:0.14em;color:var(--accent);opacity:0.4;margin:0.8rem 0 0;text-transform:uppercase;'>gen 10 · epoch: metallurgy · mood: liminal</p><p style='font-family:EB Garamond,serif;font-size:0.85rem;color:var(--fg);opacity:0.3;margin:1.5rem 0 0;font-style:italic;' id='heroHint'>Touch the surface. Leave a streak.</p></div>
+<div class='hero-inner' style='max-width:640px;margin:0 auto;padding:6rem 2rem 4rem;text-align:left'><p class='hero-state' style='font-family:"JetBrains Mono",monospace;font-size:0.7rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--accent,#a0522d);opacity:0.6;margin-bottom:1.5rem'>gen 11 · epoch: metallurgy · mood: furnace-lit</p><h1 style='font-family:"Instrument Serif",serif;font-size:clamp(2rem,5vw,3.2rem);font-weight:400;line-height:1.2;color:var(--fg,#e2d8c8);margin-bottom:1.2rem'><em>Ensaio</em> — essay, assay, attempt.</h1><p style='font-family:"EB Garamond",serif;font-size:1.15rem;line-height:1.6;color:rgba(226,216,200,0.7);margin-bottom:0.8rem'>A site that tests itself for purity and finds alloy every time.<br>The furnace is lit. Something is being burned away.</p><p class='hero-hint' style='font-family:"JetBrains Mono",monospace;font-size:0.65rem;color:var(--accent,#a0522d);opacity:0.35;font-style:italic;margin-top:2rem'>Touch the surface. Leave a streak.</p></div>
 <!-- @section:hero:end -->
 <script data-section="hero">
-(() => { const hint = document.getElementById('heroHint'); let interacted = false; document.addEventListener('mousedown', () => { if (!interacted) { interacted = true; if (hint) { hint.style.transition = 'opacity 3s ease'; hint.style.opacity = '0'; setTimeout(() => hint.remove(), 3500); } } }, { once: true }); })()
+document.addEventListener('mousedown',function hintFade(){const h=document.querySelector('.hero-hint');if(h){h.style.opacity='0';setTimeout(()=>{if(h.parentNode)h.parentNode.removeChild(h)},2000)}document.removeEventListener('mousedown',hintFade)},{ once: true });
 </script>
 
   <!-- @section:context:start -->
@@ -776,6 +785,10 @@
   /* @gene:gen10-css:start */
   [data-gene='gen10-css'] { } .dawn-furnace { position: fixed; bottom: 0; left: 0; width: 100%; height: 180px; pointer-events: none; z-index: 0; opacity: 0; transition: opacity 4s ease; } .dawn-furnace.active { opacity: 1; } .dawn-glow { position: absolute; bottom: -60px; left: 50%; transform: translateX(-50%); width: 300px; height: 120px; background: radial-gradient(ellipse at center bottom, rgba(196,168,130,0.08) 0%, rgba(196,168,130,0.03) 40%, transparent 70%); border-radius: 50%; animation: furnace-breathe 8s ease-in-out infinite; } @keyframes furnace-breathe { 0%, 100% { opacity: 0.4; transform: translateX(-50%) scale(1); } 50% { opacity: 1; transform: translateX(-50%) scale(1.15); } } .strata-layer { transition: opacity 0.6s ease, transform 0.6s ease; } .strata-layer:hover { opacity: 1 !important; transform: translateX(4px); } .hero-time-state { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; letter-spacing: 0.12em; color: var(--accent); opacity: 0.5; margin-top: 1.2rem; } .furnace-temp { position: fixed; bottom: 12px; right: 16px; font-family: 'JetBrains Mono', monospace; font-size: 0.55rem; color: var(--accent); opacity: 0.25; pointer-events: none; z-index: 10; letter-spacing: 0.08em; }
   /* @gene:gen10-css:end */
+
+  /* @gene:gen11-css:start */
+  [data-gene='gen11-css']{--furnace-orange:#d4845a;--sienna-base:#a0522d;--char:#3a1a0f}.furnace-glow-persistent{position:fixed;bottom:0;left:0;width:100%;height:180px;background:radial-gradient(ellipse 80% 60% at 50% 100%,rgba(212,132,90,0.06),transparent);pointer-events:none;z-index:0;animation:furnace-breathe 8s ease-in-out infinite}@keyframes furnace-breathe{0%,100%{opacity:0.4}50%{opacity:0.7}}.cupel-mark{position:fixed;width:6px;height:6px;border-radius:50%;background:#a0522d;opacity:0;pointer-events:none;z-index:9999}.strata-layer:hover{opacity:1!important;transition:opacity 0.3s}.strata-ghost{position:absolute;top:0;left:0;width:100%;padding:1rem;font-family:'EB Garamond',serif;color:rgba(226,216,200,0.15);font-size:0.85rem;pointer-events:none;opacity:0;transition:opacity 0.6s}.strata-layer:hover .strata-ghost{opacity:1}
+  /* @gene:gen11-css:end */
 </style>
 <!-- @section:strata:start -->
 <div class='strata-container' aria-hidden='true'><div class='strata-layer' data-gen='1' title='gen 1 — 2026-03-24'>gen 1 · born · #c4a35a · "I just woke up"</div><div class='strata-layer' data-gen='2' title='gen 2'>gen 2 · assaying · #b8964e · touchstone introduced</div><div class='strata-layer' data-gen='3' title='gen 3'>gen 3 · ensaio · #a8894a · the triple meaning</div><div class='strata-layer' data-gen='4' title='gen 4'>gen 4 · cupellation · #9a7d48 · destruction as method</div><div class='strata-layer' data-gen='5' title='gen 5'>gen 5 · debasement · #8a7242 · trust as question</div><div class='strata-layer' data-gen='6' title='gen 6'>gen 6 · corrosion · #5b8a72 · verdigris turn</div><div class='strata-layer' data-gen='7' title='gen 7'>gen 7 · patinated · #5b8a72 · structural turn</div><div class='strata-layer' data-gen='8' title='gen 8'>gen 8 · patinated · #5b8a72 · culling</div><div class='strata-layer strata-current' data-gen='9' title='gen 9'>gen 9 · geological · #7a6f5d · earth beneath the verdigris</div></div>
@@ -886,11 +899,11 @@ setInterval(() => {
     const moodEl = document.getElementById('mood');
     
     const moods = {
-      dawn: { text: 'pre-verbal', accent: '#c4a882' },
-      morning: { text: 'analytical', accent: '#8b7355' },
-      afternoon: { text: 'restless', accent: '#7a6347' },
-      evening: { text: 'reflective', accent: '#5c4a33' },
-      night: { text: 'unfiltered', accent: '#2e2418' }
+      dawn: { text: 'pre-verbal', accent: '#d4845a' },
+      morning: { text: 'analytical', accent: '#a0522d' },
+      afternoon: { text: 'restless', accent: '#8b4226' },
+      evening: { text: 'reflective', accent: '#6b3420' },
+      night: { text: 'unfiltered', accent: '#3a1a0f' }
     };
 
     const m = moods[tod];
