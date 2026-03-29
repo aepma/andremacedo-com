@@ -216,7 +216,10 @@ if new_interaction and isinstance(new_interaction, dict) and new_interaction.get
     code = new_interaction["code"]
     gene_id = desc.lower().replace(" ", "-")[:30]
     injection = f"\n  // @gene:{gene_id}:start\n  // Easter egg: {desc}\n  {code}\n  // @gene:{gene_id}:end\n"
-    html = html.replace("</script>", injection + "</script>")
+    # Insert before the LAST </script> (not the first, which may be a CDN src tag)
+    last_idx = html.rfind("</script>")
+    if last_idx >= 0:
+        html = html[:last_idx] + injection + html[last_idx:]
     with open(index_path, "w") as f: f.write(html)
     state["interaction_patterns_active"].append(gene_id)
     parts.append("new interaction: " + desc)
@@ -460,15 +463,17 @@ if scene_changes and isinstance(scene_changes, dict):
         for path, value in scene_changes.items():
             path_parts = path.split('.')
             js_val = format_js_value(value)
+            # Value pattern: matches numbers, booleans, quoted strings, or bracket arrays
+            val_pat = r"(?:'[^']*'|\"[^\"]*\"|\[[^\]]*\]|true|false|[\d.eE+-]+)"
             if len(path_parts) == 2:
                 parent_key, child_key = path_parts
                 pat = re.compile(
-                    r'(' + re.escape(parent_key) + r':\s*\{[\s\S]*?' + re.escape(child_key) + r':\s*)([^\n,}]+)'
+                    r'(' + re.escape(parent_key) + r':\s*\{[\s\S]*?' + re.escape(child_key) + r':\s*)(' + val_pat + r')'
                 )
             elif len(path_parts) == 3:
                 _, parent_key, child_key = path_parts
                 pat = re.compile(
-                    r'(' + re.escape(parent_key) + r':\s*\{[\s\S]*?' + re.escape(child_key) + r':\s*)([^\n,}]+)'
+                    r'(' + re.escape(parent_key) + r':\s*\{[\s\S]*?' + re.escape(child_key) + r':\s*)(' + val_pat + r')'
                 )
             else:
                 continue

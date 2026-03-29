@@ -345,10 +345,11 @@ setInterval(function() {
 <!-- INJECT:before-syslog -->
 
 <!-- ── Three.js ──────────────────────────────────────────────── -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+<script>
   // @gene:swarm-scatter:-clicking-anywhe:start
-  // Easter egg: swarm-scatter: clicking anywhere causes nearby particles to briefly scatter outward from the click point, then slowly reconverge — like disturbing a murmuration
-  // Handled via scene_changes mouse.mode + custom overlay click handler
+  // Easter egg: swarm-scatter: clicking anywhere causes nearby particles to briefly scatter outward from the click point, then slowly reconverge
 document.addEventListener('click', function(e) {
   const ripple = document.createElement('div');
   ripple.style.cssText = `position:fixed;left:${e.clientX}px;top:${e.clientY}px;width:0;height:0;border-radius:50%;border:1px solid #5a7c6540;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:all 1.2s cubic-bezier(0.25,0.46,0.45,0.94);`;
@@ -384,7 +385,7 @@ document.addEventListener('click', function(e) {
     },
     camera: {
       fov: 70,
-      position: [0, 0, 6], 0, 5],
+      position: [0, 0, 6],
       look_at: [0, 0, 0],
       sway_amount: 0.3,
       sway_speed: 0.4,
@@ -711,8 +712,7 @@ document.addEventListener('click', function(e) {
   async function fetchSwarmData() {
     const panel = document.getElementById('swarmPanel');
     try {
-      // TODO: Replace with actual Worker URL once deployed
-      const res = await fetch('https://andremacedo.com/api/status');
+      const res = await fetch('https://openclaw-status.andre-p-macedo.workers.dev');
       if (!res.ok) throw new Error('Not available');
       const data = await res.json();
 

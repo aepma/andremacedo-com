@@ -694,8 +694,7 @@
   async function fetchSwarmData() {
     const panel = document.getElementById('swarmPanel');
     try {
-      // TODO: Replace with actual Worker URL once deployed
-      const res = await fetch('https://andremacedo.com/api/status');
+      const res = await fetch('https://openclaw-status.andre-p-macedo.workers.dev');
       if (!res.ok) throw new Error('Not available');
       const data = await res.json();
 
