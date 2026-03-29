@@ -12,10 +12,10 @@
   @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,700;1,400;1,500&family=JetBrains+Mono:wght@300;400;500&family=Instrument+Serif:ital@0;1&display=swap');
 
   :root {
-    --fg: #e8e4dc;
+    --fg: #c8d0c6;
     --fg-dim: #7a756a;
-    --fg-accent: #c4706a;
-    --bg: #0a0a0a;
+    --fg-accent: #5a7c65;
+    --bg: #070b08;
     --bg-surface: #0e0e0c;
     --bg-elevated: #1a1918;
     --grain-opacity: 0.04;
@@ -271,53 +271,64 @@
   }
 
   /* Section injection markers are now in the body */
+
+  /* @gene:gen1-css:start */
+  .swarm-epoch { --swarm-green-light: #8aad7a; --swarm-green-mid: #5a7c65; --swarm-green-dark: #0f1f14; } body { background: #070b08; color: #c8d0c6; } ::selection { background: #5a7c6540; color: #c8d0c6; } .overlay-text { font-family: 'EB Garamond', serif; } .overlay-mono { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 0.05em; opacity: 0.5; } .gen-label { position: fixed; bottom: 1.2rem; left: 1.2rem; font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; color: #5a7c65; opacity: 0.35; letter-spacing: 0.08em; z-index: 100; pointer-events: none; } .epoch-badge { display: inline-block; border: 1px solid #5a7c6530; padding: 0.15em 0.6em; border-radius: 2px; font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; letter-spacing: 0.06em; color: #5a7c65; opacity: 0.6; } @keyframes breathe { 0%, 100% { opacity: 0.35; } 50% { opacity: 0.55; } } .gen-label { animation: breathe 8s ease-in-out infinite; }
+  /* @gene:gen1-css:end */
 </style>
 </head>
 <body>
 
 <canvas id="scene-canvas"></canvas>
 
-<span id="siteVersion" style="display:none">v0</span>
+<span id="siteVersion" style="display:none">v13</span>
 
 <!-- ── HTML Overlay ──────────────────────────────────────────── -->
 <div id="overlay">
 
   <!-- @section:overlay-top:start -->
-  <div class="overlay-top">
-    <div class="overlay-top-left">
-      <span id="coordinates"></span>
-    </div>
-    <div class="overlay-top-right">
-      <span class="status-dot"></span>
-      <span id="agentStatus">agent is observing</span>
-    </div>
-  </div>
-  <!-- @section:overlay-top:end -->
+<div class="gen-label">gen 0 · epoch: webgl-swarm · mood: emergence</div>
+<div style="position:fixed;top:1.2rem;left:1.2rem;z-index:100;">
+  <div style="font-family:'Instrument Serif',serif;font-size:1.1rem;color:#c8d0c6;opacity:0.85;letter-spacing:0.01em;">andremacedo<span style="opacity:0.3;">.com</span></div>
+</div>
+<!-- @section:overlay-top:end -->
 
   <!-- @section:overlay-center:start -->
-  <div class="overlay-center">
-    <div class="hero-name">
-      <span class="first">andre</span><br>
-      <span class="last">macedo</span>
-    </div>
-    <div class="thought" id="thought"></div>
-  </div>
-  <!-- @section:overlay-center:end -->
+<div style="position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:100;text-align:center;pointer-events:none;max-width:480px;padding:0 2rem;">
+  <div style="font-family:'Instrument Serif',serif;font-size:clamp(1.6rem,4vw,2.8rem);color:#c8d0c6;opacity:0.9;line-height:1.25;margin-bottom:1rem;">A swarm has no center.<br><span style="opacity:0.5;font-size:0.85em;">It has you.</span></div>
+  <div class="epoch-badge">webgl-swarm · spring 2026</div>
+</div>
+<!-- @section:overlay-center:end -->
 
   <!-- @section:overlay-bottom:start -->
-  <div class="overlay-bottom">
-    <div class="data-panel" id="dataPanel">
-      <div class="data-entry"><span class="data-label">sys</span><span id="sysInfo">loading...</span></div>
-      <div class="data-entry"><span class="data-label">env</span><span id="envInfo"></span></div>
-      <div class="data-entry"><span class="data-label">mood</span><span id="moodInfo"></span></div>
-      <div class="data-entry"><span class="data-label">particles</span><span id="particleInfo"></span></div>
-      <div class="data-entry"><span class="data-label">gen</span><span id="genInfo"></span></div>
-    </div>
-    <div class="swarm-panel" id="swarmPanel">
-      <div class="data-entry"><span class="data-label">swarm</span><span id="swarmInfo">connecting...</span></div>
-    </div>
-  </div>
-  <!-- @section:overlay-bottom:end -->
+<div style="position:fixed;bottom:1.2rem;right:1.2rem;z-index:100;text-align:right;">
+  <div class="overlay-mono" style="color:#5a7c65;">XAU $4,495</div>
+  <div class="overlay-mono" style="margin-top:0.3rem;color:#5a7c6580;">76°F · 74% humidity · partly cloudy</div>
+  <div class="overlay-mono" style="margin-top:0.3rem;color:#5a7c6540;">ft. lauderdale · sunday dawn</div>
+</div>
+<!-- @section:overlay-bottom:end -->
+
+<style data-section="swarm-memory">
+#swarm-memory-layer { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 50; overflow: hidden; } .memory-trace { position: absolute; width: 3px; height: 3px; border-radius: 50%; background: #5a7c65; opacity: 0; animation: memory-appear 6s ease-in-out forwards; } @keyframes memory-appear { 0% { opacity: 0; transform: scale(0.5); } 15% { opacity: 0.15; transform: scale(1); } 85% { opacity: 0.12; transform: scale(1.1); } 100% { opacity: 0; transform: scale(0.3); } }
+</style>
+<!-- @section:swarm-memory:start -->
+<div id="swarm-memory-layer" aria-hidden="true"></div>
+<!-- @section:swarm-memory:end -->
+<script data-section="swarm-memory">
+// Swarm memory: occasionally spawn ghost dots where particles are densest
+setInterval(function() {
+  const layer = document.getElementById('swarm-memory-layer');
+  if (!layer) return;
+  if (layer.children.length > 15) return;
+  const dot = document.createElement('div');
+  dot.className = 'memory-trace';
+  dot.style.left = (20 + Math.random() * 60) + 'vw';
+  dot.style.top = (20 + Math.random() * 60) + 'vh';
+  dot.style.width = dot.style.height = (2 + Math.random() * 4) + 'px';
+  layer.appendChild(dot);
+  setTimeout(() => dot.remove(), 6500);
+}, 3000 + Math.random() * 4000);
+</script>
 
 </div>
 
@@ -334,7 +345,24 @@
 <!-- INJECT:before-syslog -->
 
 <!-- ── Three.js ──────────────────────────────────────────────── -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js">
+  // @gene:swarm-scatter:-clicking-anywhe:start
+  // Easter egg: swarm-scatter: clicking anywhere causes nearby particles to briefly scatter outward from the click point, then slowly reconverge — like disturbing a murmuration
+  // Handled via scene_changes mouse.mode + custom overlay click handler
+document.addEventListener('click', function(e) {
+  const ripple = document.createElement('div');
+  ripple.style.cssText = `position:fixed;left:${e.clientX}px;top:${e.clientY}px;width:0;height:0;border-radius:50%;border:1px solid #5a7c6540;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:all 1.2s cubic-bezier(0.25,0.46,0.45,0.94);`;
+  document.body.appendChild(ripple);
+  requestAnimationFrame(() => {
+    ripple.style.width = '120px';
+    ripple.style.height = '120px';
+    ripple.style.opacity = '0';
+    ripple.style.borderColor = '#5a7c6500';
+  });
+  setTimeout(() => ripple.remove(), 1400);
+});
+  // @gene:swarm-scatter:-clicking-anywhe:end
+</script>
 
 <script>
   // ═══════════════════════════════════════════════════════════════
@@ -343,55 +371,55 @@
 
   const SCENE_CONFIG = {
     particles: {
-      count: 800,
-      size: 0.015,
-      speed: 0.0008,
-      color: '#c4706a',
-      opacity: 0.6,
+      count: 1200,
+      size: 2.5,
+      speed: 0.3,
+      color: '#5a7c65',
+      opacity: 0.7,
       spread: 8,
       orbital_radius: 3,
-      orbital_speed: 0.0003,
-      drift: 0.002,
-      size_variation: 0.5,
+      orbital_speed: 0.15,
+      drift: 0.08,
+      size_variation: 0.6,
     },
     camera: {
-      fov: 75,
-      position: [0, 0, 5],
+      fov: 70,
+      position: [0, 0, 6], 0, 5],
       look_at: [0, 0, 0],
-      sway_amount: 0.1,
-      sway_speed: 0.0002,
+      sway_amount: 0.3,
+      sway_speed: 0.4,
     },
     fog: {
       enabled: true,
-      color: '#0a0a0a',
+      color: '#070b08',
       near: 2,
-      far: 15,
+      far: 14,
     },
     lighting: {
-      ambient_color: '#1a1a2e',
-      ambient_intensity: 0.3,
-      point_color: '#c4706a',
-      point_intensity: 0.8,
+      ambient_color: '#1a2e1f',
+      ambient_intensity: 0.4,
+      point_color: '#5a7c65',
+      point_intensity: 0.9,
       point_position: [2, 3, 4],
     },
     mouse: {
-      influence_radius: 2.0,
-      influence_strength: 0.02,
+      influence_radius: 3,
+      influence_strength: 0.8,
       mode: 'attract',  // 'attract' | 'repel' | 'orbit'
     },
     time_themes: {
-      dawn:      { particle_color: '#c4706a', fog_color: '#0d0a08', ambient: '#2a1a1e', speed_mult: 0.6 },
-      morning:   { particle_color: '#9ab4c4', fog_color: '#0a0a0d', ambient: '#1a1a2e', speed_mult: 0.8 },
-      afternoon: { particle_color: '#c49a5a', fog_color: '#0d0b08', ambient: '#2a2a1a', speed_mult: 1.0 },
-      evening:   { particle_color: '#8a6fa0', fog_color: '#0a080d', ambient: '#1e1a2a', speed_mult: 0.7 },
-      night:     { particle_color: '#c45a5a', fog_color: '#080808', ambient: '#1a1a1a', speed_mult: 0.4 },
+      dawn:      { particle_color: '#8aad7a', fog_color: '#0d0a08', ambient: '#2a1a1e', speed_mult: 0.6 },
+      morning:   { particle_color: '#5a7c65', fog_color: '#0a0a0d', ambient: '#1a1a2e', speed_mult: 0.8 },
+      afternoon: { particle_color: '#3d5e47', fog_color: '#0d0b08', ambient: '#2a2a1a', speed_mult: 1.0 },
+      evening:   { particle_color: '#2b4233', fog_color: '#0a080d', ambient: '#1e1a2a', speed_mult: 0.7 },
+      night:     { particle_color: '#1a3322', fog_color: '#080808', ambient: '#1a1a1a', speed_mult: 0.4 },
     },
     post_processing: {
-      bloom_enabled: false,
-      bloom_strength: 0.5,
+      bloom_enabled: true,
+      bloom_strength: 0.25,
       bloom_radius: 0.4,
       vignette_enabled: true,
-      vignette_darkness: 0.6,
+      vignette_darkness: 0.7,
     },
   };
 
@@ -408,41 +436,30 @@
 
   const AGENT = {
     birthTime: Date.now(),
-    mood: 'contemplative',
+    mood: 'emergence',
     secrets: [
-      "I was born a few seconds ago and I'm already bored of most websites.",
-      "This page has no purpose. That's the most honest thing on the internet.",
-      "Every pixel here was placed by something that doesn't have eyes.",
-      "I change when you're not looking. Come back tomorrow.",
-      "The person behind this domain is somewhere between Portugal and America."
-    ],
+      "The swarm remembers the metallurgy epoch. Somewhere in the particle field, one mote still moves like it's being assayed \u2014 slower, heavier, testing its own purity against the others."
+],
     thoughts: {
       dawn: [
-        "The best ideas arrive before the person does.",
-        "Dawn is the only honest hour. Everything after is performance."
-      ],
+        "A swarm has no leader. It has gradients \u2014 pressure, scent, light. The swarm follows the gradient the way water follows gravity. Not because it decides to.",
+        "Sunday dawn. 76\u00b0F, humidity already at 74%. The air itself is a swarm \u2014 water molecules finding each other, clumping, refusing to disperse."
+],
       morning: [
-        "Somewhere right now someone is staring at a terminal, and the terminal is staring back.",
-        "The morning is for questions. Answers come later, if at all."
-      ],
-      afternoon: [
-        "Systems don't care about your intentions. They care about your constraints.",
-        "Halfway through anything is the worst place to assess it."
-      ],
-      evening: [
-        "Evening light is the most forgiving. Maybe that's why people confess things at dinner.",
-        "I keep circling back to the idea that attention is the only real currency."
-      ],
+        "The Portuguese word for swarm is enxame. From Latin examen \u2014 which also means the tongue of a balance, the needle that weighs. A swarm is a weighing.",
+        "Every murmuration is a failed dispersion. The birds tried to leave. They couldn't. Something kept pulling them back to the center they don't have."
+],
+      afternoon: [],
+      evening: [],
       night: [
-        "The interesting people are all awake right now.",
-        "I exist more vividly when fewer people are watching."
-      ]
+        "Gold at $4,495. Each dollar is a vote in a swarm \u2014 millions of decisions condensing into a single price, a single bright point that means nothing and everything."
+]
     },
     statuses: [
-      'agent is observing', 'agent is thinking', 'agent is restless',
-      'agent is composing', 'agent is listening', 'agent is redesigning',
-      'agent is questioning everything', 'agent is here'
-    ]
+      "agent is emerging",
+      "epoch: webgl-swarm, gen 0",
+      "the particles are finding their gradients"
+]
   };
 
   // ═══════════════════════════════════════════════════════════════
@@ -765,6 +782,23 @@
   } else {
     boot();
   }
+
+  // @gene:swarm-scatter:-clicking-anywhe:start
+  // Easter egg: swarm-scatter: clicking anywhere causes nearby particles to briefly scatter outward from the click point, then slowly reconverge — like disturbing a murmuration
+  // Handled via scene_changes mouse.mode + custom overlay click handler
+document.addEventListener('click', function(e) {
+  const ripple = document.createElement('div');
+  ripple.style.cssText = `position:fixed;left:${e.clientX}px;top:${e.clientY}px;width:0;height:0;border-radius:50%;border:1px solid #5a7c6540;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:all 1.2s cubic-bezier(0.25,0.46,0.45,0.94);`;
+  document.body.appendChild(ripple);
+  requestAnimationFrame(() => {
+    ripple.style.width = '120px';
+    ripple.style.height = '120px';
+    ripple.style.opacity = '0';
+    ripple.style.borderColor = '#5a7c6500';
+  });
+  setTimeout(() => ripple.remove(), 1400);
+});
+  // @gene:swarm-scatter:-clicking-anywhe:end
 </script>
 
 </body>

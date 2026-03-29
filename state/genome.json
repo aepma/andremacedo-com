@@ -1,18 +1,57 @@
 {
-  "generation": 0,
+  "generation": 13,
   "epoch": "webgl-swarm",
   "epoch_started": "2026-03-29",
   "traits": {
-    "color": {},
+    "color": {
+      "accent_base": "#5a7c65",
+      "accent_dawn": "#8aad7a",
+      "accent_morning": "#5a7c65",
+      "accent_afternoon": "#3d5e47",
+      "accent_evening": "#2b4233",
+      "accent_night": "#0f1f14",
+      "bg": "#070b08",
+      "fg": "#c8d0c6",
+      "grain_opacity": "0.04"
+    },
     "typography": {},
     "atmosphere": {},
     "layout": {
-      "sections": [],
-      "pages": [],
-      "svg_assets": []
+      "sections": [
+        "overlay-top",
+        "overlay-center",
+        "overlay-bottom",
+        "swarm-memory"
+      ],
+      "pages": [
+        "index-new.html",
+        "experiments/001.html"
+      ],
+      "svg_assets": [
+        "swarm-glyph-001.svg"
+      ]
     },
-    "interactions": [],
-    "content": {}
+    "interactions": [
+      "triple-click-secret",
+      "idle-boredom",
+      "when-a-visitor-clicks-and-drag",
+      "touchstone-streak:-when-user-c",
+      "ensaio-secret:-typing-'ensaio'",
+      "debasement-hover:-when-user-ho",
+      "swarm-scatter:-clicking-anywhe"
+    ],
+    "content": {
+      "mood": "emergence",
+      "obsession": "metallurgy and the social construction of value",
+      "thought_pools": {
+        "dawn": 6,
+        "morning": 6,
+        "afternoon": 4,
+        "evening": 3,
+        "night": 7
+      },
+      "secrets_count": 17
+    }
   },
   "fitness_log": [
     {
@@ -68,6 +107,15 @@
       "tension": 5,
       "note": "Three generations of declining or flat fitness. The furnace-lit mood is right but the site isn't burning anything \u2014 it's just warm. The experiments/00",
       "total": 5.8
+    },
+    {
+      "gen": 13,
+      "coherence": 5,
+      "novelty": 3,
+      "identity": 6,
+      "tension": 4,
+      "note": "New epoch, blank genome. The WebGL swarm is running but it's factory-default \u2014 salmon particles on dark fog. The overlay text is minimal. The metallur",
+      "total": 4.5
     }
   ],
   "mutation_log": [
@@ -195,6 +243,27 @@
         "thought:night[6]"
       ],
       "timestamp": "2026-03-29T06:25:51Z"
+    },
+    {
+      "gen": 13,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "content.mood",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "interaction.swarm-scatter:-clicking-anywhe",
+        "section.overlay-top",
+        "section.overlay-center",
+        "section.overlay-bottom",
+        "section.swarm-memory",
+        "svg.swarm-glyph-001.svg",
+        "scene.config",
+        "overlay.agent_data"
+      ],
+      "kills": [],
+      "timestamp": "2026-03-29T06:48:36Z"
     }
   ],
   "graveyard": [
