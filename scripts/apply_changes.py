@@ -172,7 +172,13 @@ if new_css_rules and isinstance(new_css_rules, str) and new_css_rules.strip():
     gen = genome.get("generation", 0) + 1
     gene_id = f"gen{gen}-css"
     injection = f"\n  /* @gene:{gene_id}:start */\n  {new_css_rules.strip()}\n  /* @gene:{gene_id}:end */\n"
-    html = html.replace("</style>", injection + "</style>")
+    # Insert after the @inject:css marker inside the main <style> block
+    css_marker = "/* @inject:css */"
+    if css_marker in html:
+        html = html.replace(css_marker, css_marker + injection, 1)
+    else:
+        # Fallback: insert before the first </style>
+        html = html.replace("</style>", injection + "</style>", 1)
     with open(index_path, "w") as f: f.write(html)
     parts.append("added new CSS rules")
     mutations_detected.append("atmosphere.css_rules")
@@ -216,10 +222,15 @@ if new_interaction and isinstance(new_interaction, dict) and new_interaction.get
     code = new_interaction["code"]
     gene_id = desc.lower().replace(" ", "-")[:30]
     injection = f"\n  // @gene:{gene_id}:start\n  // Easter egg: {desc}\n  {code}\n  // @gene:{gene_id}:end\n"
-    # Insert before the LAST </script> (not the first, which may be a CDN src tag)
-    last_idx = html.rfind("</script>")
-    if last_idx >= 0:
-        html = html[:last_idx] + injection + html[last_idx:]
+    # Insert after the @inject:interactions marker inside the main inline script
+    marker = "// @inject:interactions"
+    if marker in html:
+        html = html.replace(marker, marker + injection, 1)
+    else:
+        # Fallback: insert before the last </script>
+        last_idx = html.rfind("</script>")
+        if last_idx >= 0:
+            html = html[:last_idx] + injection + html[last_idx:]
     with open(index_path, "w") as f: f.write(html)
     state["interaction_patterns_active"].append(gene_id)
     parts.append("new interaction: " + desc)

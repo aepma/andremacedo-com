@@ -275,6 +275,8 @@
   /* @gene:gen1-css:start */
   .swarm-epoch { --swarm-green-light: #8aad7a; --swarm-green-mid: #5a7c65; --swarm-green-dark: #0f1f14; } body { background: #070b08; color: #c8d0c6; } ::selection { background: #5a7c6540; color: #c8d0c6; } .overlay-text { font-family: 'EB Garamond', serif; } .overlay-mono { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 0.05em; opacity: 0.5; } .gen-label { position: fixed; bottom: 1.2rem; left: 1.2rem; font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; color: #5a7c65; opacity: 0.35; letter-spacing: 0.08em; z-index: 100; pointer-events: none; } .epoch-badge { display: inline-block; border: 1px solid #5a7c6530; padding: 0.15em 0.6em; border-radius: 2px; font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; letter-spacing: 0.06em; color: #5a7c65; opacity: 0.6; } @keyframes breathe { 0%, 100% { opacity: 0.35; } 50% { opacity: 0.55; } } .gen-label { animation: breathe 8s ease-in-out infinite; }
   /* @gene:gen1-css:end */
+
+  /* @inject:css */
 </style>
 </head>
 <body>
@@ -301,12 +303,19 @@
 <!-- @section:overlay-center:end -->
 
   <!-- @section:overlay-bottom:start -->
-<div style="position:fixed;bottom:1.2rem;right:1.2rem;z-index:100;text-align:right;">
-  <div class="overlay-mono" style="color:#5a7c65;">XAU $4,495</div>
-  <div class="overlay-mono" style="margin-top:0.3rem;color:#5a7c6580;">76°F · 74% humidity · partly cloudy</div>
-  <div class="overlay-mono" style="margin-top:0.3rem;color:#5a7c6540;">ft. lauderdale · sunday dawn</div>
-</div>
-<!-- @section:overlay-bottom:end -->
+  <div class="overlay-bottom">
+    <div class="data-panel" id="dataPanel">
+      <div class="data-entry"><span class="data-label">sys</span><span id="sysInfo">loading...</span></div>
+      <div class="data-entry"><span class="data-label">env</span><span id="envInfo"></span></div>
+      <div class="data-entry"><span class="data-label">mood</span><span id="moodInfo"></span></div>
+      <div class="data-entry"><span class="data-label">particles</span><span id="particleInfo"></span></div>
+      <div class="data-entry"><span class="data-label">gen</span><span id="genInfo"></span></div>
+    </div>
+    <div class="swarm-panel" id="swarmPanel">
+      <div class="data-entry"><span class="data-label">swarm</span><span id="swarmInfo">connecting...</span></div>
+    </div>
+  </div>
+  <!-- @section:overlay-bottom:end -->
 
 <style data-section="swarm-memory">
 #swarm-memory-layer { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 50; overflow: hidden; } .memory-trace { position: absolute; width: 3px; height: 3px; border-radius: 50%; background: #5a7c65; opacity: 0; animation: memory-appear 6s ease-in-out forwards; } @keyframes memory-appear { 0% { opacity: 0; transform: scale(0.5); } 15% { opacity: 0.15; transform: scale(1); } 85% { opacity: 0.12; transform: scale(1.1); } 100% { opacity: 0; transform: scale(0.3); } }
@@ -372,13 +381,13 @@ document.addEventListener('click', function(e) {
 
   const SCENE_CONFIG = {
     particles: {
-      count: 800,
-      size: 0.02,
+      count: 2000,
+      size: 0.035,
       speed: 0.0008,
       color: '#5a7c65',
-      opacity: 0.4,
-      spread: 8,
-      orbital_radius: 3,
+      opacity: 0.6,
+      spread: 5,
+      orbital_radius: 2,
       orbital_speed: 0.0003,
       drift: 0.002,
       size_variation: 0.5,
@@ -393,8 +402,8 @@ document.addEventListener('click', function(e) {
     fog: {
       enabled: true,
       color: '#0a0a0a',
-      near: 2,
-      far: 15,
+      near: 3,
+      far: 12,
     },
     lighting: {
       ambient_color: '#1a2e1f',
@@ -416,9 +425,10 @@ document.addEventListener('click', function(e) {
       night:     { particle_color: '#1a3322', fog_color: '#080808', ambient: '#1a1a1a', speed_mult: 0.4 },
     },
     post_processing: {
-      bloom_enabled: false,
-      bloom_strength: 0.5,
+      bloom_enabled: true,
+      bloom_strength: 0.3,
       bloom_radius: 0.4,
+      bloom_threshold: 0.6,
       vignette_enabled: true,
       vignette_darkness: 0.6,
     },
@@ -571,6 +581,22 @@ document.addEventListener('click', function(e) {
   const particles = new THREE.Points(geometry, particleMaterial);
   scene.add(particles);
 
+  // Glow layer: larger, softer duplicate for bloom-like effect
+  let glowParticles = null;
+  if (SCENE_CONFIG.post_processing.bloom_enabled) {
+    const glowMaterial = new THREE.PointsMaterial({
+      color: new THREE.Color(SCENE_CONFIG.particles.color),
+      size: SCENE_CONFIG.particles.size * 4,
+      transparent: true,
+      opacity: SCENE_CONFIG.post_processing.bloom_strength * 0.3,
+      blending: THREE.AdditiveBlending,
+      depthWrite: false,
+      sizeAttenuation: true,
+    });
+    glowParticles = new THREE.Points(geometry, glowMaterial);
+    scene.add(glowParticles);
+  }
+
   // ── Mouse tracking ─────────────────────────────────────────────
 
   const mouse = new THREE.Vector2(0, 0);
@@ -598,6 +624,7 @@ document.addEventListener('click', function(e) {
     // Update particle color to match time theme
     if (frameCount % 120 === 0) {
       particleMaterial.color.set(theme.particle_color);
+      if (glowParticles) glowParticles.material.color.set(theme.particle_color);
       if (scene.fog) scene.fog.color.set(theme.fog_color);
       ambientLight.color.set(theme.ambient);
     }
@@ -711,13 +738,16 @@ document.addEventListener('click', function(e) {
 
   async function fetchSwarmData() {
     const panel = document.getElementById('swarmPanel');
+    if (!panel) return;
     try {
       const res = await fetch('https://openclaw-status.andre-p-macedo.workers.dev');
       if (!res.ok) throw new Error('Not available');
       const data = await res.json();
+      console.log('[swarm] fetched:', data.system?.total_agents, 'agents,', data.system?.active_now, 'active');
 
       const sys = data.system || {};
       const agents = data.agents || [];
+      const now = Date.now();
 
       let html = `<div class="data-entry"><span class="data-label">swarm</span>${sys.active_now || 0}/${sys.total_agents || 0} active</div>`;
       html += `<div class="data-entry"><span class="data-label">tokens</span>${(sys.total_tokens_today || 0).toLocaleString()}</div>`;
@@ -726,17 +756,23 @@ document.addEventListener('click', function(e) {
         html += `<div class="data-entry"><span class="data-label">Au</span>$${data.gold_price.toLocaleString()}</div>`;
       }
 
-      // Agent activity dots
-      const dots = agents.slice(0, 12).map(a => {
-        const cls = a.status === 'active' ? 'active' : a.status === 'error' ? 'error' : 'idle';
-        return `<span class="agent-dot ${cls}" title="${a.id}: ${a.last_action || 'idle'}"></span>`;
-      }).join('');
-      if (dots) {
-        html += `<div class="data-entry"><span class="data-label">agents</span>${dots}</div>`;
+      // Show 5 most recently active agents with relative time
+      const sorted = agents
+        .filter(a => a.last_active && a.last_action)
+        .sort((a, b) => new Date(b.last_active) - new Date(a.last_active))
+        .slice(0, 5);
+
+      for (const a of sorted) {
+        const ago = Math.floor((now - new Date(a.last_active).getTime()) / 60000);
+        const timeStr = ago < 60 ? `${ago}m ago` : `${Math.floor(ago / 60)}h ago`;
+        const action = a.last_action.replace(/\*\*/g, '').substring(0, 40);
+        const dot = a.status === 'active' ? '●' : '·';
+        html += `<div class="data-entry" style="opacity:${a.status === 'active' ? '0.7' : '0.35'}"><span class="data-label">${dot}</span>${a.id} · ${action} · ${timeStr}</div>`;
       }
 
       panel.innerHTML = html;
     } catch (e) {
+      console.log('[swarm] fetch error:', e.message);
       panel.innerHTML = '<div class="data-entry"><span class="data-label">swarm</span>offline</div>';
     }
   }
@@ -782,6 +818,8 @@ document.addEventListener('click', function(e) {
   } else {
     boot();
   }
+
+  // @inject:interactions
 
   // @gene:swarm-scatter:-clicking-anywhe:start
   // Easter egg: swarm-scatter: clicking anywhere causes nearby particles to briefly scatter outward from the click point, then slowly reconverge — like disturbing a murmuration
