@@ -15,6 +15,15 @@ APPLY_SCRIPT="$SCRIPT_DIR/apply_changes.py"
 LOG_FILE="$HOME/.openclaw/logs/andremacedo-agent.log"
 mkdir -p "$(dirname "$LOG_FILE")"
 
+# launchd runs zsh -l -c which is non-interactive, so .zshrc is NOT sourced.
+# Source it explicitly if ANTHROPIC_API_KEY is missing.
+if [ -z "${ANTHROPIC_API_KEY:-}" ] && [ -f "$HOME/.zshrc" ]; then
+  set +eu  # .zshrc may have unbound refs or failing interactive-only commands
+  # shellcheck disable=SC1091
+  source "$HOME/.zshrc" 2>/dev/null || true
+  set -eu
+fi
+
 BOT_TOKEN="${OPENCLAW_TELEGRAM_BOT_TOKEN:-}"
 CHAT_ID="${OPENCLAW_TELEGRAM_CHAT_ID:-}"
 API_KEY="${ANTHROPIC_API_KEY:-}"

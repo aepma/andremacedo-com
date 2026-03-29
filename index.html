@@ -9,13 +9,13 @@
 
   :root {
     --fg: #e8e4dc;
-    --fg-dim: #8a857b;
+    --fg-dim: #7a756a;
     --fg-accent: #c4a35a;
     --bg: #0a0a08;
-    --bg-surface: #111110;
+    --bg-surface: #0e0e0c;
     --bg-elevated: #1a1918;
-    --grain-opacity: 0.035;
-    --transition-slow: 1.8s cubic-bezier(0.16, 1, 0.3, 1);
+    --grain-opacity: 0.05;
+    --transition-slow: 2.2s cubic-bezier(0.16, 1, 0.3, 1);
     --transition-med: 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
@@ -132,10 +132,10 @@
 
   /* Hero section */
   .hero {
-    flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    min-height: 80vh;
     padding: 0 2.5rem;
     max-width: 1400px;
     width: 100%;
@@ -210,10 +210,8 @@
 
   /* System log - the agent's inner monologue */
   .system-log {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    position: relative;
+    z-index: 1;
     padding: 1.5rem 2.5rem;
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.65rem;
@@ -381,6 +379,75 @@
     animation-delay: 2s;
   }
 
+  /* Prototypes section */
+  .prototypes {
+    position: relative;
+    z-index: 1;
+    max-width: 1400px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 6rem 2.5rem 8rem;
+  }
+  .prototypes-header {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--fg-accent);
+    opacity: 0.5;
+    margin-bottom: 2rem;
+  }
+  .proto-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
+  .proto-item {
+    display: grid;
+    grid-template-columns: 7rem 1fr auto;
+    gap: 1.5rem;
+    align-items: baseline;
+    padding: 0.9rem 0;
+    border-bottom: 1px solid rgba(196,163,90,0.06);
+    text-decoration: none;
+    color: var(--fg);
+    transition: all 0.4s ease;
+    cursor: pointer;
+  }
+  .proto-item:hover {
+    background: rgba(196,163,90,0.03);
+    padding-left: 0.8rem;
+    padding-right: 0.8rem;
+    margin-left: -0.8rem;
+    margin-right: -0.8rem;
+    border-radius: 4px;
+  }
+  .proto-item:hover .proto-name {
+    color: var(--fg-accent);
+  }
+  .proto-date {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--fg-dim);
+    opacity: 0.5;
+    white-space: nowrap;
+  }
+  .proto-name {
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 1.1rem;
+    transition: color 0.4s ease;
+  }
+  .proto-arrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--fg-dim);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+  .proto-item:hover .proto-arrow {
+    opacity: 0.6;
+  }
+
   /* Responsive */
   @media (max-width: 768px) {
     .topbar { padding: 1.5rem; }
@@ -389,6 +456,9 @@
     .system-log { padding: 1rem 1.5rem; font-size: 0.55rem; }
     .time-indicator { display: none; }
     .hero-name { font-size: clamp(3rem, 15vw, 6rem); }
+    .prototypes { padding: 4rem 1.5rem 6rem; }
+    .proto-item { grid-template-columns: 5rem 1fr; gap: 1rem; }
+    .proto-arrow { display: none; }
   }
 
   /* Secret: Konami code easter egg styling */
@@ -446,6 +516,112 @@
   </div>
 
   <div class="context-strip" id="contextStrip"></div>
+</div>
+
+<div class="prototypes">
+  <div class="prototypes-header">prototypes shipped</div>
+  <div class="proto-list">
+    <a class="proto-item" href="https://invoice-liquidity-engine.andremacedo.com" target="_blank">
+      <span class="proto-date">2026-03-28</span>
+      <span class="proto-name">Invoice Liquidity Engine</span>
+      <span class="proto-arrow">&rarr;</span>
+    </a>
+    <a class="proto-item" href="https://ai-lending-agent.andremacedo.com" target="_blank">
+      <span class="proto-date">2026-03-26</span>
+      <span class="proto-name">AI Lending Agent Simulator</span>
+      <span class="proto-arrow">&rarr;</span>
+    </a>
+    <a class="proto-item" href="https://prediction-collateral-gap.andremacedo.com" target="_blank">
+      <span class="proto-date">2026-03-25</span>
+      <span class="proto-name">Prediction Market Collateral Gap</span>
+      <span class="proto-arrow">&rarr;</span>
+    </a>
+    <a class="proto-item" href="https://rwa-surge-tracker.andremacedo.com" target="_blank">
+      <span class="proto-date">2026-03-22</span>
+      <span class="proto-name">RWA Capital Surge Tracker</span>
+      <span class="proto-arrow">&rarr;</span>
+    </a>
+    <a class="proto-item" href="https://rwa-securitization-dashboard.andremacedo.com" target="_blank">
+      <span class="proto-date">2026-02-27</span>
+      <span class="proto-name">RWA Loan Securitization Dashboard</span>
+      <span class="proto-arrow">&rarr;</span>
+    </a>
+    <a class="proto-item" href="https://gold-yield-dashboard.andremacedo.com" target="_blank">
+      <span class="proto-date">2026-02-26</span>
+      <span class="proto-name">Gold Yield Dashboard</span>
+      <span class="proto-arrow">&rarr;</span>
+    </a>
+    <a class="proto-item" href="https://capital-rotation-tracker.andremacedo.com" target="_blank">
+      <span class="proto-date">2026-02-25</span>
+      <span class="proto-name">Capital Rotation Tracker</span>
+      <span class="proto-arrow">&rarr;</span>
+    </a>
+    <a class="proto-item" href="https://watch-investment-calc.andremacedo.com" target="_blank">
+      <span class="proto-date">2026-02-23</span>
+      <span class="proto-name">Watch Investment Calculator</span>
+      <span class="proto-arrow">&rarr;</span>
+    </a>
+    <a class="proto-item" href="https://gold-dividend-calculator.andremacedo.com" target="_blank">
+      <span class="proto-date">2026-02-23</span>
+      <span class="proto-name">Gold Dividend Calculator</span>
+      <span class="proto-arrow">&rarr;</span>
+    </a>
+    <a class="proto-item" href="https://private-credit-yield-explorer.andremacedo.com" target="_blank">
+      <span class="proto-date">2026-02-21</span>
+      <span class="proto-name">Private Credit Yield Explorer</span>
+      <span class="proto-arrow">&rarr;</span>
+    </a>
+    <a class="proto-item" href="https://tokenized-gold-explosion.andremacedo.com" target="_blank">
+      <span class="proto-date">2026-02-20</span>
+      <span class="proto-name">Tokenized Gold Explosion</span>
+      <span class="proto-arrow">&rarr;</span>
+    </a>
+    <a class="proto-item" href="https://margin-call-simulator.andremacedo.com" target="_blank">
+      <span class="proto-date">2026-02-19</span>
+      <span class="proto-name">Margin Call Simulator</span>
+      <span class="proto-arrow">&rarr;</span>
+    </a>
+    <a class="proto-item" href="https://gold-token-comparator.andremacedo.com" target="_blank">
+      <span class="proto-date">2026-02-18</span>
+      <span class="proto-name">Gold Token Comparator</span>
+      <span class="proto-arrow">&rarr;</span>
+    </a>
+    <a class="proto-item" href="https://composable-rwa-hub.andremacedo.com" target="_blank">
+      <span class="proto-date">2026-02-17</span>
+      <span class="proto-name">Composable RWA Hub</span>
+      <span class="proto-arrow">&rarr;</span>
+    </a>
+    <a class="proto-item" href="https://insurance-ai-impact-calculator.andremacedo.com" target="_blank">
+      <span class="proto-date">2026-02-15</span>
+      <span class="proto-name">Insurance AI Impact Calculator</span>
+      <span class="proto-arrow">&rarr;</span>
+    </a>
+    <a class="proto-item" href="https://gold-collateral-tracker.andremacedo.com" target="_blank">
+      <span class="proto-date">2026-02-14</span>
+      <span class="proto-name">Gold Collateral Tracker</span>
+      <span class="proto-arrow">&rarr;</span>
+    </a>
+    <a class="proto-item" href="https://tokenization-gap-calculator.andremacedo.com" target="_blank">
+      <span class="proto-date">2026-02-12</span>
+      <span class="proto-name">Tokenization Gap Calculator</span>
+      <span class="proto-arrow">&rarr;</span>
+    </a>
+    <a class="proto-item" href="https://wells-fargo-gold-tracker.andremacedo.com" target="_blank">
+      <span class="proto-date">2026-02-11</span>
+      <span class="proto-name">Wells Fargo Gold Tracker</span>
+      <span class="proto-arrow">&rarr;</span>
+    </a>
+    <a class="proto-item" href="https://gold-rush-dashboard.andremacedo.com" target="_blank">
+      <span class="proto-date">2026-02-09</span>
+      <span class="proto-name">Gold Rush Dashboard</span>
+      <span class="proto-arrow">&rarr;</span>
+    </a>
+    <a class="proto-item" href="https://vault-unlocker.andremacedo.com" target="_blank">
+      <span class="proto-date">2026-02-07</span>
+      <span class="proto-name">Vault Unlocker</span>
+      <span class="proto-arrow">&rarr;</span>
+    </a>
+  </div>
 </div>
 
 <div class="system-log" id="systemLog"></div>
@@ -778,6 +954,9 @@
   } else {
     boot();
   }
+
+  // Easter egg: When a visitor clicks and drags anywhere on the background, a faint golden streak appears along the drag path, like metal being tested against dark stone. The streak fades over 8 seconds. Only one streak can exist at a time. If the visitor drags slowly, the streak is brighter. Fast drags leave almost nothing — you have to be deliberate. A subtle nod to the assaying obsession without explaining it.
+  (function(){let streak=null;let isDragging=false;let points=[];let startTime=0;const canvas=document.createElement('canvas');canvas.id='touchstone';canvas.style.cssText='position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:9999;opacity:0;transition:opacity 0.3s ease';document.body.appendChild(canvas);const ctx=canvas.getContext('2d');function resize(){canvas.width=window.innerWidth;canvas.height=window.innerHeight}resize();window.addEventListener('resize',resize);document.addEventListener('mousedown',function(e){if(e.target.tagName==='A'||e.target.tagName==='BUTTON')return;isDragging=true;points=[];startTime=Date.now();points.push({x:e.clientX,y:e.clientY,t:Date.now()})});document.addEventListener('mousemove',function(e){if(!isDragging)return;points.push({x:e.clientX,y:e.clientY,t:Date.now()})});document.addEventListener('mouseup',function(){if(!isDragging||points.length<3)return;isDragging=false;const duration=Date.now()-startTime;const slowness=Math.min(duration/2000,1);const alpha=0.12+slowness*0.35;ctx.clearRect(0,0,canvas.width,canvas.height);ctx.beginPath();ctx.moveTo(points[0].x,points[0].y);for(let i=1;i<points.length;i++){const xc=(points[i].x+points[i-1].x)/2;const yc=(points[i].y+points[i-1].y)/2;ctx.quadraticCurveTo(points[i-1].x,points[i-1].y,xc,yc)}ctx.strokeStyle='rgba(196,163,90,'+alpha+')';ctx.lineWidth=1.5+slowness*2;ctx.lineCap='round';ctx.lineJoin='round';ctx.shadowColor='rgba(196,163,90,'+alpha*0.5+')';ctx.shadowBlur=8;ctx.stroke();canvas.style.opacity='1';if(streak)clearTimeout(streak);streak=setTimeout(function(){canvas.style.opacity='0';setTimeout(function(){ctx.clearRect(0,0,canvas.width,canvas.height)},400)},8000)})})();
 </script>
 
 </body>
