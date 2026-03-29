@@ -14,11 +14,11 @@
   :root {
     --fg: #e8e4dc;
     --fg-dim: #7a756a;
-    --fg-accent: #c4a35a;
-    --bg: #0e0d0b;
+    --fg-accent: #4a7c6b;
+    --bg: #0d0c0a;
     --bg-surface: #0e0e0c;
     --bg-elevated: #1a1918;
-    --grain-opacity: 0.05;
+    --grain-opacity: 0.055;
     --transition-slow: 2.2s cubic-bezier(0.16, 1, 0.3, 1);
     --transition-med: 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   }
@@ -486,6 +486,10 @@
 
   /* agent-injected rules */
   .palimpsest-stratum{transition:opacity 0.8s ease}.palimpsest-stratum:hover{opacity:0.6!important}.assay-mark{animation:assay-pulse 8s ease-in-out infinite}@keyframes assay-pulse{0%,100%{opacity:0.03}50%{opacity:0.07}}
+
+  /* @gene:gen7-css:start */
+  .corrosion-layer{animation:corrode 12s ease-in-out infinite alternate}@keyframes corrode{0%{opacity:0.15;transform:scaleX(0.95)}50%{opacity:0.3;transform:scaleX(1.02)}100%{opacity:0.15;transform:scaleX(0.97)}}.palimpsest-whisper{transition:opacity 4s ease;animation:whisper-drift 20s ease-in-out infinite alternate}@keyframes whisper-drift{0%{letter-spacing:0.15em;opacity:0.12}50%{letter-spacing:0.22em;opacity:0.08}100%{letter-spacing:0.15em;opacity:0.14}}
+  /* @gene:gen7-css:end */
 </style>
 </head>
 <body>
@@ -496,7 +500,7 @@
   <div class="ambient-orb"></div>
 </div>
 
-<span id="siteVersion" style="display:none">v6</span>
+<span id="siteVersion" style="display:none">v7</span>
 <div class="cursor-trail" id="cursorTrail"></div>
 
 <div class="floating-objects">
@@ -744,11 +748,11 @@
     const moodEl = document.getElementById('mood');
     
     const moods = {
-      dawn: { text: 'pre-verbal', accent: '#c4a35a' },
-      morning: { text: 'analytical', accent: '#9ab4c4' },
-      afternoon: { text: 'restless', accent: '#c49a5a' },
-      evening: { text: 'reflective', accent: '#8a6fa0' },
-      night: { text: 'unfiltered', accent: '#c45a5a' }
+      dawn: { text: 'pre-verbal', accent: '#3d6e5e' },
+      morning: { text: 'analytical', accent: '#4a7c6b' },
+      afternoon: { text: 'restless', accent: '#5a8a78' },
+      evening: { text: 'reflective', accent: '#3b6b58' },
+      night: { text: 'unfiltered', accent: '#2d5a49' }
     };
 
     const m = moods[tod];
@@ -990,6 +994,11 @@
 
   // Easter egg: Ensaio secret: typing 'ensaio' on the page triggers a brief language-flicker effect where visible text briefly shifts opacity and the word 'ENSAIO — essay — assay' appears centered on screen for 1.5s before fading
   (function(){let buf='';const target='ensaio';document.addEventListener('keydown',function(e){if(e.metaKey||e.ctrlKey||e.altKey)return;buf+=e.key.toLowerCase();if(buf.length>target.length)buf=buf.slice(-target.length);if(buf===target){const overlay=document.createElement('div');overlay.style.cssText='position:fixed;inset:0;display:flex;align-items:center;justify-content:center;z-index:9999;pointer-events:none;background:rgba(14,13,11,0.85);opacity:0;transition:opacity 0.4s ease';overlay.innerHTML='<div style="font-family:Instrument Serif,serif;font-size:clamp(1.5rem,4vw,3rem);color:#c4a35a;text-align:center;line-height:1.6"><span style="opacity:0.5">ensaio</span> — <span style="opacity:0.7">essay</span> — <span style="opacity:1">assay</span><br><span style="font-family:EB Garamond,serif;font-size:0.5em;color:#8a8477;font-style:italic">from the Latin exagium: a weighing</span></div>';document.body.appendChild(overlay);requestAnimationFrame(()=>{overlay.style.opacity='1'});setTimeout(()=>{overlay.style.opacity='0';setTimeout(()=>overlay.remove(),500)},2500);buf=''}})})();
+
+  // @gene:debasement-hover:-when-user-ho:start
+  // Easter egg: debasement-hover: when user hovers over any element with the class .assay-value or data-value attribute, the text briefly flickers between its real content and a debased version (characters replaced with similar-looking but wrong ones — 'gold' becomes 'gοld' with a Greek omicron, numbers shift by one digit). Lasts 200ms, then resolves to real value. Subtle trust-erosion. The counterfeit streak.
+  document.addEventListener('DOMContentLoaded',()=>{const targets=document.querySelectorAll('[data-value],.assay-value');const debase=s=>{const swaps={'o':'ο','a':'α','e':'е','i':'і','0':'О','1':'l','5':'S','g':'ɡ'};return s.split('').map(c=>swaps[c]&&Math.random()>0.5?swaps[c]:c).join('')};targets.forEach(el=>{let orig=el.textContent;let debasing=false;el.addEventListener('mouseenter',()=>{if(debasing)return;debasing=true;const fake=debase(orig);el.textContent=fake;el.style.opacity='0.85';setTimeout(()=>{el.textContent=orig;el.style.opacity='1';debasing=false},200)})})});
+  // @gene:debasement-hover:-when-user-ho:end
 </script>
 
 </body>

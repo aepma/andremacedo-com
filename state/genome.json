@@ -1,21 +1,21 @@
 {
-  "generation": 6,
+  "generation": 7,
   "epoch": "metallurgy",
   "epoch_started": "2026-03-24",
   "traits": {
     "color": {
-      "accent_base": "#c4a35a",
-      "accent_dawn": "#c4a35a",
-      "accent_morning": "#9ab4c4",
-      "accent_afternoon": "#c49a5a",
-      "accent_evening": "#8a6fa0",
-      "accent_night": "#c45a5a",
-      "bg": "#0e0d0b",
+      "accent_base": "#4a7c6b",
+      "accent_dawn": "#3d6e5e",
+      "accent_morning": "#4a7c6b",
+      "accent_afternoon": "#5a8a78",
+      "accent_evening": "#3b6b58",
+      "accent_night": "#2d5a49",
+      "bg": "#0d0c0a",
       "bg_surface": "#0e0e0c",
       "bg_elevated": "#1a1918",
       "fg": "#e8e4dc",
       "fg_dim": "#7a756a",
-      "grain_opacity": 0.05
+      "grain_opacity": "0.055"
     },
     "typography": {
       "display": "Instrument Serif",
@@ -29,27 +29,76 @@
     },
     "layout": {
       "density": "sparse",
-      "sections": ["hero", "context-strip", "floating-data", "prototypes", "palimpsest", "syslog", "hidden-layer"]
+      "sections": [
+        "hero",
+        "context-strip",
+        "floating-data",
+        "prototypes",
+        "palimpsest",
+        "syslog",
+        "hidden-layer"
+      ]
     },
     "interactions": [
       "triple-click-secret",
-      "konami-glitch",
       "idle-boredom",
       "cursor-trail",
-      "touchstone-streak",
-      "ensaio-secret"
+      "when-a-visitor-clicks-and-drag",
+      "touchstone-streak:-when-user-c",
+      "ensaio-secret:-typing-'ensaio'",
+      "debasement-hover:-when-user-ho"
     ],
     "content": {
       "voice": "terse-nocturnal",
-      "mood": "obsessive",
+      "mood": "corroded",
       "obsession": "metallurgy and the social construction of value",
-      "thought_pools": { "dawn": 4, "morning": 4, "afternoon": 4, "evening": 4, "night": 22 },
+      "thought_pools": {
+        "dawn": 4,
+        "morning": 4,
+        "afternoon": 4,
+        "evening": 4,
+        "night": 22
+      },
       "secrets_count": 11
     }
   },
-  "fitness_log": [],
-  "mutation_log": [],
-  "graveyard": [],
+  "fitness_log": [
+    {
+      "gen": 7,
+      "coherence": 7,
+      "novelty": 6,
+      "identity": 7,
+      "tension": 5,
+      "note": "The metallurgy-as-epistemology thread is strong and the ensaio triple-meaning is doing real structural work. But coherence drops because six interacti",
+      "total": 6.2
+    }
+  ],
+  "mutation_log": [
+    {
+      "gen": 7,
+      "mutations": [
+        "content.thoughts",
+        "content.mood",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "interaction.debasement-hover:-when-user-ho",
+        "layout.html_injection"
+      ],
+      "kills": [
+        "interaction:konami-glitch"
+      ],
+      "timestamp": "2026-03-29T05:08:19Z"
+    }
+  ],
+  "graveyard": [
+    {
+      "type": "interaction",
+      "value": "konami-glitch",
+      "died_gen": 7,
+      "epitaph": "A borrowed gesture. The Konami code belongs to a different culture and a different kind of nostalgia. It never connected to the metallurgical thread or the Portuguese thread. It was decoration pretending to be personality. Replaced in spirit by debasement-hover, which does the same destabilizing work but from within the site's own logic."
+    }
+  ],
   "carrying_capacity": {
     "interactions_max": 12,
     "css_rule_blocks_max": 25,
