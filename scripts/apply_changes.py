@@ -196,6 +196,15 @@ if html_injection:
         targets = [inj.get("target", "?") for inj in injections if isinstance(inj, dict)]
         parts.append("HTML injected at: " + ", ".join(targets))
 
+# ── Version increment ─────────────────────────────────────────────
+state["version"] = state.get("version", 0) + 1
+new_version = state["version"]
+
+# Update version string in index.html
+with open(index_path) as f: html = f.read()
+html = re.sub(r'id="siteVersion">[^<]*<', f'id="siteVersion">v{new_version}<', html)
+with open(index_path, "w") as f: f.write(html)
+
 # ── Timestamp bookkeeping ─────────────────────────────────────────
 if pulse_type == "daily":
     state["last_daily_pulse"] = now

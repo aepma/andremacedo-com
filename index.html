@@ -493,6 +493,7 @@
   <div class="ambient-orb"></div>
 </div>
 
+<span id="siteVersion" style="display:none">v5</span>
 <div class="cursor-trail" id="cursorTrail"></div>
 
 <div class="floating-objects">
@@ -797,8 +798,11 @@
     const tod = getTimeOfDay();
     const uptime = Math.floor((Date.now() - AGENT.birthTime) / 1000);
     
+    const versionEl = document.getElementById('siteVersion');
+    const ver = versionEl ? versionEl.textContent : '';
+
     const logs = [
-      { label: 'sys', value: `pid.7291 / uptime ${uptime}s` },
+      { label: 'sys', value: `pid.7291 / ${ver} / uptime ${uptime}s` },
       { label: 'env', value: `${tod} / ${getTimeString()} UTC-4` },
       { label: 'mood', value: AGENT.mood },
       { label: 'last.redesign', value: 'pending' },
