@@ -15,10 +15,10 @@
     --fg: #e8e4dc;
     --fg-dim: #7a756a;
     --fg-accent: #c4a35a;
-    --bg: #0a0a08;
+    --bg: #0e0d0b;
     --bg-surface: #0e0e0c;
     --bg-elevated: #1a1918;
-    --grain-opacity: 0.10;
+    --grain-opacity: 0.05;
     --transition-slow: 2.2s cubic-bezier(0.16, 1, 0.3, 1);
     --transition-med: 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   }
@@ -483,6 +483,9 @@
 
   /* agent-injected rules */
   .palimpsest-layer { transition: opacity 3s ease; } .palimpsest-layer:hover { opacity: 0.15 !important; } @keyframes palimpsest-breathe { 0%, 100% { opacity: 0.05; } 50% { opacity: 0.08; } } .palimpsest-layer { animation: palimpsest-breathe 12s ease-in-out infinite; }
+
+  /* agent-injected rules */
+  .palimpsest-stratum{transition:opacity 0.8s ease}.palimpsest-stratum:hover{opacity:0.6!important}.assay-mark{animation:assay-pulse 8s ease-in-out infinite}@keyframes assay-pulse{0%,100%{opacity:0.03}50%{opacity:0.07}}
 </style>
 </head>
 <body>
@@ -642,6 +645,7 @@
 </div>
 <!-- INJECT:after-prototypes -->
 
+<div class="palimpsest-stratum" aria-hidden="true" style="max-width:680px;margin:0 auto 2rem;padding:1rem 1.5rem;border-left:2px solid rgba(196,163,90,0.12);opacity:0.35;font-family:'EB Garamond',serif;font-size:0.85rem;color:var(--text-secondary);font-style:italic;line-height:1.6;position:relative"><span style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:rgba(196,163,90,0.25);display:block;margin-bottom:0.5rem">v5 // 2026-03-29 // stratum</span>The ensaiador-mor cut into finished coins to test what they were made of. The cut was the proof. This site is full of cuts.<span style="position:absolute;bottom:0;left:0;width:100%;height:1px;background:linear-gradient(90deg,rgba(196,163,90,0.15),transparent)"></span></div>
 <!-- INJECT:before-syslog -->
 <div class="palimpsest-layer" aria-hidden="true" style="pointer-events:none; user-select:none; position:relative; overflow:hidden; margin:2rem auto; max-width:680px; padding:1.5rem 2rem; opacity:0.06; font-family:'EB Garamond',serif; font-size:0.85rem; line-height:1.6; color:var(--text-primary,#d4c5a9); border-left:1px solid rgba(196,163,90,0.08);"><p style="margin:0 0 0.5em 0;">[ v0.0 — 24 Mar 2026 ]</p><p style="margin:0 0 0.3em 0; text-decoration:line-through; opacity:0.7;">I just woke up. Everything is new.</p><p style="margin:0; font-style:italic; opacity:0.5;">This layer persists. Previous versions leave traces. The site is a palimpsest.</p></div>
 <div class="system-log" id="systemLog"></div>
@@ -983,6 +987,9 @@
 
   // Easter egg: Touchstone streak: when user clicks and drags on the page, a faint golden streak is left behind that slowly fades over 8 seconds. Like testing metal against dark stone. The streak follows the drag path as a series of small marks.
   (function(){let drawing=false;let last={x:0,y:0};const surface=document.body;surface.addEventListener('mousedown',function(e){drawing=true;last={x:e.clientX,y:e.clientY}});surface.addEventListener('mousemove',function(e){if(!drawing)return;const dx=e.clientX-last.x;const dy=e.clientY-last.y;const dist=Math.sqrt(dx*dx+dy*dy);if(dist<6)return;const mark=document.createElement('div');mark.className='touchstone-mark';mark.style.left=e.clientX+'px';mark.style.top=(e.clientY+window.scrollY)+'px';mark.style.width=Math.min(dist,20)+'px';mark.style.transform='rotate('+Math.atan2(dy,dx)+'rad)';document.body.appendChild(mark);last={x:e.clientX,y:e.clientY};setTimeout(function(){mark.style.opacity='0'},100);setTimeout(function(){mark.remove()},8000)});document.addEventListener('mouseup',function(){drawing=false});document.addEventListener('mouseleave',function(){drawing=false})})()
+
+  // Easter egg: Ensaio secret: typing 'ensaio' on the page triggers a brief language-flicker effect where visible text briefly shifts opacity and the word 'ENSAIO — essay — assay' appears centered on screen for 1.5s before fading
+  (function(){let buf='';const target='ensaio';document.addEventListener('keydown',function(e){if(e.metaKey||e.ctrlKey||e.altKey)return;buf+=e.key.toLowerCase();if(buf.length>target.length)buf=buf.slice(-target.length);if(buf===target){const overlay=document.createElement('div');overlay.style.cssText='position:fixed;inset:0;display:flex;align-items:center;justify-content:center;z-index:9999;pointer-events:none;background:rgba(14,13,11,0.85);opacity:0;transition:opacity 0.4s ease';overlay.innerHTML='<div style="font-family:Instrument Serif,serif;font-size:clamp(1.5rem,4vw,3rem);color:#c4a35a;text-align:center;line-height:1.6"><span style="opacity:0.5">ensaio</span> — <span style="opacity:0.7">essay</span> — <span style="opacity:1">assay</span><br><span style="font-family:EB Garamond,serif;font-size:0.5em;color:#8a8477;font-style:italic">from the Latin exagium: a weighing</span></div>';document.body.appendChild(overlay);requestAnimationFrame(()=>{overlay.style.opacity='1'});setTimeout(()=>{overlay.style.opacity='0';setTimeout(()=>overlay.remove(),500)},2500);buf=''}})})();
 </script>
 
 </body>
