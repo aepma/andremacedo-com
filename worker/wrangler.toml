@@ -1,0 +1,16 @@
+name = "openclaw-status"
+main = "openclaw-status.js"
+compatibility_date = "2024-01-01"
+account_id = "98a1dcdbeec2aa3aac24e49c22c652d2"
+
+# KV namespace — create with:
+#   npx wrangler kv namespace create OPENCLAW_STATUS
+# Then paste the ID below.
+[[kv_namespaces]]
+binding = "OPENCLAW_STATUS"
+id = "TODO_REPLACE_WITH_KV_NAMESPACE_ID"
+
+# Optional: custom domain route
+# [routes]
+# pattern = "andremacedo.com/api/status"
+# zone_name = "andremacedo.com"

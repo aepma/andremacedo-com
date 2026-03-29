@@ -15,6 +15,8 @@ Capabilities:
   - NEW PAGE CREATION: spawn new .html files
   - SVG GENERATION: create visual assets in /assets/
   - KILL SYSTEM: remove thoughts, secrets, interactions, CSS, sections
+  - WEBGL: scene_changes (SCENE_CONFIG params), shader_injection (GLSL),
+    overlay_changes (AGENT object: mood, thoughts, secrets, statuses)
   - Genome tracking: fitness, mutations, graveyard, generation
 """
 import json, os, re, sys, copy
@@ -431,6 +433,141 @@ if generate_svg and isinstance(generate_svg, list):
             f.write(content)
         parts.append(f"SVG: assets/{filename}")
         mutations_detected.append(f"svg.{filename}")
+
+
+# ══════════════════════════════════════════════════════════════════
+# WEBGL MUTATIONS — scene config, shaders, overlay agent data
+# ══════════════════════════════════════════════════════════════════
+
+def format_js_value(val):
+    """Format a Python value as a JavaScript literal for SCENE_CONFIG."""
+    if isinstance(val, str):
+        return "'" + val.replace("\\", "\\\\").replace("'", "\\'") + "'"
+    elif isinstance(val, bool):
+        return 'true' if val else 'false'
+    elif isinstance(val, (int, float)):
+        return str(val)
+    elif isinstance(val, list):
+        return '[' + ', '.join(format_js_value(v) for v in val) + ']'
+    return str(val)
+
+# ── Scene config changes (SCENE_CONFIG parameter mutations) ───────
+scene_changes = changes.get("scene_changes")
+if scene_changes and isinstance(scene_changes, dict):
+    with open(index_path) as f: html = f.read()
+    if 'SCENE_CONFIG' in html:
+        sc_changed = False
+        for path, value in scene_changes.items():
+            path_parts = path.split('.')
+            js_val = format_js_value(value)
+            if len(path_parts) == 2:
+                parent_key, child_key = path_parts
+                pat = re.compile(
+                    r'(' + re.escape(parent_key) + r':\s*\{[\s\S]*?' + re.escape(child_key) + r':\s*)([^\n,}]+)'
+                )
+            elif len(path_parts) == 3:
+                _, parent_key, child_key = path_parts
+                pat = re.compile(
+                    r'(' + re.escape(parent_key) + r':\s*\{[\s\S]*?' + re.escape(child_key) + r':\s*)([^\n,}]+)'
+                )
+            else:
+                continue
+            new_html = pat.sub(lambda m: m.group(1) + js_val, html, count=1)
+            if new_html != html:
+                html = new_html
+                sc_changed = True
+        if sc_changed:
+            with open(index_path, "w") as f: f.write(html)
+            sc_keys = list(scene_changes.keys())
+            parts.append("scene: " + ", ".join(sc_keys[:5]))
+            mutations_detected.append("scene.config")
+
+# ── Shader injection (custom GLSL for particles/post-processing) ──
+shader_injection = changes.get("shader_injection")
+if shader_injection and isinstance(shader_injection, dict):
+    with open(index_path) as f: html = f.read()
+    sh_changed = False
+    for shader_type in ("vertex", "fragment"):
+        glsl = shader_injection.get(shader_type)
+        var_name = "CUSTOM_VERTEX_SHADER" if shader_type == "vertex" else "CUSTOM_FRAGMENT_SHADER"
+        if glsl and isinstance(glsl, str):
+            escaped = glsl.replace('\\', '\\\\').replace('`', '\\`')
+            new_val = f'const {var_name} = `{escaped}`;'
+            html = re.sub(
+                r'const ' + var_name + r'\s*=\s*(?:null|`[\s\S]*?`)\s*;',
+                new_val, html, count=1
+            )
+            sh_changed = True
+        elif glsl is None:
+            html = re.sub(
+                r'const ' + var_name + r'\s*=\s*(?:null|`[\s\S]*?`)\s*;',
+                f'const {var_name} = null;', html, count=1
+            )
+            sh_changed = True
+    if sh_changed:
+        with open(index_path, "w") as f: f.write(html)
+        types = [t for t in ("vertex", "fragment") if shader_injection.get(t)]
+        parts.append("shaders: " + "+".join(types))
+        mutations_detected.append("scene.shaders")
+
+# ── Overlay changes (inline AGENT object mutations) ──────────────
+overlay_changes = changes.get("overlay_changes")
+if overlay_changes and isinstance(overlay_changes, dict):
+    with open(index_path) as f: html = f.read()
+    ov_changed = False
+
+    # Scope replacements to the AGENT object block
+    agent_start = html.find('const AGENT = {')
+    agent_end = html.find('};', agent_start) + 2 if agent_start >= 0 else -1
+
+    if agent_start >= 0 and agent_end > agent_start:
+        block = html[agent_start:agent_end]
+
+        # Update mood
+        new_mood = overlay_changes.get("mood")
+        if new_mood and isinstance(new_mood, str):
+            new_block = re.sub(r"(mood:\s*')[^']+(')", lambda m: m.group(1) + new_mood + m.group(2), block, count=1)
+            if new_block != block:
+                block = new_block
+                ov_changed = True
+
+        # Update thought pools
+        ov_thoughts = overlay_changes.get("thoughts")
+        if ov_thoughts and isinstance(ov_thoughts, dict):
+            for tod_key, thought_list in ov_thoughts.items():
+                if not isinstance(thought_list, list):
+                    continue
+                js_arr = json.dumps(thought_list, indent=8)
+                pat = re.compile(r'(' + re.escape(tod_key) + r':\s*)\[[\s\S]*?\n\s+\]')
+                new_block = pat.sub(lambda m: m.group(1) + js_arr, block, count=1)
+                if new_block != block:
+                    block = new_block
+                    ov_changed = True
+
+        # Update secrets array
+        ov_secrets = overlay_changes.get("secrets")
+        if ov_secrets and isinstance(ov_secrets, list):
+            js_arr = json.dumps(ov_secrets, indent=6)
+            new_block = re.sub(r'(secrets:\s*)\[[\s\S]*?\n\s+\]', lambda m: m.group(1) + js_arr, block, count=1)
+            if new_block != block:
+                block = new_block
+                ov_changed = True
+
+        # Update statuses array
+        ov_statuses = overlay_changes.get("statuses")
+        if ov_statuses and isinstance(ov_statuses, list):
+            js_arr = json.dumps(ov_statuses, indent=6)
+            new_block = re.sub(r'(statuses:\s*)\[[\s\S]*?\n\s+\]', lambda m: m.group(1) + js_arr, block, count=1)
+            if new_block != block:
+                block = new_block
+                ov_changed = True
+
+        if ov_changed:
+            html = html[:agent_start] + block + html[agent_end:]
+            with open(index_path, "w") as f: f.write(html)
+            ov_keys = [k for k in ("mood", "thoughts", "secrets", "statuses") if overlay_changes.get(k)]
+            parts.append("overlay: " + ", ".join(ov_keys))
+            mutations_detected.append("overlay.agent_data")
 
 
 # ══════════════════════════════════════════════════════════════════

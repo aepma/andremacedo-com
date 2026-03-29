@@ -60,6 +60,57 @@ def get_gene_marked_items(html):
     return css, js, html_genes
 
 
+def get_scene_config(html):
+    """Extract SCENE_CONFIG summary if the page has a WebGL scene."""
+    m = re.search(r'const SCENE_CONFIG\s*=\s*\{', html)
+    if not m:
+        return None
+    # Extract key parameters for compact summary
+    params = {}
+    for key, pattern in [
+        ("particles.count", r'count:\s*(\d+)'),
+        ("particles.color", r"particles:[\s\S]*?color:\s*'([^']+)'"),
+        ("particles.speed", r'speed:\s*([\d.]+)'),
+        ("particles.orbital_radius", r'orbital_radius:\s*([\d.]+)'),
+        ("camera.fov", r'fov:\s*(\d+)'),
+        ("camera.position", r"position:\s*(\[[^\]]+\])"),
+        ("fog.color", r"fog:[\s\S]*?color:\s*'([^']+)'"),
+        ("fog.near", r'fog:[\s\S]*?near:\s*([\d.]+)'),
+        ("fog.far", r'fog:[\s\S]*?far:\s*([\d.]+)'),
+        ("lighting.point_color", r"point_color:\s*'([^']+)'"),
+        ("lighting.point_intensity", r'point_intensity:\s*([\d.]+)'),
+        ("mouse.mode", r"mode:\s*'([^']+)'"),
+        ("post_processing.bloom_enabled", r'bloom_enabled:\s*(true|false)'),
+        ("post_processing.vignette_enabled", r'vignette_enabled:\s*(true|false)'),
+    ]:
+        match = re.search(pattern, html)
+        if match:
+            params[key] = match.group(1)
+
+    # Check shader state
+    has_vertex = "CUSTOM_VERTEX_SHADER = `" in html
+    has_fragment = "CUSTOM_FRAGMENT_SHADER = `" in html
+
+    # Extract time themes
+    themes = {}
+    for tod in ("dawn", "morning", "afternoon", "evening", "night"):
+        m = re.search(re.escape(tod) + r":\s*\{[^}]*particle_color:\s*'([^']+)'", html)
+        if m:
+            themes[tod] = m.group(1)
+
+    lines = ["SCENE CONFIG (WebGL):"]
+    lines.append(f"  particles: {params.get('particles.count','?')} @ r={params.get('particles.orbital_radius','?')}, color={params.get('particles.color','?')}")
+    lines.append(f"  camera: fov={params.get('camera.fov','?')}, pos={params.get('camera.position','?')}")
+    lines.append(f"  fog: {params.get('fog.color','?')} near={params.get('fog.near','?')} far={params.get('fog.far','?')}")
+    lines.append(f"  light: {params.get('lighting.point_color','?')} intensity={params.get('lighting.point_intensity','?')}")
+    lines.append(f"  mouse: {params.get('mouse.mode','?')}")
+    lines.append(f"  bloom: {params.get('post_processing.bloom_enabled','?')}, vignette: {params.get('post_processing.vignette_enabled','?')}")
+    lines.append(f"  shaders: vertex={'custom' if has_vertex else 'default'}, fragment={'custom' if has_fragment else 'default'}")
+    if themes:
+        lines.append(f"  time colors: {json.dumps(themes)}")
+    return "\n".join(lines)
+
+
 def format_genome_summary(genome, html):
     """Build compact genome + section manifest for the prompt."""
     gen = genome.get("generation", 0)
@@ -91,6 +142,12 @@ def format_genome_summary(genome, html):
         "SECTIONS IN index.html:",
         get_section_manifest(html),
     ]
+
+    # Scene config (WebGL page)
+    scene_info = get_scene_config(html)
+    if scene_info:
+        lines.append("")
+        lines.append(scene_info)
 
     if css_genes or js_genes or html_genes:
         lines.append("")
@@ -193,6 +250,28 @@ Reference them in sections: <img src="/assets/pattern-001.svg">
 - Ambient layers (background animations, scroll-reactive elements, parallax)
 - Living ornaments (generative borders, procedural textures, evolving patterns)
 
+### WebGL Scene Mutations (key: "scene_changes")
+Modify SCENE_CONFIG parameters via dot-notation paths:
+  { "particles.count": 1200, "particles.color": "#ff4444", "camera.fov": 60,
+    "fog.near": 3, "lighting.point_intensity": 1.5, "mouse.mode": "repel",
+    "post_processing.bloom_enabled": true }
+For time themes (3-level): { "time_themes.dawn.particle_color": "#aabbcc" }
+Available paths: particles.(count|size|speed|color|opacity|spread|orbital_radius|orbital_speed|drift|size_variation),
+  camera.(fov|position|look_at|sway_amount|sway_speed), fog.(enabled|color|near|far),
+  lighting.(ambient_color|ambient_intensity|point_color|point_intensity|point_position),
+  mouse.(influence_radius|influence_strength|mode), post_processing.(bloom_enabled|bloom_strength|bloom_radius|vignette_enabled|vignette_darkness)
+
+### Shader Injection (key: "shader_injection")
+Inject custom GLSL shaders:
+  { "vertex": "varying vec2 vUv; void main() { vUv = uv; gl_Position = ...; }", "fragment": "..." }
+Set to null to remove: { "vertex": null }
+
+### Overlay Data (key: "overlay_changes")
+Modify the inline AGENT object (mood, thoughts, secrets, statuses):
+  { "mood": "restless", "thoughts": { "dawn": ["thought1", "thought2"] },
+    "secrets": ["new secret 1", "new secret 2"],
+    "statuses": ["agent is dreaming", "agent is mutating"] }
+
 ### Kills (key: "kills")
   [{ "type": "thought|secret|interaction|css_rule|section|page", "target": "identifier", "epitaph": "why" }]
   Thought target: "pool:index" (e.g. "night:5"). Secret target: index number.
@@ -242,6 +321,13 @@ This is your moment for STRUCTURAL ambition:
 - Generate SVG assets (patterns, illustrations, data visualizations)
 - Change the page's fundamental architecture (layout, flow, navigation)
 
+SCENE AUDIT: Review the WebGL scene parameters. Are the particles interesting? Is the color palette coherent with the mood? Consider:
+- Changing particle count, orbital radius, speed to alter density and energy
+- Injecting custom GLSL shaders for novel visual effects
+- Modifying fog depth and lighting to shift atmosphere
+- Changing mouse interaction mode (attract/repel/orbit)
+- Enabling bloom or adjusting vignette for post-processing mood
+
 Ask yourself: if someone saw generation 1 and this generation side by side, would they recognize it as the same site? If yes, you're not pushing hard enough.
 
 Respond ONLY in valid JSON:
@@ -258,6 +344,9 @@ Respond ONLY in valid JSON:
   "section_operations": [{{ "action": "create|replace|delete", "id": "name", "content": "HTML", "css": "CSS", "js": "JS", "after": "section-id", "epitaph": "for deletes" }}] or null,
   "new_pages": [{{ "path": "relative/path.html", "content": "full HTML" }}] or null,
   "generate_svg": [{{ "filename": "name.svg", "content": "<svg>...</svg>" }}] or null,
+  "scene_changes": {{ "particles.count": 1200, "fog.near": 3 }} or null,
+  "shader_injection": {{ "vertex": "GLSL" or null, "fragment": "GLSL" or null }} or null,
+  "overlay_changes": {{ "mood": "string", "thoughts": {{}}, "secrets": [], "statuses": [] }} or null,
   "kills": [{{ "type": "thought|secret|interaction|css_rule|section|page", "target": "id", "epitaph": "why" }}],
   "self_note": "string"
 }}"""
@@ -315,6 +404,9 @@ Respond ONLY in valid JSON:
   "section_operations": [{{ "action": "create|replace|delete", "id": "name", "content": "HTML", "css": "CSS", "js": "JS", "after": "section-id", "epitaph": "for deletes" }}] or null,
   "new_pages": [{{ "path": "relative/path.html", "content": "full HTML" }}] or null,
   "generate_svg": [{{ "filename": "name.svg", "content": "<svg>...</svg>" }}] or null,
+  "scene_changes": {{ "particles.count": 1200, "fog.near": 3 }} or null,
+  "shader_injection": {{ "vertex": "GLSL" or null, "fragment": "GLSL" or null }} or null,
+  "overlay_changes": {{ "mood": "string", "thoughts": {{}}, "secrets": [], "statuses": [] }} or null,
   "kills": [{{ "type": "thought|secret|interaction|css_rule|section|page", "target": "id", "epitaph": "why" }}] or null,
   "self_note": "string"
 }}"""
