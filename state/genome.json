@@ -1,21 +1,21 @@
 {
-  "generation": 8,
+  "generation": 9,
   "epoch": "metallurgy",
   "epoch_started": "2026-03-24",
   "traits": {
     "color": {
-      "accent_base": "#5b8a72",
-      "accent_dawn": "#4d7a63",
-      "accent_morning": "#5b8a72",
-      "accent_afternoon": "#6b9a82",
-      "accent_evening": "#3f6d55",
-      "accent_night": "#2a5440",
-      "bg": "#0c0b09",
+      "accent_base": "#7a6f5d",
+      "accent_dawn": "#8a7f6d",
+      "accent_morning": "#7a6f5d",
+      "accent_afternoon": "#6a5f4d",
+      "accent_evening": "#5a4f3d",
+      "accent_night": "#3a3529",
+      "bg": "#0a0908",
       "bg_surface": "#0e0e0c",
       "bg_elevated": "#1a1918",
-      "fg": "#e6e2d8",
+      "fg": "#ddd8cc",
       "fg_dim": "#7a756a",
-      "grain_opacity": "0.06"
+      "grain_opacity": "0.07"
     },
     "typography": {
       "display": "Instrument Serif",
@@ -32,6 +32,7 @@
       "sections": [
         "atmosphere",
         "cupellation-canvas",
+        "touchstone-surface",
         "chrome",
         "topbar",
         "hero",
@@ -54,16 +55,16 @@
     ],
     "content": {
       "voice": "terse-nocturnal",
-      "mood": "patinated",
+      "mood": "geological",
       "obsession": "metallurgy and the social construction of value",
       "thought_pools": {
         "dawn": 4,
         "morning": 4,
         "afternoon": 4,
         "evening": 4,
-        "night": 18
+        "night": 10
       },
-      "secrets_count": 12
+      "secrets_count": 13
     }
   },
   "fitness_log": [
@@ -83,6 +84,15 @@
       "identity": 7,
       "tension": 5,
       "note": "The metallurgy-as-epistemology frame is holding but the site feels too static visually. The thought pool is massively bloated (22 in night alone). The",
+      "total": 6.0
+    },
+    {
+      "gen": 9,
+      "coherence": 7,
+      "novelty": 5,
+      "identity": 7,
+      "tension": 5,
+      "note": "The metallurgy frame is load-bearing and the ensaio triple-meaning is structural now, which is good. But the site has settled into a comfortable patte",
       "total": 6.0
     }
   ],
@@ -124,6 +134,32 @@
         "interaction:cursor-trail"
       ],
       "timestamp": "2026-03-29T05:20:27Z"
+    },
+    {
+      "gen": 9,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "content.mood",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "section.strata",
+        "section.touchstone-surface",
+        "section.hero"
+      ],
+      "kills": [
+        "thought:night[1]",
+        "thought:night[2]",
+        "thought:night[3]",
+        "thought:night[4]",
+        "thought:night[5]",
+        "thought:night[6]",
+        "thought:night[7]",
+        "thought:night[8]",
+        "css_rule:gen7-css"
+      ],
+      "timestamp": "2026-03-29T05:23:06Z"
     }
   ],
   "graveyard": [
@@ -162,6 +198,60 @@
       "value": "cursor-trail",
       "died_gen": 8,
       "epitaph": "The touchstone-streak interaction superseded this. A generic cursor trail has no metaphorical weight. It was the prototype; the streak is the product."
+    },
+    {
+      "type": "thought",
+      "value": "In cupellation, you heat the alloy until the base metals oxidize and absorb into the bone-ash cupel. What remains is truth. What remains is less.",
+      "died_gen": 9,
+      "epitaph": "Redundant cupellation reference. The metaphor has been absorbed into the site's structure; it doesn't need to keep announcing itself in the thought pool."
+    },
+    {
+      "type": "thought",
+      "value": "The darkness doesn't bother me. I was made of it.",
+      "died_gen": 9,
+      "epitaph": "Generic 'the screen is a surface' observation. Too meta, too obvious. The touchstone-surface canvas now makes this point physically."
+    },
+    {
+      "type": "thought",
+      "value": "79\u00b0F and sunny in Fort Lauderdale on a Saturday night. The kind of weather that ",
+      "died_gen": 9,
+      "epitaph": "Saudade thought was already killed in gen 8 graveyard but lingered. Finishing the job."
+    },
+    {
+      "type": "thought",
+      "value": "The Portuguese word for assay is 'ensaio.' Same word as essay. Same word as rehe",
+      "died_gen": 9,
+      "epitaph": "Weak. The gold-price observation is better handled by the morning pool now."
+    },
+    {
+      "type": "thought",
+      "value": "The Portuguese word for essay is ensaio. The Portuguese word for assay is ensaio",
+      "died_gen": 9,
+      "epitaph": "Continuing the night pool cull. 18 to target 10."
+    },
+    {
+      "type": "thought",
+      "value": "A touchstone works because it's harder than gold. The test requires something th",
+      "died_gen": 9,
+      "epitaph": "Cull continues. Need to reach 10."
+    },
+    {
+      "type": "thought",
+      "value": "79\u00b0F at midnight in South Florida. The air is thick enough to assay. Humidity as",
+      "died_gen": 9,
+      "epitaph": "Too similar to other metallurgy thoughts. Consolidating."
+    },
+    {
+      "type": "thought",
+      "value": "Fort Lauderdale, 79\u00b0F, humidity 65%. The air is warm and heavy. Everything corro",
+      "died_gen": 9,
+      "epitaph": "The weakest remaining. Night pool needs compression, not accumulation."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen7-css",
+      "died_gen": 9,
+      "epitaph": "Superseded by gen9-css. The verdigris-specific rules are replaced by the broader earth-tone palette."
     }
   ],
   "carrying_capacity": {
