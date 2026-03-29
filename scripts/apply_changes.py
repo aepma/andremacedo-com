@@ -202,7 +202,7 @@ new_version = state["version"]
 
 # Update version string in index.html
 with open(index_path) as f: html = f.read()
-html = re.sub(r'id="siteVersion">[^<]*<', f'id="siteVersion">v{new_version}<', html)
+html = re.sub(r'id="siteVersion"[^>]*>[^<]*<', f'id="siteVersion" style="display:none">v{new_version}<', html)
 with open(index_path, "w") as f: f.write(html)
 
 # ── Timestamp bookkeeping ─────────────────────────────────────────
