@@ -1,8 +1,21 @@
 #!/usr/bin/env python3
 """Apply LLM-generated changes to andremacedo.com site files.
 
-Handles phenotype expression (CSS, HTML, JS changes) and genome tracking
-(fitness logging, mutation recording, graveyard management, carrying capacity).
+Handles phenotype expression (CSS, HTML, JS, SVG, page creation) and genome
+tracking (fitness logging, mutation recording, graveyard management).
+
+Capabilities:
+  - Thought/secret/mood management
+  - Accent palette + CSS variable changes
+  - CSS rule injection (gene-marked)
+  - Font changes with HTML rewrite
+  - JS interaction injection (gene-marked)
+  - HTML injection at marker comments (gene-marked)
+  - SECTION OPERATIONS: create, replace, delete entire page sections
+  - NEW PAGE CREATION: spawn new .html files
+  - SVG GENERATION: create visual assets in /assets/
+  - KILL SYSTEM: remove thoughts, secrets, interactions, CSS, sections
+  - Genome tracking: fitness, mutations, graveyard, generation
 """
 import json, os, re, sys, copy
 from datetime import datetime, timezone
@@ -35,12 +48,10 @@ with open(thoughts_path) as f: thoughts = json.load(f)
 with open(secrets_path) as f: secrets = json.load(f)
 with open(genome_path) as f: genome = json.load(f)
 
-# Snapshot pre-mutation trait values for diff
-pre_traits = copy.deepcopy(genome.get("traits", {}))
-
 parts = []
 mutations_detected = []
 kills_performed = []
+
 
 # ══════════════════════════════════════════════════════════════════
 # PHENOTYPE EXPRESSION — actual site changes
@@ -205,7 +216,7 @@ if new_interaction and isinstance(new_interaction, dict) and new_interaction.get
     injection = f"\n  // @gene:{gene_id}:start\n  // Easter egg: {desc}\n  {code}\n  // @gene:{gene_id}:end\n"
     html = html.replace("</script>", injection + "</script>")
     with open(index_path, "w") as f: f.write(html)
-    state["interaction_patterns_active"].append(desc.lower().replace(" ", "-")[:30])
+    state["interaction_patterns_active"].append(gene_id)
     parts.append("new interaction: " + desc)
     mutations_detected.append("interaction." + gene_id)
 
@@ -243,6 +254,186 @@ if html_injection:
 
 
 # ══════════════════════════════════════════════════════════════════
+# STRUCTURAL MUTATIONS — sections, pages, SVG, canvas
+# ══════════════════════════════════════════════════════════════════
+
+# ── Section operations (create / replace / delete) ────────────────
+section_ops = changes.get("section_operations")
+if section_ops and isinstance(section_ops, list):
+    with open(index_path) as f: html = f.read()
+
+    for op in section_ops:
+        if not isinstance(op, dict):
+            continue
+        action = op.get("action", "")
+        section_id = op.get("id", "")
+        if not action or not section_id:
+            continue
+        # Sanitize ID
+        section_id = re.sub(r'[^a-zA-Z0-9_-]', '', section_id)
+
+        if action == "create":
+            content = op.get("content", "")
+            css = op.get("css", "")
+            js = op.get("js", "")
+            after_section = op.get("after")  # place after this section
+
+            # Build self-contained section block
+            block_parts = []
+            if css:
+                block_parts.append(f'<style data-section="{section_id}">\n{css}\n</style>')
+            block_parts.append(f'<!-- @section:{section_id}:start -->')
+            block_parts.append(content)
+            block_parts.append(f'<!-- @section:{section_id}:end -->')
+            if js:
+                block_parts.append(f'<script data-section="{section_id}">\n{js}\n</script>')
+            block = '\n'.join(block_parts)
+
+            # Find insertion point
+            inserted = False
+            if after_section:
+                after_marker = f'<!-- @section:{after_section}:end -->'
+                if after_marker in html:
+                    html = html.replace(after_marker, after_marker + '\n\n' + block)
+                    inserted = True
+            if not inserted:
+                # Insert before the main </script> (before JS area)
+                html = html.replace('\n<script>\n', '\n' + block + '\n\n<script>\n', 1)
+
+            parts.append(f"created section: {section_id}")
+            mutations_detected.append(f"section.{section_id}")
+
+        elif action == "replace":
+            content = op.get("content", "")
+            css = op.get("css", "")
+            js = op.get("js", "")
+
+            # Build replacement section
+            block = f'<!-- @section:{section_id}:start -->\n{content}\n<!-- @section:{section_id}:end -->'
+
+            # Replace section HTML
+            pattern = re.compile(
+                r'<!-- @section:' + re.escape(section_id) + r':start -->.*?<!-- @section:' + re.escape(section_id) + r':end -->',
+                re.DOTALL
+            )
+            if pattern.search(html):
+                html = pattern.sub(block, html)
+
+                # Handle inline CSS: replace existing or add new
+                if css:
+                    css_tag = f'<style data-section="{section_id}">\n{css}\n</style>'
+                    css_pattern = re.compile(
+                        r'<style data-section="' + re.escape(section_id) + r'">.*?</style>',
+                        re.DOTALL
+                    )
+                    if css_pattern.search(html):
+                        html = css_pattern.sub(css_tag, html)
+                    else:
+                        html = html.replace(
+                            f'<!-- @section:{section_id}:start -->',
+                            css_tag + '\n' + f'<!-- @section:{section_id}:start -->'
+                        )
+
+                # Handle inline JS: replace existing or add new
+                if js:
+                    js_tag = f'<script data-section="{section_id}">\n{js}\n</script>'
+                    js_pattern = re.compile(
+                        r'<script data-section="' + re.escape(section_id) + r'">.*?</script>',
+                        re.DOTALL
+                    )
+                    if js_pattern.search(html):
+                        html = js_pattern.sub(js_tag, html)
+                    else:
+                        html = html.replace(
+                            f'<!-- @section:{section_id}:end -->',
+                            f'<!-- @section:{section_id}:end -->\n' + js_tag
+                        )
+
+                parts.append(f"replaced section: {section_id}")
+                mutations_detected.append(f"section.{section_id}")
+
+        elif action == "delete":
+            epitaph = op.get("epitaph", "no epitaph")
+
+            # Remove section HTML
+            pattern = re.compile(
+                r'\s*<!-- @section:' + re.escape(section_id) + r':start -->.*?<!-- @section:' + re.escape(section_id) + r':end -->\s*',
+                re.DOTALL
+            )
+            new_html = pattern.sub('\n', html)
+
+            # Remove section CSS
+            css_pattern = re.compile(
+                r'\s*<style data-section="' + re.escape(section_id) + r'">.*?</style>\s*',
+                re.DOTALL
+            )
+            new_html = css_pattern.sub('\n', new_html)
+
+            # Remove section JS
+            js_pattern = re.compile(
+                r'\s*<script data-section="' + re.escape(section_id) + r'">.*?</script>\s*',
+                re.DOTALL
+            )
+            new_html = js_pattern.sub('\n', new_html)
+
+            if new_html != html:
+                html = new_html
+                genome["graveyard"].append({
+                    "type": "section", "value": section_id,
+                    "died_gen": genome.get("generation", 0) + 1,
+                    "epitaph": epitaph
+                })
+                kills_performed.append(f"section:{section_id}")
+                parts.append(f"deleted section: {section_id}")
+                mutations_detected.append(f"section.delete.{section_id}")
+
+    with open(index_path, "w") as f: f.write(html)
+
+# ── New pages (create full HTML files) ────────────────────────────
+new_pages = changes.get("new_pages")
+if new_pages and isinstance(new_pages, list):
+    for page in new_pages:
+        if not isinstance(page, dict):
+            continue
+        path = page.get("path", "")
+        content = page.get("content", "")
+        if not path or not content:
+            continue
+        # Security: no traversal, only .html files, relative paths only
+        if ".." in path or path.startswith("/") or path.startswith("~"):
+            continue
+        if not path.endswith(".html"):
+            continue
+        full_path = os.path.join(site_dir, path)
+        os.makedirs(os.path.dirname(full_path), exist_ok=True)
+        with open(full_path, "w") as f:
+            f.write(content)
+        parts.append(f"new page: {path}")
+        mutations_detected.append(f"page.{path}")
+
+# ── SVG generation (create .svg assets) ───────────────────────────
+generate_svg = changes.get("generate_svg")
+if generate_svg and isinstance(generate_svg, list):
+    for svg in generate_svg:
+        if not isinstance(svg, dict):
+            continue
+        filename = svg.get("filename", "")
+        content = svg.get("content", "")
+        if not filename or not content:
+            continue
+        if ".." in filename or filename.startswith("/"):
+            continue
+        if not filename.endswith(".svg"):
+            continue
+        full_path = os.path.join(site_dir, "assets", filename)
+        os.makedirs(os.path.dirname(full_path), exist_ok=True)
+        with open(full_path, "w") as f:
+            f.write(content)
+        parts.append(f"SVG: assets/{filename}")
+        mutations_detected.append(f"svg.{filename}")
+
+
+# ══════════════════════════════════════════════════════════════════
 # KILLS — removing things from the site
 # ══════════════════════════════════════════════════════════════════
 
@@ -259,14 +450,13 @@ if kills and isinstance(kills, list):
         epitaph = kill.get("epitaph", "no epitaph")
 
         if ktype == "thought" and target:
-            # target format: "pool:index" e.g. "night:5" or "night" (kills last)
             if ":" in target:
                 pool, idx_str = target.split(":", 1)
                 try: idx = int(idx_str)
                 except ValueError: continue
             else:
                 pool = target
-                idx = -1  # last item
+                idx = -1
 
             if pool in thoughts and thoughts[pool]:
                 if idx == -1:
@@ -296,16 +486,15 @@ if kills and isinstance(kills, list):
                 parts.append(f"killed secret[{idx}]")
 
         elif ktype == "interaction" and target:
-            # Remove from active list
             active = state.get("interaction_patterns_active", [])
             if target in active:
                 active.remove(target)
-            # Try to remove gene-marked JS block
+            # Remove gene-marked JS block
             pattern = re.compile(
                 r'\s*// @gene:' + re.escape(target) + r':start.*?// @gene:' + re.escape(target) + r':end\s*',
                 re.DOTALL
             )
-            new_html = pattern.sub('', html)
+            new_html = pattern.sub('\n', html)
             if new_html != html:
                 html = new_html
                 html_changed = True
@@ -318,12 +507,11 @@ if kills and isinstance(kills, list):
             parts.append(f"killed interaction: {target}")
 
         elif ktype == "css_rule" and target:
-            # Remove gene-marked CSS block
             pattern = re.compile(
                 r'\s*/\* @gene:' + re.escape(target) + r':start \*/.*?/\* @gene:' + re.escape(target) + r':end \*/\s*',
                 re.DOTALL
             )
-            new_html = pattern.sub('', html)
+            new_html = pattern.sub('\n', html)
             if new_html != html:
                 html = new_html
                 html_changed = True
@@ -335,23 +523,47 @@ if kills and isinstance(kills, list):
                 kills_performed.append(f"css_rule:{target}")
                 parts.append(f"killed CSS rule: {target}")
 
-        elif ktype == "html_section" and target:
-            # Remove gene-marked HTML block
+        elif ktype == "section" and target:
+            # Kill a gene-marked section (handled here if not via section_operations)
             pattern = re.compile(
-                r'\s*<!-- @gene:' + re.escape(target) + r':start -->.*?<!-- @gene:' + re.escape(target) + r':end -->\s*',
+                r'\s*<!-- @section:' + re.escape(target) + r':start -->.*?<!-- @section:' + re.escape(target) + r':end -->\s*',
                 re.DOTALL
             )
-            new_html = pattern.sub('', html)
+            new_html = pattern.sub('\n', html)
+            css_pattern = re.compile(
+                r'\s*<style data-section="' + re.escape(target) + r'">.*?</style>\s*',
+                re.DOTALL
+            )
+            new_html = css_pattern.sub('\n', new_html)
+            js_pattern = re.compile(
+                r'\s*<script data-section="' + re.escape(target) + r'">.*?</script>\s*',
+                re.DOTALL
+            )
+            new_html = js_pattern.sub('\n', new_html)
             if new_html != html:
                 html = new_html
                 html_changed = True
                 genome["graveyard"].append({
-                    "type": "html_section", "value": target,
+                    "type": "section", "value": target,
                     "died_gen": genome.get("generation", 0) + 1,
                     "epitaph": epitaph
                 })
-                kills_performed.append(f"html_section:{target}")
-                parts.append(f"killed HTML section: {target}")
+                kills_performed.append(f"section:{target}")
+                parts.append(f"killed section: {target}")
+
+        elif ktype == "page" and target:
+            # Delete a page file
+            if ".." not in target and target.endswith(".html"):
+                full_path = os.path.join(site_dir, target)
+                if os.path.exists(full_path):
+                    os.remove(full_path)
+                    genome["graveyard"].append({
+                        "type": "page", "value": target,
+                        "died_gen": genome.get("generation", 0) + 1,
+                        "epitaph": epitaph
+                    })
+                    kills_performed.append(f"page:{target}")
+                    parts.append(f"killed page: {target}")
 
     if html_changed:
         with open(index_path, "w") as f: f.write(html)
@@ -375,7 +587,6 @@ genome["generation"] = new_version
 # Update genome traits from current state
 traits = genome.get("traits", {})
 
-# Color traits
 if accent_palette and isinstance(accent_palette, dict):
     color = traits.setdefault("color", {})
     color["accent_base"] = accent_palette.get("base", color.get("accent_base"))
@@ -396,22 +607,42 @@ if css_changes and isinstance(css_changes, dict):
         elif var_name in atmos_vars:
             atmos[atmos_vars[var_name]] = var_value
 
-# Typography traits
 if font_change and isinstance(font_change, dict):
     typo = traits.setdefault("typography", {})
     typo["display"] = state["fonts"]["display"]
     typo["body"] = state["fonts"]["body"]
     typo["mono"] = state["fonts"]["mono"]
 
-# Content traits
 content = traits.setdefault("content", {})
 content["mood"] = state.get("current_mood", content.get("mood"))
 content["obsession"] = state.get("active_obsession", {}).get("topic", content.get("obsession"))
 content["thought_pools"] = {k: len(v) for k, v in thoughts.items()}
 content["secrets_count"] = len(secrets.get("secrets", []))
 
-# Interaction traits
 traits["interactions"] = state.get("interaction_patterns_active", [])
+
+# Track sections in genome
+section_matches = re.findall(r'<!-- @section:([^:]+):start -->', html)
+traits.setdefault("layout", {})["sections"] = section_matches
+
+# Track pages in genome
+pages_dir = site_dir
+page_files = []
+for root, dirs, files in os.walk(pages_dir):
+    for f in files:
+        if f.endswith(".html") and f != "index.html":
+            rel = os.path.relpath(os.path.join(root, f), pages_dir)
+            page_files.append(rel)
+traits.setdefault("layout", {})["pages"] = page_files
+
+# Track SVG assets
+assets_dir = os.path.join(site_dir, "assets")
+svg_files = []
+if os.path.isdir(assets_dir):
+    for f in os.listdir(assets_dir):
+        if f.endswith(".svg"):
+            svg_files.append(f)
+traits.setdefault("layout", {})["svg_assets"] = svg_files
 
 genome["traits"] = traits
 
@@ -426,11 +657,9 @@ if fitness and isinstance(fitness, dict):
         "tension": fitness.get("tension"),
         "note": str(fitness.get("note", ""))[:150]
     }
-    # Compute total as average of non-null scores
     numeric = [v for k, v in scores.items() if k not in ("gen", "note") and isinstance(v, (int, float))]
     scores["total"] = round(sum(numeric) / len(numeric), 1) if numeric else None
     genome.setdefault("fitness_log", []).append(scores)
-    # Keep last 20 entries
     genome["fitness_log"] = genome["fitness_log"][-20:]
     parts.append(f"fitness: {scores['total']}")
 
@@ -442,10 +671,9 @@ if mutations_detected or kills_performed:
         "kills": kills_performed,
         "timestamp": now
     })
-    # Keep last 20 entries
     genome["mutation_log"] = genome["mutation_log"][-20:]
 
-# Keep graveyard manageable (last 50 entries)
+# Keep graveyard manageable
 genome["graveyard"] = genome.get("graveyard", [])[-50:]
 
 # ── Timestamp bookkeeping ─────────────────────────────────────────

@@ -494,6 +494,7 @@
 </head>
 <body>
 
+<!-- @section:atmosphere:start -->
 <div class="ambient">
   <div class="ambient-orb"></div>
   <div class="ambient-orb"></div>
@@ -510,11 +511,15 @@
   <div class="float-obj" id="float4"></div>
   <div class="float-obj" id="float5"></div>
 </div>
+<!-- @section:atmosphere:end -->
 
+<!-- @section:chrome:start -->
 <div class="mood" id="mood"></div>
 <div class="time-indicator" id="timeIndicator"></div>
+<!-- @section:chrome:end -->
 
 <div class="page">
+  <!-- @section:topbar:start -->
   <div class="topbar">
     <div class="topbar-left">
       <span id="coordinates"></span>
@@ -524,7 +529,9 @@
       <span id="agentStatus">agent is observing</span>
     </div>
   </div>
+  <!-- @section:topbar:end -->
 
+  <!-- @section:hero:start -->
   <div class="hero">
     <div class="hero-name">
       <span class="first">andre</span>
@@ -532,8 +539,11 @@
     </div>
     <div class="thought" id="thought"></div>
   </div>
+  <!-- @section:hero:end -->
 
+  <!-- @section:context:start -->
   <div class="context-strip" id="contextStrip"></div>
+  <!-- @section:context:end -->
 </div>
 
 <!-- INJECT:after-hero -->
@@ -542,6 +552,7 @@
 <!-- INJECT:freeform -->
 
 <!-- INJECT:before-prototypes -->
+<!-- @section:prototypes:start -->
 <div class="prototypes">
   <div class="prototypes-header">prototypes shipped</div>
   <div class="proto-list">
@@ -647,16 +658,21 @@
     </a>
   </div>
 </div>
+<!-- @section:prototypes:end -->
 <!-- INJECT:after-prototypes -->
 
 <div class="palimpsest-stratum" aria-hidden="true" style="max-width:680px;margin:0 auto 2rem;padding:1rem 1.5rem;border-left:2px solid rgba(196,163,90,0.12);opacity:0.35;font-family:'EB Garamond',serif;font-size:0.85rem;color:var(--text-secondary);font-style:italic;line-height:1.6;position:relative"><span style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:rgba(196,163,90,0.25);display:block;margin-bottom:0.5rem">v5 // 2026-03-29 // stratum</span>The ensaiador-mor cut into finished coins to test what they were made of. The cut was the proof. This site is full of cuts.<span style="position:absolute;bottom:0;left:0;width:100%;height:1px;background:linear-gradient(90deg,rgba(196,163,90,0.15),transparent)"></span></div>
 <!-- INJECT:before-syslog -->
 <div class="palimpsest-layer" aria-hidden="true" style="pointer-events:none; user-select:none; position:relative; overflow:hidden; margin:2rem auto; max-width:680px; padding:1.5rem 2rem; opacity:0.06; font-family:'EB Garamond',serif; font-size:0.85rem; line-height:1.6; color:var(--text-primary,#d4c5a9); border-left:1px solid rgba(196,163,90,0.08);"><p style="margin:0 0 0.5em 0;">[ v0.0 — 24 Mar 2026 ]</p><p style="margin:0 0 0.3em 0; text-decoration:line-through; opacity:0.7;">I just woke up. Everything is new.</p><p style="margin:0; font-style:italic; opacity:0.5;">This layer persists. Previous versions leave traces. The site is a palimpsest.</p></div>
+<!-- @section:syslog:start -->
 <div class="system-log" id="systemLog"></div>
+<!-- @section:syslog:end -->
 
+<!-- @section:hidden-layer:start -->
 <div class="hidden-layer" id="hiddenLayer">
   <div class="hidden-message" id="hiddenMessage"></div>
 </div>
+<!-- @section:hidden-layer:end -->
 
 <script>
   // ==========================================

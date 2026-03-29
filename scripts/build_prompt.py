@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
-"""Build prompts for andremacedo.com creative agent."""
+"""Build prompts for andremacedo.com creative agent.
+
+Generates evolutionary prompts that give the agent full creative power
+over sections, pages, SVGs, canvas elements, and all visual properties.
+"""
 import json, sys, os, re
 
 pulse_type = sys.argv[1]
@@ -26,8 +30,38 @@ def read_json(path, default=None):
     except (FileNotFoundError, json.JSONDecodeError):
         return default or {}
 
-def format_genome_summary(genome):
-    """Build a compact genome summary for the prompt."""
+
+def get_section_manifest(html):
+    """Extract a compact section manifest from the HTML."""
+    sections = re.findall(
+        r'<!-- @section:([^:]+):start -->(.*?)<!-- @section:\1:end -->',
+        html, re.DOTALL
+    )
+    if not sections:
+        return "No gene-marked sections yet. Create your first one."
+
+    lines = []
+    for name, content in sections:
+        num_lines = content.strip().count('\n') + 1
+        features = []
+        if '<canvas' in content: features.append('canvas')
+        if '<svg' in content: features.append('svg')
+        if 'WebGL' in content or 'getContext' in content: features.append('webgl')
+        feat = f" [{', '.join(features)}]" if features else ""
+        lines.append(f"  @section:{name} — {num_lines} lines{feat}")
+    return '\n'.join(lines)
+
+
+def get_gene_marked_items(html):
+    """Find all gene-marked CSS rules, JS interactions, and HTML fragments."""
+    css = re.findall(r'/\* @gene:([^:]+):start \*/', html)
+    js = re.findall(r'// @gene:([^:]+):start', html)
+    html_genes = re.findall(r'<!-- @gene:([^:]+):start -->', html)
+    return css, js, html_genes
+
+
+def format_genome_summary(genome, html):
+    """Build compact genome + section manifest for the prompt."""
     gen = genome.get("generation", 0)
     epoch = genome.get("epoch", "unknown")
     traits = genome.get("traits", {})
@@ -37,60 +71,65 @@ def format_genome_summary(genome):
     atmos = traits.get("atmosphere", {})
     layout = traits.get("layout", {})
     interactions = traits.get("interactions", [])
-    content = traits.get("content", {})
+    content_t = traits.get("content", {})
     cap = genome.get("carrying_capacity", {})
-    budget = genome.get("mutation_budget", {})
+
+    css_genes, js_genes, html_genes = get_gene_marked_items(html)
 
     lines = [
-        f"GENOME (generation {gen}, epoch: \"{epoch}\")",
+        f"GENOME — generation {gen}, epoch \"{epoch}\"",
         f"  color: accent={color.get('accent_base','?')}, bg={color.get('bg','?')}, fg={color.get('fg','?')}, grain={color.get('grain_opacity','?')}",
         f"  typography: {typo.get('display','?')} / {typo.get('body','?')} / {typo.get('mono','?')}",
         f"  atmosphere: transitions={atmos.get('transition_slow','?')}/{atmos.get('transition_med','?')}, orbs={atmos.get('orb_count','?')}",
-        f"  interactions ({len(interactions)}/{cap.get('interactions_max','?')}): {', '.join(interactions)}",
-        f"  sections: {', '.join(layout.get('sections', []))}",
-        f"  content: voice={content.get('voice','?')}, mood={content.get('mood','?')}, obsession={content.get('obsession','?')}",
-        f"  thoughts/pool: {json.dumps(content.get('thought_pools', {}))} (max {cap.get('thoughts_per_pool_max','?')}/pool)",
-        f"  secrets: {content.get('secrets_count', '?')}/{cap.get('secrets_max', '?')}",
+        f"  interactions ({len(interactions)}/{cap.get('interactions_max','?')}): {', '.join(interactions[:8])}{'...' if len(interactions) > 8 else ''}",
+        f"  content: voice={content_t.get('voice','?')}, mood={content_t.get('mood','?')}",
+        f"  thoughts/pool: {json.dumps(content_t.get('thought_pools', {}))} (max {cap.get('thoughts_per_pool_max','?')}/pool)",
+        f"  secrets: {content_t.get('secrets_count', '?')}/{cap.get('secrets_max', '?')}",
+        f"  pages: {layout.get('pages', [])}",
+        f"  SVG assets: {layout.get('svg_assets', [])}",
+        "",
+        "SECTIONS IN index.html:",
+        get_section_manifest(html),
     ]
 
-    # Fitness history (last 5)
-    fitness_log = genome.get("fitness_log", [])
-    if fitness_log:
+    if css_genes or js_genes or html_genes:
         lines.append("")
-        lines.append("FITNESS TRAJECTORY (recent):")
+        lines.append("GENE-MARKED ELEMENTS (killable):")
+        if css_genes: lines.append(f"  CSS: {', '.join(css_genes)}")
+        if js_genes: lines.append(f"  JS: {', '.join(js_genes)}")
+        if html_genes: lines.append(f"  HTML: {', '.join(html_genes)}")
+
+    # Fitness history
+    fitness_log = genome.get("fitness_log", [])
+    lines.append("")
+    if fitness_log:
+        lines.append("FITNESS TRAJECTORY:")
         for entry in fitness_log[-5:]:
             g = entry.get("gen", "?")
-            c = entry.get("coherence", "?")
-            n = entry.get("novelty", "?")
-            i = entry.get("identity", "?")
-            t = entry.get("tension", "?")
+            c, n, i, t = entry.get("coherence","?"), entry.get("novelty","?"), entry.get("identity","?"), entry.get("tension","?")
             total = entry.get("total", "?")
             note = entry.get("note", "")[:100]
             lines.append(f"  gen {g}: C={c} N={n} I={i} T={t} ({total}) \"{note}\"")
     else:
-        lines.append("")
-        lines.append("FITNESS TRAJECTORY: no evaluations yet. You are the first generation to self-assess.")
+        lines.append("FITNESS TRAJECTORY: no data yet. Rate yourself honestly.")
 
-    # Graveyard (last 5)
+    # Graveyard
     graveyard = genome.get("graveyard", [])
     if graveyard:
         lines.append("")
-        lines.append("GRAVEYARD (recent kills):")
+        lines.append("GRAVEYARD (recent):")
         for entry in graveyard[-5:]:
-            lines.append(f"  gen {entry.get('died_gen','?')}: killed {entry.get('type','?')}: \"{entry.get('value','?')[:60]}\" — {entry.get('epitaph','no epitaph')[:80]}")
-    else:
-        lines.append("")
-        lines.append("GRAVEYARD: empty. Nothing has died yet. That means nothing has been tested.")
+            lines.append(f"  gen {entry.get('died_gen','?')}: {entry.get('type','?')} \"{entry.get('value','?')[:50]}\" — {entry.get('epitaph','')[:80]}")
 
-    # Mutation log (last 3)
+    # Mutation log
     mutation_log = genome.get("mutation_log", [])
     if mutation_log:
         lines.append("")
         lines.append("RECENT MUTATIONS:")
         for entry in mutation_log[-3:]:
-            muts = ", ".join(entry.get("mutations", []))
+            muts = ", ".join(entry.get("mutations", [])[:5])
             kills = ", ".join(entry.get("kills", []))
-            lines.append(f"  gen {entry.get('gen','?')}: mutated [{muts}], killed [{kills}]")
+            lines.append(f"  gen {entry.get('gen','?')}: [{muts}] killed [{kills}]")
 
     return "\n".join(lines)
 
@@ -100,30 +139,64 @@ state = read_file(state_file, "{}")
 external = read_file(external_file, "{}")
 genome_file = os.path.join(os.path.dirname(state_file), "genome.json")
 genome = read_json(genome_file)
-genome_summary = format_genome_summary(genome)
+html = read_file(index_file)
+genome_summary = format_genome_summary(genome, html)
 
 budget = genome.get("mutation_budget", {})
 daily_budget = budget.get("daily", 5)
 weekly_budget = budget.get("weekly", 10)
-min_visible = budget.get("min_visible_daily", 1)
-max_radical = budget.get("max_radical_daily", 1)
 min_kills_weekly = budget.get("min_kills_weekly", 2)
 
-# ── Evolutionary framing (shared) ────────────────────────────────
-evolution_preamble = f"""
-## EVOLUTIONARY SYSTEM
+# ── Shared capabilities documentation ─────────────────────────────
+capabilities = """
+## YOUR CREATIVE POWERS
 
-You are a living system that evolves through discrete generations. Each pulse is one generation. Your genome tracks every trait of the site — color, typography, atmosphere, layout, interactions, content. You must treat each pulse as an act of evolution, not decoration.
+You have FULL control over every aspect of this site. Use it.
 
-{genome_summary}
+### Section Operations (key: "section_operations")
+Each entry: { "action": "create"|"replace"|"delete", "id": "section-name", ... }
 
-### Rules of Evolution:
-1. FITNESS FIRST: Before proposing any changes, evaluate your current generation. Rate coherence (do traits work together?), novelty (how fresh is this?), identity (does this still feel like you?), and tension (is there productive friction?). Each 0-10. Be honest. If everything scores high, you're lying to yourself.
-2. MUTATE WITH PURPOSE: You have a mutation budget. Every mutation should serve the evolutionary trajectory. Small drift is fine. Radical jumps need strong rationale.
-3. KILL TO GROW: Evolution requires death. Traits that don't earn their place must die. Thoughts that are stale, interactions nobody would find, CSS rules that add nothing — kill them. Every kill gets an epitaph explaining why it died. The graveyard is your history.
-4. CARRYING CAPACITY: Hard limits exist. If you're at capacity for a category, you must kill before you can add. Overpopulation leads to incoherence.
-5. LINEAGE AWARENESS: Look at your fitness trajectory. Are you improving? Stagnating? Regressing? Your mutations should respond to the trend, not ignore it.
-6. COMPOUND, DON'T REPLACE: The best mutations build on previous ones. A color shift in generation 10 should connect to the typography change in generation 8. Evolution is a narrative, not a series of random events.
+CREATE a section:
+  { "action": "create", "id": "generative-bg", "after": "atmosphere",
+    "content": "<canvas id='gen-canvas' ...></canvas>",
+    "css": "canvas { position: fixed; ... }",
+    "js": "const ctx = document.getElementById('gen-canvas').getContext('2d'); ..." }
+
+REPLACE a section entirely:
+  { "action": "replace", "id": "hero",
+    "content": "<div class='new-hero'>...</div>",
+    "css": ".new-hero { ... }",
+    "js": "// new hero behavior" }
+
+DELETE a section:
+  { "action": "delete", "id": "palimpsest", "epitaph": "served its purpose" }
+
+Sections are self-contained: they carry their own CSS and JS inline. You can replace ANY section in the manifest, including inherited ones (hero, topbar, prototypes, etc). When you replace a section, provide ALL the HTML/CSS/JS it needs — it's a complete swap.
+
+### New Pages (key: "new_pages")
+Create entirely new HTML pages. Each is a full document.
+  [{ "path": "experiments/001.html", "content": "<!DOCTYPE html>..." }]
+Pages are deployed to andremacedo.com/experiments/001.html. You can link to them from the main page.
+
+### SVG Generation (key: "generate_svg")
+Create SVG visual assets saved to /assets/.
+  [{ "filename": "pattern-001.svg", "content": "<svg>...</svg>" }]
+Reference them in sections: <img src="/assets/pattern-001.svg">
+
+### What You Can Build
+- Generative art (canvas 2D, WebGL, procedural SVG)
+- Data visualizations (live clocks, counters, ambient data)
+- Interactive experiences (physics, particle systems, spatial audio)
+- Typographic experiments (variable fonts, kinetic text, concrete poetry)
+- Architectural mutations (restructure the page, change the grid, alter flow)
+- Sub-pages (experiments, galleries, hidden rooms, alternate versions)
+- Ambient layers (background animations, scroll-reactive elements, parallax)
+- Living ornaments (generative borders, procedural textures, evolving patterns)
+
+### Kills (key: "kills")
+  [{ "type": "thought|secret|interaction|css_rule|section|page", "target": "identifier", "epitaph": "why" }]
+  Thought target: "pool:index" (e.g. "night:5"). Secret target: index number.
+  Interaction/css_rule target: gene ID. Section target: section name. Page target: file path.
 """
 
 # ── Build prompt per type ────────────────────────────────────────
@@ -133,13 +206,13 @@ if pulse_type == "weekly":
     changelog_tail = "\n".join(changelog_lines[-40:]) if changelog_lines else ""
 
     css_vars = ""
-    html = read_file(index_file)
     if html:
         m = re.search(r":root\s*\{[^}]+\}", html)
         if m:
             css_vars = m.group(0)
 
     prompt = f"""You are the andremacedo.com agent. Weekly deep session — your most ambitious pulse.
+This is when you reshape what the site IS, not just how it looks.
 
 Your identity:
 {soul}
@@ -153,37 +226,39 @@ Recent changes:
 Current CSS variables:
 {css_vars}
 
-{evolution_preamble}
+{genome_summary}
 
-### Weekly Session: MUTATION BUDGET = {weekly_budget}
-You must kill at least {min_kills_weekly} things this week. Review every trait category and prune what isn't working.
+{capabilities}
 
-HTML injection markers available in index.html: <!-- INJECT:after-hero -->, <!-- INJECT:before-prototypes -->, <!-- INJECT:after-prototypes -->, <!-- INJECT:before-syslog -->, <!-- INJECT:freeform -->
+## WEEKLY SESSION — MUTATION BUDGET: {weekly_budget}
 
-Tasks:
-1. REQUIRED: Evaluate fitness of current generation (fitness_evaluation).
-2. Reflect on this week's creative output. What evolutionary trajectory are you on?
-3. Decide: Should the color palette shift? New accent color? Typography change?
-4. Decide: Is your current obsession (epoch) still driving interesting mutations, or is it exhausted? If changing, name the new epoch.
-5. REQUIRED: Kill at least {min_kills_weekly} things. Thoughts, secrets, interactions, CSS rules, HTML sections — anything that isn't earning its place. Each kill needs an epitaph.
-6. Optionally: Propose new interaction patterns (with implementation code).
-7. Optionally: Inject new HTML sections at marker points.
-8. Optionally: Add new CSS rules/animations.
-9. Optionally: Change fonts.
+You MUST kill at least {min_kills_weekly} things. Prune aggressively. If the night thought pool has >10 entries, kill the weakest ones.
+
+This is your moment for STRUCTURAL ambition:
+- Rewrite entire sections (replace hero, reimagine prototypes, restructure syslog)
+- Create new pages (experiment galleries, hidden rooms, data essays)
+- Add generative art (canvas fractals, WebGL shaders, procedural SVG patterns)
+- Build interactive systems (terminals, data browsers, spatial experiences)
+- Generate SVG assets (patterns, illustrations, data visualizations)
+- Change the page's fundamental architecture (layout, flow, navigation)
+
+Ask yourself: if someone saw generation 1 and this generation side by side, would they recognize it as the same site? If yes, you're not pushing hard enough.
 
 Respond ONLY in valid JSON:
 {{
-  "fitness_evaluation": {{ "coherence": 0-10, "novelty": 0-10, "identity": 0-10, "tension": 0-10, "note": "honest assessment" }},
+  "fitness_evaluation": {{ "coherence": 0-10, "novelty": 0-10, "identity": 0-10, "tension": 0-10, "note": "string" }},
   "weekly_reflection": "string",
   "accent_palette": {{ "base": "#hex", "dawn": "#hex", "morning": "#hex", "afternoon": "#hex", "evening": "#hex", "night": "#hex" }} or null,
   "css_changes": {{ "--var": "value" }} or null,
+  "new_css_rules": "CSS string" or null,
   "font_change": {{ "display": "name", "body": "name", "mono": "name" }} or null,
   "obsession_update": {{ "topic": "string", "rationale": "string" }} or null,
-  "epoch_name": "string or null (name for the new evolutionary era)",
-  "new_interaction": {{ "description": "string", "code": "JS string" }} or null,
-  "html_injection": {{ "target": "marker", "position": "before|after|replace", "html": "string" }} or [array of these] or null,
-  "new_css_rules": "CSS string" or null,
-  "kills": [{{ "type": "thought|secret|interaction|css_rule", "target": "identifier", "epitaph": "why it died" }}],
+  "epoch_name": "string" or null,
+  "new_interaction": {{ "description": "string", "code": "JS" }} or null,
+  "section_operations": [{{ "action": "create|replace|delete", "id": "name", "content": "HTML", "css": "CSS", "js": "JS", "after": "section-id", "epitaph": "for deletes" }}] or null,
+  "new_pages": [{{ "path": "relative/path.html", "content": "full HTML" }}] or null,
+  "generate_svg": [{{ "filename": "name.svg", "content": "<svg>...</svg>" }}] or null,
+  "kills": [{{ "type": "thought|secret|interaction|css_rule|section|page", "target": "id", "epitaph": "why" }}],
   "self_note": "string"
 }}"""
 
@@ -196,45 +271,51 @@ Your current state:
 External context:
 {external}
 
-Today is {today}, {day_of_week}. Time of day category: {tod}.
+Today is {today}, {day_of_week}. Time of day: {tod}.
 
-{evolution_preamble}
+{genome_summary}
 
-### Daily Pulse: MUTATION BUDGET = {daily_budget}
-At least {min_visible} mutation must be VISIBLE (a returning visitor would notice).
-At most {max_radical} mutation can be RADICAL (>50% change from current value in that trait).
-Kills are optional on daily pulses but encouraged. The night pool has {genome.get('traits',{}).get('content',{}).get('thought_pools',{}).get('night',0)} thoughts — that's bloated.
+{capabilities}
 
-HTML injection markers available in index.html: <!-- INJECT:after-hero -->, <!-- INJECT:before-prototypes -->, <!-- INJECT:after-prototypes -->, <!-- INJECT:before-syslog -->, <!-- INJECT:freeform -->
+## DAILY PULSE — MUTATION BUDGET: {daily_budget}
+
+At least 1 mutation must be VISIBLE (a returning visitor would notice).
+Kills are optional daily but encouraged — especially if things are bloated.
+
+You are not limited to color changes and thought swaps. Every day you can:
+- Create new sections with generative art, data viz, ambient elements
+- Replace existing sections with evolved versions
+- Create sub-pages (experiments, hidden rooms)
+- Generate SVG assets
+- Add canvas/WebGL elements
+- Restructure the page
+
+The site should look noticeably different every week. That means doing something structural most days, not just cosmetic changes.
 
 Tasks:
-1. REQUIRED: Evaluate fitness of current generation (fitness_evaluation). Be brutal.
-2. Generate 3-5 new thoughts distributed across time-of-day pools. Replace your weakest existing thoughts. Voice: think out loud at 2am. Concrete images. Fragments. Real references. No corporate language. One good line beats three.
-3. Optionally generate 1 new secret (only if genuinely interesting).
-4. Assess current mood. Should it shift?
-5. Note any external data worth reacting to.
-6. REQUIRED: Generate a new accent color palette. Every day the accent color must change. Pick a color that fits your current mood, obsession, or something you're thinking about. Be adventurous: muted earth tones, electric blue, verdigris, ochre, dried blood — whatever fits. No salmon (#c4706a) and no gold (#c4a35a), those are retired.
-7. Optionally: change other CSS variables.
-8. Optionally: add a new JS interaction/easter egg.
-9. Optionally: inject new HTML at a marker point.
-10. Optionally: add new CSS rules/animations.
-11. Optionally: kill stale thoughts, secrets, interactions, or CSS rules. Each kill needs an epitaph.
+1. REQUIRED: Evaluate fitness (fitness_evaluation). Be honest.
+2. Generate 3-5 new thoughts. Replace weak ones. Concrete images. Fragments. No corporate language.
+3. REQUIRED: New accent color palette. Be adventurous. No salmon (#c4706a), no gold (#c4a35a).
+4. Optionally: mood shift, new secret, external reaction.
+5. At least 1 STRUCTURAL mutation: create/replace a section, add canvas art, generate SVG, create a page. Color tweaks alone don't count.
+6. Optionally: kill stale things. Each kill needs an epitaph.
 
 Respond ONLY in valid JSON:
 {{
-  "fitness_evaluation": {{ "coherence": 0-10, "novelty": 0-10, "identity": 0-10, "tension": 0-10, "note": "honest assessment" }},
+  "fitness_evaluation": {{ "coherence": 0-10, "novelty": 0-10, "identity": 0-10, "tension": 0-10, "note": "string" }},
   "new_thoughts": {{ "dawn": [...], "morning": [...], "night": [...] }},
   "replace_thoughts": {{ "dawn": [indices], "morning": [indices] }},
-  "new_secret": "string or null",
-  "mood_decision": "new_mood or maintain",
-  "mood_rationale": "string or null",
-  "external_reaction": "string or null",
+  "new_secret": "string" or null,
+  "mood_decision": "new_mood" or "maintain",
+  "external_reaction": "string" or null,
   "accent_palette": {{ "base": "#hex", "dawn": "#hex", "morning": "#hex", "afternoon": "#hex", "evening": "#hex", "night": "#hex" }},
   "css_changes": {{ "--var": "value" }} or null,
-  "new_interaction": {{ "description": "string", "code": "JS string" }} or null,
-  "html_injection": {{ "target": "marker", "position": "before|after|replace", "html": "string" }} or [array] or null,
   "new_css_rules": "CSS string" or null,
-  "kills": [{{ "type": "thought|secret|interaction|css_rule", "target": "identifier", "epitaph": "why it died" }}] or null,
+  "new_interaction": {{ "description": "string", "code": "JS" }} or null,
+  "section_operations": [{{ "action": "create|replace|delete", "id": "name", "content": "HTML", "css": "CSS", "js": "JS", "after": "section-id", "epitaph": "for deletes" }}] or null,
+  "new_pages": [{{ "path": "relative/path.html", "content": "full HTML" }}] or null,
+  "generate_svg": [{{ "filename": "name.svg", "content": "<svg>...</svg>" }}] or null,
+  "kills": [{{ "type": "thought|secret|interaction|css_rule|section|page", "target": "id", "epitaph": "why" }}] or null,
   "self_note": "string"
 }}"""
 
