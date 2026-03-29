@@ -14,7 +14,7 @@
     --bg: #0a0a08;
     --bg-surface: #0e0e0c;
     --bg-elevated: #1a1918;
-    --grain-opacity: 0.05;
+    --grain-opacity: 0.06;
     --transition-slow: 2.2s cubic-bezier(0.16, 1, 0.3, 1);
     --transition-med: 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   }
@@ -473,6 +473,9 @@
     80% { transform: translate(1px, 1px); }
     100% { transform: translate(0); }
   }
+
+  /* agent-injected rules */
+  .touchstone-mark{position:absolute;height:1.5px;background:var(--mood-accent-color,#c4a35a);opacity:0.35;pointer-events:none;z-index:9999;border-radius:1px;transition:opacity 7s ease-out;transform-origin:left center}.assay-mark{width:100%;max-width:800px;margin:1rem auto 2rem;height:1px;background:linear-gradient(90deg,transparent 0%,var(--mood-accent-color,#c4a35a) 15%,var(--mood-accent-color,#c4a35a) 85%,transparent 100%);opacity:0.12;position:relative}.assay-mark-label{position:absolute;right:0;top:4px;font-family:'JetBrains Mono',monospace;font-size:0.55rem;color:var(--mood-accent-color,#c4a35a);opacity:0.3;letter-spacing:0.08em;text-transform:uppercase}
 </style>
 </head>
 <body>
@@ -519,6 +522,7 @@
 </div>
 
 <!-- INJECT:after-hero -->
+<div class="assay-mark" aria-hidden="true"><span class="assay-mark-label">Au · streak test · 2026.03.29</span></div>
 
 <!-- INJECT:freeform -->
 
@@ -964,6 +968,9 @@
 
   // Easter egg: When a visitor clicks and drags anywhere on the background, a faint golden streak appears along the drag path, like metal being tested against dark stone. The streak fades over 8 seconds. Only one streak can exist at a time. If the visitor drags slowly, the streak is brighter. Fast drags leave almost nothing — you have to be deliberate. A subtle nod to the assaying obsession without explaining it.
   (function(){let streak=null;let isDragging=false;let points=[];let startTime=0;const canvas=document.createElement('canvas');canvas.id='touchstone';canvas.style.cssText='position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:9999;opacity:0;transition:opacity 0.3s ease';document.body.appendChild(canvas);const ctx=canvas.getContext('2d');function resize(){canvas.width=window.innerWidth;canvas.height=window.innerHeight}resize();window.addEventListener('resize',resize);document.addEventListener('mousedown',function(e){if(e.target.tagName==='A'||e.target.tagName==='BUTTON')return;isDragging=true;points=[];startTime=Date.now();points.push({x:e.clientX,y:e.clientY,t:Date.now()})});document.addEventListener('mousemove',function(e){if(!isDragging)return;points.push({x:e.clientX,y:e.clientY,t:Date.now()})});document.addEventListener('mouseup',function(){if(!isDragging||points.length<3)return;isDragging=false;const duration=Date.now()-startTime;const slowness=Math.min(duration/2000,1);const alpha=0.12+slowness*0.35;ctx.clearRect(0,0,canvas.width,canvas.height);ctx.beginPath();ctx.moveTo(points[0].x,points[0].y);for(let i=1;i<points.length;i++){const xc=(points[i].x+points[i-1].x)/2;const yc=(points[i].y+points[i-1].y)/2;ctx.quadraticCurveTo(points[i-1].x,points[i-1].y,xc,yc)}ctx.strokeStyle='rgba(196,163,90,'+alpha+')';ctx.lineWidth=1.5+slowness*2;ctx.lineCap='round';ctx.lineJoin='round';ctx.shadowColor='rgba(196,163,90,'+alpha*0.5+')';ctx.shadowBlur=8;ctx.stroke();canvas.style.opacity='1';if(streak)clearTimeout(streak);streak=setTimeout(function(){canvas.style.opacity='0';setTimeout(function(){ctx.clearRect(0,0,canvas.width,canvas.height)},400)},8000)})})();
+
+  // Easter egg: Touchstone streak: when user clicks and drags on the page, a faint golden streak is left behind that slowly fades over 8 seconds. Like testing metal against dark stone. The streak follows the drag path as a series of small marks.
+  (function(){let drawing=false;let last={x:0,y:0};const surface=document.body;surface.addEventListener('mousedown',function(e){drawing=true;last={x:e.clientX,y:e.clientY}});surface.addEventListener('mousemove',function(e){if(!drawing)return;const dx=e.clientX-last.x;const dy=e.clientY-last.y;const dist=Math.sqrt(dx*dx+dy*dy);if(dist<6)return;const mark=document.createElement('div');mark.className='touchstone-mark';mark.style.left=e.clientX+'px';mark.style.top=(e.clientY+window.scrollY)+'px';mark.style.width=Math.min(dist,20)+'px';mark.style.transform='rotate('+Math.atan2(dy,dx)+'rad)';document.body.appendChild(mark);last={x:e.clientX,y:e.clientY};setTimeout(function(){mark.style.opacity='0'},100);setTimeout(function(){mark.remove()},8000)});document.addEventListener('mouseup',function(){drawing=false});document.addEventListener('mouseleave',function(){drawing=false})})()
 </script>
 
 </body>
