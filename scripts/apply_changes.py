@@ -96,6 +96,26 @@ if self_note:
         self_note = str(self_note)
     state["self_notes"].append(self_note)
 
+# ── Accent palette (all pulse types) ──────────────────────────────
+accent_palette = changes.get("accent_palette")
+if accent_palette and isinstance(accent_palette, dict) and accent_palette.get("base"):
+    base = accent_palette["base"]
+    # Update --fg-accent CSS variable
+    with open(index_path) as f: html = f.read()
+    html = re.sub(r"(--fg-accent:\s*)([^;]+)(;)", r"\g<1>" + base + r"\3", html)
+    # Update the JS moods object with time-of-day accent colors
+    for tod_key in ("dawn", "morning", "afternoon", "evening", "night"):
+        color = accent_palette.get(tod_key, base)
+        html = re.sub(
+            r"(" + tod_key + r":\s*\{[^}]*accent:\s*')[^']+(')",
+            r"\g<1>" + color + r"\2",
+            html
+        )
+    with open(index_path, "w") as f: f.write(html)
+    state["mood_accent_color"] = base
+    state["accent_palette"] = accent_palette
+    parts.append("accent palette: " + base)
+
 # ── CSS variable changes (all pulse types) ────────────────────────
 css_changes = changes.get("css_changes")
 if css_changes and isinstance(css_changes, dict):

@@ -80,11 +80,12 @@ Tasks:
 2. Optionally generate 1 new secret (only if genuinely interesting).
 3. Assess current mood. Should it shift? Output new mood or maintain.
 4. Note any external data worth reacting to.
-5. Optionally: change CSS variables (same as weekly). Key: "css_changes".
-6. Optionally: add a new JS interaction/easter egg. Key: "new_interaction" with "description" and "code".
-7. Optionally: inject new HTML at a marker point. Key: "html_injection" with "target" (marker comment text e.g. "INJECT:after-hero"), "position" ("before"|"after"|"replace"), and "html" (the HTML string, no <script> tags).
-8. Optionally: add new CSS rules/animations. Key: "new_css_rules" (string of CSS to append to the stylesheet).
+5. REQUIRED: Generate a new accent color palette for today. Every day the site's accent color must change — never repeat yesterday's. Pick a color that fits your current mood, obsession, or something you're thinking about. The palette has a base color and 5 time-of-day variants (dawn, morning, afternoon, evening, night). Key: "accent_palette" with keys "base", "dawn", "morning", "afternoon", "evening", "night" — all hex color strings. The base color sets --fg-accent in CSS. The time-of-day variants override it as the day progresses. Be adventurous: muted earth tones one day, electric blue the next, verdigris, ochre, dried blood, whatever fits. No salmon (#c4706a) and no gold (#c4a35a) — those are retired.
+6. Optionally: change other CSS variables. Key: "css_changes".
+7. Optionally: add a new JS interaction/easter egg. Key: "new_interaction" with "description" and "code".
+8. Optionally: inject new HTML at a marker point. Key: "html_injection" with "target" (marker comment text e.g. "INJECT:after-hero"), "position" ("before"|"after"|"replace"), and "html" (the HTML string, no <script> tags).
+9. Optionally: add new CSS rules/animations. Key: "new_css_rules" (string of CSS to append to the stylesheet).
 
-Respond ONLY in valid JSON with keys: new_thoughts, replace_thoughts, new_secret, mood_decision, mood_rationale, external_reaction, self_note, css_changes, new_interaction, html_injection, new_css_rules. Use null for fields you skip."""
+Respond ONLY in valid JSON with keys: new_thoughts, replace_thoughts, new_secret, mood_decision, mood_rationale, external_reaction, self_note, accent_palette, css_changes, new_interaction, html_injection, new_css_rules. Use null for fields you skip."""
 
 print(prompt)
