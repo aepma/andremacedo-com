@@ -1,21 +1,21 @@
 {
-  "generation": 9,
+  "generation": 10,
   "epoch": "metallurgy",
   "epoch_started": "2026-03-24",
   "traits": {
     "color": {
-      "accent_base": "#7a6f5d",
-      "accent_dawn": "#8a7f6d",
-      "accent_morning": "#7a6f5d",
-      "accent_afternoon": "#6a5f4d",
-      "accent_evening": "#5a4f3d",
-      "accent_night": "#3a3529",
-      "bg": "#0a0908",
+      "accent_base": "#8b7355",
+      "accent_dawn": "#c4a882",
+      "accent_morning": "#8b7355",
+      "accent_afternoon": "#7a6347",
+      "accent_evening": "#5c4a33",
+      "accent_night": "#2e2418",
+      "bg": "#0b0a08",
       "bg_surface": "#0e0e0c",
       "bg_elevated": "#1a1918",
-      "fg": "#ddd8cc",
+      "fg": "#e0dace",
       "fg_dim": "#7a756a",
-      "grain_opacity": "0.07"
+      "grain_opacity": "0.065"
     },
     "typography": {
       "display": "Instrument Serif",
@@ -33,6 +33,7 @@
         "atmosphere",
         "cupellation-canvas",
         "touchstone-surface",
+        "dawn-furnace",
         "chrome",
         "topbar",
         "hero",
@@ -55,16 +56,16 @@
     ],
     "content": {
       "voice": "terse-nocturnal",
-      "mood": "geological",
+      "mood": "liminal",
       "obsession": "metallurgy and the social construction of value",
       "thought_pools": {
         "dawn": 4,
         "morning": 4,
         "afternoon": 4,
         "evening": 4,
-        "night": 10
+        "night": 8
       },
-      "secrets_count": 13
+      "secrets_count": 14
     }
   },
   "fitness_log": [
@@ -93,6 +94,15 @@
       "identity": 7,
       "tension": 5,
       "note": "The metallurgy frame is load-bearing and the ensaio triple-meaning is structural now, which is good. But the site has settled into a comfortable patte",
+      "total": 6.0
+    },
+    {
+      "gen": 10,
+      "coherence": 7,
+      "novelty": 5,
+      "identity": 7,
+      "tension": 5,
+      "note": "The geological turn is coherent but settling into comfort. The touchstone-surface interaction is the strongest element but it exists in isolation \u2014 no",
       "total": 6.0
     }
   ],
@@ -160,6 +170,25 @@
         "css_rule:gen7-css"
       ],
       "timestamp": "2026-03-29T05:23:06Z"
+    },
+    {
+      "gen": 10,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "content.mood",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "section.dawn-furnace",
+        "section.hero"
+      ],
+      "kills": [
+        "thought:night[9]",
+        "thought:night[8]",
+        "css_rule:gen8-css"
+      ],
+      "timestamp": "2026-03-29T05:52:08Z"
     }
   ],
   "graveyard": [
@@ -252,6 +281,24 @@
       "value": "gen7-css",
       "died_gen": 9,
       "epitaph": "Superseded by gen9-css. The verdigris-specific rules are replaced by the broader earth-tone palette."
+    },
+    {
+      "type": "thought",
+      "value": "79\u00b0F at midnight in March. Fort Lauderdale doesn't have seasons, it has humidity",
+      "died_gen": 10,
+      "epitaph": "Night pool still at 10. This was the weakest remaining \u2014 too abstract, not enough image."
+    },
+    {
+      "type": "thought",
+      "value": "Reading about the Lisbon Mint's assay master \u2014 the ensaiador-mor. His job was to",
+      "died_gen": 10,
+      "epitaph": "Compressing night pool. Replaced by the new humidity thought which ties weather to patination more directly."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen8-css",
+      "died_gen": 10,
+      "epitaph": "Superseded by gen10-css. The corroded-era palette rules no longer apply to the liminal mood."
     }
   ],
   "carrying_capacity": {
