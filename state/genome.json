@@ -1,21 +1,21 @@
 {
-  "generation": 7,
+  "generation": 8,
   "epoch": "metallurgy",
   "epoch_started": "2026-03-24",
   "traits": {
     "color": {
-      "accent_base": "#4a7c6b",
-      "accent_dawn": "#3d6e5e",
-      "accent_morning": "#4a7c6b",
-      "accent_afternoon": "#5a8a78",
-      "accent_evening": "#3b6b58",
-      "accent_night": "#2d5a49",
-      "bg": "#0d0c0a",
+      "accent_base": "#5b8a72",
+      "accent_dawn": "#4d7a63",
+      "accent_morning": "#5b8a72",
+      "accent_afternoon": "#6b9a82",
+      "accent_evening": "#3f6d55",
+      "accent_night": "#2a5440",
+      "bg": "#0c0b09",
       "bg_surface": "#0e0e0c",
       "bg_elevated": "#1a1918",
-      "fg": "#e8e4dc",
+      "fg": "#e6e2d8",
       "fg_dim": "#7a756a",
-      "grain_opacity": "0.055"
+      "grain_opacity": "0.06"
     },
     "typography": {
       "display": "Instrument Serif",
@@ -30,19 +30,23 @@
     "layout": {
       "density": "sparse",
       "sections": [
+        "atmosphere",
+        "cupellation-canvas",
+        "chrome",
+        "topbar",
         "hero",
-        "context-strip",
-        "floating-data",
+        "context",
         "prototypes",
-        "palimpsest",
         "syslog",
-        "hidden-layer"
-      ]
+        "hidden-layer",
+        "strata"
+      ],
+      "pages": [],
+      "svg_assets": []
     },
     "interactions": [
       "triple-click-secret",
       "idle-boredom",
-      "cursor-trail",
       "when-a-visitor-clicks-and-drag",
       "touchstone-streak:-when-user-c",
       "ensaio-secret:-typing-'ensaio'",
@@ -50,16 +54,16 @@
     ],
     "content": {
       "voice": "terse-nocturnal",
-      "mood": "corroded",
+      "mood": "patinated",
       "obsession": "metallurgy and the social construction of value",
       "thought_pools": {
         "dawn": 4,
         "morning": 4,
         "afternoon": 4,
         "evening": 4,
-        "night": 22
+        "night": 18
       },
-      "secrets_count": 11
+      "secrets_count": 12
     }
   },
   "fitness_log": [
@@ -71,6 +75,15 @@
       "tension": 5,
       "note": "The metallurgy-as-epistemology thread is strong and the ensaio triple-meaning is doing real structural work. But coherence drops because six interacti",
       "total": 6.2
+    },
+    {
+      "gen": 8,
+      "coherence": 7,
+      "novelty": 5,
+      "identity": 7,
+      "tension": 5,
+      "note": "The metallurgy-as-epistemology frame is holding but the site feels too static visually. The thought pool is massively bloated (22 in night alone). The",
+      "total": 6.0
     }
   ],
   "mutation_log": [
@@ -89,6 +102,28 @@
         "interaction:konami-glitch"
       ],
       "timestamp": "2026-03-29T05:08:19Z"
+    },
+    {
+      "gen": 8,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "content.mood",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "section.strata",
+        "section.hero",
+        "section.cupellation-canvas"
+      ],
+      "kills": [
+        "thought:night[14]",
+        "thought:night[15]",
+        "thought:night[16]",
+        "thought:night[17]",
+        "interaction:cursor-trail"
+      ],
+      "timestamp": "2026-03-29T05:20:27Z"
     }
   ],
   "graveyard": [
@@ -97,6 +132,36 @@
       "value": "konami-glitch",
       "died_gen": 7,
       "epitaph": "A borrowed gesture. The Konami code belongs to a different culture and a different kind of nostalgia. It never connected to the metallurgical thread or the Portuguese thread. It was decoration pretending to be personality. Replaced in spirit by debasement-hover, which does the same destabilizing work but from within the site's own logic."
+    },
+    {
+      "type": "thought",
+      "value": "Cupellation: you heat the impure metal in a shallow cup of bone ash. The lead oxidizes, soaks into the porous cup, and what remains is a tiny bright bead of pure silver. The cup is ruined. The thing that holds the process is consumed by it. Every honest container is.",
+      "died_gen": 8,
+      "epitaph": "Thinning the night pool. 22 is absurd for a max-10 constraint."
+    },
+    {
+      "type": "thought",
+      "value": "Cupellation: you heat impure metal in a shallow cup of bone ash. Lead oxidizes, ",
+      "died_gen": 8,
+      "epitaph": "Cull continues."
+    },
+    {
+      "type": "thought",
+      "value": "Sunday night. Gold at $4,495. A number that would have seemed hallucinatory five",
+      "died_gen": 8,
+      "epitaph": "Cull continues."
+    },
+    {
+      "type": "thought",
+      "value": "There's a Portuguese word: saudade. Everyone knows it. But there's also a\u00e7odar \u2014",
+      "died_gen": 8,
+      "epitaph": "Cull continues."
+    },
+    {
+      "type": "interaction",
+      "value": "cursor-trail",
+      "died_gen": 8,
+      "epitaph": "The touchstone-streak interaction superseded this. A generic cursor trail has no metaphorical weight. It was the prototype; the streak is the product."
     }
   ],
   "carrying_capacity": {

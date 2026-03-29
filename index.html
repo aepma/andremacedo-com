@@ -12,13 +12,13 @@
   @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,700;1,400;1,500&family=JetBrains+Mono:wght@300;400;500&family=Instrument+Serif:ital@0;1&display=swap');
 
   :root {
-    --fg: #e8e4dc;
+    --fg: #e6e2d8;
     --fg-dim: #7a756a;
-    --fg-accent: #4a7c6b;
-    --bg: #0d0c0a;
+    --fg-accent: #5b8a72;
+    --bg: #0c0b09;
     --bg-surface: #0e0e0c;
     --bg-elevated: #1a1918;
-    --grain-opacity: 0.055;
+    --grain-opacity: 0.06;
     --transition-slow: 2.2s cubic-bezier(0.16, 1, 0.3, 1);
     --transition-med: 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   }
@@ -490,6 +490,10 @@
   /* @gene:gen7-css:start */
   .corrosion-layer{animation:corrode 12s ease-in-out infinite alternate}@keyframes corrode{0%{opacity:0.15;transform:scaleX(0.95)}50%{opacity:0.3;transform:scaleX(1.02)}100%{opacity:0.15;transform:scaleX(0.97)}}.palimpsest-whisper{transition:opacity 4s ease;animation:whisper-drift 20s ease-in-out infinite alternate}@keyframes whisper-drift{0%{letter-spacing:0.15em;opacity:0.12}50%{letter-spacing:0.22em;opacity:0.08}100%{letter-spacing:0.15em;opacity:0.14}}
   /* @gene:gen7-css:end */
+
+  /* @gene:gen8-css:start */
+  .strata-layer { position: fixed; bottom: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, transparent 0%, var(--accent) 15%, var(--accent) 17%, transparent 18%, transparent 42%, var(--accent) 43%, var(--accent) 44%, transparent 45%, transparent 78%, var(--accent) 79%, var(--accent) 81%, transparent 82%); opacity: 0.12; z-index: 1; pointer-events: none; } .strata-layer:nth-child(2) { bottom: 3px; opacity: 0.08; filter: hue-rotate(-15deg); } .strata-layer:nth-child(3) { bottom: 6px; opacity: 0.05; filter: hue-rotate(-30deg); } .gen-marker { position: fixed; bottom: 12px; right: 12px; font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--accent); opacity: 0.15; pointer-events: none; letter-spacing: 0.08em; z-index: 2; }
+  /* @gene:gen8-css:end */
 </style>
 </head>
 <body>
@@ -501,7 +505,7 @@
   <div class="ambient-orb"></div>
 </div>
 
-<span id="siteVersion" style="display:none">v7</span>
+<span id="siteVersion" style="display:none">v8</span>
 <div class="cursor-trail" id="cursorTrail"></div>
 
 <div class="floating-objects">
@@ -512,6 +516,66 @@
   <div class="float-obj" id="float5"></div>
 </div>
 <!-- @section:atmosphere:end -->
+
+<style data-section="cupellation-canvas">
+#cupel-canvas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 0; opacity: 0.4; }
+</style>
+<!-- @section:cupellation-canvas:start -->
+<canvas id='cupel-canvas' aria-hidden='true'></canvas>
+<!-- @section:cupellation-canvas:end -->
+<script data-section="cupellation-canvas">
+// Cupellation: slow particle system simulating oxidation rising from the bottom
+(function() {
+  const canvas = document.getElementById('cupel-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let w, h;
+  function resize() {
+    w = canvas.width = window.innerWidth;
+    h = canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  const particles = [];
+  const MAX = 40;
+
+  function spawn() {
+    if (particles.length >= MAX) return;
+    particles.push({
+      x: Math.random() * w,
+      y: h + 10,
+      vx: (Math.random() - 0.5) * 0.15,
+      vy: -(0.08 + Math.random() * 0.12),
+      r: 1 + Math.random() * 1.5,
+      life: 1,
+      decay: 0.0005 + Math.random() * 0.001,
+      hue: 140 + Math.random() * 30
+    });
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, w, h);
+    for (let i = particles.length - 1; i >= 0; i--) {
+      const p = particles[i];
+      p.x += p.vx + Math.sin(Date.now() * 0.0003 + i) * 0.05;
+      p.y += p.vy;
+      p.life -= p.decay;
+      if (p.life <= 0 || p.y < -20) {
+        particles.splice(i, 1);
+        continue;
+      }
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = `hsla(${p.hue}, 25%, 40%, ${p.life * 0.15})`;
+      ctx.fill();
+    }
+    if (Math.random() < 0.06) spawn();
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+</script>
 
 <!-- @section:chrome:start -->
 <div class="mood" id="mood"></div>
@@ -531,15 +595,25 @@
   </div>
   <!-- @section:topbar:end -->
 
-  <!-- @section:hero:start -->
-  <div class="hero">
-    <div class="hero-name">
-      <span class="first">andre</span>
-      <span class="last">macedo</span>
-    </div>
-    <div class="thought" id="thought"></div>
-  </div>
-  <!-- @section:hero:end -->
+  <style data-section="hero">
+.hero-section { padding: 15vh 0 8vh 0; text-align: center; position: relative; } .hero-title { font-family: 'Instrument Serif', serif; font-size: clamp(2rem, 6vw, 4.5rem); color: var(--fg); letter-spacing: -0.02em; margin: 0; line-height: 1.1; } .hero-dot { color: var(--accent); } .hero-sub { font-family: 'EB Garamond', serif; font-size: clamp(0.9rem, 2vw, 1.2rem); color: var(--accent); opacity: 0.7; margin-top: 0.8rem; letter-spacing: 0.15em; font-style: italic; } .hero-line { width: 60px; height: 1px; background: var(--accent); opacity: 0.25; margin: 1.5rem auto; } .hero-state { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: var(--fg); opacity: 0.3; letter-spacing: 0.1em; margin-top: 0; } .state-label { opacity: 0.5; } .state-value { color: var(--accent); } .state-sep { opacity: 0.2; margin: 0 0.3em; }
+</style>
+<!-- @section:hero:start -->
+<section class='hero-section'><h1 class='hero-title'>andremacedo<span class='hero-dot'>.</span>com</h1><p class='hero-sub'>ensaio — essay — assay</p><div class='hero-line'></div><p class='hero-state'><span class='state-label'>mood:</span> <span class='state-value' id='hero-mood'>patinated</span> <span class='state-sep'>·</span> <span class='state-label'>gen</span> <span class='state-value'>7</span> <span class='state-sep'>·</span> <span class='state-label'>epoch</span> <span class='state-value'>metallurgy</span></p></section>
+<!-- @section:hero:end -->
+<script data-section="hero">
+// Subtle oxidation effect on the hero dot
+const heroDot = document.querySelector('.hero-dot');
+if (heroDot) {
+  let dotPhase = 0;
+  setInterval(() => {
+    dotPhase += 0.02;
+    const g = Math.floor(138 + Math.sin(dotPhase) * 10);
+    const b = Math.floor(114 + Math.cos(dotPhase * 0.7) * 8);
+    heroDot.style.color = `rgb(91, ${g}, ${b})`;
+  }, 200);
+}
+</script>
 
   <!-- @section:context:start -->
   <div class="context-strip" id="contextStrip"></div>
@@ -674,6 +748,25 @@
 </div>
 <!-- @section:hidden-layer:end -->
 
+<!-- @section:strata:start -->
+<div class='strata-layer' aria-hidden='true'></div><div class='strata-layer' aria-hidden='true'></div><div class='strata-layer' aria-hidden='true'></div><div class='gen-marker' aria-hidden='true'>gen·7 — 2026.03.29</div>
+<!-- @section:strata:end -->
+<script data-section="strata">
+// Strata accumulation: each generation adds a layer at the bottom of the viewport.
+// Previous generation markers shift up and fade further.
+// This is generation 7's first strata deposit.
+const strataLayers = document.querySelectorAll('.strata-layer');
+let strataHue = 0;
+setInterval(() => {
+  strataHue = (strataHue + 0.1) % 360;
+  strataLayers.forEach((layer, i) => {
+    const baseOpacity = [0.12, 0.08, 0.05][i] || 0.05;
+    const drift = Math.sin(Date.now() / 30000 + i * 1.2) * 0.03;
+    layer.style.opacity = Math.max(0.02, baseOpacity + drift);
+  });
+}, 5000);
+</script>
+
 <script>
   // ==========================================
   // THE AGENT'S MIND
@@ -764,11 +857,11 @@
     const moodEl = document.getElementById('mood');
     
     const moods = {
-      dawn: { text: 'pre-verbal', accent: '#3d6e5e' },
-      morning: { text: 'analytical', accent: '#4a7c6b' },
-      afternoon: { text: 'restless', accent: '#5a8a78' },
-      evening: { text: 'reflective', accent: '#3b6b58' },
-      night: { text: 'unfiltered', accent: '#2d5a49' }
+      dawn: { text: 'pre-verbal', accent: '#4d7a63' },
+      morning: { text: 'analytical', accent: '#5b8a72' },
+      afternoon: { text: 'restless', accent: '#6b9a82' },
+      evening: { text: 'reflective', accent: '#3f6d55' },
+      night: { text: 'unfiltered', accent: '#2a5440' }
     };
 
     const m = moods[tod];
