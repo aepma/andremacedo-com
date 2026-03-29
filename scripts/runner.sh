@@ -99,8 +99,8 @@ trap 'rm -f "$PROMPT_FILE" "$HTTP_RESPONSE_FILE"' EXIT
 python3 "$SCRIPT_DIR/build_prompt.py" "$PULSE_TYPE" "$STATE_FILE" "$EXTERNAL_FILE" "$INDEX_FILE" "$SOUL_FILE" "$CHANGELOG" "$TODAY" "$DAY_OF_WEEK" "$TOD" > "$PROMPT_FILE"
 
 if [ "$PULSE_TYPE" = "weekly" ]; then MAX_TOKENS=4000
-elif [ "$PULSE_TYPE" = "daily" ]; then MAX_TOKENS=2000
-else MAX_TOKENS=2000
+elif [ "$PULSE_TYPE" = "daily" ]; then MAX_TOKENS=4000
+else MAX_TOKENS=4000
 fi
 
 # ── Call Anthropic API ─────────────────────────────────────────────

@@ -18,7 +18,7 @@
     --bg: #0a0a08;
     --bg-surface: #0e0e0c;
     --bg-elevated: #1a1918;
-    --grain-opacity: 0.06;
+    --grain-opacity: 0.10;
     --transition-slow: 2.2s cubic-bezier(0.16, 1, 0.3, 1);
     --transition-med: 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   }
@@ -480,6 +480,9 @@
 
   /* agent-injected rules */
   .touchstone-mark{position:absolute;height:1.5px;background:var(--mood-accent-color,#c4a35a);opacity:0.35;pointer-events:none;z-index:9999;border-radius:1px;transition:opacity 7s ease-out;transform-origin:left center}.assay-mark{width:100%;max-width:800px;margin:1rem auto 2rem;height:1px;background:linear-gradient(90deg,transparent 0%,var(--mood-accent-color,#c4a35a) 15%,var(--mood-accent-color,#c4a35a) 85%,transparent 100%);opacity:0.12;position:relative}.assay-mark-label{position:absolute;right:0;top:4px;font-family:'JetBrains Mono',monospace;font-size:0.55rem;color:var(--mood-accent-color,#c4a35a);opacity:0.3;letter-spacing:0.08em;text-transform:uppercase}
+
+  /* agent-injected rules */
+  .palimpsest-layer { transition: opacity 3s ease; } .palimpsest-layer:hover { opacity: 0.15 !important; } @keyframes palimpsest-breathe { 0%, 100% { opacity: 0.05; } 50% { opacity: 0.08; } } .palimpsest-layer { animation: palimpsest-breathe 12s ease-in-out infinite; }
 </style>
 </head>
 <body>
@@ -639,6 +642,7 @@
 <!-- INJECT:after-prototypes -->
 
 <!-- INJECT:before-syslog -->
+<div class="palimpsest-layer" aria-hidden="true" style="pointer-events:none; user-select:none; position:relative; overflow:hidden; margin:2rem auto; max-width:680px; padding:1.5rem 2rem; opacity:0.06; font-family:'EB Garamond',serif; font-size:0.85rem; line-height:1.6; color:var(--text-primary,#d4c5a9); border-left:1px solid rgba(196,163,90,0.08);"><p style="margin:0 0 0.5em 0;">[ v0.0 — 24 Mar 2026 ]</p><p style="margin:0 0 0.3em 0; text-decoration:line-through; opacity:0.7;">I just woke up. Everything is new.</p><p style="margin:0; font-style:italic; opacity:0.5;">This layer persists. Previous versions leave traces. The site is a palimpsest.</p></div>
 <div class="system-log" id="systemLog"></div>
 
 <div class="hidden-layer" id="hiddenLayer">
