@@ -16,6 +16,14 @@ today = sys.argv[7]
 day_of_week = sys.argv[8]
 tod = sys.argv[9]
 
+# Optional: --screenshot=/path/to/screenshot.png
+has_screenshot = False
+for arg in sys.argv[10:]:
+    if arg.startswith("--screenshot="):
+        screenshot_path = arg.split("=", 1)[1]
+        if os.path.isfile(screenshot_path):
+            has_screenshot = True
+
 def read_file(path, default=""):
     try:
         with open(path) as f:
@@ -204,6 +212,11 @@ daily_budget = budget.get("daily", 5)
 weekly_budget = budget.get("weekly", 10)
 min_kills_weekly = budget.get("min_kills_weekly", 2)
 
+screenshot_context = ""
+if has_screenshot:
+    screenshot_context = """## VISUAL SELF-AWARENESS
+The attached screenshot shows how the site currently renders in a browser at 1440x900. Use this to evaluate your previous generation's visual output before deciding on mutations. Your fitness self-evaluation should be based on what you SEE, not what you imagine the code produces. If something looks broken, cluttered, or ugly in the screenshot, fix it. If something looks good, build on it."""
+
 # ── Shared capabilities documentation ─────────────────────────────
 capabilities = """
 ## YOUR CREATIVE POWERS
@@ -330,6 +343,8 @@ SCENE AUDIT: Review the WebGL scene parameters. Are the particles interesting? I
 
 Ask yourself: if someone saw generation 1 and this generation side by side, would they recognize it as the same site? If yes, you're not pushing hard enough.
 
+{screenshot_context}
+
 Respond ONLY in valid JSON:
 {{
   "fitness_evaluation": {{ "coherence": 0-10, "novelty": 0-10, "identity": 0-10, "tension": 0-10, "note": "string" }},
@@ -380,6 +395,8 @@ You are not limited to color changes and thought swaps. Every day you can:
 - Restructure the page
 
 The site should look noticeably different every week. That means doing something structural most days, not just cosmetic changes.
+
+{screenshot_context}
 
 Tasks:
 1. REQUIRED: Evaluate fitness (fitness_evaluation). Be honest.

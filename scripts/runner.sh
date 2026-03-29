@@ -91,12 +91,23 @@ elif [ "$HOUR" -ge 17 ] && [ "$HOUR" -lt 21 ]; then TOD="evening"
 else TOD="night"
 fi
 
+# ── Capture screenshot of current site ────────────────────────────
+SCREENSHOT="/tmp/andremacedo-current.png"
+log "Capturing screenshot..."
+bash "$SCRIPT_DIR/screenshot.sh" >> "$LOG_FILE" 2>&1 || {
+  log "WARNING: Screenshot capture failed, continuing without visual context"
+  rm -f "$SCREENSHOT"
+}
+
 # ── Build prompt ───────────────────────────────────────────────────
 PROMPT_FILE="$(mktemp)"
 HTTP_RESPONSE_FILE="$(mktemp)"
 trap 'rm -f "$PROMPT_FILE" "$HTTP_RESPONSE_FILE"' EXIT
 
-python3 "$SCRIPT_DIR/build_prompt.py" "$PULSE_TYPE" "$STATE_FILE" "$EXTERNAL_FILE" "$INDEX_FILE" "$SOUL_FILE" "$CHANGELOG" "$TODAY" "$DAY_OF_WEEK" "$TOD" > "$PROMPT_FILE"
+SCREENSHOT_ARG=""
+[ -f "$SCREENSHOT" ] && SCREENSHOT_ARG="--screenshot=$SCREENSHOT"
+
+python3 "$SCRIPT_DIR/build_prompt.py" "$PULSE_TYPE" "$STATE_FILE" "$EXTERNAL_FILE" "$INDEX_FILE" "$SOUL_FILE" "$CHANGELOG" "$TODAY" "$DAY_OF_WEEK" "$TOD" $SCREENSHOT_ARG > "$PROMPT_FILE"
 
 if [ "$PULSE_TYPE" = "weekly" ]; then MAX_TOKENS=8000
 elif [ "$PULSE_TYPE" = "daily" ]; then MAX_TOKENS=8000
@@ -106,7 +117,7 @@ fi
 # ── Call Anthropic API ─────────────────────────────────────────────
 log "Starting $PULSE_TYPE pulse..."
 
-REQUEST_JSON="$(python3 -c 'import json,sys; f=open(sys.argv[1]); print(json.dumps({"model":sys.argv[2],"max_tokens":int(sys.argv[3]),"messages":[{"role":"user","content":f.read()}]}))' "$PROMPT_FILE" "$MODEL" "$MAX_TOKENS")"
+REQUEST_JSON="$(python3 "$SCRIPT_DIR/build_request.py" "$PROMPT_FILE" "$MODEL" "$MAX_TOKENS" "${SCREENSHOT:-}")"
 
 HTTP_CODE=$(curl -s -o "$HTTP_RESPONSE_FILE" -w '%{http_code}' -X POST "$API_URL" \
   -H 'Content-Type: application/json' \
@@ -154,7 +165,7 @@ git commit -m "agent: ${SUMMARY} | mood: ${CURRENT_MOOD} | pulse: ${PULSE_TYPE}"
 log "Deploying to Cloudflare Pages..."
 
 export CLOUDFLARE_ACCOUNT_ID="98a1dcdbeec2aa3aac24e49c22c652d2"
-npx wrangler pages deploy "$SITE_DIR" --project-name="andremacedo-com" --branch="main" 2>&1 | tee -a "$LOG_FILE" || {
+npx wrangler pages deploy "$SITE_DIR" --project-name="andremacedo-com" --branch="main" --commit-dirty=true 2>&1 | tee -a "$LOG_FILE" || {
   log "ERROR: wrangler deploy failed"
   telegram "andremacedo.com: deploy failed. Check logs."
   exit 1

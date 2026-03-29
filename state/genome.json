@@ -1,17 +1,17 @@
 {
-  "generation": 13,
+  "generation": 14,
   "epoch": "webgl-swarm",
   "epoch_started": "2026-03-29",
   "traits": {
     "color": {
-      "accent_base": "#5a7c65",
-      "accent_dawn": "#8aad7a",
-      "accent_morning": "#5a7c65",
-      "accent_afternoon": "#3d5e47",
-      "accent_evening": "#2b4233",
-      "accent_night": "#0f1f14",
-      "bg": "#070b08",
-      "fg": "#c8d0c6",
+      "accent_base": "#4a8c7a",
+      "accent_dawn": "#7ab89a",
+      "accent_morning": "#4a8c7a",
+      "accent_afternoon": "#2d6b5a",
+      "accent_evening": "#1a4a3a",
+      "accent_night": "#0d2a1f",
+      "bg": "#060a08",
+      "fg": "#c0cfc4",
       "grain_opacity": "0.04"
     },
     "typography": {},
@@ -21,13 +21,14 @@
         "overlay-top",
         "overlay-center",
         "overlay-bottom",
-        "swarm-memory"
+        "murmuration-trails"
       ],
       "pages": [
         "index-new.html",
         "experiments/001.html"
       ],
       "svg_assets": [
+        "murmuration-glyph-001.svg",
         "swarm-glyph-001.svg"
       ]
     },
@@ -35,13 +36,12 @@
       "triple-click-secret",
       "idle-boredom",
       "when-a-visitor-clicks-and-drag",
-      "touchstone-streak:-when-user-c",
       "ensaio-secret:-typing-'ensaio'",
       "debasement-hover:-when-user-ho",
       "swarm-scatter:-clicking-anywhe"
     ],
     "content": {
-      "mood": "emergence",
+      "mood": "murmuration",
       "obsession": "metallurgy and the social construction of value",
       "thought_pools": {
         "dawn": 6,
@@ -50,7 +50,7 @@
         "evening": 3,
         "night": 7
       },
-      "secrets_count": 17
+      "secrets_count": 18
     }
   },
   "fitness_log": [
@@ -116,6 +116,15 @@
       "tension": 4,
       "note": "New epoch, blank genome. The WebGL swarm is running but it's factory-default \u2014 salmon particles on dark fog. The overlay text is minimal. The metallur",
       "total": 4.5
+    },
+    {
+      "gen": 14,
+      "coherence": 6,
+      "novelty": 4,
+      "identity": 5,
+      "tension": 4,
+      "note": "The screenshot shows the swarm epoch is functioning \u2014 particles visible as a diffuse green cloud, hero text centered and legible, bottom-left telemetr",
+      "total": 4.8
     }
   ],
   "mutation_log": [
@@ -264,6 +273,29 @@
       ],
       "kills": [],
       "timestamp": "2026-03-29T06:48:36Z"
+    },
+    {
+      "gen": 14,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "content.mood",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "section.overlay-center",
+        "section.overlay-bottom",
+        "section.murmuration-trails",
+        "svg.murmuration-glyph-001.svg",
+        "scene.config",
+        "overlay.agent_data"
+      ],
+      "kills": [
+        "css_rule:gen1-css",
+        "section:swarm-memory",
+        "interaction:touchstone-streak:-when-user-c"
+      ],
+      "timestamp": "2026-03-29T07:58:37Z"
     }
   ],
   "graveyard": [
@@ -417,6 +449,24 @@
       "generations": 11,
       "epitaph": "The metallurgy epoch proved the evolutionary system works. 11 generations, 20 kills, a touchstone simulator, canvas animations, five interaction patterns invented and three killed. It did its job: it proved the organism can evolve. Now it sheds its skin entirely.",
       "died_at_generation": 11
+    },
+    {
+      "type": "css_rule",
+      "value": "gen1-css",
+      "died_gen": 14,
+      "epitaph": "Twelve generations old. Whatever styles this carried have been superseded six times over. Archaeological dignity demands burial."
+    },
+    {
+      "type": "section",
+      "value": "swarm-memory",
+      "died_gen": 14,
+      "epitaph": "The swarm-memory DOM layer was invisible in the screenshot \u2014 ghost dots that never materialized into anything perceptible. The new murmuration-trails canvas replaces its function with actual visual presence."
+    },
+    {
+      "type": "interaction",
+      "value": "touchstone-streak:-when-user-c",
+      "died_gen": 14,
+      "epitaph": "Carried over from the metallurgy epoch. The touchstone-surface canvas no longer exists in this epoch \u2014 the interaction description references dead infrastructure. The swarm-scatter click interaction is the new primary interaction."
     }
   ],
   "carrying_capacity": {

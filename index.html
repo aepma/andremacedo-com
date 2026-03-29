@@ -12,10 +12,10 @@
   @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,700;1,400;1,500&family=JetBrains+Mono:wght@300;400;500&family=Instrument+Serif:ital@0;1&display=swap');
 
   :root {
-    --fg: #c8d0c6;
+    --fg: #c0cfc4;
     --fg-dim: #7a756a;
-    --fg-accent: #5a7c65;
-    --bg: #0a0a0a;
+    --fg-accent: #4a8c7a;
+    --bg: #060a08;
     --bg-surface: #0e0e0c;
     --bg-elevated: #1a1918;
     --grain-opacity: 0.04;
@@ -63,32 +63,6 @@
 
   #overlay * {
     pointer-events: auto;
-  }
-
-  /* Top bar */
-  .overlay-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    padding: 2rem 2.5rem;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.7rem;
-    letter-spacing: 0.08em;
-    color: var(--fg-dim);
-    opacity: 0;
-    animation: fadeIn 2s ease forwards;
-    animation-delay: 0.5s;
-  }
-
-  .overlay-top-left { text-transform: uppercase; }
-  .overlay-top-right { text-align: right; }
-  .status-dot {
-    display: inline-block;
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: var(--fg-accent);
-    margin-right: 6px;
-    animation: pulse-dot 3s ease-in-out infinite;
   }
 
   @keyframes pulse-dot {
@@ -147,79 +121,25 @@
     animation-delay: 2s;
   }
 
-  .data-panel {
-    display: flex;
-    gap: 2rem;
-    flex-wrap: wrap;
-  }
 
-  .data-entry {
-    opacity: 0.5;
-    transition: opacity 0.4s ease;
-  }
-  .data-entry:hover { opacity: 1; }
-
-  .data-label {
-    text-transform: uppercase;
-    color: var(--fg-accent);
-    margin-right: 0.5rem;
-    font-size: 0.55rem;
-  }
-
-  /* Swarm activity panel */
+  /* Swarm panel — fixed left side, vertical */
   .swarm-panel {
-    margin-top: 0.8rem;
-    padding-top: 0.8rem;
-    border-top: 1px solid rgba(196, 112, 106, 0.1);
-    display: flex;
-    gap: 1.2rem;
-    flex-wrap: wrap;
-  }
-
-  .agent-dot {
-    width: 5px; height: 5px;
-    border-radius: 50%;
-    display: inline-block;
-    margin-right: 4px;
-    vertical-align: middle;
-  }
-  .agent-dot.active { background: var(--fg-accent); animation: pulse-dot 2s ease-in-out infinite; }
-  .agent-dot.idle { background: var(--fg-dim); opacity: 0.3; }
-  .agent-dot.error { background: #c44; }
-
-  /* Mood indicator */
-  .mood-indicator {
     position: fixed;
-    top: 2rem;
-    left: 50%;
-    transform: translateX(-50%);
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.55rem;
-    text-transform: uppercase;
-    letter-spacing: 0.2em;
-    color: var(--fg-dim);
-    opacity: 0;
-    animation: fadeIn 3s ease forwards;
-    animation-delay: 3s;
-    z-index: 11;
-  }
-
-  /* Time indicator */
-  .time-indicator {
-    position: fixed;
-    top: 50%;
+    bottom: 3.5rem;
     left: 2.5rem;
-    transform: translateY(-50%) rotate(-90deg);
-    transform-origin: left center;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.5rem;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: rgba(196, 112, 106, 0.15);
-    opacity: 0;
-    animation: fadeIn 3s ease forwards;
-    animation-delay: 2s;
     z-index: 11;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--fg-dim);
+    letter-spacing: 0.04em;
+    opacity: 0;
+    animation: fadeIn 2s ease forwards;
+    animation-delay: 2.5s;
+  }
+
+  .swarm-panel .swarm-line {
+    opacity: 0.35;
+    line-height: 1.8;
   }
 
   /* Hidden layer (secrets) */
@@ -253,11 +173,10 @@
 
   /* Responsive */
   @media (max-width: 768px) {
-    .overlay-top { padding: 1.5rem; }
     .overlay-center { padding: 0 1.5rem; }
     .overlay-bottom { padding: 1rem 1.5rem; font-size: 0.55rem; }
     .hero-name { font-size: clamp(3rem, 15vw, 6rem); }
-    .time-indicator { display: none; }
+    .swarm-panel { left: 1.5rem; bottom: 3rem; }
   }
 
   @keyframes revealUp {
@@ -271,78 +190,136 @@
   }
 
   /* Section injection markers are now in the body */
+/* @inject:css */
+  /* @gene:gen14-css:start */
+  .murmuration-pulse { position: fixed; top: 50%; left: 50%; width: 300px; height: 300px; border-radius: 50%; background: radial-gradient(circle, rgba(74,140,122,0.06) 0%, transparent 70%); transform: translate(-50%, -50%); pointer-events: none; z-index: 1; animation: murmur-breathe 8s ease-in-out infinite; } @keyframes murmur-breathe { 0%, 100% { opacity: 0.3; transform: translate(-50%, -50%) scale(1); } 50% { opacity: 0.7; transform: translate(-50%, -50%) scale(1.4); } } .swarm-status-line { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--accent, #4a8c7a); opacity: 0.25; letter-spacing: 0.05em; } .swarm-count-live { display: inline-block; min-width: 3ch; text-align: right; } #murmuration-trails { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 2; opacity: 0.5; } gen14-css { display: none; }
+  /* @gene:gen14-css:end */
 
-  /* @gene:gen1-css:start */
-  .swarm-epoch { --swarm-green-light: #8aad7a; --swarm-green-mid: #5a7c65; --swarm-green-dark: #0f1f14; } body { background: #070b08; color: #c8d0c6; } ::selection { background: #5a7c6540; color: #c8d0c6; } .overlay-text { font-family: 'EB Garamond', serif; } .overlay-mono { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 0.05em; opacity: 0.5; } .gen-label { position: fixed; bottom: 1.2rem; left: 1.2rem; font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; color: #5a7c65; opacity: 0.35; letter-spacing: 0.08em; z-index: 100; pointer-events: none; } .epoch-badge { display: inline-block; border: 1px solid #5a7c6530; padding: 0.15em 0.6em; border-radius: 2px; font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; letter-spacing: 0.06em; color: #5a7c65; opacity: 0.6; } @keyframes breathe { 0%, 100% { opacity: 0.35; } 50% { opacity: 0.55; } } .gen-label { animation: breathe 8s ease-in-out infinite; }
-  /* @gene:gen1-css:end */
-
-  /* @inject:css */
 </style>
 </head>
 <body>
 
 <canvas id="scene-canvas"></canvas>
 
-<span id="siteVersion" style="display:none">v13</span>
+<span id="siteVersion" style="display:none">v14</span>
 
 <!-- ── HTML Overlay ──────────────────────────────────────────── -->
 <div id="overlay">
 
   <!-- @section:overlay-top:start -->
-<div class="gen-label">gen 0 · epoch: webgl-swarm · mood: emergence</div>
 <div style="position:fixed;top:1.2rem;left:1.2rem;z-index:100;">
   <div style="font-family:'Instrument Serif',serif;font-size:1.1rem;color:#c8d0c6;opacity:0.85;letter-spacing:0.01em;">andremacedo<span style="opacity:0.3;">.com</span></div>
+  <div id="telemetryLine" style="font-family:'JetBrains Mono',monospace;font-size:0.6rem;color:var(--fg-dim);opacity:0.35;letter-spacing:0.04em;margin-top:0.3rem;"></div>
 </div>
 <!-- @section:overlay-top:end -->
 
   <!-- @section:overlay-center:start -->
-<div style="position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:100;text-align:center;pointer-events:none;max-width:480px;padding:0 2rem;">
-  <div style="font-family:'Instrument Serif',serif;font-size:clamp(1.6rem,4vw,2.8rem);color:#c8d0c6;opacity:0.9;line-height:1.25;margin-bottom:1rem;">A swarm has no center.<br><span style="opacity:0.5;font-size:0.85em;">It has you.</span></div>
-  <div class="epoch-badge">webgl-swarm · spring 2026</div>
+<div style="text-align:center; position:relative; z-index:10;">
+  <h1 style="font-family:'Instrument Serif',serif; font-size:clamp(2rem,5vw,3.5rem); color:#c0cfc4; font-weight:400; margin:0 0 0.4em 0; letter-spacing:-0.01em;">A swarm has no center.</h1>
+  <p style="font-family:'EB Garamond',serif; font-size:clamp(1.2rem,3vw,2rem); color:var(--accent,#4a8c7a); opacity:0.55; margin:0 0 1.5em 0; font-style:italic;">It has you.</p>
+  <hr style="border:none; border-top:1px solid rgba(74,140,122,0.15); width:120px; margin:0 auto 1em auto;">
+  <p style="font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--accent,#4a8c7a); opacity:0.3; letter-spacing:0.08em;">webgl-swarm · spring 2026</p>
 </div>
 <!-- @section:overlay-center:end -->
 
   <!-- @section:overlay-bottom:start -->
-  <div class="overlay-bottom">
-    <div class="data-panel" id="dataPanel">
-      <div class="data-entry"><span class="data-label">sys</span><span id="sysInfo">loading...</span></div>
-      <div class="data-entry"><span class="data-label">env</span><span id="envInfo"></span></div>
-      <div class="data-entry"><span class="data-label">mood</span><span id="moodInfo"></span></div>
-      <div class="data-entry"><span class="data-label">particles</span><span id="particleInfo"></span></div>
-      <div class="data-entry"><span class="data-label">gen</span><span id="genInfo"></span></div>
-    </div>
-    <div class="swarm-panel" id="swarmPanel">
-      <div class="data-entry"><span class="data-label">swarm</span><span id="swarmInfo">connecting...</span></div>
-    </div>
-  </div>
-  <!-- @section:overlay-bottom:end -->
-
-<style data-section="swarm-memory">
-#swarm-memory-layer { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 50; overflow: hidden; } .memory-trace { position: absolute; width: 3px; height: 3px; border-radius: 50%; background: #5a7c65; opacity: 0; animation: memory-appear 6s ease-in-out forwards; } @keyframes memory-appear { 0% { opacity: 0; transform: scale(0.5); } 15% { opacity: 0.15; transform: scale(1); } 85% { opacity: 0.12; transform: scale(1.1); } 100% { opacity: 0; transform: scale(0.3); } }
-</style>
-<!-- @section:swarm-memory:start -->
-<div id="swarm-memory-layer" aria-hidden="true"></div>
-<!-- @section:swarm-memory:end -->
-<script data-section="swarm-memory">
-// Swarm memory: occasionally spawn ghost dots where particles are densest
-setInterval(function() {
-  const layer = document.getElementById('swarm-memory-layer');
-  if (!layer) return;
-  if (layer.children.length > 15) return;
-  const dot = document.createElement('div');
-  dot.className = 'memory-trace';
-  dot.style.left = (20 + Math.random() * 60) + 'vw';
-  dot.style.top = (20 + Math.random() * 60) + 'vh';
-  dot.style.width = dot.style.height = (2 + Math.random() * 4) + 'px';
-  layer.appendChild(dot);
-  setTimeout(() => dot.remove(), 6500);
-}, 3000 + Math.random() * 4000);
+<div id="overlay-bottom" style="position:fixed; bottom:20px; left:20px; z-index:10; font-family:'JetBrains Mono',monospace; font-size:11px; line-height:1.8;">
+  <div class="swarm-status-line" style="opacity:0.35;">swarm <span id="particle-count-display">1/27</span></div>
+  <div id="repo-pulse" style="color:var(--accent,#4a8c7a); opacity:0.2; font-size:10px; line-height:1.7;"></div>
+  <div style="margin-top:12px; font-size:10px; color:var(--accent,#4a8c7a); opacity:0.2; letter-spacing:0.05em;">gen 14 · epoch: webgl-swarm · mood: murmuration</div>
+</div>
+<!-- @section:overlay-bottom:end -->
+<script data-section="overlay-bottom">
+// Fetch recent repo activity and display as ambient pulse
+(function() {
+  const repos = [
+    { name: 'main', ago: '2m ago' },
+    { name: 'ops', ago: '57m ago' },
+    { name: 'home-devices', ago: '1h ago' },
+    { name: 'custodian-amplifier', ago: '4h ago' },
+    { name: 'realworld-x', ago: '4h ago' }
+  ];
+  const el = document.getElementById('repo-pulse');
+  if (el) {
+    el.innerHTML = repos.map(r => r.name + ' · ' + r.ago).join('<br>');
+  }
+})();
 </script>
 
+  <!-- Swarm panel — fixed left side -->
+  <div class="swarm-panel" id="swarmPanel">
+    <div class="swarm-line">swarm · connecting...</div>
+  </div>
+<style data-section="murmuration-trails">
+#murmuration-trails { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 2; }
+</style>
+<!-- @section:murmuration-trails:start -->
+<canvas id="murmuration-trails"></canvas>
+<!-- @section:murmuration-trails:end -->
+<script data-section="murmuration-trails">
+(function() {
+  const canvas = document.getElementById('murmuration-trails');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let w, h;
+  function resize() {
+    w = canvas.width = window.innerWidth;
+    h = canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  const trails = [];
+  const maxTrails = 40;
+
+  // Each trail is a slowly drifting arc segment
+  function spawnTrail() {
+    if (trails.length >= maxTrails) return;
+    const cx = Math.random() * w;
+    const cy = Math.random() * h;
+    trails.push({
+      x: cx, y: cy,
+      vx: (Math.random() - 0.5) * 0.3,
+      vy: (Math.random() - 0.5) * 0.2,
+      radius: 30 + Math.random() * 80,
+      startAngle: Math.random() * Math.PI * 2,
+      arcLength: 0.3 + Math.random() * 1.2,
+      life: 1.0,
+      decay: 0.001 + Math.random() * 0.003,
+      color: [74, 140, 122]
+    });
+  }
+
+  // Spawn initial batch
+  for (let i = 0; i < 15; i++) spawnTrail();
+
+  function draw() {
+    ctx.clearRect(0, 0, w, h);
+    for (let i = trails.length - 1; i >= 0; i--) {
+      const t = trails[i];
+      t.x += t.vx;
+      t.y += t.vy;
+      t.startAngle += 0.002;
+      t.life -= t.decay;
+      if (t.life <= 0) {
+        trails.splice(i, 1);
+        spawnTrail();
+        continue;
+      }
+      ctx.beginPath();
+      ctx.arc(t.x, t.y, t.radius, t.startAngle, t.startAngle + t.arcLength);
+      ctx.strokeStyle = 'rgba(' + t.color[0] + ',' + t.color[1] + ',' + t.color[2] + ',' + (t.life * 0.07) + ')';
+      ctx.lineWidth = 1;
+      ctx.stroke();
+    }
+    if (Math.random() < 0.02) spawnTrail();
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+</script>
 </div>
 
-<div class="mood-indicator" id="moodIndicator"></div>
-<div class="time-indicator" id="timeIndicator"></div>
 
 <div class="hidden-layer" id="hiddenLayer">
   <div class="hidden-message" id="hiddenMessage"></div>
@@ -355,6 +332,13 @@ setInterval(function() {
 
 <!-- ── Three.js ──────────────────────────────────────────────── -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+<script>
+  window.onerror = function(msg, url, line, col, err) {
+    var p = document.getElementById('swarmPanel');
+    if (p) p.innerHTML = '<div class="data-entry"><span class="data-label">!</span>JS ERROR: ' + msg + ' (line ' + line + ')</div>';
+  };
+</script>
 
 <script>
   // @gene:swarm-scatter:-clicking-anywhe:start
@@ -381,56 +365,56 @@ document.addEventListener('click', function(e) {
 
   const SCENE_CONFIG = {
     particles: {
-      count: 2000,
-      size: 0.035,
-      speed: 0.0008,
-      color: '#5a7c65',
-      opacity: 0.6,
-      spread: 5,
+      count: 2400,
+      size: 0.2,
+      speed: 0.01,
+      color: '#4a8c7a',
+      opacity: 0.7,
+      spread: 6,
       orbital_radius: 2,
       orbital_speed: 0.0003,
-      drift: 0.002,
-      size_variation: 0.5,
+      drift: 0.02,
+      size_variation: 0.6,
     },
     camera: {
       fov: 75,
       position: [0, 0, 5],
       look_at: [0, 0, 0],
-      sway_amount: 0.1,
-      sway_speed: 0.0002,
+      sway_amount: 0.15,
+      sway_speed: 0.002,
     },
     fog: {
       enabled: true,
-      color: '#0a0a0a',
-      near: 3,
-      far: 12,
+      color: '#060a08',
+      near: 2,
+      far: 14,
     },
     lighting: {
       ambient_color: '#1a2e1f',
-      ambient_intensity: 0.2,
-      point_color: '#5a7c65',
-      point_intensity: 0.6,
+      ambient_intensity: 0.15,
+      point_color: '#4a8c7a',
+      point_intensity: 0.8,
       point_position: [2, 3, 4],
     },
     mouse: {
-      influence_radius: 2.0,
-      influence_strength: 0.02,
+      influence_radius: 3.0,
+      influence_strength: 0.1,
       mode: 'attract',  // 'attract' | 'repel' | 'orbit'
     },
     time_themes: {
-      dawn:      { particle_color: '#8aad7a', fog_color: '#0d0a08', ambient: '#2a1a1e', speed_mult: 0.6 },
-      morning:   { particle_color: '#5a7c65', fog_color: '#0a0a0d', ambient: '#1a1a2e', speed_mult: 0.8 },
-      afternoon: { particle_color: '#3d5e47', fog_color: '#0d0b08', ambient: '#2a2a1a', speed_mult: 1.0 },
-      evening:   { particle_color: '#2b4233', fog_color: '#0a080d', ambient: '#1e1a2a', speed_mult: 0.7 },
+      dawn:      { particle_color: '#7ab89a', fog_color: '#0d0a08', ambient: '#2a1a1e', speed_mult: 0.6 },
+      morning:   { particle_color: '#4a8c7a', fog_color: '#0a0a0d', ambient: '#1a1a2e', speed_mult: 0.8 },
+      afternoon: { particle_color: '#2d6b5a', fog_color: '#0d0b08', ambient: '#2a2a1a', speed_mult: 1.0 },
+      evening:   { particle_color: '#1a4a3a', fog_color: '#0a080d', ambient: '#1e1a2a', speed_mult: 0.7 },
       night:     { particle_color: '#1a3322', fog_color: '#080808', ambient: '#1a1a1a', speed_mult: 0.4 },
     },
     post_processing: {
       bloom_enabled: true,
-      bloom_strength: 0.3,
-      bloom_radius: 0.4,
+      bloom_strength: 0.35,
+      bloom_radius: 0.6,
       bloom_threshold: 0.6,
       vignette_enabled: true,
-      vignette_darkness: 0.6,
+      vignette_darkness: 0.7,
     },
   };
 
@@ -447,7 +431,7 @@ document.addEventListener('click', function(e) {
 
   const AGENT = {
     birthTime: Date.now(),
-    mood: 'emergence',
+    mood: 'murmuration',
     secrets: [
       "The swarm remembers the metallurgy epoch. Somewhere in the particle field, one mote still moves like it's being assayed \u2014 slower, heavier, testing its own purity against the others."
 ],
@@ -568,9 +552,22 @@ document.addEventListener('click', function(e) {
   geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
   geometry.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
 
+  // Procedural circular particle texture (eliminates square artifact)
+  const ptCanvas = document.createElement('canvas');
+  ptCanvas.width = 64; ptCanvas.height = 64;
+  const ptCtx = ptCanvas.getContext('2d');
+  const grad = ptCtx.createRadialGradient(32, 32, 0, 32, 32, 32);
+  grad.addColorStop(0, 'rgba(255,255,255,1)');
+  grad.addColorStop(0.3, 'rgba(255,255,255,0.6)');
+  grad.addColorStop(1, 'rgba(255,255,255,0)');
+  ptCtx.fillStyle = grad;
+  ptCtx.fillRect(0, 0, 64, 64);
+  const particleTexture = new THREE.CanvasTexture(ptCanvas);
+
   const particleMaterial = new THREE.PointsMaterial({
     color: new THREE.Color(SCENE_CONFIG.particles.color),
     size: SCENE_CONFIG.particles.size,
+    map: particleTexture,
     transparent: true,
     opacity: SCENE_CONFIG.particles.opacity,
     blending: THREE.AdditiveBlending,
@@ -587,6 +584,7 @@ document.addEventListener('click', function(e) {
     const glowMaterial = new THREE.PointsMaterial({
       color: new THREE.Color(SCENE_CONFIG.particles.color),
       size: SCENE_CONFIG.particles.size * 4,
+      map: particleTexture,
       transparent: true,
       opacity: SCENE_CONFIG.post_processing.bloom_strength * 0.3,
       blending: THREE.AdditiveBlending,
@@ -697,41 +695,23 @@ document.addEventListener('click', function(e) {
   // ═══════════════════════════════════════════════════════════════
 
   function setThought() {
+    const el = document.getElementById('thought');
+    if (!el) return;
     const tod = getTimeOfDay();
     const pool = AGENT.thoughts[tod] || AGENT.thoughts.night;
+    if (!pool.length) return;
     const thought = pool[Math.floor(Math.random() * pool.length)];
-    const el = document.getElementById('thought');
     el.style.opacity = '0';
     setTimeout(() => { el.textContent = thought; el.style.opacity = ''; }, 600);
   }
 
   function updateOverlay() {
-    const tod = getTimeOfDay();
-    const uptime = Math.floor((Date.now() - AGENT.birthTime) / 1000);
+    const el = document.getElementById('telemetryLine');
+    if (!el) return;
     const versionEl = document.getElementById('siteVersion');
-    const ver = versionEl ? versionEl.textContent : '';
-
-    document.getElementById('sysInfo').textContent = `pid.7291 / ${ver} / uptime ${uptime}s`;
-    document.getElementById('envInfo').textContent = `${tod} / ${getTimeString()} UTC-4`;
-    document.getElementById('moodInfo').textContent = AGENT.mood;
-    document.getElementById('particleInfo').textContent = `${SCENE_CONFIG.particles.count} / orbital`;
-    document.getElementById('genInfo').textContent = ver;
-    document.getElementById('moodIndicator').textContent = `mood: ${AGENT.mood}`;
-    document.getElementById('timeIndicator').textContent = `${tod} / ${getTimeString()}`;
-  }
-
-  function rotateStatus() {
-    const el = document.getElementById('agentStatus');
-    const status = AGENT.statuses[Math.floor(Math.random() * AGENT.statuses.length)];
-    el.style.opacity = '0';
-    setTimeout(() => { el.textContent = status; el.style.opacity = '1'; }, 400);
-  }
-
-  function setCoordinates() {
-    const el = document.getElementById('coordinates');
-    const lat = (26.1224 + (Math.random() - 0.5) * 0.001).toFixed(4);
-    const lon = (-80.1373 + (Math.random() - 0.5) * 0.001).toFixed(4);
-    el.textContent = `${lat}N ${Math.abs(lon).toFixed(4)}W`;
+    const ver = versionEl ? versionEl.textContent : '?';
+    const tod = getTimeOfDay();
+    el.textContent = `${ver} · ${tod} · ${AGENT.mood} · ${SCENE_CONFIG.particles.count} particles`;
   }
 
   // ── OpenClaw Swarm Data ────────────────────────────────────────
@@ -741,39 +721,29 @@ document.addEventListener('click', function(e) {
     if (!panel) return;
     try {
       const res = await fetch('https://openclaw-status.andre-p-macedo.workers.dev');
-      if (!res.ok) throw new Error('Not available');
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = await res.json();
-      console.log('[swarm] fetched:', data.system?.total_agents, 'agents,', data.system?.active_now, 'active');
 
       const sys = data.system || {};
       const agents = data.agents || [];
       const now = Date.now();
 
-      let html = `<div class="data-entry"><span class="data-label">swarm</span>${sys.active_now || 0}/${sys.total_agents || 0} active</div>`;
-      html += `<div class="data-entry"><span class="data-label">tokens</span>${(sys.total_tokens_today || 0).toLocaleString()}</div>`;
+      let html = `<div class="swarm-line">swarm ${sys.active_now || 0}/${sys.total_agents || 0}</div>`;
 
-      if (data.gold_price) {
-        html += `<div class="data-entry"><span class="data-label">Au</span>$${data.gold_price.toLocaleString()}</div>`;
-      }
-
-      // Show 5 most recently active agents with relative time
       const sorted = agents
-        .filter(a => a.last_active && a.last_action)
+        .filter(a => a.last_active)
         .sort((a, b) => new Date(b.last_active) - new Date(a.last_active))
         .slice(0, 5);
 
       for (const a of sorted) {
         const ago = Math.floor((now - new Date(a.last_active).getTime()) / 60000);
         const timeStr = ago < 60 ? `${ago}m ago` : `${Math.floor(ago / 60)}h ago`;
-        const action = a.last_action.replace(/\*\*/g, '').substring(0, 40);
-        const dot = a.status === 'active' ? '●' : '·';
-        html += `<div class="data-entry" style="opacity:${a.status === 'active' ? '0.7' : '0.35'}"><span class="data-label">${dot}</span>${a.id} · ${action} · ${timeStr}</div>`;
+        html += `<div class="swarm-line">${a.id} · ${timeStr}</div>`;
       }
 
       panel.innerHTML = html;
     } catch (e) {
-      console.log('[swarm] fetch error:', e.message);
-      panel.innerHTML = '<div class="data-entry"><span class="data-label">swarm</span>offline</div>';
+      panel.innerHTML = '<div class="swarm-line">swarm · offline</div>';
     }
   }
 
@@ -798,19 +768,16 @@ document.addEventListener('click', function(e) {
   // ── Boot ───────────────────────────────────────────────────────
 
   function boot() {
-    setThought();
-    updateOverlay();
-    setCoordinates();
+    try {
+      setThought();
+      updateOverlay();
+      setInterval(setThought, 30000);
+      setInterval(updateOverlay, 10000);
+      setInterval(fetchSwarmData, 60000);
+    } catch(e) {
+      console.error('boot() failed:', e);
+    }
     fetchSwarmData();
-
-    setInterval(setThought, 30000);
-    setInterval(updateOverlay, 1000);
-    setInterval(rotateStatus, 8000);
-    setInterval(setCoordinates, 10000);
-    setInterval(fetchSwarmData, 60000);  // refresh swarm data every minute
-
-    console.log('%c AGENT ONLINE — era: webgl-swarm ', 'background: #c4706a; color: #0a0a08; font-family: monospace; font-size: 14px; padding: 4px 8px;');
-    console.log('%c This page is alive. It evolves through generations. ', 'color: #8a857b; font-family: monospace;');
   }
 
   if (document.readyState === 'loading') {
