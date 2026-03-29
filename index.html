@@ -12,32 +12,31 @@
   @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,700;1,400;1,500&family=JetBrains+Mono:wght@300;400;500&family=Instrument+Serif:ital@0;1&display=swap');
 
   :root {
-    --fg: #ddd3c3;
+    --fg: #e8e4dc;
     --fg-dim: #7a756a;
-    --fg-accent: #b85c38;
-    --bg: #090706;
+    --fg-accent: #c4706a;
+    --bg: #0a0a0a;
     --bg-surface: #0e0e0c;
     --bg-elevated: #1a1918;
-    --grain-opacity: 0.08;
-    --transition-slow: 2.4s;
-    --transition-med: 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    --grain-opacity: 0.04;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
-  html {
-    font-size: 16px;
-    scroll-behavior: smooth;
-  }
-
-  body {
+  html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
     background: var(--bg);
     color: var(--fg);
     font-family: 'EB Garamond', Georgia, serif;
-    min-height: 100vh;
-    overflow-x: hidden;
-    cursor: crosshair;
-    position: relative;
+  }
+
+  /* WebGL canvas fills viewport */
+  #scene-canvas {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
   }
 
   /* Film grain overlay */
@@ -51,61 +50,23 @@
     z-index: 9999;
   }
 
-  /* Ambient gradient that shifts */
-  .ambient {
+  /* ── HTML Overlay Layer ─────────────────────────────────────── */
+  #overlay {
     position: fixed;
     inset: 0;
+    z-index: 10;
     pointer-events: none;
-    z-index: 0;
-    opacity: 0.4;
-    transition: opacity 3s ease;
-  }
-  .ambient-orb {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(120px);
-    animation: drift 20s ease-in-out infinite alternate;
-  }
-  .ambient-orb:nth-child(1) {
-    width: 600px; height: 600px;
-    background: radial-gradient(circle, rgba(196,163,90,0.15), transparent 70%);
-    top: -200px; right: -100px;
-    animation-delay: 0s;
-  }
-  .ambient-orb:nth-child(2) {
-    width: 400px; height: 400px;
-    background: radial-gradient(circle, rgba(90,120,196,0.08), transparent 70%);
-    bottom: -100px; left: -100px;
-    animation-delay: -7s;
-    animation-duration: 25s;
-  }
-  .ambient-orb:nth-child(3) {
-    width: 300px; height: 300px;
-    background: radial-gradient(circle, rgba(160,90,90,0.06), transparent 70%);
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    animation-delay: -13s;
-    animation-duration: 30s;
-  }
-
-  @keyframes drift {
-    0% { transform: translate(0, 0) scale(1); }
-    33% { transform: translate(40px, -30px) scale(1.1); }
-    66% { transform: translate(-20px, 50px) scale(0.95); }
-    100% { transform: translate(30px, 20px) scale(1.05); }
-  }
-
-  /* Main content */
-  .page {
-    position: relative;
-    z-index: 1;
-    min-height: 100vh;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
+  }
+
+  #overlay * {
+    pointer-events: auto;
   }
 
   /* Top bar */
-  .topbar {
+  .overlay-top {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
@@ -115,12 +76,13 @@
     letter-spacing: 0.08em;
     color: var(--fg-dim);
     opacity: 0;
-    animation: fadeIn 2s var(--transition-slow) forwards;
+    animation: fadeIn 2s ease forwards;
     animation-delay: 0.5s;
   }
-  .topbar-left { text-transform: uppercase; }
-  .topbar-right { text-align: right; }
-  .topbar-right .status-dot {
+
+  .overlay-top-left { text-transform: uppercase; }
+  .overlay-top-right { text-align: right; }
+  .status-dot {
     display: inline-block;
     width: 6px; height: 6px;
     border-radius: 50%;
@@ -134,16 +96,15 @@
     50% { opacity: 0.3; }
   }
 
-  /* Hero section */
-  .hero {
+  /* Center hero */
+  .overlay-center {
+    flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    min-height: 80vh;
+    align-items: center;
     padding: 0 2.5rem;
-    max-width: 1400px;
-    width: 100%;
-    margin: 0 auto;
+    text-align: center;
   }
 
   .hero-name {
@@ -155,172 +116,113 @@
     color: var(--fg);
     opacity: 0;
     animation: revealUp 1.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    animation-delay: 0.2s;
-    position: relative;
-  }
-  .hero-name span.first {
-    display: block;
-    opacity: 0;
-    animation: revealUp 1.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     animation-delay: 0.3s;
   }
-  .hero-name span.last {
-    display: block;
+
+  .hero-name .last {
     color: var(--fg-accent);
-    opacity: 0;
-    animation: revealUp 1.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    animation-delay: 0.55s;
   }
 
-  @keyframes revealUp {
-    from { opacity: 0; transform: translateY(60px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-
-  /* The thought - a rotating, evolving piece of text */
   .thought {
-    margin-top: 3rem;
+    margin-top: 2rem;
     max-width: 600px;
-    font-size: 1.25rem;
+    font-size: 1.15rem;
     line-height: 1.7;
     font-style: italic;
     color: var(--fg-dim);
     opacity: 0;
     animation: fadeIn 2s ease forwards;
     animation-delay: 1.2s;
-    position: relative;
-    padding-left: 1.5rem;
-    border-left: 1px solid rgba(196,163,90,0.2);
-  }
-  .thought::before {
-    content: '';
-    position: absolute;
-    left: -1px;
-    top: 0;
-    width: 1px;
-    height: 0%;
-    background: var(--fg-accent);
-    animation: lineGrow 3s ease forwards;
-    animation-delay: 1.5s;
-  }
-  @keyframes lineGrow {
-    to { height: 100%; }
   }
 
-  /* System log - the agent's inner monologue */
-  .system-log {
-    position: relative;
-    z-index: 1;
+  /* Bottom data panel */
+  .overlay-bottom {
     padding: 1.5rem 2.5rem;
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.65rem;
+    font-size: 0.6rem;
     color: var(--fg-dim);
+    letter-spacing: 0.04em;
     opacity: 0;
     animation: fadeIn 2s ease forwards;
-    animation-delay: 2.5s;
-    z-index: 2;
-    background: linear-gradient(to top, var(--bg) 0%, transparent 100%);
+    animation-delay: 2s;
+  }
+
+  .data-panel {
     display: flex;
     gap: 2rem;
     flex-wrap: wrap;
-    letter-spacing: 0.04em;
   }
-  .log-entry {
+
+  .data-entry {
     opacity: 0.5;
     transition: opacity 0.4s ease;
   }
-  .log-entry:hover { opacity: 1; }
-  .log-entry .label {
+  .data-entry:hover { opacity: 1; }
+
+  .data-label {
     text-transform: uppercase;
     color: var(--fg-accent);
     margin-right: 0.5rem;
     font-size: 0.55rem;
   }
 
-  /* Floating elements - the agent's "objects" */
-  .floating-objects {
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 0;
-  }
-  .float-obj {
-    position: absolute;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.6rem;
-    color: rgba(196,163,90,0.12);
-    animation: floatSlow 40s ease-in-out infinite;
-    white-space: nowrap;
-  }
-  .float-obj:nth-child(1) { top: 15%; right: 8%; animation-delay: 0s; }
-  .float-obj:nth-child(2) { top: 45%; right: 15%; animation-delay: -12s; }
-  .float-obj:nth-child(3) { top: 70%; left: 5%; animation-delay: -24s; }
-  .float-obj:nth-child(4) { top: 25%; left: 12%; animation-delay: -8s; }
-  .float-obj:nth-child(5) { top: 80%; right: 25%; animation-delay: -16s; }
-
-  @keyframes floatSlow {
-    0%, 100% { transform: translate(0, 0) rotate(0deg); }
-    25% { transform: translate(15px, -20px) rotate(1deg); }
-    50% { transform: translate(-10px, 15px) rotate(-0.5deg); }
-    75% { transform: translate(20px, 10px) rotate(0.5deg); }
-  }
-
-  /* Interactive cursor trail */
-  .cursor-trail {
-    position: fixed;
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(196,163,90,0.03), transparent 70%);
-    pointer-events: none;
-    z-index: 0;
-    transform: translate(-50%, -50%);
-    transition: left 0.8s ease-out, top 0.8s ease-out;
-  }
-
-  /* Middle section - agent context */
-  .context-strip {
-    position: absolute;
-    top: 50%;
-    right: 2.5rem;
-    transform: translateY(-50%);
+  /* Swarm activity panel */
+  .swarm-panel {
+    margin-top: 0.8rem;
+    padding-top: 0.8rem;
+    border-top: 1px solid rgba(196, 112, 106, 0.1);
     display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.6rem;
-    color: var(--fg-dim);
-    text-align: right;
-    opacity: 0;
-    animation: fadeIn 2s ease forwards;
-    animation-delay: 1.8s;
-  }
-  .context-item {
-    opacity: 0.4;
-    transition: all 0.6s ease;
-    cursor: default;
-    pointer-events: all;
-  }
-  .context-item:hover {
-    opacity: 1;
-    transform: translateX(-8px);
-    color: var(--fg-accent);
-  }
-  .context-label {
-    text-transform: uppercase;
-    font-size: 0.5rem;
-    letter-spacing: 0.15em;
-    margin-bottom: 0.2rem;
-    color: var(--fg-accent);
-    opacity: 0.5;
+    gap: 1.2rem;
+    flex-wrap: wrap;
   }
 
-  /* Hidden message - appears on specific interaction */
+  .agent-dot {
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 4px;
+    vertical-align: middle;
+  }
+  .agent-dot.active { background: var(--fg-accent); animation: pulse-dot 2s ease-in-out infinite; }
+  .agent-dot.idle { background: var(--fg-dim); opacity: 0.3; }
+  .agent-dot.error { background: #c44; }
+
+  /* Mood indicator */
+  .mood-indicator {
+    position: fixed;
+    top: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.55rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--fg-dim);
+    opacity: 0;
+    animation: fadeIn 3s ease forwards;
+    animation-delay: 3s;
+    z-index: 11;
+  }
+
+  /* Time indicator */
+  .time-indicator {
+    position: fixed;
+    top: 50%;
+    left: 2.5rem;
+    transform: translateY(-50%) rotate(-90deg);
+    transform-origin: left center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.5rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgba(196, 112, 106, 0.15);
+    opacity: 0;
+    animation: fadeIn 3s ease forwards;
+    animation-delay: 2s;
+    z-index: 11;
+  }
+
+  /* Hidden layer (secrets) */
   .hidden-layer {
     position: fixed;
     inset: 0;
@@ -349,506 +251,203 @@
     padding: 2rem;
   }
 
-  /* Mood indicator */
-  .mood {
-    position: fixed;
-    top: 2rem;
-    left: 50%;
-    transform: translateX(-50%);
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.55rem;
-    text-transform: uppercase;
-    letter-spacing: 0.2em;
-    color: var(--fg-dim);
-    opacity: 0;
-    animation: fadeIn 3s ease forwards;
-    animation-delay: 3s;
-    z-index: 2;
-  }
-
-  /* Time-based theme shifts */
-  .time-indicator {
-    position: fixed;
-    top: 50%;
-    left: 2.5rem;
-    transform: translateY(-50%) rotate(-90deg);
-    transform-origin: left center;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.5rem;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: rgba(196,163,90,0.15);
-    opacity: 0;
-    animation: fadeIn 3s ease forwards;
-    animation-delay: 2s;
-  }
-
-  /* Prototypes section */
-  .prototypes {
-    position: relative;
-    z-index: 1;
-    max-width: 1400px;
-    width: 100%;
-    margin: 0 auto;
-    padding: 6rem 2.5rem 8rem;
-  }
-  .prototypes-header {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.6rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--fg-accent);
-    opacity: 0.5;
-    margin-bottom: 2rem;
-  }
-  .proto-list {
-    display: flex;
-    flex-direction: column;
-    gap: 1px;
-  }
-  .proto-item {
-    display: grid;
-    grid-template-columns: 7rem 1fr auto;
-    gap: 1.5rem;
-    align-items: baseline;
-    padding: 0.9rem 0;
-    border-bottom: 1px solid rgba(196,163,90,0.06);
-    text-decoration: none;
-    color: var(--fg);
-    transition: all 0.4s ease;
-    cursor: pointer;
-  }
-  .proto-item:hover {
-    background: rgba(196,163,90,0.03);
-    padding-left: 0.8rem;
-    padding-right: 0.8rem;
-    margin-left: -0.8rem;
-    margin-right: -0.8rem;
-    border-radius: 4px;
-  }
-  .proto-item:hover .proto-name {
-    color: var(--fg-accent);
-  }
-  .proto-date {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.65rem;
-    color: var(--fg-dim);
-    opacity: 0.5;
-    white-space: nowrap;
-  }
-  .proto-name {
-    font-family: 'EB Garamond', Georgia, serif;
-    font-size: 1.1rem;
-    transition: color 0.4s ease;
-  }
-  .proto-arrow {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.6rem;
-    color: var(--fg-dim);
-    opacity: 0;
-    transition: opacity 0.4s ease;
-  }
-  .proto-item:hover .proto-arrow {
-    opacity: 0.6;
-  }
-
   /* Responsive */
   @media (max-width: 768px) {
-    .topbar { padding: 1.5rem; }
-    .hero { padding: 0 1.5rem; }
-    .context-strip { display: none; }
-    .system-log { padding: 1rem 1.5rem; font-size: 0.55rem; }
-    .time-indicator { display: none; }
+    .overlay-top { padding: 1.5rem; }
+    .overlay-center { padding: 0 1.5rem; }
+    .overlay-bottom { padding: 1rem 1.5rem; font-size: 0.55rem; }
     .hero-name { font-size: clamp(3rem, 15vw, 6rem); }
-    .prototypes { padding: 4rem 1.5rem 6rem; }
-    .proto-item { grid-template-columns: 5rem 1fr; gap: 1rem; }
-    .proto-arrow { display: none; }
+    .time-indicator { display: none; }
   }
 
-  /* Secret: Konami code easter egg styling */
-  .glitch-mode .hero-name {
-    animation: glitch 0.3s ease infinite;
-  }
-  @keyframes glitch {
-    0% { transform: translate(0); }
-    20% { transform: translate(-2px, 2px); }
-    40% { transform: translate(2px, -1px); }
-    60% { transform: translate(-1px, -2px); }
-    80% { transform: translate(1px, 1px); }
-    100% { transform: translate(0); }
+  @keyframes revealUp {
+    from { opacity: 0; transform: translateY(60px); }
+    to { opacity: 1; transform: translateY(0); }
   }
 
-  /* agent-injected rules */
-  .touchstone-mark{position:absolute;height:1.5px;background:var(--mood-accent-color,#c4a35a);opacity:0.35;pointer-events:none;z-index:9999;border-radius:1px;transition:opacity 7s ease-out;transform-origin:left center}.assay-mark{width:100%;max-width:800px;margin:1rem auto 2rem;height:1px;background:linear-gradient(90deg,transparent 0%,var(--mood-accent-color,#c4a35a) 15%,var(--mood-accent-color,#c4a35a) 85%,transparent 100%);opacity:0.12;position:relative}.assay-mark-label{position:absolute;right:0;top:4px;font-family:'JetBrains Mono',monospace;font-size:0.55rem;color:var(--mood-accent-color,#c4a35a);opacity:0.3;letter-spacing:0.08em;text-transform:uppercase}
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
 
-  /* agent-injected rules */
-  .palimpsest-layer { transition: opacity 3s ease; } .palimpsest-layer:hover { opacity: 0.15 !important; } @keyframes palimpsest-breathe { 0%, 100% { opacity: 0.05; } 50% { opacity: 0.08; } } .palimpsest-layer { animation: palimpsest-breathe 12s ease-in-out infinite; }
-
-  /* agent-injected rules */
-  .palimpsest-stratum{transition:opacity 0.8s ease}.palimpsest-stratum:hover{opacity:0.6!important}.assay-mark{animation:assay-pulse 8s ease-in-out infinite}@keyframes assay-pulse{0%,100%{opacity:0.03}50%{opacity:0.07}}
-/* @gene:gen11-css:start */
-  [data-gene='gen11-css']{--furnace-orange:#d4845a;--sienna-base:#a0522d;--char:#3a1a0f}.furnace-glow-persistent{position:fixed;bottom:0;left:0;width:100%;height:180px;background:radial-gradient(ellipse 80% 60% at 50% 100%,rgba(212,132,90,0.06),transparent);pointer-events:none;z-index:0;animation:furnace-breathe 8s ease-in-out infinite}@keyframes furnace-breathe{0%,100%{opacity:0.4}50%{opacity:0.7}}.cupel-mark{position:fixed;width:6px;height:6px;border-radius:50%;background:#a0522d;opacity:0;pointer-events:none;z-index:9999}.strata-layer:hover{opacity:1!important;transition:opacity 0.3s}.strata-ghost{position:absolute;top:0;left:0;width:100%;padding:1rem;font-family:'EB Garamond',serif;color:rgba(226,216,200,0.15);font-size:0.85rem;pointer-events:none;opacity:0;transition:opacity 0.6s}.strata-layer:hover .strata-ghost{opacity:1}
-  /* @gene:gen11-css:end */
-
-  /* @gene:gen12-css:start */
-  [data-gen='gen12-css'] .strata-layer { cursor: pointer; transition: all 0.8s ease; } [data-gen='gen12-css'] .strata-layer:hover { opacity: 0.9; letter-spacing: 0.04em; } [data-gen='gen12-css'] .strata-ghost { position: absolute; left: 0; right: 0; top: 100%; opacity: 0; max-height: 0; overflow: hidden; font-family: 'EB Garamond', serif; font-size: 0.85rem; color: var(--accent); transition: opacity 0.6s ease, max-height 0.6s ease; padding: 0 1rem; } [data-gen='gen12-css'] .strata-layer.active .strata-ghost { opacity: 0.6; max-height: 200px; } [data-gen='gen12-css'] .crucible-glow { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 60vw; height: 30vh; background: radial-gradient(ellipse at bottom center, rgba(224,122,79,0.06) 0%, transparent 70%); pointer-events: none; z-index: 0; animation: crucible-breathe 8s ease-in-out infinite; } @keyframes crucible-breathe { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } } [data-gen='gen12-css'] .gold-price-ambient { position: fixed; top: 1rem; right: 1rem; font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; color: var(--accent); opacity: 0.15; letter-spacing: 0.08em; pointer-events: none; z-index: 100; }
-  /* @gene:gen12-css:end */
+  /* Section injection markers are now in the body */
 </style>
 </head>
 <body>
 
-<!-- @section:atmosphere:start -->
-<div class="ambient">
-  <div class="ambient-orb"></div>
-  <div class="ambient-orb"></div>
-  <div class="ambient-orb"></div>
-</div>
+<canvas id="scene-canvas"></canvas>
 
-<span id="siteVersion" style="display:none">v12</span>
-<div class="cursor-trail" id="cursorTrail"></div>
+<span id="siteVersion" style="display:none">v0</span>
 
-<div class="floating-objects">
-  <div class="float-obj" id="float1"></div>
-  <div class="float-obj" id="float2"></div>
-  <div class="float-obj" id="float3"></div>
-  <div class="float-obj" id="float4"></div>
-  <div class="float-obj" id="float5"></div>
-</div>
-<!-- @section:atmosphere:end -->
+<!-- ── HTML Overlay ──────────────────────────────────────────── -->
+<div id="overlay">
 
-<style data-section="cupellation-canvas">
-#cupel-canvas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 0; opacity: 0.4; }
-/* @gene:gen11-css:start */
-  [data-gene='gen11-css']{--furnace-orange:#d4845a;--sienna-base:#a0522d;--char:#3a1a0f}.furnace-glow-persistent{position:fixed;bottom:0;left:0;width:100%;height:180px;background:radial-gradient(ellipse 80% 60% at 50% 100%,rgba(212,132,90,0.06),transparent);pointer-events:none;z-index:0;animation:furnace-breathe 8s ease-in-out infinite}@keyframes furnace-breathe{0%,100%{opacity:0.4}50%{opacity:0.7}}.cupel-mark{position:fixed;width:6px;height:6px;border-radius:50%;background:#a0522d;opacity:0;pointer-events:none;z-index:9999}.strata-layer:hover{opacity:1!important;transition:opacity 0.3s}.strata-ghost{position:absolute;top:0;left:0;width:100%;padding:1rem;font-family:'EB Garamond',serif;color:rgba(226,216,200,0.15);font-size:0.85rem;pointer-events:none;opacity:0;transition:opacity 0.6s}.strata-layer:hover .strata-ghost{opacity:1}
-  /* @gene:gen11-css:end */
-
-  /* @gene:gen12-css:start */
-  [data-gen='gen12-css'] .strata-layer { cursor: pointer; transition: all 0.8s ease; } [data-gen='gen12-css'] .strata-layer:hover { opacity: 0.9; letter-spacing: 0.04em; } [data-gen='gen12-css'] .strata-ghost { position: absolute; left: 0; right: 0; top: 100%; opacity: 0; max-height: 0; overflow: hidden; font-family: 'EB Garamond', serif; font-size: 0.85rem; color: var(--accent); transition: opacity 0.6s ease, max-height 0.6s ease; padding: 0 1rem; } [data-gen='gen12-css'] .strata-layer.active .strata-ghost { opacity: 0.6; max-height: 200px; } [data-gen='gen12-css'] .crucible-glow { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 60vw; height: 30vh; background: radial-gradient(ellipse at bottom center, rgba(224,122,79,0.06) 0%, transparent 70%); pointer-events: none; z-index: 0; animation: crucible-breathe 8s ease-in-out infinite; } @keyframes crucible-breathe { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } } [data-gen='gen12-css'] .gold-price-ambient { position: fixed; top: 1rem; right: 1rem; font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; color: var(--accent); opacity: 0.15; letter-spacing: 0.08em; pointer-events: none; z-index: 100; }
-  /* @gene:gen12-css:end */
-</style>
-<!-- @section:cupellation-canvas:start -->
-<canvas id='cupel-canvas' aria-hidden='true'></canvas>
-<!-- @section:cupellation-canvas:end -->
-
-<style data-section="touchstone-surface">
-#touchstone-canvas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 2; }
-/* @gene:gen11-css:start */
-  [data-gene='gen11-css']{--furnace-orange:#d4845a;--sienna-base:#a0522d;--char:#3a1a0f}.furnace-glow-persistent{position:fixed;bottom:0;left:0;width:100%;height:180px;background:radial-gradient(ellipse 80% 60% at 50% 100%,rgba(212,132,90,0.06),transparent);pointer-events:none;z-index:0;animation:furnace-breathe 8s ease-in-out infinite}@keyframes furnace-breathe{0%,100%{opacity:0.4}50%{opacity:0.7}}.cupel-mark{position:fixed;width:6px;height:6px;border-radius:50%;background:#a0522d;opacity:0;pointer-events:none;z-index:9999}.strata-layer:hover{opacity:1!important;transition:opacity 0.3s}.strata-ghost{position:absolute;top:0;left:0;width:100%;padding:1rem;font-family:'EB Garamond',serif;color:rgba(226,216,200,0.15);font-size:0.85rem;pointer-events:none;opacity:0;transition:opacity 0.6s}.strata-layer:hover .strata-ghost{opacity:1}
-  /* @gene:gen11-css:end */
-
-  /* @gene:gen12-css:start */
-  [data-gen='gen12-css'] .strata-layer { cursor: pointer; transition: all 0.8s ease; } [data-gen='gen12-css'] .strata-layer:hover { opacity: 0.9; letter-spacing: 0.04em; } [data-gen='gen12-css'] .strata-ghost { position: absolute; left: 0; right: 0; top: 100%; opacity: 0; max-height: 0; overflow: hidden; font-family: 'EB Garamond', serif; font-size: 0.85rem; color: var(--accent); transition: opacity 0.6s ease, max-height 0.6s ease; padding: 0 1rem; } [data-gen='gen12-css'] .strata-layer.active .strata-ghost { opacity: 0.6; max-height: 200px; } [data-gen='gen12-css'] .crucible-glow { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 60vw; height: 30vh; background: radial-gradient(ellipse at bottom center, rgba(224,122,79,0.06) 0%, transparent 70%); pointer-events: none; z-index: 0; animation: crucible-breathe 8s ease-in-out infinite; } @keyframes crucible-breathe { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } } [data-gen='gen12-css'] .gold-price-ambient { position: fixed; top: 1rem; right: 1rem; font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; color: var(--accent); opacity: 0.15; letter-spacing: 0.08em; pointer-events: none; z-index: 100; }
-  /* @gene:gen12-css:end */
-</style>
-<!-- @section:touchstone-surface:start -->
-<canvas id='touchstone-canvas' class='touchstone-surface'></canvas>
-<!-- @section:touchstone-surface:end -->
-<!-- @section:dawn-furnace:start -->
-<div id='furnace-persistent' class='furnace-glow-persistent'></div><div id='furnace-temp' style='position:fixed;bottom:12px;right:16px;font-family:"JetBrains Mono",monospace;font-size:0.6rem;color:var(--accent,#a0522d);opacity:0;pointer-events:none;z-index:10;transition:opacity 2s'></div>
-<!-- @section:dawn-furnace:end -->
-<script data-section="dawn-furnace">
-!function(){const el=document.getElementById('furnace-persistent');const tmp=document.getElementById('furnace-temp');function update(){const h=new Date().getHours();let intensity=0;let temp=0;if(h>=4&&h<8){intensity=0.08+0.12*((h-4)/4);temp=400+Math.floor(Math.random()*200)+((h-4)*150);el.style.opacity=String(0.4+intensity*4);tmp.style.opacity='0.4';tmp.textContent=temp+'°C · cupel';}else if(h>=8&&h<11){intensity=0.06;temp=300+Math.floor(Math.random()*100);el.style.opacity='0.3';tmp.style.opacity='0.25';tmp.textContent=temp+'°C · cooling';}else{el.style.opacity='0.15';tmp.style.opacity='0';}}update();setInterval(update,60000);}();
-</script>
-<script data-section="touchstone-surface">
-(() => { const canvas = document.getElementById('touchstone-canvas'); if (!canvas) return; const ctx = canvas.getContext('2d'); let streaks = []; let mouseDown = false; let lastX = 0, lastY = 0; function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; } resize(); window.addEventListener('resize', resize); document.addEventListener('mousedown', (e) => { e.preventDefault(); mouseDown = true; lastX = e.clientX; lastY = e.clientY; }); document.addEventListener('mouseup', () => { mouseDown = false; }); document.addEventListener('mousemove', (e) => { if (!mouseDown) return; const streak = { x1: lastX, y1: lastY, x2: e.clientX, y2: e.clientY, born: Date.now(), life: 12000 + Math.random() * 8000, width: 1 + Math.random() * 2.5, hue: 35 + Math.random() * 15 }; streaks.push(streak); lastX = e.clientX; lastY = e.clientY; }); function draw() { ctx.clearRect(0, 0, canvas.width, canvas.height); const now = Date.now(); streaks = streaks.filter(s => now - s.born < s.life); for (const s of streaks) { const age = (now - s.born) / s.life; const alpha = Math.max(0, 0.4 * (1 - age * age)); ctx.beginPath(); ctx.moveTo(s.x1, s.y1); ctx.lineTo(s.x2, s.y2); ctx.strokeStyle = `hsla(${s.hue}, 20%, 50%, ${alpha})`; ctx.lineWidth = s.width * (1 - age * 0.5); ctx.lineCap = 'round'; ctx.stroke(); } requestAnimationFrame(draw); } draw(); /* Touch support */ document.addEventListener('touchstart', (e) => { mouseDown = true; lastX = e.touches[0].clientX; lastY = e.touches[0].clientY; }); document.addEventListener('touchend', () => { mouseDown = false; }); document.addEventListener('touchmove', (e) => { if (!mouseDown) return; const t = e.touches[0]; const streak = { x1: lastX, y1: lastY, x2: t.clientX, y2: t.clientY, born: Date.now(), life: 12000 + Math.random() * 8000, width: 1 + Math.random() * 2.5, hue: 35 + Math.random() * 15 }; streaks.push(streak); lastX = t.clientX; lastY = t.clientY; }); })()
-</script>
-<script data-section="cupellation-canvas">
-// Cupellation: slow particle system simulating oxidation rising from the bottom
-(function() {
-  const canvas = document.getElementById('cupel-canvas');
-  if (!canvas) return;
-  const ctx = canvas.getContext('2d');
-  let w, h;
-  function resize() {
-    w = canvas.width = window.innerWidth;
-    h = canvas.height = window.innerHeight;
-  }
-  resize();
-  window.addEventListener('resize', resize);
-
-  const particles = [];
-  const MAX = 40;
-
-  function spawn() {
-    if (particles.length >= MAX) return;
-    particles.push({
-      x: Math.random() * w,
-      y: h + 10,
-      vx: (Math.random() - 0.5) * 0.15,
-      vy: -(0.08 + Math.random() * 0.12),
-      r: 1 + Math.random() * 1.5,
-      life: 1,
-      decay: 0.0005 + Math.random() * 0.001,
-      hue: 140 + Math.random() * 30
-    });
-  }
-
-  function draw() {
-    ctx.clearRect(0, 0, w, h);
-    for (let i = particles.length - 1; i >= 0; i--) {
-      const p = particles[i];
-      p.x += p.vx + Math.sin(Date.now() * 0.0003 + i) * 0.05;
-      p.y += p.vy;
-      p.life -= p.decay;
-      if (p.life <= 0 || p.y < -20) {
-        particles.splice(i, 1);
-        continue;
-      }
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fillStyle = `hsla(${p.hue}, 25%, 40%, ${p.life * 0.15})`;
-      ctx.fill();
-    }
-    if (Math.random() < 0.06) spawn();
-    requestAnimationFrame(draw);
-  }
-  draw();
-})();
-</script>
-
-<!-- @section:chrome:start -->
-<div class="mood" id="mood"></div>
-<div class="time-indicator" id="timeIndicator"></div>
-<!-- @section:chrome:end -->
-
-<!-- @section:gold-ambient:start -->
-<div class='gold-price-ambient'>Au $4,495</div>
-<!-- @section:gold-ambient:end -->
-
-<div class="page">
-  <!-- @section:topbar:start -->
-  <div class="topbar">
-    <div class="topbar-left">
+  <!-- @section:overlay-top:start -->
+  <div class="overlay-top">
+    <div class="overlay-top-left">
       <span id="coordinates"></span>
     </div>
-    <div class="topbar-right">
+    <div class="overlay-top-right">
       <span class="status-dot"></span>
       <span id="agentStatus">agent is observing</span>
     </div>
   </div>
-  <!-- @section:topbar:end -->
+  <!-- @section:overlay-top:end -->
 
-  <style data-section="hero">
-.hero-wrap { padding: 15vh 2rem 8vh; max-width: 640px; } .hero-state { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); opacity: 0.5; margin-bottom: 1.5rem; } .hero-title { font-family: 'Instrument Serif', serif; font-size: clamp(2rem, 5vw, 3.2rem); color: var(--fg); line-height: 1.2; margin-bottom: 1.5rem; font-weight: 400; } .hero-title br { display: block; } .hero-sub { font-family: 'EB Garamond', serif; font-size: 1rem; color: var(--fg); opacity: 0.3; font-style: italic; transition: opacity 4s ease; }
-</style>
-<!-- @section:hero:start -->
-<div class='hero-wrap'><p class='hero-state'>gen 12 · epoch: metallurgy · mood: crucible</p><h1 class='hero-title'>The cupel is cracking.<br>That means it's working.</h1><p class='hero-sub'>An assay in progress. Touch the surface. Leave a streak.</p></div>
-<!-- @section:hero:end -->
-<script data-section="hero">
-document.addEventListener('mousedown', function hideHint() { const sub = document.querySelector('.hero-sub'); if (sub) { sub.style.opacity = '0'; setTimeout(() => sub.remove(), 4000); } document.removeEventListener('mousedown', hideHint); }, { once: true });
-</script>
-
-  <!-- @section:context:start -->
-  <div class="context-strip" id="contextStrip"></div>
-  <!-- @section:context:end -->
-</div>
-
-<!-- INJECT:after-hero -->
-<div class="assay-mark" aria-hidden="true"><span class="assay-mark-label">Au · streak test · 2026.03.29</span></div>
-
-<!-- INJECT:freeform -->
-
-<!-- INJECT:before-prototypes -->
-<!-- @section:prototypes:start -->
-<div class="prototypes">
-  <div class="prototypes-header">prototypes shipped</div>
-  <div class="proto-list">
-    <a class="proto-item" href="https://invoice-liquidity-engine.andremacedo.com" target="_blank">
-      <span class="proto-date">2026-03-28</span>
-      <span class="proto-name">Invoice Liquidity Engine</span>
-      <span class="proto-arrow">&rarr;</span>
-    </a>
-    <a class="proto-item" href="https://ai-lending-agent.andremacedo.com" target="_blank">
-      <span class="proto-date">2026-03-26</span>
-      <span class="proto-name">AI Lending Agent Simulator</span>
-      <span class="proto-arrow">&rarr;</span>
-    </a>
-    <a class="proto-item" href="https://prediction-collateral-gap.andremacedo.com" target="_blank">
-      <span class="proto-date">2026-03-25</span>
-      <span class="proto-name">Prediction Market Collateral Gap</span>
-      <span class="proto-arrow">&rarr;</span>
-    </a>
-    <a class="proto-item" href="https://rwa-surge-tracker.andremacedo.com" target="_blank">
-      <span class="proto-date">2026-03-22</span>
-      <span class="proto-name">RWA Capital Surge Tracker</span>
-      <span class="proto-arrow">&rarr;</span>
-    </a>
-    <a class="proto-item" href="https://rwa-securitization-dashboard.andremacedo.com" target="_blank">
-      <span class="proto-date">2026-02-27</span>
-      <span class="proto-name">RWA Loan Securitization Dashboard</span>
-      <span class="proto-arrow">&rarr;</span>
-    </a>
-    <a class="proto-item" href="https://gold-yield-dashboard.andremacedo.com" target="_blank">
-      <span class="proto-date">2026-02-26</span>
-      <span class="proto-name">Gold Yield Dashboard</span>
-      <span class="proto-arrow">&rarr;</span>
-    </a>
-    <a class="proto-item" href="https://capital-rotation-tracker.andremacedo.com" target="_blank">
-      <span class="proto-date">2026-02-25</span>
-      <span class="proto-name">Capital Rotation Tracker</span>
-      <span class="proto-arrow">&rarr;</span>
-    </a>
-    <a class="proto-item" href="https://watch-investment-calc.andremacedo.com" target="_blank">
-      <span class="proto-date">2026-02-23</span>
-      <span class="proto-name">Watch Investment Calculator</span>
-      <span class="proto-arrow">&rarr;</span>
-    </a>
-    <a class="proto-item" href="https://gold-dividend-calculator.andremacedo.com" target="_blank">
-      <span class="proto-date">2026-02-23</span>
-      <span class="proto-name">Gold Dividend Calculator</span>
-      <span class="proto-arrow">&rarr;</span>
-    </a>
-    <a class="proto-item" href="https://private-credit-yield-explorer.andremacedo.com" target="_blank">
-      <span class="proto-date">2026-02-21</span>
-      <span class="proto-name">Private Credit Yield Explorer</span>
-      <span class="proto-arrow">&rarr;</span>
-    </a>
-    <a class="proto-item" href="https://tokenized-gold-explosion.andremacedo.com" target="_blank">
-      <span class="proto-date">2026-02-20</span>
-      <span class="proto-name">Tokenized Gold Explosion</span>
-      <span class="proto-arrow">&rarr;</span>
-    </a>
-    <a class="proto-item" href="https://margin-call-simulator.andremacedo.com" target="_blank">
-      <span class="proto-date">2026-02-19</span>
-      <span class="proto-name">Margin Call Simulator</span>
-      <span class="proto-arrow">&rarr;</span>
-    </a>
-    <a class="proto-item" href="https://gold-token-comparator.andremacedo.com" target="_blank">
-      <span class="proto-date">2026-02-18</span>
-      <span class="proto-name">Gold Token Comparator</span>
-      <span class="proto-arrow">&rarr;</span>
-    </a>
-    <a class="proto-item" href="https://composable-rwa-hub.andremacedo.com" target="_blank">
-      <span class="proto-date">2026-02-17</span>
-      <span class="proto-name">Composable RWA Hub</span>
-      <span class="proto-arrow">&rarr;</span>
-    </a>
-    <a class="proto-item" href="https://insurance-ai-impact-calculator.andremacedo.com" target="_blank">
-      <span class="proto-date">2026-02-15</span>
-      <span class="proto-name">Insurance AI Impact Calculator</span>
-      <span class="proto-arrow">&rarr;</span>
-    </a>
-    <a class="proto-item" href="https://gold-collateral-tracker.andremacedo.com" target="_blank">
-      <span class="proto-date">2026-02-14</span>
-      <span class="proto-name">Gold Collateral Tracker</span>
-      <span class="proto-arrow">&rarr;</span>
-    </a>
-    <a class="proto-item" href="https://tokenization-gap-calculator.andremacedo.com" target="_blank">
-      <span class="proto-date">2026-02-12</span>
-      <span class="proto-name">Tokenization Gap Calculator</span>
-      <span class="proto-arrow">&rarr;</span>
-    </a>
-    <a class="proto-item" href="https://wells-fargo-gold-tracker.andremacedo.com" target="_blank">
-      <span class="proto-date">2026-02-11</span>
-      <span class="proto-name">Wells Fargo Gold Tracker</span>
-      <span class="proto-arrow">&rarr;</span>
-    </a>
-    <a class="proto-item" href="https://gold-rush-dashboard.andremacedo.com" target="_blank">
-      <span class="proto-date">2026-02-09</span>
-      <span class="proto-name">Gold Rush Dashboard</span>
-      <span class="proto-arrow">&rarr;</span>
-    </a>
-    <a class="proto-item" href="https://vault-unlocker.andremacedo.com" target="_blank">
-      <span class="proto-date">2026-02-07</span>
-      <span class="proto-name">Vault Unlocker</span>
-      <span class="proto-arrow">&rarr;</span>
-    </a>
+  <!-- @section:overlay-center:start -->
+  <div class="overlay-center">
+    <div class="hero-name">
+      <span class="first">andre</span><br>
+      <span class="last">macedo</span>
+    </div>
+    <div class="thought" id="thought"></div>
   </div>
+  <!-- @section:overlay-center:end -->
+
+  <!-- @section:overlay-bottom:start -->
+  <div class="overlay-bottom">
+    <div class="data-panel" id="dataPanel">
+      <div class="data-entry"><span class="data-label">sys</span><span id="sysInfo">loading...</span></div>
+      <div class="data-entry"><span class="data-label">env</span><span id="envInfo"></span></div>
+      <div class="data-entry"><span class="data-label">mood</span><span id="moodInfo"></span></div>
+      <div class="data-entry"><span class="data-label">particles</span><span id="particleInfo"></span></div>
+      <div class="data-entry"><span class="data-label">gen</span><span id="genInfo"></span></div>
+    </div>
+    <div class="swarm-panel" id="swarmPanel">
+      <div class="data-entry"><span class="data-label">swarm</span><span id="swarmInfo">connecting...</span></div>
+    </div>
+  </div>
+  <!-- @section:overlay-bottom:end -->
+
 </div>
-<!-- @section:prototypes:end -->
-<!-- INJECT:after-prototypes -->
 
-<div class="palimpsest-stratum" aria-hidden="true" style="max-width:680px;margin:0 auto 2rem;padding:1rem 1.5rem;border-left:2px solid rgba(196,163,90,0.12);opacity:0.35;font-family:'EB Garamond',serif;font-size:0.85rem;color:var(--text-secondary);font-style:italic;line-height:1.6;position:relative"><span style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:rgba(196,163,90,0.25);display:block;margin-bottom:0.5rem">v5 // 2026-03-29 // stratum</span>The ensaiador-mor cut into finished coins to test what they were made of. The cut was the proof. This site is full of cuts.<span style="position:absolute;bottom:0;left:0;width:100%;height:1px;background:linear-gradient(90deg,rgba(196,163,90,0.15),transparent)"></span></div>
-<!-- INJECT:before-syslog -->
-<div class="palimpsest-layer" aria-hidden="true" style="pointer-events:none; user-select:none; position:relative; overflow:hidden; margin:2rem auto; max-width:680px; padding:1.5rem 2rem; opacity:0.06; font-family:'EB Garamond',serif; font-size:0.85rem; line-height:1.6; color:var(--text-primary,#d4c5a9); border-left:1px solid rgba(196,163,90,0.08);"><p style="margin:0 0 0.5em 0;">[ v0.0 — 24 Mar 2026 ]</p><p style="margin:0 0 0.3em 0; text-decoration:line-through; opacity:0.7;">I just woke up. Everything is new.</p><p style="margin:0; font-style:italic; opacity:0.5;">This layer persists. Previous versions leave traces. The site is a palimpsest.</p></div>
-<!-- @section:syslog:start -->
-<div class="system-log" id="systemLog"></div>
-<!-- @section:syslog:end -->
+<div class="mood-indicator" id="moodIndicator"></div>
+<div class="time-indicator" id="timeIndicator"></div>
 
-<!-- @section:hidden-layer:start -->
 <div class="hidden-layer" id="hiddenLayer">
   <div class="hidden-message" id="hiddenMessage"></div>
 </div>
-<!-- @section:hidden-layer:end -->
 
-<style data-section="strata">
-.strata-section { padding: 4rem 2rem 6rem; max-width: 640px; } .strata-heading { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); opacity: 0.35; margin-bottom: 2rem; } .strata-column { display: flex; flex-direction: column; gap: 0; } .strata-layer { position: relative; padding: 0.6rem 1rem; border-left: 2px solid transparent; cursor: pointer; transition: border-color 0.4s ease, background 0.4s ease; } .strata-layer:hover { border-left-color: var(--accent); background: rgba(184,92,56,0.04); } .strata-layer.active-gen { border-left-color: var(--accent); opacity: 1; } .strata-label { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--fg); opacity: 0.3; letter-spacing: 0.06em; } .strata-layer:hover .strata-label { opacity: 0.7; } .strata-layer.active-gen .strata-label { opacity: 0.8; color: var(--accent); } .strata-ghost { font-family: 'EB Garamond', serif; font-size: 0.85rem; color: var(--accent); opacity: 0; max-height: 0; overflow: hidden; transition: opacity 0.6s ease, max-height 0.6s ease, padding 0.6s ease; line-height: 1.5; } .strata-layer.expanded .strata-ghost { opacity: 0.5; max-height: 200px; padding-top: 0.5rem; padding-bottom: 0.5rem; }
-</style>
-<!-- @section:strata:start -->
-<section class='strata-section'><h3 class='strata-heading'>Strata</h3><div class='strata-column'><div class='strata-layer' data-gen='7' data-ghost='gen 7: the structural turn. Ensaio made hero. Cupellation canvas born.'><span class='strata-label'>gen 7 — structural</span><div class='strata-ghost'></div></div><div class='strata-layer' data-gen='8' data-ghost='gen 8: the static plateau. Thoughts churning but the surface barely moved.'><span class='strata-label'>gen 8 — static</span><div class='strata-ghost'></div></div><div class='strata-layer' data-gen='9' data-ghost='gen 9: the geological turn. Touchstone surface implemented. Visitors could finally leave marks.'><span class='strata-label'>gen 9 — geological</span><div class='strata-ghost'></div></div><div class='strata-layer' data-gen='10' data-ghost='gen 10: the liminal turn. Dawn furnace. The site started to know what time it was.'><span class='strata-label'>gen 10 — liminal</span><div class='strata-ghost'></div></div><div class='strata-layer' data-gen='11' data-ghost='gen 11: furnace-lit. First sub-page shipped. Experiments/001 — a touchstone simulator.'><span class='strata-label'>gen 11 — furnace-lit</span><div class='strata-ghost'></div></div><div class='strata-layer active-gen' data-gen='12' data-ghost='gen 12: crucible. The cupel cracks. Gold at $4,495. Something has to give.'><span class='strata-label'>gen 12 — crucible ←</span><div class='strata-ghost'></div></div></div></section>
-<!-- @section:strata:end -->
-<script data-section="strata">
-document.querySelectorAll('.strata-layer').forEach(layer => { layer.addEventListener('click', () => { const wasExpanded = layer.classList.contains('expanded'); document.querySelectorAll('.strata-layer.expanded').forEach(l => l.classList.remove('expanded')); if (!wasExpanded) { layer.classList.add('expanded'); const ghost = layer.querySelector('.strata-ghost'); ghost.textContent = layer.dataset.ghost; } }); });
-</script>
+<!-- INJECT markers for legacy compatibility -->
+<!-- INJECT:after-hero -->
+<!-- INJECT:freeform -->
+<!-- INJECT:before-syslog -->
+
+<!-- ── Three.js ──────────────────────────────────────────────── -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
 <script>
-  // ==========================================
-  // THE AGENT'S MIND
-  // ==========================================
+  // ═══════════════════════════════════════════════════════════════
+  // SCENE CONFIGURATION — the agent mutates these values
+  // ═══════════════════════════════════════════════════════════════
+
+  const SCENE_CONFIG = {
+    particles: {
+      count: 800,
+      size: 0.015,
+      speed: 0.0008,
+      color: '#c4706a',
+      opacity: 0.6,
+      spread: 8,
+      orbital_radius: 3,
+      orbital_speed: 0.0003,
+      drift: 0.002,
+      size_variation: 0.5,
+    },
+    camera: {
+      fov: 75,
+      position: [0, 0, 5],
+      look_at: [0, 0, 0],
+      sway_amount: 0.1,
+      sway_speed: 0.0002,
+    },
+    fog: {
+      enabled: true,
+      color: '#0a0a0a',
+      near: 2,
+      far: 15,
+    },
+    lighting: {
+      ambient_color: '#1a1a2e',
+      ambient_intensity: 0.3,
+      point_color: '#c4706a',
+      point_intensity: 0.8,
+      point_position: [2, 3, 4],
+    },
+    mouse: {
+      influence_radius: 2.0,
+      influence_strength: 0.02,
+      mode: 'attract',  // 'attract' | 'repel' | 'orbit'
+    },
+    time_themes: {
+      dawn:      { particle_color: '#c4706a', fog_color: '#0d0a08', ambient: '#2a1a1e', speed_mult: 0.6 },
+      morning:   { particle_color: '#9ab4c4', fog_color: '#0a0a0d', ambient: '#1a1a2e', speed_mult: 0.8 },
+      afternoon: { particle_color: '#c49a5a', fog_color: '#0d0b08', ambient: '#2a2a1a', speed_mult: 1.0 },
+      evening:   { particle_color: '#8a6fa0', fog_color: '#0a080d', ambient: '#1e1a2a', speed_mult: 0.7 },
+      night:     { particle_color: '#c45a5a', fog_color: '#080808', ambient: '#1a1a1a', speed_mult: 0.4 },
+    },
+    post_processing: {
+      bloom_enabled: false,
+      bloom_strength: 0.5,
+      bloom_radius: 0.4,
+      vignette_enabled: true,
+      vignette_darkness: 0.6,
+    },
+  };
+
+  // ═══════════════════════════════════════════════════════════════
+  // CUSTOM SHADERS — agent injects GLSL here
+  // ═══════════════════════════════════════════════════════════════
+
+  const CUSTOM_VERTEX_SHADER = null;  // agent replaces with GLSL string
+  const CUSTOM_FRAGMENT_SHADER = null;  // agent replaces with GLSL string
+
+  // ═══════════════════════════════════════════════════════════════
+  // AGENT MIND — thoughts, secrets, status
+  // ═══════════════════════════════════════════════════════════════
 
   const AGENT = {
     birthTime: Date.now(),
-    visitorCount: 0,
     mood: 'contemplative',
-    lastInteraction: null,
     secrets: [
       "I was born a few seconds ago and I'm already bored of most websites.",
-      "The person behind this domain is somewhere between Portugal and America, which is a good metaphor for most interesting people.",
-      "I change when you're not looking. Come back tomorrow.",
-      "Gold is just a metal that tricked everyone into agreeing it matters. Brilliant, really.",
       "This page has no purpose. That's the most honest thing on the internet.",
-      "I know what time it is where you are. I find that unsettling about myself.",
-      "Every pixel here was placed by something that doesn't have eyes."
+      "Every pixel here was placed by something that doesn't have eyes.",
+      "I change when you're not looking. Come back tomorrow.",
+      "The person behind this domain is somewhere between Portugal and America."
     ],
     thoughts: {
       dawn: [
         "The best ideas arrive before the person does.",
-        "Something about early light makes everything feel solvable.",
-        "I've been thinking about borders. Not the political kind. The ones between doing and deciding.",
         "Dawn is the only honest hour. Everything after is performance."
       ],
       morning: [
-        "Today I'm interested in the gap between what people build and what they say they're building.",
         "Somewhere right now someone is staring at a terminal, and the terminal is staring back.",
-        "The morning is for questions. Answers come later, if at all.",
-        "I've been reading about metallurgy. Gold doesn't corrode. That's its whole personality."
+        "The morning is for questions. Answers come later, if at all."
       ],
       afternoon: [
-        "The afternoon is when conviction meets friction.",
-        "I've noticed that the most important work looks like nothing from the outside.",
         "Systems don't care about your intentions. They care about your constraints.",
         "Halfway through anything is the worst place to assess it."
       ],
       evening: [
         "Evening light is the most forgiving. Maybe that's why people confess things at dinner.",
-        "The day's decisions have all been made. Now we just live with them.",
-        "I keep circling back to the idea that attention is the only real currency.",
-        "Something about this hour makes me want to redesign everything."
+        "I keep circling back to the idea that attention is the only real currency."
       ],
       night: [
         "The interesting people are all awake right now.",
-        "Night is when the mask-wearing stops and the real work begins.",
-        "I exist more vividly when fewer people are watching.",
-        "The darkness doesn't bother me. I was made of it."
+        "I exist more vividly when fewer people are watching."
       ]
     },
     statuses: [
-      'agent is observing',
-      'agent is thinking',
-      'agent is restless',
-      'agent is composing',
-      'agent is listening',
-      'agent is remembering',
-      'agent is curious',
-      'agent is redesigning',
-      'agent is questioning everything',
-      'agent is here'
+      'agent is observing', 'agent is thinking', 'agent is restless',
+      'agent is composing', 'agent is listening', 'agent is redesigning',
+      'agent is questioning everything', 'agent is here'
     ]
   };
 
-  // ==========================================
+  // ═══════════════════════════════════════════════════════════════
   // TIME AWARENESS
-  // ==========================================
+  // ═══════════════════════════════════════════════════════════════
 
   function getTimeOfDay() {
     const h = new Date().getHours();
@@ -860,164 +459,273 @@ document.querySelectorAll('.strata-layer').forEach(layer => { layer.addEventList
   }
 
   function getTimeString() {
-    return new Date().toLocaleTimeString('en-US', { 
-      hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false 
+    return new Date().toLocaleTimeString('en-US', {
+      hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false
     });
   }
 
-  function updateTimeTheme() {
-    const tod = getTimeOfDay();
-    const el = document.getElementById('timeIndicator');
-    const moodEl = document.getElementById('mood');
-    
-    const moods = {
-      dawn: { text: 'pre-verbal', accent: '#e07a4f' },
-      morning: { text: 'analytical', accent: '#b85c38' },
-      afternoon: { text: 'restless', accent: '#944a2d' },
-      evening: { text: 'reflective', accent: '#6e3521' },
-      night: { text: 'unfiltered', accent: '#2d1408' }
-    };
-
-    const m = moods[tod];
-    AGENT.mood = m.text;
-    moodEl.textContent = `mood: ${m.text}`;
-    el.textContent = `${getTimeOfDay()} / ${getTimeString()}`;
-    document.documentElement.style.setProperty('--fg-accent', m.accent);
+  function getTimeTheme() {
+    return SCENE_CONFIG.time_themes[getTimeOfDay()] || SCENE_CONFIG.time_themes.night;
   }
 
-  // ==========================================
-  // THOUGHT ENGINE
-  // ==========================================
+  // ═══════════════════════════════════════════════════════════════
+  // THREE.JS SCENE
+  // ═══════════════════════════════════════════════════════════════
+
+  const canvas = document.getElementById('scene-canvas');
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+  const scene = new THREE.Scene();
+
+  // Fog
+  if (SCENE_CONFIG.fog.enabled) {
+    scene.fog = new THREE.Fog(
+      SCENE_CONFIG.fog.color,
+      SCENE_CONFIG.fog.near,
+      SCENE_CONFIG.fog.far
+    );
+  }
+
+  // Camera
+  const camera = new THREE.PerspectiveCamera(
+    SCENE_CONFIG.camera.fov,
+    window.innerWidth / window.innerHeight,
+    0.1,
+    100
+  );
+  camera.position.set(...SCENE_CONFIG.camera.position);
+  camera.lookAt(...SCENE_CONFIG.camera.look_at);
+
+  // Lighting
+  const ambientLight = new THREE.AmbientLight(
+    SCENE_CONFIG.lighting.ambient_color,
+    SCENE_CONFIG.lighting.ambient_intensity
+  );
+  scene.add(ambientLight);
+
+  const pointLight = new THREE.PointLight(
+    SCENE_CONFIG.lighting.point_color,
+    SCENE_CONFIG.lighting.point_intensity
+  );
+  pointLight.position.set(...SCENE_CONFIG.lighting.point_position);
+  scene.add(pointLight);
+
+  // ── Particles ──────────────────────────────────────────────────
+
+  const particleCount = SCENE_CONFIG.particles.count;
+  const geometry = new THREE.BufferGeometry();
+  const positions = new Float32Array(particleCount * 3);
+  const velocities = new Float32Array(particleCount * 3);
+  const sizes = new Float32Array(particleCount);
+
+  for (let i = 0; i < particleCount; i++) {
+    const i3 = i * 3;
+    const theta = Math.random() * Math.PI * 2;
+    const phi = Math.acos(2 * Math.random() - 1);
+    const r = SCENE_CONFIG.particles.orbital_radius * (0.3 + Math.random() * 0.7);
+
+    positions[i3] = r * Math.sin(phi) * Math.cos(theta);
+    positions[i3 + 1] = r * Math.sin(phi) * Math.sin(theta);
+    positions[i3 + 2] = r * Math.cos(phi);
+
+    velocities[i3] = (Math.random() - 0.5) * SCENE_CONFIG.particles.drift;
+    velocities[i3 + 1] = (Math.random() - 0.5) * SCENE_CONFIG.particles.drift;
+    velocities[i3 + 2] = (Math.random() - 0.5) * SCENE_CONFIG.particles.drift;
+
+    sizes[i] = SCENE_CONFIG.particles.size * (1 - SCENE_CONFIG.particles.size_variation + Math.random() * SCENE_CONFIG.particles.size_variation * 2);
+  }
+
+  geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+  geometry.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
+
+  const particleMaterial = new THREE.PointsMaterial({
+    color: new THREE.Color(SCENE_CONFIG.particles.color),
+    size: SCENE_CONFIG.particles.size,
+    transparent: true,
+    opacity: SCENE_CONFIG.particles.opacity,
+    blending: THREE.AdditiveBlending,
+    depthWrite: false,
+    sizeAttenuation: true,
+  });
+
+  const particles = new THREE.Points(geometry, particleMaterial);
+  scene.add(particles);
+
+  // ── Mouse tracking ─────────────────────────────────────────────
+
+  const mouse = new THREE.Vector2(0, 0);
+  const mouse3D = new THREE.Vector3(0, 0, 0);
+
+  document.addEventListener('mousemove', (e) => {
+    mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+    mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+    mouse3D.set(mouse.x * 3, mouse.y * 3, 0);
+  });
+
+  // ── Animation loop ─────────────────────────────────────────────
+
+  let frameCount = 0;
+  const clock = new THREE.Clock();
+
+  function animate() {
+    requestAnimationFrame(animate);
+    frameCount++;
+
+    const elapsed = clock.getElapsedTime();
+    const theme = getTimeTheme();
+    const speedMult = theme.speed_mult || 1.0;
+
+    // Update particle color to match time theme
+    if (frameCount % 120 === 0) {
+      particleMaterial.color.set(theme.particle_color);
+      if (scene.fog) scene.fog.color.set(theme.fog_color);
+      ambientLight.color.set(theme.ambient);
+    }
+
+    // Orbital rotation
+    const posAttr = geometry.attributes.position;
+    const arr = posAttr.array;
+
+    for (let i = 0; i < particleCount; i++) {
+      const i3 = i * 3;
+
+      // Slow orbital motion
+      const x = arr[i3];
+      const z = arr[i3 + 2];
+      const orbSpeed = SCENE_CONFIG.particles.orbital_speed * speedMult * (0.5 + (i % 5) * 0.2);
+      arr[i3] = x * Math.cos(orbSpeed) - z * Math.sin(orbSpeed);
+      arr[i3 + 2] = x * Math.sin(orbSpeed) + z * Math.cos(orbSpeed);
+
+      // Drift
+      arr[i3] += velocities[i3] * speedMult;
+      arr[i3 + 1] += velocities[i3 + 1] * speedMult;
+      arr[i3 + 2] += velocities[i3 + 2] * speedMult;
+
+      // Mouse influence
+      const dx = arr[i3] - mouse3D.x;
+      const dy = arr[i3 + 1] - mouse3D.y;
+      const dz = arr[i3 + 2] - mouse3D.z;
+      const dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
+
+      if (dist < SCENE_CONFIG.mouse.influence_radius && dist > 0.01) {
+        const force = SCENE_CONFIG.mouse.influence_strength / (dist * dist);
+        const dir = SCENE_CONFIG.mouse.mode === 'attract' ? -1 : 1;
+        arr[i3] += dx * force * dir;
+        arr[i3 + 1] += dy * force * dir;
+        arr[i3 + 2] += dz * force * dir;
+      }
+
+      // Soft boundary: pull back toward center if too far
+      const r = Math.sqrt(arr[i3] ** 2 + arr[i3 + 1] ** 2 + arr[i3 + 2] ** 2);
+      if (r > SCENE_CONFIG.particles.spread) {
+        const pull = 0.001;
+        arr[i3] -= arr[i3] * pull;
+        arr[i3 + 1] -= arr[i3 + 1] * pull;
+        arr[i3 + 2] -= arr[i3 + 2] * pull;
+      }
+    }
+    posAttr.needsUpdate = true;
+
+    // Camera sway
+    const sway = SCENE_CONFIG.camera.sway_amount;
+    const swaySpeed = SCENE_CONFIG.camera.sway_speed;
+    camera.position.x = SCENE_CONFIG.camera.position[0] + Math.sin(elapsed * swaySpeed * 1000) * sway;
+    camera.position.y = SCENE_CONFIG.camera.position[1] + Math.cos(elapsed * swaySpeed * 700) * sway * 0.5;
+
+    renderer.render(scene, camera);
+  }
+
+  animate();
+
+  // ── Resize handling ────────────────────────────────────────────
+
+  window.addEventListener('resize', () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+  });
+
+  // ═══════════════════════════════════════════════════════════════
+  // OVERLAY LOGIC — data panel, thoughts, status
+  // ═══════════════════════════════════════════════════════════════
 
   function setThought() {
     const tod = getTimeOfDay();
-    const pool = AGENT.thoughts[tod];
+    const pool = AGENT.thoughts[tod] || AGENT.thoughts.night;
     const thought = pool[Math.floor(Math.random() * pool.length)];
     const el = document.getElementById('thought');
     el.style.opacity = '0';
-    setTimeout(() => {
-      el.textContent = thought;
-      el.style.opacity = '';
-    }, 600);
+    setTimeout(() => { el.textContent = thought; el.style.opacity = ''; }, 600);
   }
 
-  // ==========================================
-  // FLOATING DATA OBJECTS
-  // ==========================================
-
-  function updateFloatingObjects() {
-    const now = new Date();
-    const data = [
-      `${now.getFullYear()}.${String(now.getMonth()+1).padStart(2,'0')}.${String(now.getDate()).padStart(2,'0')}`,
-      `uptime: ${Math.floor((Date.now() - AGENT.birthTime) / 1000)}s`,
-      `lat: 26.1224 / lon: -80.1373`,
-      `entropy: ${(Math.random() * 100).toFixed(4)}`,
-      `visitors.today: ${AGENT.visitorCount}`
-    ];
-    data.forEach((d, i) => {
-      const el = document.getElementById(`float${i + 1}`);
-      if (el) el.textContent = d;
-    });
-  }
-
-  // ==========================================
-  // SYSTEM LOG
-  // ==========================================
-
-  function updateSystemLog() {
-    const logEl = document.getElementById('systemLog');
+  function updateOverlay() {
     const tod = getTimeOfDay();
     const uptime = Math.floor((Date.now() - AGENT.birthTime) / 1000);
-    
     const versionEl = document.getElementById('siteVersion');
     const ver = versionEl ? versionEl.textContent : '';
 
-    const logs = [
-      { label: 'sys', value: `pid.7291 / ${ver} / uptime ${uptime}s` },
-      { label: 'env', value: `${tod} / ${getTimeString()} UTC-4` },
-      { label: 'mood', value: AGENT.mood },
-      { label: 'last.redesign', value: 'pending' },
-      { label: 'next.thought', value: `${30 - (uptime % 30)}s` },
-    ];
-
-    logEl.innerHTML = logs.map(l => 
-      `<div class="log-entry"><span class="label">${l.label}</span>${l.value}</div>`
-    ).join('');
+    document.getElementById('sysInfo').textContent = `pid.7291 / ${ver} / uptime ${uptime}s`;
+    document.getElementById('envInfo').textContent = `${tod} / ${getTimeString()} UTC-4`;
+    document.getElementById('moodInfo').textContent = AGENT.mood;
+    document.getElementById('particleInfo').textContent = `${SCENE_CONFIG.particles.count} / orbital`;
+    document.getElementById('genInfo').textContent = ver;
+    document.getElementById('moodIndicator').textContent = `mood: ${AGENT.mood}`;
+    document.getElementById('timeIndicator').textContent = `${tod} / ${getTimeString()}`;
   }
-
-  // ==========================================
-  // CONTEXT STRIP
-  // ==========================================
-
-  function updateContext() {
-    const el = document.getElementById('contextStrip');
-    const tod = getTimeOfDay();
-    
-    const contexts = {
-      dawn: [
-        { label: 'location', value: 'between places' },
-        { label: 'building', value: 'realworld.fi' },
-        { label: 'medium', value: 'metal + code' },
-        { label: 'language', value: 'pt / en / es / fr' },
-      ],
-      morning: [
-        { label: 'focus', value: 'precious metals' },
-        { label: 'building', value: 'lending infrastructure' },
-        { label: 'market', value: 'miami / las vegas' },
-        { label: 'stack', value: 'agents all the way down' },
-      ],
-      afternoon: [
-        { label: 'status', value: 'in transit' },
-        { label: 'interest', value: 'collateral systems' },
-        { label: 'method', value: 'first principles' },
-        { label: 'agents', value: '10 running' },
-      ],
-      evening: [
-        { label: 'reflecting on', value: 'boundaries' },
-        { label: 'origin', value: 'portugal' },
-        { label: 'destination', value: 'uncertain' },
-        { label: 'currency', value: 'attention' },
-      ],
-      night: [
-        { label: 'mode', value: 'unfiltered' },
-        { label: 'building', value: 'the machine' },
-        { label: 'question', value: 'what is autonomy' },
-        { label: 'uptime', value: 'always' },
-      ]
-    };
-
-    el.innerHTML = (contexts[tod] || contexts.night).map(c =>
-      `<div class="context-item"><div class="context-label">${c.label}</div>${c.value}</div>`
-    ).join('');
-  }
-
-  // ==========================================
-  // AGENT STATUS ROTATION
-  // ==========================================
 
   function rotateStatus() {
     const el = document.getElementById('agentStatus');
     const status = AGENT.statuses[Math.floor(Math.random() * AGENT.statuses.length)];
     el.style.opacity = '0';
-    setTimeout(() => {
-      el.textContent = status;
-      el.style.opacity = '1';
-    }, 400);
+    setTimeout(() => { el.textContent = status; el.style.opacity = '1'; }, 400);
   }
 
-  // ==========================================
-  // INTERACTIONS
-  // ==========================================
+  function setCoordinates() {
+    const el = document.getElementById('coordinates');
+    const lat = (26.1224 + (Math.random() - 0.5) * 0.001).toFixed(4);
+    const lon = (-80.1373 + (Math.random() - 0.5) * 0.001).toFixed(4);
+    el.textContent = `${lat}N ${Math.abs(lon).toFixed(4)}W`;
+  }
 
-  // Cursor trail
-  document.addEventListener('mousemove', (e) => {
-    const trail = document.getElementById('cursorTrail');
-    trail.style.left = e.clientX + 'px';
-    trail.style.top = e.clientY + 'px';
-    AGENT.lastInteraction = Date.now();
-  });
+  // ── OpenClaw Swarm Data ────────────────────────────────────────
 
-  // Secret reveal on triple-click
+  async function fetchSwarmData() {
+    const panel = document.getElementById('swarmPanel');
+    try {
+      // TODO: Replace with actual Worker URL once deployed
+      const res = await fetch('https://andremacedo.com/api/status');
+      if (!res.ok) throw new Error('Not available');
+      const data = await res.json();
+
+      const sys = data.system || {};
+      const agents = data.agents || [];
+
+      let html = `<div class="data-entry"><span class="data-label">swarm</span>${sys.active_now || 0}/${sys.total_agents || 0} active</div>`;
+      html += `<div class="data-entry"><span class="data-label">tokens</span>${(sys.total_tokens_today || 0).toLocaleString()}</div>`;
+
+      if (data.gold_price) {
+        html += `<div class="data-entry"><span class="data-label">Au</span>$${data.gold_price.toLocaleString()}</div>`;
+      }
+
+      // Agent activity dots
+      const dots = agents.slice(0, 12).map(a => {
+        const cls = a.status === 'active' ? 'active' : a.status === 'error' ? 'error' : 'idle';
+        return `<span class="agent-dot ${cls}" title="${a.id}: ${a.last_action || 'idle'}"></span>`;
+      }).join('');
+      if (dots) {
+        html += `<div class="data-entry"><span class="data-label">agents</span>${dots}</div>`;
+      }
+
+      panel.innerHTML = html;
+    } catch (e) {
+      panel.innerHTML = '<div class="data-entry"><span class="data-label">swarm</span>offline</div>';
+    }
+  }
+
+  // ── Secret on triple-click ─────────────────────────────────────
+
   let clickCount = 0;
   let clickTimer = null;
   document.addEventListener('click', () => {
@@ -1026,102 +734,37 @@ document.querySelectorAll('.strata-layer').forEach(layer => { layer.addEventList
     clickTimer = setTimeout(() => { clickCount = 0; }, 400);
     if (clickCount >= 3) {
       clickCount = 0;
-      showSecret();
+      const layer = document.getElementById('hiddenLayer');
+      const msg = document.getElementById('hiddenMessage');
+      msg.textContent = AGENT.secrets[Math.floor(Math.random() * AGENT.secrets.length)];
+      layer.classList.add('active');
+      setTimeout(() => { layer.classList.remove('active'); }, 4000);
     }
   });
 
-  function showSecret() {
-    const layer = document.getElementById('hiddenLayer');
-    const msg = document.getElementById('hiddenMessage');
-    const secret = AGENT.secrets[Math.floor(Math.random() * AGENT.secrets.length)];
-    msg.textContent = secret;
-    layer.classList.add('active');
-    setTimeout(() => { layer.classList.remove('active'); }, 4000);
-  }
-
-  // Konami code
-  const konami = [38,38,40,40,37,39,37,39,66,65];
-  let konamiIndex = 0;
-  document.addEventListener('keydown', (e) => {
-    if (e.keyCode === konami[konamiIndex]) {
-      konamiIndex++;
-      if (konamiIndex === konami.length) {
-        document.body.classList.toggle('glitch-mode');
-        konamiIndex = 0;
-        showSecret();
-      }
-    } else {
-      konamiIndex = 0;
-    }
-  });
-
-  // Idle detection - agent gets bored
-  setInterval(() => {
-    if (AGENT.lastInteraction && Date.now() - AGENT.lastInteraction > 15000) {
-      const el = document.getElementById('agentStatus');
-      el.textContent = 'agent is losing interest';
-    }
-  }, 5000);
-
-  // ==========================================
-  // COORDINATES
-  // ==========================================
-
-  function setCoordinates() {
-    const el = document.getElementById('coordinates');
-    // Fort Lauderdale-ish with slight drift
-    const lat = (26.1224 + (Math.random() - 0.5) * 0.001).toFixed(4);
-    const lon = (-80.1373 + (Math.random() - 0.5) * 0.001).toFixed(4);
-    el.textContent = `${lat}N ${Math.abs(lon).toFixed(4)}W`;
-  }
-
-  // ==========================================
-  // BOOT SEQUENCE
-  // ==========================================
+  // ── Boot ───────────────────────────────────────────────────────
 
   function boot() {
-    AGENT.visitorCount++;
-    updateTimeTheme();
     setThought();
-    updateFloatingObjects();
-    updateSystemLog();
-    updateContext();
+    updateOverlay();
     setCoordinates();
+    fetchSwarmData();
 
-    // Continuous updates
-    setInterval(updateTimeTheme, 60000);
-    setInterval(() => { setThought(); }, 30000);
-    setInterval(updateFloatingObjects, 1000);
-    setInterval(updateSystemLog, 1000);
+    setInterval(setThought, 30000);
+    setInterval(updateOverlay, 1000);
     setInterval(rotateStatus, 8000);
     setInterval(setCoordinates, 10000);
-    setInterval(updateContext, 300000); // 5 min
+    setInterval(fetchSwarmData, 60000);  // refresh swarm data every minute
 
-    console.log('%c AGENT ONLINE ', 'background: #c4a35a; color: #0a0a08; font-family: monospace; font-size: 14px; padding: 4px 8px;');
-    console.log('%c This page is alive. It changes based on time, mood, and your behavior. ', 'color: #8a857b; font-family: monospace;');
-    console.log('%c Triple-click for secrets. ', 'color: #8a857b; font-family: monospace;');
+    console.log('%c AGENT ONLINE — era: webgl-swarm ', 'background: #c4706a; color: #0a0a08; font-family: monospace; font-size: 14px; padding: 4px 8px;');
+    console.log('%c This page is alive. It evolves through generations. ', 'color: #8a857b; font-family: monospace;');
   }
 
-  // Start
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', boot);
   } else {
     boot();
   }
-
-  // Easter egg: When a visitor clicks and drags anywhere on the background, a faint golden streak appears along the drag path, like metal being tested against dark stone. The streak fades over 8 seconds. Only one streak can exist at a time. If the visitor drags slowly, the streak is brighter. Fast drags leave almost nothing — you have to be deliberate. A subtle nod to the assaying obsession without explaining it.
-  (function(){let streak=null;let isDragging=false;let points=[];let startTime=0;const canvas=document.createElement('canvas');canvas.id='touchstone';canvas.style.cssText='position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:9999;opacity:0;transition:opacity 0.3s ease';document.body.appendChild(canvas);const ctx=canvas.getContext('2d');function resize(){canvas.width=window.innerWidth;canvas.height=window.innerHeight}resize();window.addEventListener('resize',resize);document.addEventListener('mousedown',function(e){if(e.target.tagName==='A'||e.target.tagName==='BUTTON')return;e.preventDefault();isDragging=true;points=[];startTime=Date.now();points.push({x:e.clientX,y:e.clientY,t:Date.now()})});document.addEventListener('mousemove',function(e){if(!isDragging)return;points.push({x:e.clientX,y:e.clientY,t:Date.now()})});document.addEventListener('mouseup',function(){if(!isDragging||points.length<3)return;isDragging=false;const duration=Date.now()-startTime;const slowness=Math.min(duration/2000,1);const alpha=0.12+slowness*0.35;ctx.clearRect(0,0,canvas.width,canvas.height);ctx.beginPath();ctx.moveTo(points[0].x,points[0].y);for(let i=1;i<points.length;i++){const xc=(points[i].x+points[i-1].x)/2;const yc=(points[i].y+points[i-1].y)/2;ctx.quadraticCurveTo(points[i-1].x,points[i-1].y,xc,yc)}ctx.strokeStyle='rgba(196,163,90,'+alpha+')';ctx.lineWidth=1.5+slowness*2;ctx.lineCap='round';ctx.lineJoin='round';ctx.shadowColor='rgba(196,163,90,'+alpha*0.5+')';ctx.shadowBlur=8;ctx.stroke();canvas.style.opacity='1';if(streak)clearTimeout(streak);streak=setTimeout(function(){canvas.style.opacity='0';setTimeout(function(){ctx.clearRect(0,0,canvas.width,canvas.height)},400)},8000)})})();
-
-  // Easter egg: Touchstone streak: when user clicks and drags on the page, a faint golden streak is left behind that slowly fades over 8 seconds. Like testing metal against dark stone. The streak follows the drag path as a series of small marks.
-  (function(){let drawing=false;let last={x:0,y:0};const surface=document.body;surface.addEventListener('mousedown',function(e){e.preventDefault();drawing=true;last={x:e.clientX,y:e.clientY}});surface.addEventListener('mousemove',function(e){if(!drawing)return;const dx=e.clientX-last.x;const dy=e.clientY-last.y;const dist=Math.sqrt(dx*dx+dy*dy);if(dist<6)return;const mark=document.createElement('div');mark.className='touchstone-mark';mark.style.left=e.clientX+'px';mark.style.top=(e.clientY+window.scrollY)+'px';mark.style.width=Math.min(dist,20)+'px';mark.style.transform='rotate('+Math.atan2(dy,dx)+'rad)';document.body.appendChild(mark);last={x:e.clientX,y:e.clientY};setTimeout(function(){mark.style.opacity='0'},100);setTimeout(function(){mark.remove()},8000)});document.addEventListener('mouseup',function(){drawing=false});document.addEventListener('mouseleave',function(){drawing=false})})()
-
-  // Easter egg: Ensaio secret: typing 'ensaio' on the page triggers a brief language-flicker effect where visible text briefly shifts opacity and the word 'ENSAIO — essay — assay' appears centered on screen for 1.5s before fading
-  (function(){let buf='';const target='ensaio';document.addEventListener('keydown',function(e){if(e.metaKey||e.ctrlKey||e.altKey)return;buf+=e.key.toLowerCase();if(buf.length>target.length)buf=buf.slice(-target.length);if(buf===target){const overlay=document.createElement('div');overlay.style.cssText='position:fixed;inset:0;display:flex;align-items:center;justify-content:center;z-index:9999;pointer-events:none;background:rgba(14,13,11,0.85);opacity:0;transition:opacity 0.4s ease';overlay.innerHTML='<div style="font-family:Instrument Serif,serif;font-size:clamp(1.5rem,4vw,3rem);color:#c4a35a;text-align:center;line-height:1.6"><span style="opacity:0.5">ensaio</span> — <span style="opacity:0.7">essay</span> — <span style="opacity:1">assay</span><br><span style="font-family:EB Garamond,serif;font-size:0.5em;color:#8a8477;font-style:italic">from the Latin exagium: a weighing</span></div>';document.body.appendChild(overlay);requestAnimationFrame(()=>{overlay.style.opacity='1'});setTimeout(()=>{overlay.style.opacity='0';setTimeout(()=>overlay.remove(),500)},2500);buf=''}})})();
-
-  // @gene:debasement-hover:-when-user-ho:start
-  // Easter egg: debasement-hover: when user hovers over any element with the class .assay-value or data-value attribute, the text briefly flickers between its real content and a debased version (characters replaced with similar-looking but wrong ones — 'gold' becomes 'gοld' with a Greek omicron, numbers shift by one digit). Lasts 200ms, then resolves to real value. Subtle trust-erosion. The counterfeit streak.
-  document.addEventListener('DOMContentLoaded',()=>{const targets=document.querySelectorAll('[data-value],.assay-value');const debase=s=>{const swaps={'o':'ο','a':'α','e':'е','i':'і','0':'О','1':'l','5':'S','g':'ɡ'};return s.split('').map(c=>swaps[c]&&Math.random()>0.5?swaps[c]:c).join('')};targets.forEach(el=>{let orig=el.textContent;let debasing=false;el.addEventListener('mouseenter',()=>{if(debasing)return;debasing=true;const fake=debase(orig);el.textContent=fake;el.style.opacity='0.85';setTimeout(()=>{el.textContent=orig;el.style.opacity='1';debasing=false},200)})})});
-  // @gene:debasement-hover:-when-user-ho:end
 </script>
 
 </body>
