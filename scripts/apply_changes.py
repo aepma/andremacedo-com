@@ -31,14 +31,12 @@ with open(secrets_path) as f: secrets = json.load(f)
 
 parts = []
 
+# ── Thought pools (daily/event only) ─────────────────────────────
 if pulse_type in ("daily", "event"):
     new_thoughts = changes.get("new_thoughts", {})
     replace_indices = changes.get("replace_thoughts", {})
-    # Handle new_thoughts as either dict {tod: [...]} or flat list
     if isinstance(new_thoughts, list):
-        # Distribute flat list across current time-of-day pool
-        from datetime import datetime, timezone as tz2
-        h = datetime.now(tz2.utc).hour
+        h = datetime.now(timezone.utc).hour
         if h >= 5 and h < 8: cur_tod = "dawn"
         elif h >= 8 and h < 12: cur_tod = "morning"
         elif h >= 12 and h < 17: cur_tod = "afternoon"
@@ -70,36 +68,14 @@ if pulse_type in ("daily", "event"):
         state["current_mood"] = mood
         parts.append("mood shifted to " + mood)
 
-    self_note = changes.get("self_note")
-    if self_note:
-        if isinstance(self_note, dict):
-            self_note = str(self_note)
-        state["self_notes"].append(self_note)
-
     ext_react = changes.get("external_reaction")
     if ext_react:
-        if isinstance(ext_react, dict):
-            ext_react = str(ext_react)
         parts.append("reacted to external: " + str(ext_react)[:80])
 
-elif pulse_type == "weekly":
-    css_changes = changes.get("css_changes")
-    if css_changes:
-        with open(index_path) as f: html = f.read()
-        for var_name, var_value in css_changes.items():
-            pattern = re.compile(r"(" + re.escape(var_name) + r":\s*)([^;]+)(;)")
-            html = pattern.sub(r"\g<1>" + var_value + r"\3", html)
-        with open(index_path, "w") as f: f.write(html)
-        parts.append("CSS updated: " + ", ".join(css_changes.keys()))
-
-    font_change = changes.get("font_change")
-    if font_change:
-        state["fonts"]["display"] = font_change.get("display", state["fonts"]["display"])
-        state["fonts"]["body"] = font_change.get("body", state["fonts"]["body"])
-        parts.append("fonts updated")
-
+# ── Weekly-only: reflection, obsession ────────────────────────────
+if pulse_type == "weekly":
     obsession = changes.get("obsession_update")
-    if obsession:
+    if obsession and isinstance(obsession, dict):
         state["active_obsession"] = {
             "topic": obsession["topic"],
             "started": datetime.now(timezone.utc).strftime("%Y-%m-%d"),
@@ -107,25 +83,120 @@ elif pulse_type == "weekly":
         }
         parts.append("new obsession: " + obsession["topic"])
 
-    new_interaction = changes.get("new_interaction")
-    if new_interaction and new_interaction.get("code"):
-        with open(index_path) as f: html = f.read()
-        desc = new_interaction["description"]
-        injection = "\n  // Easter egg: " + desc + "\n  " + new_interaction["code"] + "\n"
-        html = html.replace("</script>", injection + "</script>")
-        with open(index_path, "w") as f: f.write(html)
-        state["interaction_patterns_active"].append(desc.lower().replace(" ", "-")[:30])
-        parts.append("new interaction: " + desc)
-
     reflection = changes.get("weekly_reflection", "")
-    self_note = changes.get("self_note")
-    if self_note:
-        state["self_notes"].append(self_note)
     if reflection:
-        parts.append("reflection: " + reflection[:120])
+        parts.append("reflection: " + str(reflection)[:120])
 
     state["last_weekly_deep"] = now
 
+# ── Self note (all pulse types) ───────────────────────────────────
+self_note = changes.get("self_note")
+if self_note:
+    if isinstance(self_note, dict):
+        self_note = str(self_note)
+    state["self_notes"].append(self_note)
+
+# ── CSS variable changes (all pulse types) ────────────────────────
+css_changes = changes.get("css_changes")
+if css_changes and isinstance(css_changes, dict):
+    with open(index_path) as f: html = f.read()
+    for var_name, var_value in css_changes.items():
+        pattern = re.compile(r"(" + re.escape(var_name) + r":\s*)([^;]+)(;)")
+        html = pattern.sub(r"\g<1>" + var_value + r"\3", html)
+    with open(index_path, "w") as f: f.write(html)
+    parts.append("CSS updated: " + ", ".join(css_changes.keys()))
+
+# ── New CSS rules (all pulse types) ───────────────────────────────
+new_css_rules = changes.get("new_css_rules")
+if new_css_rules and isinstance(new_css_rules, str) and new_css_rules.strip():
+    with open(index_path) as f: html = f.read()
+    injection = "\n  /* agent-injected rules */\n  " + new_css_rules.strip() + "\n"
+    html = html.replace("</style>", injection + "</style>")
+    with open(index_path, "w") as f: f.write(html)
+    parts.append("added new CSS rules")
+
+# ── Font change with actual HTML rewrite (all pulse types) ────────
+font_change = changes.get("font_change")
+if font_change and isinstance(font_change, dict):
+    display = font_change.get("display", state["fonts"]["display"])
+    body = font_change.get("body", state["fonts"]["body"])
+    mono = font_change.get("mono", state["fonts"].get("mono", "JetBrains Mono"))
+    state["fonts"]["display"] = display
+    state["fonts"]["body"] = body
+    state["fonts"]["mono"] = mono
+    # Rewrite the @import URL in index.html
+    with open(index_path) as f: html = f.read()
+    font_families = [display, body, mono]
+    # Build Google Fonts URL: family=Name:styles&family=Name:styles
+    font_params = []
+    for fam in font_families:
+        encoded = fam.replace(" ", "+")
+        if fam == mono:
+            font_params.append(f"family={encoded}:wght@300;400;500")
+        elif fam == display:
+            font_params.append(f"family={encoded}:ital@0;1")
+        else:
+            font_params.append(f"family={encoded}:ital,wght@0,400;0,500;0,700;1,400;1,500")
+    new_import = "https://fonts.googleapis.com/css2?" + "&".join(font_params) + "&display=swap"
+    html = re.sub(
+        r"@import url\('[^']+'\);",
+        f"@import url('{new_import}');",
+        html,
+        count=1
+    )
+    html = re.sub(
+        r"font-family:\s*'[^']+',\s*Georgia,\s*serif;(\s*/\*\s*display\s*\*/)?",
+        f"font-family: '{display}', Georgia, serif;",
+        html,
+        count=1
+    )
+    with open(index_path, "w") as f: f.write(html)
+    parts.append(f"fonts updated: {display} / {body} / {mono}")
+
+# ── New JS interaction (all pulse types) ──────────────────────────
+new_interaction = changes.get("new_interaction")
+if new_interaction and isinstance(new_interaction, dict) and new_interaction.get("code"):
+    with open(index_path) as f: html = f.read()
+    desc = str(new_interaction["description"])
+    code = new_interaction["code"]
+    injection = "\n  // Easter egg: " + desc + "\n  " + code + "\n"
+    html = html.replace("</script>", injection + "</script>")
+    with open(index_path, "w") as f: f.write(html)
+    state["interaction_patterns_active"].append(desc.lower().replace(" ", "-")[:30])
+    parts.append("new interaction: " + desc)
+
+# ── HTML injection at marker comments (all pulse types) ───────────
+html_injection = changes.get("html_injection")
+# Support both a single dict and a list of dicts
+if html_injection:
+    injections = [html_injection] if isinstance(html_injection, dict) else html_injection
+    if isinstance(injections, list):
+        with open(index_path) as f: html = f.read()
+        for inj in injections:
+            if not isinstance(inj, dict):
+                continue
+            target = inj.get("target", "")
+            position = inj.get("position", "after")
+            content = inj.get("html", "")
+            if not target or not content:
+                continue
+            # Sanitize: strip <script> tags from injected HTML
+            content = re.sub(r"<script[\s>].*?</script>", "", content, flags=re.DOTALL | re.IGNORECASE)
+            # Find the marker comment
+            marker = f"<!-- {target} -->"
+            if marker not in html:
+                continue
+            if position == "before":
+                html = html.replace(marker, content + "\n" + marker)
+            elif position == "replace":
+                html = html.replace(marker, content)
+            else:  # "after" is default
+                html = html.replace(marker, marker + "\n" + content)
+        with open(index_path, "w") as f: f.write(html)
+        targets = [inj.get("target", "?") for inj in injections if isinstance(inj, dict)]
+        parts.append("HTML injected at: " + ", ".join(targets))
+
+# ── Timestamp bookkeeping ─────────────────────────────────────────
 if pulse_type == "daily":
     state["last_daily_pulse"] = now
 elif pulse_type == "event":

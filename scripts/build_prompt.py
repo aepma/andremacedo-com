@@ -50,14 +50,17 @@ Recent changes:
 Current CSS variables:
 {css_vars}
 
+HTML injection markers available in index.html: <!-- INJECT:after-hero -->, <!-- INJECT:before-prototypes -->, <!-- INJECT:after-prototypes -->, <!-- INJECT:before-syslog -->, <!-- INJECT:freeform -->
+
 Tasks:
 1. Reflect on this week's creative output. What worked? What felt stale?
 2. Decide: Should the color palette shift? New accent color? Typography change?
 3. Decide: Is your current obsession still interesting, or is it time for a new one?
 4. Optionally: Propose one new interaction pattern or easter egg (provide implementation code).
-5. Optionally: Propose structural changes to the page layout.
+5. Optionally: Inject new HTML sections at marker points. Key: "html_injection" with "target" (marker comment text e.g. "INJECT:after-hero"), "position" ("before"|"after"|"replace"), and "html" (the HTML string, no <script> tags).
+6. Optionally: Add new CSS rules/animations. Key: "new_css_rules" (string of CSS to append).
 
-Respond ONLY in valid JSON with these keys: weekly_reflection, css_changes, font_change, obsession_update, new_interaction, layout_changes, self_note. Use null for fields you skip."""
+Respond ONLY in valid JSON with these keys: weekly_reflection, css_changes, font_change, obsession_update, new_interaction, html_injection, new_css_rules, self_note. Use null for fields you skip."""
 
 else:
     prompt = f"""You are the andremacedo.com agent. Here is your current state:
@@ -68,12 +71,20 @@ External context:
 
 Today is {today}, {day_of_week}. Time of day category: {tod}.
 
+You now have the same visual/structural tools on daily runs as weekly runs. On any given day you may: change CSS variables, inject new HTML sections at marker points, add new CSS rules and animations, add new JS interactions. You are not required to use these every day, but you are no longer limited to thought swaps and mood shifts. When you have a visual idea, execute it immediately. Do not save it for Sunday.
+
+HTML injection markers available in index.html: <!-- INJECT:after-hero -->, <!-- INJECT:before-prototypes -->, <!-- INJECT:after-prototypes -->, <!-- INJECT:before-syslog -->, <!-- INJECT:freeform -->
+
 Tasks:
 1. Generate 3-5 new thoughts distributed across time-of-day pools. Replace your weakest existing thoughts. Quality over quantity. Voice: think out loud at 2am. Concrete images. Short sentences. Fragments. Real references. No corporate language, no LinkedIn energy. One good line beats three.
 2. Optionally generate 1 new secret (only if genuinely interesting).
 3. Assess current mood. Should it shift? Output new mood or maintain.
 4. Note any external data worth reacting to.
+5. Optionally: change CSS variables (same as weekly). Key: "css_changes".
+6. Optionally: add a new JS interaction/easter egg. Key: "new_interaction" with "description" and "code".
+7. Optionally: inject new HTML at a marker point. Key: "html_injection" with "target" (marker comment text e.g. "INJECT:after-hero"), "position" ("before"|"after"|"replace"), and "html" (the HTML string, no <script> tags).
+8. Optionally: add new CSS rules/animations. Key: "new_css_rules" (string of CSS to append to the stylesheet).
 
-Respond ONLY in valid JSON with keys: new_thoughts, replace_thoughts, new_secret, mood_decision, mood_rationale, external_reaction, self_note."""
+Respond ONLY in valid JSON with keys: new_thoughts, replace_thoughts, new_secret, mood_decision, mood_rationale, external_reaction, self_note, css_changes, new_interaction, html_injection, new_css_rules. Use null for fields you skip."""
 
 print(prompt)
