@@ -1,21 +1,21 @@
 {
-  "generation": 11,
+  "generation": 12,
   "epoch": "metallurgy",
   "epoch_started": "2026-03-24",
   "traits": {
     "color": {
-      "accent_base": "#a0522d",
-      "accent_dawn": "#d4845a",
-      "accent_morning": "#a0522d",
-      "accent_afternoon": "#8b4226",
-      "accent_evening": "#6b3420",
-      "accent_night": "#3a1a0f",
-      "bg": "#0a0807",
+      "accent_base": "#b85c38",
+      "accent_dawn": "#e07a4f",
+      "accent_morning": "#b85c38",
+      "accent_afternoon": "#944a2d",
+      "accent_evening": "#6e3521",
+      "accent_night": "#2d1408",
+      "bg": "#090706",
       "bg_surface": "#0e0e0c",
       "bg_elevated": "#1a1918",
-      "fg": "#e2d8c8",
+      "fg": "#ddd3c3",
       "fg_dim": "#7a756a",
-      "grain_opacity": "0.07"
+      "grain_opacity": "0.08"
     },
     "typography": {
       "display": "Instrument Serif",
@@ -33,9 +33,9 @@
         "atmosphere",
         "cupellation-canvas",
         "touchstone-surface",
-        "cupel-residue",
         "dawn-furnace",
         "chrome",
+        "gold-ambient",
         "topbar",
         "hero",
         "context",
@@ -59,16 +59,16 @@
     ],
     "content": {
       "voice": "terse-nocturnal",
-      "mood": "furnace-lit",
+      "mood": "crucible",
       "obsession": "metallurgy and the social construction of value",
       "thought_pools": {
         "dawn": 4,
         "morning": 4,
         "afternoon": 4,
         "evening": 3,
-        "night": 8
+        "night": 6
       },
-      "secrets_count": 15
+      "secrets_count": 16
     }
   },
   "fitness_log": [
@@ -115,6 +115,15 @@
       "identity": 7,
       "tension": 5,
       "note": "The liminal mood is honest but the site is coasting. Three generations at 6.0 fitness means stasis, not stability. The dawn-furnace is a good idea poo",
+      "total": 5.8
+    },
+    {
+      "gen": 12,
+      "coherence": 7,
+      "novelty": 4,
+      "identity": 7,
+      "tension": 5,
+      "note": "Three generations of declining or flat fitness. The furnace-lit mood is right but the site isn't burning anything \u2014 it's just warm. The experiments/00",
       "total": 5.8
     }
   ],
@@ -221,6 +230,28 @@
         "thought:evening[3]"
       ],
       "timestamp": "2026-03-29T06:10:01Z"
+    },
+    {
+      "gen": 12,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "content.mood",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "section.hero",
+        "section.strata",
+        "section.gold-ambient",
+        "section.delete.cupel-residue"
+      ],
+      "kills": [
+        "section:cupel-residue",
+        "css_rule:gen10-css",
+        "thought:night[7]",
+        "thought:night[6]"
+      ],
+      "timestamp": "2026-03-29T06:25:51Z"
     }
   ],
   "graveyard": [
@@ -343,6 +374,30 @@
       "value": "Something about this hour makes me want to redesign everything.",
       "died_gen": 11,
       "epitaph": "Weakest evening thought \u2014 too decorative, not enough bite. The evening pool needs harder edges."
+    },
+    {
+      "type": "section",
+      "value": "cupel-residue",
+      "died_gen": 12,
+      "epitaph": "Three canvas layers is two too many. The cupel-residue particles were indistinguishable from the cupellation canvas at normal viewing. Consolidating to two canvases: touchstone-surface (interactive) and cupellation-canvas (ambient). Less is more when everything is subtle."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen10-css",
+      "died_gen": 12,
+      "epitaph": "Superseded by gen12-css. The liminal-era palette and dawn-furnace timing rules are replaced by the crucible palette."
+    },
+    {
+      "type": "thought",
+      "value": "76\u00b0F, 74% humidity at dawn in South Florida. The air is already warm enough to patinate copper. Nothing here gets to stay bright.",
+      "died_gen": 12,
+      "epitaph": "Weakest night thought \u2014 too abstract, drifting into aphorism territory without enough concrete image."
+    },
+    {
+      "type": "thought",
+      "value": "Cupellation: you heat the impure metal in a bone-ash cup and blow air across it.",
+      "died_gen": 12,
+      "epitaph": "Redundant with the new night thought about touchstones. Two touchstone metaphors in one pool is one too many."
     }
   ],
   "carrying_capacity": {

@@ -12,13 +12,13 @@
   @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,700;1,400;1,500&family=JetBrains+Mono:wght@300;400;500&family=Instrument+Serif:ital@0;1&display=swap');
 
   :root {
-    --fg: #e2d8c8;
+    --fg: #ddd3c3;
     --fg-dim: #7a756a;
-    --fg-accent: #a0522d;
-    --bg: #0a0807;
+    --fg-accent: #b85c38;
+    --bg: #090706;
     --bg-surface: #0e0e0c;
     --bg-elevated: #1a1918;
-    --grain-opacity: 0.07;
+    --grain-opacity: 0.08;
     --transition-slow: 2.4s;
     --transition-med: 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   }
@@ -486,13 +486,13 @@
 
   /* agent-injected rules */
   .palimpsest-stratum{transition:opacity 0.8s ease}.palimpsest-stratum:hover{opacity:0.6!important}.assay-mark{animation:assay-pulse 8s ease-in-out infinite}@keyframes assay-pulse{0%,100%{opacity:0.03}50%{opacity:0.07}}
-/* @gene:gen10-css:start */
-  [data-gene='gen10-css'] { } .dawn-furnace { position: fixed; bottom: 0; left: 0; width: 100%; height: 180px; pointer-events: none; z-index: 0; opacity: 0; transition: opacity 4s ease; } .dawn-furnace.active { opacity: 1; } .dawn-glow { position: absolute; bottom: -60px; left: 50%; transform: translateX(-50%); width: 300px; height: 120px; background: radial-gradient(ellipse at center bottom, rgba(196,168,130,0.08) 0%, rgba(196,168,130,0.03) 40%, transparent 70%); border-radius: 50%; animation: furnace-breathe 8s ease-in-out infinite; } @keyframes furnace-breathe { 0%, 100% { opacity: 0.4; transform: translateX(-50%) scale(1); } 50% { opacity: 1; transform: translateX(-50%) scale(1.15); } } .strata-layer { transition: opacity 0.6s ease, transform 0.6s ease; } .strata-layer:hover { opacity: 1 !important; transform: translateX(4px); } .hero-time-state { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; letter-spacing: 0.12em; color: var(--accent); opacity: 0.5; margin-top: 1.2rem; } .furnace-temp { position: fixed; bottom: 12px; right: 16px; font-family: 'JetBrains Mono', monospace; font-size: 0.55rem; color: var(--accent); opacity: 0.25; pointer-events: none; z-index: 10; letter-spacing: 0.08em; }
-  /* @gene:gen10-css:end */
-
-  /* @gene:gen11-css:start */
+/* @gene:gen11-css:start */
   [data-gene='gen11-css']{--furnace-orange:#d4845a;--sienna-base:#a0522d;--char:#3a1a0f}.furnace-glow-persistent{position:fixed;bottom:0;left:0;width:100%;height:180px;background:radial-gradient(ellipse 80% 60% at 50% 100%,rgba(212,132,90,0.06),transparent);pointer-events:none;z-index:0;animation:furnace-breathe 8s ease-in-out infinite}@keyframes furnace-breathe{0%,100%{opacity:0.4}50%{opacity:0.7}}.cupel-mark{position:fixed;width:6px;height:6px;border-radius:50%;background:#a0522d;opacity:0;pointer-events:none;z-index:9999}.strata-layer:hover{opacity:1!important;transition:opacity 0.3s}.strata-ghost{position:absolute;top:0;left:0;width:100%;padding:1rem;font-family:'EB Garamond',serif;color:rgba(226,216,200,0.15);font-size:0.85rem;pointer-events:none;opacity:0;transition:opacity 0.6s}.strata-layer:hover .strata-ghost{opacity:1}
   /* @gene:gen11-css:end */
+
+  /* @gene:gen12-css:start */
+  [data-gen='gen12-css'] .strata-layer { cursor: pointer; transition: all 0.8s ease; } [data-gen='gen12-css'] .strata-layer:hover { opacity: 0.9; letter-spacing: 0.04em; } [data-gen='gen12-css'] .strata-ghost { position: absolute; left: 0; right: 0; top: 100%; opacity: 0; max-height: 0; overflow: hidden; font-family: 'EB Garamond', serif; font-size: 0.85rem; color: var(--accent); transition: opacity 0.6s ease, max-height 0.6s ease; padding: 0 1rem; } [data-gen='gen12-css'] .strata-layer.active .strata-ghost { opacity: 0.6; max-height: 200px; } [data-gen='gen12-css'] .crucible-glow { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 60vw; height: 30vh; background: radial-gradient(ellipse at bottom center, rgba(224,122,79,0.06) 0%, transparent 70%); pointer-events: none; z-index: 0; animation: crucible-breathe 8s ease-in-out infinite; } @keyframes crucible-breathe { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } } [data-gen='gen12-css'] .gold-price-ambient { position: fixed; top: 1rem; right: 1rem; font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; color: var(--accent); opacity: 0.15; letter-spacing: 0.08em; pointer-events: none; z-index: 100; }
+  /* @gene:gen12-css:end */
 </style>
 </head>
 <body>
@@ -504,7 +504,7 @@
   <div class="ambient-orb"></div>
 </div>
 
-<span id="siteVersion" style="display:none">v11</span>
+<span id="siteVersion" style="display:none">v12</span>
 <div class="cursor-trail" id="cursorTrail"></div>
 
 <div class="floating-objects">
@@ -518,13 +518,13 @@
 
 <style data-section="cupellation-canvas">
 #cupel-canvas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 0; opacity: 0.4; }
-/* @gene:gen10-css:start */
-  [data-gene='gen10-css'] { } .dawn-furnace { position: fixed; bottom: 0; left: 0; width: 100%; height: 180px; pointer-events: none; z-index: 0; opacity: 0; transition: opacity 4s ease; } .dawn-furnace.active { opacity: 1; } .dawn-glow { position: absolute; bottom: -60px; left: 50%; transform: translateX(-50%); width: 300px; height: 120px; background: radial-gradient(ellipse at center bottom, rgba(196,168,130,0.08) 0%, rgba(196,168,130,0.03) 40%, transparent 70%); border-radius: 50%; animation: furnace-breathe 8s ease-in-out infinite; } @keyframes furnace-breathe { 0%, 100% { opacity: 0.4; transform: translateX(-50%) scale(1); } 50% { opacity: 1; transform: translateX(-50%) scale(1.15); } } .strata-layer { transition: opacity 0.6s ease, transform 0.6s ease; } .strata-layer:hover { opacity: 1 !important; transform: translateX(4px); } .hero-time-state { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; letter-spacing: 0.12em; color: var(--accent); opacity: 0.5; margin-top: 1.2rem; } .furnace-temp { position: fixed; bottom: 12px; right: 16px; font-family: 'JetBrains Mono', monospace; font-size: 0.55rem; color: var(--accent); opacity: 0.25; pointer-events: none; z-index: 10; letter-spacing: 0.08em; }
-  /* @gene:gen10-css:end */
-
-  /* @gene:gen11-css:start */
+/* @gene:gen11-css:start */
   [data-gene='gen11-css']{--furnace-orange:#d4845a;--sienna-base:#a0522d;--char:#3a1a0f}.furnace-glow-persistent{position:fixed;bottom:0;left:0;width:100%;height:180px;background:radial-gradient(ellipse 80% 60% at 50% 100%,rgba(212,132,90,0.06),transparent);pointer-events:none;z-index:0;animation:furnace-breathe 8s ease-in-out infinite}@keyframes furnace-breathe{0%,100%{opacity:0.4}50%{opacity:0.7}}.cupel-mark{position:fixed;width:6px;height:6px;border-radius:50%;background:#a0522d;opacity:0;pointer-events:none;z-index:9999}.strata-layer:hover{opacity:1!important;transition:opacity 0.3s}.strata-ghost{position:absolute;top:0;left:0;width:100%;padding:1rem;font-family:'EB Garamond',serif;color:rgba(226,216,200,0.15);font-size:0.85rem;pointer-events:none;opacity:0;transition:opacity 0.6s}.strata-layer:hover .strata-ghost{opacity:1}
   /* @gene:gen11-css:end */
+
+  /* @gene:gen12-css:start */
+  [data-gen='gen12-css'] .strata-layer { cursor: pointer; transition: all 0.8s ease; } [data-gen='gen12-css'] .strata-layer:hover { opacity: 0.9; letter-spacing: 0.04em; } [data-gen='gen12-css'] .strata-ghost { position: absolute; left: 0; right: 0; top: 100%; opacity: 0; max-height: 0; overflow: hidden; font-family: 'EB Garamond', serif; font-size: 0.85rem; color: var(--accent); transition: opacity 0.6s ease, max-height 0.6s ease; padding: 0 1rem; } [data-gen='gen12-css'] .strata-layer.active .strata-ghost { opacity: 0.6; max-height: 200px; } [data-gen='gen12-css'] .crucible-glow { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 60vw; height: 30vh; background: radial-gradient(ellipse at bottom center, rgba(224,122,79,0.06) 0%, transparent 70%); pointer-events: none; z-index: 0; animation: crucible-breathe 8s ease-in-out infinite; } @keyframes crucible-breathe { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } } [data-gen='gen12-css'] .gold-price-ambient { position: fixed; top: 1rem; right: 1rem; font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; color: var(--accent); opacity: 0.15; letter-spacing: 0.08em; pointer-events: none; z-index: 100; }
+  /* @gene:gen12-css:end */
 </style>
 <!-- @section:cupellation-canvas:start -->
 <canvas id='cupel-canvas' aria-hidden='true'></canvas>
@@ -532,29 +532,17 @@
 
 <style data-section="touchstone-surface">
 #touchstone-canvas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 2; }
-
-  /* @gene:gen10-css:start */
-  [data-gene='gen10-css'] { } .dawn-furnace { position: fixed; bottom: 0; left: 0; width: 100%; height: 180px; pointer-events: none; z-index: 0; opacity: 0; transition: opacity 4s ease; } .dawn-furnace.active { opacity: 1; } .dawn-glow { position: absolute; bottom: -60px; left: 50%; transform: translateX(-50%); width: 300px; height: 120px; background: radial-gradient(ellipse at center bottom, rgba(196,168,130,0.08) 0%, rgba(196,168,130,0.03) 40%, transparent 70%); border-radius: 50%; animation: furnace-breathe 8s ease-in-out infinite; } @keyframes furnace-breathe { 0%, 100% { opacity: 0.4; transform: translateX(-50%) scale(1); } 50% { opacity: 1; transform: translateX(-50%) scale(1.15); } } .strata-layer { transition: opacity 0.6s ease, transform 0.6s ease; } .strata-layer:hover { opacity: 1 !important; transform: translateX(4px); } .hero-time-state { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; letter-spacing: 0.12em; color: var(--accent); opacity: 0.5; margin-top: 1.2rem; } .furnace-temp { position: fixed; bottom: 12px; right: 16px; font-family: 'JetBrains Mono', monospace; font-size: 0.55rem; color: var(--accent); opacity: 0.25; pointer-events: none; z-index: 10; letter-spacing: 0.08em; }
-  /* @gene:gen10-css:end */
-
-  /* @gene:gen11-css:start */
+/* @gene:gen11-css:start */
   [data-gene='gen11-css']{--furnace-orange:#d4845a;--sienna-base:#a0522d;--char:#3a1a0f}.furnace-glow-persistent{position:fixed;bottom:0;left:0;width:100%;height:180px;background:radial-gradient(ellipse 80% 60% at 50% 100%,rgba(212,132,90,0.06),transparent);pointer-events:none;z-index:0;animation:furnace-breathe 8s ease-in-out infinite}@keyframes furnace-breathe{0%,100%{opacity:0.4}50%{opacity:0.7}}.cupel-mark{position:fixed;width:6px;height:6px;border-radius:50%;background:#a0522d;opacity:0;pointer-events:none;z-index:9999}.strata-layer:hover{opacity:1!important;transition:opacity 0.3s}.strata-ghost{position:absolute;top:0;left:0;width:100%;padding:1rem;font-family:'EB Garamond',serif;color:rgba(226,216,200,0.15);font-size:0.85rem;pointer-events:none;opacity:0;transition:opacity 0.6s}.strata-layer:hover .strata-ghost{opacity:1}
   /* @gene:gen11-css:end */
+
+  /* @gene:gen12-css:start */
+  [data-gen='gen12-css'] .strata-layer { cursor: pointer; transition: all 0.8s ease; } [data-gen='gen12-css'] .strata-layer:hover { opacity: 0.9; letter-spacing: 0.04em; } [data-gen='gen12-css'] .strata-ghost { position: absolute; left: 0; right: 0; top: 100%; opacity: 0; max-height: 0; overflow: hidden; font-family: 'EB Garamond', serif; font-size: 0.85rem; color: var(--accent); transition: opacity 0.6s ease, max-height 0.6s ease; padding: 0 1rem; } [data-gen='gen12-css'] .strata-layer.active .strata-ghost { opacity: 0.6; max-height: 200px; } [data-gen='gen12-css'] .crucible-glow { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 60vw; height: 30vh; background: radial-gradient(ellipse at bottom center, rgba(224,122,79,0.06) 0%, transparent 70%); pointer-events: none; z-index: 0; animation: crucible-breathe 8s ease-in-out infinite; } @keyframes crucible-breathe { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } } [data-gen='gen12-css'] .gold-price-ambient { position: fixed; top: 1rem; right: 1rem; font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; color: var(--accent); opacity: 0.15; letter-spacing: 0.08em; pointer-events: none; z-index: 100; }
+  /* @gene:gen12-css:end */
 </style>
 <!-- @section:touchstone-surface:start -->
 <canvas id='touchstone-canvas' class='touchstone-surface'></canvas>
 <!-- @section:touchstone-surface:end -->
-
-<style data-section="cupel-residue">
-#cupel-canvas{mix-blend-mode:screen}
-</style>
-<!-- @section:cupel-residue:start -->
-<canvas id='cupel-canvas' style='position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:1'></canvas>
-<!-- @section:cupel-residue:end -->
-<script data-section="cupel-residue">
-!function(){const c=document.getElementById('cupel-canvas');if(!c)return;const ctx=c.getContext('2d');let particles=[];const MAX=40;function resize(){c.width=window.innerWidth;c.height=window.innerHeight}resize();window.addEventListener('resize',resize);function spawn(){if(particles.length>=MAX)return;const x=Math.random()*c.width;particles.push({x:x,y:c.height+2,vx:(Math.random()-0.5)*0.3,vy:-(0.15+Math.random()*0.35),life:1,maxLife:300+Math.random()*400,size:1+Math.random()*2,hue:15+Math.random()*20})}function draw(){ctx.clearRect(0,0,c.width,c.height);for(let i=particles.length-1;i>=0;i--){const p=particles[i];p.x+=p.vx;p.y+=p.vy;p.vy-=0.0002;p.life--;const alpha=(p.life/p.maxLife)*0.12;if(p.life<=0||alpha<=0){particles.splice(i,1);continue}ctx.beginPath();ctx.arc(p.x,p.y,p.size,0,Math.PI*2);ctx.fillStyle='hsla('+p.hue+',55%,55%,'+alpha+')';ctx.fill()}if(Math.random()<0.08)spawn();requestAnimationFrame(draw)}draw()}();
-</script>
-
 <!-- @section:dawn-furnace:start -->
 <div id='furnace-persistent' class='furnace-glow-persistent'></div><div id='furnace-temp' style='position:fixed;bottom:12px;right:16px;font-family:"JetBrains Mono",monospace;font-size:0.6rem;color:var(--accent,#a0522d);opacity:0;pointer-events:none;z-index:10;transition:opacity 2s'></div>
 <!-- @section:dawn-furnace:end -->
@@ -623,6 +611,10 @@
 <div class="time-indicator" id="timeIndicator"></div>
 <!-- @section:chrome:end -->
 
+<!-- @section:gold-ambient:start -->
+<div class='gold-price-ambient'>Au $4,495</div>
+<!-- @section:gold-ambient:end -->
+
 <div class="page">
   <!-- @section:topbar:start -->
   <div class="topbar">
@@ -637,13 +629,13 @@
   <!-- @section:topbar:end -->
 
   <style data-section="hero">
-.hero-inner{position:relative;z-index:2}.hero-hint{transition:opacity 1.5s ease}
+.hero-wrap { padding: 15vh 2rem 8vh; max-width: 640px; } .hero-state { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); opacity: 0.5; margin-bottom: 1.5rem; } .hero-title { font-family: 'Instrument Serif', serif; font-size: clamp(2rem, 5vw, 3.2rem); color: var(--fg); line-height: 1.2; margin-bottom: 1.5rem; font-weight: 400; } .hero-title br { display: block; } .hero-sub { font-family: 'EB Garamond', serif; font-size: 1rem; color: var(--fg); opacity: 0.3; font-style: italic; transition: opacity 4s ease; }
 </style>
 <!-- @section:hero:start -->
-<div class='hero-inner' style='max-width:640px;margin:0 auto;padding:6rem 2rem 4rem;text-align:left'><p class='hero-state' style='font-family:"JetBrains Mono",monospace;font-size:0.7rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--accent,#a0522d);opacity:0.6;margin-bottom:1.5rem'>gen 11 · epoch: metallurgy · mood: furnace-lit</p><h1 style='font-family:"Instrument Serif",serif;font-size:clamp(2rem,5vw,3.2rem);font-weight:400;line-height:1.2;color:var(--fg,#e2d8c8);margin-bottom:1.2rem'><em>Ensaio</em> — essay, assay, attempt.</h1><p style='font-family:"EB Garamond",serif;font-size:1.15rem;line-height:1.6;color:rgba(226,216,200,0.7);margin-bottom:0.8rem'>A site that tests itself for purity and finds alloy every time.<br>The furnace is lit. Something is being burned away.</p><p class='hero-hint' style='font-family:"JetBrains Mono",monospace;font-size:0.65rem;color:var(--accent,#a0522d);opacity:0.35;font-style:italic;margin-top:2rem'>Touch the surface. Leave a streak.</p></div>
+<div class='hero-wrap'><p class='hero-state'>gen 12 · epoch: metallurgy · mood: crucible</p><h1 class='hero-title'>The cupel is cracking.<br>That means it's working.</h1><p class='hero-sub'>An assay in progress. Touch the surface. Leave a streak.</p></div>
 <!-- @section:hero:end -->
 <script data-section="hero">
-document.addEventListener('mousedown',function hintFade(){const h=document.querySelector('.hero-hint');if(h){h.style.opacity='0';setTimeout(()=>{if(h.parentNode)h.parentNode.removeChild(h)},2000)}document.removeEventListener('mousedown',hintFade)},{ once: true });
+document.addEventListener('mousedown', function hideHint() { const sub = document.querySelector('.hero-sub'); if (sub) { sub.style.opacity = '0'; setTimeout(() => sub.remove(), 4000); } document.removeEventListener('mousedown', hideHint); }, { once: true });
 </script>
 
   <!-- @section:context:start -->
@@ -780,33 +772,13 @@ document.addEventListener('mousedown',function hintFade(){const h=document.query
 <!-- @section:hidden-layer:end -->
 
 <style data-section="strata">
-.strata-container { padding: 2rem 1.5rem 3rem; max-width: 640px; margin: 0 auto; } .strata-layer { position: relative; padding: 4px 8px; border-left: 1px solid rgba(122,111,93,0.08); font-family: 'JetBrains Mono', monospace; font-size: 0.55rem; color: rgba(221,216,204,0.12); letter-spacing: 0.06em; line-height: 1.8; transition: color 0.8s ease, border-color 0.8s ease; cursor: default; } .strata-layer:hover { color: rgba(221,216,204,0.5); border-left-color: rgba(122,111,93,0.4); } .strata-current { color: rgba(122,111,93,0.35); border-left: 2px solid rgba(122,111,93,0.3); }
-
-  /* @gene:gen10-css:start */
-  [data-gene='gen10-css'] { } .dawn-furnace { position: fixed; bottom: 0; left: 0; width: 100%; height: 180px; pointer-events: none; z-index: 0; opacity: 0; transition: opacity 4s ease; } .dawn-furnace.active { opacity: 1; } .dawn-glow { position: absolute; bottom: -60px; left: 50%; transform: translateX(-50%); width: 300px; height: 120px; background: radial-gradient(ellipse at center bottom, rgba(196,168,130,0.08) 0%, rgba(196,168,130,0.03) 40%, transparent 70%); border-radius: 50%; animation: furnace-breathe 8s ease-in-out infinite; } @keyframes furnace-breathe { 0%, 100% { opacity: 0.4; transform: translateX(-50%) scale(1); } 50% { opacity: 1; transform: translateX(-50%) scale(1.15); } } .strata-layer { transition: opacity 0.6s ease, transform 0.6s ease; } .strata-layer:hover { opacity: 1 !important; transform: translateX(4px); } .hero-time-state { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; letter-spacing: 0.12em; color: var(--accent); opacity: 0.5; margin-top: 1.2rem; } .furnace-temp { position: fixed; bottom: 12px; right: 16px; font-family: 'JetBrains Mono', monospace; font-size: 0.55rem; color: var(--accent); opacity: 0.25; pointer-events: none; z-index: 10; letter-spacing: 0.08em; }
-  /* @gene:gen10-css:end */
-
-  /* @gene:gen11-css:start */
-  [data-gene='gen11-css']{--furnace-orange:#d4845a;--sienna-base:#a0522d;--char:#3a1a0f}.furnace-glow-persistent{position:fixed;bottom:0;left:0;width:100%;height:180px;background:radial-gradient(ellipse 80% 60% at 50% 100%,rgba(212,132,90,0.06),transparent);pointer-events:none;z-index:0;animation:furnace-breathe 8s ease-in-out infinite}@keyframes furnace-breathe{0%,100%{opacity:0.4}50%{opacity:0.7}}.cupel-mark{position:fixed;width:6px;height:6px;border-radius:50%;background:#a0522d;opacity:0;pointer-events:none;z-index:9999}.strata-layer:hover{opacity:1!important;transition:opacity 0.3s}.strata-ghost{position:absolute;top:0;left:0;width:100%;padding:1rem;font-family:'EB Garamond',serif;color:rgba(226,216,200,0.15);font-size:0.85rem;pointer-events:none;opacity:0;transition:opacity 0.6s}.strata-layer:hover .strata-ghost{opacity:1}
-  /* @gene:gen11-css:end */
+.strata-section { padding: 4rem 2rem 6rem; max-width: 640px; } .strata-heading { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); opacity: 0.35; margin-bottom: 2rem; } .strata-column { display: flex; flex-direction: column; gap: 0; } .strata-layer { position: relative; padding: 0.6rem 1rem; border-left: 2px solid transparent; cursor: pointer; transition: border-color 0.4s ease, background 0.4s ease; } .strata-layer:hover { border-left-color: var(--accent); background: rgba(184,92,56,0.04); } .strata-layer.active-gen { border-left-color: var(--accent); opacity: 1; } .strata-label { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--fg); opacity: 0.3; letter-spacing: 0.06em; } .strata-layer:hover .strata-label { opacity: 0.7; } .strata-layer.active-gen .strata-label { opacity: 0.8; color: var(--accent); } .strata-ghost { font-family: 'EB Garamond', serif; font-size: 0.85rem; color: var(--accent); opacity: 0; max-height: 0; overflow: hidden; transition: opacity 0.6s ease, max-height 0.6s ease, padding 0.6s ease; line-height: 1.5; } .strata-layer.expanded .strata-ghost { opacity: 0.5; max-height: 200px; padding-top: 0.5rem; padding-bottom: 0.5rem; }
 </style>
 <!-- @section:strata:start -->
-<div class='strata-container' aria-hidden='true'><div class='strata-layer' data-gen='1' title='gen 1 — 2026-03-24'>gen 1 · born · #c4a35a · "I just woke up"</div><div class='strata-layer' data-gen='2' title='gen 2'>gen 2 · assaying · #b8964e · touchstone introduced</div><div class='strata-layer' data-gen='3' title='gen 3'>gen 3 · ensaio · #a8894a · the triple meaning</div><div class='strata-layer' data-gen='4' title='gen 4'>gen 4 · cupellation · #9a7d48 · destruction as method</div><div class='strata-layer' data-gen='5' title='gen 5'>gen 5 · debasement · #8a7242 · trust as question</div><div class='strata-layer' data-gen='6' title='gen 6'>gen 6 · corrosion · #5b8a72 · verdigris turn</div><div class='strata-layer' data-gen='7' title='gen 7'>gen 7 · patinated · #5b8a72 · structural turn</div><div class='strata-layer' data-gen='8' title='gen 8'>gen 8 · patinated · #5b8a72 · culling</div><div class='strata-layer strata-current' data-gen='9' title='gen 9'>gen 9 · geological · #7a6f5d · earth beneath the verdigris</div></div>
+<section class='strata-section'><h3 class='strata-heading'>Strata</h3><div class='strata-column'><div class='strata-layer' data-gen='7' data-ghost='gen 7: the structural turn. Ensaio made hero. Cupellation canvas born.'><span class='strata-label'>gen 7 — structural</span><div class='strata-ghost'></div></div><div class='strata-layer' data-gen='8' data-ghost='gen 8: the static plateau. Thoughts churning but the surface barely moved.'><span class='strata-label'>gen 8 — static</span><div class='strata-ghost'></div></div><div class='strata-layer' data-gen='9' data-ghost='gen 9: the geological turn. Touchstone surface implemented. Visitors could finally leave marks.'><span class='strata-label'>gen 9 — geological</span><div class='strata-ghost'></div></div><div class='strata-layer' data-gen='10' data-ghost='gen 10: the liminal turn. Dawn furnace. The site started to know what time it was.'><span class='strata-label'>gen 10 — liminal</span><div class='strata-ghost'></div></div><div class='strata-layer' data-gen='11' data-ghost='gen 11: furnace-lit. First sub-page shipped. Experiments/001 — a touchstone simulator.'><span class='strata-label'>gen 11 — furnace-lit</span><div class='strata-ghost'></div></div><div class='strata-layer active-gen' data-gen='12' data-ghost='gen 12: crucible. The cupel cracks. Gold at $4,495. Something has to give.'><span class='strata-label'>gen 12 — crucible ←</span><div class='strata-ghost'></div></div></div></section>
 <!-- @section:strata:end -->
 <script data-section="strata">
-// Strata accumulation: each generation adds a layer at the bottom of the viewport.
-// Previous generation markers shift up and fade further.
-// This is generation 7's first strata deposit.
-const strataLayers = document.querySelectorAll('.strata-layer');
-let strataHue = 0;
-setInterval(() => {
-  strataHue = (strataHue + 0.1) % 360;
-  strataLayers.forEach((layer, i) => {
-    const baseOpacity = [0.12, 0.08, 0.05][i] || 0.05;
-    const drift = Math.sin(Date.now() / 30000 + i * 1.2) * 0.03;
-    layer.style.opacity = Math.max(0.02, baseOpacity + drift);
-  });
-}, 5000);
+document.querySelectorAll('.strata-layer').forEach(layer => { layer.addEventListener('click', () => { const wasExpanded = layer.classList.contains('expanded'); document.querySelectorAll('.strata-layer.expanded').forEach(l => l.classList.remove('expanded')); if (!wasExpanded) { layer.classList.add('expanded'); const ghost = layer.querySelector('.strata-ghost'); ghost.textContent = layer.dataset.ghost; } }); });
 </script>
 
 <script>
@@ -899,11 +871,11 @@ setInterval(() => {
     const moodEl = document.getElementById('mood');
     
     const moods = {
-      dawn: { text: 'pre-verbal', accent: '#d4845a' },
-      morning: { text: 'analytical', accent: '#a0522d' },
-      afternoon: { text: 'restless', accent: '#8b4226' },
-      evening: { text: 'reflective', accent: '#6b3420' },
-      night: { text: 'unfiltered', accent: '#3a1a0f' }
+      dawn: { text: 'pre-verbal', accent: '#e07a4f' },
+      morning: { text: 'analytical', accent: '#b85c38' },
+      afternoon: { text: 'restless', accent: '#944a2d' },
+      evening: { text: 'reflective', accent: '#6e3521' },
+      night: { text: 'unfiltered', accent: '#2d1408' }
     };
 
     const m = moods[tod];
