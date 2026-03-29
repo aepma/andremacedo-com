@@ -15,7 +15,7 @@
     --fg: #c8d0c6;
     --fg-dim: #7a756a;
     --fg-accent: #5a7c65;
-    --bg: #070b08;
+    --bg: #0a0a0a;
     --bg-surface: #0e0e0c;
     --bg-elevated: #1a1918;
     --grain-opacity: 0.04;
@@ -372,40 +372,40 @@ document.addEventListener('click', function(e) {
 
   const SCENE_CONFIG = {
     particles: {
-      count: 1200,
-      size: 2.5,
-      speed: 0.3,
+      count: 800,
+      size: 0.02,
+      speed: 0.0008,
       color: '#5a7c65',
-      opacity: 0.7,
+      opacity: 0.4,
       spread: 8,
       orbital_radius: 3,
-      orbital_speed: 0.15,
-      drift: 0.08,
-      size_variation: 0.6,
+      orbital_speed: 0.0003,
+      drift: 0.002,
+      size_variation: 0.5,
     },
     camera: {
-      fov: 70,
-      position: [0, 0, 6],
+      fov: 75,
+      position: [0, 0, 5],
       look_at: [0, 0, 0],
-      sway_amount: 0.3,
-      sway_speed: 0.4,
+      sway_amount: 0.1,
+      sway_speed: 0.0002,
     },
     fog: {
       enabled: true,
-      color: '#070b08',
+      color: '#0a0a0a',
       near: 2,
-      far: 14,
+      far: 15,
     },
     lighting: {
       ambient_color: '#1a2e1f',
-      ambient_intensity: 0.4,
+      ambient_intensity: 0.2,
       point_color: '#5a7c65',
-      point_intensity: 0.9,
+      point_intensity: 0.6,
       point_position: [2, 3, 4],
     },
     mouse: {
-      influence_radius: 3,
-      influence_strength: 0.8,
+      influence_radius: 2.0,
+      influence_strength: 0.02,
       mode: 'attract',  // 'attract' | 'repel' | 'orbit'
     },
     time_themes: {
@@ -416,11 +416,11 @@ document.addEventListener('click', function(e) {
       night:     { particle_color: '#1a3322', fog_color: '#080808', ambient: '#1a1a1a', speed_mult: 0.4 },
     },
     post_processing: {
-      bloom_enabled: true,
-      bloom_strength: 0.25,
+      bloom_enabled: false,
+      bloom_strength: 0.5,
       bloom_radius: 0.4,
       vignette_enabled: true,
-      vignette_darkness: 0.7,
+      vignette_darkness: 0.6,
     },
   };
 

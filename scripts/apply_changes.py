@@ -460,7 +460,29 @@ if scene_changes and isinstance(scene_changes, dict):
     with open(index_path) as f: html = f.read()
     if 'SCENE_CONFIG' in html:
         sc_changed = False
+        # Bounds to prevent absurd values
+        bounds = {
+            "particles.count": (10, 3000),
+            "particles.size": (0.001, 0.2),
+            "particles.speed": (0.0001, 0.01),
+            "particles.opacity": (0.05, 1.0),
+            "particles.orbital_speed": (0.00005, 0.005),
+            "particles.drift": (0.0005, 0.02),
+            "camera.fov": (30, 120),
+            "camera.sway_amount": (0.01, 0.5),
+            "camera.sway_speed": (0.00005, 0.002),
+            "fog.near": (0.5, 10),
+            "fog.far": (5, 50),
+            "lighting.ambient_intensity": (0.05, 1.0),
+            "lighting.point_intensity": (0.1, 2.0),
+            "mouse.influence_radius": (0.5, 5.0),
+            "mouse.influence_strength": (0.005, 0.1),
+        }
         for path, value in scene_changes.items():
+            # Clamp numeric values to safe bounds
+            if path in bounds and isinstance(value, (int, float)):
+                lo, hi = bounds[path]
+                value = max(lo, min(hi, value))
             path_parts = path.split('.')
             js_val = format_js_value(value)
             # Value pattern: matches numbers, booleans, quoted strings, or bracket arrays
