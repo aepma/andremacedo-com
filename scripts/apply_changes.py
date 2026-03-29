@@ -34,35 +34,53 @@ parts = []
 if pulse_type in ("daily", "event"):
     new_thoughts = changes.get("new_thoughts", {})
     replace_indices = changes.get("replace_thoughts", {})
+    # Handle new_thoughts as either dict {tod: [...]} or flat list
+    if isinstance(new_thoughts, list):
+        # Distribute flat list across current time-of-day pool
+        from datetime import datetime, timezone as tz2
+        h = datetime.now(tz2.utc).hour
+        if h >= 5 and h < 8: cur_tod = "dawn"
+        elif h >= 8 and h < 12: cur_tod = "morning"
+        elif h >= 12 and h < 17: cur_tod = "afternoon"
+        elif h >= 17 and h < 21: cur_tod = "evening"
+        else: cur_tod = "night"
+        new_thoughts = {cur_tod: new_thoughts}
     for tod, new_list in new_thoughts.items():
         if not new_list or tod not in thoughts:
             continue
-        indices = replace_indices.get(tod, [])
+        indices = replace_indices.get(tod, []) if isinstance(replace_indices, dict) else []
         for i, thought in enumerate(new_list):
             if i < len(indices) and indices[i] < len(thoughts[tod]):
                 thoughts[tod][indices[i]] = thought
             else:
                 thoughts[tod].append(thought)
-    if any(v for v in new_thoughts.values()):
+    if any(v for v in (new_thoughts.values() if isinstance(new_thoughts, dict) else [new_thoughts])):
         parts.append("refreshed thought pools")
 
     new_secret = changes.get("new_secret")
-    if new_secret and new_secret != "null":
-        secrets["secrets"].append(new_secret)
+    if new_secret and new_secret != "null" and new_secret is not None:
+        secrets["secrets"].append(str(new_secret))
         parts.append("added new secret")
 
     mood = changes.get("mood_decision", "maintain")
-    if mood and mood != "maintain":
+    if isinstance(mood, dict):
+        mood = mood.get("new_mood", mood.get("mood", str(mood)))
+    mood = str(mood)
+    if mood and mood != "maintain" and mood != "null":
         state["current_mood"] = mood
         parts.append("mood shifted to " + mood)
 
     self_note = changes.get("self_note")
     if self_note:
+        if isinstance(self_note, dict):
+            self_note = str(self_note)
         state["self_notes"].append(self_note)
 
     ext_react = changes.get("external_reaction")
     if ext_react:
-        parts.append("reacted to external: " + ext_react[:80])
+        if isinstance(ext_react, dict):
+            ext_react = str(ext_react)
+        parts.append("reacted to external: " + str(ext_react)[:80])
 
 elif pulse_type == "weekly":
     css_changes = changes.get("css_changes")
