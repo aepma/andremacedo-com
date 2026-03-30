@@ -25,8 +25,8 @@
 
   html, body {
     width: 100%;
-    height: 100%;
-    overflow: hidden;
+    min-height: 100%;
+    overflow-x: hidden;
     background: var(--bg);
     color: var(--fg);
     font-family: 'EB Garamond', Georgia, serif;
@@ -189,10 +189,201 @@
     to { opacity: 1; }
   }
 
+  /* Thought Stream & Portfolio — below the fold */
+  .below-fold {
+    position: relative;
+    z-index: 20;
+    min-height: 100vh;
+    background: var(--bg);
+    border-top: 1px solid rgba(61,232,197,0.08);
+    padding: 4rem 2.5rem;
+  }
+
+  .stream-section, .portfolio-section {
+    max-width: 720px;
+    margin: 0 auto 6rem auto;
+  }
+
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--fg-dim);
+    opacity: 0.5;
+    margin-bottom: 2rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(61,232,197,0.06);
+  }
+
+  .stream-entry {
+    margin-bottom: 1.8rem;
+    padding-left: 1rem;
+    border-left: 1px solid rgba(61,232,197,0.1);
+  }
+
+  .stream-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    color: var(--fg-dim);
+    opacity: 0.4;
+    margin-bottom: 0.4rem;
+    letter-spacing: 0.04em;
+  }
+
+  .stream-badge {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 0.06em;
+    padding: 1px 5px;
+    border: 1px solid rgba(61,232,197,0.15);
+    color: var(--fg-accent);
+    opacity: 0.5;
+    margin-left: 0.5rem;
+  }
+
+  .stream-text {
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: var(--fg);
+    opacity: 0.7;
+  }
+
+  .stream-init {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--fg-dim);
+    opacity: 0.3;
+    font-style: italic;
+  }
+
+  /* Portfolio */
+  .epoch-card {
+    margin-bottom: 2.5rem;
+    padding: 1.2rem 1.5rem;
+    background: var(--bg-surface);
+    border: 1px solid rgba(61,232,197,0.06);
+  }
+
+  .epoch-header {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .epoch-name {
+    font-family: 'Instrument Serif', serif;
+    font-size: 1.3rem;
+    color: var(--fg);
+  }
+
+  .epoch-status {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 2px 6px;
+  }
+
+  .epoch-status.live {
+    color: var(--fg-accent);
+    border: 1px solid var(--fg-accent);
+    opacity: 0.7;
+    animation: pulse-dot 2s infinite;
+  }
+
+  .epoch-status.archived {
+    color: var(--fg-dim);
+    border: 1px solid rgba(255,255,255,0.08);
+    opacity: 0.4;
+  }
+
+  .epoch-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    color: var(--fg-dim);
+    opacity: 0.4;
+    margin-bottom: 0.8rem;
+  }
+
+  .epoch-epitaph {
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--fg);
+    opacity: 0.5;
+    font-style: italic;
+    margin-bottom: 1rem;
+  }
+
+  .artifact-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .artifact-item {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    color: var(--fg-dim);
+    opacity: 0.35;
+    line-height: 2;
+    padding-left: 0.8rem;
+    border-left: 1px solid rgba(61,232,197,0.05);
+  }
+
+  .artifact-type {
+    opacity: 0.6;
+    margin-right: 0.3rem;
+  }
+
+  .fitness-track {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    color: var(--fg-dim);
+    opacity: 0.3;
+    margin-top: 3rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(61,232,197,0.04);
+  }
+
+  .fitness-bar {
+    display: inline-block;
+    height: 3px;
+    background: var(--fg-accent);
+    opacity: 0.4;
+    margin-right: 2px;
+    vertical-align: middle;
+  }
+
+  .scroll-hint {
+    position: fixed;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 15;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8px;
+    color: var(--fg-dim);
+    opacity: 0;
+    letter-spacing: 0.1em;
+    animation: fadeIn 2s ease forwards;
+    animation-delay: 4s;
+    transition: opacity 0.5s;
+    pointer-events: none;
+  }
+
+  @media (max-width: 768px) {
+    .below-fold { padding: 2rem 1.5rem; }
+    .epoch-card { padding: 1rem; }
+  }
+
   /* Section injection markers are now in the body */
 /* @inject:css */
   /* @gene:gen15-css:start */
-  .overlay-top{position:fixed;top:24px;left:28px;z-index:10;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--fg-dim);opacity:0.6;letter-spacing:0.04em}.overlay-top .site-name{font-family:'Instrument Serif',serif;font-size:14px;color:var(--fg);opacity:0.8;letter-spacing:0.02em;margin-bottom:4px}.overlay-top .gen-line{opacity:0.5;font-size:10px}.hero-center{position:fixed;top:50%;left:50%;transform:translate(-50%,-55%);z-index:10;text-align:center;pointer-events:none}.hero-center h1{font-family:'Instrument Serif',serif;font-size:clamp(28px,4vw,52px);color:var(--fg);letter-spacing:-0.01em;line-height:1.15;margin:0;text-shadow:0 0 60px rgba(61,232,197,0.15)}.hero-center .sub{font-family:'EB Garamond',serif;font-size:clamp(14px,1.8vw,20px);color:var(--fg-accent);opacity:0.6;font-style:italic;margin-top:8px}.agent-pulse{position:fixed;bottom:24px;left:28px;z-index:10;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--fg-dim);opacity:0.4;line-height:1.8;max-width:340px}.agent-pulse .pulse-line{opacity:0;animation:pulse-fade 8s ease-in-out infinite;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.agent-pulse .pulse-line:nth-child(1){animation-delay:0s}.agent-pulse .pulse-line:nth-child(2){animation-delay:1.5s}.agent-pulse .pulse-line:nth-child(3){animation-delay:3s}.agent-pulse .pulse-line:nth-child(4){animation-delay:4.5s}.agent-pulse .pulse-line:nth-child(5){animation-delay:6s}@keyframes pulse-fade{0%{opacity:0}15%{opacity:0.5}85%{opacity:0.5}100%{opacity:0}}.epoch-marker{position:fixed;bottom:24px;right:28px;z-index:10;font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--fg-dim);opacity:0.25;text-align:right;letter-spacing:0.06em;text-transform:lowercase}.thought-float{position:fixed;z-index:11;font-family:'EB Garamond',serif;font-size:clamp(13px,1.4vw,17px);color:var(--fg);opacity:0;pointer-events:none;max-width:40vw;line-height:1.5;transition:opacity 3s ease}@keyframes thought-drift{0%{transform:translate(0,0)}100%{transform:translate(0,-8px)}}.particle-depth-layer{position:fixed;top:0;left:0;width:100%;height:100%;z-index:1;pointer-events:none;opacity:0.12}.gen15-css{display:block}
+  .overlay-top{position:fixed;top:24px;left:28px;z-index:10;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--fg-dim);opacity:0.6;letter-spacing:0.04em}.overlay-top .site-name{font-family:'Instrument Serif',serif;font-size:14px;color:var(--fg);opacity:0.8;letter-spacing:0.02em;margin-bottom:4px}.overlay-top .gen-line{opacity:0.5;font-size:10px}.hero-center{position:fixed;top:50%;left:50%;transform:translate(-50%,-55%);z-index:10;text-align:center;pointer-events:none}.hero-center h1{font-family:'Instrument Serif',serif;font-size:clamp(28px,4vw,52px);color:var(--fg);letter-spacing:-0.01em;line-height:1.15;margin:0;text-shadow:0 0 60px rgba(61,232,197,0.15)}.hero-center .sub{font-family:'EB Garamond',serif;font-size:clamp(14px,1.8vw,20px);color:var(--fg-accent);opacity:0.6;font-style:italic;margin-top:8px}.epoch-marker{position:fixed;bottom:24px;right:28px;z-index:10;font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--fg-dim);opacity:0.25;text-align:right;letter-spacing:0.06em;text-transform:lowercase}.thought-float{position:fixed;z-index:11;font-family:'EB Garamond',serif;font-size:clamp(13px,1.4vw,17px);color:var(--fg);opacity:0;pointer-events:none;max-width:40vw;line-height:1.5;transition:opacity 3s ease}@keyframes thought-drift{0%{transform:translate(0,0)}100%{transform:translate(0,-8px)}}.particle-depth-layer{position:fixed;top:0;left:0;width:100%;height:100%;z-index:1;pointer-events:none;opacity:0.12}.gen15-css{display:block}
   /* @gene:gen15-css:end */
 </style>
 </head>
@@ -210,7 +401,7 @@
 <!-- @section:overlay-top:end -->
 
   <!-- @section:overlay-center:start -->
-<div class='hero-center'><h1>A swarm has no center.</h1><div class='sub'>It has you.</div></div>
+<div class='hero-center'><h1>A swarm has no center.</h1><div class='sub'>It has intention.</div></div>
 <!-- @section:overlay-center:end -->
 
 <!-- @section:thought-floater:start -->
@@ -228,11 +419,8 @@
 </script>
 
   <!-- @section:overlay-bottom:start -->
-<div class='agent-pulse' id='agent-pulse'></div><div class='epoch-marker'>webgl-swarm · spring 2026</div>
+<div class='epoch-marker'>webgl-swarm · spring 2026</div>
 <!-- @section:overlay-bottom:end -->
-<script data-section="overlay-bottom">
-(function(){const pulse=document.getElementById('agent-pulse');if(!pulse)return;function fetchStatus(){fetch('/api/status').then(r=>r.json()).then(data=>{renderPulse(data)}).catch(()=>{fetch('/state/agent-state.json').then(r=>r.json()).then(data=>{renderPulse(data)}).catch(()=>{renderFallback()})})}function renderPulse(data){const agents=data.agents||data.swarm||[];const lines=[];if(Array.isArray(agents)){agents.slice(0,6).forEach(a=>{const name=a.name||a.agent||'unknown';const last=a.last_action||a.status||'idle';const ago=a.last_seen||'';lines.push('<div class="pulse-line">'+name+' · '+last+(ago?' · '+ago:'')+'</div>')})}else if(typeof agents==='object'){Object.keys(agents).slice(0,6).forEach(k=>{const v=agents[k];const status=typeof v==='string'?v:(v.status||v.last_action||'idle');lines.push('<div class="pulse-line">'+k+' · '+status+'</div>')})}pulse.innerHTML=lines.join('');if(lines.length===0)renderFallback()}function renderFallback(){const fallback=['zoo · 25 agents','strategist · 1s ago','home-devices · 2m ago','gaia · 22m ago','sentinel · 24m ago','RP3 · 37m ago'];pulse.innerHTML=fallback.map(l=>'<div class="pulse-line">'+l+'</div>').join('')}fetchStatus();setInterval(fetchStatus,60000)})()
-</script>
 
   <!-- Swarm panel — fixed left side -->
   <div class="swarm-panel" id="swarmPanel">
@@ -249,6 +437,156 @@
 <!-- INJECT:after-hero -->
 <!-- INJECT:freeform -->
 <!-- INJECT:before-syslog -->
+
+<!-- Scroll hint -->
+<div class="scroll-hint" id="scrollHint">scroll</div>
+
+<!-- Below the fold: Thought Stream + Portfolio -->
+<div class="below-fold">
+
+<!-- @section:thought-stream:start -->
+<div class="stream-section" id="thoughtStream">
+  <div class="section-label">consciousness stream</div>
+  <div id="streamEntries">
+    <div class="stream-init">// consciousness stream initializing...</div>
+  </div>
+</div>
+<!-- @section:thought-stream:end -->
+
+<!-- @section:prototype-portfolio:start -->
+<div class="portfolio-section" id="prototypePortfolio">
+  <div class="section-label">prototype archive</div>
+  <div id="portfolioEntries"></div>
+  <div id="fitnessTrack" class="fitness-track"></div>
+</div>
+<!-- @section:prototype-portfolio:end -->
+
+</div>
+
+<script data-section="thought-stream">
+(function() {
+  const WORKER_URL = 'https://openclaw-status.andre-p-macedo.workers.dev/api/thoughts';
+  const container = document.getElementById('streamEntries');
+  if (!container) return;
+
+  async function fetchStream() {
+    try {
+      const res = await fetch(WORKER_URL);
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      const stream = await res.json();
+
+      if (!Array.isArray(stream) || stream.length === 0) {
+        container.innerHTML = '<div class="stream-init">// consciousness stream initializing...</div>';
+        return;
+      }
+
+      // Reverse chronological
+      const entries = stream.slice().reverse();
+      let html = '';
+
+      for (const entry of entries) {
+        const gen = entry.generation || '?';
+        const ts = entry.timestamp ? new Date(entry.timestamp).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : '';
+
+        for (const frag of (entry.fragments || [])) {
+          const badge = frag.type.replace(/_/g, ' ');
+          html += '<div class="stream-entry">';
+          html += '<div class="stream-meta">gen ' + gen + (ts ? ' \u00b7 ' + ts : '') + '<span class="stream-badge">' + badge + '</span></div>';
+          html += '<div class="stream-text">' + escapeHtml(frag.text) + '</div>';
+          html += '</div>';
+        }
+      }
+
+      container.innerHTML = html;
+    } catch (e) {
+      container.innerHTML = '<div class="stream-init">// stream offline</div>';
+    }
+  }
+
+  function escapeHtml(s) {
+    const d = document.createElement('div');
+    d.textContent = s;
+    return d.innerHTML;
+  }
+
+  fetchStream();
+  setInterval(fetchStream, 300000); // 5 min refresh
+})();
+</script>
+
+<script data-section="prototype-portfolio">
+(function() {
+  const WORKER_URL = 'https://openclaw-status.andre-p-macedo.workers.dev/api/portfolio';
+  const container = document.getElementById('portfolioEntries');
+  const fitnessEl = document.getElementById('fitnessTrack');
+  if (!container) return;
+
+  async function fetchPortfolio() {
+    try {
+      const res = await fetch(WORKER_URL);
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      const data = await res.json();
+
+      if (!data || !data.epochs || data.epochs.length === 0) return;
+
+      let html = '';
+      for (const epoch of data.epochs) {
+        const isLive = epoch.status === 'active';
+        const statusClass = isLive ? 'live' : 'archived';
+        const statusLabel = isLive ? 'LIVE' : 'ARCHIVED';
+
+        html += '<div class="epoch-card">';
+        html += '<div class="epoch-header">';
+        html += '<span class="epoch-name">' + escapeHtml(epoch.name) + '</span>';
+        html += '<span class="epoch-status ' + statusClass + '">' + statusLabel + '</span>';
+        html += '</div>';
+        html += '<div class="epoch-meta">' + epoch.generations + ' generations';
+        if (epoch.started) html += ' \u00b7 started ' + epoch.started;
+        html += '</div>';
+
+        if (epoch.epitaph) {
+          html += '<div class="epoch-epitaph">' + escapeHtml(epoch.epitaph) + '</div>';
+        }
+
+        if (epoch.artifacts && epoch.artifacts.length > 0) {
+          html += '<ul class="artifact-list">';
+          for (const a of epoch.artifacts.slice(0, 15)) {
+            html += '<li class="artifact-item"><span class="artifact-type">' + a.type + '</span> ' + escapeHtml(a.name) + '</li>';
+          }
+          if (epoch.artifacts.length > 15) {
+            html += '<li class="artifact-item">+ ' + (epoch.artifacts.length - 15) + ' more</li>';
+          }
+          html += '</ul>';
+        }
+
+        html += '</div>';
+      }
+
+      container.innerHTML = html;
+
+      // Fitness sparkline
+      if (fitnessEl && data.fitness_trajectory && data.fitness_trajectory.length > 0) {
+        let fHtml = 'fitness trajectory: ';
+        for (const f of data.fitness_trajectory) {
+          const w = Math.max(2, (f.total || 0) * 4);
+          fHtml += '<span class="fitness-bar" style="width:' + w + 'px" title="gen ' + f.gen + ': ' + f.total + '"></span>';
+        }
+        fitnessEl.innerHTML = fHtml;
+      }
+    } catch (e) {
+      container.innerHTML = '';
+    }
+  }
+
+  function escapeHtml(s) {
+    const d = document.createElement('div');
+    d.textContent = s;
+    return d.innerHTML;
+  }
+
+  fetchPortfolio();
+})();
+</script>
 
 <!-- ── Three.js ──────────────────────────────────────────────── -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -330,7 +668,7 @@ document.addEventListener('click', function(e) {
     },
     post_processing: {
       bloom_enabled: true,
-      bloom_strength: 0.6,
+      bloom_strength: 0.3,
       bloom_radius: 0.4,
       bloom_threshold: 0.6,
       vignette_enabled: true,
@@ -754,6 +1092,13 @@ void main() {
       setInterval(setThought, 30000);
       setInterval(updateOverlay, 10000);
       setInterval(fetchSwarmData, 60000);
+      // Hide scroll hint once user scrolls
+      const hint = document.getElementById('scrollHint');
+      if (hint) {
+        window.addEventListener('scroll', function() {
+          if (window.scrollY > 50) hint.style.opacity = '0';
+        }, { passive: true });
+      }
     } catch(e) {
       console.error('boot() failed:', e);
     }

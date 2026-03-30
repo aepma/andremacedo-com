@@ -156,8 +156,135 @@ SUMMARY="$(python3 "$APPLY_SCRIPT")" || {
 }
 
 CURRENT_MOOD="$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1])).get("current_mood","unknown"))' "$STATE_FILE")"
+GENERATION="$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1])).get("generation",0))' "$SITE_DIR/state/genome.json")"
 
 log "Applied: $SUMMARY"
+
+# ── Thought Stream: persist reasoning fragments ──────────────────
+THOUGHT_STREAM_FILE="$SITE_DIR/state/thought-stream.json"
+
+python3 -c "
+import sys, json, os
+from datetime import datetime, timezone
+
+content_raw = os.environ['CONTENT']
+content_str = content_raw.strip()
+if content_str.startswith('\`\`\`'):
+    lines = content_str.split('\n')
+    lines = lines[1:]
+    if lines and lines[-1].strip() == '\`\`\`':
+        lines = lines[:-1]
+    content_str = '\n'.join(lines)
+
+data = json.loads(content_str)
+gen = sys.argv[1]
+stream_file = sys.argv[2]
+
+self_note = data.get('self_note', '')
+if isinstance(self_note, dict):
+    self_note = str(self_note)
+fitness = data.get('fitness_evaluation', {})
+fitness_note = fitness.get('note', '') if isinstance(fitness, dict) else ''
+weekly = data.get('weekly_reflection', '')
+
+# Load existing stream or initialize
+stream = []
+if os.path.exists(stream_file):
+    try:
+        with open(stream_file) as f:
+            stream = json.load(f)
+    except (json.JSONDecodeError, IOError):
+        stream = []
+
+entry = {
+    'timestamp': datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ'),
+    'generation': gen,
+    'fragments': []
+}
+
+if self_note:
+    entry['fragments'].append({'type': 'self_note', 'text': self_note})
+if fitness_note:
+    entry['fragments'].append({'type': 'fitness_note', 'text': fitness_note})
+if weekly:
+    entry['fragments'].append({'type': 'weekly_reflection', 'text': weekly})
+
+if entry['fragments']:
+    stream.append(entry)
+    stream = stream[-100:]
+    with open(stream_file, 'w') as f:
+        json.dump(stream, f, indent=2)
+    print(f'Thought stream: {len(entry[\"fragments\"])} fragments for gen {gen}')
+else:
+    print('Thought stream: no fragments this pulse')
+" "$GENERATION" "$THOUGHT_STREAM_FILE" 2>&1 | tee -a "$LOG_FILE"
+
+# ── Portfolio: rebuild manifest from genome data ─────────────────
+python3 -c "
+import json, os, sys
+
+site_dir = sys.argv[1]
+genome_path = os.path.join(site_dir, 'state', 'genome.json')
+
+with open(genome_path) as f:
+    genome = json.load(f)
+
+portfolio = {'epochs': []}
+
+# Dead eras from graveyard
+for entry in genome.get('graveyard', []):
+    if entry.get('type') == 'era':
+        portfolio['epochs'].append({
+            'name': entry.get('name', 'unknown'),
+            'status': 'archived',
+            'generations': entry.get('generations', 0),
+            'epitaph': entry.get('epitaph', ''),
+            'died_at_generation': entry.get('died_at_generation', 0),
+            'artifacts': []
+        })
+
+# Current epoch
+current_epoch = genome.get('epoch', 'unknown')
+current_gen = genome.get('generation', 0)
+epoch_started = genome.get('epoch_started', '')
+portfolio['epochs'].append({
+    'name': current_epoch,
+    'status': 'active',
+    'generations': current_gen,
+    'started': epoch_started,
+    'epitaph': None,
+    'artifacts': []
+})
+
+# Attach dead artifacts to eras by generation range
+for entry in genome.get('graveyard', []):
+    if entry.get('type') == 'era':
+        continue
+    artifact = {
+        'type': entry.get('type', 'unknown'),
+        'name': entry.get('value', entry.get('name', 'unnamed')),
+        'epitaph': entry.get('epitaph', ''),
+        'died_at_generation': entry.get('died_gen', entry.get('died_at_generation', 0))
+    }
+    placed = False
+    for epoch in portfolio['epochs']:
+        if epoch['status'] == 'archived':
+            max_gen = epoch.get('died_at_generation', 0)
+            if artifact['died_at_generation'] <= max_gen:
+                epoch['artifacts'].append(artifact)
+                placed = True
+                break
+    if not placed and portfolio['epochs']:
+        portfolio['epochs'][-1]['artifacts'].append(artifact)
+
+portfolio['epochs'].reverse()
+portfolio['fitness_trajectory'] = genome.get('fitness_log', [])[-20:]
+
+portfolio_path = os.path.join(site_dir, 'state', 'portfolio.json')
+with open(portfolio_path, 'w') as f:
+    json.dump(portfolio, f, indent=2)
+print(f'Portfolio: {len(portfolio[\"epochs\"])} epochs')
+" "$SITE_DIR" 2>&1 | tee -a "$LOG_FILE"
 
 # ── Git commit (for history) ──────────────────────────────────────
 git add -A

@@ -6,7 +6,10 @@
  * or api.andremacedo.com.
  *
  * KV Namespace binding: OPENCLAW_STATUS
- * Key: "latest" — JSON payload pushed by push-status.sh every 5 minutes
+ * Keys:
+ *   "latest"         — JSON payload pushed by push-status.sh every 5 minutes
+ *   "thought-stream"  — Agent reasoning fragments, updated each pulse
+ *   "portfolio"       — Epoch/prototype archive, updated each pulse
  */
 
 const CORS_HEADERS = {
@@ -39,6 +42,15 @@ const FALLBACK_PAYLOAD = {
   mood: 'unknown',
 };
 
+// Route map: pathname -> KV key
+const ROUTES = {
+  '/api/status': 'latest',
+  '/api/thoughts': 'thought-stream',
+  '/api/portfolio': 'portfolio',
+  // Root path serves status for backwards compatibility
+  '/': 'latest',
+};
+
 export default {
   async fetch(request, env) {
     // Handle CORS preflight
@@ -53,8 +65,18 @@ export default {
       });
     }
 
+    const url = new URL(request.url);
+    const kvKey = ROUTES[url.pathname];
+
+    if (!kvKey) {
+      return new Response(JSON.stringify({ error: 'Not found', routes: Object.keys(ROUTES) }), {
+        status: 404,
+        headers: CORS_HEADERS,
+      });
+    }
+
     try {
-      const data = await env.OPENCLAW_STATUS.get('latest', { type: 'json' });
+      const data = await env.OPENCLAW_STATUS.get(kvKey, { type: 'json' });
 
       if (data) {
         return new Response(JSON.stringify(data), {
@@ -63,8 +85,21 @@ export default {
         });
       }
 
-      // KV empty — return fallback
-      return new Response(JSON.stringify(FALLBACK_PAYLOAD), {
+      // KV empty — return appropriate fallback
+      if (kvKey === 'latest') {
+        return new Response(JSON.stringify(FALLBACK_PAYLOAD), {
+          status: 200,
+          headers: { ...CORS_HEADERS, 'X-Data-Source': 'fallback' },
+        });
+      }
+
+      // For thoughts/portfolio, return empty structures
+      const emptyFallbacks = {
+        'thought-stream': [],
+        'portfolio': { epochs: [], fitness_trajectory: [] },
+      };
+
+      return new Response(JSON.stringify(emptyFallbacks[kvKey] || null), {
         status: 200,
         headers: { ...CORS_HEADERS, 'X-Data-Source': 'fallback' },
       });

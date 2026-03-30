@@ -47,3 +47,35 @@ if [ "$HTTP_CODE" = "200" ]; then
 else
   log "ERROR: KV push failed HTTP $HTTP_CODE"
 fi
+
+# ── Push thought stream ─────────────────────────────────────────
+THOUGHT_STREAM="$HOME/andremacedo.com/state/thought-stream.json"
+if [ -f "$THOUGHT_STREAM" ]; then
+  TS_CODE=$(curl -s -o /dev/null -w '%{http_code}' \
+    -X PUT \
+    "https://api.cloudflare.com/client/v4/accounts/${CF_ACCOUNT_ID}/storage/kv/namespaces/${KV_NAMESPACE_ID}/values/thought-stream" \
+    -H "Authorization: Bearer ${CF_API_TOKEN}" \
+    -H "Content-Type: application/json" \
+    --data @"$THOUGHT_STREAM")
+  if [ "$TS_CODE" = "200" ]; then
+    log "Pushed thought-stream"
+  else
+    log "ERROR: thought-stream push failed HTTP $TS_CODE"
+  fi
+fi
+
+# ── Push portfolio ──────────────────────────────────────────────
+PORTFOLIO="$HOME/andremacedo.com/state/portfolio.json"
+if [ -f "$PORTFOLIO" ]; then
+  PF_CODE=$(curl -s -o /dev/null -w '%{http_code}' \
+    -X PUT \
+    "https://api.cloudflare.com/client/v4/accounts/${CF_ACCOUNT_ID}/storage/kv/namespaces/${KV_NAMESPACE_ID}/values/portfolio" \
+    -H "Authorization: Bearer ${CF_API_TOKEN}" \
+    -H "Content-Type: application/json" \
+    --data @"$PORTFOLIO")
+  if [ "$PF_CODE" = "200" ]; then
+    log "Pushed portfolio"
+  else
+    log "ERROR: portfolio push failed HTTP $PF_CODE"
+  fi
+fi
