@@ -218,10 +218,30 @@
     border-bottom: 1px solid rgba(61,232,197,0.06);
   }
 
+  .stream-section .section-label {
+    animation: breathe 4s ease-in-out infinite;
+  }
+
+  @keyframes breathe {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 0.7; }
+  }
+
   .stream-entry {
     margin-bottom: 1.8rem;
     padding-left: 1rem;
     border-left: 1px solid rgba(61,232,197,0.1);
+  }
+
+  .stream-entry.fade-in {
+    opacity: 0;
+    transform: translateY(15px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+
+  .stream-entry.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
   }
 
   .stream-meta {
@@ -251,6 +271,27 @@
     line-height: 1.65;
     color: var(--fg);
     opacity: 0.7;
+    max-height: 2em;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+    cursor: pointer;
+  }
+
+  .stream-text.expanded {
+    max-height: 1000px;
+  }
+
+  .stream-ellipsis {
+    display: inline;
+    color: var(--fg-accent);
+    opacity: 0.5;
+    cursor: pointer;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+  }
+
+  .stream-ellipsis.hidden {
+    display: none;
   }
 
   .stream-init {
@@ -259,6 +300,12 @@
     color: var(--fg-dim);
     opacity: 0.3;
     font-style: italic;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .stream-section .section-label { animation: none; opacity: 0.5; }
+    .stream-entry.fade-in { opacity: 1; transform: none; transition: none; }
+    .stream-text { transition: none; }
   }
 
   /* Portfolio */
@@ -478,6 +525,74 @@
   const container = document.getElementById('streamEntries');
   if (!container) return;
 
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let typewriterFired = false;
+
+  function firstSentence(text) {
+    const m = text.match(/^[^.!?]*[.!?]/);
+    return m ? m[0].trim() : text.split('\n')[0].trim();
+  }
+
+  function escapeHtml(s) {
+    const d = document.createElement('div');
+    d.textContent = s;
+    return d.innerHTML;
+  }
+
+  function typewrite(el, text, speed) {
+    if (reducedMotion) { el.innerHTML = escapeHtml(text); return; }
+    el.innerHTML = '';
+    let i = 0;
+    function tick() {
+      if (i < text.length) {
+        el.innerHTML = escapeHtml(text.slice(0, i + 1));
+        i++;
+        setTimeout(tick, speed);
+      }
+    }
+    tick();
+  }
+
+  function setupAnimations() {
+    const entries = container.querySelectorAll('.stream-entry.fade-in');
+    if (reducedMotion || entries.length === 0) {
+      entries.forEach(function(e) { e.classList.add('visible'); });
+      return;
+    }
+
+    // Typewriter on most recent entry
+    const streamSection = document.getElementById('thoughtStream');
+    if (!typewriterFired) {
+      const twObserver = new IntersectionObserver(function(ents) {
+        if (ents[0].isIntersecting && !typewriterFired) {
+          typewriterFired = true;
+          twObserver.disconnect();
+          const first = container.querySelector('.stream-entry');
+          if (first) {
+            const textEl = first.querySelector('.stream-text');
+            const sentence = textEl.getAttribute('data-sentence');
+            first.classList.add('visible');
+            typewrite(textEl, sentence, 30);
+          }
+        }
+      }, { threshold: 0.1 });
+      twObserver.observe(streamSection);
+    }
+
+    // Staggered fade-in for entries 2-5
+    const fadeEntries = Array.from(entries).slice(1);
+    const fadeObserver = new IntersectionObserver(function(observed) {
+      observed.forEach(function(o) {
+        if (o.isIntersecting) {
+          const idx = fadeEntries.indexOf(o.target);
+          setTimeout(function() { o.target.classList.add('visible'); }, idx * 150);
+          fadeObserver.unobserve(o.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    fadeEntries.forEach(function(e) { fadeObserver.observe(e); });
+  }
+
   async function fetchStream() {
     try {
       const res = await fetch(WORKER_URL);
@@ -489,33 +604,50 @@
         return;
       }
 
-      // Reverse chronological
-      const entries = stream.slice().reverse();
+      // Reverse chronological, show only 5 most recent
+      const entries = stream.slice().reverse().slice(0, 5);
       let html = '';
 
       for (const entry of entries) {
         const gen = entry.generation || '?';
         const ts = entry.timestamp ? new Date(entry.timestamp).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : '';
+        const frag = (entry.fragments || [])[0];
+        if (!frag) continue;
 
-        for (const frag of (entry.fragments || [])) {
-          const badge = frag.type.replace(/_/g, ' ');
-          html += '<div class="stream-entry">';
-          html += '<div class="stream-meta">gen ' + gen + (ts ? ' \u00b7 ' + ts : '') + '<span class="stream-badge">' + badge + '</span></div>';
-          html += '<div class="stream-text">' + escapeHtml(frag.text) + '</div>';
-          html += '</div>';
-        }
+        const badge = frag.type.replace(/_/g, ' ');
+        const fullText = frag.text;
+        const sentence = firstSentence(fullText);
+        const hasMore = fullText.length > sentence.length;
+
+        html += '<div class="stream-entry fade-in">';
+        html += '<div class="stream-meta">gen ' + gen + (ts ? ' \u00b7 ' + ts : '') + '<span class="stream-badge">' + badge + '</span></div>';
+        html += '<div class="stream-text" data-sentence="' + escapeHtml(sentence) + '" data-full="' + escapeHtml(fullText) + '">' + escapeHtml(sentence) + (hasMore ? '<span class="stream-ellipsis"> ...</span>' : '') + '</div>';
+        html += '</div>';
       }
 
       container.innerHTML = html;
+
+      // Toggle expand/collapse on click
+      container.querySelectorAll('.stream-text').forEach(function(el) {
+        el.addEventListener('click', function() {
+          const isExpanded = el.classList.toggle('expanded');
+          const full = el.getAttribute('data-full');
+          const sentence = el.getAttribute('data-sentence');
+          const ellipsis = el.querySelector('.stream-ellipsis');
+          if (isExpanded) {
+            el.innerHTML = escapeHtml(full);
+          } else {
+            const hasMore = full.length > sentence.length;
+            el.innerHTML = escapeHtml(sentence) + (hasMore ? '<span class="stream-ellipsis"> ...</span>' : '');
+          }
+          if (isExpanded) el.classList.add('expanded');
+        });
+      });
+
+      setupAnimations();
     } catch (e) {
       container.innerHTML = '<div class="stream-init">// stream offline</div>';
     }
-  }
-
-  function escapeHtml(s) {
-    const d = document.createElement('div');
-    d.textContent = s;
-    return d.innerHTML;
   }
 
   fetchStream();
