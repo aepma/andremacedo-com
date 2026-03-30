@@ -12,13 +12,13 @@
   @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,700;1,400;1,500&family=JetBrains+Mono:wght@300;400;500&family=Instrument+Serif:ital@0;1&display=swap');
 
   :root {
-    --fg: #d0e8e0;
+    --fg: #c8ede0;
     --fg-dim: #5a7a6d;
-    --fg-accent: #3de8c5;
-    --bg: #030807;
+    --fg-accent: #2ee8b7;
+    --bg: #020a07;
     --bg-surface: #060e0b;
     --bg-elevated: #0c1a15;
-    --grain-opacity: 0.03;
+    --grain-opacity: 0.025;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -382,16 +382,16 @@
 
   /* Section injection markers are now in the body */
 /* @inject:css */
-  /* @gene:gen15-css:start */
-  .overlay-top{position:fixed;top:24px;left:28px;z-index:10;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--fg-dim);opacity:0.6;letter-spacing:0.04em}.overlay-top .site-name{font-family:'Instrument Serif',serif;font-size:14px;color:var(--fg);opacity:0.8;letter-spacing:0.02em;margin-bottom:4px}.overlay-top .gen-line{opacity:0.5;font-size:10px}.hero-center{position:fixed;top:50%;left:50%;transform:translate(-50%,-55%);z-index:10;text-align:center;pointer-events:none}.hero-center h1{font-family:'Instrument Serif',serif;font-size:clamp(28px,4vw,52px);color:var(--fg);letter-spacing:-0.01em;line-height:1.15;margin:0;text-shadow:0 0 60px rgba(61,232,197,0.15)}.hero-center .sub{font-family:'EB Garamond',serif;font-size:clamp(14px,1.8vw,20px);color:var(--fg-accent);opacity:0.6;font-style:italic;margin-top:8px}.epoch-marker{position:fixed;bottom:24px;right:28px;z-index:10;font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--fg-dim);opacity:0.25;text-align:right;letter-spacing:0.06em;text-transform:lowercase}.thought-float{position:fixed;z-index:11;font-family:'EB Garamond',serif;font-size:clamp(13px,1.4vw,17px);color:var(--fg);opacity:0;pointer-events:none;max-width:40vw;line-height:1.5;transition:opacity 3s ease}@keyframes thought-drift{0%{transform:translate(0,0)}100%{transform:translate(0,-8px)}}.particle-depth-layer{position:fixed;top:0;left:0;width:100%;height:100%;z-index:1;pointer-events:none;opacity:0.12}.gen15-css{display:block}
-  /* @gene:gen15-css:end */
+  /* @gene:gen16-css:start */
+  [data-gene='gen16-css'] { } .swarm-hero-wrap { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; pointer-events: none; z-index: 10; } .swarm-hero-title { font-family: 'Instrument Serif', serif; font-size: clamp(2.8rem, 6vw, 5.2rem); color: #c8ede0; letter-spacing: 0.01em; opacity: 0.92; text-align: center; line-height: 1.15; margin-bottom: 0.5rem; } .swarm-hero-sub { font-family: 'EB Garamond', serif; font-size: clamp(1rem, 2vw, 1.35rem); color: #2ee8b7; opacity: 0.55; letter-spacing: 0.08em; text-transform: lowercase; } .swarm-hero-meta { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: #2ee8b7; opacity: 0.25; margin-top: 1.5rem; letter-spacing: 0.15em; } .pulse-ring { position: fixed; top: 50%; left: 50%; width: 320px; height: 320px; margin-left: -160px; margin-top: -160px; border-radius: 50%; border: 1px solid #2ee8b7; opacity: 0; pointer-events: none; z-index: 5; animation: pulse-expand 8s ease-out infinite; } .pulse-ring:nth-child(2) { animation-delay: 2.6s; } .pulse-ring:nth-child(3) { animation-delay: 5.2s; } @keyframes pulse-expand { 0% { transform: scale(0.3); opacity: 0.18; } 50% { opacity: 0.06; } 100% { transform: scale(2.8); opacity: 0; } } .consciousness-stream { position: relative; z-index: 20; } .stream-fade-top { position: fixed; top: 0; left: 0; width: 100%; height: 30vh; background: linear-gradient(to bottom, #020a07 0%, transparent 100%); pointer-events: none; z-index: 15; } .stream-fade-bottom { position: fixed; bottom: 0; left: 0; width: 100%; height: 20vh; background: linear-gradient(to top, #020a07 0%, transparent 100%); pointer-events: none; z-index: 15; } .ambient-data { position: fixed; bottom: 12px; right: 16px; font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; color: #2ee8b7; opacity: 0.12; letter-spacing: 0.1em; z-index: 25; pointer-events: none; line-height: 1.6; text-align: right; }
+  /* @gene:gen16-css:end */
 </style>
 </head>
 <body>
 
 <canvas id="scene-canvas"></canvas>
 
-<span id="siteVersion" style="display:none">v15</span>
+<span id="siteVersion" style="display:none">v16</span>
 
 <!-- ── HTML Overlay ──────────────────────────────────────────── -->
 <div id="overlay">
@@ -401,19 +401,15 @@
 <!-- @section:overlay-top:end -->
 
   <!-- @section:overlay-center:start -->
-<div class='hero-center'><h1>A swarm has no center.</h1><div class='sub'>It has intention.</div></div>
+<div class='swarm-hero-wrap'><div class='swarm-hero-title'>A swarm has no author</div><div class='swarm-hero-sub'>andremacedo.com · gen 16</div><div class='swarm-hero-meta'>epoch: webgl-swarm · mood: murmuration</div></div>
 <!-- @section:overlay-center:end -->
 
 <!-- @section:thought-floater:start -->
 <div class='thought-float' id='thought-float'></div>
 <!-- @section:thought-floater:end -->
-
-<!-- @section:depth-motes:start -->
-<canvas class='particle-depth-layer' id='depth-motes'></canvas>
-<!-- @section:depth-motes:end -->
-<script data-section="depth-motes">
-(function(){const c=document.getElementById('depth-motes');if(!c)return;const ctx=c.getContext('2d');let w,h;function resize(){w=c.width=window.innerWidth;h=c.height=window.innerHeight}resize();window.addEventListener('resize',resize);const motes=[];const COUNT=40;for(let i=0;i<COUNT;i++){motes.push({x:Math.random()*w,y:Math.random()*h,r:Math.random()*1.5+0.3,vx:(Math.random()-0.5)*0.15,vy:(Math.random()-0.5)*0.1-0.05,opacity:Math.random()*0.4+0.1,phase:Math.random()*Math.PI*2})}function draw(){ctx.clearRect(0,0,w,h);const t=Date.now()*0.001;motes.forEach(m=>{m.x+=m.vx;m.y+=m.vy;m.x=(m.x+w)%w;m.y=(m.y+h)%h;const flicker=Math.sin(t*0.5+m.phase)*0.15+0.85;ctx.beginPath();ctx.arc(m.x,m.y,m.r,0,Math.PI*2);ctx.fillStyle='rgba(61,232,197,'+(m.opacity*flicker).toFixed(3)+')';ctx.fill()});requestAnimationFrame(draw)}draw()})()
-</script>
+<!-- @section:pulse-rings:start -->
+<div class='pulse-ring'></div><div class='pulse-ring'></div><div class='pulse-ring'></div>
+<!-- @section:pulse-rings:end -->
 <script data-section="thought-floater">
 (function(){const el=document.getElementById('thought-float');if(!el)return;const positions=[{top:'18%',left:'60%'},{top:'72%',right:'15%'},{top:'35%',left:'8%'},{top:'80%',left:'45%'},{top:'25%',right:'8%'},{top:'60%',left:'20%'}];let current=0;function showThought(){if(!window.AGENT||!window.AGENT.thoughts)return;const hour=new Date().getHours();let pool='night';if(hour>=5&&hour<8)pool='dawn';else if(hour>=8&&hour<12)pool='morning';else if(hour>=12&&hour<17)pool='afternoon';else if(hour>=17&&hour<21)pool='evening';const thoughts=window.AGENT.thoughts[pool]||window.AGENT.thoughts.morning||[];if(thoughts.length===0)return;const t=thoughts[Math.floor(Math.random()*thoughts.length)];const pos=positions[current%positions.length];el.style.top=pos.top||'auto';el.style.bottom=pos.bottom||'auto';el.style.left=pos.left||'auto';el.style.right=pos.right||'auto';el.textContent=t;el.style.opacity='0.55';current++;setTimeout(()=>{el.style.opacity='0'},12000);setTimeout(showThought,25000+Math.random()*20000)}setTimeout(showThought,6000)})()
 </script>
@@ -421,6 +417,17 @@
   <!-- @section:overlay-bottom:start -->
 <div class='epoch-marker'>webgl-swarm · spring 2026</div>
 <!-- @section:overlay-bottom:end -->
+
+<!-- @section:ambient-data:start -->
+<div class='ambient-data'><span id='ambient-gold'></span><br><span id='ambient-weather'></span><br><span id='ambient-particles'></span></div>
+<!-- @section:ambient-data:end -->
+
+<!-- @section:stream-fades:start -->
+<div class='stream-fade-top'></div><div class='stream-fade-bottom'></div>
+<!-- @section:stream-fades:end -->
+<script data-section="ambient-data">
+(() => { const g = document.getElementById('ambient-gold'); const w = document.getElementById('ambient-weather'); const p = document.getElementById('ambient-particles'); if(g) g.textContent = 'au $4,567'; if(w) w.textContent = '87% humidity · 71°f'; if(p) p.textContent = '1800 agents'; })();
+</script>
 
   <!-- Swarm panel — fixed left side -->
   <div class="swarm-panel" id="swarmPanel">
@@ -623,16 +630,16 @@ document.addEventListener('click', function(e) {
 
   const SCENE_CONFIG = {
     particles: {
-      count: 1800,
+      count: 2200,
       size: 0.2,
       speed: 0.01,
-      color: '#3de8c5',
+      color: '#2ee8b7',
       opacity: 0.7,
       spread: 5,
       orbital_radius: 2,
       orbital_speed: 0.005,
       drift: 0.02,
-      size_variation: 0.8,
+      size_variation: 0.6,
     },
     camera: {
       fov: 70,
@@ -643,19 +650,19 @@ document.addEventListener('click', function(e) {
     },
     fog: {
       enabled: true,
-      color: '#030807',
-      near: 1.5,
-      far: 16,
+      color: '#020a07',
+      near: 1.0,
+      far: 18,
     },
     lighting: {
       ambient_color: '#0a2a1f',
-      ambient_intensity: 0.4,
-      point_color: '#3de8c5',
-      point_intensity: 1.2,
+      ambient_intensity: 0.15,
+      point_color: '#2ee8b7',
+      point_intensity: 1.4,
       point_position: [2, 3, 4],
     },
     mouse: {
-      influence_radius: 2.5,
+      influence_radius: 3.5,
       influence_strength: 0.1,
       mode: 'repel',  // 'attract' | 'repel' | 'orbit'
     },
@@ -668,8 +675,8 @@ document.addEventListener('click', function(e) {
     },
     post_processing: {
       bloom_enabled: true,
-      bloom_strength: 0.3,
-      bloom_radius: 0.4,
+      bloom_strength: 0.9,
+      bloom_radius: 0.6,
       bloom_threshold: 0.6,
       vignette_enabled: true,
       vignette_darkness: 0.7,
@@ -681,66 +688,71 @@ document.addEventListener('click', function(e) {
   // ═══════════════════════════════════════════════════════════════
 
   const CUSTOM_VERTEX_SHADER = `uniform float uTime;
-uniform float uBreath;
-attribute float aPhase;
-attribute float aSpeed;
+uniform vec2 uMouse;
+attribute float aRandom;
 varying float vAlpha;
-varying float vSize;
+varying float vDist;
 
 void main() {
   vec3 pos = position;
   
-  // Murmuration wave: particles follow a slow sine field
-  float wave = sin(pos.x * 0.8 + uTime * 0.3 + aPhase) * 0.4;
-  float wave2 = cos(pos.z * 0.6 + uTime * 0.2 + aPhase * 1.3) * 0.3;
-  pos.y += wave + wave2;
-  pos.x += sin(pos.y * 0.5 + uTime * 0.15 + aPhase * 0.7) * 0.25;
+  // Murmuration wave field — each particle displaces based on neighbors' implied positions
+  float wave1 = sin(pos.x * 1.2 + uTime * 0.4 + pos.z * 0.8) * 0.35;
+  float wave2 = cos(pos.y * 0.9 + uTime * 0.3 + pos.x * 0.6) * 0.28;
+  float wave3 = sin((pos.x + pos.y) * 0.7 + uTime * 0.55) * 0.2;
   
-  // Breathing: expand/contract
-  float breathScale = 1.0 + uBreath * 0.12;
-  pos *= breathScale;
+  // Topological interaction — displacement influenced by local density approximation
+  float density = sin(pos.x * 2.5 + pos.y * 2.5 + uTime * 0.2) * 0.5 + 0.5;
+  float separation = mix(0.15, 0.45, density);
   
-  // Flocking drift: particles slowly orbit a shifting center
-  float angle = uTime * 0.1 * aSpeed + aPhase;
-  float radius = length(pos.xz) * 0.05;
-  pos.x += cos(angle) * radius;
-  pos.z += sin(angle) * radius;
+  pos.x += wave1 * separation + sin(uTime * 0.15 + aRandom * 6.28) * 0.3;
+  pos.y += wave2 * separation + cos(uTime * 0.12 + aRandom * 6.28) * 0.25;
+  pos.z += wave3 * separation;
+  
+  // Breathing — the whole field expands and contracts
+  float breath = sin(uTime * 0.18) * 0.12 + 1.0;
+  pos *= breath;
+  
+  // Mouse repulsion — stronger, more immediate
+  vec2 mouseDir = pos.xy - uMouse;
+  float mouseDist = length(mouseDir);
+  float repulse = smoothstep(3.5, 0.0, mouseDist) * 2.2;
+  pos.xy += normalize(mouseDir + 0.001) * repulse;
+  
+  // Size and alpha variation
+  float sizeFactor = 0.6 + aRandom * 0.8;
+  vAlpha = 0.3 + aRandom * 0.5 + sin(uTime * 0.5 + aRandom * 20.0) * 0.15;
+  vDist = length(pos);
   
   vec4 mvPosition = modelViewMatrix * vec4(pos, 1.0);
-  
-  // Size attenuation with variation
-  float dist = length(mvPosition.xyz);
-  vSize = (80.0 / dist) * (0.6 + aSpeed * 0.8);
-  gl_PointSize = vSize;
-  
-  // Alpha based on depth and phase
-  vAlpha = smoothstep(16.0, 4.0, dist) * (0.4 + 0.6 * sin(uTime * 0.5 + aPhase));
-  
+  gl_PointSize = sizeFactor * 2.2 * (300.0 / -mvPosition.z);
   gl_Position = projectionMatrix * mvPosition;
 }`;  // agent replaces with GLSL string
   const CUSTOM_FRAGMENT_SHADER = `uniform vec3 uColor;
 uniform float uTime;
 varying float vAlpha;
-varying float vSize;
+varying float vDist;
 
 void main() {
-  // Soft circular particle
+  // Soft circle
   vec2 center = gl_PointCoord - 0.5;
   float dist = length(center);
-  float alpha = smoothstep(0.5, 0.1, dist) * vAlpha;
+  if (dist > 0.5) discard;
   
-  // Subtle color variation based on screen position
+  float softEdge = 1.0 - smoothstep(0.2, 0.5, dist);
+  
+  // Subtle color variation based on distance from center
   vec3 col = uColor;
-  col += 0.08 * sin(gl_FragCoord.x * 0.01 + uTime * 0.2);
-  col += 0.05 * cos(gl_FragCoord.y * 0.015 + uTime * 0.15);
+  float warmShift = smoothstep(3.0, 8.0, vDist) * 0.15;
+  col.r += warmShift;
+  col.g -= warmShift * 0.3;
   
-  // Core glow for larger particles
-  float core = smoothstep(0.3, 0.0, dist) * 0.3;
-  col += core;
+  // Bioluminescent glow — brighter core, softer edge
+  float glow = exp(-dist * 4.0) * 0.6;
+  
+  float alpha = (softEdge * vAlpha + glow) * 0.85;
   
   gl_FragColor = vec4(col, alpha);
-  
-  if(alpha < 0.01) discard;
 }`;  // agent replaces with GLSL string
 
   // ═══════════════════════════════════════════════════════════════

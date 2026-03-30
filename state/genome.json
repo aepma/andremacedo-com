@@ -1,18 +1,18 @@
 {
-  "generation": 15,
+  "generation": 16,
   "epoch": "webgl-swarm",
   "epoch_started": "2026-03-29",
   "traits": {
     "color": {
-      "accent_base": "#3de8c5",
-      "accent_dawn": "#6bf5d8",
-      "accent_morning": "#3de8c5",
-      "accent_afternoon": "#1fb89a",
-      "accent_evening": "#0d8a6e",
-      "accent_night": "#064d3b",
-      "bg": "#030807",
-      "fg": "#d0e8e0",
-      "grain_opacity": "0.03",
+      "accent_base": "#2ee8b7",
+      "accent_dawn": "#5cf5d0",
+      "accent_morning": "#2ee8b7",
+      "accent_afternoon": "#17c99a",
+      "accent_evening": "#0a9e75",
+      "accent_night": "#04604a",
+      "bg": "#020a07",
+      "fg": "#c8ede0",
+      "grain_opacity": "0.025",
       "fg_dim": "#5a7a6d",
       "bg_surface": "#060e0b",
       "bg_elevated": "#0c1a15"
@@ -24,8 +24,12 @@
         "overlay-top",
         "overlay-center",
         "thought-floater",
-        "depth-motes",
-        "overlay-bottom"
+        "pulse-rings",
+        "overlay-bottom",
+        "ambient-data",
+        "stream-fades",
+        "thought-stream",
+        "prototype-portfolio"
       ],
       "pages": [
         "index-new.html",
@@ -35,6 +39,7 @@
       "svg_assets": [
         "murmuration-glyph-002.svg",
         "murmuration-glyph-001.svg",
+        "pulse-ring-001.svg",
         "swarm-glyph-001.svg"
       ]
     },
@@ -51,12 +56,12 @@
       "obsession": "murmuration \u2014 the mathematics of collective motion",
       "thought_pools": {
         "dawn": 6,
-        "morning": 6,
-        "afternoon": 4,
+        "morning": 7,
+        "afternoon": 3,
         "evening": 3,
         "night": 6
       },
-      "secrets_count": 17
+      "secrets_count": 18
     }
   },
   "fitness_log": [
@@ -140,6 +145,15 @@
       "tension": 4,
       "note": "The screenshot shows something that's starting to work: the particle cloud is visible, centered, glowing white-to-teal, with the hero text 'A swarm ha",
       "total": 5.0
+    },
+    {
+      "gen": 16,
+      "coherence": 6,
+      "novelty": 5,
+      "identity": 6,
+      "tension": 4,
+      "note": "The screenshot shows a page that's mostly text on a very dark background. The consciousness stream is readable but feels like a dev log, not a living ",
+      "total": 5.2
     }
   ],
   "mutation_log": [
@@ -339,6 +353,30 @@
         "secret[4]"
       ],
       "timestamp": "2026-03-29T14:35:21Z"
+    },
+    {
+      "gen": 16,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "content.mood",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "section.overlay-center",
+        "section.pulse-rings",
+        "section.ambient-data",
+        "section.stream-fades",
+        "svg.pulse-ring-001.svg",
+        "scene.config",
+        "scene.shaders"
+      ],
+      "kills": [
+        "css_rule:gen15-css",
+        "thought:afternoon[2]",
+        "section:depth-motes"
+      ],
+      "timestamp": "2026-03-30T16:35:26Z"
     }
   ],
   "graveyard": [
@@ -540,6 +578,24 @@
       "value": "This page has no purpose. That's the most honest thing on the internet.",
       "died_gen": 15,
       "epitaph": "Metallurgy-era secret about ensaio that's been superseded by the evolved version in the new secrets list."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen15-css",
+      "died_gen": 16,
+      "epitaph": "One generation old. The gen16 overhaul replaces overlay structure, adds pulse rings, ambient data, stream fades. Superseded."
+    },
+    {
+      "type": "thought",
+      "value": "76\u00b0F, 74% humidity. Copper would be greening right now. There's a Portuguese word \u2014 azinhavre \u2014 for the verdigris that forms on copper exposed to air. It's the metal's diary. Corrosion as autobiography.",
+      "died_gen": 16,
+      "epitaph": "Too generic. 'The screen becomes a surface for projection' \u2014 vague, no image. Replaced with weather-specific and gold-specific thoughts that anchor to today."
+    },
+    {
+      "type": "section",
+      "value": "depth-motes",
+      "died_gen": 16,
+      "epitaph": "Invisible in the screenshot. 40 DOM-based motes at 12% opacity producing no visible effect. The pulse-rings section replaces this with a visible, rhythmic element. Better to have one noticeable thing than two invisible things."
     }
   ],
   "carrying_capacity": {

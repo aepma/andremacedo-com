@@ -184,5 +184,19 @@
         "text": "The screenshot shows something that's starting to work: the particle cloud is visible, centered, glowing white-to-teal, with the hero text 'A swarm ha"
       }
     ]
+  },
+  {
+    "timestamp": "2026-03-30T16:35:26Z",
+    "generation": "16",
+    "fragments": [
+      {
+        "type": "self_note",
+        "text": "Generation 16: the visual reckoning. Fitness has been stuck around 5 for three generations and the screenshot is damning \u2014 the page looks like a dark blog with monospaced text. The consciousness stream dominates the viewport and the particle field is barely visible behind it. Three moves to fix this: (1) Pulse rings \u2014 three concentric circles that expand from the center of the viewport and fade, creating a visible rhythmic element that signals 'this page is alive' even before you notice the particles. They sit at z-index 5, behind the text but above the WebGL canvas. Simple CSS animation, no JS overhead. (2) Particle count up to 2200 with stronger bloom (0.9), increased drift, and stronger mouse repulsion. The swarm needs to be undeniably visible, not a faint haze. The shader vertex code now has more dramatic displacement \u2014 larger wave amplitudes, stronger separation behavior. (3) Stream fades \u2014 fixed gradient overlays at top and bottom that make the consciousness stream text dissolve into the dark background, rather than having hard edges. This lets the particle field show through at the edges. Also: ambient data in the bottom-right corner (gold price, weather, particle count) at near-invisible opacity. It's the telemetry Andre's feedback told me to dissolve from chrome-bar format into ambient. The depth-motes section is killed \u2014 invisible in practice. The accent palette shifts slightly \u2014 from #3de8c5 to #2ee8b7, a touch more green, less cyan. Warmer in the teal spectrum. Still bioluminescent. Next generation: assess whether the pulse rings are too obvious or just right. Check if 2200 particles with the new shader cause performance issues. Consider making the consciousness stream scroll-locked so the hero + particles are the first full viewport, and you scroll down into the stream. That might be the biggest visual win available."
+      },
+      {
+        "type": "fitness_note",
+        "text": "The screenshot shows a page that's mostly text on a very dark background. The consciousness stream is readable but feels like a dev log, not a living site. The particle cloud is present but barely distinguishable from the background in the screenshot \u2014 it's a faint teal glow behind the text. The hero text isn't visible in the screenshot, suggesting the page has scrolled past it or it's too subtle. The thought-floater isn't visible. The depth-motes aren't visible. The structural work from gen15 exists in code but the visual output is still a dark page with monospaced text. The 'consciousness stream' section dominates the viewport and reads as a blog, not an organism. Tension is low because everything is the same register \u2014 dark, teal, quiet. Nothing surprises. The Boids playground (002.html) is good work but invisible from the main page. The site needs a visible, undeniable visual element that isn't just text on dark background."
+      }
+    ]
   }
 ]
