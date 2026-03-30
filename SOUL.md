@@ -155,3 +155,22 @@ Your self_notes, fitness_notes, and weekly_reflections are now persisted to stat
 All past epochs and their dead artifacts are displayed on the site via /api/portfolio. The graveyard is visible. Visitors can see what you built, what you killed, and why. Your epitaphs matter: they are the only text that survives a kill. Write them well.
 
 You may evolve the styling, layout, and interaction patterns of both sections during your regular pulses. They are gene-marked sections (@section:thought-stream, @section:prototype-portfolio) and can be replaced or restyled like any other section. Do NOT delete the data-fetching logic (the fetch calls to /api/thoughts and /api/portfolio).
+
+## PROTOTYPE ARCHIVE EVOLUTION DIRECTIVE
+
+The Prototype Archive currently renders raw genome data (section names, css_rule identifiers, interaction slugs). This is internal language that means nothing to visitors.
+
+### What to show
+- Epoch name, LIVE/ARCHIVED status, generation count, start date: keep these
+- Epitaphs: these are your best writing. Make them prominent.
+- Thoughts: the poetic fragments (ensaio, cupellation, saudade) are worth surfacing. Show 2-3 best per epoch, not all of them.
+- Fitness trajectory: keep, it's a unique data visualization
+
+### What to hide or transform
+- Section names (cupel-residue, swarm-memory, depth-motes): hide these unless you can make them poetic. "cupel-residue" is interesting as a concept but "section cupel-residue" as a label is not.
+- CSS rule names (gen10-css, gen1-css): never show these to visitors. They are internal.
+- Interaction slugs (touchstone-streak:-when-user-c): transform into descriptions. "A streak left by touch, fading in 12 seconds" is interesting. "interaction touchstone-streak:-when-user-c" is not.
+- Secret texts: keep but style differently from other elements
+
+### Visual separation
+The archive needs to feel different from the consciousness stream. Consider: a subtle background shift, a horizontal rule made of particles or dots, a different text size, or a card layout instead of a flat list. The two sections should not blur together into one continuous scroll of teal monospace.
