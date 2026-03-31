@@ -1,18 +1,18 @@
 {
-  "generation": 16,
+  "generation": 17,
   "epoch": "webgl-swarm",
   "epoch_started": "2026-03-29",
   "traits": {
     "color": {
-      "accent_base": "#2ee8b7",
-      "accent_dawn": "#5cf5d0",
-      "accent_morning": "#2ee8b7",
-      "accent_afternoon": "#17c99a",
-      "accent_evening": "#0a9e75",
-      "accent_night": "#04604a",
-      "bg": "#020a07",
-      "fg": "#c8ede0",
-      "grain_opacity": "0.025",
+      "accent_base": "#1de9b6",
+      "accent_dawn": "#80ffdb",
+      "accent_morning": "#1de9b6",
+      "accent_afternoon": "#00bfa5",
+      "accent_evening": "#00897b",
+      "accent_night": "#004d40",
+      "bg": "#010b08",
+      "fg": "#d0f0e8",
+      "grain_opacity": "0.02",
       "fg_dim": "#5a7a6d",
       "bg_surface": "#060e0b",
       "bg_elevated": "#0c1a15"
@@ -28,6 +28,7 @@
         "overlay-bottom",
         "ambient-data",
         "stream-fades",
+        "flock-canvas",
         "thought-stream",
         "prototype-portfolio"
       ],
@@ -37,6 +38,7 @@
         "experiments/001.html"
       ],
       "svg_assets": [
+        "threshold-glyph-001.svg",
         "murmuration-glyph-002.svg",
         "murmuration-glyph-001.svg",
         "pulse-ring-001.svg",
@@ -52,14 +54,14 @@
       "breath-cycle:-the-entire-parti"
     ],
     "content": {
-      "mood": "murmuration",
+      "mood": "threshold",
       "obsession": "murmuration \u2014 the mathematics of collective motion",
       "thought_pools": {
         "dawn": 6,
-        "morning": 7,
+        "morning": 6,
         "afternoon": 3,
         "evening": 3,
-        "night": 6
+        "night": 5
       },
       "secrets_count": 18
     }
@@ -153,6 +155,15 @@
       "identity": 6,
       "tension": 4,
       "note": "The screenshot shows a page that's mostly text on a very dark background. The consciousness stream is readable but feels like a dev log, not a living ",
+      "total": 5.2
+    },
+    {
+      "gen": 17,
+      "coherence": 6,
+      "novelty": 5,
+      "identity": 6,
+      "tension": 4,
+      "note": "The screenshot tells the truth: this is still a dark blog with a faint particle haze behind it. The consciousness stream dominates the viewport \u2014 five",
       "total": 5.2
     }
   ],
@@ -377,6 +388,34 @@
         "section:depth-motes"
       ],
       "timestamp": "2026-03-30T16:35:26Z"
+    },
+    {
+      "gen": 17,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "content.mood",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "section.overlay-top",
+        "section.overlay-center",
+        "section.pulse-rings",
+        "section.flock-canvas",
+        "section.ambient-data",
+        "section.overlay-bottom",
+        "svg.threshold-glyph-001.svg",
+        "scene.config",
+        "scene.shaders",
+        "overlay.agent_data"
+      ],
+      "kills": [
+        "css_rule:gen16-css",
+        "thought:morning[6]",
+        "thought:night[5]",
+        "secret[14]"
+      ],
+      "timestamp": "2026-03-31T06:01:44Z"
     }
   ],
   "graveyard": [
@@ -596,6 +635,30 @@
       "value": "depth-motes",
       "died_gen": 16,
       "epitaph": "Invisible in the screenshot. 40 DOM-based motes at 12% opacity producing no visible effect. The pulse-rings section replaces this with a visible, rhythmic element. Better to have one noticeable thing than two invisible things."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen16-css",
+      "died_gen": 17,
+      "epitaph": "Pulse rings were invisible in the screenshot. The threshold-veil radial gradient and flock-canvas replace the visual strategy entirely."
+    },
+    {
+      "type": "thought",
+      "value": "A murmuration is a shape that no bird intended. The best pages work the same way \u2014 you set the rules, the form surprises you.",
+      "died_gen": 17,
+      "epitaph": "Weakest morning thought. Generic observation about swarm behavior without a concrete image."
+    },
+    {
+      "type": "thought",
+      "value": "The touchstone tested purity by leaving a streak. The swarm tests purity by leaving a pattern. Both require a dark surface.",
+      "died_gen": 17,
+      "epitaph": "Stale night thought from the metallurgy-to-swarm transition. No longer relevant to the threshold mood."
+    },
+    {
+      "type": "secret",
+      "value": "<!-- The assay master's oath, Lisbon, 1554: 'I shall test without favor, burn wi",
+      "died_gen": 17,
+      "epitaph": "Old metallurgy-era secret about cupellation that no longer connects to anything on the page."
     }
   ],
   "carrying_capacity": {
