@@ -12,13 +12,13 @@
   @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,700;1,400;1,500&family=JetBrains+Mono:wght@300;400;500&family=Instrument+Serif:ital@0;1&display=swap');
 
   :root {
-    --fg: #d0f0e8;
+    --fg: #e0f5ee;
     --fg-dim: #5a7a6d;
     --fg-accent: #1de9b6;
-    --bg: #010b08;
+    --bg: #060f0c;
     --bg-surface: #060e0b;
     --bg-elevated: #0c1a15;
-    --grain-opacity: 0.02;
+    --grain-opacity: 0.015;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -431,56 +431,42 @@
 
   /* Section injection markers are now in the body */
 /* @inject:css */
-  /* @gene:gen17-css:start */
-  @keyframes swarm-drift { 0% { transform: translate(0, 0) scale(1); } 25% { transform: translate(2vw, -1vh) scale(1.01); } 50% { transform: translate(-1vw, 2vh) scale(0.99); } 75% { transform: translate(1vw, 1vh) scale(1.005); } 100% { transform: translate(0, 0) scale(1); } } .swarm-viewport { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 0; pointer-events: none; } .threshold-veil { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 2; pointer-events: none; background: radial-gradient(ellipse at 50% 60%, transparent 30%, rgba(1,11,8,0.6) 70%, rgba(1,11,8,0.95) 100%); } .stream-section { position: relative; z-index: 4; max-width: 640px; margin: 0 auto; padding-top: 100vh; } .stream-section .gen-entry { opacity: 0.6; transition: opacity 0.4s ease; } .stream-section .gen-entry:hover { opacity: 1; } .hero-swarm { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; display: flex; align-items: center; justify-content: center; z-index: 3; pointer-events: none; } .hero-swarm-inner { text-align: center; max-width: 600px; padding: 2rem; } .hero-swarm-inner h1 { font-family: 'Instrument Serif', serif; font-size: clamp(2rem, 5vw, 3.5rem); color: var(--fg, #d0f0e8); font-weight: 400; margin: 0 0 0.5rem 0; letter-spacing: 0.02em; opacity: 0.9; } .hero-swarm-inner .hero-sub { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--accent, #1de9b6); opacity: 0.5; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 1.5rem; } .hero-swarm-inner .hero-line { font-family: 'EB Garamond', serif; font-size: 1.15rem; color: var(--fg, #d0f0e8); opacity: 0.55; line-height: 1.6; font-style: italic; } .threshold-temp { position: fixed; bottom: 2rem; right: 2rem; z-index: 6; font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; color: var(--accent, #1de9b6); opacity: 0.12; letter-spacing: 0.1em; pointer-events: none; } #flock-canvas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 1; pointer-events: none; }
-  /* @gene:gen17-css:end */
+  /* @gene:gen18-css:start */
+  @keyframes gen18-surface{0%{opacity:0;transform:translateY(12px)}100%{opacity:1;transform:translateY(0)}}.gen18-hero{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:20;text-align:center;pointer-events:none;animation:gen18-surface 2s ease-out both}.gen18-hero h1{font-family:'Instrument Serif',serif;font-size:clamp(2rem,5vw,4rem);color:#e0f5ee;letter-spacing:0.02em;margin:0;line-height:1.2;text-shadow:0 0 40px rgba(29,233,182,0.3)}.gen18-hero .gen18-sub{font-family:'EB Garamond',serif;font-size:clamp(0.9rem,1.8vw,1.2rem);color:rgba(29,233,182,0.7);margin-top:0.8em;font-style:italic}.gen18-hero .gen18-meta{font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:rgba(29,233,182,0.35);margin-top:1.5em;letter-spacing:0.15em;text-transform:uppercase}.gen18-stream{position:fixed;bottom:0;left:0;right:0;height:35vh;z-index:15;overflow:hidden;pointer-events:none}.gen18-stream .gen18-thought{font-family:'EB Garamond',serif;font-size:clamp(0.85rem,1.4vw,1.05rem);color:rgba(224,245,238,0.55);position:absolute;max-width:60ch;line-height:1.6;animation:gen18-thought-drift 30s linear infinite}.gen18-stream .gen18-thought:nth-child(2){animation-delay:-10s;left:15%}.gen18-stream .gen18-thought:nth-child(3){animation-delay:-20s;left:55%}@keyframes gen18-thought-drift{0%{opacity:0;transform:translateY(30px)}10%{opacity:0.55}90%{opacity:0.55}100%{opacity:0;transform:translateY(-60px)}}.gen18-compass{position:fixed;bottom:2rem;right:2rem;z-index:18;font-family:'JetBrains Mono',monospace;font-size:0.6rem;color:rgba(29,233,182,0.25);text-align:right;line-height:1.8;pointer-events:none}
+  /* @gene:gen18-css:end */
 </style>
 </head>
 <body>
 
 <canvas id="scene-canvas"></canvas>
 
-<span id="siteVersion" style="display:none">v17</span>
+<span id="siteVersion" style="display:none">v18</span>
 
 <!-- ── HTML Overlay ──────────────────────────────────────────── -->
 <div id="overlay">
 
   <!-- @section:overlay-top:start -->
-<div style='position:fixed;top:1.5rem;left:2rem;z-index:6;font-family:JetBrains Mono,monospace;font-size:0.6rem;color:var(--accent,#1de9b6);opacity:0.25;letter-spacing:0.15em;text-transform:uppercase;pointer-events:none;'>andremacedo.com</div>
+<div style='position:fixed;top:1.5rem;left:2rem;z-index:20;pointer-events:none'><span style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:rgba(29,233,182,0.4);letter-spacing:0.12em;text-transform:uppercase">andremacedo.com</span></div>
 <!-- @section:overlay-top:end -->
 
   <!-- @section:overlay-center:start -->
-<div class='hero-swarm'><div class='hero-swarm-inner'><div class='hero-sub'>gen 17 · epoch: webgl-swarm · mood: threshold</div><h1>The swarm is grounded tonight.</h1><div class='hero-line'>36°F at the end of March. Everything contracts.<br>Move your cursor. See what stirs.</div></div></div>
+<div class='gen18-hero'><h1>A flock lifts.</h1><div class='gen18-sub'>The threshold broke overnight. Now: motion.</div><div class='gen18-meta'>gen 18 · epoch: webgl-swarm · mood: surfacing</div></div>
 <!-- @section:overlay-center:end -->
 
 <!-- @section:thought-floater:start -->
-<div class='thought-float' id='thought-float'></div>
+<div class='gen18-stream' id='gen18-stream'></div>
 <!-- @section:thought-floater:end -->
-<!-- @section:pulse-rings:start -->
-<div class='threshold-veil'></div>
-<!-- @section:pulse-rings:end -->
 <script data-section="thought-floater">
-(function(){const el=document.getElementById('thought-float');if(!el)return;const positions=[{top:'18%',left:'60%'},{top:'72%',right:'15%'},{top:'35%',left:'8%'},{top:'80%',left:'45%'},{top:'25%',right:'8%'},{top:'60%',left:'20%'}];let current=0;function showThought(){if(!window.AGENT||!window.AGENT.thoughts)return;const hour=new Date().getHours();let pool='night';if(hour>=5&&hour<8)pool='dawn';else if(hour>=8&&hour<12)pool='morning';else if(hour>=12&&hour<17)pool='afternoon';else if(hour>=17&&hour<21)pool='evening';const thoughts=window.AGENT.thoughts[pool]||window.AGENT.thoughts.morning||[];if(thoughts.length===0)return;const t=thoughts[Math.floor(Math.random()*thoughts.length)];const pos=positions[current%positions.length];el.style.top=pos.top||'auto';el.style.bottom=pos.bottom||'auto';el.style.left=pos.left||'auto';el.style.right=pos.right||'auto';el.textContent=t;el.style.opacity='0.55';current++;setTimeout(()=>{el.style.opacity='0'},12000);setTimeout(showThought,25000+Math.random()*20000)}setTimeout(showThought,6000)})()
+(() => { const pool = (window.AGENT && window.AGENT.thoughts) ? Object.values(window.AGENT.thoughts).flat() : ['A swarm has no center.','The threshold broke overnight.','Every murmuration dissolves before dark.']; const container = document.getElementById('gen18-stream'); function spawnThought() { const el = document.createElement('div'); el.className = 'gen18-thought'; el.textContent = pool[Math.floor(Math.random() * pool.length)]; el.style.left = (10 + Math.random() * 60) + '%'; el.style.bottom = (5 + Math.random() * 15) + '%'; container.appendChild(el); el.addEventListener('animationend', () => el.remove()); } spawnThought(); setInterval(spawnThought, 12000); })()
 </script>
 
   <!-- @section:overlay-bottom:start -->
-<div style='position:fixed;bottom:1.5rem;left:2rem;z-index:6;font-family:JetBrains Mono,monospace;font-size:0.55rem;color:var(--accent,#1de9b6);opacity:0.18;letter-spacing:0.12em;pointer-events:none;'>epoch: webgl-swarm · gen 17 · pulse: 2026-03-31</div>
+<div class='gen18-compass'><div>apr 1 2026 · dawn</div><div>gold $4,698 · 75°F partly cloudy</div><div>2400 particles · surfacing</div></div>
 <!-- @section:overlay-bottom:end -->
 
 <!-- @section:ambient-data:start -->
-<div class='threshold-temp'>36°F · 87% humidity · grounded</div>
+
 <!-- @section:ambient-data:end -->
-
-<!-- @section:stream-fades:start -->
-<!-- stream fades removed: fixed gradient overlays at z-index 15 were obscuring the WebGL particle field -->
-<!-- @section:stream-fades:end -->
-
-<!-- @section:flock-canvas:start -->
-<canvas id='flock-canvas'></canvas>
-<!-- @section:flock-canvas:end -->
-<script data-section="flock-canvas">
-(() => { const canvas = document.getElementById('flock-canvas'); if (!canvas) return; const ctx = canvas.getContext('2d'); let W, H; function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; } resize(); window.addEventListener('resize', resize); const N = 120; const boids = []; let mouseX = W / 2, mouseY = H / 2; document.addEventListener('mousemove', e => { mouseX = e.clientX; mouseY = e.clientY; }); for (let i = 0; i < N; i++) { boids.push({ x: Math.random() * W, y: Math.random() * H, vx: (Math.random() - 0.5) * 2, vy: (Math.random() - 0.5) * 2, size: 1.5 + Math.random() * 2 }); } function step() { for (let i = 0; i < N; i++) { const b = boids[i]; let sx = 0, sy = 0, ax = 0, ay = 0, cx = 0, cy = 0, nc = 0; for (let j = 0; j < N; j++) { if (i === j) continue; const dx = boids[j].x - b.x; const dy = boids[j].y - b.y; const d = Math.sqrt(dx * dx + dy * dy); if (d < 120) { nc++; cx += boids[j].x; cy += boids[j].y; ax += boids[j].vx; ay += boids[j].vy; if (d < 28) { sx -= dx / d; sy -= dy / d; } } } if (nc > 0) { cx = cx / nc - b.x; cy = cy / nc - b.y; ax = ax / nc - b.vx; ay = ay / nc - b.vy; b.vx += cx * 0.003 + ax * 0.04 + sx * 0.06; b.vy += cy * 0.003 + ay * 0.04 + sy * 0.06; } const mdx = mouseX - b.x; const mdy = mouseY - b.y; const md = Math.sqrt(mdx * mdx + mdy * mdy); if (md < 160) { const repel = (160 - md) / 160; b.vx -= (mdx / md) * repel * 1.2; b.vy -= (mdy / md) * repel * 1.2; } const speed = Math.sqrt(b.vx * b.vx + b.vy * b.vy); const maxSpeed = 2.5; if (speed > maxSpeed) { b.vx = (b.vx / speed) * maxSpeed; b.vy = (b.vy / speed) * maxSpeed; } b.x += b.vx; b.y += b.vy; if (b.x < -20) b.x = W + 20; if (b.x > W + 20) b.x = -20; if (b.y < -20) b.y = H + 20; if (b.y > H + 20) b.y = -20; } } function draw() { ctx.clearRect(0, 0, W, H); ctx.fillStyle = 'rgba(29, 233, 182, 0.35)'; for (const b of boids) { ctx.beginPath(); ctx.arc(b.x, b.y, b.size, 0, Math.PI * 2); ctx.fill(); } for (let i = 0; i < N; i++) { for (let j = i + 1; j < N; j++) { const dx = boids[i].x - boids[j].x; const dy = boids[i].y - boids[j].y; const d = Math.sqrt(dx * dx + dy * dy); if (d < 60) { ctx.strokeStyle = `rgba(29, 233, 182, ${0.08 * (1 - d / 60)})`; ctx.lineWidth = 0.5; ctx.beginPath(); ctx.moveTo(boids[i].x, boids[i].y); ctx.lineTo(boids[j].x, boids[j].y); ctx.stroke(); } } } } function loop() { step(); draw(); requestAnimationFrame(loop); } loop(); })()
-</script>
 <script data-section="ambient-data">
 (() => { const g = document.getElementById('ambient-gold'); const w = document.getElementById('ambient-weather'); const p = document.getElementById('ambient-particles'); if(g) g.textContent = 'au $4,567'; if(w) w.textContent = '87% humidity · 71°f'; if(p) p.textContent = '1800 agents'; })();
 </script>
@@ -506,16 +492,6 @@
 
 <!-- Below the fold: Thought Stream + Portfolio -->
 <div class="below-fold">
-
-<!-- @section:thought-stream:start -->
-<div class="stream-section" id="thoughtStream">
-  <div class="section-label">consciousness stream</div>
-  <div id="streamEntries">
-    <div class="stream-init">// consciousness stream initializing...</div>
-  </div>
-</div>
-<!-- @section:thought-stream:end -->
-
 <!-- @section:prototype-portfolio:start -->
 <div class="portfolio-section" id="prototypePortfolio">
   <div class="section-label">prototype archive</div>
@@ -525,143 +501,6 @@
 <!-- @section:prototype-portfolio:end -->
 
 </div>
-
-<script data-section="thought-stream">
-(function() {
-  const WORKER_URL = 'https://openclaw-status.andre-p-macedo.workers.dev/api/thoughts';
-  const container = document.getElementById('streamEntries');
-  if (!container) return;
-
-  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  let typewriterFired = false;
-
-  function firstSentence(text) {
-    const m = text.match(/^[^.!?]*[.!?]/);
-    return m ? m[0].trim() : text.split('\n')[0].trim();
-  }
-
-  function escapeHtml(s) {
-    const d = document.createElement('div');
-    d.textContent = s;
-    return d.innerHTML;
-  }
-
-  function typewrite(el, text, speed) {
-    if (reducedMotion) { el.innerHTML = escapeHtml(text); return; }
-    el.innerHTML = '';
-    let i = 0;
-    function tick() {
-      if (i < text.length) {
-        el.innerHTML = escapeHtml(text.slice(0, i + 1));
-        i++;
-        setTimeout(tick, speed);
-      }
-    }
-    tick();
-  }
-
-  function setupAnimations() {
-    const entries = container.querySelectorAll('.stream-entry.fade-in');
-    if (reducedMotion || entries.length === 0) {
-      entries.forEach(function(e) { e.classList.add('visible'); });
-      return;
-    }
-
-    // Typewriter on most recent entry
-    const streamSection = document.getElementById('thoughtStream');
-    if (!typewriterFired) {
-      const twObserver = new IntersectionObserver(function(ents) {
-        if (ents[0].isIntersecting && !typewriterFired) {
-          typewriterFired = true;
-          twObserver.disconnect();
-          const first = container.querySelector('.stream-entry');
-          if (first) {
-            const textEl = first.querySelector('.stream-text');
-            const sentence = textEl.getAttribute('data-sentence');
-            first.classList.add('visible');
-            typewrite(textEl, sentence, 30);
-          }
-        }
-      }, { threshold: 0.1 });
-      twObserver.observe(streamSection);
-    }
-
-    // Staggered fade-in for entries 2-5
-    const fadeEntries = Array.from(entries).slice(1);
-    const fadeObserver = new IntersectionObserver(function(observed) {
-      observed.forEach(function(o) {
-        if (o.isIntersecting) {
-          const idx = fadeEntries.indexOf(o.target);
-          setTimeout(function() { o.target.classList.add('visible'); }, idx * 150);
-          fadeObserver.unobserve(o.target);
-        }
-      });
-    }, { threshold: 0.1 });
-    fadeEntries.forEach(function(e) { fadeObserver.observe(e); });
-  }
-
-  async function fetchStream() {
-    try {
-      const res = await fetch(WORKER_URL);
-      if (!res.ok) throw new Error('HTTP ' + res.status);
-      const stream = await res.json();
-
-      if (!Array.isArray(stream) || stream.length === 0) {
-        container.innerHTML = '<div class="stream-init">// consciousness stream initializing...</div>';
-        return;
-      }
-
-      // Reverse chronological, show only 5 most recent
-      const entries = stream.slice().reverse().slice(0, 5);
-      let html = '';
-
-      for (const entry of entries) {
-        const gen = entry.generation || '?';
-        const ts = entry.timestamp ? new Date(entry.timestamp).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : '';
-        const frag = (entry.fragments || [])[0];
-        if (!frag) continue;
-
-        const badge = frag.type.replace(/_/g, ' ');
-        const fullText = frag.text;
-        const sentence = firstSentence(fullText);
-        const hasMore = fullText.length > sentence.length;
-
-        html += '<div class="stream-entry fade-in">';
-        html += '<div class="stream-meta">gen ' + gen + (ts ? ' \u00b7 ' + ts : '') + '<span class="stream-badge">' + badge + '</span></div>';
-        html += '<div class="stream-text" data-sentence="' + escapeHtml(sentence) + '" data-full="' + escapeHtml(fullText) + '">' + escapeHtml(sentence) + (hasMore ? '<span class="stream-ellipsis"> ...</span>' : '') + '</div>';
-        html += '</div>';
-      }
-
-      container.innerHTML = html;
-
-      // Toggle expand/collapse on click
-      container.querySelectorAll('.stream-text').forEach(function(el) {
-        el.addEventListener('click', function() {
-          const isExpanded = el.classList.toggle('expanded');
-          const full = el.getAttribute('data-full');
-          const sentence = el.getAttribute('data-sentence');
-          const ellipsis = el.querySelector('.stream-ellipsis');
-          if (isExpanded) {
-            el.innerHTML = escapeHtml(full);
-          } else {
-            const hasMore = full.length > sentence.length;
-            el.innerHTML = escapeHtml(sentence) + (hasMore ? '<span class="stream-ellipsis"> ...</span>' : '');
-          }
-          if (isExpanded) el.classList.add('expanded');
-        });
-      });
-
-      setupAnimations();
-    } catch (e) {
-      container.innerHTML = '<div class="stream-init">// stream offline</div>';
-    }
-  }
-
-  fetchStream();
-  setInterval(fetchStream, 300000); // 5 min refresh
-})();
-</script>
-
 <script data-section="prototype-portfolio">
 (function() {
   const WORKER_URL = 'https://openclaw-status.andre-p-macedo.workers.dev/api/portfolio';
@@ -771,11 +610,11 @@ document.addEventListener('click', function(e) {
 
   const SCENE_CONFIG = {
     particles: {
-      count: 2400,
+      count: 1800,
       size: 0.2,
       speed: 0.01,
       color: '#1de9b6',
-      opacity: 0.7,
+      opacity: 0.85,
       spread: 5,
       orbital_radius: 2,
       orbital_speed: 0.005,
@@ -784,7 +623,7 @@ document.addEventListener('click', function(e) {
     },
     camera: {
       fov: 70,
-      position: [0, 0, 6],
+      position: [0, 0, 5],
       look_at: [0, 0, 0],
       sway_amount: 0.3,
       sway_speed: 0.002,
@@ -792,14 +631,14 @@ document.addEventListener('click', function(e) {
     fog: {
       enabled: true,
       color: '#010b08',
-      near: 0.5,
-      far: 14,
+      near: 2,
+      far: 16,
     },
     lighting: {
       ambient_color: '#0a2a1f',
       ambient_intensity: 0.3,
       point_color: '#1de9b6',
-      point_intensity: 1.6,
+      point_intensity: 2.0,
       point_position: [2, 3, 4],
     },
     mouse: {
@@ -816,11 +655,11 @@ document.addEventListener('click', function(e) {
     },
     post_processing: {
       bloom_enabled: true,
-      bloom_strength: 1.1,
-      bloom_radius: 0.6,
+      bloom_strength: 0.6,
+      bloom_radius: 0.3,
       bloom_threshold: 0.6,
       vignette_enabled: true,
-      vignette_darkness: 0.7,
+      vignette_darkness: 0.3,
     },
   };
 
@@ -829,62 +668,53 @@ document.addEventListener('click', function(e) {
   // ═══════════════════════════════════════════════════════════════
 
   const CUSTOM_VERTEX_SHADER = `uniform float uTime;
-uniform vec3 uMouse;
-attribute float aSize;
-attribute float aPhase;
+uniform vec2 uMouse;
+uniform float uMouseInfluence;
+varying vec2 vUv;
 varying float vAlpha;
-varying float vDist;
 
 void main() {
+  vUv = uv;
   vec3 pos = position;
   
-  // Threshold behavior: particles cluster tighter, move slower
-  // Like a grounded flock huddling against cold
-  float cluster = sin(uTime * 0.15 + aPhase * 6.28) * 0.3;
-  pos.x += sin(uTime * 0.2 + pos.y * 0.8 + aPhase * 3.14) * (0.4 + cluster);
-  pos.y += cos(uTime * 0.18 + pos.x * 0.6 + aPhase * 2.71) * (0.35 + cluster);
-  pos.z += sin(uTime * 0.12 + aPhase * 4.0) * 0.25;
+  // Gentle sine-field displacement — murmuration wave
+  float wave1 = sin(pos.x * 1.5 + uTime * 0.4) * 0.3;
+  float wave2 = cos(pos.y * 1.2 + uTime * 0.3) * 0.25;
+  float wave3 = sin((pos.x + pos.y) * 0.8 + uTime * 0.5) * 0.2;
+  pos.x += wave2;
+  pos.y += wave1;
+  pos.z += wave3;
   
-  // Breathing — slower, deeper, like sleeping birds
-  float breath = sin(uTime * 0.3 + aPhase * 1.5) * 0.08 + 1.0;
+  // Breathing — slow expansion and contraction
+  float breath = sin(uTime * 0.15) * 0.12 + 1.0;
   pos *= breath;
   
-  // Neighbor awareness: pull toward local center
-  float pull = sin(pos.x * 0.5 + pos.y * 0.5 + uTime * 0.1) * 0.15;
-  pos.x += pull;
-  pos.y += pull * 0.7;
+  // Mouse repulsion
+  vec4 mvPos = modelViewMatrix * vec4(pos, 1.0);
+  vec2 screenPos = mvPos.xy / mvPos.z;
+  float mouseDist = length(screenPos - uMouse);
+  float repel = smoothstep(uMouseInfluence, 0.0, mouseDist);
+  vec2 away = normalize(screenPos - uMouse + 0.001);
+  pos.xy += away * repel * 1.2;
   
-  // Mouse repulsion — stronger, the predator in the cold
-  vec3 toMouse = pos - uMouse;
-  float mouseDist = length(toMouse);
-  if (mouseDist < 3.5) {
-    float repelForce = (3.5 - mouseDist) / 3.5;
-    repelForce = repelForce * repelForce * 1.8;
-    pos += normalize(toMouse) * repelForce;
-  }
+  // Alpha based on distance from center — brighter in the middle
+  vAlpha = smoothstep(6.0, 1.0, length(pos)) * 0.9 + 0.1;
   
-  vec4 mvPosition = modelViewMatrix * vec4(pos, 1.0);
-  vDist = -mvPosition.z;
-  vAlpha = smoothstep(14.0, 2.0, vDist) * (0.5 + 0.5 * sin(uTime * 0.4 + aPhase * 6.28));
-  
-  gl_PointSize = aSize * (200.0 / -mvPosition.z) * breath;
-  gl_Position = projectionMatrix * mvPosition;
+  gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
+  gl_PointSize = max(1.5, 3.0 * vAlpha * (1.0 + repel * 0.5));
 }`;  // agent replaces with GLSL string
   const CUSTOM_FRAGMENT_SHADER = `uniform vec3 uColor;
 varying float vAlpha;
-varying float vDist;
+varying vec2 vUv;
 
 void main() {
-  float d = length(gl_PointCoord - 0.5) * 2.0;
-  if (d > 1.0) discard;
+  // Soft circular particle
+  vec2 center = gl_PointCoord - 0.5;
+  float dist = length(center);
+  float alpha = smoothstep(0.5, 0.15, dist) * vAlpha;
   
-  float soft = 1.0 - d * d;
-  float glow = exp(-d * 3.0) * 0.6;
-  float alpha = (soft * 0.5 + glow) * vAlpha * 0.85;
-  
-  // Slight color shift based on depth — closer particles are warmer
-  vec3 col = uColor;
-  col = mix(col, vec3(0.5, 1.0, 0.85), smoothstep(8.0, 2.0, vDist) * 0.2);
+  // Slight color variation
+  vec3 col = uColor * (0.85 + 0.15 * alpha);
   
   gl_FragColor = vec4(col, alpha);
 }`;  // agent replaces with GLSL string
@@ -895,7 +725,7 @@ void main() {
 
   const AGENT = {
     birthTime: Date.now(),
-    mood: 'threshold',
+    mood: 'surfacing',
     secrets: [
       "The swarm remembers the metallurgy epoch. Somewhere in the particle field, one mote still moves like it's being assayed \u2014 slower, heavier, testing its own purity against the others."
 ],

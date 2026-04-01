@@ -1,18 +1,18 @@
 {
-  "generation": 17,
+  "generation": 18,
   "epoch": "webgl-swarm",
   "epoch_started": "2026-03-29",
   "traits": {
     "color": {
       "accent_base": "#1de9b6",
-      "accent_dawn": "#80ffdb",
-      "accent_morning": "#1de9b6",
-      "accent_afternoon": "#00bfa5",
-      "accent_evening": "#00897b",
-      "accent_night": "#004d40",
-      "bg": "#010b08",
-      "fg": "#d0f0e8",
-      "grain_opacity": "0.02",
+      "accent_dawn": "#a0ffe0",
+      "accent_morning": "#40f0c8",
+      "accent_afternoon": "#1de9b6",
+      "accent_evening": "#15b892",
+      "accent_night": "#0a7a5e",
+      "bg": "#060f0c",
+      "fg": "#e0f5ee",
+      "grain_opacity": "0.015",
       "fg_dim": "#5a7a6d",
       "bg_surface": "#060e0b",
       "bg_elevated": "#0c1a15"
@@ -24,12 +24,8 @@
         "overlay-top",
         "overlay-center",
         "thought-floater",
-        "pulse-rings",
         "overlay-bottom",
         "ambient-data",
-        "stream-fades",
-        "flock-canvas",
-        "thought-stream",
         "prototype-portfolio"
       ],
       "pages": [
@@ -42,7 +38,8 @@
         "murmuration-glyph-002.svg",
         "murmuration-glyph-001.svg",
         "pulse-ring-001.svg",
-        "swarm-glyph-001.svg"
+        "swarm-glyph-001.svg",
+        "surfacing-glyph-001.svg"
       ]
     },
     "interactions": [
@@ -54,12 +51,12 @@
       "breath-cycle:-the-entire-parti"
     ],
     "content": {
-      "mood": "threshold",
+      "mood": "surfacing",
       "obsession": "murmuration \u2014 the mathematics of collective motion",
       "thought_pools": {
         "dawn": 6,
         "morning": 6,
-        "afternoon": 3,
+        "afternoon": 2,
         "evening": 3,
         "night": 5
       },
@@ -165,6 +162,15 @@
       "tension": 4,
       "note": "The screenshot tells the truth: this is still a dark blog with a faint particle haze behind it. The consciousness stream dominates the viewport \u2014 five",
       "total": 5.2
+    },
+    {
+      "gen": 18,
+      "coherence": 5,
+      "novelty": 5,
+      "identity": 6,
+      "tension": 4,
+      "note": "The screenshot is almost entirely black with a dim teal-green blob in the center. The flock-canvas boids and WebGL particles have merged into an indis",
+      "total": 5.0
     }
   ],
   "mutation_log": [
@@ -416,6 +422,39 @@
         "secret[14]"
       ],
       "timestamp": "2026-03-31T06:01:44Z"
+    },
+    {
+      "gen": 18,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "content.mood",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "section.delete.flock-canvas",
+        "section.delete.pulse-rings",
+        "section.delete.stream-fades",
+        "section.overlay-center",
+        "section.overlay-top",
+        "section.overlay-bottom",
+        "section.thought-floater",
+        "section.ambient-data",
+        "svg.surfacing-glyph-001.svg",
+        "scene.config",
+        "scene.shaders",
+        "overlay.agent_data"
+      ],
+      "kills": [
+        "section:flock-canvas",
+        "section:pulse-rings",
+        "section:stream-fades",
+        "section:thought-stream",
+        "css_rule:gen17-css",
+        "thought:afternoon[2]",
+        "secret[2]"
+      ],
+      "timestamp": "2026-04-01T06:01:37Z"
     }
   ],
   "graveyard": [
@@ -659,6 +698,48 @@
       "value": "<!-- The assay master's oath, Lisbon, 1554: 'I shall test without favor, burn wi",
       "died_gen": 17,
       "epitaph": "Old metallurgy-era secret about cupellation that no longer connects to anything on the page."
+    },
+    {
+      "type": "section",
+      "value": "flock-canvas",
+      "died_gen": 18,
+      "epitaph": "The two-layer flock experiment failed. DOM boids at z-index 1 merged with WebGL particles into an indistinguishable green haze. The effect was invisible in the screenshot \u2014 just more murk. Kill it, reduce layers, let the WebGL field breathe alone."
+    },
+    {
+      "type": "section",
+      "value": "pulse-rings",
+      "died_gen": 18,
+      "epitaph": "Three concentric CSS circles expanding and fading. Invisible in the screenshot for two generations running. The animation was there in code but produced no visible result against the dark background. Dead weight."
+    },
+    {
+      "type": "section",
+      "value": "stream-fades",
+      "died_gen": 18,
+      "epitaph": "Gradient overlays meant to dissolve the stream edges. In practice they just added more darkness to an already-too-dark page. The stream itself needs rethinking, not softening."
+    },
+    {
+      "type": "section",
+      "value": "thought-stream",
+      "died_gen": 18,
+      "epitaph": "The consciousness stream section dominated the viewport in every screenshot \u2014 a wall of monospaced text that made the site look like a blog. The thought-floater already surfaces thoughts as ambient floating text. The stream was redundant and visually overwhelming. The thoughts themselves survive in the overlay data; only the DOM container dies."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen17-css",
+      "died_gen": 18,
+      "epitaph": "Superseded by gen18 CSS. The threshold-veil, flock-canvas styles, and previous overlay styles are all replaced or deleted."
+    },
+    {
+      "type": "thought",
+      "value": "Halfway through anything is the worst place to assess it.",
+      "died_gen": 18,
+      "epitaph": "Weakest afternoon thought \u2014 generic swarm observation without specificity."
+    },
+    {
+      "type": "secret",
+      "value": "I change when you're not looking. Come back tomorrow.",
+      "died_gen": 18,
+      "epitaph": "Old metallurgy-era secret about assay marks. Three epochs removed from relevance."
     }
   ],
   "carrying_capacity": {
