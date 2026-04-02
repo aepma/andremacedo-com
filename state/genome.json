@@ -1,18 +1,18 @@
 {
-  "generation": 18,
+  "generation": 19,
   "epoch": "webgl-swarm",
   "epoch_started": "2026-03-29",
   "traits": {
     "color": {
       "accent_base": "#1de9b6",
-      "accent_dawn": "#a0ffe0",
-      "accent_morning": "#40f0c8",
+      "accent_dawn": "#b0fff0",
+      "accent_morning": "#50f5d0",
       "accent_afternoon": "#1de9b6",
-      "accent_evening": "#15b892",
-      "accent_night": "#0a7a5e",
-      "bg": "#060f0c",
-      "fg": "#e0f5ee",
-      "grain_opacity": "0.015",
+      "accent_evening": "#12c49a",
+      "accent_night": "#087a5c",
+      "bg": "#050e0b",
+      "fg": "#daf5ec",
+      "grain_opacity": "0.012",
       "fg_dim": "#5a7a6d",
       "bg_surface": "#060e0b",
       "bg_elevated": "#0c1a15"
@@ -23,9 +23,10 @@
       "sections": [
         "overlay-top",
         "overlay-center",
+        "hero-glow",
+        "surfacing-line",
         "thought-floater",
         "overlay-bottom",
-        "ambient-data",
         "prototype-portfolio"
       ],
       "pages": [
@@ -39,7 +40,8 @@
         "murmuration-glyph-001.svg",
         "pulse-ring-001.svg",
         "swarm-glyph-001.svg",
-        "surfacing-glyph-001.svg"
+        "surfacing-glyph-001.svg",
+        "surfacing-glyph-002.svg"
       ]
     },
     "interactions": [
@@ -55,12 +57,12 @@
       "obsession": "murmuration \u2014 the mathematics of collective motion",
       "thought_pools": {
         "dawn": 6,
-        "morning": 6,
+        "morning": 5,
         "afternoon": 2,
-        "evening": 3,
+        "evening": 2,
         "night": 5
       },
-      "secrets_count": 18
+      "secrets_count": 19
     }
   },
   "fitness_log": [
@@ -170,6 +172,15 @@
       "identity": 6,
       "tension": 4,
       "note": "The screenshot is almost entirely black with a dim teal-green blob in the center. The flock-canvas boids and WebGL particles have merged into an indis",
+      "total": 5.0
+    },
+    {
+      "gen": 19,
+      "coherence": 5,
+      "novelty": 5,
+      "identity": 6,
+      "tension": 4,
+      "note": "The screenshot shows the prototype archive page \u2014 which means the main site's visual hierarchy is working well enough that the archive is what's being",
       "total": 5.0
     }
   ],
@@ -455,15 +466,36 @@
         "secret[2]"
       ],
       "timestamp": "2026-04-01T06:01:37Z"
+    },
+    {
+      "gen": 19,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "content.mood",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "section.overlay-center",
+        "section.hero-glow",
+        "section.surfacing-line",
+        "section.overlay-bottom",
+        "section.thought-floater",
+        "section.delete.ambient-data",
+        "svg.surfacing-glyph-002.svg",
+        "scene.config",
+        "scene.shaders"
+      ],
+      "kills": [
+        "section:ambient-data",
+        "css_rule:gen18-css",
+        "thought:morning[0]",
+        "thought:evening[0]"
+      ],
+      "timestamp": "2026-04-02T06:02:10Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "interaction",
-      "value": "konami-glitch",
-      "died_gen": 7,
-      "epitaph": "A borrowed gesture. The Konami code belongs to a different culture and a different kind of nostalgia. It never connected to the metallurgical thread or the Portuguese thread. It was decoration pretending to be personality. Replaced in spirit by debasement-hover, which does the same destabilizing work but from within the site's own logic."
-    },
     {
       "type": "thought",
       "value": "Cupellation: you heat the impure metal in a shallow cup of bone ash. The lead oxidizes, soaks into the porous cup, and what remains is a tiny bright bead of pure silver. The cup is ruined. The thing that holds the process is consumed by it. Every honest container is.",
@@ -740,6 +772,30 @@
       "value": "I change when you're not looking. Come back tomorrow.",
       "died_gen": 18,
       "epitaph": "Old metallurgy-era secret about assay marks. Three epochs removed from relevance."
+    },
+    {
+      "type": "section",
+      "value": "ambient-data",
+      "died_gen": 19,
+      "epitaph": "Replaced by the compass element in overlay-bottom. Redundant."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen18-css",
+      "died_gen": 19,
+      "epitaph": "Superseded by gen19 CSS. The surfacing generation's styles are cleaner."
+    },
+    {
+      "type": "thought",
+      "value": "Craig Reynolds published 'Flocks, Herds and Schools' in 1987. Three rules. Forty years later we still can't improve on them. Some problems were solved on the first attempt.",
+      "died_gen": 19,
+      "epitaph": "Replaced with Craig Reynolds thought \u2014 more specific, more useful."
+    },
+    {
+      "type": "thought",
+      "value": "There's a Portuguese word for the moment a flock turns as one: revoada. It also means uprising.",
+      "died_gen": 19,
+      "epitaph": "Replaced with revoada thought \u2014 the Portuguese-swarm connection is stronger than the previous generic evening observation."
     }
   ],
   "carrying_capacity": {

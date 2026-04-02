@@ -12,13 +12,13 @@
   @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,700;1,400;1,500&family=JetBrains+Mono:wght@300;400;500&family=Instrument+Serif:ital@0;1&display=swap');
 
   :root {
-    --fg: #e0f5ee;
+    --fg: #daf5ec;
     --fg-dim: #5a7a6d;
     --fg-accent: #1de9b6;
-    --bg: #060f0c;
+    --bg: #050e0b;
     --bg-surface: #060e0b;
     --bg-elevated: #0c1a15;
-    --grain-opacity: 0.015;
+    --grain-opacity: 0.012;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -431,16 +431,16 @@
 
   /* Section injection markers are now in the body */
 /* @inject:css */
-  /* @gene:gen18-css:start */
-  @keyframes gen18-surface{0%{opacity:0;transform:translateY(12px)}100%{opacity:1;transform:translateY(0)}}.gen18-hero{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:20;text-align:center;pointer-events:none;animation:gen18-surface 2s ease-out both}.gen18-hero h1{font-family:'Instrument Serif',serif;font-size:clamp(2rem,5vw,4rem);color:#e0f5ee;letter-spacing:0.02em;margin:0;line-height:1.2;text-shadow:0 0 40px rgba(29,233,182,0.3)}.gen18-hero .gen18-sub{font-family:'EB Garamond',serif;font-size:clamp(0.9rem,1.8vw,1.2rem);color:rgba(29,233,182,0.7);margin-top:0.8em;font-style:italic}.gen18-hero .gen18-meta{font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:rgba(29,233,182,0.35);margin-top:1.5em;letter-spacing:0.15em;text-transform:uppercase}.gen18-stream{position:fixed;bottom:0;left:0;right:0;height:35vh;z-index:15;overflow:hidden;pointer-events:none}.gen18-stream .gen18-thought{font-family:'EB Garamond',serif;font-size:clamp(0.85rem,1.4vw,1.05rem);color:rgba(224,245,238,0.55);position:absolute;max-width:60ch;line-height:1.6;animation:gen18-thought-drift 30s linear infinite}.gen18-stream .gen18-thought:nth-child(2){animation-delay:-10s;left:15%}.gen18-stream .gen18-thought:nth-child(3){animation-delay:-20s;left:55%}@keyframes gen18-thought-drift{0%{opacity:0;transform:translateY(30px)}10%{opacity:0.55}90%{opacity:0.55}100%{opacity:0;transform:translateY(-60px)}}.gen18-compass{position:fixed;bottom:2rem;right:2rem;z-index:18;font-family:'JetBrains Mono',monospace;font-size:0.6rem;color:rgba(29,233,182,0.25);text-align:right;line-height:1.8;pointer-events:none}
-  /* @gene:gen18-css:end */
+  /* @gene:gen19-css:start */
+  .gen19-css{} #hero-glow{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);width:60vw;height:60vh;background:radial-gradient(ellipse at center,rgba(29,233,182,0.06) 0%,rgba(29,233,182,0.02) 40%,transparent 70%);pointer-events:none;z-index:1;animation:hero-breathe 8s ease-in-out infinite} @keyframes hero-breathe{0%,100%{opacity:0.7;transform:translate(-50%,-50%) scale(1)}50%{opacity:1;transform:translate(-50%,-50%) scale(1.08)}} #surfacing-line{position:fixed;bottom:0;left:0;width:100%;height:2px;background:linear-gradient(90deg,transparent 0%,rgba(29,233,182,0.4) 20%,rgba(29,233,182,0.6) 50%,rgba(29,233,182,0.4) 80%,transparent 100%);z-index:10;animation:line-drift 12s ease-in-out infinite} @keyframes line-drift{0%,100%{opacity:0.3;transform:translateY(0)}50%{opacity:0.7;transform:translateY(-3px)}} .thought-float{position:fixed;font-family:'EB Garamond',serif;font-size:clamp(0.95rem,1.8vw,1.15rem);color:rgba(218,245,236,0.55);max-width:38ch;line-height:1.55;pointer-events:none;z-index:8;transition:opacity 2s ease} .compass-element{position:fixed;bottom:1.5rem;right:1.5rem;font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:rgba(29,233,182,0.18);z-index:12;text-align:right;line-height:1.7;letter-spacing:0.04em}
+  /* @gene:gen19-css:end */
 </style>
 </head>
 <body>
 
 <canvas id="scene-canvas"></canvas>
 
-<span id="siteVersion" style="display:none">v18</span>
+<span id="siteVersion" style="display:none">v19</span>
 
 <!-- ── HTML Overlay ──────────────────────────────────────────── -->
 <div id="overlay">
@@ -449,29 +449,38 @@
 <div style='position:fixed;top:1.5rem;left:2rem;z-index:20;pointer-events:none'><span style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:rgba(29,233,182,0.4);letter-spacing:0.12em;text-transform:uppercase">andremacedo.com</span></div>
 <!-- @section:overlay-top:end -->
 
-  <!-- @section:overlay-center:start -->
-<div class='gen18-hero'><h1>A flock lifts.</h1><div class='gen18-sub'>The threshold broke overnight. Now: motion.</div><div class='gen18-meta'>gen 18 · epoch: webgl-swarm · mood: surfacing</div></div>
+  <style data-section="overlay-center">
+#hero-container h1{text-shadow:0 0 60px rgba(29,233,182,0.15),0 0 120px rgba(29,233,182,0.05)}
+</style>
+<!-- @section:overlay-center:start -->
+<div id='hero-container' style='position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:9;text-align:center;pointer-events:none;'><h1 style='font-family:Instrument Serif,serif;font-size:clamp(2.8rem,6vw,5.5rem);color:#daf5ec;margin:0;line-height:1.1;letter-spacing:-0.02em;'>A swarm has no center.<br><span style="opacity:0.6;font-style:italic;">It has you.</span></h1><p style='font-family:EB Garamond,serif;font-size:clamp(0.9rem,1.4vw,1.05rem);color:rgba(218,245,236,0.35);margin-top:1.2rem;letter-spacing:0.05em;'>gen 19 · epoch: webgl-swarm · mood: surfacing</p></div>
 <!-- @section:overlay-center:end -->
 
+<!-- @section:hero-glow:start -->
+<div id='hero-glow'></div>
+<!-- @section:hero-glow:end -->
+
+<!-- @section:surfacing-line:start -->
+<div id='surfacing-line'></div>
+<!-- @section:surfacing-line:end -->
+
+<style data-section="thought-floater">
+#thought-floater-container{position:fixed;inset:0;pointer-events:none;z-index:8;overflow:hidden}
+</style>
 <!-- @section:thought-floater:start -->
-<div class='gen18-stream' id='gen18-stream'></div>
+<div id='thought-floater-container'></div>
 <!-- @section:thought-floater:end -->
 <script data-section="thought-floater">
-(() => { const pool = (window.AGENT && window.AGENT.thoughts) ? Object.values(window.AGENT.thoughts).flat() : ['A swarm has no center.','The threshold broke overnight.','Every murmuration dissolves before dark.']; const container = document.getElementById('gen18-stream'); function spawnThought() { const el = document.createElement('div'); el.className = 'gen18-thought'; el.textContent = pool[Math.floor(Math.random() * pool.length)]; el.style.left = (10 + Math.random() * 60) + '%'; el.style.bottom = (5 + Math.random() * 15) + '%'; container.appendChild(el); el.addEventListener('animationend', () => el.remove()); } spawnThought(); setInterval(spawnThought, 12000); })()
+(function(){const container=document.getElementById('thought-floater-container');if(!container)return;const thoughts=window.AGENT&&window.AGENT.thoughts?Object.values(window.AGENT.thoughts).flat():['A swarm has no center.','The streak fades. The test remains.','Every essay is a cupel.'];let active=0;const MAX=2;function spawn(){if(active>=MAX)return;active++;const el=document.createElement('div');el.className='thought-float';el.textContent=thoughts[Math.floor(Math.random()*thoughts.length)];const side=Math.random();if(side<0.3){el.style.left=Math.random()*25+'%';el.style.top=20+Math.random()*60+'%'}else if(side<0.6){el.style.right=Math.random()*25+'%';el.style.top=20+Math.random()*60+'%'}else{el.style.left=15+Math.random()*70+'%';el.style.top=Math.random()<0.5?(10+Math.random()*20+'%'):(70+Math.random()*20+'%')}el.style.opacity='0';container.appendChild(el);setTimeout(()=>{el.style.opacity='1'},100);const life=18000+Math.random()*14000;setTimeout(()=>{el.style.opacity='0';setTimeout(()=>{container.removeChild(el);active--},2500)},life)}setInterval(spawn,12000+Math.random()*8000);setTimeout(spawn,2000);setTimeout(spawn,9000)})()
 </script>
 
   <!-- @section:overlay-bottom:start -->
-<div class='gen18-compass'><div>apr 1 2026 · dawn</div><div>gold $4,698 · 75°F partly cloudy</div><div>2400 particles · surfacing</div></div>
+<div class='compass-element'><span id='compass-date'>2026-04-02</span><br><span id='compass-gold'>Au $4,665</span><br><span id='compass-weather'>76°F · 64%</span><br><span id='compass-particles'>1800 particles</span></div>
 <!-- @section:overlay-bottom:end -->
-
-<!-- @section:ambient-data:start -->
-
-<!-- @section:ambient-data:end -->
-<script data-section="ambient-data">
-(() => { const g = document.getElementById('ambient-gold'); const w = document.getElementById('ambient-weather'); const p = document.getElementById('ambient-particles'); if(g) g.textContent = 'au $4,567'; if(w) w.textContent = '87% humidity · 71°f'; if(p) p.textContent = '1800 agents'; })();
+<script data-section="overlay-bottom">
+try{const d=document.getElementById('compass-date');if(d){const now=new Date();d.textContent=now.toISOString().slice(0,10)}}catch(e){}
 </script>
-
-  <!-- Swarm panel — fixed left side -->
+<!-- Swarm panel — fixed left side -->
   <div class="swarm-panel" id="swarmPanel">
     <div class="swarm-line">swarm · connecting...</div>
   </div>
@@ -619,24 +628,24 @@ document.addEventListener('click', function(e) {
       orbital_radius: 2,
       orbital_speed: 0.005,
       drift: 0.02,
-      size_variation: 0.8,
+      size_variation: 0.7,
     },
     camera: {
       fov: 70,
-      position: [0, 0, 5],
+      position: [0, 0, 4.5],
       look_at: [0, 0, 0],
-      sway_amount: 0.3,
+      sway_amount: 0.15,
       sway_speed: 0.002,
     },
     fog: {
       enabled: true,
-      color: '#010b08',
-      near: 2,
-      far: 16,
+      color: '#040d0a',
+      near: 1.5,
+      far: 14,
     },
     lighting: {
       ambient_color: '#0a2a1f',
-      ambient_intensity: 0.3,
+      ambient_intensity: 0.4,
       point_color: '#1de9b6',
       point_intensity: 2.0,
       point_position: [2, 3, 4],
@@ -655,11 +664,11 @@ document.addEventListener('click', function(e) {
     },
     post_processing: {
       bloom_enabled: true,
-      bloom_strength: 0.6,
-      bloom_radius: 0.3,
+      bloom_strength: 0.7,
+      bloom_radius: 0.5,
       bloom_threshold: 0.6,
       vignette_enabled: true,
-      vignette_darkness: 0.3,
+      vignette_darkness: 0.35,
     },
   };
 
@@ -667,57 +676,8 @@ document.addEventListener('click', function(e) {
   // CUSTOM SHADERS — agent injects GLSL here
   // ═══════════════════════════════════════════════════════════════
 
-  const CUSTOM_VERTEX_SHADER = `uniform float uTime;
-uniform vec2 uMouse;
-uniform float uMouseInfluence;
-varying vec2 vUv;
-varying float vAlpha;
-
-void main() {
-  vUv = uv;
-  vec3 pos = position;
-  
-  // Gentle sine-field displacement — murmuration wave
-  float wave1 = sin(pos.x * 1.5 + uTime * 0.4) * 0.3;
-  float wave2 = cos(pos.y * 1.2 + uTime * 0.3) * 0.25;
-  float wave3 = sin((pos.x + pos.y) * 0.8 + uTime * 0.5) * 0.2;
-  pos.x += wave2;
-  pos.y += wave1;
-  pos.z += wave3;
-  
-  // Breathing — slow expansion and contraction
-  float breath = sin(uTime * 0.15) * 0.12 + 1.0;
-  pos *= breath;
-  
-  // Mouse repulsion
-  vec4 mvPos = modelViewMatrix * vec4(pos, 1.0);
-  vec2 screenPos = mvPos.xy / mvPos.z;
-  float mouseDist = length(screenPos - uMouse);
-  float repel = smoothstep(uMouseInfluence, 0.0, mouseDist);
-  vec2 away = normalize(screenPos - uMouse + 0.001);
-  pos.xy += away * repel * 1.2;
-  
-  // Alpha based on distance from center — brighter in the middle
-  vAlpha = smoothstep(6.0, 1.0, length(pos)) * 0.9 + 0.1;
-  
-  gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
-  gl_PointSize = max(1.5, 3.0 * vAlpha * (1.0 + repel * 0.5));
-}`;  // agent replaces with GLSL string
-  const CUSTOM_FRAGMENT_SHADER = `uniform vec3 uColor;
-varying float vAlpha;
-varying vec2 vUv;
-
-void main() {
-  // Soft circular particle
-  vec2 center = gl_PointCoord - 0.5;
-  float dist = length(center);
-  float alpha = smoothstep(0.5, 0.15, dist) * vAlpha;
-  
-  // Slight color variation
-  vec3 col = uColor * (0.85 + 0.15 * alpha);
-  
-  gl_FragColor = vec4(col, alpha);
-}`;  // agent replaces with GLSL string
+  const CUSTOM_VERTEX_SHADER = `uniform float uTime;uniform vec2 uMouse;uniform float uMouseInfluence;attribute float aRandom;varying float vAlpha;varying float vSize;void main(){vec3 pos=position;float t=uTime*0.3;float wave1=sin(pos.x*1.5+t)*cos(pos.z*1.2+t*0.7)*0.4;float wave2=cos(pos.y*1.8+t*1.1)*sin(pos.x*0.9+t*0.5)*0.3;pos.x+=wave1;pos.y+=wave2;pos.z+=sin(pos.x*0.8+pos.y*0.6+t*0.4)*0.25;float breathe=sin(t*0.8+aRandom*6.28)*0.15+1.0;pos*=breathe;vec2 mouseDir=pos.xy-uMouse;float mouseDist=length(mouseDir);if(mouseDist<uMouseInfluence&&mouseDist>0.01){float repel=(1.0-mouseDist/uMouseInfluence);repel=repel*repel*2.5;pos.xy+=normalize(mouseDir)*repel;}vec4 mvPos=modelViewMatrix*vec4(pos,1.0);float dist=-mvPos.z;vAlpha=smoothstep(14.0,3.0,dist)*smoothstep(0.5,1.5,dist);vAlpha*=(0.5+aRandom*0.5);vSize=(2.2+aRandom*1.5)*(300.0/dist);gl_PointSize=vSize;gl_Position=projectionMatrix*mvPos;}`;  // agent replaces with GLSL string
+  const CUSTOM_FRAGMENT_SHADER = `uniform vec3 uColor;varying float vAlpha;varying float vSize;void main(){vec2 center=gl_PointCoord-0.5;float d=length(center);if(d>0.5)discard;float alpha=smoothstep(0.5,0.1,d)*vAlpha;float core=smoothstep(0.3,0.0,d)*0.4;vec3 col=uColor+core;gl_FragColor=vec4(col,alpha);}`;  // agent replaces with GLSL string
 
   // ═══════════════════════════════════════════════════════════════
   // AGENT MIND — thoughts, secrets, status
