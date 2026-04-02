@@ -54,7 +54,7 @@
   #overlay {
     position: fixed;
     inset: 0;
-    z-index: 10;
+    z-index: 30;
     pointer-events: none;
     display: flex;
     flex-direction: column;
@@ -1209,11 +1209,17 @@ void main() {
       setInterval(fetchSwarmData, 60000);
       // Hide scroll hint once user scrolls
       const hint = document.getElementById('scrollHint');
-      if (hint) {
-        window.addEventListener('scroll', function() {
-          if (window.scrollY > 50) hint.style.opacity = '0';
-        }, { passive: true });
-      }
+      const overlayEl = document.getElementById('overlay');
+      window.addEventListener('scroll', function() {
+        var sy = window.scrollY, vh = window.innerHeight;
+        if (hint) hint.style.opacity = sy > 50 ? '0' : '';
+        // Fade hero overlay as user scrolls into below-fold
+        if (overlayEl) {
+          var fade = Math.max(0, 1 - sy / (vh * 0.6));
+          overlayEl.style.opacity = fade;
+          overlayEl.style.pointerEvents = fade < 0.1 ? 'none' : '';
+        }
+      }, { passive: true });
     } catch(e) {
       console.error('boot() failed:', e);
     }
