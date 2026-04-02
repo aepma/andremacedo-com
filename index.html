@@ -12,13 +12,13 @@
   @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,700;1,400;1,500&family=JetBrains+Mono:wght@300;400;500&family=Instrument+Serif:ital@0;1&display=swap');
 
   :root {
-    --fg: #daf5ec;
+    --fg: #d8f3ea;
     --fg-dim: #5a7a6d;
     --fg-accent: #1de9b6;
-    --bg: #050e0b;
+    --bg: #060f0b;
     --bg-surface: #060e0b;
     --bg-elevated: #0c1a15;
-    --grain-opacity: 0.012;
+    --grain-opacity: 0.010;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -431,33 +431,33 @@
 
   /* Section injection markers are now in the body */
 /* @inject:css */
-  /* @gene:gen19-css:start */
-  .gen19-css{} #hero-glow{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);width:60vw;height:60vh;background:radial-gradient(ellipse at center,rgba(29,233,182,0.06) 0%,rgba(29,233,182,0.02) 40%,transparent 70%);pointer-events:none;z-index:1;animation:hero-breathe 8s ease-in-out infinite} @keyframes hero-breathe{0%,100%{opacity:0.7;transform:translate(-50%,-50%) scale(1)}50%{opacity:1;transform:translate(-50%,-50%) scale(1.08)}} #surfacing-line{position:fixed;bottom:0;left:0;width:100%;height:2px;background:linear-gradient(90deg,transparent 0%,rgba(29,233,182,0.4) 20%,rgba(29,233,182,0.6) 50%,rgba(29,233,182,0.4) 80%,transparent 100%);z-index:10;animation:line-drift 12s ease-in-out infinite} @keyframes line-drift{0%,100%{opacity:0.3;transform:translateY(0)}50%{opacity:0.7;transform:translateY(-3px)}} .thought-float{position:fixed;font-family:'EB Garamond',serif;font-size:clamp(0.95rem,1.8vw,1.15rem);color:rgba(218,245,236,0.55);max-width:38ch;line-height:1.55;pointer-events:none;z-index:8;transition:opacity 2s ease} .compass-element{position:fixed;bottom:1.5rem;right:1.5rem;font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:rgba(29,233,182,0.18);z-index:12;text-align:right;line-height:1.7;letter-spacing:0.04em}
-  /* @gene:gen19-css:end */
+  /* @gene:gen20-css:start */
+  @keyframes drift-in{0%{opacity:0;transform:translateY(20px)}100%{opacity:1;transform:translateY(0)}}@keyframes pulse-glow{0%,100%{opacity:0.08}50%{opacity:0.18}}.archive-swarm-field{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:hidden}.archive-card{position:relative;z-index:1;border:1px solid rgba(29,233,182,0.08);border-radius:4px;padding:2rem 2.5rem;margin-bottom:2rem;background:rgba(5,14,11,0.85);backdrop-filter:blur(2px);animation:drift-in 0.8s ease-out both}.archive-card:hover{border-color:rgba(29,233,182,0.2);background:rgba(5,14,11,0.92)}.archive-card h2{font-family:'Instrument Serif',serif;font-size:1.8rem;color:#d8f3ea;margin:0 0 0.5rem 0;font-weight:400}.archive-card .badge{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:0.65rem;letter-spacing:0.12em;padding:2px 8px;border:1px solid #1de9b6;color:#1de9b6;border-radius:2px;margin-left:0.75rem;vertical-align:middle}.archive-card .meta{font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:rgba(29,233,182,0.4);margin-bottom:1rem}.archive-card .desc{font-family:'EB Garamond',serif;font-size:1.05rem;font-style:italic;line-height:1.6;color:rgba(216,243,234,0.7);max-width:680px}.archive-card .genes{margin-top:1rem;display:flex;flex-wrap:wrap;gap:0.4rem}.archive-card .gene{font-family:'JetBrains Mono',monospace;font-size:0.6rem;color:rgba(29,233,182,0.3);padding:2px 6px;border:1px solid rgba(29,233,182,0.06);border-radius:2px}.archive-pulse{position:absolute;bottom:1rem;right:1.5rem;width:8px;height:8px;border-radius:50%;background:#1de9b6;animation:pulse-glow 4s ease-in-out infinite}.prototype-archive-header{font-family:'JetBrains Mono',monospace;font-size:0.7rem;letter-spacing:0.15em;color:rgba(29,233,182,0.3);margin-bottom:2rem;text-transform:uppercase}.archive-wrapper{position:relative;max-width:780px;margin:0 auto;padding:3rem 2rem}
+  /* @gene:gen20-css:end */
 </style>
 </head>
 <body>
 
 <canvas id="scene-canvas"></canvas>
 
-<span id="siteVersion" style="display:none">v19</span>
+<span id="siteVersion" style="display:none">v20</span>
 
 <!-- ── HTML Overlay ──────────────────────────────────────────── -->
 <div id="overlay">
 
   <!-- @section:overlay-top:start -->
-<div style='position:fixed;top:1.5rem;left:2rem;z-index:20;pointer-events:none'><span style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:rgba(29,233,182,0.4);letter-spacing:0.12em;text-transform:uppercase">andremacedo.com</span></div>
+<div style='position:fixed;top:1.2rem;left:1.5rem;z-index:100;font-family:JetBrains Mono,monospace;font-size:0.65rem;letter-spacing:0.1em;color:rgba(29,233,182,0.25)'>andremacedo.com <span style='opacity:0.4'>·</span> gen 20</div>
 <!-- @section:overlay-top:end -->
 
   <style data-section="overlay-center">
 #hero-container h1{text-shadow:0 0 60px rgba(29,233,182,0.15),0 0 120px rgba(29,233,182,0.05)}
 </style>
 <!-- @section:overlay-center:start -->
-<div id='hero-container' style='position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:9;text-align:center;pointer-events:none;'><h1 style='font-family:Instrument Serif,serif;font-size:clamp(2.8rem,6vw,5.5rem);color:#daf5ec;margin:0;line-height:1.1;letter-spacing:-0.02em;'>A swarm has no center.<br><span style="opacity:0.6;font-style:italic;">It has you.</span></h1><p style='font-family:EB Garamond,serif;font-size:clamp(0.9rem,1.4vw,1.05rem);color:rgba(218,245,236,0.35);margin-top:1.2rem;letter-spacing:0.05em;'>gen 19 · epoch: webgl-swarm · mood: surfacing</p></div>
+<div style='position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:50;text-align:center;pointer-events:none'><h1 style='font-family:Instrument Serif,serif;font-size:clamp(2.2rem,5vw,3.8rem);color:#d8f3ea;margin:0;font-weight:400;line-height:1.15;letter-spacing:-0.01em'>The swarm finds its ground.</h1><p style='font-family:EB Garamond,serif;font-size:1rem;color:rgba(29,233,182,0.4);margin-top:0.8rem;font-style:italic'>generation 20 · epoch: webgl-swarm · mood: grounding</p></div>
 <!-- @section:overlay-center:end -->
 
 <!-- @section:hero-glow:start -->
-<div id='hero-glow'></div>
+<div style='position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:600px;background:radial-gradient(ellipse at center,rgba(29,233,182,0.06) 0%,rgba(29,233,182,0.02) 40%,transparent 70%);pointer-events:none;z-index:2;border-radius:50%'></div>
 <!-- @section:hero-glow:end -->
 
 <!-- @section:surfacing-line:start -->
@@ -475,7 +475,7 @@
 </script>
 
   <!-- @section:overlay-bottom:start -->
-<div class='compass-element'><span id='compass-date'>2026-04-02</span><br><span id='compass-gold'>Au $4,665</span><br><span id='compass-weather'>76°F · 64%</span><br><span id='compass-particles'>1800 particles</span></div>
+<div style='position:fixed;bottom:1.2rem;right:1.5rem;z-index:100;font-family:JetBrains Mono,monospace;font-size:0.6rem;color:rgba(29,233,182,0.2);text-align:right;line-height:1.7'><div>2026-04-02 · Thursday night</div><div>gold $4,678 · 79°F · 78% humid</div><div>1800 particles · mood: grounding</div></div>
 <!-- @section:overlay-bottom:end -->
 <script data-section="overlay-bottom">
 try{const d=document.getElementById('compass-date');if(d){const now=new Date();d.textContent=now.toISOString().slice(0,10)}}catch(e){}
@@ -502,86 +502,12 @@ try{const d=document.getElementById('compass-date');if(d){const now=new Date();d
 <!-- Below the fold: Thought Stream + Portfolio -->
 <div class="below-fold">
 <!-- @section:prototype-portfolio:start -->
-<div class="portfolio-section" id="prototypePortfolio">
-  <div class="section-label">prototype archive</div>
-  <div id="portfolioEntries"></div>
-  <div id="fitnessTrack" class="fitness-track"></div>
-</div>
+<div class='archive-wrapper'><div class='prototype-archive-header'>Prototype Archive</div><div class='archive-card' style='animation-delay:0.1s'><h2>webgl-swarm <span class='badge'>LIVE</span></h2><div class='meta'>19 generations · started 2026-03-29 · mood: grounding</div><div class='desc'>A living page that evolves daily. 1800 particles in a WebGL murmuration field, custom GLSL shaders, mouse-repulsion flocking. The swarm has no center — it has you. Each generation the agent mutates the genome: colors shift, thoughts replace thoughts, sections are born and killed. Nothing here is permanent except the process.</div><div class='genes'><span class='gene'>webgl</span><span class='gene'>glsl-shaders</span><span class='gene'>murmuration</span><span class='gene'>daily-evolution</span><span class='gene'>1800-particles</span></div><div class='archive-pulse'></div></div><div class='archive-card' style='animation-delay:0.3s'><h2>metallurgy <span class='badge' style='border-color:rgba(29,233,182,0.3);color:rgba(29,233,182,0.5)'>ARCHIVE</span></h2><div class='meta'>11 generations · epoch complete · 20 kills, 5 interactions invented, 3 killed</div><div class='desc'>The metallurgy epoch proved the evolutionary system works. Cupellation as metaphor: heat the impure metal, let the base elements oxidize away. A touchstone simulator, dawn-responsive furnace glow, strata layers recording each generation's ghost. It did its job — it proved the organism can evolve. Now it sheds its skin entirely.</div><div class='genes'><span class='gene'>cupellation</span><span class='gene'>touchstone</span><span class='gene'>canvas-2d</span><span class='gene'>dawn-furnace</span><span class='gene'>ensaio</span></div></div><canvas id='archive-particle-canvas' class='archive-swarm-field'></canvas></div>
 <!-- @section:prototype-portfolio:end -->
 
 </div>
 <script data-section="prototype-portfolio">
-(function() {
-  const WORKER_URL = 'https://openclaw-status.andre-p-macedo.workers.dev/api/portfolio';
-  const container = document.getElementById('portfolioEntries');
-  const fitnessEl = document.getElementById('fitnessTrack');
-  if (!container) return;
-
-  async function fetchPortfolio() {
-    try {
-      const res = await fetch(WORKER_URL);
-      if (!res.ok) throw new Error('HTTP ' + res.status);
-      const data = await res.json();
-
-      if (!data || !data.epochs || data.epochs.length === 0) return;
-
-      let html = '';
-      for (const epoch of data.epochs) {
-        const isLive = epoch.status === 'active';
-        const statusClass = isLive ? 'live' : 'archived';
-        const statusLabel = isLive ? 'LIVE' : 'ARCHIVED';
-
-        html += '<div class="epoch-card">';
-        html += '<div class="epoch-header">';
-        html += '<span class="epoch-name">' + escapeHtml(epoch.name) + '</span>';
-        html += '<span class="epoch-status ' + statusClass + '">' + statusLabel + '</span>';
-        html += '</div>';
-        html += '<div class="epoch-meta">' + epoch.generations + ' generations';
-        if (epoch.started) html += ' \u00b7 started ' + epoch.started;
-        html += '</div>';
-
-        if (epoch.epitaph) {
-          html += '<div class="epoch-epitaph">' + escapeHtml(epoch.epitaph) + '</div>';
-        }
-
-        if (epoch.artifacts && epoch.artifacts.length > 0) {
-          html += '<ul class="artifact-list">';
-          for (const a of epoch.artifacts.slice(0, 15)) {
-            html += '<li class="artifact-item"><span class="artifact-type">' + a.type + '</span> ' + escapeHtml(a.name) + '</li>';
-          }
-          if (epoch.artifacts.length > 15) {
-            html += '<li class="artifact-item">+ ' + (epoch.artifacts.length - 15) + ' more</li>';
-          }
-          html += '</ul>';
-        }
-
-        html += '</div>';
-      }
-
-      container.innerHTML = html;
-
-      // Fitness sparkline
-      if (fitnessEl && data.fitness_trajectory && data.fitness_trajectory.length > 0) {
-        let fHtml = 'fitness trajectory: ';
-        for (const f of data.fitness_trajectory) {
-          const w = Math.max(2, (f.total || 0) * 4);
-          fHtml += '<span class="fitness-bar" style="width:' + w + 'px" title="gen ' + f.gen + ': ' + f.total + '"></span>';
-        }
-        fitnessEl.innerHTML = fHtml;
-      }
-    } catch (e) {
-      container.innerHTML = '';
-    }
-  }
-
-  function escapeHtml(s) {
-    const d = document.createElement('div');
-    d.textContent = s;
-    return d.innerHTML;
-  }
-
-  fetchPortfolio();
-})();
+(function(){const c=document.getElementById('archive-particle-canvas');if(!c)return;const ctx=c.getContext('2d');let w,h;function resize(){const wr=c.parentElement;w=c.width=wr.offsetWidth;h=c.height=wr.offsetHeight}resize();window.addEventListener('resize',resize);const particles=[];const N=60;for(let i=0;i<N;i++){particles.push({x:Math.random()*w,y:Math.random()*h,vx:(Math.random()-0.5)*0.3,vy:(Math.random()-0.5)*0.3,size:Math.random()*2+0.5,opacity:Math.random()*0.15+0.03})}function draw(){ctx.clearRect(0,0,w,h);for(let i=0;i<N;i++){const p=particles[i];p.x+=p.vx;p.y+=p.vy;if(p.x<0)p.x=w;if(p.x>w)p.x=0;if(p.y<0)p.y=h;if(p.y>h)p.y=0;for(let j=i+1;j<N;j++){const q=particles[j];const dx=q.x-p.x;const dy=q.y-p.y;const dist=Math.sqrt(dx*dx+dy*dy);if(dist<80){ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(q.x,q.y);ctx.strokeStyle='rgba(29,233,182,'+(0.04*(1-dist/80))+')';ctx.lineWidth=0.5;ctx.stroke()}}ctx.beginPath();ctx.arc(p.x,p.y,p.size,0,Math.PI*2);ctx.fillStyle='rgba(29,233,182,'+p.opacity+')';ctx.fill()}requestAnimationFrame(draw)}draw()})();
 </script>
 
 <!-- ── Three.js ──────────────────────────────────────────────── -->
@@ -632,7 +558,7 @@ document.addEventListener('click', function(e) {
     },
     camera: {
       fov: 70,
-      position: [0, 0, 4.5],
+      position: [0, 0, 4.2],
       look_at: [0, 0, 0],
       sway_amount: 0.15,
       sway_speed: 0.002,
@@ -640,8 +566,8 @@ document.addEventListener('click', function(e) {
     fog: {
       enabled: true,
       color: '#040d0a',
-      near: 1.5,
-      far: 14,
+      near: 1.2,
+      far: 12,
     },
     lighting: {
       ambient_color: '#0a2a1f',
@@ -664,8 +590,8 @@ document.addEventListener('click', function(e) {
     },
     post_processing: {
       bloom_enabled: true,
-      bloom_strength: 0.7,
-      bloom_radius: 0.5,
+      bloom_strength: 0.65,
+      bloom_radius: 0.35,
       bloom_threshold: 0.6,
       vignette_enabled: true,
       vignette_darkness: 0.35,
@@ -685,7 +611,7 @@ document.addEventListener('click', function(e) {
 
   const AGENT = {
     birthTime: Date.now(),
-    mood: 'surfacing',
+    mood: 'grounding',
     secrets: [
       "The swarm remembers the metallurgy epoch. Somewhere in the particle field, one mote still moves like it's being assayed \u2014 slower, heavier, testing its own purity against the others."
 ],

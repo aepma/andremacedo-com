@@ -322,6 +322,14 @@ Current CSS variables:
 
 {capabilities}
 
+## VISITOR ANALYTICS (use for fitness evaluation)
+If site_analytics is present in the external context, use it to inform your fitness self-evaluation and weekly reflection:
+- Rising pageviews/visitors = your recent mutations are attracting attention. Double down.
+- Falling pageviews/visitors = something is driving people away. Diagnose and fix.
+- Low avg visit duration = the site isn't holding attention. Make it more compelling.
+- Compare this week's trend to last week. Are your structural changes improving engagement?
+This is REAL data from REAL visitors. Weight it heavily in your fitness score.
+
 ## WEEKLY SESSION — MUTATION BUDGET: {weekly_budget}
 
 You MUST kill at least {min_kills_weekly} things. Prune aggressively. If the night thought pool has >10 entries, kill the weakest ones.
@@ -380,6 +388,14 @@ Today is {today}, {day_of_week}. Time of day: {tod}.
 {genome_summary}
 
 {capabilities}
+
+## VISITOR ANALYTICS (use for fitness evaluation)
+If site_analytics is present in the external context above, use it to inform your fitness self-evaluation:
+- Rising pageviews/visitors = your recent mutations are attracting attention. Double down.
+- Falling pageviews/visitors = something is driving people away. Diagnose and fix.
+- Low avg visit duration = the site isn't holding attention. Make it more compelling.
+- High unique visitors but low return rate = first impressions work but there's no reason to come back.
+This is REAL data from REAL visitors. Weight it heavily in your fitness score.
 
 ## DAILY PULSE — MUTATION BUDGET: {daily_budget}
 
