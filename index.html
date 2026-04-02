@@ -640,6 +640,9 @@ try{const d=document.getElementById('compass-date');if(d){const now=new Date();d
 <!-- Scroll hint -->
 <div class="scroll-hint" id="scrollHint">↓ evolution archive &amp; experiments</div>
 
+<!-- Spacer: fixed overlay elements don't take flow, so push below-fold down -->
+<div style="height:100vh;pointer-events:none" aria-hidden="true"></div>
+
 <!-- Below the fold: Thought Stream + Portfolio -->
 <div class="below-fold">
 <style data-section="prototype-portfolio">
