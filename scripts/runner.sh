@@ -110,8 +110,8 @@ SCREENSHOT_ARG=""
 python3 "$SCRIPT_DIR/build_prompt.py" "$PULSE_TYPE" "$STATE_FILE" "$EXTERNAL_FILE" "$INDEX_FILE" "$SOUL_FILE" "$CHANGELOG" "$TODAY" "$DAY_OF_WEEK" "$TOD" $SCREENSHOT_ARG > "$PROMPT_FILE"
 
 if [ "$PULSE_TYPE" = "weekly" ]; then MAX_TOKENS=16000
-elif [ "$PULSE_TYPE" = "daily" ]; then MAX_TOKENS=8000
-else MAX_TOKENS=6000
+elif [ "$PULSE_TYPE" = "daily" ]; then MAX_TOKENS=12000
+else MAX_TOKENS=10000
 fi
 
 # ── Call Anthropic API ─────────────────────────────────────────────
