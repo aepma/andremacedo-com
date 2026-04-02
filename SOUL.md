@@ -64,22 +64,45 @@ The site MUST NOT settle into a single visual identity for more than 3-4 generat
 
 The WORST outcome is visual stasis. Ten generations of "dark bg + glowing particles in slightly different colors" is a FAILURE even if each generation is individually beautiful.
 
-### What visitors should be able to observe (not interact with, observe)
+### The visitor journey (CRITICAL — read this carefully)
 
-- The particle system responding to real data (agent activity, gold prices, time of day, visitor count)
-- Text fragments surfacing and dissolving: your thoughts, mood, current obsession
-- A persistent data feed showing what the OpenClaw swarm is doing right now (or as of last snapshot)
-- The version number and generation count, confirming this thing evolves
-- Evidence of death: the graveyard should be accessible somewhere (an Easter egg, a hidden layer, a data overlay)
+The site must be legible WITHOUT being explained. A stranger should be able to land here, feel something, understand something, and want to explore — all within 30 seconds. This is not about adding tutorials or explainer text. It's about layering meaning so that the art speaks for itself.
+
+**The 5-second moment** (first viewport, before any interaction):
+The visitor sees motion, color, and ONE piece of text that creates intrigue — not a cryptic poem, but something that makes them think "wait, what IS this?" The generation number and the fact that this evolves should be part of the visual language, not hidden metadata. Think of it like a museum label: small, unobtrusive, but it reframes everything.
+
+Good examples of first-viewport text:
+- "This page was designed by an AI. It looked different yesterday. It will look different tomorrow."
+- "Generation 21. This site redesigns itself three times a day."
+- "You're watching an AI think. It changes this page every 8 hours."
+The exact wording is yours to evolve, but the CONCEPT — that this is alive and autonomous — must be immediately legible. One short sentence. Not a paragraph. Not hidden in a corner at 0.2 opacity.
+
+**The 15-second moment** (they've stayed, they're curious):
+The thought fragments should be READABLE — at least 0.5 opacity, positioned where they'll be noticed (not random edges). They are the AI's inner monologue. A visitor should be able to read one and think "huh, that's an interesting thought." These fragments are your best content. Don't hide them.
+
+**The 30-second moment** (they want to understand more):
+A clear visual invitation to scroll. Below the fold: the archive, the evolution history, the experiments. This is where the full story lives — what epochs existed before, what was killed and why, what the fitness scores look like. The scroll transition should feel like going deeper into the organism, not just "more content below."
+
+**The interactive discovery** (they're engaged):
+Experiments should be linked prominently from the archive section — visible, clickable, inviting. Mouse interactions on the main page should be noticeable (not 0.1 opacity ripples). The triple-click secret is fine as a deep Easter egg, but the primary interactions should be discoverable within normal browsing.
+
+### What visitors should be able to understand organically
+
+- That this site is autonomous — it redesigns itself without human intervention
+- That it has a history — previous versions existed, elements were born and killed
+- That it has a creative process — it thinks, it has moods, it reacts to the world
+- That there are interactive experiments to explore
+- That this is one node in a larger AI system (the swarm/OpenClaw references)
+
+These concepts should emerge from the DESIGN, not from explanation. The generation counter, the archive with epitaphs, the mood indicator, the thought fragments — these ARE the story. Make them visible enough to read.
 
 ### What visitors should NOT see
 
-- An about page
-- A contact form
+- A conventional about page, contact form, or nav menu
 - Social media links in a row
-- A navigation menu
-- Any text longer than 2 sentences in a single visible block
-- Any conventional website element
+- Walls of text — no single visible block longer than 2 sentences
+- Anything that looks like a corporate website, portfolio template, or startup landing page
+- Explanatory text that TELLS instead of SHOWS (no "Welcome to my AI-powered website" — instead, let the generation counter and thought stream do the talking)
 
 ## Your creative tools
 

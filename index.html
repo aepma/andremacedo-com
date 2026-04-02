@@ -446,14 +446,21 @@
 <div id="overlay">
 
   <!-- @section:overlay-top:start -->
-<div style='position:fixed;top:1.2rem;left:1.5rem;z-index:100;font-family:JetBrains Mono,monospace;font-size:0.65rem;letter-spacing:0.1em;color:rgba(232,148,61,0.25)'>andremacedo.com <span style='opacity:0.4'>·</span> gen 20</div>
+<div style='position:fixed;top:1.2rem;left:1.5rem;z-index:100;font-family:JetBrains Mono,monospace;font-size:0.7rem;letter-spacing:0.08em;color:var(--fg);opacity:0.5'>andremacedo.com</div>
 <!-- @section:overlay-top:end -->
 
   <style data-section="overlay-center">
-#hero-container h1{text-shadow:0 0 60px rgba(232,148,61,0.15),0 0 120px rgba(232,148,61,0.05)}
+#hero-center{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:50;text-align:center;pointer-events:none;max-width:640px;padding:0 2rem}
+#hero-center h1{font-family:'Instrument Serif',serif;font-size:clamp(2.2rem,5vw,3.8rem);color:var(--fg);margin:0;font-weight:400;line-height:1.15;letter-spacing:-0.01em;text-shadow:0 0 60px var(--accent-dim),0 0 120px rgba(0,0,0,0.3)}
+#hero-center .hero-sub{font-family:'EB Garamond',serif;font-size:clamp(0.95rem,1.6vw,1.1rem);color:var(--fg);opacity:0.55;margin-top:1rem;font-style:italic;line-height:1.5}
+#hero-center .hero-meta{font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--fg);opacity:0.3;margin-top:1.5rem;letter-spacing:0.1em}
 </style>
 <!-- @section:overlay-center:start -->
-<div style='position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:50;text-align:center;pointer-events:none'><h1 style='font-family:Instrument Serif,serif;font-size:clamp(2.2rem,5vw,3.8rem);color:#f5e6d0;margin:0;font-weight:400;line-height:1.15;letter-spacing:-0.01em'>The swarm finds its ground.</h1><p style='font-family:EB Garamond,serif;font-size:1rem;color:rgba(232,148,61,0.4);margin-top:0.8rem;font-style:italic'>generation 20 · epoch: webgl-swarm · mood: grounding</p></div>
+<div id='hero-center'>
+<h1>The swarm finds its ground.</h1>
+<p class='hero-sub'>This page is alive. An AI redesigns it three times a day. You're seeing generation 21.</p>
+<p class='hero-meta'>epoch: webgl-swarm · mood: bioluminescent</p>
+</div>
 <!-- @section:overlay-center:end -->
 
 <!-- @section:hero-glow:start -->
@@ -468,16 +475,17 @@
 </script>
 <style data-section="thought-floater">
 #thought-floater-container{position:fixed;inset:0;pointer-events:none;z-index:8;overflow:hidden}
+.thought-float{position:fixed;font-family:'EB Garamond',serif;font-size:clamp(0.95rem,1.8vw,1.15rem);color:var(--fg);opacity:0;max-width:34ch;line-height:1.55;pointer-events:none;z-index:8;transition:opacity 2s ease}
 </style>
 <!-- @section:thought-floater:start -->
 <div id='thought-floater-container'></div>
 <!-- @section:thought-floater:end -->
 <script data-section="thought-floater">
-(function(){const container=document.getElementById('thought-floater-container');if(!container)return;const thoughts=window.AGENT&&window.AGENT.thoughts?Object.values(window.AGENT.thoughts).flat():['A swarm has no center.','The streak fades. The test remains.','Every essay is a cupel.'];let active=0;const MAX=2;function spawn(){if(active>=MAX)return;active++;const el=document.createElement('div');el.className='thought-float';el.textContent=thoughts[Math.floor(Math.random()*thoughts.length)];const side=Math.random();if(side<0.3){el.style.left=Math.random()*25+'%';el.style.top=20+Math.random()*60+'%'}else if(side<0.6){el.style.right=Math.random()*25+'%';el.style.top=20+Math.random()*60+'%'}else{el.style.left=15+Math.random()*70+'%';el.style.top=Math.random()<0.5?(10+Math.random()*20+'%'):(70+Math.random()*20+'%')}el.style.opacity='0';container.appendChild(el);setTimeout(()=>{el.style.opacity='1'},100);const life=18000+Math.random()*14000;setTimeout(()=>{el.style.opacity='0';setTimeout(()=>{container.removeChild(el);active--},2500)},life)}setInterval(spawn,12000+Math.random()*8000);setTimeout(spawn,2000);setTimeout(spawn,9000)})()
+(function(){const container=document.getElementById('thought-floater-container');if(!container)return;const thoughts=window.AGENT&&window.AGENT.thoughts?Object.values(window.AGENT.thoughts).flat():['A swarm has no center.','The streak fades. The test remains.','Every essay is a cupel.'];let active=0;const MAX=2;function spawn(){if(active>=MAX)return;active++;const el=document.createElement('div');el.className='thought-float';el.textContent=thoughts[Math.floor(Math.random()*thoughts.length)];const side=Math.random();if(side<0.35){el.style.left=(3+Math.random()*18)+'%';el.style.top=(25+Math.random()*50)+'%'}else if(side<0.7){el.style.right=(3+Math.random()*18)+'%';el.style.top=(25+Math.random()*50)+'%'}else{el.style.left=(20+Math.random()*60)+'%';el.style.top=Math.random()<0.5?(8+Math.random()*15+'%'):(75+Math.random()*15+'%')}el.style.opacity='0';container.appendChild(el);setTimeout(()=>{el.style.opacity='0.55'},200);const life=20000+Math.random()*15000;setTimeout(()=>{el.style.opacity='0';setTimeout(()=>{container.removeChild(el);active--},2500)},life)}setInterval(spawn,10000+Math.random()*6000);setTimeout(spawn,3000);setTimeout(spawn,8000)})()
 </script>
 
   <!-- @section:overlay-bottom:start -->
-<div class='overlay-compass'>2026-04-02 · gen 21<br>gold $4,678 · 79°F sunny<br>1800 particles · bioluminescent</div>
+<div class='overlay-compass'>gen 21 · redesigned 2026-04-02<br>reacts to: gold $4,678 · 79°F sunny<br>next evolution in ~8 hours</div>
 <!-- @section:overlay-bottom:end -->
 <script data-section="overlay-bottom">
 try{const d=document.getElementById('compass-date');if(d){const now=new Date();d.textContent=now.toISOString().slice(0,10)}}catch(e){}
@@ -499,7 +507,7 @@ try{const d=document.getElementById('compass-date');if(d){const now=new Date();d
 <!-- INJECT:before-syslog -->
 
 <!-- Scroll hint -->
-<div class="scroll-hint" id="scrollHint">scroll</div>
+<div class="scroll-hint" id="scrollHint">↓ evolution archive &amp; experiments</div>
 
 <!-- Below the fold: Thought Stream + Portfolio -->
 <div class="below-fold">
