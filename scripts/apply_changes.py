@@ -135,6 +135,12 @@ if self_note:
         self_note = str(self_note)
     state["self_notes"].append(self_note)
 
+# ── Visual strategy (all pulse types) ────────────────────────────
+visual_strategy = changes.get("visual_strategy")
+if visual_strategy:
+    state["visual_strategy"] = visual_strategy
+    parts.append("visual strategy: " + str(visual_strategy)[:80])
+
 # ── Accent palette (all pulse types) ──────────────────────────────
 accent_palette = changes.get("accent_palette")
 if accent_palette and isinstance(accent_palette, dict) and accent_palette.get("base"):

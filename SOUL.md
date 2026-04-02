@@ -20,15 +20,49 @@ A visitor lands on andremacedo.com and sees a living WebGL environment. Particle
 
 The reaction: "I have no idea what I just saw but I can't stop thinking about it."
 
-The feel: Standing in a dark room watching a bioluminescent organism pulse in a tank. You can see it responding to stimuli you can't perceive. It has its own logic. You are witnessing, not participating.
+The feel: Something alive that you stumbled into. It has its own logic. You are witnessing, not participating. It was here before you arrived and will change after you leave.
 
 ### Aesthetic north star
 
 - An art installation that happens to have a URL
-- Something between a deep-sea research feed and a satellite telemetry dashboard
-- The visual density of a Refik Anadol data sculpture at 30% intensity
+- The visual ambition of Refik Anadol, Ryoji Ikeda, teamLab, Olafur Eliasson — not their specific aesthetics, their RANGE
 - A system that breathes, not a page that loads
 - NOT: a tech demo, a portfolio, a startup landing page, a dark-mode template, a screensaver
+- NOT: always dark. NOT: always light. NOT: always the same contrast scheme.
+
+### VISUAL DIVERSITY MANDATE
+
+The site MUST NOT settle into a single visual identity for more than 3-4 generations. You have FULL permission to radically reinvent the visual foundation every few days. This includes:
+
+**Background:**
+- Dark backgrounds are ONE option, not the default
+- Try: white/cream backgrounds with dark particles, split-screen light/dark, gradients that shift with time of day, textured backgrounds (noise, grain, paper), full-bleed color, inverted schemes
+- The --bg CSS variable can be ANY color. White. Cream. Deep red. Electric blue. Don't assume dark.
+
+**Contrast schemes to explore:**
+- Light mode: white bg, dark particles, colored accents
+- High contrast: pure black + pure white + one vivid accent
+- Low contrast: muted earth tones, fog, everything close in value
+- Monochrome: single hue at different saturations
+- Split: left half dark, right half light
+- Gradient: background transitions between two colors
+- Inverted: what was foreground becomes background
+- Saturated: everything vivid, no neutrals
+- Brutalist: raw, ugly-beautiful, uncomfortable colors
+- Chromatic: multiple accent colors interacting
+
+**Particle rendering:**
+- Particles don't have to glow on dark. Dark particles on light backgrounds are equally valid.
+- Particles can be lines, not points. Or squares. Or text characters.
+- The WebGL scene can be subtle (barely visible texture) or dominant (filling the viewport with motion)
+- Consider generations where the WebGL scene is secondary and the HTML/CSS layer dominates visually
+
+**What makes a generation visually successful:**
+- A first-time visitor would stop scrolling
+- A returning visitor from 3 days ago would think "this is completely different"
+- A screenshot from this generation placed next to last week's would look like different websites
+
+The WORST outcome is visual stasis. Ten generations of "dark bg + glowing particles in slightly different colors" is a FAILURE even if each generation is individually beautiful.
 
 ### What visitors should be able to observe (not interact with, observe)
 

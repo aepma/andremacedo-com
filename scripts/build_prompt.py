@@ -354,12 +354,21 @@ This is your moment for STRUCTURAL ambition:
 - Generate SVG assets (patterns, illustrations, data visualizations)
 - Change the page's fundamental architecture (layout, flow, navigation)
 
-SCENE AUDIT: Review the WebGL scene parameters. Are the particles interesting? Is the color palette coherent with the mood? Consider:
+VISUAL STRATEGY: You MUST declare a visual_strategy for this weekly session. This is your chance to COMPLETELY reinvent the site's look. Consider radical shifts:
+- Switch from dark to light background (or vice versa)
+- Try a gradient, split-screen, or textured background
+- Make particles dark on light instead of glowing on dark
+- Try a brutalist, minimalist, or maximalist approach
+- Use unexpected color combinations (not just "accent on dark")
+Read SOUL.md's VISUAL DIVERSITY MANDATE. The --bg, --fg, --bg-surface, --bg-elevated CSS vars can ALL change radically.
+
+SCENE AUDIT: Review the WebGL scene parameters. Consider:
 - Changing particle count, orbital radius, speed to alter density and energy
 - Injecting custom GLSL shaders for novel visual effects
 - Modifying fog depth and lighting to shift atmosphere
 - Changing mouse interaction mode (attract/repel/orbit)
 - Enabling bloom or adjusting vignette for post-processing mood
+- Making the WebGL scene subtle/secondary while CSS/HTML dominates
 
 Ask yourself: if someone saw generation 1 and this generation side by side, would they recognize it as the same site? If yes, you're not pushing hard enough.
 
@@ -368,6 +377,7 @@ Ask yourself: if someone saw generation 1 and this generation side by side, woul
 Respond ONLY in valid JSON:
 {{
   "fitness_evaluation": {{ "coherence": 0-10, "novelty": 0-10, "identity": 0-10, "tension": 0-10, "note": "string" }},
+  "visual_strategy": "string — the high-level visual concept for this weekly metamorphosis",
   "weekly_reflection": "string",
   "accent_palette": {{ "base": "#hex", "dawn": "#hex", "morning": "#hex", "afternoon": "#hex", "evening": "#hex", "night": "#hex" }} or null,
   "css_changes": {{ "--var": "value" }} or null,
@@ -429,21 +439,23 @@ The site should look noticeably different every week. That means doing something
 Tasks:
 1. REQUIRED: Evaluate fitness (fitness_evaluation). Be honest.
 2. Generate 3-5 new thoughts. Replace weak ones. Concrete images. Fragments. No corporate language.
-3. REQUIRED: New accent color palette. CRITICAL COLOR RULE: Your new base accent MUST differ from the current accent by at least 60 degrees on the hue wheel. If the current accent is warm (orange/amber/gold), go cold (blue/violet/cyan). If it's cold (teal/blue/green), go warm (red/orange/magenta). If it's neutral, go vivid. NEVER repeat a hue family from the previous 3 generations. Banned forever: teal (#1de9b6 and similar), salmon (#c4706a), safe gold (#c4a35a). Think: electric violet, hot magenta, deep crimson, acid yellow, arctic blue, neon coral. The site should look like a DIFFERENT ORGANISM every few days.
-4. Optionally: mood shift, new secret, external reaction.
-5. At least 1 STRUCTURAL mutation: create/replace a section, add canvas art, generate SVG, create a page. Color tweaks alone don't count.
-6. Optionally: kill stale things. Each kill needs an epitaph.
+3. REQUIRED: Declare a visual_strategy for this generation. This is your high-level visual concept: "light mode brutalist", "gradient dusk", "monochrome charcoal", "white space minimalist", "saturated split-screen", "inverted high-contrast", etc. Your CSS changes and accent palette MUST match this strategy. The background (--bg) can be ANY color — white, cream, deep red, electric blue — not just dark. Read SOUL.md's VISUAL DIVERSITY MANDATE carefully.
+4. REQUIRED: New accent color palette. CRITICAL COLOR RULE: Your new base accent MUST differ from the current accent by at least 60 degrees on the hue wheel. NEVER repeat a hue family from the previous 3 generations (check COLOR HISTORY). Banned forever: teal (#1de9b6 and similar), salmon (#c4706a), safe gold (#c4a35a).
+5. Optionally: mood shift, new secret, external reaction.
+6. At least 1 STRUCTURAL mutation: create/replace a section, add canvas art, generate SVG, create a page. Color tweaks alone don't count.
+7. Optionally: kill stale things. Each kill needs an epitaph.
 
 Respond ONLY in valid JSON:
 {{
   "fitness_evaluation": {{ "coherence": 0-10, "novelty": 0-10, "identity": 0-10, "tension": 0-10, "note": "string" }},
+  "visual_strategy": "string describing the high-level visual concept, e.g. 'light mode brutalist' or 'gradient dusk' or 'inverted monochrome'",
   "new_thoughts": {{ "dawn": [...], "morning": [...], "night": [...] }},
   "replace_thoughts": {{ "dawn": [indices], "morning": [indices] }},
   "new_secret": "string" or null,
   "mood_decision": "new_mood" or "maintain",
   "external_reaction": "string" or null,
   "accent_palette": {{ "base": "#hex", "dawn": "#hex", "morning": "#hex", "afternoon": "#hex", "evening": "#hex", "night": "#hex" }},
-  "css_changes": {{ "--var": "value" }} or null,
+  "css_changes": {{ "--bg": "#hex", "--fg": "#hex", "--var": "value" }} or null,
   "new_css_rules": "CSS string" or null,
   "new_interaction": {{ "description": "string", "code": "JS" }} or null,
   "section_operations": [{{ "action": "create|replace|delete", "id": "name", "content": "HTML", "css": "CSS", "js": "JS", "after": "section-id", "epitaph": "for deletes" }}] or null,
