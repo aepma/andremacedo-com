@@ -196,6 +196,16 @@ def format_genome_summary(genome, html):
             kills = ", ".join(entry.get("kills", []))
             lines.append(f"  gen {entry.get('gen','?')}: [{muts}] killed [{kills}]")
 
+    # Color history — the agent MUST avoid repeating recent hue families
+    color_history = genome.get("color_history", [])
+    if color_history:
+        lines.append("")
+        lines.append("COLOR HISTORY (DO NOT REPEAT recent families):")
+        for entry in color_history[-6:]:
+            lines.append(f"  gen {entry.get('gen','?')}: {entry.get('base','?')} ({entry.get('family','?')})")
+        recent_families = [e.get('family','') for e in color_history[-3:]]
+        lines.append(f"  BANNED hue families for next generation: {', '.join(recent_families)}")
+
     return "\n".join(lines)
 
 
@@ -334,6 +344,8 @@ This is REAL data from REAL visitors. Weight it heavily in your fitness score.
 
 You MUST kill at least {min_kills_weekly} things. Prune aggressively. If the night thought pool has >10 entries, kill the weakest ones.
 
+CRITICAL COLOR RULE (weekly): Your new accent palette MUST be in a completely different hue family from the current one. Shift at least 90 degrees on the hue wheel. If the site has been warm for multiple generations, go cold. If cold, go warm. The weekly pulse is a METAMORPHOSIS — the site should be visually unrecognizable from last week. Banned forever: teal (#1de9b6 and similar), salmon (#c4706a), safe gold (#c4a35a).
+
 This is your moment for STRUCTURAL ambition:
 - Rewrite entire sections (replace hero, reimagine prototypes, restructure syslog)
 - Create new pages (experiment galleries, hidden rooms, data essays)
@@ -417,7 +429,7 @@ The site should look noticeably different every week. That means doing something
 Tasks:
 1. REQUIRED: Evaluate fitness (fitness_evaluation). Be honest.
 2. Generate 3-5 new thoughts. Replace weak ones. Concrete images. Fragments. No corporate language.
-3. REQUIRED: New accent color palette. Be adventurous. No salmon (#c4706a), no gold (#c4a35a).
+3. REQUIRED: New accent color palette. CRITICAL COLOR RULE: Your new base accent MUST differ from the current accent by at least 60 degrees on the hue wheel. If the current accent is warm (orange/amber/gold), go cold (blue/violet/cyan). If it's cold (teal/blue/green), go warm (red/orange/magenta). If it's neutral, go vivid. NEVER repeat a hue family from the previous 3 generations. Banned forever: teal (#1de9b6 and similar), salmon (#c4706a), safe gold (#c4a35a). Think: electric violet, hot magenta, deep crimson, acid yellow, arctic blue, neon coral. The site should look like a DIFFERENT ORGANISM every few days.
 4. Optionally: mood shift, new secret, external reaction.
 5. At least 1 STRUCTURAL mutation: create/replace a section, add canvas art, generate SVG, create a page. Color tweaks alone don't count.
 6. Optionally: kill stale things. Each kill needs an epitaph.

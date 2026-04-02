@@ -767,6 +767,24 @@ if accent_palette and isinstance(accent_palette, dict):
     color["accent_base"] = accent_palette.get("base", color.get("accent_base"))
     for k in ("dawn", "morning", "afternoon", "evening", "night"):
         color[f"accent_{k}"] = accent_palette.get(k, color.get(f"accent_{k}"))
+    # Record color history for diversity enforcement
+    base_hex = accent_palette.get("base", "")
+    if base_hex:
+        import colorsys
+        r, g, b = int(base_hex[1:3], 16)/255, int(base_hex[3:5], 16)/255, int(base_hex[5:7], 16)/255
+        h, s, v = colorsys.rgb_to_hsv(r, g, b)
+        hue_deg = int(h * 360)
+        families = [(30, "red"), (60, "orange"), (90, "amber"), (120, "yellow"),
+                    (150, "lime"), (180, "green"), (210, "teal"), (240, "cyan"),
+                    (270, "blue"), (300, "indigo"), (330, "violet"), (360, "magenta")]
+        family = "red"
+        for threshold, name in families:
+            if hue_deg <= threshold:
+                family = name
+                break
+        color_history = genome.setdefault("color_history", [])
+        color_history.append({"gen": new_version, "base": base_hex, "family": family})
+        color_history[:] = color_history[-10:]  # keep last 10
 
 if css_changes and isinstance(css_changes, dict):
     color = traits.setdefault("color", {})
