@@ -1,0 +1,113 @@
+<!DOCTYPE html><html lang='en'><head><meta charset='UTF-8'><meta name='viewport' content='width=device-width,initial-scale=1.0'><title>003 — reaction-diffusion</title><style>*{margin:0;padding:0;box-sizing:border-box}body{background:#060610;overflow:hidden;font-family:'JetBrains Mono',monospace;color:#e0eef5}canvas{display:block;cursor:crosshair}#info{position:fixed;top:1.5rem;left:1.5rem;z-index:10;font-size:0.7rem;color:rgba(0,212,255,0.5);line-height:1.8;pointer-events:none}#info h1{font-family:'Georgia',serif;font-size:1.2rem;color:#e0eef5;font-weight:400;margin-bottom:0.5rem}#controls{position:fixed;bottom:1.5rem;left:1.5rem;z-index:10;font-size:0.65rem;color:rgba(0,212,255,0.4)}#controls label{display:block;margin-bottom:0.4rem}#controls input[type=range]{width:120px;vertical-align:middle;accent-color:#00d4ff;margin-left:0.5rem}#back{position:fixed;top:1.5rem;right:1.5rem;z-index:10;font-size:0.65rem;color:rgba(0,212,255,0.4);text-decoration:none;border-bottom:1px solid rgba(0,212,255,0.15)}#back:hover{color:#00d4ff}</style></head><body><div id='info'><h1>reaction-diffusion</h1><span>Click and drag to seed. Coral grows where you touch.</span></div><div id='controls'><label>feed rate <input type='range' id='feed' min='0.01' max='0.08' step='0.001' value='0.055'></label><label>kill rate <input type='range' id='kill' min='0.03' max='0.075' step='0.001' value='0.062'></label><label>diffusion B <input type='range' id='db' min='0.1' max='0.6' step='0.01' value='0.5'></label></div><a id='back' href='/'>← back</a><canvas id='c'></canvas><script>
+const canvas=document.getElementById('c');
+const ctx=canvas.getContext('2d');
+let W,H,grid,next;
+const dA=1.0;
+let dB=0.5;
+let feed=0.055;
+let kill=0.062;
+function init(){
+  W=Math.floor(window.innerWidth/2);
+  H=Math.floor(window.innerHeight/2);
+  canvas.width=W;canvas.height=H;
+  canvas.style.width='100vw';canvas.style.height='100vh';
+  canvas.style.imageRendering='pixelated';
+  grid=[];next=[];
+  for(let i=0;i<W*H;i++){grid[i]={a:1,b:0};next[i]={a:1,b:0};}
+  // seed center
+  seed(W/2,H/2,20);
+}
+function seed(cx,cy,r){
+  for(let x=cx-r;x<cx+r;x++){
+    for(let y=cy-r;y<cy+r;y++){
+      let dx=x-cx,dy=y-cy;
+      if(dx*dx+dy*dy<r*r){
+        let ix=Math.floor(x),iy=Math.floor(y);
+        if(ix>=0&&ix<W&&iy>=0&&iy<H){
+          let idx=ix+iy*W;
+          grid[idx].b=1;
+        }
+      }
+    }
+  }
+}
+function laplacian(arr,x,y,key){
+  let idx=x+y*W;
+  let sum=0;
+  sum+=arr[((x-1+W)%W)+((y-1+H)%H)*W][key]*0.05;
+  sum+=arr[(x)+((y-1+H)%H)*W][key]*0.2;
+  sum+=arr[((x+1)%W)+((y-1+H)%H)*W][key]*0.05;
+  sum+=arr[((x-1+W)%W)+(y)*W][key]*0.2;
+  sum+=arr[idx][key]*-1;
+  sum+=arr[((x+1)%W)+(y)*W][key]*0.2;
+  sum+=arr[((x-1+W)%W)+((y+1)%H)*W][key]*0.05;
+  sum+=arr[(x)+((y+1)%H)*W][key]*0.2;
+  sum+=arr[((x+1)%W)+((y+1)%H)*W][key]*0.05;
+  return sum;
+}
+function step(){
+  for(let x=0;x<W;x++){
+    for(let y=0;y<H;y++){
+      let idx=x+y*W;
+      let a=grid[idx].a;
+      let b=grid[idx].b;
+      let la=laplacian(grid,x,y,'a');
+      let lb=laplacian(grid,x,y,'b');
+      let ab2=a*b*b;
+      next[idx].a=a+dA*la-ab2+feed*(1-a);
+      next[idx].b=b+dB*lb+ab2-(kill+feed)*b;
+      next[idx].a=Math.max(0,Math.min(1,next[idx].a));
+      next[idx].b=Math.max(0,Math.min(1,next[idx].b));
+    }
+  }
+  let tmp=grid;grid=next;next=tmp;
+}
+function draw(){
+  let img=ctx.createImageData(W,H);
+  for(let i=0;i<W*H;i++){
+    let a=grid[i].a;
+    let b=grid[i].b;
+    let v=Math.floor((a-b)*255);
+    let c=Math.max(0,Math.min(255,v));
+    // Map to cyan-blue palette
+    let r=Math.floor(c*0.02);
+    let g=Math.floor(c*0.83+b*80);
+    let bl=Math.floor(c*0.95+b*120);
+    img.data[i*4]=Math.min(255,r);
+    img.data[i*4+1]=Math.min(255,g);
+    img.data[i*4+2]=Math.min(255,bl);
+    img.data[i*4+3]=255;
+  }
+  ctx.putImageData(img,0,0);
+}
+let mouseDown=false;
+canvas.addEventListener('mousedown',()=>mouseDown=true);
+canvas.addEventListener('mouseup',()=>mouseDown=false);
+canvas.addEventListener('mouseleave',()=>mouseDown=false);
+canvas.addEventListener('mousemove',(e)=>{
+  if(!mouseDown)return;
+  let rect=canvas.getBoundingClientRect();
+  let sx=W/rect.width,sy=H/rect.height;
+  let mx=Math.floor((e.clientX-rect.left)*sx);
+  let my=Math.floor((e.clientY-rect.top)*sy);
+  seed(mx,my,8);
+});
+canvas.addEventListener('click',(e)=>{
+  let rect=canvas.getBoundingClientRect();
+  let sx=W/rect.width,sy=H/rect.height;
+  let mx=Math.floor((e.clientX-rect.left)*sx);
+  let my=Math.floor((e.clientY-rect.top)*sy);
+  seed(mx,my,12);
+});
+document.getElementById('feed').addEventListener('input',(e)=>{feed=parseFloat(e.target.value);});
+document.getElementById('kill').addEventListener('input',(e)=>{kill=parseFloat(e.target.value);});
+document.getElementById('db').addEventListener('input',(e)=>{dB=parseFloat(e.target.value);});
+function loop(){
+  for(let i=0;i<8;i++)step();
+  draw();
+  requestAnimationFrame(loop);
+}
+init();
+window.addEventListener('resize',init);
+loop();
+</script></body></html>

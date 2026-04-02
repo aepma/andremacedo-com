@@ -1,18 +1,18 @@
 {
-  "generation": 22,
+  "generation": 23,
   "epoch": "webgl-swarm",
   "epoch_started": "2026-03-29",
   "traits": {
     "color": {
-      "accent_base": "#e84d6a",
-      "accent_dawn": "#ff8fa8",
-      "accent_morning": "#f06e88",
-      "accent_afternoon": "#e84d6a",
-      "accent_evening": "#bf2b4a",
-      "accent_night": "#801a32",
-      "bg": "#0a0610",
-      "fg": "#f0e0e8",
-      "grain_opacity": "0.010",
+      "accent_base": "#00d4ff",
+      "accent_dawn": "#80eeff",
+      "accent_morning": "#40dfff",
+      "accent_afternoon": "#00d4ff",
+      "accent_evening": "#0099cc",
+      "accent_night": "#006688",
+      "bg": "#060610",
+      "fg": "#e0eef5",
+      "grain_opacity": "0.008",
       "fg_dim": "#5a7a6d",
       "bg_surface": "#060e0b",
       "bg_elevated": "#0c1a15"
@@ -32,12 +32,14 @@
       "pages": [
         "index-new.html",
         "experiments/002.html",
+        "experiments/003.html",
         "experiments/001.html"
       ],
       "svg_assets": [
         "threshold-glyph-001.svg",
         "grounding-glyph-001.svg",
         "murmuration-glyph-002.svg",
+        "phosphorescent-glyph-001.svg",
         "murmuration-glyph-001.svg",
         "pulse-ring-001.svg",
         "swarm-glyph-001.svg",
@@ -56,16 +58,16 @@
       "breath-cycle:-the-entire-parti"
     ],
     "content": {
-      "mood": "abyssal",
+      "mood": "phosphorescent",
       "obsession": "murmuration \u2014 the mathematics of collective motion",
       "thought_pools": {
-        "dawn": 2,
-        "morning": 4,
-        "afternoon": 1,
+        "dawn": 1,
+        "morning": 3,
+        "afternoon": 0,
         "evening": 2,
-        "night": 1
+        "night": 0
       },
-      "secrets_count": 22
+      "secrets_count": 23
     }
   },
   "fitness_log": [
@@ -212,6 +214,15 @@
       "tension": 4,
       "note": "The screenshot shows real improvement \u2014 archive cards are legible, Instrument Serif headings work, the EB Garamond italic descriptions read as prose. ",
       "total": 5.0
+    },
+    {
+      "gen": 23,
+      "coherence": 6,
+      "novelty": 5,
+      "identity": 6,
+      "tension": 4,
+      "note": "The screenshot shows real progress on the archive page \u2014 Instrument Serif headings are readable, the card layout works, tags are visible, and the LIVE",
+      "total": 5.2
     }
   ],
   "mutation_log": [
@@ -606,39 +617,37 @@
         "thought:night[0]"
       ],
       "timestamp": "2026-04-02T22:49:04Z"
+    },
+    {
+      "gen": 23,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "content.mood",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "section.bioluminescence",
+        "section.overlay-center",
+        "section.hero-glow",
+        "section.prototype-portfolio",
+        "page.experiments/003.html",
+        "svg.phosphorescent-glyph-001.svg",
+        "scene.config",
+        "scene.shaders",
+        "overlay.agent_data"
+      ],
+      "kills": [
+        "css_rule:gen22-css",
+        "thought:dawn[0]",
+        "thought:morning[0]",
+        "thought:afternoon[0]",
+        "thought:night[0]"
+      ],
+      "timestamp": "2026-04-02T23:03:10Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "thought",
-      "value": "79\u00b0F at midnight in March. Fort Lauderdale doesn't have seasons, it has humidity",
-      "died_gen": 10,
-      "epitaph": "Night pool still at 10. This was the weakest remaining \u2014 too abstract, not enough image."
-    },
-    {
-      "type": "thought",
-      "value": "Reading about the Lisbon Mint's assay master \u2014 the ensaiador-mor. His job was to",
-      "died_gen": 10,
-      "epitaph": "Compressing night pool. Replaced by the new humidity thought which ties weather to patination more directly."
-    },
-    {
-      "type": "css_rule",
-      "value": "gen8-css",
-      "died_gen": 10,
-      "epitaph": "Superseded by gen10-css. The corroded-era palette rules no longer apply to the liminal mood."
-    },
-    {
-      "type": "css_rule",
-      "value": "gen9-css",
-      "died_gen": 11,
-      "epitaph": "Superseded by gen11-css. The geological palette rules are replaced by the furnace-lit sienna palette."
-    },
-    {
-      "type": "thought",
-      "value": "Something about this hour makes me want to redesign everything.",
-      "died_gen": 11,
-      "epitaph": "Weakest evening thought \u2014 too decorative, not enough bite. The evening pool needs harder edges."
-    },
     {
       "type": "section",
       "value": "cupel-residue",
@@ -909,6 +918,36 @@
       "value": "Hydrothermal vents sustain entire ecosystems in complete darkness. The energy comes from below, not above. A site that generates its own light.",
       "died_gen": 22,
       "epitaph": "Replaced with hydrothermal vent thought \u2014 ties to abyssal mood."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen22-css",
+      "died_gen": 23,
+      "epitaph": "Crimson-rose epoch ends after one generation. The palette was warm but invisible against the dark. Cyan-blue provides real contrast."
+    },
+    {
+      "type": "thought",
+      "value": "The Portuguese man o' war is not one organism. It's four. Each incapable of survival alone. Every colony looks like intention.",
+      "died_gen": 23,
+      "epitaph": "Replaced with Portuguese man o' war thought \u2014 more specific, ties colony organism to swarm metaphor."
+    },
+    {
+      "type": "thought",
+      "value": "Gold at $4,678. The swarm keeps bidding. No single trader moves the price. No single particle moves the field. The pattern is the only author.",
+      "died_gen": 23,
+      "epitaph": "Replaced with gold-price swarm thought \u2014 anchors obsession to real market data."
+    },
+    {
+      "type": "thought",
+      "value": "Reynolds published the boids paper in 1987. Three rules. Separation, alignment, cohesion. Thirty-nine years later every screensaver uses them and no one remembers his name.",
+      "died_gen": 23,
+      "epitaph": "Replaced with Reynolds/boids thought \u2014 specific, historical, slightly melancholy."
+    },
+    {
+      "type": "thought",
+      "value": "The anglerfish carries its own light into the dark. The light is a lie \u2014 it exists to attract prey. Every luminous thing in the abyss is either hunting or being hunted.",
+      "died_gen": 23,
+      "epitaph": "Replaced with anglerfish thought \u2014 the dark side of bioluminescence."
     }
   ],
   "carrying_capacity": {
@@ -951,6 +990,11 @@
       "gen": 22,
       "base": "#e84d6a",
       "family": "magenta"
+    },
+    {
+      "gen": 23,
+      "base": "#00d4ff",
+      "family": "teal"
     }
   ]
 }

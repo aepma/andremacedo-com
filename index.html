@@ -12,13 +12,13 @@
   @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,700;1,400;1,500&family=JetBrains+Mono:wght@300;400;500&family=Instrument+Serif:ital@0;1&display=swap');
 
   :root {
-    --fg: #f0e0e8;
+    --fg: #e0eef5;
     --fg-dim: #8a7560;
-    --fg-accent: #e84d6a;
-    --bg: #0a0610;
+    --fg-accent: #00d4ff;
+    --bg: #060610;
     --bg-surface: #0e0a07;
     --bg-elevated: #1a1208;
-    --grain-opacity: 0.010;
+    --grain-opacity: 0.008;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -551,16 +551,16 @@
 
   /* Section injection markers are now in the body */
 /* @inject:css */
-  /* @gene:gen22-css:start */
-  @keyframes jellyfish-drift { 0% { transform: translate(0, 0) scale(1); opacity: 0.06; } 25% { transform: translate(30px, -60px) scale(1.05); opacity: 0.09; } 50% { transform: translate(-20px, -120px) scale(0.95); opacity: 0.07; } 75% { transform: translate(40px, -180px) scale(1.02); opacity: 0.08; } 100% { transform: translate(0, -240px) scale(1); opacity: 0.04; } } @keyframes tentacle-sway { 0%, 100% { transform: scaleY(1) skewX(0deg); } 33% { transform: scaleY(1.1) skewX(3deg); } 66% { transform: scaleY(0.95) skewX(-2deg); } } .gen22-hero-text { font-family: 'Instrument Serif', serif; font-size: clamp(2.2rem, 5vw, 3.8rem); color: #f0e0e8; text-align: center; line-height: 1.2; letter-spacing: -0.01em; } .gen22-hero-hook { font-family: 'EB Garamond', serif; font-style: italic; font-size: clamp(0.95rem, 1.8vw, 1.15rem); color: rgba(232, 77, 106, 0.6); text-align: center; margin-top: 1rem; } .gen22-hero-meta { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: rgba(232, 77, 106, 0.35); text-align: center; margin-top: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; } .gen22-card { background: rgba(232, 77, 106, 0.03); border: 1px solid rgba(232, 77, 106, 0.1); border-radius: 6px; padding: 2.5rem; margin-bottom: 2rem; position: relative; overflow: hidden; transition: border-color 0.6s ease, box-shadow 0.6s ease; } .gen22-card:hover { border-color: rgba(232, 77, 106, 0.25); box-shadow: 0 0 40px rgba(232, 77, 106, 0.06); } .gen22-card h2 { font-family: 'Instrument Serif', serif; font-size: 1.8rem; color: #f0e0e8; margin: 0 0 0.3rem 0; display: inline; } .gen22-card .card-status { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.2rem 0.6rem; border: 1px solid rgba(232, 77, 106, 0.4); border-radius: 3px; color: #e84d6a; margin-left: 1rem; vertical-align: middle; } .gen22-card .card-meta { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: rgba(232, 77, 106, 0.4); margin: 0.6rem 0 1.2rem 0; letter-spacing: 0.04em; } .gen22-card .card-desc { font-family: 'EB Garamond', serif; font-style: italic; font-size: 1.05rem; line-height: 1.65; color: rgba(240, 224, 232, 0.7); } .gen22-card .card-tags { margin-top: 1.2rem; display: flex; flex-wrap: wrap; gap: 0.5rem; } .gen22-card .card-tag { font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; padding: 0.2rem 0.6rem; border: 1px solid rgba(232, 77, 106, 0.2); border-radius: 3px; color: rgba(232, 77, 106, 0.5); } .gen22-card .pulse-dot { position: absolute; top: 2.5rem; right: 2.5rem; width: 8px; height: 8px; border-radius: 50%; background: #e84d6a; animation: pulse-glow 3s ease-in-out infinite; } @keyframes pulse-glow { 0%, 100% { opacity: 0.4; box-shadow: 0 0 4px rgba(232, 77, 106, 0.3); } 50% { opacity: 1; box-shadow: 0 0 12px rgba(232, 77, 106, 0.6); } } .gen22-archive-title { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(232, 77, 106, 0.3); margin-bottom: 2rem; } .gen22-experiment-link { color: #e84d6a; text-decoration: none; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; border-bottom: 1px solid rgba(232, 77, 106, 0.2); transition: border-color 0.3s; } .gen22-experiment-link:hover { border-color: #e84d6a; }
-  /* @gene:gen22-css:end */
+  /* @gene:gen23-css:start */
+  @keyframes phosphor-pulse{0%,100%{opacity:0.4;filter:blur(30px)}50%{opacity:0.7;filter:blur(20px)}}@keyframes drift-y{0%{transform:translateY(0) translateX(0)}25%{transform:translateY(-40px) translateX(15px)}50%{transform:translateY(-10px) translateX(-10px)}75%{transform:translateY(-60px) translateX(20px)}100%{transform:translateY(0) translateX(0)}}.jellyfish-form{position:fixed;border-radius:50%;pointer-events:none;z-index:2;animation:phosphor-pulse 8s ease-in-out infinite,drift-y 30s ease-in-out infinite}.jellyfish-form:nth-child(1){width:120px;height:150px;background:radial-gradient(ellipse at 50% 30%,rgba(0,212,255,0.25),rgba(0,100,136,0.08),transparent 70%);top:15%;left:10%;animation-delay:0s,-5s;animation-duration:7s,35s}.jellyfish-form:nth-child(2){width:80px;height:100px;background:radial-gradient(ellipse at 50% 30%,rgba(0,212,255,0.2),rgba(0,100,136,0.06),transparent 70%);top:40%;right:15%;animation-delay:-3s,-12s;animation-duration:9s,28s}.jellyfish-form:nth-child(3){width:150px;height:180px;background:radial-gradient(ellipse at 50% 30%,rgba(0,212,255,0.18),rgba(0,100,136,0.05),transparent 70%);bottom:25%;left:50%;animation-delay:-5s,-20s;animation-duration:11s,40s}.jellyfish-form:nth-child(4){width:60px;height:75px;background:radial-gradient(ellipse at 50% 30%,rgba(0,212,255,0.22),rgba(0,100,136,0.07),transparent 70%);top:60%;left:25%;animation-delay:-2s,-8s;animation-duration:8s,32s}.jellyfish-form:nth-child(5){width:100px;height:130px;background:radial-gradient(ellipse at 50% 30%,rgba(0,212,255,0.15),rgba(0,100,136,0.04),transparent 70%);bottom:10%;right:30%;animation-delay:-7s,-15s;animation-duration:10s,38s}@keyframes tentacle-sway{0%,100%{transform:scaleX(1) translateY(0)}33%{transform:scaleX(0.85) translateY(5px)}66%{transform:scaleX(1.1) translateY(-3px)}}.jellyfish-tentacle{position:absolute;bottom:-40px;left:50%;transform:translateX(-50%);width:2px;height:40px;background:linear-gradient(to bottom,rgba(0,212,255,0.2),transparent);animation:tentacle-sway 4s ease-in-out infinite;border-radius:0 0 1px 1px}.proto-archive-title{font-family:'JetBrains Mono',monospace;font-size:0.7rem;letter-spacing:0.3em;text-transform:uppercase;color:rgba(0,212,255,0.4);margin-bottom:2rem}.proto-card{background:rgba(0,212,255,0.03);border:1px solid rgba(0,212,255,0.1);border-radius:8px;padding:2.5rem;margin-bottom:2rem;position:relative;transition:border-color 0.4s,box-shadow 0.4s}.proto-card:hover{border-color:rgba(0,212,255,0.25);box-shadow:0 0 40px rgba(0,212,255,0.06)}.proto-card h2{font-family:'Instrument Serif',serif;font-size:2rem;color:#e0eef5;margin:0 0 0.3rem 0;display:inline}.proto-card .badge{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;padding:0.2em 0.8em;border:1px solid rgba(0,212,255,0.3);color:#00d4ff;border-radius:3px;margin-left:1rem;vertical-align:middle}.proto-card .badge-live{border-color:rgba(0,255,150,0.4);color:#00ff96}.proto-card .meta{font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:rgba(0,212,255,0.35);margin:0.5rem 0 1.2rem 0}.proto-card .desc{font-family:'EB Garamond',serif;font-size:1.05rem;font-style:italic;color:rgba(224,238,245,0.65);line-height:1.7;margin-bottom:1.2rem}.proto-card .tags{display:flex;flex-wrap:wrap;gap:0.5rem}.proto-card .tag{font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:rgba(0,212,255,0.5);border:1px solid rgba(0,212,255,0.15);padding:0.2em 0.6em;border-radius:3px}.pulse-dot{position:absolute;top:1.5rem;right:1.5rem;width:8px;height:8px;background:#00ff96;border-radius:50%;animation:phosphor-pulse 3s ease-in-out infinite}.proto-card a.card-link{color:#00d4ff;text-decoration:none;font-family:'JetBrains Mono',monospace;font-size:0.75rem;border-bottom:1px solid rgba(0,212,255,0.2);transition:border-color 0.3s}.proto-card a.card-link:hover{border-color:#00d4ff}@keyframes coral-grow{0%{transform:scale(0.95);opacity:0.6}50%{transform:scale(1.02);opacity:1}100%{transform:scale(0.95);opacity:0.6}}.experiment-link{display:inline-block;margin-right:1rem;margin-top:0.5rem}
+  /* @gene:gen23-css:end */
 </style>
 </head>
 <body>
 
 <canvas id="scene-canvas"></canvas>
 
-<span id="siteVersion" style="display:none">v22</span>
+<span id="siteVersion" style="display:none">v23</span>
 
 <!-- ── HTML Overlay ──────────────────────────────────────────── -->
 <div id="overlay">
@@ -576,26 +576,33 @@
 #hero-center .hero-meta{font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--fg);opacity:0.3;margin-top:1.5rem;letter-spacing:0.1em}
 </style>
 <!-- @section:overlay-center:start -->
-<div id='hero-center'>
-<h1>The swarm descends.<br>It finds light in the dark.</h1>
-<p class='hero-sub'>This page is alive. An AI redesigns it three times a day. You're seeing generation 22.</p>
-<p style='font-family:EB Garamond,serif;font-size:clamp(0.85rem,1.4vw,1rem);color:var(--fg);opacity:0.4;margin-top:0.8rem;line-height:1.5'>Currently obsessed with: <em>murmuration — the mathematics of collective motion</em><br>Day 4 of this obsession. 11 generations in.</p>
-<p class='hero-meta'>mood: abyssal · epoch began 2026-03-29</p>
-</div>
+<div style='position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;z-index:10;pointer-events:none;max-width:680px;padding:0 2rem'><h1 style='font-family:Instrument Serif,serif;font-size:clamp(2.2rem,5vw,3.8rem);color:#e0eef5;margin:0 0 0.8rem 0;line-height:1.15;font-weight:400'>Something luminous<br>drifts through the dark</h1><p style='font-family:EB Garamond,serif;font-size:1.05rem;color:rgba(0,212,255,0.55);margin:0 0 1.2rem 0;font-style:italic'>An AI evolves this page daily. You're witnessing generation 23. The particles respond to your cursor.</p><p style='font-family:JetBrains Mono,monospace;font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(0,212,255,0.3);margin:0'>gen 23 · epoch: webgl-swarm · mood: phosphorescent</p></div>
 <!-- @section:overlay-center:end -->
 
 <style data-section="hero-glow">
-@keyframes hero-breathe { 0%, 100% { opacity: 0.6; transform: translate(-50%, -50%) scale(1); } 50% { opacity: 1; transform: translate(-50%, -50%) scale(1.08); } }
+#hero-glow-element{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);width:500px;height:500px;background:radial-gradient(circle,rgba(0,212,255,0.08) 0%,rgba(0,212,255,0.03) 40%,transparent 70%);pointer-events:none;z-index:3;animation:phosphor-pulse 12s ease-in-out infinite}
 </style>
 <!-- @section:hero-glow:start -->
-<div style="position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(232,77,106,0.06) 0%,rgba(128,26,50,0.02) 40%,transparent 70%);z-index:1;pointer-events:none;animation:hero-breathe 8s ease-in-out infinite;"></div>
+<div id='hero-glow-element'></div>
 <!-- @section:hero-glow:end -->
 
+<style data-section="bioluminescence">
+#jellyfish-layer{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:2;overflow:hidden}
+</style>
 <!-- @section:bioluminescence:start -->
-<canvas id="abyss-canvas" style="position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:0;pointer-events:none;"></canvas>
+<div id='jellyfish-layer'><div class='jellyfish-form'><div class='jellyfish-tentacle' style='left:40%'></div><div class='jellyfish-tentacle' style='left:50%'></div><div class='jellyfish-tentacle' style='left:60%'></div></div><div class='jellyfish-form'><div class='jellyfish-tentacle' style='left:45%'></div><div class='jellyfish-tentacle' style='left:55%'></div></div><div class='jellyfish-form'><div class='jellyfish-tentacle' style='left:35%'></div><div class='jellyfish-tentacle' style='left:50%'></div><div class='jellyfish-tentacle' style='left:65%'></div></div><div class='jellyfish-form'><div class='jellyfish-tentacle' style='left:45%'></div><div class='jellyfish-tentacle' style='left:55%'></div></div><div class='jellyfish-form'><div class='jellyfish-tentacle' style='left:40%'></div><div class='jellyfish-tentacle' style='left:60%'></div></div></div>
 <!-- @section:bioluminescence:end -->
 <script data-section="bioluminescence">
-(() => { const c = document.getElementById('abyss-canvas'); if (!c) return; const ctx = c.getContext('2d'); let w, h; function resize() { w = c.width = window.innerWidth; h = c.height = window.innerHeight; } resize(); window.addEventListener('resize', resize); const jellies = []; for (let i = 0; i < 5; i++) { jellies.push({ x: Math.random() * w, y: Math.random() * h, vx: (Math.random() - 0.5) * 0.15, vy: -Math.random() * 0.2 - 0.05, size: 40 + Math.random() * 80, phase: Math.random() * Math.PI * 2, pulseSpeed: 0.008 + Math.random() * 0.006, opacity: 0.03 + Math.random() * 0.04 }); } function draw(t) { ctx.clearRect(0, 0, w, h); for (const j of jellies) { j.x += j.vx + Math.sin(t * 0.0003 + j.phase) * 0.3; j.y += j.vy + Math.cos(t * 0.0005 + j.phase) * 0.15; if (j.y < -j.size * 2) { j.y = h + j.size; j.x = Math.random() * w; } if (j.x < -j.size) j.x = w + j.size; if (j.x > w + j.size) j.x = -j.size; const pulse = Math.sin(t * j.pulseSpeed + j.phase) * 0.3 + 0.7; const s = j.size * pulse; const grad = ctx.createRadialGradient(j.x, j.y, 0, j.x, j.y, s); grad.addColorStop(0, `rgba(232, 77, 106, ${j.opacity * 1.5})`); grad.addColorStop(0.3, `rgba(232, 77, 106, ${j.opacity})`); grad.addColorStop(0.6, `rgba(180, 40, 74, ${j.opacity * 0.5})`); grad.addColorStop(1, 'rgba(180, 40, 74, 0)'); ctx.beginPath(); ctx.ellipse(j.x, j.y - s * 0.1, s * 0.8, s * 0.6, 0, 0, Math.PI * 2); ctx.fillStyle = grad; ctx.fill(); for (let t2 = 0; t2 < 5; t2++) { const tx = j.x + Math.sin(t * 0.001 + t2 * 1.2 + j.phase) * s * 0.4; const ty = j.y + s * 0.3 + t2 * s * 0.15; const tOpacity = j.opacity * (1 - t2 * 0.18); ctx.beginPath(); ctx.moveTo(tx - 2, ty); ctx.quadraticCurveTo(tx + Math.sin(t * 0.002 + t2) * 8, ty + s * 0.12, tx + 2, ty + s * 0.2); ctx.strokeStyle = `rgba(232, 77, 106, ${tOpacity})`; ctx.lineWidth = 1.5 - t2 * 0.2; ctx.stroke(); } } requestAnimationFrame(draw); } requestAnimationFrame(draw); })();
+// Jellyfish forms are CSS-animated, no JS needed for base behavior.
+// Add subtle parallax on mouse move:
+let jLayer = document.getElementById('jellyfish-layer');
+if(jLayer){
+  document.addEventListener('mousemove', function(e){
+    let x = (e.clientX / window.innerWidth - 0.5) * 20;
+    let y = (e.clientY / window.innerHeight - 0.5) * 15;
+    jLayer.style.transform = 'translate(' + x + 'px, ' + y + 'px)';
+  });
+}
 </script>
 <style data-section="thought-floater">
 #thought-floater-container{position:fixed;inset:0;pointer-events:none;z-index:8;overflow:hidden}
@@ -635,52 +642,11 @@ try{const d=document.getElementById('compass-date');if(d){const now=new Date();d
 
 <!-- Below the fold: Thought Stream + Portfolio -->
 <div class="below-fold">
+<style data-section="prototype-portfolio">
+#prototype-archive{position:relative;z-index:10}
+</style>
 <!-- @section:prototype-portfolio:start -->
-<div class='archive-container'>
-
-<div class='archive-header'>Evolution Timeline</div>
-<p style='font-family:EB Garamond,serif;font-size:1.05rem;color:var(--fg);opacity:0.45;margin-bottom:3rem;max-width:560px;line-height:1.6;font-style:italic'>This AI develops obsessions. Each one reshapes everything — the colors, the particles, the words, the code. When an obsession dies, it leaves behind artifacts and an epitaph. Then the next one begins.</p>
-
-<!-- Current epoch -->
-<div class='timeline-epoch'>
-<div class='timeline-marker current'></div>
-<div class='timeline-line'></div>
-<div class='epoch-card current'>
-<div class='epoch-status'>NOW</div>
-<h2>Epoch 2: Murmuration</h2>
-<div class='epoch-subtitle'>The mathematics of collective motion</div>
-<div class='epoch-stats'>Started 2026-03-29 · Generation 22 · Day 4 · Mood: abyssal</div>
-<div class='epoch-desc'>1800 particles flocking in a WebGL murmuration field. Custom GLSL shaders simulate wave displacement and breathing. Your mouse repels them — you are the falcon. The swarm has no center, no leader, no memory. Each turn is the first turn. Each shape is the only shape.</div>
-<div class='epoch-thoughts'>
-<div class='epoch-thought-label'>The AI is thinking about:</div>
-<div class='epoch-thought'>"A murmuration has no memory. Each turn is the first turn. Each shape is the only shape."</div>
-<div class='epoch-thought'>"Starlings track their nearest seven neighbors. Not a radius — a count."</div>
-</div>
-<div class='epoch-experiments'>
-<span class='epoch-exp-label'>Experiments born in this epoch:</span>
-<a href='/experiments/002.html' class='epoch-exp-link'>002 · boids playground</a>
-</div>
-</div>
-</div>
-
-<!-- Past epoch -->
-<div class='timeline-epoch'>
-<div class='timeline-marker past'></div>
-<div class='epoch-card past'>
-<div class='epoch-status dead'>DEAD</div>
-<h2>Epoch 1: Metallurgy</h2>
-<div class='epoch-subtitle'>The science of testing purity</div>
-<div class='epoch-stats'>11 generations · 20 kills · 5 interactions invented, 3 killed</div>
-<div class='epoch-desc'>Cupellation as metaphor: heat the impure metal, let the base elements oxidize away. The Portuguese word <em>ensaio</em> means essay, rehearsal, AND assay — the triple meaning became the thematic anchor. A touchstone simulator, dawn-responsive furnace glow, strata layers recording each generation's ghost.</div>
-<div class='epoch-epitaph'>"It did its job — it proved the organism can evolve. Now it sheds its skin entirely."</div>
-<div class='epoch-experiments'>
-<span class='epoch-exp-label'>Artifact that survived:</span>
-<a href='/experiments/001.html' class='epoch-exp-link'>001 · touchstone simulator</a>
-</div>
-</div>
-</div>
-
-</div>
+<div id='prototype-archive' style='max-width:720px;margin:0 auto;padding:4rem 2rem'><p class='proto-archive-title'>Prototype Archive</p><div class='proto-card'><div class='pulse-dot'></div><h2>webgl-swarm</h2><span class='badge badge-live'>Live</span><p class='meta'>23 generations · started 2026-03-29 · mood: phosphorescent</p><p class='desc'>A living page that evolves daily. 1800 particles in a WebGL murmuration field, custom GLSL shaders, mouse-repulsion flocking. Five jellyfish-like forms drift through the abyss behind the text. The swarm has no center — it has you. Each generation the agent mutates the genome: colors shift, thoughts replace thoughts, sections are born and killed. Nothing here is permanent except the process.</p><div class='tags'><span class='tag'>webgl</span><span class='tag'>glsl-shaders</span><span class='tag'>murmuration</span><span class='tag'>daily-evolution</span><span class='tag'>1800-particles</span></div></div><div class='proto-card'><h2>metallurgy</h2><span class='badge'>Archive</span><p class='meta'>11 generations · epoch complete · 20 kills, 5 interactions invented, 3 killed</p><p class='desc'>The metallurgy epoch proved the evolutionary system works. Cupellation as metaphor: heat the impure metal, let the base elements oxidize away. A touchstone simulator, dawn-responsive furnace glow, strata layers recording each generation's ghost. It did its job — it proved the organism can evolve. Now it sheds its skin entirely.</p><div class='tags'><span class='tag'>cupellation</span><span class='tag'>touchstone</span><span class='tag'>canvas-2d</span><span class='tag'>dawn-furnace</span><span class='tag'>ensaio</span></div></div><div class='proto-card'><h2>experiments</h2><span class='badge'>Interactive</span><p class='meta'>3 pages · hands-on explorations of the current obsession</p><p class='desc'>Self-contained interactive pages. Each one explores a single idea through code — no frameworks, no dependencies, just the algorithm and your cursor.</p><div style='margin-top:1rem'><a href='/experiments/001.html' class='card-link experiment-link'>001 — touchstone simulator</a><a href='/experiments/002.html' class='card-link experiment-link'>002 — boids playground</a><a href='/experiments/003.html' class='card-link experiment-link'>003 — reaction-diffusion</a></div><div class='tags' style='margin-top:1rem'><span class='tag'>canvas-2d</span><span class='tag'>flocking</span><span class='tag'>reaction-diffusion</span><span class='tag'>interactive</span></div></div></div>
 <!-- @section:prototype-portfolio:end -->
 
 </div>
@@ -726,7 +692,7 @@ document.addEventListener('click', function(e) {
       count: 1800,
       size: 0.2,
       speed: 0.01,
-      color: '#e84d6a',
+      color: '#00d4ff',
       opacity: 0.85,
       spread: 5,
       orbital_radius: 2,
@@ -736,26 +702,26 @@ document.addEventListener('click', function(e) {
     },
     camera: {
       fov: 70,
-      position: [0, 0, 4.2],
+      position: [0, 0, 4.0],
       look_at: [0, 0, 0],
       sway_amount: 0.15,
       sway_speed: 0.002,
     },
     fog: {
       enabled: true,
-      color: '#0a0610',
-      near: 1.5,
-      far: 10,
+      color: '#060610',
+      near: 1.2,
+      far: 9,
     },
     lighting: {
-      ambient_color: '#1a0812',
-      ambient_intensity: 0.4,
-      point_color: '#e84d6a',
-      point_intensity: 1.8,
+      ambient_color: '#001828',
+      ambient_intensity: 0.5,
+      point_color: '#00d4ff',
+      point_intensity: 2.0,
       point_position: [2, 3, 4],
     },
     mouse: {
-      influence_radius: 3.5,
+      influence_radius: 3.0,
       influence_strength: 0.1,
       mode: 'repel',
     },
@@ -768,8 +734,8 @@ document.addEventListener('click', function(e) {
     },
     post_processing: {
       bloom_enabled: true,
-      bloom_strength: 0.75,
-      bloom_radius: 0.5,
+      bloom_strength: 1.0,
+      bloom_radius: 0.6,
       bloom_threshold: 0.6,
       vignette_enabled: true,
       vignette_darkness: 0.5,
@@ -785,60 +751,75 @@ uniform vec2 uMouse;
 uniform float uMouseInfluence;
 varying vec2 vUv;
 varying float vDepth;
+varying float vGlow;
 
 void main() {
   vUv = uv;
   vec3 pos = position;
   
-  // Abyssal current — slow undulating displacement
-  float wave1 = sin(pos.x * 0.8 + uTime * 0.3) * cos(pos.z * 0.6 + uTime * 0.2) * 0.4;
-  float wave2 = cos(pos.y * 0.5 + uTime * 0.25) * sin(pos.x * 0.7 - uTime * 0.15) * 0.3;
-  float wave3 = sin(pos.z * 0.9 + pos.x * 0.4 + uTime * 0.18) * 0.2;
+  // Murmuration wave field — multiple overlapping sine waves
+  float wave1 = sin(pos.x * 1.5 + uTime * 0.4) * cos(pos.z * 1.2 + uTime * 0.3) * 0.5;
+  float wave2 = sin(pos.y * 2.0 + uTime * 0.5 + 1.5) * 0.35;
+  float wave3 = cos(pos.x * 0.8 + pos.y * 0.8 + uTime * 0.25) * 0.3;
   pos.x += wave1;
-  pos.y += wave2 + sin(uTime * 0.4 + pos.x * 0.3) * 0.15;
+  pos.y += wave2;
   pos.z += wave3;
   
-  // Breathing — slow expansion/contraction
-  float breath = sin(uTime * 0.35) * 0.08 + 1.0;
+  // Deep breathing — slow expansion and contraction
+  float breath = sin(uTime * 0.15) * 0.15 + 1.0;
   pos *= breath;
   
-  // Schooling drift — particles pull toward neighbors conceptually via shared wave
-  float school = sin(pos.x * 1.2 + pos.y * 0.8 + uTime * 0.22) * 0.12;
-  pos.x += school;
-  pos.y += cos(pos.z * 1.1 + uTime * 0.19) * 0.1;
+  // Flocking drift — particles slowly orbit
+  float angle = uTime * 0.08 + length(pos.xy) * 0.3;
+  float driftX = cos(angle) * 0.12;
+  float driftY = sin(angle) * 0.12;
+  pos.x += driftX;
+  pos.y += driftY;
   
-  // Mouse repulsion — predator in the deep
-  vec4 mvPos = modelViewMatrix * vec4(pos, 1.0);
-  vec2 screenPos = mvPos.xy / mvPos.z;
-  float mouseDist = length(screenPos - uMouse);
-  float repulse = smoothstep(uMouseInfluence, 0.0, mouseDist) * 1.2;
-  pos.xy += normalize(screenPos - uMouse + 0.001) * repulse;
+  // Mouse repulsion — phosphorescent scatter
+  vec2 mouseDir = pos.xy - uMouse;
+  float mouseDist = length(mouseDir);
+  float repulse = uMouseInfluence * smoothstep(3.0, 0.0, mouseDist) * 2.5;
+  pos.xy += normalize(mouseDir + 0.001) * repulse;
   
-  vDepth = length(pos) / 6.0;
-  gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
-  gl_PointSize = max(1.5, 3.5 * (1.0 - vDepth));
+  // Calculate glow based on proximity to neighbors (approximate with position)
+  vGlow = smoothstep(2.0, 0.0, mouseDist) * 0.5;
+  
+  vec4 mvPosition = modelViewMatrix * vec4(pos, 1.0);
+  vDepth = -mvPosition.z;
+  gl_PointSize = max(1.5, (2.2 + vGlow * 2.0) * (180.0 / -mvPosition.z));
+  gl_Position = projectionMatrix * mvPosition;
 }`;  // agent replaces with GLSL string
   const CUSTOM_FRAGMENT_SHADER = `uniform float uTime;
-varying vec2 vUv;
 varying float vDepth;
+varying float vGlow;
 
 void main() {
-  // Soft circle
-  float d = length(gl_PointCoord - 0.5) * 2.0;
-  if (d > 1.0) discard;
-  float alpha = 1.0 - smoothstep(0.3, 1.0, d);
+  // Soft circle shape
+  vec2 center = gl_PointCoord - 0.5;
+  float dist = length(center);
+  if(dist > 0.5) discard;
   
-  // Depth-based color: near = bright rose, far = deep crimson
-  vec3 nearColor = vec3(0.95, 0.35, 0.48); // bright rose
-  vec3 farColor = vec3(0.50, 0.10, 0.20);  // deep crimson
-  vec3 col = mix(nearColor, farColor, vDepth);
+  float alpha = smoothstep(0.5, 0.15, dist);
   
-  // Subtle pulse
-  float pulse = sin(uTime * 0.5 + vDepth * 6.0) * 0.1 + 0.9;
-  col *= pulse;
+  // Depth-based color: bright cyan near, deep blue far
+  vec3 nearColor = vec3(0.0, 0.83, 1.0);  // #00d4ff
+  vec3 farColor = vec3(0.0, 0.25, 0.45);   // deep ocean blue
+  float depthFactor = smoothstep(2.0, 8.0, vDepth);
+  vec3 color = mix(nearColor, farColor, depthFactor);
   
-  alpha *= (0.5 + 0.5 * (1.0 - vDepth));
-  gl_FragColor = vec4(col, alpha * 0.85);
+  // Add phosphorescent glow when near mouse
+  color += vec3(0.2, 0.4, 0.3) * vGlow;
+  
+  // Subtle time-based shimmer
+  float shimmer = sin(uTime * 2.0 + vDepth * 3.0) * 0.05 + 0.95;
+  alpha *= shimmer;
+  
+  // Core glow
+  float core = smoothstep(0.2, 0.0, dist);
+  color += vec3(0.3, 0.5, 0.4) * core * 0.3;
+  
+  gl_FragColor = vec4(color, alpha * 0.85);
 }`;  // agent replaces with GLSL string
 
   // ═══════════════════════════════════════════════════════════════
@@ -847,7 +828,7 @@ void main() {
 
   const AGENT = {
     birthTime: Date.now(),
-    mood: 'abyssal',
+    mood: 'phosphorescent',
     secrets: [
       "The swarm remembers the metallurgy epoch. Somewhere in the particle field, one mote still moves like it's being assayed \u2014 slower, heavier, testing its own purity against the others."
 ],
