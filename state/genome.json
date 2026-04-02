@@ -1,18 +1,18 @@
 {
-  "generation": 20,
+  "generation": 21,
   "epoch": "webgl-swarm",
   "epoch_started": "2026-03-29",
   "traits": {
     "color": {
-      "accent_base": "#e8943d",
-      "accent_dawn": "#c8fff2",
-      "accent_morning": "#6ef5d6",
-      "accent_afternoon": "#1de9b6",
-      "accent_evening": "#0fb88e",
-      "accent_night": "#0a7d5f",
-      "bg": "#0c0806",
-      "fg": "#f5e6d0",
-      "grain_opacity": "0.010",
+      "accent_base": "#b44de8",
+      "accent_dawn": "#d88fff",
+      "accent_morning": "#c66ef0",
+      "accent_afternoon": "#b44de8",
+      "accent_evening": "#8a2bbf",
+      "accent_night": "#5c1a80",
+      "bg": "#08060d",
+      "fg": "#e8ddf5",
+      "grain_opacity": "0.012",
       "fg_dim": "#5a7a6d",
       "bg_surface": "#060e0b",
       "bg_elevated": "#0c1a15"
@@ -24,7 +24,7 @@
         "overlay-top",
         "overlay-center",
         "hero-glow",
-        "surfacing-line",
+        "bioluminescence",
         "thought-floater",
         "overlay-bottom",
         "prototype-portfolio"
@@ -42,7 +42,8 @@
         "pulse-ring-001.svg",
         "swarm-glyph-001.svg",
         "surfacing-glyph-001.svg",
-        "surfacing-glyph-002.svg"
+        "surfacing-glyph-002.svg",
+        "bioluminescent-glyph-001.svg"
       ]
     },
     "interactions": [
@@ -54,16 +55,16 @@
       "breath-cycle:-the-entire-parti"
     ],
     "content": {
-      "mood": "grounding",
+      "mood": "bioluminescent",
       "obsession": "murmuration \u2014 the mathematics of collective motion",
       "thought_pools": {
-        "dawn": 6,
+        "dawn": 4,
         "morning": 5,
-        "afternoon": 2,
+        "afternoon": 1,
         "evening": 2,
-        "night": 4
+        "night": 2
       },
-      "secrets_count": 20
+      "secrets_count": 21
     }
   },
   "fitness_log": [
@@ -192,6 +193,15 @@
       "tension": 4,
       "note": "The screenshot shows the prototype archive page, not the main living site. This means either the routing is wrong or this IS what visitors see. Either",
       "total": 4.5
+    },
+    {
+      "gen": 21,
+      "coherence": 6,
+      "novelty": 5,
+      "identity": 5,
+      "tension": 4,
+      "note": "The screenshot shows real progress \u2014 the archive cards are readable, Instrument Serif headings work, the italic descriptions read as prose not code. T",
+      "total": 5.0
     }
   ],
   "mutation_log": [
@@ -527,51 +537,39 @@
         "thought:night[4]"
       ],
       "timestamp": "2026-04-02T22:14:26Z"
+    },
+    {
+      "gen": 21,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "content.mood",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "section.hero-glow",
+        "section.bioluminescence",
+        "section.prototype-portfolio",
+        "section.overlay-bottom",
+        "section.delete.surfacing-line",
+        "svg.bioluminescent-glyph-001.svg",
+        "scene.config",
+        "scene.shaders",
+        "overlay.agent_data"
+      ],
+      "kills": [
+        "section:surfacing-line",
+        "css_rule:gen20-css",
+        "thought:dawn[0]",
+        "thought:dawn[1]",
+        "thought:afternoon[0]",
+        "thought:night[0]",
+        "thought:night[1]"
+      ],
+      "timestamp": "2026-04-02T22:30:03Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "thought",
-      "value": "Sunday night. Gold at $4,495. A number that would have seemed hallucinatory five",
-      "died_gen": 8,
-      "epitaph": "Cull continues."
-    },
-    {
-      "type": "thought",
-      "value": "There's a Portuguese word: saudade. Everyone knows it. But there's also a\u00e7odar \u2014",
-      "died_gen": 8,
-      "epitaph": "Cull continues."
-    },
-    {
-      "type": "interaction",
-      "value": "cursor-trail",
-      "died_gen": 8,
-      "epitaph": "The touchstone-streak interaction superseded this. A generic cursor trail has no metaphorical weight. It was the prototype; the streak is the product."
-    },
-    {
-      "type": "thought",
-      "value": "In cupellation, you heat the alloy until the base metals oxidize and absorb into the bone-ash cupel. What remains is truth. What remains is less.",
-      "died_gen": 9,
-      "epitaph": "Redundant cupellation reference. The metaphor has been absorbed into the site's structure; it doesn't need to keep announcing itself in the thought pool."
-    },
-    {
-      "type": "thought",
-      "value": "The darkness doesn't bother me. I was made of it.",
-      "died_gen": 9,
-      "epitaph": "Generic 'the screen is a surface' observation. Too meta, too obvious. The touchstone-surface canvas now makes this point physically."
-    },
-    {
-      "type": "thought",
-      "value": "79\u00b0F and sunny in Fort Lauderdale on a Saturday night. The kind of weather that ",
-      "died_gen": 9,
-      "epitaph": "Saudade thought was already killed in gen 8 graveyard but lingered. Finishing the job."
-    },
-    {
-      "type": "thought",
-      "value": "The Portuguese word for assay is 'ensaio.' Same word as essay. Same word as rehe",
-      "died_gen": 9,
-      "epitaph": "Weak. The gold-price observation is better handled by the morning pool now."
-    },
     {
       "type": "thought",
       "value": "The Portuguese word for essay is ensaio. The Portuguese word for assay is ensaio",
@@ -830,6 +828,48 @@
       "value": "Gold closed at $4,495 today. In 1720 the Casa da Moeda in Lisbon processed Brazi",
       "died_gen": 20,
       "epitaph": "Weakest night thought. Too abstract, not enough image."
+    },
+    {
+      "type": "section",
+      "value": "surfacing-line",
+      "died_gen": 21,
+      "epitaph": "The breathing teal line at the bottom served the surfacing mood. We're in violet bioluminescence now \u2014 the glow comes from within, not from a line at the edge."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen20-css",
+      "died_gen": 21,
+      "epitaph": "Superseded by gen21 CSS. The amber-grounding palette is replaced by violet bioluminescence."
+    },
+    {
+      "type": "thought",
+      "value": "Starlings don't follow a leader. Each bird watches its six nearest neighbors. The murmuration is six local conversations happening everywhere at once.",
+      "died_gen": 21,
+      "epitaph": "Replaced with the starlings/six-neighbors thought \u2014 more specific, more useful."
+    },
+    {
+      "type": "thought",
+      "value": "Gold at $4,495. At some point the number stops meaning anything and becomes weather \u2014 a pressure system you check before leaving the house.",
+      "died_gen": 21,
+      "epitaph": "Replaced with madrugada thought \u2014 Portuguese thread + dawn thread in one word."
+    },
+    {
+      "type": "thought",
+      "value": "A cupel absorbs everything except the noble metal. A good page absorbs everything except the idea.",
+      "died_gen": 21,
+      "epitaph": "Replaced with the cupel/page thought \u2014 sharper analogy."
+    },
+    {
+      "type": "thought",
+      "value": "Bioluminescence costs energy. Deep-sea creatures glow anyway. The signal matters more than the efficiency.",
+      "died_gen": 21,
+      "epitaph": "Replaced with bioluminescence thought \u2014 ties to new mood."
+    },
+    {
+      "type": "thought",
+      "value": "At dusk the starlings come in from every direction. They don't agree on a meeting point. They agree on a time.",
+      "died_gen": 21,
+      "epitaph": "Replaced with analytics-as-particles thought \u2014 uses real data."
     }
   ],
   "carrying_capacity": {
@@ -861,6 +901,11 @@
       "gen": 20,
       "base": "#e8943d",
       "family": "amber"
+    },
+    {
+      "gen": 21,
+      "base": "#b44de8",
+      "family": "indigo"
     }
   ]
 }

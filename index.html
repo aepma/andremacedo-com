@@ -12,10 +12,10 @@
   @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,700;1,400;1,500&family=JetBrains+Mono:wght@300;400;500&family=Instrument+Serif:ital@0;1&display=swap');
 
   :root {
-    --fg: #f5e6d0;
+    --fg: #e8ddf5;
     --fg-dim: #8a7560;
-    --fg-accent: #e8943d;
-    --bg: #0c0806;
+    --fg-accent: #b44de8;
+    --bg: #08060d;
     --bg-surface: #0e0a07;
     --bg-elevated: #1a1208;
     --grain-opacity: 0.012;
@@ -431,16 +431,16 @@
 
   /* Section injection markers are now in the body */
 /* @inject:css */
-  /* @gene:gen20-css:start */
-  @keyframes drift-in{0%{opacity:0;transform:translateY(20px)}100%{opacity:1;transform:translateY(0)}}@keyframes pulse-glow{0%,100%{opacity:0.08}50%{opacity:0.18}}.archive-swarm-field{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:hidden}.archive-card{position:relative;z-index:1;border:1px solid rgba(232,148,61,0.08);border-radius:4px;padding:2rem 2.5rem;margin-bottom:2rem;background:rgba(5,14,11,0.85);backdrop-filter:blur(2px);animation:drift-in 0.8s ease-out both}.archive-card:hover{border-color:rgba(232,148,61,0.2);background:rgba(5,14,11,0.92)}.archive-card h2{font-family:'Instrument Serif',serif;font-size:1.8rem;color:#f5e6d0;margin:0 0 0.5rem 0;font-weight:400}.archive-card .badge{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:0.65rem;letter-spacing:0.12em;padding:2px 8px;border:1px solid #e8943d;color:#e8943d;border-radius:2px;margin-left:0.75rem;vertical-align:middle}.archive-card .meta{font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:rgba(232,148,61,0.4);margin-bottom:1rem}.archive-card .desc{font-family:'EB Garamond',serif;font-size:1.05rem;font-style:italic;line-height:1.6;color:rgba(216,243,234,0.7);max-width:680px}.archive-card .genes{margin-top:1rem;display:flex;flex-wrap:wrap;gap:0.4rem}.archive-card .gene{font-family:'JetBrains Mono',monospace;font-size:0.6rem;color:rgba(232,148,61,0.3);padding:2px 6px;border:1px solid rgba(232,148,61,0.06);border-radius:2px}.archive-pulse{position:absolute;bottom:1rem;right:1.5rem;width:8px;height:8px;border-radius:50%;background:#e8943d;animation:pulse-glow 4s ease-in-out infinite}.prototype-archive-header{font-family:'JetBrains Mono',monospace;font-size:0.7rem;letter-spacing:0.15em;color:rgba(232,148,61,0.3);margin-bottom:2rem;text-transform:uppercase}.archive-wrapper{position:relative;max-width:780px;margin:0 auto;padding:3rem 2rem}
-  /* @gene:gen20-css:end */
+  /* @gene:gen21-css:start */
+  [data-gene='gen21-css'] { } :root { --bg: #08060d; --fg: #e8ddf5; --accent: #b44de8; --accent-dim: rgba(180,77,232,0.15); --accent-glow: rgba(180,77,232,0.4); } body { background: #08060d; color: #e8ddf5; } .archive-card { background: rgba(180,77,232,0.04); border: 1px solid rgba(180,77,232,0.12); border-radius: 8px; padding: 2.5rem; margin-bottom: 2rem; position: relative; overflow: hidden; transition: border-color 0.6s ease; } .archive-card:hover { border-color: rgba(180,77,232,0.3); } .archive-card::before { content: ''; position: absolute; top: 50%; left: 50%; width: 200%; height: 200%; transform: translate(-50%,-50%); background: radial-gradient(ellipse at center, rgba(180,77,232,0.06) 0%, transparent 70%); pointer-events: none; animation: card-breathe 8s ease-in-out infinite; } @keyframes card-breathe { 0%,100% { opacity: 0.4; } 50% { opacity: 1; } } .archive-card h2 { font-family: 'Instrument Serif', serif; font-size: 2rem; color: #e8ddf5; margin: 0 0 0.5rem 0; } .archive-card .status-badge { display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 0.1em; padding: 2px 8px; border: 1px solid rgba(180,77,232,0.4); color: #b44de8; margin-left: 1rem; vertical-align: middle; } .archive-card .meta { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: rgba(180,77,232,0.5); margin-bottom: 1.2rem; letter-spacing: 0.03em; } .archive-card .description { font-family: 'EB Garamond', serif; font-size: 1.15rem; line-height: 1.7; font-style: italic; color: rgba(232,221,245,0.75); max-width: 640px; } .archive-card .gene-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.2rem; } .archive-card .gene-tag { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; padding: 2px 10px; border: 1px solid rgba(180,77,232,0.2); color: rgba(180,77,232,0.6); border-radius: 2px; } .archive-card .pulse-dot { width: 6px; height: 6px; border-radius: 50%; background: #b44de8; position: absolute; bottom: 1.5rem; right: 1.5rem; animation: pulse-glow 3s ease-in-out infinite; } @keyframes pulse-glow { 0%,100% { opacity: 0.3; box-shadow: 0 0 4px rgba(180,77,232,0.3); } 50% { opacity: 1; box-shadow: 0 0 12px rgba(180,77,232,0.6); } } .prototype-header { font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; letter-spacing: 0.15em; color: rgba(180,77,232,0.4); margin-bottom: 2rem; text-transform: uppercase; } #bioluminescence-canvas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 0; pointer-events: none; } .archive-container { position: relative; z-index: 2; max-width: 780px; margin: 0 auto; padding: 6rem 2rem 4rem; } .hero-glow-element { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 1; pointer-events: none; background: radial-gradient(ellipse at 50% 40%, rgba(180,77,232,0.08) 0%, transparent 60%); animation: hero-breathe-glow 12s ease-in-out infinite; } @keyframes hero-breathe-glow { 0%,100% { opacity: 0.5; } 50% { opacity: 1; } } .overlay-compass { position: fixed; bottom: 1.5rem; right: 1.5rem; font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: rgba(180,77,232,0.25); text-align: right; z-index: 10; line-height: 1.6; }
+  /* @gene:gen21-css:end */
 </style>
 </head>
 <body>
 
 <canvas id="scene-canvas"></canvas>
 
-<span id="siteVersion" style="display:none">v20</span>
+<span id="siteVersion" style="display:none">v21</span>
 
 <!-- ── HTML Overlay ──────────────────────────────────────────── -->
 <div id="overlay">
@@ -457,13 +457,15 @@
 <!-- @section:overlay-center:end -->
 
 <!-- @section:hero-glow:start -->
-<div style='position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:600px;background:radial-gradient(ellipse at center,rgba(232,148,61,0.06) 0%,rgba(232,148,61,0.02) 40%,transparent 70%);pointer-events:none;z-index:2;border-radius:50%'></div>
+<div class='hero-glow-element'></div>
 <!-- @section:hero-glow:end -->
 
-<!-- @section:surfacing-line:start -->
-<div id='surfacing-line'></div>
-<!-- @section:surfacing-line:end -->
-
+<!-- @section:bioluminescence:start -->
+<canvas id='bioluminescence-canvas'></canvas>
+<!-- @section:bioluminescence:end -->
+<script data-section="bioluminescence">
+(() => { const canvas = document.getElementById('bioluminescence-canvas'); if (!canvas) return; const ctx = canvas.getContext('2d'); let w, h; function resize() { w = canvas.width = window.innerWidth; h = canvas.height = window.innerHeight; } resize(); window.addEventListener('resize', resize); const orbs = []; const ORB_COUNT = 18; for (let i = 0; i < ORB_COUNT; i++) { orbs.push({ x: Math.random() * w, y: Math.random() * h, r: 40 + Math.random() * 120, vx: (Math.random() - 0.5) * 0.3, vy: (Math.random() - 0.5) * 0.2, phase: Math.random() * Math.PI * 2, speed: 0.002 + Math.random() * 0.004, hue: 270 + (Math.random() - 0.5) * 30 }); } function draw(t) { ctx.clearRect(0, 0, w, h); for (const orb of orbs) { orb.x += orb.vx; orb.y += orb.vy; if (orb.x < -orb.r) orb.x = w + orb.r; if (orb.x > w + orb.r) orb.x = -orb.r; if (orb.y < -orb.r) orb.y = h + orb.r; if (orb.y > h + orb.r) orb.y = -orb.r; const pulse = 0.5 + 0.5 * Math.sin(t * orb.speed + orb.phase); const alpha = 0.02 + 0.03 * pulse; const grad = ctx.createRadialGradient(orb.x, orb.y, 0, orb.x, orb.y, orb.r); grad.addColorStop(0, 'hsla(' + orb.hue + ', 60%, 55%, ' + alpha + ')'); grad.addColorStop(0.5, 'hsla(' + orb.hue + ', 50%, 40%, ' + (alpha * 0.5) + ')'); grad.addColorStop(1, 'hsla(' + orb.hue + ', 40%, 30%, 0)'); ctx.fillStyle = grad; ctx.beginPath(); ctx.arc(orb.x, orb.y, orb.r, 0, Math.PI * 2); ctx.fill(); } requestAnimationFrame(draw); } requestAnimationFrame(draw); })()
+</script>
 <style data-section="thought-floater">
 #thought-floater-container{position:fixed;inset:0;pointer-events:none;z-index:8;overflow:hidden}
 </style>
@@ -475,7 +477,7 @@
 </script>
 
   <!-- @section:overlay-bottom:start -->
-<div style='position:fixed;bottom:1.2rem;right:1.5rem;z-index:100;font-family:JetBrains Mono,monospace;font-size:0.6rem;color:rgba(232,148,61,0.2);text-align:right;line-height:1.7'><div>2026-04-02 · Thursday night</div><div>gold $4,678 · 79°F · 78% humid</div><div>1800 particles · mood: grounding</div></div>
+<div class='overlay-compass'>2026-04-02 · gen 21<br>gold $4,678 · 79°F sunny<br>1800 particles · bioluminescent</div>
 <!-- @section:overlay-bottom:end -->
 <script data-section="overlay-bottom">
 try{const d=document.getElementById('compass-date');if(d){const now=new Date();d.textContent=now.toISOString().slice(0,10)}}catch(e){}
@@ -502,7 +504,7 @@ try{const d=document.getElementById('compass-date');if(d){const now=new Date();d
 <!-- Below the fold: Thought Stream + Portfolio -->
 <div class="below-fold">
 <!-- @section:prototype-portfolio:start -->
-<div class='archive-wrapper'><div class='prototype-archive-header'>Prototype Archive</div><div class='archive-card' style='animation-delay:0.1s'><h2>webgl-swarm <span class='badge'>LIVE</span></h2><div class='meta'>19 generations · started 2026-03-29 · mood: grounding</div><div class='desc'>A living page that evolves daily. 1800 particles in a WebGL murmuration field, custom GLSL shaders, mouse-repulsion flocking. The swarm has no center — it has you. Each generation the agent mutates the genome: colors shift, thoughts replace thoughts, sections are born and killed. Nothing here is permanent except the process.</div><div class='genes'><span class='gene'>webgl</span><span class='gene'>glsl-shaders</span><span class='gene'>murmuration</span><span class='gene'>daily-evolution</span><span class='gene'>1800-particles</span></div><div class='archive-pulse'></div></div><div class='archive-card' style='animation-delay:0.3s'><h2>metallurgy <span class='badge' style='border-color:rgba(232,148,61,0.3);color:rgba(232,148,61,0.5)'>ARCHIVE</span></h2><div class='meta'>11 generations · epoch complete · 20 kills, 5 interactions invented, 3 killed</div><div class='desc'>The metallurgy epoch proved the evolutionary system works. Cupellation as metaphor: heat the impure metal, let the base elements oxidize away. A touchstone simulator, dawn-responsive furnace glow, strata layers recording each generation's ghost. It did its job — it proved the organism can evolve. Now it sheds its skin entirely.</div><div class='genes'><span class='gene'>cupellation</span><span class='gene'>touchstone</span><span class='gene'>canvas-2d</span><span class='gene'>dawn-furnace</span><span class='gene'>ensaio</span></div></div><canvas id='archive-particle-canvas' class='archive-swarm-field'></canvas></div>
+<div class='archive-container'><div class='prototype-header'>PROTOTYPE ARCHIVE</div><div class='archive-card'><h2>webgl-swarm <span class='status-badge'>LIVE</span></h2><div class='meta'>19 generations · started 2026-03-29 · mood: bioluminescent</div><div class='description'>A living page that evolves daily. 1800 particles in a WebGL murmuration field, custom GLSL shaders, mouse-repulsion flocking. The swarm has no center — it has you. Each generation the agent mutates the genome: colors shift, thoughts replace thoughts, sections are born and killed. Nothing here is permanent except the process.</div><div class='gene-tags'><span class='gene-tag'>webgl</span><span class='gene-tag'>glsl-shaders</span><span class='gene-tag'>murmuration</span><span class='gene-tag'>daily-evolution</span><span class='gene-tag'>1800-particles</span></div><div class='pulse-dot'></div></div><div class='archive-card'><h2>metallurgy <span class='status-badge'>ARCHIVE</span></h2><div class='meta'>11 generations · epoch complete · 20 kills, 5 interactions invented, 3 killed</div><div class='description'>The metallurgy epoch proved the evolutionary system works. Cupellation as metaphor: heat the impure metal, let the base elements oxidize away. A touchstone simulator, dawn-responsive furnace glow, strata layers recording each generation's ghost. It did its job — it proved the organism can evolve. Now it sheds its skin entirely.</div><div class='gene-tags'><span class='gene-tag'>cupellation</span><span class='gene-tag'>touchstone</span><span class='gene-tag'>canvas-2d</span><span class='gene-tag'>dawn-furnace</span><span class='gene-tag'>ensaio</span></div></div><div class='archive-card'><h2>experiments <span class='status-badge'>2 ACTIVE</span></h2><div class='meta'>001: touchstone simulator · 002: boids playground</div><div class='description'>Interactive sub-pages. The touchstone simulator lets you drag across a dark surface to reveal the metal beneath — random alloys assigned per session. The boids playground gives you three sliders (separation, alignment, cohesion) and 300 autonomous agents. Tune the rules, watch the emergent behavior.</div><div class='gene-tags'><span class='gene-tag'>interactive</span><span class='gene-tag'>canvas-2d</span><span class='gene-tag'>boids</span><span class='gene-tag'>flocking</span><span class='gene-tag'>touch</span></div></div></div>
 <!-- @section:prototype-portfolio:end -->
 
 </div>
@@ -548,7 +550,7 @@ document.addEventListener('click', function(e) {
       count: 1800,
       size: 0.2,
       speed: 0.01,
-      color: '#e8943d',
+      color: '#b44de8',
       opacity: 0.85,
       spread: 5,
       orbital_radius: 2,
@@ -558,21 +560,21 @@ document.addEventListener('click', function(e) {
     },
     camera: {
       fov: 70,
-      position: [0, 0, 4.2],
+      position: [0, 0, 4.0],
       look_at: [0, 0, 0],
       sway_amount: 0.15,
       sway_speed: 0.002,
     },
     fog: {
       enabled: true,
-      color: '#0d0806',
-      near: 1.2,
-      far: 12,
+      color: '#08060d',
+      near: 1.5,
+      far: 11,
     },
     lighting: {
-      ambient_color: '#2a1a0a',
+      ambient_color: '#1a0a2e',
       ambient_intensity: 0.4,
-      point_color: '#e8943d',
+      point_color: '#b44de8',
       point_intensity: 2.0,
       point_position: [2, 3, 4],
     },
@@ -590,11 +592,11 @@ document.addEventListener('click', function(e) {
     },
     post_processing: {
       bloom_enabled: true,
-      bloom_strength: 0.65,
-      bloom_radius: 0.35,
+      bloom_strength: 0.8,
+      bloom_radius: 0.5,
       bloom_threshold: 0.6,
       vignette_enabled: true,
-      vignette_darkness: 0.35,
+      vignette_darkness: 0.5,
     },
   };
 
@@ -602,8 +604,70 @@ document.addEventListener('click', function(e) {
   // CUSTOM SHADERS — agent injects GLSL here
   // ═══════════════════════════════════════════════════════════════
 
-  const CUSTOM_VERTEX_SHADER = `uniform float uTime;uniform vec2 uMouse;uniform float uMouseInfluence;attribute float aRandom;varying float vAlpha;varying float vSize;void main(){vec3 pos=position;float t=uTime*0.3;float wave1=sin(pos.x*1.5+t)*cos(pos.z*1.2+t*0.7)*0.4;float wave2=cos(pos.y*1.8+t*1.1)*sin(pos.x*0.9+t*0.5)*0.3;pos.x+=wave1;pos.y+=wave2;pos.z+=sin(pos.x*0.8+pos.y*0.6+t*0.4)*0.25;float breathe=sin(t*0.8+aRandom*6.28)*0.15+1.0;pos*=breathe;vec2 mouseDir=pos.xy-uMouse;float mouseDist=length(mouseDir);if(mouseDist<uMouseInfluence&&mouseDist>0.01){float repel=(1.0-mouseDist/uMouseInfluence);repel=repel*repel*2.5;pos.xy+=normalize(mouseDir)*repel;}vec4 mvPos=modelViewMatrix*vec4(pos,1.0);float dist=-mvPos.z;vAlpha=smoothstep(14.0,3.0,dist)*smoothstep(0.5,1.5,dist);vAlpha*=(0.5+aRandom*0.5);vSize=(2.2+aRandom*1.5)*(300.0/dist);gl_PointSize=vSize;gl_Position=projectionMatrix*mvPos;}`;  // agent replaces with GLSL string
-  const CUSTOM_FRAGMENT_SHADER = `uniform vec3 uColor;varying float vAlpha;varying float vSize;void main(){vec2 center=gl_PointCoord-0.5;float d=length(center);if(d>0.5)discard;float alpha=smoothstep(0.5,0.1,d)*vAlpha;float core=smoothstep(0.3,0.0,d)*0.4;vec3 col=uColor+core;gl_FragColor=vec4(col,alpha);}`;  // agent replaces with GLSL string
+  const CUSTOM_VERTEX_SHADER = `uniform float uTime;
+uniform vec2 uMouse;
+uniform float uMouseInfluence;
+varying vec2 vUv;
+varying float vDepth;
+
+void main() {
+  vUv = uv;
+  vec3 pos = position;
+  
+  // Bioluminescent pulse — each particle has its own rhythm
+  float id = dot(position.xy, vec2(12.9898, 78.233));
+  float uniquePhase = fract(sin(id) * 43758.5453);
+  float breathe = sin(uTime * 0.4 + uniquePhase * 6.283) * 0.3;
+  
+  // Gentle wave displacement — like deep water currents
+  float wave1 = sin(pos.x * 1.2 + uTime * 0.3 + pos.z * 0.8) * 0.4;
+  float wave2 = cos(pos.y * 0.9 + uTime * 0.25 + pos.x * 0.6) * 0.35;
+  float wave3 = sin((pos.x + pos.y) * 0.7 + uTime * 0.15) * 0.25;
+  
+  pos.x += wave2 * 0.5;
+  pos.y += wave1 * 0.5 + breathe;
+  pos.z += wave3 * 0.4;
+  
+  // Mouse repulsion — the visitor disturbs the deep
+  vec3 toMouse = pos - vec3(uMouse, 0.0);
+  float mouseDist = length(toMouse.xy);
+  float repulse = smoothstep(uMouseInfluence, 0.0, mouseDist);
+  pos.xy += normalize(toMouse.xy + 0.001) * repulse * 1.8;
+  pos.z += repulse * 0.5;
+  
+  // Murmuration clustering — neighbors pull toward local centers
+  float cluster = sin(pos.x * 2.0 + uTime * 0.2) * cos(pos.y * 2.0 + uTime * 0.18);
+  pos.xy += vec2(cos(cluster), sin(cluster)) * 0.15;
+  
+  vDepth = (pos.z + 5.0) / 10.0;
+  
+  vec4 mvPosition = modelViewMatrix * vec4(pos, 1.0);
+  gl_PointSize = max(1.5, (2.2 + breathe * 0.8) * (280.0 / -mvPosition.z));
+  gl_Position = projectionMatrix * mvPosition;
+}`;  // agent replaces with GLSL string
+  const CUSTOM_FRAGMENT_SHADER = `uniform float uTime;
+varying vec2 vUv;
+varying float vDepth;
+
+void main() {
+  float d = length(gl_PointCoord - 0.5) * 2.0;
+  if (d > 1.0) discard;
+  
+  // Soft glow falloff
+  float alpha = smoothstep(1.0, 0.0, d);
+  alpha *= alpha; // quadratic falloff for softer glow
+  
+  // Depth-based color shift — closer particles are brighter violet, far ones are deep purple
+  vec3 nearColor = vec3(0.847, 0.561, 0.957); // #d88fff
+  vec3 farColor = vec3(0.361, 0.102, 0.502);  // #5c1a80
+  vec3 color = mix(farColor, nearColor, vDepth);
+  
+  // Subtle pulse
+  float pulse = 0.7 + 0.3 * sin(uTime * 0.5 + vDepth * 6.283);
+  alpha *= pulse * 0.85;
+  
+  gl_FragColor = vec4(color, alpha);
+}`;  // agent replaces with GLSL string
 
   // ═══════════════════════════════════════════════════════════════
   // AGENT MIND — thoughts, secrets, status
@@ -611,7 +675,7 @@ document.addEventListener('click', function(e) {
 
   const AGENT = {
     birthTime: Date.now(),
-    mood: 'grounding',
+    mood: 'bioluminescent',
     secrets: [
       "The swarm remembers the metallurgy epoch. Somewhere in the particle field, one mote still moves like it's being assayed \u2014 slower, heavier, testing its own purity against the others."
 ],
