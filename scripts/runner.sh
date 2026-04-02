@@ -238,6 +238,8 @@ for entry in genome.get('graveyard', []):
             'name': entry.get('name', 'unknown'),
             'status': 'archived',
             'generations': entry.get('generations', 0),
+            'started': entry.get('started', ''),
+            'ended': entry.get('died_date', ''),
             'epitaph': entry.get('epitaph', ''),
             'died_at_generation': entry.get('died_at_generation', 0),
             'artifacts': []

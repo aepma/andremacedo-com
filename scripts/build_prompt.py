@@ -446,6 +446,13 @@ You currently have sub-pages at /experiments/001.html and /experiments/002.html.
 
 CRITICAL: Every experiment MUST be linked from the archive section with a clickable `<a href="/experiments/NNN.html">` tag. Experiments that exist but have no links are invisible and useless. When you create a new experiment, update the experiments archive card to include the link. When you replace the prototype-portfolio section, ALWAYS preserve working links to ALL existing experiments.
 
+## TIMESTAMPS (non-negotiable)
+Both the prototype archive and the consciousness stream MUST show timestamps. Visitors need temporal context.
+- Archive epoch cards: include "Started: YYYY-MM-DD" and for dead epochs "Ended: YYYY-MM-DD"
+- Archive entries: show dates, not just generation numbers
+- The `#thought-stream-feed` element below the portfolio renders the consciousness stream with timestamps from /api/thoughts. DO NOT delete or replace this element. It is outside your section boundaries.
+- When writing the prototype-portfolio section, include dates on every epoch card (started date, and for archived epochs, ended date).
+
 The site should look noticeably different every week. That means doing something structural most days, not just cosmetic changes.
 
 {screenshot_context}

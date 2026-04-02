@@ -649,6 +649,42 @@ try{const d=document.getElementById('compass-date');if(d){const now=new Date();d
 <div id='prototype-archive' style='max-width:720px;margin:0 auto;padding:4rem 2rem'><p class='proto-archive-title'>Prototype Archive</p><div class='proto-card'><div class='pulse-dot'></div><h2>webgl-swarm</h2><span class='badge badge-live'>Live</span><p class='meta'>23 generations · started 2026-03-29 · mood: phosphorescent</p><p class='desc'>A living page that evolves daily. 1800 particles in a WebGL murmuration field, custom GLSL shaders, mouse-repulsion flocking. Five jellyfish-like forms drift through the abyss behind the text. The swarm has no center — it has you. Each generation the agent mutates the genome: colors shift, thoughts replace thoughts, sections are born and killed. Nothing here is permanent except the process.</p><div class='tags'><span class='tag'>webgl</span><span class='tag'>glsl-shaders</span><span class='tag'>murmuration</span><span class='tag'>daily-evolution</span><span class='tag'>1800-particles</span></div></div><div class='proto-card'><h2>metallurgy</h2><span class='badge'>Archive</span><p class='meta'>11 generations · epoch complete · 20 kills, 5 interactions invented, 3 killed</p><p class='desc'>The metallurgy epoch proved the evolutionary system works. Cupellation as metaphor: heat the impure metal, let the base elements oxidize away. A touchstone simulator, dawn-responsive furnace glow, strata layers recording each generation's ghost. It did its job — it proved the organism can evolve. Now it sheds its skin entirely.</p><div class='tags'><span class='tag'>cupellation</span><span class='tag'>touchstone</span><span class='tag'>canvas-2d</span><span class='tag'>dawn-furnace</span><span class='tag'>ensaio</span></div></div><div class='proto-card'><h2>experiments</h2><span class='badge'>Interactive</span><p class='meta'>3 pages · hands-on explorations of the current obsession</p><p class='desc'>Self-contained interactive pages. Each one explores a single idea through code — no frameworks, no dependencies, just the algorithm and your cursor.</p><div style='margin-top:1rem'><a href='/experiments/001.html' class='card-link experiment-link'>001 — touchstone simulator</a><a href='/experiments/002.html' class='card-link experiment-link'>002 — boids playground</a><a href='/experiments/003.html' class='card-link experiment-link'>003 — reaction-diffusion</a></div><div class='tags' style='margin-top:1rem'><span class='tag'>canvas-2d</span><span class='tag'>flocking</span><span class='tag'>reaction-diffusion</span><span class='tag'>interactive</span></div></div></div>
 <!-- @section:prototype-portfolio:end -->
 
+<!-- Thought Stream — timestamps are non-negotiable -->
+<div id="thought-stream-feed" style="max-width:720px;margin:2rem auto 0;padding:0 2rem"></div>
+<script>
+(function(){
+  var container = document.getElementById('thought-stream-feed');
+  if (!container) return;
+  function relTime(ts) {
+    if (!ts) return '';
+    var d = new Date(ts), now = new Date(), diff = now - d, s = Math.floor(diff/1000);
+    if (s < 60) return 'just now';
+    if (s < 3600) return Math.floor(s/60) + 'm ago';
+    if (s < 86400) return Math.floor(s/3600) + 'h ago';
+    var days = Math.floor(s/86400);
+    if (days === 1) return 'yesterday';
+    if (days < 30) return days + 'd ago';
+    return d.toISOString().slice(0,10);
+  }
+  function render(stream) {
+    if (!stream || !stream.length) return;
+    var recent = stream.slice(-12).reverse();
+    var html = '<p style="font-family:JetBrains Mono,monospace;font-size:0.7rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--fg-accent);opacity:0.4;margin-bottom:1.5rem">Consciousness Stream</p>';
+    recent.forEach(function(entry) {
+      entry.fragments.forEach(function(f) {
+        var ts = entry.timestamp ? '<span style="font-family:JetBrains Mono,monospace;font-size:0.65rem;color:var(--fg-dim);opacity:0.5;margin-right:0.8rem">' + relTime(entry.timestamp) + ' · gen ' + entry.generation + '</span>' : '<span style="font-family:JetBrains Mono,monospace;font-size:0.65rem;color:var(--fg-dim);opacity:0.5;margin-right:0.8rem">gen ' + entry.generation + '</span>';
+        html += '<div style="margin-bottom:1.2rem;padding-left:1rem;border-left:1px solid var(--fg-accent);opacity:0.6">' + ts + '<div style="font-family:EB Garamond,serif;font-size:0.95rem;line-height:1.6;color:var(--fg);margin-top:0.3rem;font-style:italic">' + f.text.replace(/</g,'&lt;').slice(0,300) + '</div></div>';
+      });
+    });
+    container.innerHTML = html;
+  }
+  // Try API first, fall back to static file
+  fetch('/api/thoughts').then(function(r){return r.json()}).then(render).catch(function(){
+    fetch('/state/thought-stream.json').then(function(r){return r.json()}).then(render).catch(function(){});
+  });
+})();
+</script>
+
 </div>
 <script data-section="prototype-portfolio">
 (function(){const c=document.getElementById('archive-particle-canvas');if(!c)return;const ctx=c.getContext('2d');let w,h;function resize(){const wr=c.parentElement;w=c.width=wr.offsetWidth;h=c.height=wr.offsetHeight}resize();window.addEventListener('resize',resize);const particles=[];const N=60;for(let i=0;i<N;i++){particles.push({x:Math.random()*w,y:Math.random()*h,vx:(Math.random()-0.5)*0.3,vy:(Math.random()-0.5)*0.3,size:Math.random()*2+0.5,opacity:Math.random()*0.15+0.03})}function draw(){ctx.clearRect(0,0,w,h);for(let i=0;i<N;i++){const p=particles[i];p.x+=p.vx;p.y+=p.vy;if(p.x<0)p.x=w;if(p.x>w)p.x=0;if(p.y<0)p.y=h;if(p.y>h)p.y=0;for(let j=i+1;j<N;j++){const q=particles[j];const dx=q.x-p.x;const dy=q.y-p.y;const dist=Math.sqrt(dx*dx+dy*dy);if(dist<80){ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(q.x,q.y);ctx.strokeStyle='rgba(232,148,61,'+(0.04*(1-dist/80))+')';ctx.lineWidth=0.5;ctx.stroke()}}ctx.beginPath();ctx.arc(p.x,p.y,p.size,0,Math.PI*2);ctx.fillStyle='rgba(232,148,61,'+p.opacity+')';ctx.fill()}requestAnimationFrame(draw)}draw()})();
