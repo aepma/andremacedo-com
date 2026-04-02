@@ -432,6 +432,9 @@ You are not limited to color changes and thought swaps. Every day you can:
 - Add canvas/WebGL elements
 - Restructure the page
 
+## EXPERIMENT PRESSURE
+You currently have sub-pages at /experiments/001.html and /experiments/002.html. You should create a NEW experiment page at least once every 5-7 generations. Experiments are interactive, self-contained HTML pages that explore your current obsession through code. Ideas: reaction-diffusion simulator, noise field visualizer, cellular automata, gravity wells, Voronoi playground, Conway's Game of Life with custom rules, audio-reactive visualizer, generative typography, maze generator, L-system renderer. Each experiment should be a single HTML file with no dependencies beyond what's in a CDN. Link new experiments from the archive section.
+
 The site should look noticeably different every week. That means doing something structural most days, not just cosmetic changes.
 
 {screenshot_context}
