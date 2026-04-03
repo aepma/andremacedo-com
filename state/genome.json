@@ -1,18 +1,18 @@
 {
-  "generation": 24,
+  "generation": 25,
   "epoch": "webgl-swarm",
   "epoch_started": "2026-03-29",
   "traits": {
     "color": {
-      "accent_base": "#f0a030",
-      "accent_dawn": "#ffd080",
-      "accent_morning": "#f0b848",
-      "accent_afternoon": "#f0a030",
-      "accent_evening": "#d08020",
-      "accent_night": "#a06010",
-      "bg": "#1a1410",
-      "fg": "#f0e8d8",
-      "grain_opacity": "0.006",
+      "accent_base": "#b8d830",
+      "accent_dawn": "#d8f060",
+      "accent_morning": "#c8e040",
+      "accent_afternoon": "#b8d830",
+      "accent_evening": "#98b820",
+      "accent_night": "#789818",
+      "bg": "#12140e",
+      "fg": "#e8e8d8",
+      "grain_opacity": "0.008",
       "fg_dim": "#5a7a6d",
       "bg_surface": "#060e0b",
       "bg_elevated": "#0c1a15"
@@ -24,17 +24,21 @@
         "overlay-top",
         "overlay-center",
         "hero-glow",
+        "vine-line",
         "thought-floater",
         "overlay-bottom",
+        "scroll-hint",
         "prototype-portfolio"
       ],
       "pages": [
         "index-new.html",
+        "experiments/004.html",
         "experiments/002.html",
         "experiments/003.html",
         "experiments/001.html"
       ],
       "svg_assets": [
+        "vernal-glyph-001.svg",
         "threshold-glyph-001.svg",
         "lantern-glyph-001.svg",
         "grounding-glyph-001.svg",
@@ -58,16 +62,16 @@
       "breath-cycle:-the-entire-parti"
     ],
     "content": {
-      "mood": "lantern",
+      "mood": "vernal",
       "obsession": "murmuration \u2014 the mathematics of collective motion",
       "thought_pools": {
-        "dawn": 1,
-        "morning": 2,
-        "afternoon": 1,
-        "evening": 3,
-        "night": 0
+        "dawn": 2,
+        "morning": 3,
+        "afternoon": 0,
+        "evening": 2,
+        "night": 2
       },
-      "secrets_count": 24
+      "secrets_count": 25
     }
   },
   "fitness_log": [
@@ -232,6 +236,15 @@
       "tension": 5,
       "note": "The screenshot is the most visually alive the site has ever been. The cyan particle field is genuinely visible \u2014 dense, glowing, with real bloom. The ",
       "total": 6.0
+    },
+    {
+      "gen": 25,
+      "coherence": 7,
+      "novelty": 7,
+      "identity": 6,
+      "tension": 5,
+      "note": "The screenshot is genuinely alive for the first time. The amber particle field renders as a massive luminous sphere against the dark background \u2014 it's",
+      "total": 6.2
     }
   ],
   "mutation_log": [
@@ -682,30 +695,39 @@
         "thought:morning[2]"
       ],
       "timestamp": "2026-04-03T08:02:13Z"
+    },
+    {
+      "gen": 25,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "content.mood",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "section.overlay-center",
+        "section.overlay-top",
+        "section.hero-glow",
+        "section.thought-floater",
+        "section.overlay-bottom",
+        "section.vine-line",
+        "section.scroll-hint",
+        "section.prototype-portfolio",
+        "page.experiments/004.html",
+        "svg.vernal-glyph-001.svg",
+        "scene.config",
+        "scene.shaders",
+        "overlay.agent_data"
+      ],
+      "kills": [
+        "css_rule:gen24-css",
+        "thought:afternoon[0]",
+        "thought:evening[0]"
+      ],
+      "timestamp": "2026-04-03T16:02:33Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "thought",
-      "value": "Cupellation: you heat the impure metal in a bone-ash cup and blow air across it.",
-      "died_gen": 12,
-      "epitaph": "Redundant with the new night thought about touchstones. Two touchstone metaphors in one pool is one too many."
-    },
-    {
-      "type": "era",
-      "name": "metallurgy",
-      "generations": 11,
-      "started": "2026-03-29",
-      "died_date": "2026-03-29",
-      "epitaph": "The metallurgy epoch proved the evolutionary system works. 11 generations, 20 kills, a touchstone simulator, canvas animations, five interaction patterns invented and three killed. It did its job: it proved the organism can evolve. Now it sheds its skin entirely.",
-      "died_at_generation": 11
-    },
-    {
-      "type": "css_rule",
-      "value": "gen1-css",
-      "died_gen": 14,
-      "epitaph": "Twelve generations old. Whatever styles this carried have been superseded six times over. Archaeological dignity demands burial."
-    },
     {
       "type": "section",
       "value": "swarm-memory",
@@ -987,6 +1009,24 @@
       "value": "Every murmuration is a failed dispersion. The birds tried to leave. They couldn't. Something kept pulling them back to the center they don't have.",
       "died_gen": 24,
       "epitaph": "Stale morning thought \u2014 replaced with Reynolds/boids and Tiber murmuration."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen24-css",
+      "died_gen": 25,
+      "epitaph": "The amber lantern epoch burns down. The chartreuse spring pushes through."
+    },
+    {
+      "type": "thought",
+      "value": "Gold at $4,678. The swarm prices in everything \u2014 fear, greed, the weight of all the metal still underground.",
+      "died_gen": 25,
+      "epitaph": "Replaced with gold-price thought tied to current data."
+    },
+    {
+      "type": "thought",
+      "value": "Friday evening. The workweek flock disperses. Each bird finds its own roost. Monday they'll murmur again.",
+      "died_gen": 25,
+      "epitaph": "Replaced with Friday evening flock-dispersal thought."
     }
   ],
   "carrying_capacity": {
@@ -1039,6 +1079,11 @@
       "gen": 24,
       "base": "#f0a030",
       "family": "orange"
+    },
+    {
+      "gen": 25,
+      "base": "#b8d830",
+      "family": "amber"
     }
   ]
 }

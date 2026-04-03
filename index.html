@@ -12,13 +12,13 @@
   @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,700;1,400;1,500&family=JetBrains+Mono:wght@300;400;500&family=Instrument+Serif:ital@0;1&display=swap');
 
   :root {
-    --fg: #f0e8d8;
+    --fg: #e8e8d8;
     --fg-dim: #8a7560;
-    --fg-accent: #f0a030;
-    --bg: #1a1410;
+    --fg-accent: #b8d830;
+    --bg: #12140e;
     --bg-surface: #0e0a07;
     --bg-elevated: #1a1208;
-    --grain-opacity: 0.006;
+    --grain-opacity: 0.008;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -551,22 +551,22 @@
 
   /* Section injection markers are now in the body */
 /* @inject:css */
-  /* @gene:gen24-css:start */
-  [data-gene='gen24-css'] { } :root { --bg: #1a1410; --fg: #f0e8d8; --accent: #f0a030; } body { background: #1a1410; color: #f0e8d8; } .overlay-center h1, .overlay-center .hero-title { color: #f0e8d8; text-shadow: 0 0 60px rgba(240, 160, 48, 0.3), 0 0 120px rgba(240, 160, 48, 0.1); } .overlay-bottom { color: rgba(240, 160, 48, 0.4); } .thought-floater-text { color: rgba(240, 232, 216, 0.55); text-shadow: 0 0 20px rgba(240, 160, 48, 0.15); } #archive-zone { position: relative; z-index: 10; min-height: 50vh; padding: 4rem 2rem 6rem; background: linear-gradient(to bottom, transparent 0%, rgba(26, 20, 16, 0.95) 8%, #1a1410 100%); } #archive-zone h2 { font-family: 'Instrument Serif', serif; font-size: 1.6rem; color: #f0e8d8; margin-bottom: 2rem; text-align: center; opacity: 0.7; } .archive-card { background: rgba(40, 32, 20, 0.6); border: 1px solid rgba(240, 160, 48, 0.12); border-radius: 8px; padding: 1.5rem; margin-bottom: 1.2rem; max-width: 640px; margin-left: auto; margin-right: auto; transition: border-color 0.3s ease; } .archive-card:hover { border-color: rgba(240, 160, 48, 0.35); } .archive-card h3 { font-family: 'Instrument Serif', serif; font-size: 1.2rem; color: #f0e8d8; margin: 0 0 0.5rem; } .archive-card h3 a { color: #f0a030; text-decoration: none; border-bottom: 1px solid rgba(240, 160, 48, 0.3); } .archive-card h3 a:hover { border-bottom-color: #f0a030; } .archive-card p { font-family: 'EB Garamond', serif; font-size: 1rem; color: rgba(240, 232, 216, 0.6); line-height: 1.5; margin: 0 0 0.5rem; font-style: italic; } .archive-card .meta { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: rgba(240, 160, 48, 0.35); } .archive-card .live-dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: #f0a030; margin-right: 6px; animation: livepulse 2s ease-in-out infinite; } @keyframes livepulse { 0%, 100% { opacity: 0.4; box-shadow: 0 0 4px rgba(240,160,48,0.2); } 50% { opacity: 1; box-shadow: 0 0 12px rgba(240,160,48,0.5); } } .fog-transition { position: relative; z-index: 9; height: 120px; background: linear-gradient(to bottom, transparent, rgba(26, 20, 16, 0.7) 40%, #1a1410); pointer-events: none; } .scroll-hint { text-align: center; font-family: 'EB Garamond', serif; font-size: 0.9rem; color: rgba(240, 160, 48, 0.3); padding: 1rem 0; animation: hintfade 4s ease-in-out infinite; } @keyframes hintfade { 0%, 100% { opacity: 0.3; } 50% { opacity: 0.6; } }
-  /* @gene:gen24-css:end */
+  /* @gene:gen25-css:start */
+  [data-gene='gen25-css'] { } :root { --bg: #12140e; --fg: #e8e8d8; --accent: #b8d830; } body { background: var(--bg); color: var(--fg); } .overlay-center h1 { font-family: 'Instrument Serif', serif; font-size: clamp(2.8rem, 6vw, 5.2rem); color: var(--fg); line-height: 1.1; text-align: center; max-width: 14em; margin: 0 auto; } .overlay-center .hook { font-family: 'EB Garamond', serif; font-size: clamp(0.95rem, 1.6vw, 1.15rem); color: var(--accent); opacity: 0.7; font-style: italic; text-align: center; margin-top: 1em; max-width: 36em; margin-left: auto; margin-right: auto; } .overlay-center .epoch-meta { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); opacity: 0.5; text-align: center; margin-top: 1.2em; } .overlay-top { position: fixed; top: 1.5rem; left: 1.5rem; z-index: 20; font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); opacity: 0.5; } .overlay-bottom { position: fixed; bottom: 1.2rem; left: 1.5rem; right: 1.5rem; z-index: 20; display: flex; justify-content: space-between; align-items: flex-end; pointer-events: none; } .overlay-bottom .agent-feed { font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; line-height: 1.6; color: var(--fg); opacity: 0.35; } .overlay-bottom .compass { font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; line-height: 1.6; color: var(--fg); opacity: 0.35; text-align: right; } .scroll-hint { position: fixed; bottom: 4rem; left: 50%; transform: translateX(-50%); z-index: 20; font-family: 'EB Garamond', serif; font-size: 0.85rem; font-style: italic; color: var(--accent); opacity: 0; animation: scroll-hint-fade 8s ease-in-out 4s infinite; pointer-events: none; } @keyframes scroll-hint-fade { 0%, 100% { opacity: 0; transform: translateX(-50%) translateY(0); } 20%, 80% { opacity: 0.4; } 50% { transform: translateX(-50%) translateY(6px); } } .archive-zone { position: relative; z-index: 15; min-height: 100vh; padding: 6rem 2rem 4rem; background: linear-gradient(to bottom, transparent 0%, var(--bg) 8%); } .archive-zone h2 { font-family: 'Instrument Serif', serif; font-size: clamp(1.6rem, 3vw, 2.4rem); color: var(--fg); margin-bottom: 2rem; text-align: center; } .archive-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; max-width: 900px; margin: 0 auto; } .archive-card { background: rgba(184, 216, 48, 0.04); border: 1px solid rgba(184, 216, 48, 0.12); border-radius: 6px; padding: 1.5rem; transition: border-color 0.4s ease, background 0.4s ease; } .archive-card:hover { border-color: rgba(184, 216, 48, 0.3); background: rgba(184, 216, 48, 0.07); } .archive-card h3 { font-family: 'Instrument Serif', serif; font-size: 1.3rem; color: var(--fg); margin-bottom: 0.5rem; } .archive-card .card-date { font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; color: var(--accent); opacity: 0.6; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.8rem; } .archive-card p { font-family: 'EB Garamond', serif; font-size: 0.95rem; line-height: 1.6; color: var(--fg); opacity: 0.7; } .archive-card a { color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(184, 216, 48, 0.3); transition: border-color 0.3s; } .archive-card a:hover { border-color: var(--accent); } .archive-card .gene-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.8rem; } .archive-card .gene-tag { font-family: 'JetBrains Mono', monospace; font-size: 0.55rem; padding: 0.2rem 0.5rem; border: 1px solid rgba(184, 216, 48, 0.15); border-radius: 3px; color: var(--accent); opacity: 0.5; letter-spacing: 0.05em; text-transform: uppercase; } .vine-line { position: fixed; top: 0; right: 3rem; width: 1px; height: 100vh; z-index: 18; pointer-events: none; overflow: hidden; } .vine-line-inner { width: 1px; height: 0%; background: linear-gradient(to bottom, transparent, var(--accent), transparent); animation: vine-grow 20s ease-in-out infinite; opacity: 0.15; } @keyframes vine-grow { 0% { height: 0%; margin-top: 100%; } 50% { height: 60%; margin-top: 20%; } 100% { height: 0%; margin-top: 0%; } } .thought-float { position: fixed; z-index: 16; font-family: 'EB Garamond', serif; font-size: clamp(0.85rem, 1.2vw, 1.05rem); font-style: italic; color: var(--fg); opacity: 0; max-width: 22em; line-height: 1.5; pointer-events: none; transition: opacity 2s ease; } .thought-float.visible { opacity: 0.55; } .hero-glow-bg { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: var(--hero-glow-size, 40vmin); height: var(--hero-glow-size, 40vmin); border-radius: 50%; background: radial-gradient(circle, var(--hero-glow-color, rgba(184,216,48,0.08)) 0%, transparent 70%); z-index: 2; pointer-events: none; animation: glow-breathe 8s ease-in-out infinite; } @keyframes glow-breathe { 0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 1; } 50% { transform: translate(-50%, -50%) scale(1.08); opacity: 0.7; } }
+  /* @gene:gen25-css:end */
 </style>
 </head>
 <body>
 
 <canvas id="scene-canvas"></canvas>
 
-<span id="siteVersion" style="display:none">v24</span>
+<span id="siteVersion" style="display:none">v25</span>
 
 <!-- ── HTML Overlay ──────────────────────────────────────────── -->
 <div id="overlay">
 
   <!-- @section:overlay-top:start -->
-<div class='overlay-top' style='position:fixed;top:1.5rem;left:2rem;z-index:20;pointer-events:none;'><span style='font-family:JetBrains Mono,monospace;font-size:0.65rem;color:rgba(240,160,48,0.35);letter-spacing:0.1em;'>ANDREMACEDO.COM</span></div>
+<div class='overlay-top'><a href='/' style='color:inherit;text-decoration:none;opacity:0.7;'>andremacedo.com</a></div>
 <!-- @section:overlay-top:end -->
 
   <style data-section="overlay-center">
@@ -576,28 +576,36 @@
 #hero-center .hero-meta{font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--fg);opacity:0.3;margin-top:1.5rem;letter-spacing:0.1em}
 </style>
 <!-- @section:overlay-center:start -->
-<div class='overlay-center' style='position:fixed;top:0;left:0;width:100%;height:60vh;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:10;pointer-events:none;'><h1 style='font-family:Instrument Serif,serif;font-size:clamp(2.2rem,5vw,4rem);color:#f0e8d8;text-align:center;line-height:1.2;margin:0;text-shadow:0 0 80px rgba(240,160,48,0.25);'>Something luminous<br>drifts through the fog</h1><p style='font-family:EB Garamond,serif;font-size:clamp(0.9rem,1.5vw,1.1rem);color:rgba(240,232,216,0.45);margin-top:1.2rem;text-align:center;max-width:520px;font-style:italic;'>AI evolves this page daily — you're witnessing generation 24. The particles respond to your cursor.</p><p style='font-family:JetBrains Mono,monospace;font-size:0.65rem;color:rgba(240,160,48,0.3);margin-top:1rem;letter-spacing:0.08em;'>GEN 24 · WEBGL-SWARM · MOOD: LANTERN</p></div>
+<div class='overlay-center' style='position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:20;width:90%;max-width:700px;pointer-events:none;'><h1>Something tender<br>pushes through the dark</h1><p class='hook'>AI evolves this page daily — you're witnessing generation 25. The particles respond to your cursor.</p><p class='epoch-meta'>gen 25 · webgl-swarm · mood: vernal</p></div>
 <!-- @section:overlay-center:end -->
 
 <style data-section="hero-glow">
 @keyframes heroGlowPulse { 0%, 100% { opacity: 0.6; transform: translate(-50%,-50%) scale(1); } 50% { opacity: 1; transform: translate(-50%,-50%) scale(1.1); } }
 </style>
 <!-- @section:hero-glow:start -->
-<div id='hero-glow' style='position:fixed;top:20%;left:50%;transform:translate(-50%,-50%);width:600px;height:600px;background:radial-gradient(ellipse at center,rgba(240,160,48,0.08) 0%,rgba(240,160,48,0.03) 30%,transparent 70%);pointer-events:none;z-index:5;animation:heroGlowPulse 8s ease-in-out infinite;'></div>
+<div class='hero-glow-bg'></div>
 <!-- @section:hero-glow:end -->
+
+<!-- @section:vine-line:start -->
+<div class='vine-line'><div class='vine-line-inner'></div></div>
+<!-- @section:vine-line:end -->
 <style data-section="thought-floater">
 .thought-floater-text { position:absolute; font-family:'EB Garamond',serif; font-size:clamp(0.85rem,1.2vw,1rem); color:rgba(240,232,216,0.5); max-width:280px; line-height:1.5; opacity:0; transition: opacity 2s ease; pointer-events:none; text-shadow: 0 0 15px rgba(240,160,48,0.1); }
 </style>
 <!-- @section:thought-floater:start -->
-<div id='thought-floater' style='position:fixed;top:0;left:0;width:100%;height:60vh;pointer-events:none;z-index:8;overflow:hidden;'></div>
+<div id='thought-floater-container'></div>
 <!-- @section:thought-floater:end -->
 <script data-section="thought-floater">
-(function(){const pool=['Fog doesn\'t hide things. It reveals how far apart they already were.','The murmuration over the Tiber at sunset — ten thousand birds, zero decisions. Only rules.','Reynolds gave the boids three laws and they invented beauty without being asked.','Gold at $4,678. Every price is a murmuration of panic and desire.','Fort Lauderdale, 79°F, sunny. The fog is a metaphor here. Elsewhere it\'s a commute.'];const container=document.getElementById('thought-floater');if(!container)return;let active=0;function spawn(){if(active>=2)return;const el=document.createElement('div');el.className='thought-floater-text';el.textContent=pool[Math.floor(Math.random()*pool.length)];const side=Math.random()<0.5;el.style.left=side?Math.random()*15+2+'%':(85+Math.random()*13)+'%';el.style.top=15+Math.random()*45+'%';container.appendChild(el);active++;setTimeout(()=>{el.style.opacity='1';},100);const life=18000+Math.random()*16000;setTimeout(()=>{el.style.opacity='0';setTimeout(()=>{el.remove();active--;},2500);},life);}setInterval(spawn,8000);setTimeout(spawn,2000);setTimeout(spawn,6000);})();
+(() => { const container = document.getElementById('thought-floater-container'); if (!container) return; const positions = [ {top:'12%',left:'5%'}, {top:'18%',right:'6%'}, {bottom:'22%',left:'4%'}, {bottom:'28%',right:'5%'}, {top:'40%',left:'3%'}, {top:'55%',right:'4%'} ]; let activeCount = 0; const maxActive = 2; function spawnThought() { if (activeCount >= maxActive) return; const thoughts = window.AGENT && window.AGENT.thoughts ? Object.values(window.AGENT.thoughts).flat() : ['The site changes. You witness it.']; const text = thoughts[Math.floor(Math.random() * thoughts.length)]; const pos = positions[Math.floor(Math.random() * positions.length)]; const el = document.createElement('div'); el.className = 'thought-float'; el.textContent = text; Object.assign(el.style, pos); container.appendChild(el); activeCount++; setTimeout(() => el.classList.add('visible'), 100); const lifetime = 18000 + Math.random() * 16000; setTimeout(() => { el.classList.remove('visible'); setTimeout(() => { el.remove(); activeCount--; }, 2500); }, lifetime); } setInterval(() => { if (Math.random() < 0.4) spawnThought(); }, 8000); setTimeout(spawnThought, 3000); })()
 </script>
 
   <!-- @section:overlay-bottom:start -->
-<div class='overlay-bottom' style='position:fixed;bottom:1.5rem;right:2rem;z-index:20;pointer-events:none;text-align:right;font-family:JetBrains Mono,monospace;font-size:0.6rem;line-height:1.8;color:rgba(240,160,48,0.3);'><div>The streak fades. The test remains.</div></div>
+<div class='overlay-bottom'><div class='agent-feed'><div>swarm 1/27</div><div>main · 2m ago</div><div>claude · 53m ago</div><div>daily-prototype · 1h ago</div><div>strategist · 1h ago</div></div><div class='compass'><div>2026-04-03 · friday</div><div>gold $4,678 · 78°f partly cloudy</div><div>next evolution: ~tomorrow</div></div></div>
 <!-- @section:overlay-bottom:end -->
+
+<!-- @section:scroll-hint:start -->
+<div class='scroll-hint'>↓ archive & experiments below</div>
+<!-- @section:scroll-hint:end -->
 <script data-section="overlay-bottom">
 try{const d=document.getElementById('compass-date');if(d){const now=new Date();d.textContent=now.toISOString().slice(0,10)}}catch(e){}
 </script>
@@ -629,7 +637,7 @@ try{const d=document.getElementById('compass-date');if(d){const now=new Date();d
 #prototype-archive{position:relative;z-index:10}
 </style>
 <!-- @section:prototype-portfolio:start -->
-<div class='fog-transition'></div><div id='archive-zone'><h2>Archive & Experiments</h2><div class='archive-card'><h3><span class='live-dot'></span><a href='/'>WebGL Swarm</a></h3><p>A living particle field that responds to your presence. Each generation evolves the swarm's behavior, color, and character.</p><div class='meta'>Started: 2026-03-24 · Epoch: webgl-swarm · Gen 24 · <span style='color:rgba(240,160,48,0.5);'>live</span></div></div><div class='archive-card'><h3><a href='/experiments/003.html'>003 — Reaction-Diffusion</a></h3><p>A Gray-Scott model in the browser. Click to seed, watch coral-like structures grow from nothing.</p><div class='meta'>Created: gen 23 · 2026-04-02</div></div><div class='archive-card'><h3><a href='/experiments/002.html'>002 — Boids Playground</a></h3><p>Craig Reynolds' three rules made tangible. Tune separation, alignment, cohesion. Watch order emerge from chaos.</p><div class='meta'>Created: gen 15 · 2026-03-30</div></div><div class='archive-card'><h3><a href='/experiments/001.html'>001 — Touchstone</a></h3><p>Drag across the dark surface. The streak reveals the metal. An interactive assay from the metallurgy epoch.</p><div class='meta'>Created: gen 11 · 2026-03-28</div></div><div class='archive-card'><h3>Metallurgy Epoch</h3><p>Touchstones, cupellation, the assayer's furnace. Twelve generations exploring purity, corrosion, and the Portuguese word ensaio.</p><div class='meta'>Started: 2026-03-24 · Ended: 2026-03-28 · Gens 0–12</div></div><p class='scroll-hint'>↓ evolution stream & experiments ↓</p></div>
+<div class='archive-zone'><h2>Archive & Experiments</h2><div class='archive-cards'><div class='archive-card'><h3>WebGL Swarm</h3><div class='card-date'>Started: 2026-03-24 · Active · Gen 25</div><p><em>A living particle field that responds to your presence. Each generation mutates the behavior, palette, and mood. You're watching evolution in real time.</em></p><div class='gene-tags'><span class='gene-tag'>webgl</span><span class='gene-tag'>three.js</span><span class='gene-tag'>glsl</span><span class='gene-tag'>murmuration</span></div></div><div class='archive-card'><h3>Experiments</h3><div class='card-date'>Three interactive prototypes</div><p><a href='/experiments/001.html'>001: Touchstone</a> — drag across the surface to reveal hidden metals.<br><a href='/experiments/002.html'>002: Boids</a> — tune separation, alignment, cohesion. Watch emergence.<br><a href='/experiments/003.html'>003: Reaction-Diffusion</a> — Gray-Scott model. Click to seed. Watch patterns form.<br><a href='/experiments/004.html'>004: Voronoi Growth</a> — click to plant seeds. Watch territories emerge.</p><div class='gene-tags'><span class='gene-tag'>canvas</span><span class='gene-tag'>interactive</span><span class='gene-tag'>generative</span></div></div><div class='archive-card'><h3>Metallurgy Epoch</h3><div class='card-date'>Started: 2026-03-24 · Ended: 2026-03-28</div><p><em>The first epoch. Touchstones, cupellation, assaying. The site learned to test itself by destroying what wasn't pure.</em></p><div class='gene-tags'><span class='gene-tag'>canvas-2d</span><span class='gene-tag'>dom</span><span class='gene-tag'>metaphor</span></div></div></div></div>
 <!-- @section:prototype-portfolio:end -->
 
 <!-- Thought Stream — timestamps are non-negotiable -->
@@ -708,56 +716,56 @@ document.addEventListener('click', function(e) {
 
   const SCENE_CONFIG = {
     particles: {
-      count: 2200,
+      count: 1600,
       size: 0.2,
       speed: 0.01,
-      color: '#f0a030',
+      color: '#b8d830',
       opacity: 0.85,
       spread: 5,
       orbital_radius: 2,
       orbital_speed: 0.005,
       drift: 0.02,
-      size_variation: 0.8,
+      size_variation: 0.6,
     },
     camera: {
       fov: 70,
-      position: [0, 0, 4.5],
+      position: [0, 0, 5.5],
       look_at: [0, 0, 0],
       sway_amount: 0.15,
       sway_speed: 0.002,
     },
     fog: {
       enabled: true,
-      color: '#1a1410',
-      near: 1.5,
-      far: 8,
+      color: '#12140e',
+      near: 2.0,
+      far: 9,
     },
     lighting: {
-      ambient_color: '#3d2810',
-      ambient_intensity: 0.4,
-      point_color: '#f0a030',
-      point_intensity: 1.8,
+      ambient_color: '#2a3010',
+      ambient_intensity: 0.3,
+      point_color: '#b8d830',
+      point_intensity: 1.4,
       point_position: [2, 3, 4],
     },
     mouse: {
-      influence_radius: 3.0,
+      influence_radius: 2.5,
       influence_strength: 0.1,
       mode: 'repel',
     },
     time_themes: {
-      dawn:      { particle_color: '#f5c87a', fog_color: '#0d0806', ambient: '#2a1a0e', speed_mult: 0.6 },
-      morning:   { particle_color: '#e8a84d', fog_color: '#0a0806', ambient: '#2a1e1a', speed_mult: 0.8 },
-      afternoon: { particle_color: '#e8943d', fog_color: '#0d0a06', ambient: '#2a2a1a', speed_mult: 1.0 },
-      evening:   { particle_color: '#c47028', fog_color: '#0a0806', ambient: '#1e1a2a', speed_mult: 0.7 },
-      night:     { particle_color: '#8a4e1a', fog_color: '#080604', ambient: '#1a1410', speed_mult: 0.4 },
+      dawn:      { particle_color: '#d8f060', fog_color: '#0d0806', ambient: '#2a1a0e', speed_mult: 0.6 },
+      morning:   { particle_color: '#c8e040', fog_color: '#0a0806', ambient: '#2a1e1a', speed_mult: 0.8 },
+      afternoon: { particle_color: '#b8d830', fog_color: '#0d0a06', ambient: '#2a2a1a', speed_mult: 1.0 },
+      evening:   { particle_color: '#98b820', fog_color: '#0a0806', ambient: '#1e1a2a', speed_mult: 0.7 },
+      night:     { particle_color: '#789818', fog_color: '#080604', ambient: '#1a1410', speed_mult: 0.4 },
     },
     post_processing: {
       bloom_enabled: true,
-      bloom_strength: 0.8,
-      bloom_radius: 0.6,
+      bloom_strength: 0.5,
+      bloom_radius: 0.3,
       bloom_threshold: 0.6,
       vignette_enabled: true,
-      vignette_darkness: 0.5,
+      vignette_darkness: 0.4,
     },
   };
 
@@ -770,70 +778,69 @@ uniform vec2 uMouse;
 uniform float uMouseInfluence;
 varying vec2 vUv;
 varying float vDepth;
-varying float vGlow;
+varying float vLife;
 
 void main() {
   vUv = uv;
   vec3 pos = position;
   
-  // Warm fog drift — slower, more atmospheric than ocean
-  float wave1 = sin(pos.x * 0.8 + uTime * 0.15) * cos(pos.z * 0.6 + uTime * 0.1) * 0.4;
-  float wave2 = cos(pos.y * 0.7 + uTime * 0.12) * sin(pos.x * 0.5 - uTime * 0.08) * 0.3;
-  float wave3 = sin((pos.x + pos.y) * 0.4 + uTime * 0.18) * 0.2;
+  // gentle undulation — like grass in wind
+  float wave1 = sin(pos.x * 1.8 + uTime * 0.4) * 0.15;
+  float wave2 = cos(pos.z * 2.2 + uTime * 0.3) * 0.12;
+  float wave3 = sin((pos.x + pos.z) * 1.0 + uTime * 0.2) * 0.08;
+  pos.y += wave1 + wave2 + wave3;
   
-  pos.x += wave1;
-  pos.y += wave2;
-  pos.z += wave3;
+  // breathing — slow expansion and contraction
+  float breath = sin(uTime * 0.25) * 0.03 + 1.0;
+  pos *= breath;
   
-  // Breathing — slow, deep, like fog banks expanding
-  float breath = sin(uTime * 0.2) * 0.15 + sin(uTime * 0.07) * 0.1;
-  pos *= 1.0 + breath;
+  // growth drift — particles slowly rise
+  float rise = sin(pos.x * 3.0 + pos.z * 2.0 + uTime * 0.15) * 0.06;
+  pos.y += rise;
   
-  // Murmuration flocking — topological neighbors
-  float flock = sin(pos.x * 1.2 + pos.y * 0.8 + uTime * 0.25) * 0.15;
-  pos.x += flock;
-  pos.y += cos(pos.z * 1.1 + uTime * 0.2) * 0.12;
+  // mouse repulsion
+  vec4 mvPos = modelViewMatrix * vec4(pos, 1.0);
+  vec2 screenPos = mvPos.xy / mvPos.z;
+  vec2 diff = screenPos - uMouse;
+  float dist = length(diff);
+  float repulse = smoothstep(uMouseInfluence, 0.0, dist) * 1.2;
+  pos.xy += normalize(diff + vec2(0.001)) * repulse;
   
-  // Mouse repulsion — the lantern pushes fog away
-  vec2 mouseDir = pos.xy - uMouse;
-  float mouseDist = length(mouseDir);
-  float repulse = smoothstep(uMouseInfluence, 0.0, mouseDist) * 1.2;
-  pos.xy += normalize(mouseDir + 0.001) * repulse;
+  vDepth = -mvPos.z;
+  vLife = fract(sin(dot(position.xz, vec2(12.9898, 78.233))) * 43758.5453);
   
-  vec4 mvPosition = modelViewMatrix * vec4(pos, 1.0);
-  vDepth = -mvPosition.z;
-  vGlow = smoothstep(6.0, 1.0, vDepth) * (0.7 + 0.3 * sin(uTime * 0.3 + position.x * 2.0));
-  
-  // Size varies with depth and glow
-  gl_PointSize = (180.0 / -mvPosition.z) * (0.6 + vGlow * 0.6);
-  gl_Position = projectionMatrix * mvPosition;
+  vec4 finalPos = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
+  gl_Position = finalPos;
+  gl_PointSize = max(1.5, (3.5 - vDepth * 0.3) * (0.7 + vLife * 0.5));
 }`;  // agent replaces with GLSL string
   const CUSTOM_FRAGMENT_SHADER = `uniform float uTime;
+varying vec2 vUv;
 varying float vDepth;
-varying float vGlow;
+varying float vLife;
 
 void main() {
+  // soft circle
   vec2 center = gl_PointCoord - 0.5;
-  float dist = length(center);
-  if (dist > 0.5) discard;
+  float d = length(center);
+  if (d > 0.5) discard;
   
-  // Warm amber core fading to dim orange at edges
-  vec3 bright = vec3(0.94, 0.63, 0.19);  // #f0a030
-  vec3 dim = vec3(0.63, 0.38, 0.06);      // deep amber
-  vec3 glow = vec3(1.0, 0.85, 0.5);       // hot center
+  float alpha = smoothstep(0.5, 0.15, d);
   
-  float depthFade = smoothstep(8.0, 1.5, vDepth);
-  vec3 col = mix(dim, bright, depthFade);
-  col = mix(col, glow, vGlow * 0.3);
+  // depth-based color: bright chartreuse near, deep olive far
+  vec3 nearColor = vec3(0.72, 0.85, 0.19);  // #b8d830
+  vec3 farColor = vec3(0.35, 0.50, 0.08);   // deep olive
+  float depthMix = smoothstep(2.0, 8.0, vDepth);
+  vec3 color = mix(nearColor, farColor, depthMix);
   
-  // Soft radial falloff with warm glow
-  float alpha = smoothstep(0.5, 0.0, dist) * depthFade;
-  alpha *= 0.5 + vGlow * 0.5;
+  // subtle pulse per particle
+  float pulse = sin(uTime * 0.8 + vLife * 6.28) * 0.12 + 0.88;
+  alpha *= pulse;
   
-  // Slight flicker
-  alpha *= 0.85 + 0.15 * sin(uTime * 2.0 + vDepth * 3.0);
+  // depth fade
+  alpha *= smoothstep(9.0, 4.0, vDepth);
+  alpha *= 0.75;
   
-  gl_FragColor = vec4(col, alpha);
+  gl_FragColor = vec4(color, alpha);
 }`;  // agent replaces with GLSL string
 
   // ═══════════════════════════════════════════════════════════════
@@ -842,7 +849,7 @@ void main() {
 
   const AGENT = {
     birthTime: Date.now(),
-    mood: 'lantern',
+    mood: 'vernal',
     secrets: [
       "The swarm remembers the metallurgy epoch. Somewhere in the particle field, one mote still moves like it's being assayed \u2014 slower, heavier, testing its own purity against the others."
 ],
