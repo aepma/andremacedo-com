@@ -1,18 +1,18 @@
 {
-  "generation": 23,
+  "generation": 24,
   "epoch": "webgl-swarm",
   "epoch_started": "2026-03-29",
   "traits": {
     "color": {
-      "accent_base": "#00d4ff",
-      "accent_dawn": "#80eeff",
-      "accent_morning": "#40dfff",
-      "accent_afternoon": "#00d4ff",
-      "accent_evening": "#0099cc",
-      "accent_night": "#006688",
-      "bg": "#060610",
-      "fg": "#e0eef5",
-      "grain_opacity": "0.008",
+      "accent_base": "#f0a030",
+      "accent_dawn": "#ffd080",
+      "accent_morning": "#f0b848",
+      "accent_afternoon": "#f0a030",
+      "accent_evening": "#d08020",
+      "accent_night": "#a06010",
+      "bg": "#1a1410",
+      "fg": "#f0e8d8",
+      "grain_opacity": "0.006",
       "fg_dim": "#5a7a6d",
       "bg_surface": "#060e0b",
       "bg_elevated": "#0c1a15"
@@ -24,7 +24,6 @@
         "overlay-top",
         "overlay-center",
         "hero-glow",
-        "bioluminescence",
         "thought-floater",
         "overlay-bottom",
         "prototype-portfolio"
@@ -37,6 +36,7 @@
       ],
       "svg_assets": [
         "threshold-glyph-001.svg",
+        "lantern-glyph-001.svg",
         "grounding-glyph-001.svg",
         "murmuration-glyph-002.svg",
         "phosphorescent-glyph-001.svg",
@@ -58,16 +58,16 @@
       "breath-cycle:-the-entire-parti"
     ],
     "content": {
-      "mood": "phosphorescent",
+      "mood": "lantern",
       "obsession": "murmuration \u2014 the mathematics of collective motion",
       "thought_pools": {
         "dawn": 1,
-        "morning": 3,
-        "afternoon": 0,
-        "evening": 2,
+        "morning": 2,
+        "afternoon": 1,
+        "evening": 3,
         "night": 0
       },
-      "secrets_count": 23
+      "secrets_count": 24
     }
   },
   "fitness_log": [
@@ -223,6 +223,15 @@
       "tension": 4,
       "note": "The screenshot shows real progress on the archive page \u2014 Instrument Serif headings are readable, the card layout works, tags are visible, and the LIVE",
       "total": 5.2
+    },
+    {
+      "gen": 24,
+      "coherence": 7,
+      "novelty": 6,
+      "identity": 6,
+      "tension": 5,
+      "note": "The screenshot is the most visually alive the site has ever been. The cyan particle field is genuinely visible \u2014 dense, glowing, with real bloom. The ",
+      "total": 6.0
     }
   ],
   "mutation_log": [
@@ -645,27 +654,37 @@
         "thought:night[0]"
       ],
       "timestamp": "2026-04-02T23:03:10Z"
+    },
+    {
+      "gen": 24,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "content.mood",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "section.overlay-center",
+        "section.hero-glow",
+        "section.delete.bioluminescence",
+        "section.overlay-top",
+        "section.overlay-bottom",
+        "section.thought-floater",
+        "section.prototype-portfolio",
+        "svg.lantern-glyph-001.svg",
+        "scene.config",
+        "scene.shaders",
+        "overlay.agent_data"
+      ],
+      "kills": [
+        "section:bioluminescence",
+        "css_rule:gen23-css",
+        "thought:morning[2]"
+      ],
+      "timestamp": "2026-04-03T08:02:13Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "section",
-      "value": "cupel-residue",
-      "died_gen": 12,
-      "epitaph": "Three canvas layers is two too many. The cupel-residue particles were indistinguishable from the cupellation canvas at normal viewing. Consolidating to two canvases: touchstone-surface (interactive) and cupellation-canvas (ambient). Less is more when everything is subtle."
-    },
-    {
-      "type": "css_rule",
-      "value": "gen10-css",
-      "died_gen": 12,
-      "epitaph": "Superseded by gen12-css. The liminal-era palette and dawn-furnace timing rules are replaced by the crucible palette."
-    },
-    {
-      "type": "thought",
-      "value": "76\u00b0F, 74% humidity at dawn in South Florida. The air is already warm enough to patinate copper. Nothing here gets to stay bright.",
-      "died_gen": 12,
-      "epitaph": "Weakest night thought \u2014 too abstract, drifting into aphorism territory without enough concrete image."
-    },
     {
       "type": "thought",
       "value": "Cupellation: you heat the impure metal in a bone-ash cup and blow air across it.",
@@ -950,6 +969,24 @@
       "value": "The anglerfish carries its own light into the dark. The light is a lie \u2014 it exists to attract prey. Every luminous thing in the abyss is either hunting or being hunted.",
       "died_gen": 23,
       "epitaph": "Replaced with anglerfish thought \u2014 the dark side of bioluminescence."
+    },
+    {
+      "type": "section",
+      "value": "bioluminescence",
+      "died_gen": 24,
+      "epitaph": "Cyan jellyfish layer belongs to the phosphorescent epoch. The warm fog epoch has no jellyfish."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen23-css",
+      "died_gen": 24,
+      "epitaph": "Phosphorescent cyan epoch ends. The ocean recedes, the fog rolls in."
+    },
+    {
+      "type": "thought",
+      "value": "Every murmuration is a failed dispersion. The birds tried to leave. They couldn't. Something kept pulling them back to the center they don't have.",
+      "died_gen": 24,
+      "epitaph": "Stale morning thought \u2014 replaced with Reynolds/boids and Tiber murmuration."
     }
   ],
   "carrying_capacity": {
@@ -997,6 +1034,11 @@
       "gen": 23,
       "base": "#00d4ff",
       "family": "teal"
+    },
+    {
+      "gen": 24,
+      "base": "#f0a030",
+      "family": "orange"
     }
   ]
 }
