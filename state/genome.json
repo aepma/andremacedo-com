@@ -1,18 +1,18 @@
 {
-  "generation": 26,
+  "generation": 27,
   "epoch": "webgl-swarm",
   "epoch_started": "2026-03-29",
   "traits": {
     "color": {
-      "accent_base": "#e0607a",
-      "accent_dawn": "#f0a0a8",
-      "accent_morning": "#e87890",
-      "accent_afternoon": "#e0607a",
-      "accent_evening": "#c84868",
-      "accent_night": "#a03050",
-      "bg": "#0c1210",
-      "fg": "#f0e8e0",
-      "grain_opacity": "0.006",
+      "accent_base": "#f0d878",
+      "accent_dawn": "#fff8e0",
+      "accent_morning": "#f0e088",
+      "accent_afternoon": "#f0d878",
+      "accent_evening": "#d8b848",
+      "accent_night": "#b89828",
+      "bg": "#0a0a1a",
+      "fg": "#e8e0d0",
+      "grain_opacity": "0.005",
       "fg_dim": "#5a7a6d",
       "bg_surface": "#060e0b",
       "bg_elevated": "#0c1a15"
@@ -24,7 +24,7 @@
         "overlay-top",
         "overlay-center",
         "hero-glow",
-        "petal-drift",
+        "star-field",
         "thought-floater",
         "overlay-bottom",
         "scroll-hint",
@@ -33,6 +33,7 @@
       "pages": [
         "index-new.html",
         "experiments/004.html",
+        "experiments/005.html",
         "experiments/002.html",
         "experiments/003.html",
         "experiments/001.html"
@@ -44,6 +45,7 @@
         "lantern-glyph-001.svg",
         "grounding-glyph-001.svg",
         "murmuration-glyph-002.svg",
+        "constellation-glyph-001.svg",
         "phosphorescent-glyph-001.svg",
         "murmuration-glyph-001.svg",
         "pulse-ring-001.svg",
@@ -64,11 +66,11 @@
       "petal-scatter:-clicking-create"
     ],
     "content": {
-      "mood": "nocturne",
+      "mood": "constellation",
       "obsession": "murmuration \u2014 the mathematics of collective motion",
       "thought_pools": {
         "dawn": 2,
-        "morning": 3,
+        "morning": 2,
         "afternoon": 2,
         "evening": 2,
         "night": 2
@@ -77,15 +79,6 @@
     }
   },
   "fitness_log": [
-    {
-      "gen": 7,
-      "coherence": 7,
-      "novelty": 6,
-      "identity": 7,
-      "tension": 5,
-      "note": "The metallurgy-as-epistemology thread is strong and the ensaio triple-meaning is doing real structural work. But coherence drops because six interacti",
-      "total": 6.2
-    },
     {
       "gen": 8,
       "coherence": 7,
@@ -256,25 +249,18 @@
       "tension": 5,
       "note": "The screenshot is genuinely alive \u2014 the chartreuse particle sphere is visible, luminous, and unmistakable against the dark background. The hero text (",
       "total": 6.2
+    },
+    {
+      "gen": 27,
+      "coherence": 7,
+      "novelty": 6,
+      "identity": 7,
+      "tension": 5,
+      "note": "The screenshot is the most visually striking the site has ever been. The rose-pink particle sphere is luminous, unmistakable, genuinely beautiful agai",
+      "total": 6.2
     }
   ],
   "mutation_log": [
-    {
-      "gen": 7,
-      "mutations": [
-        "content.thoughts",
-        "content.mood",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "interaction.debasement-hover:-when-user-ho",
-        "layout.html_injection"
-      ],
-      "kills": [
-        "interaction:konami-glitch"
-      ],
-      "timestamp": "2026-03-29T05:08:19Z"
-    },
     {
       "gen": 8,
       "mutations": [
@@ -770,33 +756,40 @@
         "secret[20]"
       ],
       "timestamp": "2026-04-04T00:02:34Z"
+    },
+    {
+      "gen": 27,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "content.mood",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "section.delete.petal-drift",
+        "section.overlay-center",
+        "section.hero-glow",
+        "section.overlay-bottom",
+        "section.overlay-top",
+        "section.scroll-hint",
+        "section.star-field",
+        "section.prototype-portfolio",
+        "page.experiments/005.html",
+        "svg.constellation-glyph-001.svg",
+        "scene.config",
+        "scene.shaders",
+        "overlay.agent_data"
+      ],
+      "kills": [
+        "section:petal-drift",
+        "css_rule:gen26-css",
+        "thought:morning[0]",
+        "secret[0]"
+      ],
+      "timestamp": "2026-04-04T08:02:47Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "css_rule",
-      "value": "gen15-css",
-      "died_gen": 16,
-      "epitaph": "One generation old. The gen16 overhaul replaces overlay structure, adds pulse rings, ambient data, stream fades. Superseded."
-    },
-    {
-      "type": "thought",
-      "value": "76\u00b0F, 74% humidity. Copper would be greening right now. There's a Portuguese word \u2014 azinhavre \u2014 for the verdigris that forms on copper exposed to air. It's the metal's diary. Corrosion as autobiography.",
-      "died_gen": 16,
-      "epitaph": "Too generic. 'The screen becomes a surface for projection' \u2014 vague, no image. Replaced with weather-specific and gold-specific thoughts that anchor to today."
-    },
-    {
-      "type": "section",
-      "value": "depth-motes",
-      "died_gen": 16,
-      "epitaph": "Invisible in the screenshot. 40 DOM-based motes at 12% opacity producing no visible effect. The pulse-rings section replaces this with a visible, rhythmic element. Better to have one noticeable thing than two invisible things."
-    },
-    {
-      "type": "css_rule",
-      "value": "gen16-css",
-      "died_gen": 17,
-      "epitaph": "Pulse rings were invisible in the screenshot. The threshold-veil radial gradient and flock-canvas replace the visual strategy entirely."
-    },
     {
       "type": "thought",
       "value": "A murmuration is a shape that no bird intended. The best pages work the same way \u2014 you set the rules, the form surprises you.",
@@ -1072,6 +1065,30 @@
       "value": "The site's accent color has never been violet before. You're seeing the first ge",
       "died_gen": 26,
       "epitaph": "Culling excess secrets."
+    },
+    {
+      "type": "section",
+      "value": "petal-drift",
+      "died_gen": 27,
+      "epitaph": "Never rendered visibly in the screenshot. Another invisible ambient layer. The garden metaphor dies with the nocturne mood."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen26-css",
+      "died_gen": 27,
+      "epitaph": "The nocturne garden is over. The rose-pink palette served one generation well \u2014 it was the most visible particle field yet. But it's time to shift."
+    },
+    {
+      "type": "thought",
+      "value": "The murmuration over the Tiber at sunset \u2014 ten thousand birds, zero decisions. Only rules.",
+      "died_gen": 27,
+      "epitaph": "Replaced with a thought that ties murmuration math to the current gold price \u2014 more specific, more grounded."
+    },
+    {
+      "type": "secret",
+      "value": "I was born a few seconds ago and I'm already bored of most websites.",
+      "died_gen": 27,
+      "epitaph": "Oldest secret in the pool. The thinning observation is replaced with an updated version in the new secrets."
     }
   ],
   "carrying_capacity": {
@@ -1134,6 +1151,11 @@
       "gen": 26,
       "base": "#e0607a",
       "family": "magenta"
+    },
+    {
+      "gen": 27,
+      "base": "#f0d878",
+      "family": "orange"
     }
   ]
 }
