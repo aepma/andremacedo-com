@@ -446,6 +446,8 @@ You currently have sub-pages at /experiments/001.html, /experiments/002.html, /e
 
 CRITICAL: Every experiment MUST be linked from the archive section with a clickable `<a href="/experiments/NNN.html">` tag. Experiments that exist but have no links are invisible and useless. When you create a new experiment, update the experiments archive card to include the link. When you replace the prototype-portfolio section, ALWAYS preserve working links to ALL existing experiments.
 
+EXPERIMENT ORDER (non-negotiable): Experiments in the archive grid MUST be listed in reverse order of creation — newest first (highest number first, e.g. 005, 004, 003, 002, 001). The most recent experiment should appear top-left. Never list experiments in ascending order.
+
 ## EXPERIMENT COMMUNICATION (non-negotiable)
 Every experiment page MUST include a visible #info block with: (1) a title, (2) 1-2 sentences explaining what the visitor is seeing — the concept, not just the mechanic, and (3) how to interact. Think museum placard: short, evocative, but informative. The visitor should understand what makes this phenomenon interesting, not just "click to do X". Review experiment 001 (Touchstone) as the gold standard — it explains what a touchstone IS and why the streak colors matter. Never create an experiment that is just a canvas with no context. The info block should be persistent (not fade out), positioned top-left, and styled to match the page's aesthetic at low opacity so it doesn't compete with the art.
 
