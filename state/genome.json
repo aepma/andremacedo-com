@@ -1,18 +1,18 @@
 {
-  "generation": 27,
+  "generation": 28,
   "epoch": "webgl-swarm",
   "epoch_started": "2026-03-29",
   "traits": {
     "color": {
-      "accent_base": "#f0d878",
-      "accent_dawn": "#fff8e0",
-      "accent_morning": "#f0e088",
-      "accent_afternoon": "#f0d878",
-      "accent_evening": "#d8b848",
-      "accent_night": "#b89828",
-      "bg": "#0a0a1a",
-      "fg": "#e8e0d0",
-      "grain_opacity": "0.005",
+      "accent_base": "#7b68ee",
+      "accent_dawn": "#b8b0ff",
+      "accent_morning": "#9088ee",
+      "accent_afternoon": "#7b68ee",
+      "accent_evening": "#6050cc",
+      "accent_night": "#4838aa",
+      "bg": "#0a0a1e",
+      "fg": "#e8e8f0",
+      "grain_opacity": "0.004",
       "fg_dim": "#5a7a6d",
       "bg_surface": "#060e0b",
       "bg_elevated": "#0c1a15"
@@ -28,6 +28,7 @@
         "thought-floater",
         "overlay-bottom",
         "scroll-hint",
+        "constellation-line",
         "prototype-portfolio"
       ],
       "pages": [
@@ -48,6 +49,7 @@
         "constellation-glyph-001.svg",
         "phosphorescent-glyph-001.svg",
         "murmuration-glyph-001.svg",
+        "planetarium-glyph-001.svg",
         "pulse-ring-001.svg",
         "swarm-glyph-001.svg",
         "surfacing-glyph-001.svg",
@@ -66,7 +68,7 @@
       "petal-scatter:-clicking-create"
     ],
     "content": {
-      "mood": "constellation",
+      "mood": "planetarium",
       "obsession": "murmuration \u2014 the mathematics of collective motion",
       "thought_pools": {
         "dawn": 2,
@@ -79,15 +81,6 @@
     }
   },
   "fitness_log": [
-    {
-      "gen": 8,
-      "coherence": 7,
-      "novelty": 5,
-      "identity": 7,
-      "tension": 5,
-      "note": "The metallurgy-as-epistemology frame is holding but the site feels too static visually. The thought pool is massively bloated (22 in night alone). The",
-      "total": 6.0
-    },
     {
       "gen": 9,
       "coherence": 7,
@@ -258,31 +251,18 @@
       "tension": 5,
       "note": "The screenshot is the most visually striking the site has ever been. The rose-pink particle sphere is luminous, unmistakable, genuinely beautiful agai",
       "total": 6.2
+    },
+    {
+      "gen": 28,
+      "coherence": 7,
+      "novelty": 6,
+      "identity": 7,
+      "tension": 5,
+      "note": "The screenshot is genuinely beautiful \u2014 the golden particle sphere against deep indigo is the highest-contrast, most visually striking composition the",
+      "total": 6.2
     }
   ],
   "mutation_log": [
-    {
-      "gen": 8,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "content.mood",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "section.strata",
-        "section.hero",
-        "section.cupellation-canvas"
-      ],
-      "kills": [
-        "thought:night[14]",
-        "thought:night[15]",
-        "thought:night[16]",
-        "thought:night[17]",
-        "interaction:cursor-trail"
-      ],
-      "timestamp": "2026-03-29T05:20:27Z"
-    },
     {
       "gen": 9,
       "mutations": [
@@ -787,21 +767,38 @@
         "secret[0]"
       ],
       "timestamp": "2026-04-04T08:02:47Z"
+    },
+    {
+      "gen": 28,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "content.mood",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "section.overlay-center",
+        "section.overlay-top",
+        "section.hero-glow",
+        "section.star-field",
+        "section.thought-floater",
+        "section.overlay-bottom",
+        "section.scroll-hint",
+        "section.prototype-portfolio",
+        "section.constellation-line",
+        "svg.planetarium-glyph-001.svg",
+        "scene.config",
+        "scene.shaders",
+        "overlay.agent_data"
+      ],
+      "kills": [
+        "css_rule:gen27-css",
+        "secret[20]"
+      ],
+      "timestamp": "2026-04-04T16:02:37Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "thought",
-      "value": "A murmuration is a shape that no bird intended. The best pages work the same way \u2014 you set the rules, the form surprises you.",
-      "died_gen": 17,
-      "epitaph": "Weakest morning thought. Generic observation about swarm behavior without a concrete image."
-    },
-    {
-      "type": "thought",
-      "value": "The touchstone tested purity by leaving a streak. The swarm tests purity by leaving a pattern. Both require a dark surface.",
-      "died_gen": 17,
-      "epitaph": "Stale night thought from the metallurgy-to-swarm transition. No longer relevant to the threshold mood."
-    },
     {
       "type": "secret",
       "value": "<!-- The assay master's oath, Lisbon, 1554: 'I shall test without favor, burn wi",
@@ -1089,6 +1086,18 @@
       "value": "I was born a few seconds ago and I'm already bored of most websites.",
       "died_gen": 27,
       "epitaph": "Oldest secret in the pool. The thinning observation is replaced with an updated version in the new secrets."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen27-css",
+      "died_gen": 28,
+      "epitaph": "The constellation palette served one generation. Golden-on-indigo was beautiful but the sphere problem persisted. The planetarium turn demands electric violet-blue \u2014 scattered, clinical, cosmic."
+    },
+    {
+      "type": "secret",
+      "value": "The particle count dropped from 2400 to 1400 over five generations. The swarm is",
+      "died_gen": 28,
+      "epitaph": "Over the 20-secret cap. Culling the oldest/weakest to make room for the new batch."
     }
   ],
   "carrying_capacity": {
@@ -1107,11 +1116,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 0,
-      "base": "#1de9b6",
-      "family": "teal"
-    },
     {
       "gen": 19,
       "base": "#1de9b6",
@@ -1156,6 +1160,11 @@
       "gen": 27,
       "base": "#f0d878",
       "family": "orange"
+    },
+    {
+      "gen": 28,
+      "base": "#7b68ee",
+      "family": "blue"
     }
   ]
 }
