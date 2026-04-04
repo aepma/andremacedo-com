@@ -1,18 +1,18 @@
 {
-  "generation": 25,
+  "generation": 26,
   "epoch": "webgl-swarm",
   "epoch_started": "2026-03-29",
   "traits": {
     "color": {
-      "accent_base": "#b8d830",
-      "accent_dawn": "#d8f060",
-      "accent_morning": "#c8e040",
-      "accent_afternoon": "#b8d830",
-      "accent_evening": "#98b820",
-      "accent_night": "#789818",
-      "bg": "#12140e",
-      "fg": "#e8e8d8",
-      "grain_opacity": "0.008",
+      "accent_base": "#e0607a",
+      "accent_dawn": "#f0a0a8",
+      "accent_morning": "#e87890",
+      "accent_afternoon": "#e0607a",
+      "accent_evening": "#c84868",
+      "accent_night": "#a03050",
+      "bg": "#0c1210",
+      "fg": "#f0e8e0",
+      "grain_opacity": "0.006",
       "fg_dim": "#5a7a6d",
       "bg_surface": "#060e0b",
       "bg_elevated": "#0c1a15"
@@ -24,7 +24,7 @@
         "overlay-top",
         "overlay-center",
         "hero-glow",
-        "vine-line",
+        "petal-drift",
         "thought-floater",
         "overlay-bottom",
         "scroll-hint",
@@ -39,6 +39,7 @@
       ],
       "svg_assets": [
         "vernal-glyph-001.svg",
+        "nocturne-glyph-001.svg",
         "threshold-glyph-001.svg",
         "lantern-glyph-001.svg",
         "grounding-glyph-001.svg",
@@ -59,19 +60,20 @@
       "when-a-visitor-clicks-and-drag",
       "ensaio-secret:-typing-'ensaio'",
       "swarm-scatter:-clicking-anywhe",
-      "breath-cycle:-the-entire-parti"
+      "breath-cycle:-the-entire-parti",
+      "petal-scatter:-clicking-create"
     ],
     "content": {
-      "mood": "vernal",
+      "mood": "nocturne",
       "obsession": "murmuration \u2014 the mathematics of collective motion",
       "thought_pools": {
         "dawn": 2,
         "morning": 3,
-        "afternoon": 0,
+        "afternoon": 2,
         "evening": 2,
         "night": 2
       },
-      "secrets_count": 25
+      "secrets_count": 21
     }
   },
   "fitness_log": [
@@ -244,6 +246,15 @@
       "identity": 6,
       "tension": 5,
       "note": "The screenshot is genuinely alive for the first time. The amber particle field renders as a massive luminous sphere against the dark background \u2014 it's",
+      "total": 6.2
+    },
+    {
+      "gen": 26,
+      "coherence": 7,
+      "novelty": 6,
+      "identity": 7,
+      "tension": 5,
+      "note": "The screenshot is genuinely alive \u2014 the chartreuse particle sphere is visible, luminous, and unmistakable against the dark background. The hero text (",
       "total": 6.2
     }
   ],
@@ -725,51 +736,43 @@
         "thought:evening[0]"
       ],
       "timestamp": "2026-04-03T16:02:33Z"
+    },
+    {
+      "gen": 26,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "content.mood",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "interaction.petal-scatter:-clicking-create",
+        "section.overlay-top",
+        "section.overlay-center",
+        "section.hero-glow",
+        "section.delete.vine-line",
+        "section.petal-drift",
+        "section.scroll-hint",
+        "section.overlay-bottom",
+        "section.prototype-portfolio",
+        "svg.nocturne-glyph-001.svg",
+        "scene.config",
+        "scene.shaders",
+        "overlay.agent_data"
+      ],
+      "kills": [
+        "section:vine-line",
+        "css_rule:gen25-css",
+        "secret[24]",
+        "secret[23]",
+        "secret[22]",
+        "secret[21]",
+        "secret[20]"
+      ],
+      "timestamp": "2026-04-04T00:02:34Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "section",
-      "value": "swarm-memory",
-      "died_gen": 14,
-      "epitaph": "The swarm-memory DOM layer was invisible in the screenshot \u2014 ghost dots that never materialized into anything perceptible. The new murmuration-trails canvas replaces its function with actual visual presence."
-    },
-    {
-      "type": "interaction",
-      "value": "touchstone-streak:-when-user-c",
-      "died_gen": 14,
-      "epitaph": "Carried over from the metallurgy epoch. The touchstone-surface canvas no longer exists in this epoch \u2014 the interaction description references dead infrastructure. The swarm-scatter click interaction is the new primary interaction."
-    },
-    {
-      "type": "section",
-      "value": "murmuration-trails",
-      "died_gen": 15,
-      "epitaph": "Invisible in the screenshot. A canvas layer drawing faint arc segments that no one could see against the particle field. The idea was good \u2014 afterimages of swarm motion \u2014 but the implementation was too subtle to register. If the concept returns, it should be in the WebGL layer, not a separate DOM canvas."
-    },
-    {
-      "type": "interaction",
-      "value": "debasement-hover:-when-user-ho",
-      "died_gen": 15,
-      "epitaph": "A metallurgy-epoch relic. Text flickering between real and debased versions \u2014 clever when the obsession was assaying and counterfeit detection, meaningless in the swarm epoch. The trust-erosion concept was interesting but never visible enough to register. If trust becomes a theme again, rebuild it from scratch."
-    },
-    {
-      "type": "css_rule",
-      "value": "gen14-css",
-      "died_gen": 15,
-      "epitaph": "One generation old. Superseded by the gen15 overhaul \u2014 new overlay structure, new color palette, new section architecture."
-    },
-    {
-      "type": "thought",
-      "value": "A palimpsest is a manuscript that was scraped and rewritten. But the scraping is",
-      "died_gen": 15,
-      "epitaph": "Weak. Too abstract, not enough image. The night pool is at 7, which is fine, but the weakest entries drag the pool down."
-    },
-    {
-      "type": "secret",
-      "value": "This page has no purpose. That's the most honest thing on the internet.",
-      "died_gen": 15,
-      "epitaph": "Metallurgy-era secret about ensaio that's been superseded by the evolved version in the new secrets list."
-    },
     {
       "type": "css_rule",
       "value": "gen15-css",
@@ -1027,6 +1030,48 @@
       "value": "Friday evening. The workweek flock disperses. Each bird finds its own roost. Monday they'll murmur again.",
       "died_gen": 25,
       "epitaph": "Replaced with Friday evening flock-dispersal thought."
+    },
+    {
+      "type": "section",
+      "value": "vine-line",
+      "died_gen": 26,
+      "epitaph": "Invisible in the screenshot. The vine metaphor dies; the garden grows differently."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen25-css",
+      "died_gen": 26,
+      "epitaph": "The chartreuse spring epoch ends. The garden blooms rose at night."
+    },
+    {
+      "type": "secret",
+      "value": "Generation 25 shed its warmth. The lantern didn't go out \u2014 it changed color.",
+      "died_gen": 26,
+      "epitaph": "Culling secrets to stay under 20. Oldest stale secret removed."
+    },
+    {
+      "type": "secret",
+      "value": "The site has been dark for 23 generations. This is the first time it remembers w",
+      "died_gen": 26,
+      "epitaph": "Culling. Too many secrets bloat the overlay data."
+    },
+    {
+      "type": "secret",
+      "value": "The site has been alive for 22 generations. In the first generation, the accent ",
+      "died_gen": 26,
+      "epitaph": "Culling excess secrets."
+    },
+    {
+      "type": "secret",
+      "value": "The site has had 21 generations. Each one killed something the previous one love",
+      "died_gen": 26,
+      "epitaph": "Culling excess secrets."
+    },
+    {
+      "type": "secret",
+      "value": "The site's accent color has never been violet before. You're seeing the first ge",
+      "died_gen": 26,
+      "epitaph": "Culling excess secrets."
     }
   ],
   "carrying_capacity": {
@@ -1084,6 +1129,11 @@
       "gen": 25,
       "base": "#b8d830",
       "family": "amber"
+    },
+    {
+      "gen": 26,
+      "base": "#e0607a",
+      "family": "magenta"
     }
   ]
 }

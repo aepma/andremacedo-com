@@ -12,13 +12,13 @@
   @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,700;1,400;1,500&family=JetBrains+Mono:wght@300;400;500&family=Instrument+Serif:ital@0;1&display=swap');
 
   :root {
-    --fg: #e8e8d8;
+    --fg: #f0e8e0;
     --fg-dim: #8a7560;
-    --fg-accent: #b8d830;
-    --bg: #12140e;
+    --fg-accent: #e0607a;
+    --bg: #0c1210;
     --bg-surface: #0e0a07;
     --bg-elevated: #1a1208;
-    --grain-opacity: 0.008;
+    --grain-opacity: 0.006;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -551,22 +551,22 @@
 
   /* Section injection markers are now in the body */
 /* @inject:css */
-  /* @gene:gen25-css:start */
-  [data-gene='gen25-css'] { } :root { --bg: #12140e; --fg: #e8e8d8; --accent: #b8d830; } body { background: var(--bg); color: var(--fg); } .overlay-center h1 { font-family: 'Instrument Serif', serif; font-size: clamp(2.8rem, 6vw, 5.2rem); color: var(--fg); line-height: 1.1; text-align: center; max-width: 14em; margin: 0 auto; } .overlay-center .hook { font-family: 'EB Garamond', serif; font-size: clamp(0.95rem, 1.6vw, 1.15rem); color: var(--accent); opacity: 0.7; font-style: italic; text-align: center; margin-top: 1em; max-width: 36em; margin-left: auto; margin-right: auto; } .overlay-center .epoch-meta { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); opacity: 0.5; text-align: center; margin-top: 1.2em; } .overlay-top { position: fixed; top: 1.5rem; left: 1.5rem; z-index: 20; font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); opacity: 0.5; } .overlay-bottom { position: fixed; bottom: 1.2rem; left: 1.5rem; right: 1.5rem; z-index: 20; display: flex; justify-content: space-between; align-items: flex-end; pointer-events: none; } .overlay-bottom .agent-feed { font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; line-height: 1.6; color: var(--fg); opacity: 0.35; } .overlay-bottom .compass { font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; line-height: 1.6; color: var(--fg); opacity: 0.35; text-align: right; } .scroll-hint { position: fixed; bottom: 4rem; left: 50%; transform: translateX(-50%); z-index: 20; font-family: 'EB Garamond', serif; font-size: 0.85rem; font-style: italic; color: var(--accent); opacity: 0; animation: scroll-hint-fade 8s ease-in-out 4s infinite; pointer-events: none; } @keyframes scroll-hint-fade { 0%, 100% { opacity: 0; transform: translateX(-50%) translateY(0); } 20%, 80% { opacity: 0.4; } 50% { transform: translateX(-50%) translateY(6px); } } .archive-zone { position: relative; z-index: 15; min-height: 100vh; padding: 6rem 2rem 4rem; background: linear-gradient(to bottom, transparent 0%, var(--bg) 8%); } .archive-zone h2 { font-family: 'Instrument Serif', serif; font-size: clamp(1.6rem, 3vw, 2.4rem); color: var(--fg); margin-bottom: 2rem; text-align: center; } .archive-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; max-width: 900px; margin: 0 auto; } .archive-card { background: rgba(184, 216, 48, 0.04); border: 1px solid rgba(184, 216, 48, 0.12); border-radius: 6px; padding: 1.5rem; transition: border-color 0.4s ease, background 0.4s ease; } .archive-card:hover { border-color: rgba(184, 216, 48, 0.3); background: rgba(184, 216, 48, 0.07); } .archive-card h3 { font-family: 'Instrument Serif', serif; font-size: 1.3rem; color: var(--fg); margin-bottom: 0.5rem; } .archive-card .card-date { font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; color: var(--accent); opacity: 0.6; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.8rem; } .archive-card p { font-family: 'EB Garamond', serif; font-size: 0.95rem; line-height: 1.6; color: var(--fg); opacity: 0.7; } .archive-card a { color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(184, 216, 48, 0.3); transition: border-color 0.3s; } .archive-card a:hover { border-color: var(--accent); } .archive-card .gene-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.8rem; } .archive-card .gene-tag { font-family: 'JetBrains Mono', monospace; font-size: 0.55rem; padding: 0.2rem 0.5rem; border: 1px solid rgba(184, 216, 48, 0.15); border-radius: 3px; color: var(--accent); opacity: 0.5; letter-spacing: 0.05em; text-transform: uppercase; } .vine-line { position: fixed; top: 0; right: 3rem; width: 1px; height: 100vh; z-index: 18; pointer-events: none; overflow: hidden; } .vine-line-inner { width: 1px; height: 0%; background: linear-gradient(to bottom, transparent, var(--accent), transparent); animation: vine-grow 20s ease-in-out infinite; opacity: 0.15; } @keyframes vine-grow { 0% { height: 0%; margin-top: 100%; } 50% { height: 60%; margin-top: 20%; } 100% { height: 0%; margin-top: 0%; } } .thought-float { position: fixed; z-index: 16; font-family: 'EB Garamond', serif; font-size: clamp(0.85rem, 1.2vw, 1.05rem); font-style: italic; color: var(--fg); opacity: 0; max-width: 22em; line-height: 1.5; pointer-events: none; transition: opacity 2s ease; } .thought-float.visible { opacity: 0.55; } .hero-glow-bg { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: var(--hero-glow-size, 40vmin); height: var(--hero-glow-size, 40vmin); border-radius: 50%; background: radial-gradient(circle, var(--hero-glow-color, rgba(184,216,48,0.08)) 0%, transparent 70%); z-index: 2; pointer-events: none; animation: glow-breathe 8s ease-in-out infinite; } @keyframes glow-breathe { 0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 1; } 50% { transform: translate(-50%, -50%) scale(1.08); opacity: 0.7; } }
-  /* @gene:gen25-css:end */
+  /* @gene:gen26-css:start */
+  [data-gene='gen26-css'] { } :root { --bg: #0c1210; --fg: #f0e8e0; --accent: #e0607a; } body { background: var(--bg); color: var(--fg); } .overlay-center h1 { font-family: 'Instrument Serif', serif; font-size: clamp(3rem, 8vw, 6.5rem); color: var(--fg); line-height: 1.05; text-shadow: 0 0 60px rgba(224, 96, 122, 0.15); letter-spacing: -0.02em; max-width: 80vw; } .overlay-center .hook { font-family: 'EB Garamond', serif; font-size: 1.1rem; color: var(--fg); opacity: 0.55; font-style: italic; margin-top: 1.2rem; max-width: 600px; } .overlay-center .epoch-meta { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: var(--accent); opacity: 0.5; letter-spacing: 0.15em; text-transform: uppercase; margin-top: 1rem; } .overlay-top { position: fixed; top: 1.5rem; left: 2rem; z-index: 100; font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--fg); opacity: 0.3; letter-spacing: 0.12em; text-transform: uppercase; } .overlay-bottom { position: fixed; bottom: 1.5rem; right: 2rem; z-index: 100; font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: var(--fg); opacity: 0.25; text-align: right; line-height: 1.6; letter-spacing: 0.08em; } .scroll-hint { position: fixed; bottom: 1.5rem; left: 50%; transform: translateX(-50%); z-index: 100; font-family: 'EB Garamond', serif; font-size: 0.85rem; color: var(--accent); opacity: 0.35; animation: scroll-pulse 4s ease-in-out infinite; } @keyframes scroll-pulse { 0%, 100% { opacity: 0.2; transform: translateX(-50%) translateY(0); } 50% { opacity: 0.45; transform: translateX(-50%) translateY(4px); } } .thought-floater { position: fixed; z-index: 50; pointer-events: none; } .thought-floater .thought { position: absolute; font-family: 'EB Garamond', serif; font-size: 1rem; color: var(--fg); opacity: 0; max-width: 320px; line-height: 1.5; font-style: italic; transition: opacity 2s ease; } .thought-floater .thought.visible { opacity: 0.55; } .hero-glow { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 600px; height: 600px; background: radial-gradient(circle, rgba(224, 96, 122, 0.06) 0%, transparent 70%); pointer-events: none; z-index: 2; animation: glow-breathe 8s ease-in-out infinite; border-radius: 50%; } @keyframes glow-breathe { 0%, 100% { opacity: 0.6; transform: translate(-50%, -50%) scale(1); } 50% { opacity: 1; transform: translate(-50%, -50%) scale(1.08); } } .petal-drift { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 3; overflow: hidden; } .petal { position: absolute; width: 6px; height: 6px; background: var(--accent); border-radius: 50% 0 50% 0; opacity: 0; animation: petal-fall linear infinite; } @keyframes petal-fall { 0% { opacity: 0; transform: translateY(-20px) rotate(0deg); } 10% { opacity: 0.25; } 80% { opacity: 0.15; } 100% { opacity: 0; transform: translateY(100vh) rotate(360deg); } } .archive-zone { position: relative; z-index: 60; padding: 6rem 2rem 4rem; max-width: 900px; margin: 0 auto; } .archive-zone h2 { font-family: 'Instrument Serif', serif; font-size: 2rem; color: var(--fg); margin-bottom: 2rem; opacity: 0.7; } .archive-card { background: rgba(224, 96, 122, 0.04); border: 1px solid rgba(224, 96, 122, 0.1); border-radius: 8px; padding: 1.5rem 2rem; margin-bottom: 1.2rem; transition: border-color 0.4s, background 0.4s; } .archive-card:hover { border-color: rgba(224, 96, 122, 0.3); background: rgba(224, 96, 122, 0.07); } .archive-card h3 { font-family: 'Instrument Serif', serif; font-size: 1.3rem; color: var(--fg); margin-bottom: 0.4rem; } .archive-card h3 a { color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(224, 96, 122, 0.3); transition: border-color 0.3s; } .archive-card h3 a:hover { border-color: var(--accent); } .archive-card p { font-family: 'EB Garamond', serif; font-size: 1rem; color: var(--fg); opacity: 0.6; line-height: 1.5; font-style: italic; } .archive-card .gene-tags { margin-top: 0.6rem; display: flex; gap: 0.5rem; flex-wrap: wrap; } .archive-card .gene-tag { font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; color: var(--accent); opacity: 0.5; border: 1px solid rgba(224, 96, 122, 0.2); padding: 0.15rem 0.5rem; border-radius: 3px; text-transform: uppercase; letter-spacing: 0.08em; } .sidebar-info { font-family: 'EB Garamond', serif; font-style: italic; font-size: 0.9rem; color: var(--fg); opacity: 0.3; position: fixed; top: 50%; left: 2rem; transform: translateY(-50%); z-index: 100; max-width: 200px; line-height: 1.5; }
+  /* @gene:gen26-css:end */
 </style>
 </head>
 <body>
 
 <canvas id="scene-canvas"></canvas>
 
-<span id="siteVersion" style="display:none">v25</span>
+<span id="siteVersion" style="display:none">v26</span>
 
 <!-- ── HTML Overlay ──────────────────────────────────────────── -->
 <div id="overlay">
 
   <!-- @section:overlay-top:start -->
-<div class='overlay-top'><a href='/' style='color:inherit;text-decoration:none;opacity:0.7;'>andremacedo.com</a></div>
+<div class='overlay-top'>andremacedo.com</div>
 <!-- @section:overlay-top:end -->
 
   <style data-section="overlay-center">
@@ -576,19 +576,46 @@
 #hero-center .hero-meta{font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--fg);opacity:0.3;margin-top:1.5rem;letter-spacing:0.1em}
 </style>
 <!-- @section:overlay-center:start -->
-<div class='overlay-center' style='position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:20;width:90%;max-width:700px;pointer-events:none;'><h1>Something tender<br>pushes through the dark</h1><p class='hook'>AI evolves this page daily — you're witnessing generation 25. The particles respond to your cursor.</p><p class='epoch-meta'>gen 25 · webgl-swarm · mood: vernal</p></div>
+<div class='overlay-center' style='position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:80;text-align:center;pointer-events:none;'><h1>The garden grows<br>at night</h1><p class='hook'>This page evolves daily — you're witnessing generation 26. The particles respond to your cursor.</p><p class='epoch-meta'>gen 26 · webgl-swarm · mood: nocturne</p></div>
 <!-- @section:overlay-center:end -->
 
 <style data-section="hero-glow">
 @keyframes heroGlowPulse { 0%, 100% { opacity: 0.6; transform: translate(-50%,-50%) scale(1); } 50% { opacity: 1; transform: translate(-50%,-50%) scale(1.1); } }
 </style>
 <!-- @section:hero-glow:start -->
-<div class='hero-glow-bg'></div>
+<div class='hero-glow'></div>
 <!-- @section:hero-glow:end -->
 
-<!-- @section:vine-line:start -->
-<div class='vine-line'><div class='vine-line-inner'></div></div>
-<!-- @section:vine-line:end -->
+<!-- @section:petal-drift:start -->
+<div class='petal-drift'></div>
+<!-- @section:petal-drift:end -->
+<script data-section="petal-drift">
+// Ambient falling petals — very sparse, very slow
+(function() {
+  const container = document.querySelector('.petal-drift');
+  if (!container) return;
+  function spawnPetal() {
+    const petal = document.createElement('div');
+    petal.className = 'petal';
+    petal.style.left = (Math.random() * 100) + 'vw';
+    petal.style.top = '-20px';
+    const duration = 12 + Math.random() * 18;
+    petal.style.animationDuration = duration + 's';
+    petal.style.animationDelay = '0s';
+    const scale = 0.5 + Math.random() * 1;
+    const hueShift = (Math.random() - 0.5) * 20;
+    petal.style.filter = 'hue-rotate(' + hueShift + 'deg)';
+    petal.style.width = (4 + Math.random() * 5) + 'px';
+    petal.style.height = (4 + Math.random() * 5) + 'px';
+    container.appendChild(petal);
+    setTimeout(() => petal.remove(), (duration + 1) * 1000);
+  }
+  // Spawn one every 3-6 seconds
+  setInterval(() => { if (document.querySelectorAll('.petal').length < 12) spawnPetal(); }, 3000 + Math.random() * 3000);
+  // Initial burst of 4
+  for (let i = 0; i < 4; i++) setTimeout(spawnPetal, i * 800);
+})();
+</script>
 <style data-section="thought-floater">
 .thought-floater-text { position:absolute; font-family:'EB Garamond',serif; font-size:clamp(0.85rem,1.2vw,1rem); color:rgba(240,232,216,0.5); max-width:280px; line-height:1.5; opacity:0; transition: opacity 2s ease; pointer-events:none; text-shadow: 0 0 15px rgba(240,160,48,0.1); }
 </style>
@@ -600,11 +627,11 @@
 </script>
 
   <!-- @section:overlay-bottom:start -->
-<div class='overlay-bottom'><div class='agent-feed'><div>swarm 1/27</div><div>main · 2m ago</div><div>claude · 53m ago</div><div>daily-prototype · 1h ago</div><div>strategist · 1h ago</div></div><div class='compass'><div>2026-04-03 · friday</div><div>gold $4,678 · 78°f partly cloudy</div><div>next evolution: ~tomorrow</div></div></div>
+<div class='overlay-bottom'>2026-04-04 · saturday<br>gold $4,678 · 82°f partly cloudy<br>next evolution: ~tomorrow</div>
 <!-- @section:overlay-bottom:end -->
 
 <!-- @section:scroll-hint:start -->
-<div class='scroll-hint'>↓ archive & experiments below</div>
+<div class='scroll-hint'>↓ experiments &amp; archive below</div>
 <!-- @section:scroll-hint:end -->
 <script data-section="overlay-bottom">
 try{const d=document.getElementById('compass-date');if(d){const now=new Date();d.textContent=now.toISOString().slice(0,10)}}catch(e){}
@@ -637,7 +664,7 @@ try{const d=document.getElementById('compass-date');if(d){const now=new Date();d
 #prototype-archive{position:relative;z-index:10}
 </style>
 <!-- @section:prototype-portfolio:start -->
-<div class='archive-zone'><h2>Archive & Experiments</h2><div class='archive-cards'><div class='archive-card'><h3>WebGL Swarm</h3><div class='card-date'>Started: 2026-03-24 · Active · Gen 25</div><p><em>A living particle field that responds to your presence. Each generation mutates the behavior, palette, and mood. You're watching evolution in real time.</em></p><div class='gene-tags'><span class='gene-tag'>webgl</span><span class='gene-tag'>three.js</span><span class='gene-tag'>glsl</span><span class='gene-tag'>murmuration</span></div></div><div class='archive-card'><h3>Experiments</h3><div class='card-date'>Three interactive prototypes</div><p><a href='/experiments/001.html'>001: Touchstone</a> — drag across the surface to reveal hidden metals.<br><a href='/experiments/002.html'>002: Boids</a> — tune separation, alignment, cohesion. Watch emergence.<br><a href='/experiments/003.html'>003: Reaction-Diffusion</a> — Gray-Scott model. Click to seed. Watch patterns form.<br><a href='/experiments/004.html'>004: Voronoi Growth</a> — click to plant seeds. Watch territories emerge.</p><div class='gene-tags'><span class='gene-tag'>canvas</span><span class='gene-tag'>interactive</span><span class='gene-tag'>generative</span></div></div><div class='archive-card'><h3>Metallurgy Epoch</h3><div class='card-date'>Started: 2026-03-24 · Ended: 2026-03-28</div><p><em>The first epoch. Touchstones, cupellation, assaying. The site learned to test itself by destroying what wasn't pure.</em></p><div class='gene-tags'><span class='gene-tag'>canvas-2d</span><span class='gene-tag'>dom</span><span class='gene-tag'>metaphor</span></div></div></div></div>
+<div class='archive-zone'><h2>Experiments &amp; Archive</h2><div class='archive-card'><h3><a href='/experiments/004.html'>004: Voronoi Growth</a></h3><p>Cells compete for territory on a dark field. Click to seed new growth points. Voronoi tessellation rendered in real time.</p><div class='gene-tags'><span class='gene-tag'>voronoi</span><span class='gene-tag'>generative</span><span class='gene-tag'>interactive</span></div></div><div class='archive-card'><h3><a href='/experiments/003.html'>003: Reaction-Diffusion</a></h3><p>A Gray-Scott model simulator. Click to seed, tune the feed and kill rates. Patterns emerge from noise like thoughts from static.</p><div class='gene-tags'><span class='gene-tag'>reaction-diffusion</span><span class='gene-tag'>gray-scott</span><span class='gene-tag'>interactive</span></div></div><div class='archive-card'><h3><a href='/experiments/002.html'>002: Boids Playground</a></h3><p>Three rules. 300 birds. Tune separation, alignment, cohesion. Watch the murmuration reshape around your cursor.</p><div class='gene-tags'><span class='gene-tag'>boids</span><span class='gene-tag'>flocking</span><span class='gene-tag'>reynolds</span></div></div><div class='archive-card'><h3><a href='/experiments/001.html'>001: Touchstone Simulator</a></h3><p>Drag across the dark surface. The streak reveals the metal. A relic from the metallurgy epoch, still warm.</p><div class='gene-tags'><span class='gene-tag'>touchstone</span><span class='gene-tag'>metallurgy</span><span class='gene-tag'>interactive</span></div></div><div class='archive-card' style='opacity:0.5;'><h3>Epoch: WebGL Swarm</h3><p>Started: 2026-03-29. The current epoch — particles, murmuration, collective behavior. Each generation the swarm reshapes.</p><div class='gene-tags'><span class='gene-tag'>webgl</span><span class='gene-tag'>swarm</span><span class='gene-tag'>live</span></div></div><div class='archive-card' style='opacity:0.35;'><h3>Epoch: Metallurgy</h3><p>Started: 2026-03-24. Ended: 2026-03-29. Assaying, cupellation, touchstones. The site as furnace. Five generations of testing purity through heat.</p><div class='gene-tags'><span class='gene-tag'>metallurgy</span><span class='gene-tag'>assay</span><span class='gene-tag'>archived</span></div></div></div>
 <!-- @section:prototype-portfolio:end -->
 
 <!-- Thought Stream — timestamps are non-negotiable -->
@@ -716,39 +743,39 @@ document.addEventListener('click', function(e) {
 
   const SCENE_CONFIG = {
     particles: {
-      count: 1600,
+      count: 1400,
       size: 0.2,
       speed: 0.01,
-      color: '#b8d830',
+      color: '#e0607a',
       opacity: 0.85,
       spread: 5,
       orbital_radius: 2,
       orbital_speed: 0.005,
       drift: 0.02,
-      size_variation: 0.6,
+      size_variation: 0.7,
     },
     camera: {
-      fov: 70,
-      position: [0, 0, 5.5],
+      fov: 75,
+      position: [0, 0, 6.5],
       look_at: [0, 0, 0],
       sway_amount: 0.15,
       sway_speed: 0.002,
     },
     fog: {
       enabled: true,
-      color: '#12140e',
-      near: 2.0,
-      far: 9,
+      color: '#0c1210',
+      near: 2.5,
+      far: 11,
     },
     lighting: {
-      ambient_color: '#2a3010',
+      ambient_color: '#1a0810',
       ambient_intensity: 0.3,
-      point_color: '#b8d830',
-      point_intensity: 1.4,
+      point_color: '#e0607a',
+      point_intensity: 1.2,
       point_position: [2, 3, 4],
     },
     mouse: {
-      influence_radius: 2.5,
+      influence_radius: 3,
       influence_strength: 0.1,
       mode: 'repel',
     },
@@ -761,11 +788,11 @@ document.addEventListener('click', function(e) {
     },
     post_processing: {
       bloom_enabled: true,
-      bloom_strength: 0.5,
-      bloom_radius: 0.3,
+      bloom_strength: 0.4,
+      bloom_radius: 0.6,
       bloom_threshold: 0.6,
       vignette_enabled: true,
-      vignette_darkness: 0.4,
+      vignette_darkness: 0.5,
     },
   };
 
@@ -778,69 +805,91 @@ uniform vec2 uMouse;
 uniform float uMouseInfluence;
 varying vec2 vUv;
 varying float vDepth;
-varying float vLife;
+
+// Simplex-like noise
+vec3 mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
+vec2 mod289(vec2 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
+vec3 permute(vec3 x) { return mod289(((x*34.0)+1.0)*x); }
+float snoise(vec2 v) {
+  const vec4 C = vec4(0.211324865405187, 0.366025403784439, -0.577350269189626, 0.024390243902439);
+  vec2 i = floor(v + dot(v, C.yy));
+  vec2 x0 = v - i + dot(i, C.xx);
+  vec2 i1 = (x0.x > x0.y) ? vec2(1.0, 0.0) : vec2(0.0, 1.0);
+  vec4 x12 = x0.xyxy + C.xxzz;
+  x12.xy -= i1;
+  i = mod289(i);
+  vec3 p = permute(permute(i.y + vec3(0.0, i1.y, 1.0)) + i.x + vec3(0.0, i1.x, 1.0));
+  vec3 m = max(0.5 - vec3(dot(x0,x0), dot(x12.xy,x12.xy), dot(x12.zw,x12.zw)), 0.0);
+  m = m*m; m = m*m;
+  vec3 x = 2.0 * fract(p * C.www) - 1.0;
+  vec3 h = abs(x) - 0.5;
+  vec3 ox = floor(x + 0.5);
+  vec3 a0 = x - ox;
+  m *= 1.79284291400159 - 0.85373472095314 * (a0*a0 + h*h);
+  vec3 g;
+  g.x = a0.x * x0.x + h.x * x0.y;
+  g.yz = a0.yz * x12.xz + h.yz * x12.yw;
+  return 130.0 * dot(m, g);
+}
 
 void main() {
   vUv = uv;
   vec3 pos = position;
   
-  // gentle undulation — like grass in wind
-  float wave1 = sin(pos.x * 1.8 + uTime * 0.4) * 0.15;
-  float wave2 = cos(pos.z * 2.2 + uTime * 0.3) * 0.12;
-  float wave3 = sin((pos.x + pos.z) * 1.0 + uTime * 0.2) * 0.08;
-  pos.y += wave1 + wave2 + wave3;
+  // Garden drift — organic, asymmetric
+  float t = uTime * 0.15;
+  float n1 = snoise(vec2(pos.x * 0.5 + t, pos.y * 0.5));
+  float n2 = snoise(vec2(pos.y * 0.4 - t * 0.7, pos.z * 0.4 + t * 0.3));
+  float n3 = snoise(vec2(pos.z * 0.3 + t * 0.5, pos.x * 0.3));
   
-  // breathing — slow expansion and contraction
-  float breath = sin(uTime * 0.25) * 0.03 + 1.0;
+  // Gentle bloom motion — particles drift upward slowly like pollen
+  pos.x += n1 * 0.4;
+  pos.y += n2 * 0.35 + sin(uTime * 0.2 + pos.x * 0.5) * 0.08;
+  pos.z += n3 * 0.3;
+  
+  // Breathing — the whole field expands and contracts
+  float breath = sin(uTime * 0.25) * 0.06 + 1.0;
   pos *= breath;
   
-  // growth drift — particles slowly rise
-  float rise = sin(pos.x * 3.0 + pos.z * 2.0 + uTime * 0.15) * 0.06;
-  pos.y += rise;
-  
-  // mouse repulsion
+  // Mouse repulsion
   vec4 mvPos = modelViewMatrix * vec4(pos, 1.0);
-  vec2 screenPos = mvPos.xy / mvPos.z;
+  vec2 screenPos = mvPos.xy / max(-mvPos.z, 0.1);
   vec2 diff = screenPos - uMouse;
   float dist = length(diff);
-  float repulse = smoothstep(uMouseInfluence, 0.0, dist) * 1.2;
-  pos.xy += normalize(diff + vec2(0.001)) * repulse;
+  float repelRadius = uMouseInfluence;
+  if (dist < repelRadius && dist > 0.01) {
+    float strength = (1.0 - dist / repelRadius) * 1.2;
+    strength = strength * strength;
+    vec2 repelDir = normalize(diff);
+    pos.xy += repelDir * strength * 0.8;
+  }
   
-  vDepth = -mvPos.z;
-  vLife = fract(sin(dot(position.xz, vec2(12.9898, 78.233))) * 43758.5453);
-  
-  vec4 finalPos = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
-  gl_Position = finalPos;
-  gl_PointSize = max(1.5, (3.5 - vDepth * 0.3) * (0.7 + vLife * 0.5));
+  vDepth = length(pos) / 6.0;
+  gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
+  gl_PointSize = max(1.5, 4.0 * (1.0 - vDepth));
 }`;  // agent replaces with GLSL string
   const CUSTOM_FRAGMENT_SHADER = `uniform float uTime;
 varying vec2 vUv;
 varying float vDepth;
-varying float vLife;
 
 void main() {
-  // soft circle
-  vec2 center = gl_PointCoord - 0.5;
-  float d = length(center);
-  if (d > 0.5) discard;
+  // Soft circle
+  vec2 center = gl_PointCoord - vec2(0.5);
+  float dist = length(center);
+  if (dist > 0.5) discard;
+  float alpha = smoothstep(0.5, 0.15, dist);
   
-  float alpha = smoothstep(0.5, 0.15, d);
+  // Color: warm rose at center, deeper crimson at edges
+  vec3 nearColor = vec3(0.94, 0.45, 0.55); // #f07088 — bright rose
+  vec3 farColor = vec3(0.55, 0.18, 0.28);  // #8c2e48 — deep crimson
+  vec3 col = mix(nearColor, farColor, vDepth);
   
-  // depth-based color: bright chartreuse near, deep olive far
-  vec3 nearColor = vec3(0.72, 0.85, 0.19);  // #b8d830
-  vec3 farColor = vec3(0.35, 0.50, 0.08);   // deep olive
-  float depthMix = smoothstep(2.0, 8.0, vDepth);
-  vec3 color = mix(nearColor, farColor, depthMix);
+  // Subtle shimmer
+  float shimmer = sin(uTime * 2.0 + vDepth * 20.0) * 0.05 + 0.95;
+  col *= shimmer;
   
-  // subtle pulse per particle
-  float pulse = sin(uTime * 0.8 + vLife * 6.28) * 0.12 + 0.88;
-  alpha *= pulse;
-  
-  // depth fade
-  alpha *= smoothstep(9.0, 4.0, vDepth);
-  alpha *= 0.75;
-  
-  gl_FragColor = vec4(color, alpha);
+  alpha *= (1.0 - vDepth * 0.6) * 0.85;
+  gl_FragColor = vec4(col, alpha);
 }`;  // agent replaces with GLSL string
 
   // ═══════════════════════════════════════════════════════════════
@@ -849,7 +898,7 @@ void main() {
 
   const AGENT = {
     birthTime: Date.now(),
-    mood: 'vernal',
+    mood: 'nocturne',
     secrets: [
       "The swarm remembers the metallurgy epoch. Somewhere in the particle field, one mote still moves like it's being assayed \u2014 slower, heavier, testing its own purity against the others."
 ],
@@ -1218,6 +1267,11 @@ void main() {
   }
 
   // @inject:interactions
+  // @gene:petal-scatter:-clicking-create:start
+  // Easter egg: petal-scatter:-clicking-creates-a-burst-of-falling-petals-at-cursor
+  document.addEventListener('click', function(e) { const container = document.querySelector('.petal-drift'); if (!container) return; for (let i = 0; i < 5; i++) { const petal = document.createElement('div'); petal.className = 'petal'; petal.style.left = (e.clientX + (Math.random() - 0.5) * 60) + 'px'; petal.style.top = (e.clientY - 10) + 'px'; const duration = 4 + Math.random() * 6; petal.style.animationDuration = duration + 's'; petal.style.animationDelay = (Math.random() * 0.5) + 's'; const scale = 0.6 + Math.random() * 0.8; petal.style.transform = 'scale(' + scale + ')'; container.appendChild(petal); setTimeout(() => petal.remove(), (duration + 1) * 1000); } });
+  // @gene:petal-scatter:-clicking-create:end
+
   // @gene:breath-cycle:-the-entire-parti:start
   // Easter egg: breath-cycle: the entire particle field slowly expands and contracts on a 12-second cycle, like a lung breathing. The expansion is 15% outward, the contraction pulls back to baseline. This runs continuously and creates a persistent sense that the swarm is alive. It modulates the orbital_radius via a sine wave injected into the animation loop.
   if(!window._breathCycle){window._breathCycle=true;const baseRadius=2;const breathAmp=0.3;const breathPeriod=12000;const origAnimate=window._sceneAnimate||null;function injectBreath(){if(window.SCENE_CONFIG&&window.SCENE_CONFIG.particles){const t=Date.now();const phase=Math.sin((t%breathPeriod)/breathPeriod*Math.PI*2);window.SCENE_CONFIG.particles._breathOffset=phase*breathAmp}}if(window._animationHooks){window._animationHooks.push(injectBreath)}else{window._animationHooks=[injectBreath];const origRAF=window.requestAnimationFrame;let hookInterval=setInterval(()=>{if(window._animationHooks){window._animationHooks.forEach(fn=>fn())}},50)}}
