@@ -123,7 +123,7 @@ These operations run on pure code, no LLM calls:
 
 ## Health Monitoring
 
-The agent reports its health via standard OpenClaw heartbeat:
+The agent reports its health via standard TELOS heartbeat:
 
 ```json
 {

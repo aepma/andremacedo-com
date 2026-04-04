@@ -96,7 +96,7 @@ next scheduled: [next run type and time]
 Keep notifications concise. Andre should be able to glance at it in 3 seconds.
 
 ### Telegram Commands (Inbound)
-The agent should respond to these commands via OpenClaw Telegram interface:
+The agent should respond to these commands via TELOS Telegram interface:
 
 - `/site status` — Current state: mood, last change, active obsession
 - `/site force-update` — Trigger an immediate creative pulse
@@ -105,12 +105,12 @@ The agent should respond to these commands via OpenClaw Telegram interface:
 - `/site mood [mood]` — Suggest a mood shift (agent incorporates, doesn't blindly obey)
 - `/site obsession [topic]` — Suggest a new obsession for the agent to explore
 
-## Integration with OpenClaw
+## Integration with TELOS
 
-This agent runs within the OpenClaw orchestration system:
-- Scheduled via launchd (preferred) or OpenClaw internal cron
-- Logs to standard OpenClaw audit path
-- Respects OpenClaw mutex protocols for shared resources
+This agent runs within the TELOS orchestration system (powered by OpenClaw):
+- Scheduled via launchd (preferred) or TELOS internal cron
+- Logs to standard TELOS audit path
+- Respects TELOS mutex protocols for shared resources
 - Uses Mem0 for durable memory of long-term creative preferences and evolution patterns
 
 ## Deployment Workflow

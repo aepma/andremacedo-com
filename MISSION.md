@@ -33,7 +33,7 @@ Error handling: if API call fails, log error, Telegram alert, do NOT retry. Wait
 - `com.openclaw.andremacedo.refresh` — refresh script every 6 hours
 
 ### 5. Telegram commands
-Register in OpenClaw's Telegram interface:
+Register in TELOS's Telegram interface:
 - `/site status` — read agent-state.json, return mood, last update, obsession, tokens used
 - `/site force-update` — trigger runner.sh --event immediately
 - `/site redesign` — trigger runner.sh --weekly immediately
