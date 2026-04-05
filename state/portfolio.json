@@ -3,28 +3,10 @@
     {
       "name": "webgl-swarm",
       "status": "active",
-      "generations": 28,
+      "generations": 29,
       "started": "2026-03-29",
       "epitaph": null,
       "artifacts": [
-        {
-          "type": "secret",
-          "name": "<!-- The assay master's oath, Lisbon, 1554: 'I shall test without favor, burn wi",
-          "epitaph": "Old metallurgy-era secret about cupellation that no longer connects to anything on the page.",
-          "died_at_generation": 17
-        },
-        {
-          "type": "section",
-          "name": "flock-canvas",
-          "epitaph": "The two-layer flock experiment failed. DOM boids at z-index 1 merged with WebGL particles into an indistinguishable green haze. The effect was invisible in the screenshot \u2014 just more murk. Kill it, reduce layers, let the WebGL field breathe alone.",
-          "died_at_generation": 18
-        },
-        {
-          "type": "section",
-          "name": "pulse-rings",
-          "epitaph": "Three concentric CSS circles expanding and fading. Invisible in the screenshot for two generations running. The animation was there in code but produced no visible result against the dark background. Dead weight.",
-          "died_at_generation": 18
-        },
         {
           "type": "section",
           "name": "stream-fades",
@@ -306,20 +288,29 @@
           "name": "The particle count dropped from 2400 to 1400 over five generations. The swarm is",
           "epitaph": "Over the 20-secret cap. Culling the oldest/weakest to make room for the new batch.",
           "died_at_generation": 28
+        },
+        {
+          "type": "css_rule",
+          "name": "gen28-css",
+          "epitaph": "The violet-blue planetarium palette served one generation. Crimson observatory replaces it \u2014 warmer, higher contrast against true black, and it preserves night vision.",
+          "died_at_generation": 29
+        },
+        {
+          "type": "secret",
+          "name": "The site has been 27 different colors in 27 generations. Not one was chosen at r",
+          "epitaph": "Over the 20-secret cap. Culling to make room for the new observatory secret.",
+          "died_at_generation": 29
+        },
+        {
+          "type": "section",
+          "name": "constellation-line",
+          "epitaph": "The constellation-line was a breathing accent line from the previous palette. Replaced by the observatory crosshair which serves the same grounding function with more conceptual coherence.",
+          "died_at_generation": 29
         }
       ]
     }
   ],
   "fitness_trajectory": [
-    {
-      "gen": 9,
-      "coherence": 7,
-      "novelty": 5,
-      "identity": 7,
-      "tension": 5,
-      "note": "The metallurgy frame is load-bearing and the ensaio triple-meaning is structural now, which is good. But the site has settled into a comfortable patte",
-      "total": 6.0
-    },
     {
       "gen": 10,
       "coherence": 7,
@@ -489,6 +480,15 @@
       "identity": 7,
       "tension": 5,
       "note": "The screenshot is genuinely beautiful \u2014 the golden particle sphere against deep indigo is the highest-contrast, most visually striking composition the",
+      "total": 6.2
+    },
+    {
+      "gen": 29,
+      "coherence": 7,
+      "novelty": 6,
+      "identity": 7,
+      "tension": 5,
+      "note": "The screenshot is genuinely beautiful \u2014 the golden particle sphere against deep indigo is luminous and unmistakable. But the sphere is STILL a sphere.",
       "total": 6.2
     }
   ]

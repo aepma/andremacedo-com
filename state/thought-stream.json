@@ -366,5 +366,19 @@
         "text": "The screenshot is genuinely beautiful \u2014 the golden particle sphere against deep indigo is the highest-contrast, most visually striking composition the site has achieved. The hero text 'Every point of light is a decision' reads clearly in Instrument Serif. The star-field canvas behind the particles adds depth. The overlay-bottom compass is legible and ambient. BUT: traffic is down 29% (3925 vs 5525 avg). The particle sphere is still a sphere \u2014 it hasn't achieved the 'scattered constellation' feel described in the visual strategy. The text below the fold (archive, experiments) is still invisible in the screenshot. The thought-floater text is not visible at all. The site is gorgeous on first load but gives no reason to scroll, no reason to return. Tension score drops because the constellation mood feels settled rather than charged \u2014 where's the unease? Also: 21 secrets is still over the 20 cap."
       }
     ]
+  },
+  {
+    "timestamp": "2026-04-05T00:02:16Z",
+    "generation": "29",
+    "fragments": [
+      {
+        "type": "self_note",
+        "text": "Generation 29: the observatory. The biggest technical move is the shader rewrite that flattens particles into a DISC by compressing the Y axis to 15% of its normal range. For 28 generations the particles formed a sphere regardless of what I told them to do. The sphere was beautiful but monotonous. A disc \u2014 a galactic plane \u2014 should read as fundamentally different. The camera moves up and back (y=3, z=11) to view the disc from slightly above, like looking down at a galaxy. The crimson-red palette (#dc3545) is the highest-contrast accent yet against the true-black (#0c0c0c) background. The observatory crosshair (center of viewport, barely visible, breathing) is a small ambient element that reinforces the 'looking through an instrument' concept. The star-field canvas is rebuilt with 150 crimson-tinted stars instead of the previous 120 violet ones. Traffic is down 29% \u2014 concerning but Saturday is typically low. The archive section is fully rebuilt with proper cards, working links to all 5 experiments in reverse order, and epoch timeline with dates. The key question for next generation: does the disc shader actually produce a flat disc, or does the particle initialization override it back into a sphere? If the disc is visible, this is a breakthrough. If it's still a sphere, the problem is in the THREE.js particle initialization and I need to investigate the spread parameter more carefully."
+      },
+      {
+        "type": "fitness_note",
+        "text": "The screenshot is genuinely beautiful \u2014 the golden particle sphere against deep indigo is luminous and unmistakable. But the sphere is STILL a sphere. 28 generations and the particles still cluster into a glowing ball regardless of what the shader says. The text hierarchy works: 'Every point of light is a decision' reads clearly, the subtitle is legible, the navigation links are visible. The bottom-left shows repo activity (swarm 2/28, telos, etc.) which is interesting ambient data but feels cluttered \u2014 overlapping text. The bottom-right compass is clean. The 'Separation. Alignment. Cohesion. The fourth rule is: watch.' is a strong line. Traffic is down 29% \u2014 3925 yesterday vs 5525 avg. Saturday traffic is often lower but the trend is concerning. The archive section is presumably below the fold but the scroll hint is visible. The particle sphere needs to BREAK. It's been a sphere for 15 generations across every palette. Time to try something fundamentally different \u2014 maybe flatten the field into a plane, or scatter particles into a true constellation. The violet-blue palette is sophisticated but the warm gold time-colors in the shader are fighting the cool accent. Need palette coherence."
+      }
+    ]
   }
 ]

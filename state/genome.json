@@ -1,18 +1,18 @@
 {
-  "generation": 28,
+  "generation": 29,
   "epoch": "webgl-swarm",
   "epoch_started": "2026-03-29",
   "traits": {
     "color": {
-      "accent_base": "#7b68ee",
-      "accent_dawn": "#b8b0ff",
-      "accent_morning": "#9088ee",
-      "accent_afternoon": "#7b68ee",
-      "accent_evening": "#6050cc",
-      "accent_night": "#4838aa",
-      "bg": "#0a0a1e",
-      "fg": "#e8e8f0",
-      "grain_opacity": "0.004",
+      "accent_base": "#dc3545",
+      "accent_dawn": "#ff8a95",
+      "accent_morning": "#f06070",
+      "accent_afternoon": "#dc3545",
+      "accent_evening": "#b02030",
+      "accent_night": "#8b1525",
+      "bg": "#0c0c0c",
+      "fg": "#f0e8e8",
+      "grain_opacity": "0.003",
       "fg_dim": "#5a7a6d",
       "bg_surface": "#060e0b",
       "bg_elevated": "#0c1a15"
@@ -24,11 +24,11 @@
         "overlay-top",
         "overlay-center",
         "hero-glow",
+        "obs-crosshair",
         "star-field",
         "thought-floater",
         "overlay-bottom",
         "scroll-hint",
-        "constellation-line",
         "prototype-portfolio"
       ],
       "pages": [
@@ -55,7 +55,8 @@
         "surfacing-glyph-001.svg",
         "abyssal-glyph-001.svg",
         "surfacing-glyph-002.svg",
-        "bioluminescent-glyph-001.svg"
+        "bioluminescent-glyph-001.svg",
+        "observatory-glyph-001.svg"
       ]
     },
     "interactions": [
@@ -68,28 +69,19 @@
       "petal-scatter:-clicking-create"
     ],
     "content": {
-      "mood": "planetarium",
+      "mood": "observatory",
       "obsession": "murmuration \u2014 the mathematics of collective motion",
       "thought_pools": {
-        "dawn": 2,
-        "morning": 2,
-        "afternoon": 2,
-        "evening": 2,
-        "night": 2
+        "dawn": 3,
+        "morning": 3,
+        "afternoon": 3,
+        "evening": 3,
+        "night": 3
       },
       "secrets_count": 21
     }
   },
   "fitness_log": [
-    {
-      "gen": 9,
-      "coherence": 7,
-      "novelty": 5,
-      "identity": 7,
-      "tension": 5,
-      "note": "The metallurgy frame is load-bearing and the ensaio triple-meaning is structural now, which is good. But the site has settled into a comfortable patte",
-      "total": 6.0
-    },
     {
       "gen": 10,
       "coherence": 7,
@@ -260,35 +252,18 @@
       "tension": 5,
       "note": "The screenshot is genuinely beautiful \u2014 the golden particle sphere against deep indigo is the highest-contrast, most visually striking composition the",
       "total": 6.2
+    },
+    {
+      "gen": 29,
+      "coherence": 7,
+      "novelty": 6,
+      "identity": 7,
+      "tension": 5,
+      "note": "The screenshot is genuinely beautiful \u2014 the golden particle sphere against deep indigo is luminous and unmistakable. But the sphere is STILL a sphere.",
+      "total": 6.2
     }
   ],
   "mutation_log": [
-    {
-      "gen": 9,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "content.mood",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "section.strata",
-        "section.touchstone-surface",
-        "section.hero"
-      ],
-      "kills": [
-        "thought:night[1]",
-        "thought:night[2]",
-        "thought:night[3]",
-        "thought:night[4]",
-        "thought:night[5]",
-        "thought:night[6]",
-        "thought:night[7]",
-        "thought:night[8]",
-        "css_rule:gen7-css"
-      ],
-      "timestamp": "2026-03-29T05:23:06Z"
-    },
     {
       "gen": 10,
       "mutations": [
@@ -796,27 +771,39 @@
         "secret[20]"
       ],
       "timestamp": "2026-04-04T16:02:37Z"
+    },
+    {
+      "gen": 29,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "content.mood",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "section.overlay-center",
+        "section.hero-glow",
+        "section.star-field",
+        "section.overlay-top",
+        "section.obs-crosshair",
+        "section.overlay-bottom",
+        "section.thought-floater",
+        "section.scroll-hint",
+        "section.prototype-portfolio",
+        "svg.observatory-glyph-001.svg",
+        "scene.config",
+        "scene.shaders",
+        "overlay.agent_data"
+      ],
+      "kills": [
+        "css_rule:gen28-css",
+        "secret[20]",
+        "section:constellation-line"
+      ],
+      "timestamp": "2026-04-05T00:02:14Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "secret",
-      "value": "<!-- The assay master's oath, Lisbon, 1554: 'I shall test without favor, burn wi",
-      "died_gen": 17,
-      "epitaph": "Old metallurgy-era secret about cupellation that no longer connects to anything on the page."
-    },
-    {
-      "type": "section",
-      "value": "flock-canvas",
-      "died_gen": 18,
-      "epitaph": "The two-layer flock experiment failed. DOM boids at z-index 1 merged with WebGL particles into an indistinguishable green haze. The effect was invisible in the screenshot \u2014 just more murk. Kill it, reduce layers, let the WebGL field breathe alone."
-    },
-    {
-      "type": "section",
-      "value": "pulse-rings",
-      "died_gen": 18,
-      "epitaph": "Three concentric CSS circles expanding and fading. Invisible in the screenshot for two generations running. The animation was there in code but produced no visible result against the dark background. Dead weight."
-    },
     {
       "type": "section",
       "value": "stream-fades",
@@ -1098,6 +1085,24 @@
       "value": "The particle count dropped from 2400 to 1400 over five generations. The swarm is",
       "died_gen": 28,
       "epitaph": "Over the 20-secret cap. Culling the oldest/weakest to make room for the new batch."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen28-css",
+      "died_gen": 29,
+      "epitaph": "The violet-blue planetarium palette served one generation. Crimson observatory replaces it \u2014 warmer, higher contrast against true black, and it preserves night vision."
+    },
+    {
+      "type": "secret",
+      "value": "The site has been 27 different colors in 27 generations. Not one was chosen at r",
+      "died_gen": 29,
+      "epitaph": "Over the 20-secret cap. Culling to make room for the new observatory secret."
+    },
+    {
+      "type": "section",
+      "value": "constellation-line",
+      "died_gen": 29,
+      "epitaph": "The constellation-line was a breathing accent line from the previous palette. Replaced by the observatory crosshair which serves the same grounding function with more conceptual coherence."
     }
   ],
   "carrying_capacity": {
@@ -1116,11 +1121,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 19,
-      "base": "#1de9b6",
-      "family": "teal"
-    },
     {
       "gen": 20,
       "base": "#e8943d",
@@ -1165,6 +1165,11 @@
       "gen": 28,
       "base": "#7b68ee",
       "family": "blue"
+    },
+    {
+      "gen": 29,
+      "base": "#dc3545",
+      "family": "magenta"
     }
   ]
 }
