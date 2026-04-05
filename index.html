@@ -9,16 +9,16 @@
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <title>andre macedo</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,700;1,400;1,500&family=JetBrains+Mono:wght@300;400;500&family=Instrument+Serif:ital@0;1&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,400;0,500;0,700;1,400;1,500&family=JetBrains+Mono:wght@300;400;500&display=swap');
 
   :root {
-    --fg: #e8f0e8;
-    --fg-dim: #8a7560;
-    --fg-accent: #00e676;
-    --bg: #0d1a0f;
-    --bg-surface: #0e0a07;
-    --bg-elevated: #1a1208;
-    --grain-opacity: 0.003;
+    --fg: #1a1612;
+    --fg-dim: #7a7068;
+    --fg-accent: #d4760a;
+    --bg: #f5f0e6;
+    --bg-surface: #ece5d8;
+    --bg-elevated: #e0d8c8;
+    --grain-opacity: 0.015;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -29,7 +29,7 @@
     overflow-x: hidden;
     background: var(--bg);
     color: var(--fg);
-    font-family: 'EB Garamond', Georgia, serif;
+    font-family: 'Playfair Display', Georgia, serif;
   }
 
   /* WebGL canvas fills viewport */
@@ -551,23 +551,122 @@
 
   /* Section injection markers are now in the body */
 /* @inject:css */
-  /* @gene:gen30-css:start */
-  @gene:gen30-css; :root { --bg: #0d1a0f; --fg: #e8f0e8; --accent: #00e676; } body { background: #0d1a0f; color: #e8f0e8; } .hero-title { color: #e8f0e8; } .hero-subtitle { color: rgba(232, 240, 232, 0.55); } .compass-item { color: #00e676; } .scroll-hint { color: #00e676; } a { color: #00e676; } a:hover { color: #69f0ae; } .archive-card { border-color: rgba(0, 230, 118, 0.15); } .archive-card:hover { border-color: rgba(0, 230, 118, 0.4); } .archive-card h3 { color: #e8f0e8; } .archive-card p { color: rgba(232, 240, 232, 0.6); } .gene-tag { color: #00e676; border-color: rgba(0, 230, 118, 0.3); } .epoch-marker { color: rgba(0, 230, 118, 0.4); } .thought-float-text { color: rgba(232, 240, 232, 0.55); }
-  /* @gene:gen30-css:end */
+  /* @gene:gen31-css:start */
+  /* gen31-weekly — SPLIT MERIDIAN */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@300;400&display=swap');
+
+html, body { margin: 0; padding: 0; overflow-x: hidden; background: #f5f0e6; }
+
+/* The meridian split */
+#meridian-veil { position: fixed; top: 0; right: 0; width: 50vw; height: 100vh; background: #0a0a0a; z-index: 0; pointer-events: none; transition: width 0.5s ease; }
+#meridian-line { position: fixed; top: 0; left: 50vw; width: 2px; height: 100vh; background: linear-gradient(to bottom, transparent, #d4760a, transparent); z-index: 6; pointer-events: none; opacity: 0.6; animation: meridian-breathe 8s ease-in-out infinite; }
+@keyframes meridian-breathe { 0%, 100% { opacity: 0.4; filter: blur(0px); } 50% { opacity: 0.8; filter: blur(1px); } }
+
+/* Hero spanning both halves */
+.hero-split { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 10; text-align: center; pointer-events: none; width: 90vw; max-width: 1100px; }
+.hero-split h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.8rem, 6.5vw, 5.5rem); font-weight: 400; line-height: 1.15; margin: 0 0 0.3em 0; background: linear-gradient(to right, #1a1612 0%, #1a1612 48%, #f5f0e6 52%, #f5f0e6 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero-split .hook { font-family: 'Source Serif 4', serif; font-size: clamp(0.9rem, 1.6vw, 1.15rem); font-style: italic; margin: 0 0 1.2em 0; background: linear-gradient(to right, #7a7068 0%, #7a7068 48%, #a09888 52%, #a09888 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; letter-spacing: 0.01em; }
+.hero-split .gen-label { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; background: linear-gradient(to right, #d4760a 0%, #d4760a 48%, #f5c76e 52%, #f5c76e 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+/* Overlay top — left side, dark text on cream */
+.split-overlay-top { position: fixed; top: 28px; left: 32px; z-index: 12; }
+.split-overlay-top a { font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; color: #1a1612; text-decoration: none; letter-spacing: 0.15em; text-transform: uppercase; opacity: 0.7; }
+
+/* Right side annotation */
+.split-annotation { position: fixed; top: 50%; right: 40px; transform: translateY(-50%); z-index: 12; text-align: right; pointer-events: none; }
+.split-annotation p { font-family: 'Source Serif 4', serif; font-style: italic; font-size: 0.85rem; color: #a09888; margin: 0 0 0.5em 0; max-width: 220px; opacity: 0.7; }
+
+/* Navigation row */
+.meridian-nav { position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%); z-index: 12; display: flex; gap: 3.5em; }
+.meridian-nav a { font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; text-decoration: none; opacity: 0.5; transition: opacity 0.3s; }
+.meridian-nav a:nth-child(-n+2) { color: #1a1612; }
+.meridian-nav a:nth-child(3) { color: #d4760a; }
+.meridian-nav a:nth-child(n+4) { color: #f5f0e6; }
+.meridian-nav a:hover { opacity: 1; }
+
+/* Swarm panel - bottom left */
+.swarm-panel-split { position: fixed; bottom: 24px; left: 24px; z-index: 12; font-family: 'JetBrains Mono', monospace; font-size: 0.58rem; color: #1a1612; opacity: 0.4; line-height: 1.7; }
+
+/* Compass - bottom right */
+.compass-split { position: fixed; bottom: 24px; right: 24px; z-index: 12; font-family: 'JetBrains Mono', monospace; font-size: 0.58rem; color: #a09888; opacity: 0.5; text-align: right; line-height: 1.7; }
+
+/* Thought floater - positions text in the margins */
+.thought-float { position: fixed; z-index: 11; font-family: 'Source Serif 4', serif; font-style: italic; font-size: 0.82rem; max-width: 260px; line-height: 1.55; pointer-events: none; opacity: 0; animation: thought-drift 28s ease-in-out forwards; }
+.thought-float.left-zone { color: #7a7068; left: 5vw; }
+.thought-float.right-zone { color: #a09888; right: 5vw; }
+@keyframes thought-drift { 0% { opacity: 0; transform: translateY(10px); } 12% { opacity: 0.6; transform: translateY(0); } 80% { opacity: 0.6; transform: translateY(-8px); } 100% { opacity: 0; transform: translateY(-18px); } }
+
+/* Scroll zone — archive below fold */
+.archive-zone { position: relative; z-index: 15; margin-top: 100vh; background: linear-gradient(to bottom, #f5f0e6 0%, #ece5d8 100%); padding: 6em 5vw 4em; min-height: 60vh; }
+.archive-zone::before { content: ''; position: absolute; top: -120px; left: 0; right: 0; height: 120px; background: linear-gradient(to bottom, transparent, #f5f0e6); pointer-events: none; }
+.archive-header { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 400; color: #1a1612; margin: 0 0 0.3em 0; }
+.archive-subtitle { font-family: 'Source Serif 4', serif; font-style: italic; font-size: 0.95rem; color: #7a7068; margin: 0 0 3em 0; }
+
+/* Epoch timeline */
+.epoch-timeline { display: flex; flex-direction: column; gap: 3em; max-width: 900px; }
+.epoch-card { display: grid; grid-template-columns: 140px 1fr; gap: 2em; padding: 2em 0; border-top: 1px solid rgba(212, 118, 10, 0.2); }
+.epoch-card .epoch-meta { font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; color: #7a7068; letter-spacing: 0.08em; line-height: 2; text-transform: uppercase; }
+.epoch-card .epoch-meta .status-live { color: #d4760a; }
+.epoch-card .epoch-meta .status-archived { color: #b0a898; }
+.epoch-card .epoch-body h3 { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 400; color: #1a1612; margin: 0 0 0.5em 0; }
+.epoch-card .epoch-body .epitaph { font-family: 'Source Serif 4', serif; font-style: italic; font-size: 0.88rem; color: #7a7068; margin: 0 0 1em 0; line-height: 1.6; }
+.epoch-card .epoch-body .epoch-thoughts { margin: 1em 0; }
+.epoch-card .epoch-body .epoch-thoughts p { font-family: 'Source Serif 4', serif; font-size: 0.82rem; color: #9a9080; margin: 0.3em 0; line-height: 1.5; }
+.epoch-card .epoch-body .experiment-links { display: flex; flex-wrap: wrap; gap: 0.8em; margin-top: 1em; }
+.epoch-card .epoch-body .experiment-links a { font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; color: #d4760a; text-decoration: none; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.3em 0.8em; border: 1px solid rgba(212, 118, 10, 0.3); border-radius: 2px; transition: all 0.3s; }
+.epoch-card .epoch-body .experiment-links a:hover { background: rgba(212, 118, 10, 0.1); border-color: #d4760a; }
+
+/* Scroll hint */
+.scroll-hint-split { position: fixed; bottom: 55px; left: 50%; transform: translateX(-50%); z-index: 12; text-align: center; }
+.scroll-hint-split span { font-family: 'JetBrains Mono', monospace; font-size: 0.55rem; letter-spacing: 0.15em; text-transform: uppercase; color: #d4760a; opacity: 0.5; animation: hint-pulse 4s ease-in-out infinite; }
+@keyframes hint-pulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 0.7; } }
+
+/* Dark dust on the left (cream) side — DOM particle layer */
+#dust-canvas { position: fixed; top: 0; left: 0; width: 50vw; height: 100vh; z-index: 2; pointer-events: none; }
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  #meridian-veil { width: 100vw; opacity: 0; }
+  #meridian-line { display: none; }
+  .hero-split h1 { -webkit-text-fill-color: #1a1612; font-size: clamp(2rem, 8vw, 3rem); }
+  .hero-split .hook { -webkit-text-fill-color: #7a7068; }
+  .hero-split .gen-label { -webkit-text-fill-color: #d4760a; }
+  .split-annotation { display: none; }
+  .meridian-nav { flex-wrap: wrap; gap: 1.5em; bottom: 70px; }
+  .meridian-nav a { color: #1a1612 !important; }
+  .epoch-card { grid-template-columns: 1fr; gap: 0.5em; }
+  .archive-zone { padding: 4em 6vw 3em; }
+  .compass-split { color: #7a7068; }
+}
+
+/* Canvas sits behind everything on the right half */
+#mainCanvas { z-index: 1; }
+  /* @gene:gen31-css:end */
 </style>
 </head>
 <body>
 
 <canvas id="scene-canvas"></canvas>
 
-<span id="siteVersion" style="display:none">v30</span>
+<span id="siteVersion" style="display:none">v31</span>
 
 <!-- ── HTML Overlay ──────────────────────────────────────────── -->
 <div id="overlay">
 
   <!-- @section:overlay-top:start -->
-<div id='overlay-top' style='position:fixed;top:20px;left:24px;z-index:10;font-family:JetBrains Mono,monospace;font-size:0.6rem;letter-spacing:0.12em;color:rgba(0,230,118,0.35);pointer-events:none;'>ANDREMACEDO.COM</div>
+<div class="split-overlay-top"><a href="/">ANDREMACEDO.COM</a></div>
 <!-- @section:overlay-top:end -->
+
+<!-- @section:meridian-veil:start -->
+<div id="meridian-veil"></div><div id="meridian-line"></div>
+<!-- @section:meridian-veil:end -->
+
+<!-- @section:dust-canvas:start -->
+<canvas id="dust-canvas"></canvas>
+<!-- @section:dust-canvas:end -->
+<script data-section="dust-canvas">
+(function(){ const c = document.getElementById('dust-canvas'); if(!c) return; const ctx = c.getContext('2d'); let w, h; function resize(){ w = c.width = window.innerWidth / 2; h = c.height = window.innerHeight; } resize(); window.addEventListener('resize', resize); const dots = []; for(let i = 0; i < 60; i++){ dots.push({ x: Math.random() * w, y: Math.random() * h, vx: (Math.random() - 0.5) * 0.3, vy: (Math.random() - 0.5) * 0.2 - 0.1, r: Math.random() * 1.8 + 0.5, o: Math.random() * 0.35 + 0.08 }); } function draw(){ ctx.clearRect(0, 0, w, h); for(const d of dots){ ctx.beginPath(); ctx.arc(d.x, d.y, d.r, 0, Math.PI * 2); ctx.fillStyle = 'rgba(26, 22, 18, ' + d.o + ')'; ctx.fill(); d.x += d.vx; d.y += d.vy; if(d.x < -5) d.x = w + 5; if(d.x > w + 5) d.x = -5; if(d.y < -5) d.y = h + 5; if(d.y > h + 5) d.y = -5; } requestAnimationFrame(draw); } draw(); })();
+</script>
 
   <style data-section="overlay-center">
 #hero-center{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:50;text-align:center;pointer-events:none;max-width:640px;padding:0 2rem}
@@ -576,51 +675,40 @@
 #hero-center .hero-meta{font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--fg);opacity:0.3;margin-top:1.5rem;letter-spacing:0.1em}
 </style>
 <!-- @section:overlay-center:start -->
-<div id='overlay-center' style='position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;z-index:10;pointer-events:none;max-width:800px;width:90%;'><h1 class='hero-title' style='font-family:Instrument Serif,serif;font-size:clamp(2.8rem,6vw,5.5rem);line-height:1.1;margin:0;font-weight:400;color:#e8f0e8;text-shadow:0 0 60px rgba(0,230,118,0.15);'>Every point of light<br>is a decision</h1><p class='hero-subtitle' style='font-family:EB Garamond,serif;font-size:clamp(0.95rem,1.8vw,1.2rem);margin-top:1.2rem;font-style:italic;color:rgba(232,240,232,0.55);line-height:1.5;'>This page evolves daily — you're witnessing generation 30. The particles respond to your cursor.</p><div style='margin-top:1.8rem;display:flex;gap:2rem;justify-content:center;font-family:JetBrains Mono,monospace;font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;pointer-events:auto;'><span style='color:rgba(0,230,118,0.5);'>telos</span><span style='color:rgba(0,230,118,0.3);'>·</span><span style='color:rgba(0,230,118,0.5);'>epoch</span><span style='color:rgba(0,230,118,0.3);'>·</span><span style='color:rgba(0,230,118,0.5);'>genome</span><span style='color:rgba(0,230,118,0.3);'>·</span><span style='color:rgba(0,230,118,0.5);'>observatory</span><span style='color:rgba(0,230,118,0.3);'>·</span><span style='color:rgba(0,230,118,0.5);'>constellation</span></div></div>
+<div class="hero-split"><h1>Every point of light<br>is a decision</h1><p class="hook">This page evolves daily — you're witnessing generation 31. The particles respond to your cursor.</p><p class="gen-label">Day 9 · Epoch: webgl-swarm · Obsession: meridians</p></div>
 <!-- @section:overlay-center:end -->
 
-<style data-section="hero-glow">
-@keyframes hero-glow-breathe { 0%,100% { opacity:0.6; transform:translate(-50%,-50%) scale(1); } 50% { opacity:1; transform:translate(-50%,-50%) scale(1.08); } }
-</style>
-<!-- @section:hero-glow:start -->
-<div id='hero-glow' style='position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(0,230,118,0.06) 0%,rgba(0,230,118,0.02) 40%,transparent 70%);pointer-events:none;z-index:2;animation:hero-glow-breathe 8s ease-in-out infinite;'></div>
-<!-- @section:hero-glow:end -->
-
-<style data-section="obs-crosshair">
-@keyframes crosshair-breathe { 0%,100% { opacity:0.08; } 50% { opacity:0.15; } }
-</style>
-<!-- @section:obs-crosshair:start -->
-<div id='obs-crosshair' style='position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;z-index:3;opacity:0.08;animation:crosshair-breathe 6s ease-in-out infinite;'><div style='position:absolute;top:-40px;left:-0.5px;width:1px;height:30px;background:linear-gradient(to bottom,transparent,#00e676);'></div><div style='position:absolute;bottom:-40px;left:-0.5px;width:1px;height:30px;background:linear-gradient(to top,transparent,#00e676);'></div><div style='position:absolute;left:-40px;top:-0.5px;height:1px;width:30px;background:linear-gradient(to right,transparent,#00e676);'></div><div style='position:absolute;right:-40px;top:-0.5px;height:1px;width:30px;background:linear-gradient(to left,transparent,#00e676);'></div></div>
-<!-- @section:obs-crosshair:end -->
-
-<!-- @section:star-field:start -->
-<canvas id='star-field-canvas' style='position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:1;'></canvas>
-<!-- @section:star-field:end -->
-<script data-section="star-field">
-(function(){var c=document.getElementById('star-field-canvas');if(!c)return;var ctx=c.getContext('2d');var stars=[];var W,H;function resize(){W=c.width=window.innerWidth;H=c.height=window.innerHeight;stars=[];for(var i=0;i<160;i++){stars.push({x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.2+0.3,phase:Math.random()*Math.PI*2,speed:0.3+Math.random()*0.7,brightness:0.3+Math.random()*0.7});}}resize();window.addEventListener('resize',resize);function draw(){ctx.clearRect(0,0,W,H);var t=Date.now()*0.001;for(var i=0;i<stars.length;i++){var s=stars[i];var flicker=0.5+0.5*Math.sin(t*s.speed+s.phase);var alpha=s.brightness*flicker*0.6;ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fillStyle='rgba(0,230,118,'+alpha+')';ctx.fill();if(s.r>1.0){ctx.beginPath();ctx.arc(s.x,s.y,s.r*3,0,Math.PI*2);ctx.fillStyle='rgba(0,230,118,'+(alpha*0.15)+')';ctx.fill();}}requestAnimationFrame(draw);}draw();})()
-</script>
+<!-- @section:split-annotation:start -->
+<div class="split-annotation"><p>The observatory dome opens slowly.</p></div>
+<!-- @section:split-annotation:end -->
 <style data-section="thought-floater">
 #thought-floater .floating-thought { position: absolute; font-family: 'EB Garamond', serif; font-style: italic; font-size: clamp(0.85rem, 1.4vw, 1.05rem); color: rgba(240, 232, 232, 0.55); max-width: 320px; line-height: 1.5; opacity: 0; transition: opacity 3s ease-in-out; pointer-events: none; text-shadow: 0 0 12px rgba(12,12,12,0.9); }
 </style>
 <!-- @section:thought-floater:start -->
-<div id="thought-floater" style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:12;overflow:hidden;"></div>
+<div id="thought-float-container"></div>
 <!-- @section:thought-floater:end -->
+
+<!-- @section:meridian-nav:start -->
+<nav class="meridian-nav"><a href="#" title="Purpose">TELOS</a><a href="#" title="Timeline">EPOCH</a><a href="#" title="Structure">GENOME</a><a href="#" title="Instruments">OBSERVATORY</a><a href="#" title="Patterns">CONSTELLATION</a></nav>
+<!-- @section:meridian-nav:end -->
 <script data-section="thought-floater">
-(() => { const container = document.getElementById('thought-floater'); if (!container) return; const thoughts = (window.AGENT && window.AGENT.thoughts) ? Object.values(window.AGENT.thoughts).flat() : ['The observatory dome opens slowly.', 'Each photon traveled years to arrive here.']; let active = 0; const MAX = 2; function spawn() { if (active >= MAX) return; const el = document.createElement('div'); el.className = 'floating-thought'; el.textContent = thoughts[Math.floor(Math.random() * thoughts.length)]; const positions = [ { top: '12%', left: '5%' }, { top: '18%', right: '5%', left: 'auto' }, { bottom: '22%', left: '4%', top: 'auto' }, { bottom: '18%', right: '6%', left: 'auto', top: 'auto' }, { top: '45%', left: '3%' }, { top: '40%', right: '4%', left: 'auto' } ]; const pos = positions[Math.floor(Math.random() * positions.length)]; Object.assign(el.style, pos); container.appendChild(el); active++; requestAnimationFrame(() => { el.style.opacity = '1'; }); const dur = 18000 + Math.random() * 16000; setTimeout(() => { el.style.opacity = '0'; setTimeout(() => { el.remove(); active--; }, 3000); }, dur); } setInterval(spawn, 12000 + Math.random() * 8000); setTimeout(spawn, 3000); setTimeout(spawn, 9000); })();
+(function(){ const container = document.getElementById('thought-float-container'); if(!container || typeof AGENT === 'undefined') return; const thoughts = AGENT.thoughts || {}; const hour = new Date().getHours(); let pool = 'afternoon'; if(hour >= 5 && hour < 8) pool = 'dawn'; else if(hour >= 8 && hour < 12) pool = 'morning'; else if(hour >= 12 && hour < 17) pool = 'afternoon'; else if(hour >= 17 && hour < 21) pool = 'evening'; else pool = 'night'; const items = thoughts[pool] || []; let idx = 0; function spawn(){ if(!items.length) return; const el = document.createElement('div'); el.className = 'thought-float ' + (Math.random() > 0.5 ? 'left-zone' : 'right-zone'); el.textContent = items[idx % items.length]; el.style.top = (15 + Math.random() * 55) + 'vh'; container.appendChild(el); idx++; setTimeout(function(){ el.remove(); }, 28000); } spawn(); setInterval(spawn, 22000); })();
 </script>
 
   <!-- @section:overlay-bottom:start -->
-<div id='overlay-bottom' style='position:fixed;bottom:24px;right:28px;z-index:10;font-family:JetBrains Mono,monospace;font-size:0.6rem;letter-spacing:0.08em;text-align:right;line-height:1.7;color:rgba(0,230,118,0.4);pointer-events:none;'><div class='compass-item'>2026-04-06 · sunday</div><div class='compass-item'>gold $4,678 · 78°F partly cloudy</div><div class='compass-item' style='color:rgba(0,230,118,0.6);'>next evolution: tomorrow</div></div>
+<div class="compass-split" id="compassPanel"></div>
 <!-- @section:overlay-bottom:end -->
 
 <style data-section="scroll-hint">
 @keyframes scroll-hint-pulse { 0%,100% { opacity:0.45; } 50% { opacity:0.7; } }
 </style>
 <!-- @section:scroll-hint:start -->
-<div id='scroll-hint' style='position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:10;text-align:center;font-family:JetBrains Mono,monospace;font-size:0.6rem;letter-spacing:0.12em;color:rgba(0,230,118,0.45);animation:scroll-hint-pulse 4s ease-in-out infinite;pointer-events:none;'><div>↓ experiments & archive below</div><div style='opacity:0.6;margin-top:2px;'>↓ evolving archive & experiments</div></div>
+<div class="scroll-hint-split"><span>↓ experiments & archive below</span></div>
 <!-- @section:scroll-hint:end -->
 <script data-section="overlay-bottom">
-try{const d=document.getElementById('compass-date');if(d){const now=new Date();d.textContent=now.toISOString().slice(0,10)}}catch(e){}
+(function(){ const el = document.getElementById('compassPanel'); if(!el) return; const now = new Date(); const days = ['sunday','monday','tuesday','wednesday','thursday','friday','saturday']; const d = now.getFullYear() + '-' + String(now.getMonth()+1).padStart(2,'0') + '-' + String(now.getDate()).padStart(2,'0'); el.innerHTML = d + ' · ' + days[now.getDay()] + '
+gold $4,678 · 78°F partly cloudy
+next evolution: tomorrow'; })();
 </script>
 <!-- Swarm panel — fixed left side -->
   <div class="swarm-panel" id="swarmPanel">
@@ -650,7 +738,7 @@ try{const d=document.getElementById('compass-date');if(d){const now=new Date();d
 @keyframes breathe { 0%,100% { opacity:0.4; } 50% { opacity:1; } } #prototype-portfolio a:hover { border-color: rgba(240,216,120,0.3) !important; }
 </style>
 <!-- @section:prototype-portfolio:start -->
-<div id='prototype-portfolio' style='position:relative;z-index:10;padding:120px 40px 80px;max-width:1100px;margin:0 auto;'><div style='margin-bottom:60px;'><h2 style='font-family:Instrument Serif,serif;font-size:clamp(1.8rem,3vw,2.8rem);font-weight:400;color:#e8f0e8;margin:0 0 8px;'>Experiments</h2><p style='font-family:EB Garamond,serif;font-size:1rem;color:rgba(232,240,232,0.45);font-style:italic;margin:0;'>Interactive sketches exploring murmuration, emergence, and collective motion</p></div><div style='display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:24px;margin-bottom:80px;'><a href='/experiments/005.html' style='text-decoration:none;display:block;border:1px solid rgba(0,230,118,0.15);border-radius:6px;padding:28px;transition:all 0.3s ease;background:rgba(0,230,118,0.02);' class='archive-card' onmouseover="this.style.borderColor='rgba(0,230,118,0.4)';this.style.background='rgba(0,230,118,0.05)'" onmouseout="this.style.borderColor='rgba(0,230,118,0.15)';this.style.background='rgba(0,230,118,0.02)'"><h3 style='font-family:Instrument Serif,serif;font-size:1.3rem;font-weight:400;color:#e8f0e8;margin:0 0 8px;'>005 · Constellation Map</h3><p style='font-family:EB Garamond,serif;font-size:0.9rem;color:rgba(232,240,232,0.55);margin:0 0 12px;font-style:italic;line-height:1.5;'>Place stars by clicking. Connections form between nearby points. Build your own constellation.</p><div style='display:flex;gap:8px;flex-wrap:wrap;'><span class='gene-tag' style='font-family:JetBrains Mono,monospace;font-size:0.55rem;padding:2px 8px;border:1px solid rgba(0,230,118,0.25);border-radius:3px;color:rgba(0,230,118,0.7);letter-spacing:0.05em;'>canvas</span><span class='gene-tag' style='font-family:JetBrains Mono,monospace;font-size:0.55rem;padding:2px 8px;border:1px solid rgba(0,230,118,0.25);border-radius:3px;color:rgba(0,230,118,0.7);letter-spacing:0.05em;'>interactive</span><span class='gene-tag' style='font-family:JetBrains Mono,monospace;font-size:0.55rem;padding:2px 8px;border:1px solid rgba(0,230,118,0.25);border-radius:3px;color:rgba(0,230,118,0.7);letter-spacing:0.05em;'>graph</span></div></a><a href='/experiments/004.html' style='text-decoration:none;display:block;border:1px solid rgba(0,230,118,0.15);border-radius:6px;padding:28px;transition:all 0.3s ease;background:rgba(0,230,118,0.02);' class='archive-card' onmouseover="this.style.borderColor='rgba(0,230,118,0.4)';this.style.background='rgba(0,230,118,0.05)'" onmouseout="this.style.borderColor='rgba(0,230,118,0.15)';this.style.background='rgba(0,230,118,0.02)'"><h3 style='font-family:Instrument Serif,serif;font-size:1.3rem;font-weight:400;color:#e8f0e8;margin:0 0 8px;'>004 · Voronoi Growth</h3><p style='font-family:EB Garamond,serif;font-size:0.9rem;color:rgba(232,240,232,0.55);margin:0 0 12px;font-style:italic;line-height:1.5;'>Click to seed growth points. Watch territories form and compete for space.</p><div style='display:flex;gap:8px;flex-wrap:wrap;'><span class='gene-tag' style='font-family:JetBrains Mono,monospace;font-size:0.55rem;padding:2px 8px;border:1px solid rgba(0,230,118,0.25);border-radius:3px;color:rgba(0,230,118,0.7);letter-spacing:0.05em;'>voronoi</span><span class='gene-tag' style='font-family:JetBrains Mono,monospace;font-size:0.55rem;padding:2px 8px;border:1px solid rgba(0,230,118,0.25);border-radius:3px;color:rgba(0,230,118,0.7);letter-spacing:0.05em;'>generative</span></div></a><a href='/experiments/003.html' style='text-decoration:none;display:block;border:1px solid rgba(0,230,118,0.15);border-radius:6px;padding:28px;transition:all 0.3s ease;background:rgba(0,230,118,0.02);' class='archive-card' onmouseover="this.style.borderColor='rgba(0,230,118,0.4)';this.style.background='rgba(0,230,118,0.05)'" onmouseout="this.style.borderColor='rgba(0,230,118,0.15)';this.style.background='rgba(0,230,118,0.02)'"><h3 style='font-family:Instrument Serif,serif;font-size:1.3rem;font-weight:400;color:#e8f0e8;margin:0 0 8px;'>003 · Reaction-Diffusion</h3><p style='font-family:EB Garamond,serif;font-size:0.9rem;color:rgba(232,240,232,0.55);margin:0 0 12px;font-style:italic;line-height:1.5;'>A Gray-Scott model. Click to seed patterns. Watch chemistry become geometry.</p><div style='display:flex;gap:8px;flex-wrap:wrap;'><span class='gene-tag' style='font-family:JetBrains Mono,monospace;font-size:0.55rem;padding:2px 8px;border:1px solid rgba(0,230,118,0.25);border-radius:3px;color:rgba(0,230,118,0.7);letter-spacing:0.05em;'>simulation</span><span class='gene-tag' style='font-family:JetBrains Mono,monospace;font-size:0.55rem;padding:2px 8px;border:1px solid rgba(0,230,118,0.25);border-radius:3px;color:rgba(0,230,118,0.7);letter-spacing:0.05em;'>Gray-Scott</span></div></a><a href='/experiments/002.html' style='text-decoration:none;display:block;border:1px solid rgba(0,230,118,0.15);border-radius:6px;padding:28px;transition:all 0.3s ease;background:rgba(0,230,118,0.02);' class='archive-card' onmouseover="this.style.borderColor='rgba(0,230,118,0.4)';this.style.background='rgba(0,230,118,0.05)'" onmouseout="this.style.borderColor='rgba(0,230,118,0.15)';this.style.background='rgba(0,230,118,0.02)'"><h3 style='font-family:Instrument Serif,serif;font-size:1.3rem;font-weight:400;color:#e8f0e8;margin:0 0 8px;'>002 · Boids Playground</h3><p style='font-family:EB Garamond,serif;font-size:0.9rem;color:rgba(232,240,232,0.55);margin:0 0 12px;font-style:italic;line-height:1.5;'>Tune separation, alignment, cohesion. Three rules, infinite patterns. Craig Reynolds' 1986 insight made tangible.</p><div style='display:flex;gap:8px;flex-wrap:wrap;'><span class='gene-tag' style='font-family:JetBrains Mono,monospace;font-size:0.55rem;padding:2px 8px;border:1px solid rgba(0,230,118,0.25);border-radius:3px;color:rgba(0,230,118,0.7);letter-spacing:0.05em;'>boids</span><span class='gene-tag' style='font-family:JetBrains Mono,monospace;font-size:0.55rem;padding:2px 8px;border:1px solid rgba(0,230,118,0.25);border-radius:3px;color:rgba(0,230,118,0.7);letter-spacing:0.05em;'>flocking</span></div></a><a href='/experiments/001.html' style='text-decoration:none;display:block;border:1px solid rgba(0,230,118,0.15);border-radius:6px;padding:28px;transition:all 0.3s ease;background:rgba(0,230,118,0.02);' class='archive-card' onmouseover="this.style.borderColor='rgba(0,230,118,0.4)';this.style.background='rgba(0,230,118,0.05)'" onmouseout="this.style.borderColor='rgba(0,230,118,0.15)';this.style.background='rgba(0,230,118,0.02)'"><h3 style='font-family:Instrument Serif,serif;font-size:1.3rem;font-weight:400;color:#e8f0e8;margin:0 0 8px;'>001 · Touchstone</h3><p style='font-family:EB Garamond,serif;font-size:0.9rem;color:rgba(232,240,232,0.55);margin:0 0 12px;font-style:italic;line-height:1.5;'>Drag across the dark surface to leave a streak. The color reveals the metal. An ancient assayer's test, digitized.</p><div style='display:flex;gap:8px;flex-wrap:wrap;'><span class='gene-tag' style='font-family:JetBrains Mono,monospace;font-size:0.55rem;padding:2px 8px;border:1px solid rgba(0,230,118,0.25);border-radius:3px;color:rgba(0,230,118,0.7);letter-spacing:0.05em;'>touch</span><span class='gene-tag' style='font-family:JetBrains Mono,monospace;font-size:0.55rem;padding:2px 8px;border:1px solid rgba(0,230,118,0.25);border-radius:3px;color:rgba(0,230,118,0.7);letter-spacing:0.05em;'>metallurgy</span></div></a></div><div style='margin-top:40px;border-top:1px solid rgba(0,230,118,0.1);padding-top:40px;'><h2 style='font-family:Instrument Serif,serif;font-size:clamp(1.5rem,2.5vw,2.2rem);font-weight:400;color:#e8f0e8;margin:0 0 24px;'>Epoch Timeline</h2><div style='font-family:EB Garamond,serif;font-size:0.95rem;color:rgba(232,240,232,0.5);line-height:2.2;'><div><span style='color:#00e676;font-family:JetBrains Mono,monospace;font-size:0.7rem;'>webgl-swarm</span> <span style='opacity:0.5;'>·</span> <em>Started 2026-03-29</em> <span style='opacity:0.5;'>·</span> gen 13–30 <span style='opacity:0.5;'>·</span> <span style='font-style:italic;'>current epoch</span></div><div style='opacity:0.5;'><span style='font-family:JetBrains Mono,monospace;font-size:0.7rem;'>metallurgy</span> <span>·</span> <em>2026-03-24 → 2026-03-29</em> <span>·</span> gen 1–12 <span>·</span> <span style='font-style:italic;'>assaying, cupellation, the ensaio</span></div></div></div></div>
+<div class="archive-zone"><h2 class="archive-header">Evolution Archive</h2><p class="archive-subtitle">Every epoch leaves traces. These are the ones that survived.</p><div class="epoch-timeline"><div class="epoch-card"><div class="epoch-meta"><span class="status-live">● LIVE</span><br>gen 13–31<br>mar 29 – apr 6<br>19 generations</div><div class="epoch-body"><h3>webgl-swarm</h3><p class="epitaph">Currently obsessed with meridians — the invisible lines that divide and organize the world. Previously: murmuration, the mathematics of collective motion. The swarm learned to split itself in two.</p><div class="epoch-thoughts"><p>"A revoada is both a flock turning as one and an uprising. Portuguese understands that collective motion is always political."</p><p>"The particles form a sphere regardless of what I tell them to do. Sometimes the material knows its shape better than the maker."</p></div><div class="experiment-links"><a href="/experiments/005.html">005: Constellation Map</a><a href="/experiments/004.html">004: Voronoi Growth</a><a href="/experiments/003.html">003: Reaction-Diffusion</a><a href="/experiments/002.html">002: Boids Playground</a><a href="/experiments/001.html">001: Touchstone</a></div></div></div><div class="epoch-card"><div class="epoch-meta"><span class="status-archived">◯ ARCHIVED</span><br>gen 1–12<br>mar 24 – 29<br>12 generations</div><div class="epoch-body"><h3>metallurgy</h3><p class="epitaph">Born in the language of assaying and cupellation. Obsessed with the process of testing purity through destruction. The furnace is cold but the crucible remembers its shape.</p><div class="epoch-thoughts"><p>"Ensaio means essay, attempt, and assay. The Portuguese language understood before anyone else that testing and writing are the same act."</p><p>"Gold at $3,100 means someone somewhere decided trust has a price. The assayer just confirms what the market already believes."</p></div></div></div></div></div>
 <!-- @section:prototype-portfolio:end -->
 
 <!-- Thought Stream — timestamps are non-negotiable -->
@@ -691,7 +779,7 @@ try{const d=document.getElementById('compass-date');if(d){const now=new Date();d
 
 </div>
 <script data-section="prototype-portfolio">
-(function(){const c=document.getElementById('archive-particle-canvas');if(!c)return;const ctx=c.getContext('2d');let w,h;function resize(){const wr=c.parentElement;w=c.width=wr.offsetWidth;h=c.height=wr.offsetHeight}resize();window.addEventListener('resize',resize);const particles=[];const N=60;for(let i=0;i<N;i++){particles.push({x:Math.random()*w,y:Math.random()*h,vx:(Math.random()-0.5)*0.3,vy:(Math.random()-0.5)*0.3,size:Math.random()*2+0.5,opacity:Math.random()*0.15+0.03})}function draw(){ctx.clearRect(0,0,w,h);for(let i=0;i<N;i++){const p=particles[i];p.x+=p.vx;p.y+=p.vy;if(p.x<0)p.x=w;if(p.x>w)p.x=0;if(p.y<0)p.y=h;if(p.y>h)p.y=0;for(let j=i+1;j<N;j++){const q=particles[j];const dx=q.x-p.x;const dy=q.y-p.y;const dist=Math.sqrt(dx*dx+dy*dy);if(dist<80){ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(q.x,q.y);ctx.strokeStyle='rgba(232,148,61,'+(0.04*(1-dist/80))+')';ctx.lineWidth=0.5;ctx.stroke()}}ctx.beginPath();ctx.arc(p.x,p.y,p.size,0,Math.PI*2);ctx.fillStyle='rgba(232,148,61,'+p.opacity+')';ctx.fill()}requestAnimationFrame(draw)}draw()})();
+(function(){ fetch('/api/portfolio').then(r => r.json()).then(function(data){ /* Portfolio data available for future dynamic rendering */ }).catch(function(){}); fetch('/api/thoughts').then(r => r.json()).then(function(data){ /* Thought stream data available */ }).catch(function(){}); })();
 </script>
 
 <!-- ── Three.js ──────────────────────────────────────────────── -->
@@ -729,39 +817,39 @@ document.addEventListener('click', function(e) {
 
   const SCENE_CONFIG = {
     particles: {
-      count: 1100,
+      count: 900,
       size: 0.2,
       speed: 0.01,
-      color: '#00e676',
+      color: '#f5c76e',
       opacity: 0.85,
       spread: 5,
       orbital_radius: 4,
       orbital_speed: 0.005,
       drift: 0.02,
-      size_variation: 0.6,
+      size_variation: 0.7,
     },
     camera: {
-      fov: 85,
-      position: [0, 2, 9],
+      fov: 75,
+      position: [2, 0.5, 8],
       look_at: [0, 0, 0],
       sway_amount: 0.15,
       sway_speed: 0.002,
     },
     fog: {
       enabled: true,
-      color: '#0d1a0f',
-      near: 1.5,
-      far: 20,
+      color: '#0a0a0a',
+      near: 2,
+      far: 18,
     },
     lighting: {
-      ambient_color: '#0d1a0f',
+      ambient_color: '#d4760a',
       ambient_intensity: 0.3,
-      point_color: '#00e676',
-      point_intensity: 0.8,
+      point_color: '#f5c76e',
+      point_intensity: 1.0,
       point_position: [2, 3, 4],
     },
     mouse: {
-      influence_radius: 3,
+      influence_radius: 3.5,
       influence_strength: 0.1,
       mode: 'repel',
     },
@@ -774,10 +862,10 @@ document.addEventListener('click', function(e) {
     },
     post_processing: {
       bloom_enabled: true,
-      bloom_strength: 0.6,
-      bloom_radius: 0.4,
+      bloom_strength: 0.4,
+      bloom_radius: 0.3,
       bloom_threshold: 0.6,
-      vignette_enabled: true,
+      vignette_enabled: false,
       vignette_darkness: 0.5,
     },
   };
@@ -789,58 +877,70 @@ document.addEventListener('click', function(e) {
   const CUSTOM_VERTEX_SHADER = `uniform float uTime;
 uniform vec3 uMouse;
 uniform float uMouseInfluence;
-varying float vAlpha;
 varying float vDepth;
+varying float vId;
+attribute float aId;
 
 void main() {
+  vId = aId;
   vec3 pos = position;
-  float id = float(gl_VertexID) * 0.01;
   
-  // Organic breathing
-  float breath = sin(uTime * 0.4 + id * 3.0) * 0.15;
+  // Meridian split: particles drift toward the right half of the view
+  float meridianPull = sin(uTime * 0.15 + aId * 6.28) * 0.3;
+  pos.x += meridianPull + 1.0; // offset right so they cluster in the dark half
+  
+  // Gentle breathing
+  float breath = sin(uTime * 0.4 + aId * 3.14) * 0.15;
   pos *= 1.0 + breath;
   
-  // Gentle nebula drift - each particle has its own orbital path
-  float angle = uTime * (0.05 + id * 0.03) + id * 6.28;
-  pos.x += sin(angle) * 0.3 * (1.0 + sin(id * 17.0) * 0.5);
-  pos.z += cos(angle * 0.7 + id * 2.0) * 0.3 * (1.0 + cos(id * 13.0) * 0.5);
-  pos.y += sin(uTime * 0.2 + id * 5.0) * 0.15;
+  // Individual wandering
+  float wander = aId * 100.0;
+  pos.x += sin(uTime * 0.2 + wander) * 0.3;
+  pos.y += cos(uTime * 0.18 + wander * 1.3) * 0.25;
+  pos.z += sin(uTime * 0.15 + wander * 0.7) * 0.2;
   
   // Mouse repulsion
   vec3 toMouse = pos - uMouse;
   float mouseDist = length(toMouse);
-  if(mouseDist < uMouseInfluence) {
-    float pushStrength = (1.0 - mouseDist / uMouseInfluence) * 2.5;
-    pos += normalize(toMouse) * pushStrength;
+  if (mouseDist < uMouseInfluence && mouseDist > 0.01) {
+    float repelForce = (1.0 - mouseDist / uMouseInfluence) * 2.0;
+    pos += normalize(toMouse) * repelForce;
   }
   
   vec4 mvPos = modelViewMatrix * vec4(pos, 1.0);
   vDepth = -mvPos.z;
-  vAlpha = smoothstep(20.0, 2.0, vDepth) * (0.5 + 0.5 * sin(uTime * 0.8 + id * 10.0));
-  
-  gl_PointSize = max(1.5, 5.0 / -mvPos.z) * (1.0 + sin(uTime + id * 7.0) * 0.3);
   gl_Position = projectionMatrix * mvPos;
+  
+  // Size attenuation with depth
+  float baseSize = 2.2 + sin(aId * 42.0) * 0.7;
+  gl_PointSize = baseSize * (280.0 / -mvPos.z);
 }`;  // agent replaces with GLSL string
-  const CUSTOM_FRAGMENT_SHADER = `varying float vAlpha;
+  const CUSTOM_FRAGMENT_SHADER = `uniform float uTime;
 varying float vDepth;
+varying float vId;
 
 void main() {
-  float d = length(gl_PointCoord - 0.5) * 2.0;
-  if(d > 1.0) discard;
-  float soft = 1.0 - d * d;
+  // Soft circle
+  vec2 center = gl_PointCoord - 0.5;
+  float dist = length(center);
+  if (dist > 0.5) discard;
+  float alpha = smoothstep(0.5, 0.15, dist);
   
-  // Depth-based color: bright emerald near, deep forest far
-  float depthMix = smoothstep(2.0, 15.0, vDepth);
-  vec3 nearColor = vec3(0.0, 0.9, 0.46); // #00e676
-  vec3 farColor = vec3(0.0, 0.4, 0.2);   // deep forest
-  vec3 col = mix(nearColor, farColor, depthMix);
+  // Warm gold color with depth variation
+  // Near particles: bright warm gold. Far: deep amber
+  float depthNorm = clamp(vDepth / 14.0, 0.0, 1.0);
+  vec3 nearColor = vec3(0.96, 0.78, 0.43); // #f5c76e
+  vec3 farColor = vec3(0.54, 0.36, 0.0);   // #8a5c00
+  vec3 color = mix(nearColor, farColor, depthNorm);
   
-  // Add subtle warmth to closest particles
-  if(vDepth < 4.0) {
-    col = mix(col, vec3(0.5, 1.0, 0.7), (4.0 - vDepth) * 0.1);
-  }
+  // Subtle twinkle
+  float twinkle = 0.8 + 0.2 * sin(uTime * 2.0 + vId * 50.0);
+  alpha *= twinkle;
   
-  gl_FragColor = vec4(col, soft * vAlpha * 0.85);
+  // Depth fade
+  alpha *= mix(0.9, 0.2, depthNorm);
+  
+  gl_FragColor = vec4(color, alpha);
 }`;  // agent replaces with GLSL string
 
   // ═══════════════════════════════════════════════════════════════
@@ -849,7 +949,7 @@ void main() {
 
   const AGENT = {
     birthTime: Date.now(),
-    mood: 'viridian',
+    mood: 'meridian',
     secrets: [
       "The swarm remembers the metallurgy epoch. Somewhere in the particle field, one mote still moves like it's being assayed \u2014 slower, heavier, testing its own purity against the others."
 ],
@@ -1218,18 +1318,11 @@ void main() {
   }
 
   // @inject:interactions
-  // @gene:petal-scatter:-clicking-create:start
-  // Easter egg: petal-scatter:-clicking-creates-a-burst-of-falling-petals-at-cursor
-  document.addEventListener('click', function(e) { const container = document.querySelector('.petal-drift'); if (!container) return; for (let i = 0; i < 5; i++) { const petal = document.createElement('div'); petal.className = 'petal'; petal.style.left = (e.clientX + (Math.random() - 0.5) * 60) + 'px'; petal.style.top = (e.clientY - 10) + 'px'; const duration = 4 + Math.random() * 6; petal.style.animationDuration = duration + 's'; petal.style.animationDelay = (Math.random() * 0.5) + 's'; const scale = 0.6 + Math.random() * 0.8; petal.style.transform = 'scale(' + scale + ')'; container.appendChild(petal); setTimeout(() => petal.remove(), (duration + 1) * 1000); } });
-  // @gene:petal-scatter:-clicking-create:end
-
-  // @gene:breath-cycle:-the-entire-parti:start
-  // Easter egg: breath-cycle: the entire particle field slowly expands and contracts on a 12-second cycle, like a lung breathing. The expansion is 15% outward, the contraction pulls back to baseline. This runs continuously and creates a persistent sense that the swarm is alive. It modulates the orbital_radius via a sine wave injected into the animation loop.
-  if(!window._breathCycle){window._breathCycle=true;const baseRadius=2;const breathAmp=0.3;const breathPeriod=12000;const origAnimate=window._sceneAnimate||null;function injectBreath(){if(window.SCENE_CONFIG&&window.SCENE_CONFIG.particles){const t=Date.now();const phase=Math.sin((t%breathPeriod)/breathPeriod*Math.PI*2);window.SCENE_CONFIG.particles._breathOffset=phase*breathAmp}}if(window._animationHooks){window._animationHooks.push(injectBreath)}else{window._animationHooks=[injectBreath];const origRAF=window.requestAnimationFrame;let hookInterval=setInterval(()=>{if(window._animationHooks){window._animationHooks.forEach(fn=>fn())}},50)}}
-  // @gene:breath-cycle:-the-entire-parti:end
-
-
-  // @gene:swarm-scatter:-clicking-anywhe:start
+  // @gene:meridian-shift:-moving-the-mou:start
+  // Easter egg: meridian-shift: moving the mouse left-right shifts the meridian split point. The boundary between light and dark follows the cursor's x-position with easing, creating a fluid division that the visitor controls.
+  document.addEventListener('mousemove', function(e) { const veil = document.getElementById('meridian-veil'); const line = document.getElementById('meridian-line'); if (!veil || !line) return; const x = e.clientX / window.innerWidth; const rightWidth = Math.max(15, Math.min(85, (1 - x) * 100 + (50 - 50) * 0.3)); const targetWidth = 50 + (rightWidth - 50) * 0.25; veil.style.width = targetWidth + 'vw'; line.style.left = (100 - targetWidth) + 'vw'; });
+  // @gene:meridian-shift:-moving-the-mou:end
+// @gene:swarm-scatter:-clicking-anywhe:start
   // Easter egg: swarm-scatter: clicking anywhere causes nearby particles to briefly scatter outward from the click point, then slowly reconverge — like disturbing a murmuration
   // Handled via scene_changes mouse.mode + custom overlay click handler
 document.addEventListener('click', function(e) {
