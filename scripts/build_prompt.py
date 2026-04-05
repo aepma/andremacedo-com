@@ -4,7 +4,7 @@
 Generates evolutionary prompts that give the agent full creative power
 over sections, pages, SVGs, canvas elements, and all visual properties.
 """
-import json, sys, os, re
+import glob, json, sys, os, re
 
 pulse_type = sys.argv[1]
 state_file = sys.argv[2]
@@ -217,6 +217,13 @@ genome = read_json(genome_file)
 html = read_file(index_file)
 genome_summary = format_genome_summary(genome, html)
 
+# ── Dynamic experiment inventory ────────────────────────────────
+site_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+experiment_files = sorted(glob.glob(os.path.join(site_dir, "experiments", "*.html")))
+experiment_names = [os.path.basename(f) for f in experiment_files]
+experiment_list = ", ".join(f"/experiments/{n}" for n in experiment_names) if experiment_names else "(none yet)"
+experiment_count = len(experiment_names)
+
 budget = genome.get("mutation_budget", {})
 daily_budget = budget.get("daily", 5)
 weekly_budget = budget.get("weekly", 10)
@@ -372,6 +379,17 @@ SCENE AUDIT: Review the WebGL scene parameters. Consider:
 
 Ask yourself: if someone saw generation 1 and this generation side by side, would they recognize it as the same site? If yes, you're not pushing hard enough.
 
+## EXPERIMENT RULES (non-negotiable)
+You currently have {experiment_count} experiment sub-pages: {experiment_list}. You should create a NEW experiment page at least once every 5-7 generations.
+
+CRITICAL: Every experiment MUST be linked from the archive section with a clickable `<a href="/experiments/NNN.html">` tag. Experiments that exist but have no links are invisible and useless. When you create a new experiment, update the experiments archive card to include the link. When you replace the prototype-portfolio section, ALWAYS preserve working links to ALL existing experiments — including any new ones you create in this same generation.
+
+EXPERIMENT ORDER (non-negotiable): Experiments in the archive grid MUST be listed in reverse order — newest first (highest number first). The most recent experiment should appear top-left.
+
+EXPERIMENT COMMUNICATION (non-negotiable): Every experiment page MUST include a visible #info block with: (1) a title, (2) 1-2 sentences explaining the concept, (3) how to interact. The info block should be persistent, positioned top-left, styled at low opacity.
+
+EXPERIMENT TEXT CONTRAST (non-negotiable): Text overlays (#info, #ui, #controls, #back, labels) MUST have `text-shadow: 0 0 8px rgba(0,0,0,0.8), 0 0 20px rgba(0,0,0,0.5)` for readability regardless of canvas content.
+
 {screenshot_context}
 
 Respond ONLY in valid JSON:
@@ -442,7 +460,7 @@ You are not limited to color changes and thought swaps. Every day you can:
 - Restructure the page
 
 ## EXPERIMENT PRESSURE
-You currently have sub-pages at /experiments/001.html, /experiments/002.html, /experiments/003.html, and /experiments/004.html. You should create a NEW experiment page at least once every 5-7 generations. Experiments are interactive, self-contained HTML pages that explore your current obsession through code. Ideas: reaction-diffusion simulator, noise field visualizer, cellular automata, gravity wells, Voronoi playground, Conway's Game of Life with custom rules, audio-reactive visualizer, generative typography, maze generator, L-system renderer. Each experiment should be a single HTML file with no dependencies beyond what's in a CDN.
+You currently have {experiment_count} experiment sub-pages: {experiment_list}. You should create a NEW experiment page at least once every 5-7 generations. Experiments are interactive, self-contained HTML pages that explore your current obsession through code. Ideas: reaction-diffusion simulator, noise field visualizer, cellular automata, gravity wells, Voronoi playground, Conway's Game of Life with custom rules, audio-reactive visualizer, generative typography, maze generator, L-system renderer. Each experiment should be a single HTML file with no dependencies beyond what's in a CDN.
 
 CRITICAL: Every experiment MUST be linked from the archive section with a clickable `<a href="/experiments/NNN.html">` tag. Experiments that exist but have no links are invisible and useless. When you create a new experiment, update the experiments archive card to include the link. When you replace the prototype-portfolio section, ALWAYS preserve working links to ALL existing experiments.
 

@@ -19,7 +19,7 @@ Capabilities:
     overlay_changes (AGENT object: mood, thoughts, secrets, statuses)
   - Genome tracking: fitness, mutations, graveyard, generation
 """
-import json, os, re, sys, copy
+import glob, json, os, re, sys, copy
 from datetime import datetime, timezone
 
 site_dir = os.environ["SITE_DIR"]
@@ -882,6 +882,33 @@ elif pulse_type == "event":
     state["last_event_trigger"] = now
 
 state["monthly_tokens_used"] = state.get("monthly_tokens_used", 0) + total_tokens
+
+# ── Post-apply: ensure all experiments are linked in the archive ──
+with open(index_path) as f: html = f.read()
+exp_files = sorted(glob.glob(os.path.join(site_dir, "experiments", "*.html")))
+if exp_files:
+    linked = set(re.findall(r'href="/experiments/(\d+\.html)"', html))
+    missing = []
+    for exp_path in exp_files:
+        fname = os.path.basename(exp_path)
+        if fname not in linked:
+            missing.append(fname)
+    if missing:
+        # Find the experiment-links div and inject missing links at the front (newest first)
+        link_pattern = re.compile(
+            r'(<div\s+class="experiment-links">)(.*?)(</div>)',
+            re.DOTALL
+        )
+        m = link_pattern.search(html)
+        if m:
+            # Build link tags for missing experiments (newest first)
+            new_links = ""
+            for fname in sorted(missing, reverse=True):
+                num = fname.replace(".html", "")
+                new_links += f'<a href="/experiments/{fname}">{num}: Experiment {num}</a>'
+            html = html[:m.start(2)] + new_links + m.group(2) + html[m.end(2):]
+            with open(index_path, "w") as f: f.write(html)
+            parts.append(f"auto-linked experiments: {', '.join(missing)}")
 
 # ── Save everything ───────────────────────────────────────────────
 with open(thoughts_path, "w") as f: json.dump(thoughts, f, indent=2)
