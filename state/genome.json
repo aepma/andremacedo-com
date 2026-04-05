@@ -1,17 +1,17 @@
 {
-  "generation": 29,
+  "generation": 30,
   "epoch": "webgl-swarm",
   "epoch_started": "2026-03-29",
   "traits": {
     "color": {
-      "accent_base": "#dc3545",
-      "accent_dawn": "#ff8a95",
-      "accent_morning": "#f06070",
-      "accent_afternoon": "#dc3545",
-      "accent_evening": "#b02030",
-      "accent_night": "#8b1525",
-      "bg": "#0c0c0c",
-      "fg": "#f0e8e8",
+      "accent_base": "#00e676",
+      "accent_dawn": "#b9f6ca",
+      "accent_morning": "#69f0ae",
+      "accent_afternoon": "#00e676",
+      "accent_evening": "#00c853",
+      "accent_night": "#009624",
+      "bg": "#0d1a0f",
+      "fg": "#e8f0e8",
       "grain_opacity": "0.003",
       "fg_dim": "#5a7a6d",
       "bg_surface": "#060e0b",
@@ -50,6 +50,7 @@
         "phosphorescent-glyph-001.svg",
         "murmuration-glyph-001.svg",
         "planetarium-glyph-001.svg",
+        "viridian-glyph-001.svg",
         "pulse-ring-001.svg",
         "swarm-glyph-001.svg",
         "surfacing-glyph-001.svg",
@@ -69,7 +70,7 @@
       "petal-scatter:-clicking-create"
     ],
     "content": {
-      "mood": "observatory",
+      "mood": "viridian",
       "obsession": "murmuration \u2014 the mathematics of collective motion",
       "thought_pools": {
         "dawn": 3,
@@ -82,15 +83,6 @@
     }
   },
   "fitness_log": [
-    {
-      "gen": 10,
-      "coherence": 7,
-      "novelty": 5,
-      "identity": 7,
-      "tension": 5,
-      "note": "The geological turn is coherent but settling into comfort. The touchstone-surface interaction is the strongest element but it exists in isolation \u2014 no",
-      "total": 6.0
-    },
     {
       "gen": 11,
       "coherence": 7,
@@ -261,28 +253,18 @@
       "tension": 5,
       "note": "The screenshot is genuinely beautiful \u2014 the golden particle sphere against deep indigo is luminous and unmistakable. But the sphere is STILL a sphere.",
       "total": 6.2
+    },
+    {
+      "gen": 30,
+      "coherence": 7,
+      "novelty": 5,
+      "identity": 7,
+      "tension": 5,
+      "note": "The screenshot is genuinely beautiful \u2014 the golden particle sphere is luminous and clearly visible against the dark background. But there's a critical",
+      "total": 6.0
     }
   ],
   "mutation_log": [
-    {
-      "gen": 10,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "content.mood",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "section.dawn-furnace",
-        "section.hero"
-      ],
-      "kills": [
-        "thought:night[9]",
-        "thought:night[8]",
-        "css_rule:gen8-css"
-      ],
-      "timestamp": "2026-03-29T05:52:08Z"
-    },
     {
       "gen": 11,
       "mutations": [
@@ -801,21 +783,37 @@
         "section:constellation-line"
       ],
       "timestamp": "2026-04-05T00:02:14Z"
+    },
+    {
+      "gen": 30,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "content.mood",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "section.overlay-center",
+        "section.hero-glow",
+        "section.obs-crosshair",
+        "section.star-field",
+        "section.overlay-bottom",
+        "section.scroll-hint",
+        "section.prototype-portfolio",
+        "section.overlay-top",
+        "svg.viridian-glyph-001.svg",
+        "scene.config",
+        "scene.shaders",
+        "overlay.agent_data"
+      ],
+      "kills": [
+        "css_rule:gen29-css",
+        "secret[20]"
+      ],
+      "timestamp": "2026-04-05T16:02:43Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "section",
-      "value": "stream-fades",
-      "died_gen": 18,
-      "epitaph": "Gradient overlays meant to dissolve the stream edges. In practice they just added more darkness to an already-too-dark page. The stream itself needs rethinking, not softening."
-    },
-    {
-      "type": "section",
-      "value": "thought-stream",
-      "died_gen": 18,
-      "epitaph": "The consciousness stream section dominated the viewport in every screenshot \u2014 a wall of monospaced text that made the site look like a blog. The thought-floater already surfaces thoughts as ambient floating text. The stream was redundant and visually overwhelming. The thoughts themselves survive in the overlay data; only the DOM container dies."
-    },
     {
       "type": "css_rule",
       "value": "gen17-css",
@@ -1103,6 +1101,18 @@
       "value": "constellation-line",
       "died_gen": 29,
       "epitaph": "The constellation-line was a breathing accent line from the previous palette. Replaced by the observatory crosshair which serves the same grounding function with more conceptual coherence."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen29-css",
+      "died_gen": 30,
+      "epitaph": "The crimson observatory served one generation. Emerald replaces it \u2014 from infrared to the phosphor spectrum."
+    },
+    {
+      "type": "secret",
+      "value": "The particle field was a sphere for 28 generations. Tonight it finally broke.",
+      "died_gen": 30,
+      "epitaph": "Over the 20-secret cap. The oldest observatory secret makes way for the viridian batch."
     }
   ],
   "carrying_capacity": {
@@ -1121,11 +1131,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 20,
-      "base": "#e8943d",
-      "family": "amber"
-    },
     {
       "gen": 21,
       "base": "#b44de8",
@@ -1170,6 +1175,11 @@
       "gen": 29,
       "base": "#dc3545",
       "family": "magenta"
+    },
+    {
+      "gen": 30,
+      "base": "#00e676",
+      "family": "lime"
     }
   ]
 }

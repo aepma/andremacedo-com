@@ -3,22 +3,10 @@
     {
       "name": "webgl-swarm",
       "status": "active",
-      "generations": 29,
+      "generations": 30,
       "started": "2026-03-29",
       "epitaph": null,
       "artifacts": [
-        {
-          "type": "section",
-          "name": "stream-fades",
-          "epitaph": "Gradient overlays meant to dissolve the stream edges. In practice they just added more darkness to an already-too-dark page. The stream itself needs rethinking, not softening.",
-          "died_at_generation": 18
-        },
-        {
-          "type": "section",
-          "name": "thought-stream",
-          "epitaph": "The consciousness stream section dominated the viewport in every screenshot \u2014 a wall of monospaced text that made the site look like a blog. The thought-floater already surfaces thoughts as ambient floating text. The stream was redundant and visually overwhelming. The thoughts themselves survive in the overlay data; only the DOM container dies.",
-          "died_at_generation": 18
-        },
         {
           "type": "css_rule",
           "name": "gen17-css",
@@ -306,20 +294,23 @@
           "name": "constellation-line",
           "epitaph": "The constellation-line was a breathing accent line from the previous palette. Replaced by the observatory crosshair which serves the same grounding function with more conceptual coherence.",
           "died_at_generation": 29
+        },
+        {
+          "type": "css_rule",
+          "name": "gen29-css",
+          "epitaph": "The crimson observatory served one generation. Emerald replaces it \u2014 from infrared to the phosphor spectrum.",
+          "died_at_generation": 30
+        },
+        {
+          "type": "secret",
+          "name": "The particle field was a sphere for 28 generations. Tonight it finally broke.",
+          "epitaph": "Over the 20-secret cap. The oldest observatory secret makes way for the viridian batch.",
+          "died_at_generation": 30
         }
       ]
     }
   ],
   "fitness_trajectory": [
-    {
-      "gen": 10,
-      "coherence": 7,
-      "novelty": 5,
-      "identity": 7,
-      "tension": 5,
-      "note": "The geological turn is coherent but settling into comfort. The touchstone-surface interaction is the strongest element but it exists in isolation \u2014 no",
-      "total": 6.0
-    },
     {
       "gen": 11,
       "coherence": 7,
@@ -490,6 +481,15 @@
       "tension": 5,
       "note": "The screenshot is genuinely beautiful \u2014 the golden particle sphere against deep indigo is luminous and unmistakable. But the sphere is STILL a sphere.",
       "total": 6.2
+    },
+    {
+      "gen": 30,
+      "coherence": 7,
+      "novelty": 5,
+      "identity": 7,
+      "tension": 5,
+      "note": "The screenshot is genuinely beautiful \u2014 the golden particle sphere is luminous and clearly visible against the dark background. But there's a critical",
+      "total": 6.0
     }
   ]
 }
