@@ -177,8 +177,11 @@ def format_genome_summary(genome, html):
 
     css_genes, js_genes, html_genes = get_gene_marked_items(html)
 
+    epoch_num = genome.get("epoch_number", "?")
+    past_epochs = genome.get("past_epochs", [])
+
     lines = [
-        f"GENOME — generation {gen}, epoch \"{epoch}\"",
+        f"GENOME — generation {gen}, epoch {epoch_num} \"{epoch}\"",
         f"  color: accent={color.get('accent_base','?')}, bg={color.get('bg','?')}, fg={color.get('fg','?')}, grain={color.get('grain_opacity','?')}",
         f"  typography: {typo.get('display','?')} / {typo.get('body','?')} / {typo.get('mono','?')}",
         f"  atmosphere: transitions={atmos.get('transition_slow','?')}/{atmos.get('transition_med','?')}, orbs={atmos.get('orb_count','?')}",
@@ -219,6 +222,14 @@ def format_genome_summary(genome, html):
             lines.append(f"  gen {g}: C={c} N={n} I={i} T={t} ({total}) \"{note}\"")
     else:
         lines.append("FITNESS TRAJECTORY: no data yet. Rate yourself honestly.")
+
+    # Past epochs (real history)
+    if past_epochs:
+        lines.append("")
+        lines.append("PAST EPOCHS (dead):")
+        for pe in past_epochs:
+            lines.append(f"  Epoch {pe.get('number','?')}: \"{pe.get('obsession','?')}\" ({pe.get('started','?')} to {pe.get('ended','?')})")
+            lines.append(f"    epitaph: {pe.get('epitaph','')[:120]}")
 
     # Graveyard
     graveyard = genome.get("graveyard", [])
