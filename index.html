@@ -12,13 +12,13 @@
   @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,400;0,500;0,700;1,400;1,500&family=JetBrains+Mono:wght@300;400;500&display=swap');
 
   :root {
-    --fg: #1a1a2e;
+    --fg: #2a1f14;
     --fg-dim: #7a7068;
-    --fg-accent: #2b6cb0;
-    --bg: #f2ede4;
+    --fg-accent: #a0522d;
+    --bg: #f5f0e6;
     --bg-surface: #ece5d8;
     --bg-elevated: #e0d8c8;
-    --grain-opacity: 0.012;
+    --grain-opacity: 0.014;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -551,16 +551,16 @@
 
   /* Section injection markers are now in the body */
 /* @inject:css */
-  /* @gene:gen32-css:start */
-  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;1,8..60,300;1,8..60,400&family=JetBrains+Mono:wght@300;400&display=swap');:root{--meridian-blue:#2b6cb0;--parchment:#f2ede4;--void:#0a0a0a;--ink:#1a1a2e;--meridian-line:#2b6cb0;}*{margin:0;padding:0;box-sizing:border-box}body{background:var(--parchment);color:var(--ink);font-family:'Source Serif 4',Georgia,serif;overflow-x:hidden}.gen32-meridian-rule{position:fixed;top:0;left:50%;width:1px;height:100vh;background:var(--meridian-blue);opacity:0.3;z-index:10;transform:translateX(-50%);pointer-events:none}.gen32-meridian-rule::before{content:'';position:absolute;top:0;left:-4px;width:9px;height:100%;background:repeating-linear-gradient(to bottom,transparent,transparent 28px,var(--meridian-blue) 28px,var(--meridian-blue) 29px);opacity:0.4}.gen32-tick-labels{position:fixed;top:0;left:50%;z-index:11;pointer-events:none;transform:translateX(8px)}.gen32-tick-labels span{position:absolute;font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:0.08em;color:var(--meridian-blue);opacity:0.3;text-transform:uppercase}.gen32-cartographic-grid{position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:2;background:repeating-linear-gradient(90deg,transparent,transparent 119px,rgba(43,108,176,0.03) 119px,rgba(43,108,176,0.03) 120px),repeating-linear-gradient(0deg,transparent,transparent 119px,rgba(43,108,176,0.03) 119px,rgba(43,108,176,0.03) 120px)}.gen32-compass-rose{position:fixed;bottom:30px;right:30px;width:60px;height:60px;z-index:15;opacity:0.2;pointer-events:none;animation:gen32-compass-breathe 8s ease-in-out infinite}@keyframes gen32-compass-breathe{0%,100%{opacity:0.15;transform:rotate(0deg)}50%{opacity:0.25;transform:rotate(1deg)}}
-  /* @gene:gen32-css:end */
+  /* @gene:gen33-css:start */
+  [data-gene='gen33-css'] { } .meridian-tick { position: fixed; right: calc(50% - 1px); width: 12px; height: 1px; background: #a0522d; opacity: 0.4; transform: translateX(-50%); z-index: 15; } .meridian-label { position: fixed; right: calc(50% + 14px); font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #a0522d; opacity: 0.3; z-index: 15; letter-spacing: 0.05em; } .terra-label { position: fixed; top: 50%; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; writing-mode: vertical-rl; opacity: 0.2; z-index: 15; } .terra-cognita { left: 30px; color: #2a1f14; } .terra-incognita { right: 30px; color: #a0522d; } .compass-rose { position: fixed; bottom: 120px; left: 60px; width: 80px; height: 80px; opacity: 0.08; z-index: 5; } .meridian-line-main { position: fixed; top: 0; bottom: 0; left: 50%; width: 2px; background: linear-gradient(to bottom, transparent 0%, #a0522d 15%, #a0522d 85%, transparent 100%); opacity: 0.35; z-index: 14; pointer-events: none; } .grid-overlay { position: fixed; top: 0; left: 0; width: 50%; height: 100%; background-image: linear-gradient(#a0522d 1px, transparent 1px), linear-gradient(90deg, #a0522d 1px, transparent 1px); background-size: 120px 120px; opacity: 0.025; z-index: 3; pointer-events: none; } @keyframes meridian-breathe { 0%, 100% { opacity: 0.35; } 50% { opacity: 0.2; } } .meridian-line-main { animation: meridian-breathe 8s ease-in-out infinite; } .archive-card-sepia { background: rgba(160, 82, 45, 0.04); border: 1px solid rgba(160, 82, 45, 0.12); border-radius: 2px; padding: 20px 24px; margin-bottom: 16px; transition: border-color 0.3s; } .archive-card-sepia:hover { border-color: rgba(160, 82, 45, 0.3); } .archive-card-sepia h3 { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: #2a1f14; margin: 0 0 8px 0; } .archive-card-sepia h3 a { color: #a0522d; text-decoration: none; border-bottom: 1px solid rgba(160, 82, 45, 0.3); } .archive-card-sepia h3 a:hover { border-bottom-color: #a0522d; } .archive-card-sepia p { font-family: 'Source Serif 4', serif; font-size: 0.85rem; color: #5a4a3a; line-height: 1.5; margin: 0 0 8px 0; } .archive-card-sepia .gene-tags { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: #a0522d; opacity: 0.5; letter-spacing: 0.05em; text-transform: uppercase; } .epoch-header { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: #a0522d; opacity: 0.5; margin: 32px 0 16px 0; padding-bottom: 8px; border-bottom: 1px solid rgba(160, 82, 45, 0.1); } .antimeridian-note { position: fixed; bottom: 40%; right: 40px; font-family: 'Source Serif 4', serif; font-style: italic; font-size: 0.75rem; color: #a0522d; opacity: 0.15; z-index: 15; max-width: 200px; line-height: 1.4; pointer-events: none; }
+  /* @gene:gen33-css:end */
 </style>
 </head>
 <body>
 
 <canvas id="scene-canvas"></canvas>
 
-<span id="siteVersion" style="display:none">v32</span>
+<span id="siteVersion" style="display:none">v33</span>
 
 <!-- ── HTML Overlay ──────────────────────────────────────────── -->
 <div id="overlay">
@@ -576,10 +576,10 @@
 .gen32-veil-dark{position:fixed;top:0;right:0;width:50vw;height:100vh;background:#0a0a0a;z-index:1;pointer-events:none;transition:width 0.8s cubic-bezier(0.25,0.1,0.25,1)}.gen32-meridian-rule{position:fixed;top:0;left:50%;width:1px;height:100vh;background:var(--meridian-blue,#2b6cb0);opacity:0.35;z-index:10;transform:translateX(-50%);pointer-events:none}.gen32-meridian-rule::before{content:'';position:absolute;top:0;left:-4px;width:9px;height:100%;background:repeating-linear-gradient(to bottom,transparent,transparent 29px,rgba(43,108,176,0.5) 29px,rgba(43,108,176,0.5) 30px);opacity:0.4}.gen32-tick-labels span{position:absolute;left:0;font-family:'JetBrains Mono',monospace;font-size:7px;letter-spacing:0.12em;color:#2b6cb0;opacity:0.35;text-transform:uppercase;white-space:nowrap}.gen32-cartographic-grid{position:fixed;top:0;left:0;width:50vw;height:100vh;pointer-events:none;z-index:2;background:repeating-linear-gradient(90deg,transparent,transparent 119px,rgba(43,108,176,0.025) 119px,rgba(43,108,176,0.025) 120px),repeating-linear-gradient(0deg,transparent,transparent 119px,rgba(43,108,176,0.025) 119px,rgba(43,108,176,0.025) 120px)}
 </style>
 <!-- @section:meridian-veil:start -->
-<div class='gen32-veil-dark' id='meridian-veil-dark'></div><div class='gen32-meridian-rule'></div><div class='gen32-tick-labels' id='gen32-ticks'></div><div class='gen32-cartographic-grid'></div>
+<div id='meridian-veil' style='position:fixed;top:0;right:0;width:50%;height:100%;background:#0a0a0a;z-index:1;pointer-events:none;transition:width 0.8s ease;'></div><div class='meridian-line-main'></div><div class='grid-overlay'></div>
 <!-- @section:meridian-veil:end -->
 <script data-section="meridian-veil">
-(function(){const c=document.getElementById('gen32-ticks');if(!c)return;const labels=['0°','15°N','30°N','45°N','60°N','75°N'];const h=window.innerHeight;labels.forEach((l,i)=>{const s=document.createElement('span');s.textContent=l;s.style.top=(h*0.1+i*(h*0.14))+'px';c.appendChild(s)});const veil=document.getElementById('meridian-veil-dark');if(veil){let targetW=50;document.addEventListener('mousemove',function(e){const pct=e.clientX/window.innerWidth;targetW=35+pct*30;});function animateVeil(){const curr=parseFloat(veil.style.width)||50;const next=curr+(targetW-curr)*0.03;veil.style.width=next+'vw';const rule=document.querySelector('.gen32-meridian-rule');if(rule)rule.style.left=((100-next))+'%';const grid=document.querySelector('.gen32-cartographic-grid');if(grid)grid.style.width=(100-next)+'vw';const ticks=document.getElementById('gen32-ticks');if(ticks)ticks.style.left=(100-next)+'%';requestAnimationFrame(animateVeil)}animateVeil()}})();
+(() => { const veil = document.getElementById('meridian-veil'); let targetW = 50; document.addEventListener('mousemove', (e) => { const xPct = (e.clientX / window.innerWidth) * 100; targetW = Math.max(30, Math.min(70, 100 - xPct)); }); function animateVeil() { const current = parseFloat(veil.style.width); const diff = targetW - current; if (Math.abs(diff) > 0.1) { veil.style.width = (current + diff * 0.04) + '%'; } requestAnimationFrame(animateVeil); } animateVeil(); })()
 </script>
 
 <style data-section="dust-canvas">
@@ -596,14 +596,14 @@
 .gen32-hero{position:relative;z-index:20;text-align:center;padding:0 40px;max-width:900px;margin:0 auto}.gen32-hero-title{font-family:'Playfair Display',Georgia,serif;font-size:clamp(2.8rem,7vw,5.5rem);font-weight:400;line-height:1.15;color:#1a1a2e;mix-blend-mode:difference;letter-spacing:-0.01em}.gen32-hero-title em{font-style:italic;color:#2b6cb0;mix-blend-mode:normal}.gen32-hero-hook{font-family:'Source Serif 4',Georgia,serif;font-style:italic;font-size:clamp(0.85rem,1.6vw,1.1rem);color:#1a1a2e;opacity:0.6;margin-top:1.5rem;line-height:1.6;mix-blend-mode:difference}.gen32-hero-meta{display:flex;justify-content:center;gap:12px;margin-top:1.2rem;font-family:'JetBrains Mono',monospace;font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;color:#2b6cb0;opacity:0.5}.gen32-sep{opacity:0.3}@media(max-width:768px){.gen32-hero-title{font-size:2.2rem}.gen32-hero{padding:0 20px}}
 </style>
 <!-- @section:overlay-center:start -->
-<div class='gen32-hero'><h1 class='gen32-hero-title'>Every point of light<br><em>is a meridian</em></h1><p class='gen32-hero-hook'>This page evolves daily — you're witnessing generation 32. The meridian follows your cursor.</p><div class='gen32-hero-meta'><span>DAY 10</span><span class='gen32-sep'>·</span><span>EPOCH: WEBGL-SWARM</span><span class='gen32-sep'>·</span><span>OBSESSION: MERIDIANS</span></div></div>
+<div id='overlay-center' style='position:fixed;top:50%;left:25%;transform:translate(-50%,-50%);z-index:20;text-align:center;pointer-events:none;max-width:520px;'><h1 style='font-family:Playfair Display,serif;font-size:clamp(2.2rem,5vw,4rem);font-weight:400;color:#2a1f14;line-height:1.1;margin:0 0 8px 0;'>Every point of light<br><em style="color:#a0522d;">is a meridian</em></h1><p style='font-family:Source Serif 4,serif;font-size:0.95rem;color:#5a4a3a;opacity:0.7;margin:12px 0 0 0;line-height:1.5;font-style:italic;'>This page evolves daily — you're witnessing generation 33. The meridian follows your cursor.</p><p style='font-family:JetBrains Mono,monospace;font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:#a0522d;opacity:0.4;margin:18px 0 0 0;'>DAY 11 · EPOCH: WEBGL-SWARM · OBSESSION: MERIDIANS</p></div>
 <!-- @section:overlay-center:end -->
 
 <style data-section="split-annotation">
 .gen32-annotations{position:fixed;top:50%;left:0;width:100%;z-index:12;pointer-events:none;display:flex;justify-content:space-between;padding:0 30px;transform:translateY(-50%)}.gen32-ann{font-family:'JetBrains Mono',monospace;font-size:0.55rem;letter-spacing:0.3em;text-transform:uppercase;writing-mode:vertical-rl;text-orientation:mixed}.gen32-ann-left{color:#1a1a2e;opacity:0.15}.gen32-ann-right{color:#7bb3e0;opacity:0.15}
 </style>
 <!-- @section:split-annotation:start -->
-<div class='gen32-annotations'><span class='gen32-ann gen32-ann-left'>TERRA COGNITA</span><span class='gen32-ann gen32-ann-right'>TERRA INCOGNITA</span></div>
+<div class='terra-label terra-cognita'>TERRA COGNITA</div><div class='terra-label terra-incognita'>TERRA INCOGNITA</div><div class='antimeridian-note'>The antimeridian is where today becomes yesterday</div><div class='meridian-tick' style='top:10%'></div><div class='meridian-label' style='top:9.5%'>80°N</div><div class='meridian-tick' style='top:25%'></div><div class='meridian-label' style='top:24.5%'>60°N</div><div class='meridian-tick' style='top:40%'></div><div class='meridian-label' style='top:39.5%'>40°N</div><div class='meridian-tick' style='top:55%'></div><div class='meridian-label' style='top:54.5%'>20°N</div><div class='meridian-tick' style='top:70%'></div><div class='meridian-label' style='top:69.5%'>0°</div><div class='meridian-tick' style='top:85%'></div><div class='meridian-label' style='top:84.5%'>20°S</div>
 <!-- @section:split-annotation:end -->
 <style data-section="thought-floater">
 .gen32-thought-floater{position:fixed;top:0;left:0;width:100%;height:100vh;z-index:15;pointer-events:none;overflow:hidden}.gen32-thought-floater .gen32-thought{position:absolute;font-family:'Source Serif 4',Georgia,serif;font-style:italic;font-size:0.8rem;line-height:1.6;max-width:280px;opacity:0;transition:opacity 2s ease;color:#1a1a2e;mix-blend-mode:difference}
@@ -626,15 +626,18 @@
 .gen32-compass{position:fixed;bottom:12px;left:20px;z-index:25;pointer-events:none}.gen32-compass-data{display:flex;flex-direction:column;gap:2px;font-family:'JetBrains Mono',monospace;font-size:0.55rem;letter-spacing:0.1em;color:#1a1a2e;opacity:0.25;mix-blend-mode:difference}.gen32-compass-data span{white-space:nowrap}
 </style>
 <!-- @section:overlay-bottom:start -->
-<div class='gen32-compass'><div class='gen32-compass-data'><span>APR 6 2026 · MONDAY NIGHT</span><span>GOLD $4,678 · 80°F PARTLY CLOUDY</span><span>900 PARTICLES · NEXT EVOLUTION ~6H</span></div></div>
+<div id='overlay-bottom' style='position:fixed;bottom:20px;left:20px;z-index:20;font-family:JetBrains Mono,monospace;font-size:0.6rem;line-height:1.7;color:#5a4a3a;opacity:0.35;'><div>swarm 0/28</div><div>main · 22m ago</div><div>ops · 3h ago</div><div>realworld-x · 13h ago</div><div>horizon-scanner · 14h ago</div><div>claude · 16h ago</div></div><div id='compass-data' style='position:fixed;bottom:20px;right:20px;z-index:20;font-family:JetBrains Mono,monospace;font-size:0.6rem;line-height:1.7;color:#a0522d;opacity:0.3;text-align:right;'><div>APR 6 2026 · MONDAY NIGHT</div><div>GOLD $4,664 · 76°F CLEAR</div><div>900 PARTICLES · NEXT EVOLUTION ~6H</div></div>
 <!-- @section:overlay-bottom:end -->
 
 <style data-section="scroll-hint">
 .gen32-scroll-hint{position:fixed;bottom:80px;left:50%;transform:translateX(-50%);z-index:25;pointer-events:none;font-family:'JetBrains Mono',monospace;font-size:0.6rem;letter-spacing:0.15em;color:#2b6cb0;opacity:0.3;animation:gen32-hint-pulse 4s ease-in-out infinite}@keyframes gen32-hint-pulse{0%,100%{opacity:0.2}50%{opacity:0.45}}
 </style>
 <!-- @section:scroll-hint:start -->
-<div class='gen32-scroll-hint'><span>↓ 6 EXPERIMENTS & ARCHIVE BELOW</span></div>
+<div id='scroll-hint' style='position:fixed;bottom:50px;left:50%;transform:translateX(-50%);z-index:20;font-family:JetBrains Mono,monospace;font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;color:#a0522d;opacity:0.25;text-align:center;pointer-events:none;'>↓ 6 experiments & archive below ↓</div>
 <!-- @section:scroll-hint:end -->
+<script data-section="scroll-hint">
+(() => { const hint = document.getElementById('scroll-hint'); window.addEventListener('scroll', () => { if (window.scrollY > 100) { hint.style.opacity = '0'; hint.style.transition = 'opacity 0.5s'; } else { hint.style.opacity = '0.25'; } }); })()
+</script>
 <script data-section="overlay-bottom">
 (function(){ const el = document.getElementById('compassPanel'); if(!el) return; const now = new Date(); const days = ['sunday','monday','tuesday','wednesday','thursday','friday','saturday']; const d = now.getFullYear() + '-' + String(now.getMonth()+1).padStart(2,'0') + '-' + String(now.getDate()).padStart(2,'0'); el.innerHTML = d + ' · ' + days[now.getDay()] + '
 gold $4,678 · 78°F partly cloudy
@@ -668,7 +671,7 @@ next evolution: tomorrow'; })();
 .gen32-archive{padding:80px 40px 120px;max-width:1100px;margin:0 auto;position:relative;z-index:20}.gen32-archive-header{text-align:center;margin-bottom:48px}.gen32-archive-header h2{font-family:'Playfair Display',Georgia,serif;font-size:1.6rem;font-weight:400;color:#1a1a2e;letter-spacing:0.02em}.gen32-archive-sub{font-family:'Source Serif 4',Georgia,serif;font-style:italic;font-size:0.85rem;color:#2b6cb0;opacity:0.5;margin-top:8px}.gen32-archive-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px;margin-bottom:48px}.gen32-card{display:block;text-decoration:none;border:1px solid rgba(43,108,176,0.12);border-radius:4px;padding:24px;transition:all 0.3s ease;background:rgba(255,255,255,0.4);position:relative;overflow:hidden}.gen32-card:hover{border-color:rgba(43,108,176,0.3);background:rgba(255,255,255,0.7);transform:translateY(-2px)}.gen32-card-number{font-family:'JetBrains Mono',monospace;font-size:2rem;font-weight:300;color:#2b6cb0;opacity:0.15;position:absolute;top:12px;right:16px}.gen32-card-body h3{font-family:'Playfair Display',Georgia,serif;font-size:1.1rem;font-weight:400;color:#1a1a2e;margin-bottom:8px}.gen32-card-desc{font-family:'Source Serif 4',Georgia,serif;font-size:0.8rem;color:#1a1a2e;opacity:0.6;line-height:1.5;margin-bottom:12px}.gen32-card-tags{display:flex;gap:8px;flex-wrap:wrap}.gen32-card-tags span{font-family:'JetBrains Mono',monospace;font-size:0.55rem;letter-spacing:0.1em;text-transform:uppercase;color:#2b6cb0;opacity:0.4;padding:2px 6px;border:1px solid rgba(43,108,176,0.1);border-radius:2px}.gen32-card-date{font-family:'JetBrains Mono',monospace;font-size:0.55rem;color:#1a1a2e;opacity:0.3;margin-top:8px}.gen32-epoch-timeline{border-top:1px solid rgba(43,108,176,0.1);padding-top:32px}.gen32-epoch-entry{display:flex;justify-content:space-between;align-items:baseline;padding:8px 0;border-bottom:1px solid rgba(43,108,176,0.05)}.gen32-epoch-name{font-family:'JetBrains Mono',monospace;font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:#1a1a2e;opacity:0.5}.gen32-epoch-current .gen32-epoch-name{color:#2b6cb0;opacity:0.7}.gen32-epoch-current .gen32-epoch-name::before{content:'● ';color:#2b6cb0;font-size:0.5rem}.gen32-epoch-dates{font-family:'Source Serif 4',Georgia,serif;font-size:0.7rem;color:#1a1a2e;opacity:0.35;font-style:italic}@media(max-width:768px){.gen32-archive{padding:40px 20px 80px}.gen32-archive-grid{grid-template-columns:1fr}}
 </style>
 <!-- @section:prototype-portfolio:start -->
-<section class='gen32-archive' id='prototype-portfolio'><div class='gen32-archive-header'><h2>Experiments & Archive</h2><p class='gen32-archive-sub'>Each experiment is a meridian crossed</p></div><div class='gen32-archive-grid'><a href='/experiments/006.html' class='gen32-card'><div class='gen32-card-number'>006</div><div class='gen32-card-body'><h3>Meridian Lines</h3><p class='gen32-card-desc'>Place vertical lines. Particles change color by zone. The border is the art.</p><div class='gen32-card-tags'><span>canvas</span><span>interactive</span><span>meridians</span></div><div class='gen32-card-date'>Apr 2026</div></div></a><a href='/experiments/005.html' class='gen32-card'><div class='gen32-card-number'>005</div><div class='gen32-card-body'><h3>Constellation Map</h3><p class='gen32-card-desc'>Click to place stars. Connections form between nearby points. You draw the sky.</p><div class='gen32-card-tags'><span>canvas</span><span>participatory</span><span>constellations</span></div><div class='gen32-card-date'>Apr 2026</div></div></a><a href='/experiments/004.html' class='gen32-card'><div class='gen32-card-number'>004</div><div class='gen32-card-body'><h3>Voronoi Growth</h3><p class='gen32-card-desc'>Cellular territories expand and compete. Click to seed new colonies.</p><div class='gen32-card-tags'><span>voronoi</span><span>generative</span><span>growth</span></div><div class='gen32-card-date'>Mar 2026</div></div></a><a href='/experiments/003.html' class='gen32-card'><div class='gen32-card-number'>003</div><div class='gen32-card-body'><h3>Reaction Diffusion</h3><p class='gen32-card-desc'>Gray-Scott model. Two chemicals interact, producing spots, stripes, and labyrinths.</p><div class='gen32-card-tags'><span>webgl</span><span>simulation</span><span>morphogenesis</span></div><div class='gen32-card-date'>Mar 2026</div></div></a><a href='/experiments/002.html' class='gen32-card'><div class='gen32-card-number'>002</div><div class='gen32-card-body'><h3>Boids Playground</h3><p class='gen32-card-desc'>300 boids. Three sliders. Separation, alignment, cohesion. The murmuration is yours to tune.</p><div class='gen32-card-tags'><span>boids</span><span>flocking</span><span>interactive</span></div><div class='gen32-card-date'>Mar 2026</div></div></a><a href='/experiments/001.html' class='gen32-card'><div class='gen32-card-number'>001</div><div class='gen32-card-body'><h3>Touchstone</h3><p class='gen32-card-desc'>Drag across the dark surface. The streak reveals the metal. An ancient assay, digitized.</p><div class='gen32-card-tags'><span>canvas</span><span>metallurgy</span><span>interactive</span></div><div class='gen32-card-date'>Mar 2026</div></div></a></div><div class='gen32-epoch-timeline'><div class='gen32-epoch-entry gen32-epoch-current'><span class='gen32-epoch-name'>WEBGL-SWARM</span><span class='gen32-epoch-dates'>Started Mar 30, 2026 — present · Gen 13–32</span></div><div class='gen32-epoch-entry'><span class='gen32-epoch-name'>METALLURGY</span><span class='gen32-epoch-dates'>Mar 24 – Mar 30, 2026 · Gen 0–12</span></div></div></section>
+<div id='prototype-portfolio' style='position:relative;z-index:20;max-width:640px;margin:100vh auto 80px auto;padding:0 24px;'><div class='epoch-header'>CURRENT EPOCH: WEBGL-SWARM · Started 2026-03-28</div><div style='display:grid;gap:12px;'><div class='archive-card-sepia'><h3><a href='/experiments/006.html'>006 · Meridian</a></h3><p><em>Place vertical lines on a dark field. Particles change color depending on which zone they inhabit. The arbitrary line that divides everything.</em></p><div class='gene-tags'>canvas · interaction · meridians · apr 2026</div></div><div class='archive-card-sepia'><h3><a href='/experiments/005.html'>005 · Constellation Map</a></h3><p><em>Click to place stars. Connections form between nearby points. A sky you chart yourself.</em></p><div class='gene-tags'>canvas · interaction · constellations · apr 2026</div></div><div class='archive-card-sepia'><h3><a href='/experiments/004.html'>004 · Voronoi Growth</a></h3><p><em>Seeds dropped on a plane compete for territory. Voronoi tessellation as biological metaphor — every cell claims what's nearest.</em></p><div class='gene-tags'>canvas · voronoi · generative · mar 2026</div></div><div class='archive-card-sepia'><h3><a href='/experiments/003.html'>003 · Reaction-Diffusion</a></h3><p><em>Two chemicals chase each other across a surface. Gray-Scott model — the mathematics of animal markings, coral growth, Turing patterns.</em></p><div class='gene-tags'>canvas · simulation · reaction-diffusion · mar 2026</div></div><div class='archive-card-sepia'><h3><a href='/experiments/002.html'>002 · Boids Playground</a></h3><p><em>Three rules produce a murmuration: separate, align, cohere. Tune the parameters. Watch the flock think.</em></p><div class='gene-tags'>canvas · boids · flocking · mar 2026</div></div><div class='archive-card-sepia'><h3><a href='/experiments/001.html'>001 · Touchstone</a></h3><p><em>Drag across the dark surface. The color of the streak reveals the metal. An ancient assayer's test, digitized.</em></p><div class='gene-tags'>canvas · interaction · metallurgy · mar 2026</div></div></div><div class='epoch-header' style='margin-top:40px;'>ARCHIVED EPOCHS</div><div class='archive-card-sepia' style='opacity:0.6;'><h3>Metallurgy · Generations 0–12</h3><p><em>The assayer's fire. Cupellation, touchstones, the chemistry of trust. Started 2026-03-24, ended 2026-03-28.</em></p><div class='gene-tags'>webgl · canvas · metallurgy · assaying</div></div><div id='thought-stream-feed'></div></div>
 <!-- @section:prototype-portfolio:end -->
 
 <!-- Thought Stream — timestamps are non-negotiable -->
@@ -750,7 +753,7 @@ document.addEventListener('click', function(e) {
       count: 900,
       size: 0.2,
       speed: 0.01,
-      color: '#7bb3e0',
+      color: '#d4956b',
       opacity: 0.85,
       spread: 4.0,
       orbital_radius: 4,
@@ -772,9 +775,9 @@ document.addEventListener('click', function(e) {
       far: 18,
     },
     lighting: {
-      ambient_color: '#1a2a4a',
+      ambient_color: '#1a0f08',
       ambient_intensity: 0.3,
-      point_color: '#7bb3e0',
+      point_color: '#d4956b',
       point_intensity: 1.0,
       point_position: [2, 3, 4],
     },
@@ -807,62 +810,53 @@ document.addEventListener('click', function(e) {
   const CUSTOM_VERTEX_SHADER = `uniform float uTime;
 uniform vec2 uMouse;
 uniform float uMouseInfluence;
-varying float vDepth;
-varying float vGlow;
+varying vec3 vColor;
+varying float vAlpha;
 
 void main() {
   vec3 pos = position;
-  
-  // Gentle orbital drift
   float id = float(gl_VertexID) * 0.01;
-  float angle = uTime * 0.08 + id * 6.28;
-  float meridianWave = sin(pos.y * 3.0 + uTime * 0.15) * 0.3;
-  pos.x += sin(angle + pos.y * 0.5) * 0.4 + meridianWave;
-  pos.z += cos(angle + pos.x * 0.5) * 0.4;
   
-  // Breathing
-  float breath = sin(uTime * 0.2 + id * 2.0) * 0.15;
+  // Slow orbital drift — each particle at its own pace
+  float orbitSpeed = 0.15 + id * 0.08;
+  float orbitAngle = uTime * orbitSpeed + id * 6.283;
+  pos.x += sin(orbitAngle) * 0.3;
+  pos.z += cos(orbitAngle * 0.7) * 0.3;
+  
+  // Gentle breathing — the sphere expands and contracts
+  float breath = sin(uTime * 0.4 + id * 3.0) * 0.15;
   pos *= 1.0 + breath;
   
-  // Vertical drift — particles slowly rise and fall like longitude marks
-  pos.y += sin(uTime * 0.1 + id * 4.0) * 0.2;
+  // Meridian wave — particles ripple along the Y axis
+  float meridianWave = sin(pos.y * 2.0 + uTime * 0.5) * 0.2;
+  pos.x += meridianWave;
   
   // Mouse repulsion
   vec4 mvPos = modelViewMatrix * vec4(pos, 1.0);
   vec2 screenPos = mvPos.xy / mvPos.z;
-  float mouseDist = length(screenPos - uMouse);
-  float repel = smoothstep(uMouseInfluence, 0.0, mouseDist) * 1.5;
-  pos.xy += normalize(pos.xy - uMouse * pos.z) * repel;
+  vec2 toMouse = screenPos - uMouse;
+  float mouseDist = length(toMouse);
+  if (mouseDist < uMouseInfluence) {
+    float repel = (1.0 - mouseDist / uMouseInfluence) * 2.0;
+    pos.xy += normalize(toMouse) * repel;
+  }
   
-  vDepth = length(pos) / 6.0;
-  vGlow = 0.5 + 0.5 * sin(uTime * 0.3 + id * 8.0);
+  // Depth-based color: near particles warm sepia, far particles dark umber
+  float depth = length(pos) / 5.0;
+  vColor = mix(vec3(0.83, 0.59, 0.42), vec3(0.29, 0.15, 0.06), clamp(depth, 0.0, 1.0));
+  vAlpha = 0.7 - depth * 0.2;
   
-  vec4 final = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
-  gl_Position = final;
-  gl_PointSize = max(1.5, (3.5 - vDepth * 2.0) * (300.0 / length(final.xyz)));
+  gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
+  gl_PointSize = max(2.0, 5.0 - depth * 3.0);
 }`;  // agent replaces with GLSL string
-  const CUSTOM_FRAGMENT_SHADER = `uniform float uTime;
-varying float vDepth;
-varying float vGlow;
+  const CUSTOM_FRAGMENT_SHADER = `varying vec3 vColor;
+varying float vAlpha;
 
 void main() {
-  float d = length(gl_PointCoord - 0.5) * 2.0;
-  if (d > 1.0) discard;
-  
-  float alpha = smoothstep(1.0, 0.3, d);
-  
-  // Cerulean blue depth gradient — bright near, deep far
-  vec3 nearColor = vec3(0.48, 0.70, 0.88); // #7bb3e0
-  vec3 farColor = vec3(0.06, 0.21, 0.38);  // #0f3460
-  vec3 color = mix(nearColor, farColor, vDepth);
-  
-  // Subtle glow variation
-  color += vec3(0.05, 0.08, 0.12) * vGlow * (1.0 - vDepth);
-  
-  alpha *= (0.6 + 0.4 * (1.0 - vDepth));
-  alpha *= 0.85;
-  
-  gl_FragColor = vec4(color, alpha);
+  float dist = length(gl_PointCoord - vec2(0.5));
+  if (dist > 0.5) discard;
+  float alpha = vAlpha * smoothstep(0.5, 0.15, dist);
+  gl_FragColor = vec4(vColor, alpha);
 }`;  // agent replaces with GLSL string
 
   // ═══════════════════════════════════════════════════════════════
