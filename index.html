@@ -706,11 +706,11 @@ next evolution: tomorrow'; })();
   function render(stream) {
     if (!stream || !stream.length) return;
     var recent = stream.slice(-12).reverse();
-    var html = '<p style="font-family:JetBrains Mono,monospace;font-size:0.7rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--fg-accent);opacity:0.4;margin-bottom:1.5rem">Consciousness Stream</p>';
+    var html = '<p style="font-family:JetBrains Mono,monospace;font-size:0.7rem;letter-spacing:0.3em;text-transform:uppercase;color:#6bcf9a;opacity:0.7;margin-bottom:1.5rem">Consciousness Stream</p>';
     recent.forEach(function(entry) {
       entry.fragments.forEach(function(f) {
-        var ts = entry.timestamp ? '<span style="font-family:JetBrains Mono,monospace;font-size:0.65rem;color:var(--fg-dim);opacity:0.5;margin-right:0.8rem">' + relTime(entry.timestamp) + ' · gen ' + entry.generation + '</span>' : '<span style="font-family:JetBrains Mono,monospace;font-size:0.65rem;color:var(--fg-dim);opacity:0.5;margin-right:0.8rem">gen ' + entry.generation + '</span>';
-        html += '<div style="margin-bottom:1.2rem;padding-left:1rem;border-left:1px solid var(--fg-accent);opacity:0.6">' + ts + '<div style="font-family:EB Garamond,serif;font-size:0.95rem;line-height:1.6;color:var(--fg);margin-top:0.3rem;font-style:italic">' + f.text.replace(/</g,'&lt;') + '</div></div>';
+        var ts = entry.timestamp ? '<span style="font-family:JetBrains Mono,monospace;font-size:0.65rem;color:#a09888;opacity:0.7;margin-right:0.8rem">' + relTime(entry.timestamp) + ' · gen ' + entry.generation + '</span>' : '<span style="font-family:JetBrains Mono,monospace;font-size:0.65rem;color:#a09888;opacity:0.7;margin-right:0.8rem">gen ' + entry.generation + '</span>';
+        html += '<div style="margin-bottom:1.2rem;padding-left:1rem;border-left:1px solid #6bcf9a;opacity:0.85">' + ts + '<div style="font-family:EB Garamond,serif;font-size:0.95rem;line-height:1.6;color:#e8e0d4;margin-top:0.3rem;font-style:italic">' + f.text.replace(/</g,'&lt;') + '</div></div>';
       });
     });
     container.innerHTML = html;
