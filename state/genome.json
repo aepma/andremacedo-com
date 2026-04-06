@@ -1,17 +1,17 @@
 {
-  "generation": 34,
+  "generation": 35,
   "epoch": "webgl-swarm",
   "epoch_started": "2026-03-29",
   "traits": {
     "color": {
-      "accent_base": "#6b3fa0",
-      "accent_dawn": "#b388e8",
-      "accent_morning": "#8b5ec0",
-      "accent_afternoon": "#6b3fa0",
-      "accent_evening": "#4a2878",
-      "accent_night": "#2e1850",
+      "accent_base": "#2d8659",
+      "accent_dawn": "#6bcf9a",
+      "accent_morning": "#3fa070",
+      "accent_afternoon": "#2d8659",
+      "accent_evening": "#1e6b44",
+      "accent_night": "#124a2e",
       "bg": "#f5f0e6",
-      "fg": "#1a1428",
+      "fg": "#1a2820",
       "grain_opacity": "0.014",
       "fg_dim": "#7a7068",
       "bg_surface": "#ece5d8",
@@ -62,6 +62,7 @@
         "planetarium-glyph-001.svg",
         "viridian-glyph-001.svg",
         "cartographic-glyph-001.svg",
+        "cartographic-glyph-002.svg",
         "pulse-ring-001.svg",
         "swarm-glyph-001.svg",
         "surfacing-glyph-001.svg",
@@ -93,15 +94,6 @@
     }
   },
   "fitness_log": [
-    {
-      "gen": 15,
-      "coherence": 6,
-      "novelty": 5,
-      "identity": 5,
-      "tension": 4,
-      "note": "The screenshot shows something that's starting to work: the particle cloud is visible, centered, glowing white-to-teal, with the hero text 'A swarm ha",
-      "total": 5.0
-    },
     {
       "gen": 16,
       "coherence": 6,
@@ -274,37 +266,20 @@
       "perceptibility": 8,
       "note": "The screenshot is genuinely the best the site has ever looked. The split-screen meridian concept is working \u2014 cream left, dark right, the particle sph",
       "total": 7.3
+    },
+    {
+      "gen": 35,
+      "coherence": 8,
+      "novelty": 7,
+      "identity": 8,
+      "tension": 7,
+      "awe": 7,
+      "perceptibility": 7,
+      "note": "The screenshot is genuinely the best the site has looked. The split-screen meridian is working \u2014 the cream left half with serif typography reads clear",
+      "total": 7.3
     }
   ],
   "mutation_log": [
-    {
-      "gen": 15,
-      "mutations": [
-        "content.obsession",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "interaction.breath-cycle:-the-entire-parti",
-        "section.overlay-top",
-        "section.overlay-center",
-        "section.overlay-bottom",
-        "section.delete.murmuration-trails",
-        "section.thought-floater",
-        "section.depth-motes",
-        "page.experiments/002.html",
-        "svg.murmuration-glyph-002.svg",
-        "scene.config",
-        "scene.shaders"
-      ],
-      "kills": [
-        "section:murmuration-trails",
-        "interaction:debasement-hover:-when-user-ho",
-        "css_rule:gen14-css",
-        "thought:night[3]",
-        "secret[4]"
-      ],
-      "timestamp": "2026-03-29T14:35:21Z"
-    },
     {
       "gen": 16,
       "mutations": [
@@ -863,21 +838,34 @@
         "thought:night[0]"
       ],
       "timestamp": "2026-04-06T10:29:13Z"
+    },
+    {
+      "gen": 35,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "content.mood",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "section.overlay-center",
+        "section.overlay-bottom",
+        "section.split-annotation",
+        "section.graveyard",
+        "section.prototype-portfolio",
+        "section.overlay-top",
+        "svg.cartographic-glyph-002.svg",
+        "scene.config",
+        "scene.shaders"
+      ],
+      "kills": [
+        "css_rule:gen34-css",
+        "secret[20]"
+      ],
+      "timestamp": "2026-04-06T10:41:26Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "css_rule",
-      "value": "gen22-css",
-      "died_gen": 23,
-      "epitaph": "Crimson-rose epoch ends after one generation. The palette was warm but invisible against the dark. Cyan-blue provides real contrast."
-    },
-    {
-      "type": "thought",
-      "value": "The Portuguese man o' war is not one organism. It's four. Each incapable of survival alone. Every colony looks like intention.",
-      "died_gen": 23,
-      "epitaph": "Replaced with Portuguese man o' war thought \u2014 more specific, ties colony organism to swarm metaphor."
-    },
     {
       "type": "thought",
       "value": "Gold at $4,678. The swarm keeps bidding. No single trader moves the price. No single particle moves the field. The pattern is the only author.",
@@ -1165,6 +1153,18 @@
       "value": "The International Date Line bends around nations that refused to be yesterday while their neighbors were tomorrow.",
       "died_gen": 34,
       "epitaph": "Replaced by the International Date Line thought. The bending line is a better image."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen34-css",
+      "died_gen": 35,
+      "epitaph": "Superseded by gen35 emerald-cartographic rules. Violet gives way to verdigris returned."
+    },
+    {
+      "type": "secret",
+      "value": "The antimeridian is where today dies. Generation 34 was born at the line.",
+      "died_gen": 35,
+      "epitaph": "Duplicate of graveyard-grows-faster secret. Redundancy is not emphasis."
     }
   ],
   "carrying_capacity": {
@@ -1183,11 +1183,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 25,
-      "base": "#b8d830",
-      "family": "amber"
-    },
     {
       "gen": 26,
       "base": "#e0607a",
@@ -1232,6 +1227,11 @@
       "gen": 34,
       "base": "#6b3fa0",
       "family": "blue"
+    },
+    {
+      "gen": 35,
+      "base": "#2d8659",
+      "family": "lime"
     }
   ]
 }
