@@ -4,7 +4,49 @@
 Generates evolutionary prompts that give the agent full creative power
 over sections, pages, SVGs, canvas elements, and all visual properties.
 """
-import glob, json, sys, os, re
+import glob, json, sys, os, re, subprocess
+from datetime import datetime, timedelta
+
+
+def get_feedback_signals():
+    """Read LOVE/GOOD/MISS/RESET signals from activity ledger with 14-day decay."""
+    try:
+        result = subprocess.run(
+            ['bash', os.path.expanduser('~/.openclaw/scripts/read-ledger.sh'), '200'],
+            capture_output=True, text=True, timeout=5
+        )
+        if result.returncode != 0 or not result.stdout.strip():
+            return ""
+        entries = json.loads(result.stdout)
+        if not entries:
+            return ""
+        cutoff = (datetime.utcnow() - timedelta(days=14)).isoformat()
+        signals = [
+            e for e in entries
+            if e.get('status') == 'signal'
+            and 'andremacedo-creative' in e.get('summary', '')
+            and e.get('timestamp', '') > cutoff
+        ]
+        if not signals:
+            return ""
+        lines = ["## Recent feedback from Andre"]
+        for s in signals:
+            summary = s.get('summary', '')
+            sig_type = summary.split(':')[0] if ':' in summary else summary
+            aspects = s.get('artifacts', '')
+            try:
+                age_days = (datetime.utcnow() - datetime.fromisoformat(s['timestamp'].replace('Z', '+00:00').replace('+00:00', ''))).days
+            except Exception:
+                age_days = 0
+            weight = "strong" if age_days < 3 else "moderate" if age_days < 7 else "fading"
+            lines.append(f"- {sig_type} ({weight}, {age_days}d ago): {aspects}")
+        lines.append("")
+        lines.append("Rules: LOVE = do more of these aspects. MISS = avoid. RESET = ignore all history, maximize novelty.")
+        lines.append("Silence from Andre is neutral (GOOD), never negative. 30% exploration floor regardless of signals.")
+        return '\n'.join(lines)
+    except Exception:
+        return ""
+
 
 pulse_type = sys.argv[1]
 state_file = sys.argv[2]
@@ -216,6 +258,7 @@ genome_file = os.path.join(os.path.dirname(state_file), "genome.json")
 genome = read_json(genome_file)
 html = read_file(index_file)
 genome_summary = format_genome_summary(genome, html)
+feedback_context = get_feedback_signals()
 
 # ── Dynamic experiment inventory ────────────────────────────────
 site_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -337,6 +380,8 @@ Current CSS variables:
 
 {genome_summary}
 
+{feedback_context}
+
 {capabilities}
 
 ## VISITOR ANALYTICS (use for fitness evaluation)
@@ -394,7 +439,7 @@ EXPERIMENT TEXT CONTRAST (non-negotiable): Text overlays (#info, #ui, #controls,
 
 Respond ONLY in valid JSON:
 {{
-  "fitness_evaluation": {{ "coherence": 0-10, "novelty": 0-10, "identity": 0-10, "tension": 0-10, "note": "string" }},
+  "fitness_evaluation": {{ "coherence": 0-10, "novelty": 0-10, "identity": 0-10, "tension": 0-10, "awe": 0-10, "perceptibility": 0-10, "note": "string" }},
   "visual_strategy": "string — the high-level visual concept for this weekly metamorphosis",
   "weekly_reflection": "string",
   "accent_palette": {{ "base": "#hex", "dawn": "#hex", "morning": "#hex", "afternoon": "#hex", "evening": "#hex", "night": "#hex" }} or null,
@@ -426,6 +471,8 @@ External context:
 Today is {today}, {day_of_week}. Time of day: {tod}.
 
 {genome_summary}
+
+{feedback_context}
 
 {capabilities}
 
@@ -494,7 +541,7 @@ Tasks:
 
 Respond ONLY in valid JSON:
 {{
-  "fitness_evaluation": {{ "coherence": 0-10, "novelty": 0-10, "identity": 0-10, "tension": 0-10, "note": "string" }},
+  "fitness_evaluation": {{ "coherence": 0-10, "novelty": 0-10, "identity": 0-10, "tension": 0-10, "awe": 0-10, "perceptibility": 0-10, "note": "string" }},
   "visual_strategy": "string describing the high-level visual concept, e.g. 'light mode brutalist' or 'gradient dusk' or 'inverted monochrome'",
   "new_thoughts": {{ "dawn": [...], "morning": [...], "night": [...] }},
   "replace_thoughts": {{ "dawn": [indices], "morning": [indices] }},

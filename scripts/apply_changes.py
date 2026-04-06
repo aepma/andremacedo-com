@@ -854,6 +854,8 @@ if fitness and isinstance(fitness, dict):
         "novelty": fitness.get("novelty"),
         "identity": fitness.get("identity"),
         "tension": fitness.get("tension"),
+        "awe": fitness.get("awe"),
+        "perceptibility": fitness.get("perceptibility"),
         "note": str(fitness.get("note", ""))[:150]
     }
     numeric = [v for k, v in scores.items() if k not in ("gen", "note") and isinstance(v, (int, float))]

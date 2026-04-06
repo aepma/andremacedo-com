@@ -2,7 +2,7 @@
 
 ## Schedule
 
-### Daily Creative Pulse (1x/day, ~6:00 AM UTC)
+### Daily Creative Pulse (3x/day: 02:00, 10:00, 18:00 UTC)
 **Purpose:** Refresh the site's living content
 **Token budget:** 1,500 input + 800 output = ~2,300 tokens max
 **LLM:** Claude Opus 4.6
@@ -45,7 +45,7 @@ Respond ONLY in JSON:
 }
 ```
 
-### Weekly Deep Session (1x/week, Sundays ~4:00 AM UTC)
+### Weekly Deep Session (2x/week, Monday & Thursday 00:00 UTC)
 **Purpose:** Deeper creative review, potential aesthetic evolution
 **Token budget:** 4,000 input + 2,000 output = ~6,000 tokens max
 **LLM:** Claude Opus 4.6
@@ -111,7 +111,7 @@ Respond ONLY in JSON:
 
 *Cost estimate based on Opus 4.6 at $15/MTok input, $75/MTok output with ~60/40 input/output split. Actual costs may vary. Review monthly.*
 
-**Hard ceiling:** 200,000 tokens/month. If approaching ceiling, skip event-triggered pulses first, then reduce daily pulse to every-other-day.
+**Hard ceiling:** 2,000,000 tokens/month. If approaching ceiling, skip event-triggered pulses first, then reduce daily pulse to every-other-day.
 
 ## Deterministic Layer (Zero Token Cost)
 
@@ -132,7 +132,7 @@ The agent reports its health via standard TELOS heartbeat:
   "last_daily_pulse": "ISO-timestamp",
   "last_weekly_deep": "ISO-timestamp",
   "monthly_tokens_used": 0,
-  "monthly_token_ceiling": 200000,
+  "monthly_token_ceiling": 2000000,
   "current_mood": "string",
   "current_obsession": "string",
   "days_since_redesign": 0,
