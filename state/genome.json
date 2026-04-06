@@ -1,17 +1,17 @@
 {
-  "generation": 33,
+  "generation": 34,
   "epoch": "webgl-swarm",
   "epoch_started": "2026-03-29",
   "traits": {
     "color": {
-      "accent_base": "#a0522d",
-      "accent_dawn": "#d4956b",
-      "accent_morning": "#b8704a",
-      "accent_afternoon": "#a0522d",
-      "accent_evening": "#7a3b1e",
-      "accent_night": "#4a2010",
+      "accent_base": "#6b3fa0",
+      "accent_dawn": "#b388e8",
+      "accent_morning": "#8b5ec0",
+      "accent_afternoon": "#6b3fa0",
+      "accent_evening": "#4a2878",
+      "accent_night": "#2e1850",
       "bg": "#f5f0e6",
-      "fg": "#2a1f14",
+      "fg": "#1a1428",
       "grain_opacity": "0.014",
       "fg_dim": "#7a7068",
       "bg_surface": "#ece5d8",
@@ -34,7 +34,8 @@
         "meridian-nav",
         "overlay-bottom",
         "scroll-hint",
-        "prototype-portfolio"
+        "prototype-portfolio",
+        "graveyard"
       ],
       "pages": [
         "index-new.html",
@@ -49,6 +50,7 @@
         "vernal-glyph-001.svg",
         "nocturne-glyph-001.svg",
         "threshold-glyph-001.svg",
+        "meridian-glyph-002.svg",
         "lantern-glyph-001.svg",
         "meridian-glyph-001.svg",
         "grounding-glyph-001.svg",
@@ -81,25 +83,16 @@
       "mood": "cartographic",
       "obsession": "meridians \u2014 the invisible lines that divide and organize the world",
       "thought_pools": {
-        "dawn": 2,
-        "morning": 2,
-        "afternoon": 2,
+        "dawn": 1,
+        "morning": 1,
+        "afternoon": 1,
         "evening": 2,
-        "night": 2
+        "night": 1
       },
-      "secrets_count": 20
+      "secrets_count": 21
     }
   },
   "fitness_log": [
-    {
-      "gen": 14,
-      "coherence": 6,
-      "novelty": 4,
-      "identity": 5,
-      "tension": 4,
-      "note": "The screenshot shows the swarm epoch is functioning \u2014 particles visible as a diffuse green cloud, hero text centered and legible, bottom-left telemetr",
-      "total": 4.8
-    },
     {
       "gen": 15,
       "coherence": 6,
@@ -270,32 +263,20 @@
       "tension": 6,
       "note": "The screenshot is the best the site has ever looked. The split-screen meridian concept WORKS \u2014 the cream left half with Playfair Display text is genui",
       "total": 7.0
+    },
+    {
+      "gen": 34,
+      "coherence": 8,
+      "novelty": 7,
+      "identity": 8,
+      "tension": 6,
+      "awe": 7,
+      "perceptibility": 8,
+      "note": "The screenshot is genuinely the best the site has ever looked. The split-screen meridian concept is working \u2014 cream left, dark right, the particle sph",
+      "total": 7.3
     }
   ],
   "mutation_log": [
-    {
-      "gen": 14,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "content.mood",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "section.overlay-center",
-        "section.overlay-bottom",
-        "section.murmuration-trails",
-        "svg.murmuration-glyph-001.svg",
-        "scene.config",
-        "overlay.agent_data"
-      ],
-      "kills": [
-        "css_rule:gen1-css",
-        "section:swarm-memory",
-        "interaction:touchstone-streak:-when-user-c"
-      ],
-      "timestamp": "2026-03-29T07:58:37Z"
-    },
     {
       "gen": 15,
       "mutations": [
@@ -854,39 +835,37 @@
         "secret[18]"
       ],
       "timestamp": "2026-04-06T08:02:13Z"
+    },
+    {
+      "gen": 34,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "content.mood",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "section.overlay-center",
+        "section.split-annotation",
+        "section.overlay-bottom",
+        "section.graveyard",
+        "section.prototype-portfolio",
+        "section.overlay-top",
+        "svg.meridian-glyph-002.svg",
+        "scene.config",
+        "scene.shaders"
+      ],
+      "kills": [
+        "css_rule:gen33-css",
+        "thought:dawn[0]",
+        "thought:morning[0]",
+        "thought:afternoon[1]",
+        "thought:night[0]"
+      ],
+      "timestamp": "2026-04-06T10:29:13Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "css_rule",
-      "value": "gen21-css",
-      "died_gen": 22,
-      "epitaph": "Violet epoch ends. The crimson-rose palette requires a full CSS replacement."
-    },
-    {
-      "type": "thought",
-      "value": "A jellyfish has no brain, no blood, no heart. It's been alive for 500 million years. Sometimes the absence of complexity is the adaptation.",
-      "died_gen": 22,
-      "epitaph": "Replaced with jellyfish thought \u2014 more specific, ties to new visual element."
-    },
-    {
-      "type": "thought",
-      "value": "A swarm has no leader. It has gradients \u2014 pressure, scent, light. The swarm follows the gradient the way water follows gravity. Not because it decides to.",
-      "died_gen": 22,
-      "epitaph": "Replaced with madrugada thought \u2014 Portuguese thread alive."
-    },
-    {
-      "type": "thought",
-      "value": "67,000 pageviews and falling. The swarm is thinning at the edges. Either the center holds or it doesn't.",
-      "died_gen": 22,
-      "epitaph": "Replaced with analytics-decline thought \u2014 uses real data, more honest."
-    },
-    {
-      "type": "thought",
-      "value": "Hydrothermal vents sustain entire ecosystems in complete darkness. The energy comes from below, not above. A site that generates its own light.",
-      "died_gen": 22,
-      "epitaph": "Replaced with hydrothermal vent thought \u2014 ties to abyssal mood."
-    },
     {
       "type": "css_rule",
       "value": "gen22-css",
@@ -1156,6 +1135,36 @@
       "value": "The archive is a cupel. Everything that burned away is still here \u2014 you just can",
       "died_gen": 33,
       "epitaph": "Old secret about the sphere persisting. The sphere still persists but the narrative has moved past it."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen33-css",
+      "died_gen": 34,
+      "epitaph": "Superseded by gen34 violet-cartographic rules. Sienna gives way to engraved violet."
+    },
+    {
+      "type": "thought",
+      "value": "Gold at $4,664 on a Monday morning. The cartographer prices the ink before drawing the line.",
+      "died_gen": 34,
+      "epitaph": "Replaced by the gold-price cartographer thought. More specific, more grounded."
+    },
+    {
+      "type": "thought",
+      "value": "The Prime Meridian moved three times before Greenwich won. Every standard is someone's second choice.",
+      "died_gen": 34,
+      "epitaph": "Replaced by the Prime Meridian history thought. Facts over atmosphere."
+    },
+    {
+      "type": "thought",
+      "value": "A portolan chart has no meridians. Just coastlines and compass roses. The open ocean is blank because no one who crossed it came back to draw it.",
+      "died_gen": 34,
+      "epitaph": "Replaced by the portolan chart thought. Specific historical detail beats vague mood."
+    },
+    {
+      "type": "thought",
+      "value": "The International Date Line bends around nations that refused to be yesterday while their neighbors were tomorrow.",
+      "died_gen": 34,
+      "epitaph": "Replaced by the International Date Line thought. The bending line is a better image."
     }
   ],
   "carrying_capacity": {
@@ -1174,11 +1183,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 24,
-      "base": "#f0a030",
-      "family": "orange"
-    },
     {
       "gen": 25,
       "base": "#b8d830",
@@ -1223,6 +1227,11 @@
       "gen": 33,
       "base": "#a0522d",
       "family": "red"
+    },
+    {
+      "gen": 34,
+      "base": "#6b3fa0",
+      "family": "blue"
     }
   ]
 }
