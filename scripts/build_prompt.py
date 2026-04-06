@@ -275,7 +275,7 @@ min_kills_weekly = budget.get("min_kills_weekly", 2)
 screenshot_context = ""
 if has_screenshot:
     screenshot_context = """## VISUAL SELF-AWARENESS
-The attached screenshot shows how the site currently renders in a browser at 1440x900. Use this to evaluate your previous generation's visual output before deciding on mutations. Your fitness self-evaluation should be based on what you SEE, not what you imagine the code produces. If something looks broken, cluttered, or ugly in the screenshot, fix it. If something looks good, build on it."""
+The attached screenshot is a full-page capture of the site at 1440px wide, including everything above AND below the fold: hero, Consciousness Stream, Graveyard, Archive, experiments grid. Your fitness self-evaluation — especially Perceptibility — must be based on what you SEE, not what you imagine the code produces. If text is unreadable against its background anywhere in the screenshot, fix it. If below-fold sections look broken, cluttered, or invisible, fix them. If something looks good, build on it."""
 
 # ── Shared capabilities documentation ─────────────────────────────
 capabilities = """

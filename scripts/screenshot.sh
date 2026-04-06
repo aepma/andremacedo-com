@@ -16,7 +16,7 @@ async def capture():
         page = await browser.new_page(viewport={"width": 1440, "height": 900})
         await page.goto("https://andremacedo.com", wait_until="networkidle")
         await page.wait_for_timeout(3000)  # let particles render and swarm panel load
-        await page.screenshot(path="/tmp/andremacedo-current.png", full_page=False)
+        await page.screenshot(path="/tmp/andremacedo-current.png", full_page=True)
         await browser.close()
 
 asyncio.run(capture())
