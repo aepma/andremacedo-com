@@ -1,18 +1,18 @@
 {
-  "generation": 31,
+  "generation": 32,
   "epoch": "webgl-swarm",
   "epoch_started": "2026-03-29",
   "traits": {
     "color": {
-      "accent_base": "#d4760a",
-      "accent_dawn": "#f5c76e",
-      "accent_morning": "#e8a030",
-      "accent_afternoon": "#d4760a",
-      "accent_evening": "#b85c00",
-      "accent_night": "#8a4400",
-      "bg": "#f5f0e6",
-      "fg": "#1a1612",
-      "grain_opacity": "0.015",
+      "accent_base": "#2b6cb0",
+      "accent_dawn": "#7bb3e0",
+      "accent_morning": "#4a90c4",
+      "accent_afternoon": "#2b6cb0",
+      "accent_evening": "#1a4f8a",
+      "accent_night": "#0f3460",
+      "bg": "#f2ede4",
+      "fg": "#1a1a2e",
+      "grain_opacity": "0.012",
       "fg_dim": "#7a7068",
       "bg_surface": "#ece5d8",
       "bg_elevated": "#e0d8c8"
@@ -58,6 +58,7 @@
         "murmuration-glyph-001.svg",
         "planetarium-glyph-001.svg",
         "viridian-glyph-001.svg",
+        "cartographic-glyph-001.svg",
         "pulse-ring-001.svg",
         "swarm-glyph-001.svg",
         "surfacing-glyph-001.svg",
@@ -76,7 +77,7 @@
       "meridian-shift:-moving-the-mou"
     ],
     "content": {
-      "mood": "viridian",
+      "mood": "cartographic",
       "obsession": "meridians \u2014 the invisible lines that divide and organize the world",
       "thought_pools": {
         "dawn": 2,
@@ -89,15 +90,6 @@
     }
   },
   "fitness_log": [
-    {
-      "gen": 12,
-      "coherence": 7,
-      "novelty": 4,
-      "identity": 7,
-      "tension": 5,
-      "note": "Three generations of declining or flat fitness. The furnace-lit mood is right but the site isn't burning anything \u2014 it's just warm. The experiments/00",
-      "total": 5.8
-    },
     {
       "gen": 13,
       "coherence": 5,
@@ -268,31 +260,18 @@
       "tension": 4,
       "note": "The screenshot is beautiful \u2014 the emerald particle sphere glows convincingly against the dark forest background, the hero text is legible, the observa",
       "total": 5.5
+    },
+    {
+      "gen": 32,
+      "coherence": 8,
+      "novelty": 7,
+      "identity": 7,
+      "tension": 5,
+      "note": "The screenshot is genuinely striking \u2014 the split-screen meridian concept WORKS. The cream left half with dark dust particles and the black right half ",
+      "total": 6.8
     }
   ],
   "mutation_log": [
-    {
-      "gen": 12,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "content.mood",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "section.hero",
-        "section.strata",
-        "section.gold-ambient",
-        "section.delete.cupel-residue"
-      ],
-      "kills": [
-        "section:cupel-residue",
-        "css_rule:gen10-css",
-        "thought:night[7]",
-        "thought:night[6]"
-      ],
-      "timestamp": "2026-03-29T06:25:51Z"
-    },
     {
       "gen": 13,
       "mutations": [
@@ -841,21 +820,39 @@
         "thought:night[0]"
       ],
       "timestamp": "2026-04-05T22:03:35Z"
+    },
+    {
+      "gen": 32,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "content.mood",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "section.meridian-veil",
+        "section.overlay-center",
+        "section.overlay-top",
+        "section.split-annotation",
+        "section.meridian-nav",
+        "section.overlay-bottom",
+        "section.scroll-hint",
+        "section.prototype-portfolio",
+        "section.dust-canvas",
+        "section.thought-floater",
+        "svg.cartographic-glyph-001.svg",
+        "scene.config",
+        "scene.shaders",
+        "overlay.agent_data"
+      ],
+      "kills": [
+        "css_rule:gen31-css",
+        "secret[19]"
+      ],
+      "timestamp": "2026-04-06T00:02:46Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "thought",
-      "value": "Gold at $4,495. At some point the number stops meaning anything and becomes weather \u2014 a pressure system you check before leaving the house.",
-      "died_gen": 21,
-      "epitaph": "Replaced with madrugada thought \u2014 Portuguese thread + dawn thread in one word."
-    },
-    {
-      "type": "thought",
-      "value": "A cupel absorbs everything except the noble metal. A good page absorbs everything except the idea.",
-      "died_gen": 21,
-      "epitaph": "Replaced with the cupel/page thought \u2014 sharper analogy."
-    },
     {
       "type": "thought",
       "value": "Bioluminescence costs energy. Deep-sea creatures glow anyway. The signal matters more than the efficiency.",
@@ -1143,6 +1140,18 @@
       "value": "81\u00b0F in Fort Lauderdale on a Saturday night. The humidity is 67%. The particles don't care.",
       "died_gen": 31,
       "epitaph": "The old night thought about the swarm sleeping is replaced by the dark half winning."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen31-css",
+      "died_gen": 32,
+      "epitaph": "Superseded by gen32 cartographic rules. The amber palette gives way to cerulean."
+    },
+    {
+      "type": "secret",
+      "value": "The garden remembers every cursor that passed through it. The flowers lean towar",
+      "died_gen": 32,
+      "epitaph": "Old emerald-epoch secret about the sphere winning. The sphere still wins but the meridian reframes it."
     }
   ],
   "carrying_capacity": {
@@ -1161,11 +1170,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 22,
-      "base": "#e84d6a",
-      "family": "magenta"
-    },
     {
       "gen": 23,
       "base": "#00d4ff",
@@ -1210,6 +1214,11 @@
       "gen": 31,
       "base": "#d4760a",
       "family": "orange"
+    },
+    {
+      "gen": 32,
+      "base": "#2b6cb0",
+      "family": "teal"
     }
   ]
 }
