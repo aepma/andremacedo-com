@@ -304,6 +304,9 @@ npx wrangler pages deploy "$SITE_DIR" --project-name="andremacedo-com" --branch=
 
 log "Deployed to andremacedo.com"
 
+# ── Push to GitHub (backup, non-blocking) ─────────────────────────
+git -C "$SITE_DIR" push origin main 2>/dev/null || log "WARN: git push failed (non-fatal)"
+
 # ── Notify ─────────────────────────────────────────────────────────
 case "$PULSE_TYPE" in
   daily)  NEXT="daily ~06:00 UTC tomorrow" ;;
