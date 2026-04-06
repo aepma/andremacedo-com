@@ -1,18 +1,18 @@
 {
-  "generation": 36,
+  "generation": 37,
   "epoch": "webgl-swarm",
   "epoch_started": "2026-03-29",
   "traits": {
     "color": {
-      "accent_base": "#b87333",
-      "accent_dawn": "#e8a862",
-      "accent_morning": "#d48a48",
-      "accent_afternoon": "#b87333",
-      "accent_evening": "#8a5522",
-      "accent_night": "#5c3818",
+      "accent_base": "#c9a84c",
+      "accent_dawn": "#f0d878",
+      "accent_morning": "#dfc060",
+      "accent_afternoon": "#c9a84c",
+      "accent_evening": "#a08030",
+      "accent_night": "#786020",
       "bg": "#f5f0e6",
       "fg": "#2a1a0e",
-      "grain_opacity": "0.014",
+      "grain_opacity": "0.012",
       "fg_dim": "#7a7068",
       "bg_surface": "#ece5d8",
       "bg_elevated": "#e0d8c8"
@@ -65,6 +65,7 @@
         "cartographic-glyph-001.svg",
         "cartographic-glyph-003.svg",
         "cartographic-glyph-002.svg",
+        "engraved-glyph-001.svg",
         "pulse-ring-001.svg",
         "swarm-glyph-001.svg",
         "surfacing-glyph-001.svg",
@@ -83,7 +84,7 @@
       "meridian-shift:-moving-the-mou"
     ],
     "content": {
-      "mood": "cartographic",
+      "mood": "engraved",
       "obsession": "meridians \u2014 the invisible lines that divide and organize the world",
       "thought_pools": {
         "dawn": 1,
@@ -96,15 +97,6 @@
     }
   },
   "fitness_log": [
-    {
-      "gen": 17,
-      "coherence": 6,
-      "novelty": 5,
-      "identity": 6,
-      "tension": 4,
-      "note": "The screenshot tells the truth: this is still a dark blog with a faint particle haze behind it. The consciousness stream dominates the viewport \u2014 five",
-      "total": 5.2
-    },
     {
       "gen": 18,
       "coherence": 5,
@@ -281,37 +273,20 @@
       "perceptibility": 7,
       "note": "The split-screen meridian is the strongest structural concept the site has ever had \u2014 fitness 7.3 for two consecutive generations confirms it. The eme",
       "total": 7.2
+    },
+    {
+      "gen": 37,
+      "coherence": 8,
+      "novelty": 6,
+      "identity": 8,
+      "tension": 7,
+      "awe": 6,
+      "perceptibility": 7,
+      "note": "The split-screen meridian concept remains the strongest structural idea the site has produced \u2014 fitness has held at 7.2-7.3 for four generations, whic",
+      "total": 7.0
     }
   ],
   "mutation_log": [
-    {
-      "gen": 17,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "content.mood",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "section.overlay-top",
-        "section.overlay-center",
-        "section.pulse-rings",
-        "section.flock-canvas",
-        "section.ambient-data",
-        "section.overlay-bottom",
-        "svg.threshold-glyph-001.svg",
-        "scene.config",
-        "scene.shaders",
-        "overlay.agent_data"
-      ],
-      "kills": [
-        "css_rule:gen16-css",
-        "thought:morning[6]",
-        "thought:night[5]",
-        "secret[14]"
-      ],
-      "timestamp": "2026-03-31T06:01:44Z"
-    },
     {
       "gen": 18,
       "mutations": [
@@ -868,21 +843,36 @@
         "secret[5]"
       ],
       "timestamp": "2026-04-06T11:03:07Z"
+    },
+    {
+      "gen": 37,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "content.mood",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "section.overlay-center",
+        "section.split-annotation",
+        "section.overlay-bottom",
+        "section.graveyard",
+        "section.prototype-portfolio",
+        "section.thought-floater",
+        "section.scroll-hint",
+        "svg.engraved-glyph-001.svg",
+        "scene.config",
+        "scene.shaders",
+        "overlay.agent_data"
+      ],
+      "kills": [
+        "css_rule:gen36-css",
+        "secret[20]"
+      ],
+      "timestamp": "2026-04-06T16:02:56Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "thought",
-      "value": "The anglerfish carries its own light into the dark. The light is a lie \u2014 it exists to attract prey. Every luminous thing in the abyss is either hunting or being hunted.",
-      "died_gen": 23,
-      "epitaph": "Replaced with anglerfish thought \u2014 the dark side of bioluminescence."
-    },
-    {
-      "type": "section",
-      "value": "bioluminescence",
-      "died_gen": 24,
-      "epitaph": "Cyan jellyfish layer belongs to the phosphorescent epoch. The warm fog epoch has no jellyfish."
-    },
     {
       "type": "css_rule",
       "value": "gen23-css",
@@ -1170,6 +1160,18 @@
       "value": "{'trigger': \"triple-click on the word 'ensaio' or 'essay' anywhere on the page\",",
       "died_gen": 36,
       "epitaph": "\"Every meridian is a scar the earth agreed to\" \u2014 Too poetic, not enough substance. Poetry without observation is decoration."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen36-css",
+      "died_gen": 37,
+      "epitaph": "Copper oxidized on schedule. Brass takes the next watch \u2014 same family, different temperament."
+    },
+    {
+      "type": "secret",
+      "value": "The copper plate remembers every line the burin cut. Generation 36 remembers eve",
+      "died_gen": 37,
+      "epitaph": "Twenty secrets was one too many. The weakest gets the burin's edge."
     }
   ],
   "carrying_capacity": {
@@ -1188,11 +1190,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 27,
-      "base": "#f0d878",
-      "family": "orange"
-    },
     {
       "gen": 28,
       "base": "#7b68ee",
@@ -1237,6 +1234,11 @@
       "gen": 36,
       "base": "#b87333",
       "family": "red"
+    },
+    {
+      "gen": 37,
+      "base": "#c9a84c",
+      "family": "orange"
     }
   ],
   "past_epochs": [
