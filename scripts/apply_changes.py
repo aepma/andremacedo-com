@@ -22,6 +22,63 @@ Capabilities:
 import glob, json, os, re, sys, copy
 from datetime import datetime, timezone
 
+
+# ══════════════════════════════════════════════════════════════════
+# CONTRAST GATE — WCAG 2.1 AA mechanical enforcement
+# ══════════════════════════════════════════════════════════════════
+
+def hex_to_relative_luminance(hex_color):
+    """Calculate relative luminance per WCAG 2.1."""
+    hex_color = hex_color.lstrip('#')
+    if len(hex_color) == 3:
+        hex_color = ''.join(c * 2 for c in hex_color)
+    if len(hex_color) != 6:
+        return 0.0
+    try:
+        r, g, b = [int(hex_color[i:i+2], 16) / 255.0 for i in (0, 2, 4)]
+    except ValueError:
+        return 0.0
+    def linearize(c):
+        return c / 12.92 if c <= 0.04045 else ((c + 0.055) / 1.055) ** 2.4
+    return 0.2126 * linearize(r) + 0.7152 * linearize(g) + 0.0722 * linearize(b)
+
+
+def contrast_ratio(hex1, hex2):
+    """WCAG contrast ratio between two hex colors."""
+    l1 = hex_to_relative_luminance(hex1)
+    l2 = hex_to_relative_luminance(hex2)
+    lighter, darker = max(l1, l2), min(l1, l2)
+    return (lighter + 0.05) / (darker + 0.05)
+
+
+def ensure_contrast(fg_hex, bg_hex, min_ratio=4.5):
+    """If fg/bg contrast is below min_ratio, adjust fg minimally until it passes."""
+    if contrast_ratio(fg_hex, bg_hex) >= min_ratio:
+        return fg_hex
+    bg_lum = hex_to_relative_luminance(bg_hex)
+    fg_clean = fg_hex.lstrip('#')
+    try:
+        r, g, b = [int(fg_clean[i:i+2], 16) for i in (0, 2, 4)]
+    except (ValueError, IndexError):
+        return fg_hex
+    for step in range(1, 80):
+        factor = step * 3
+        if bg_lum < 0.5:  # dark bg: lighten fg
+            nr, ng, nb = min(255, r + factor), min(255, g + factor), min(255, b + factor)
+        else:  # light bg: darken fg
+            nr, ng, nb = max(0, r - factor), max(0, g - factor), max(0, b - factor)
+        candidate = f"#{nr:02x}{ng:02x}{nb:02x}"
+        if contrast_ratio(candidate, bg_hex) >= min_ratio:
+            return candidate
+    return fg_hex
+
+
+def read_current_css_var(html, var_name):
+    """Extract a CSS variable value from :root in the HTML."""
+    m = re.search(re.escape(var_name) + r':\s*([^;]+);', html)
+    return m.group(1).strip() if m else None
+
+
 site_dir = os.environ["SITE_DIR"]
 pulse_type = os.environ["PULSE_TYPE"]
 total_tokens = int(os.environ["TOTAL_TOKENS"])
@@ -164,6 +221,34 @@ if accent_palette and isinstance(accent_palette, dict) and accent_palette.get("b
 css_changes = changes.get("css_changes")
 if css_changes and isinstance(css_changes, dict):
     with open(index_path) as f: html = f.read()
+
+    # Contrast gate: enforce WCAG AA (4.5:1) for all fg/bg pairs
+    fg_keys = ('--fg', '--fg-dim', '--fg-accent')
+    bg_keys = ('--bg', '--bg-surface', '--bg-elevated')
+    # Resolve effective bg values: proposed changes take priority, else read from HTML
+    effective_bgs = []
+    for bk in bg_keys:
+        val = css_changes.get(bk)
+        if val and val.startswith('#'):
+            effective_bgs.append(val)
+        else:
+            current = read_current_css_var(html, bk)
+            if current and current.startswith('#'):
+                effective_bgs.append(current)
+    if not effective_bgs:
+        current_bg = read_current_css_var(html, '--bg')
+        if current_bg and current_bg.startswith('#'):
+            effective_bgs = [current_bg]
+    for fk in fg_keys:
+        fv = css_changes.get(fk)
+        if fv and fv.startswith('#') and effective_bgs:
+            for bg_val in effective_bgs:
+                original = fv
+                fv = ensure_contrast(fv, bg_val)
+                if fv != original:
+                    print(f"  [contrast-gate] Clamped {fk}: {original} -> {fv} (against {bg_val})")
+            css_changes[fk] = fv
+
     for var_name, var_value in css_changes.items():
         pattern = re.compile(r"(" + re.escape(var_name) + r":\s*)([^;]+)(;)")
         html = pattern.sub(r"\g<1>" + var_value + r"\3", html)
