@@ -48,6 +48,38 @@ def get_feedback_signals():
         return ""
 
 
+def get_swarm_activity():
+    """Read recent TELOS agent activity from the activity ledger."""
+    try:
+        result = subprocess.run(
+            ['bash', os.path.expanduser('~/.openclaw/scripts/read-ledger.sh'), '100'],
+            capture_output=True, text=True, timeout=5
+        )
+        if result.returncode != 0 or not result.stdout.strip():
+            return ""
+        entries = json.loads(result.stdout)
+        if not entries:
+            return ""
+        cutoff = (datetime.utcnow() - timedelta(hours=24)).isoformat()
+        activity = [
+            e for e in entries
+            if e.get('status') != 'signal'
+            and e.get('agent', '') != 'andremacedo-creative'
+            and e.get('timestamp', '') > cutoff
+        ]
+        if not activity:
+            return ""
+        lines = ["## TELOS swarm activity (last 24h)"]
+        lines.append("The other agents in your swarm have been doing this. Use as creative material if it moves you. Ignore if it doesn't.")
+        for a in activity[-20:]:
+            agent = a.get('agent', 'unknown')
+            summary = a.get('summary', '')[:120]
+            lines.append(f"- {agent}: {summary}")
+        return '\n'.join(lines)
+    except Exception:
+        return ""
+
+
 pulse_type = sys.argv[1]
 state_file = sys.argv[2]
 external_file = sys.argv[3]
@@ -270,6 +302,7 @@ genome = read_json(genome_file)
 html = read_file(index_file)
 genome_summary = format_genome_summary(genome, html)
 feedback_context = get_feedback_signals()
+swarm_context = get_swarm_activity()
 
 # ── Dynamic experiment inventory ────────────────────────────────
 site_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -393,6 +426,8 @@ Current CSS variables:
 
 {feedback_context}
 
+{swarm_context}
+
 {capabilities}
 
 ## VISITOR ANALYTICS (use for fitness evaluation)
@@ -484,6 +519,8 @@ Today is {today}, {day_of_week}. Time of day: {tod}.
 {genome_summary}
 
 {feedback_context}
+
+{swarm_context}
 
 {capabilities}
 
