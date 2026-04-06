@@ -160,18 +160,46 @@ if pulse_type in ("daily", "event"):
     if ext_react:
         parts.append("reacted to external: " + str(ext_react)[:80])
 
-# ── Weekly-only: reflection, obsession ────────────────────────────
+# ── Weekly-only: reflection, obsession, epoch transition ─────────
 if pulse_type == "weekly":
     obsession = changes.get("obsession_update")
     if obsession and isinstance(obsession, dict):
+        old_obsession = state.get("active_obsession", {})
+        old_topic = old_obsession.get("topic")
+        new_topic = obsession["topic"]
+
+        # Epoch transition: when obsession changes, the old epoch dies
+        if old_topic and old_topic != new_topic:
+            epoch_num = genome.get("epoch_number", 1)
+            dead_epoch = {
+                "number": epoch_num,
+                "obsession": old_topic,
+                "started": old_obsession.get("started", genome.get("epoch_started", "unknown")),
+                "ended": now,
+                "epitaph": obsession.get("rationale", f"{old_topic} — ended.")
+            }
+            genome.setdefault("past_epochs", []).append(dead_epoch)
+            genome["graveyard"].append({
+                "type": "epoch",
+                "value": f"Epoch {epoch_num}: {old_topic}",
+                "died_gen": genome.get("generation", 0) + 1,
+                "epitaph": dead_epoch["epitaph"]
+            })
+            genome["epoch_number"] = epoch_num + 1
+            genome["epoch_started"] = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+            parts.append(f"epoch transition: Epoch {epoch_num} died, Epoch {epoch_num + 1} begins")
+            mutations_detected.append("epoch.transition")
+            print(f"  [epoch] Transition: Epoch {epoch_num} ({old_topic}) died. Epoch {epoch_num + 1} ({new_topic}) begins.")
+
         state["active_obsession"] = {
-            "topic": obsession["topic"],
+            "topic": new_topic,
             "started": datetime.now(timezone.utc).strftime("%Y-%m-%d"),
             "rationale": obsession.get("rationale", "")
         }
-        parts.append("new obsession: " + obsession["topic"])
+        parts.append("new obsession: " + new_topic)
         mutations_detected.append("content.obsession")
 
+    # Manual epoch override (rarely used — auto-transition handles most cases)
     epoch_name = changes.get("epoch_name")
     if epoch_name and isinstance(epoch_name, str) and epoch_name != "null":
         genome["epoch"] = epoch_name
