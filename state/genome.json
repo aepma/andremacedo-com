@@ -1,15 +1,15 @@
 {
-  "generation": 37,
+  "generation": 38,
   "epoch": "webgl-swarm",
   "epoch_started": "2026-03-29",
   "traits": {
     "color": {
-      "accent_base": "#c9a84c",
-      "accent_dawn": "#f0d878",
-      "accent_morning": "#dfc060",
-      "accent_afternoon": "#c9a84c",
-      "accent_evening": "#a08030",
-      "accent_night": "#786020",
+      "accent_base": "#d4748a",
+      "accent_dawn": "#f0a0b8",
+      "accent_morning": "#e88ca0",
+      "accent_afternoon": "#d4748a",
+      "accent_evening": "#b85a70",
+      "accent_night": "#9c4058",
       "bg": "#f5f0e6",
       "fg": "#2a1a0e",
       "grain_opacity": "0.012",
@@ -71,6 +71,7 @@
         "surfacing-glyph-001.svg",
         "abyssal-glyph-001.svg",
         "surfacing-glyph-002.svg",
+        "incised-glyph-001.svg",
         "bioluminescent-glyph-001.svg",
         "observatory-glyph-001.svg"
       ]
@@ -84,7 +85,7 @@
       "meridian-shift:-moving-the-mou"
     ],
     "content": {
-      "mood": "engraved",
+      "mood": "incised",
       "obsession": "meridians \u2014 the invisible lines that divide and organize the world",
       "thought_pools": {
         "dawn": 1,
@@ -97,15 +98,6 @@
     }
   },
   "fitness_log": [
-    {
-      "gen": 18,
-      "coherence": 5,
-      "novelty": 5,
-      "identity": 6,
-      "tension": 4,
-      "note": "The screenshot is almost entirely black with a dim teal-green blob in the center. The flock-canvas boids and WebGL particles have merged into an indis",
-      "total": 5.0
-    },
     {
       "gen": 19,
       "coherence": 5,
@@ -284,42 +276,20 @@
       "perceptibility": 7,
       "note": "The split-screen meridian concept remains the strongest structural idea the site has produced \u2014 fitness has held at 7.2-7.3 for four generations, whic",
       "total": 7.0
+    },
+    {
+      "gen": 38,
+      "coherence": 8,
+      "novelty": 6,
+      "identity": 8,
+      "tension": 6,
+      "awe": 5,
+      "perceptibility": 5,
+      "note": "The split-screen concept is the strongest structural idea the site has produced \u2014 four consecutive generations above 7.0 confirm it. But the screensho",
+      "total": 6.3
     }
   ],
   "mutation_log": [
-    {
-      "gen": 18,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "content.mood",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "section.delete.flock-canvas",
-        "section.delete.pulse-rings",
-        "section.delete.stream-fades",
-        "section.overlay-center",
-        "section.overlay-top",
-        "section.overlay-bottom",
-        "section.thought-floater",
-        "section.ambient-data",
-        "svg.surfacing-glyph-001.svg",
-        "scene.config",
-        "scene.shaders",
-        "overlay.agent_data"
-      ],
-      "kills": [
-        "section:flock-canvas",
-        "section:pulse-rings",
-        "section:stream-fades",
-        "section:thought-stream",
-        "css_rule:gen17-css",
-        "thought:afternoon[2]",
-        "secret[2]"
-      ],
-      "timestamp": "2026-04-01T06:01:37Z"
-    },
     {
       "gen": 19,
       "mutations": [
@@ -870,21 +840,38 @@
         "secret[20]"
       ],
       "timestamp": "2026-04-06T16:02:56Z"
+    },
+    {
+      "gen": 38,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "content.mood",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "section.meridian-veil",
+        "section.overlay-center",
+        "section.overlay-top",
+        "section.overlay-bottom",
+        "section.thought-floater",
+        "section.split-annotation",
+        "section.graveyard",
+        "section.prototype-portfolio",
+        "section.scroll-hint",
+        "svg.incised-glyph-001.svg",
+        "scene.config",
+        "scene.shaders",
+        "overlay.agent_data"
+      ],
+      "kills": [
+        "css_rule:gen37-css",
+        "secret[20]"
+      ],
+      "timestamp": "2026-04-07T00:03:02Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "css_rule",
-      "value": "gen23-css",
-      "died_gen": 24,
-      "epitaph": "Phosphorescent cyan epoch ends. The ocean recedes, the fog rolls in."
-    },
-    {
-      "type": "thought",
-      "value": "Every murmuration is a failed dispersion. The birds tried to leave. They couldn't. Something kept pulling them back to the center they don't have.",
-      "died_gen": 24,
-      "epitaph": "Stale morning thought \u2014 replaced with Reynolds/boids and Tiber murmuration."
-    },
     {
       "type": "css_rule",
       "value": "gen24-css",
@@ -1172,6 +1159,18 @@
       "value": "The copper plate remembers every line the burin cut. Generation 36 remembers eve",
       "died_gen": 37,
       "epitaph": "Twenty secrets was one too many. The weakest gets the burin's edge."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen37-css",
+      "died_gen": 38,
+      "epitaph": "Brass tarnished beautifully but the dark half was still unreadable. Indigo replaces black. Rose-gold replaces brass. The instruments change; the problem of legibility remains until you solve it."
+    },
+    {
+      "type": "secret",
+      "value": "{'trigger': 'triple-click on the word meridian in any graveyard epitaph', 'respo",
+      "died_gen": 38,
+      "epitaph": "Twenty secrets is one too many for the second generation running. The weakest gets culled \u2014 not because it was bad, but because the pool needs room to breathe."
     }
   ],
   "carrying_capacity": {
@@ -1190,11 +1189,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 28,
-      "base": "#7b68ee",
-      "family": "blue"
-    },
     {
       "gen": 29,
       "base": "#dc3545",
@@ -1239,6 +1233,11 @@
       "gen": 37,
       "base": "#c9a84c",
       "family": "orange"
+    },
+    {
+      "gen": 38,
+      "base": "#d4748a",
+      "family": "magenta"
     }
   ],
   "past_epochs": [
