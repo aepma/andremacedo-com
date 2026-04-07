@@ -1,18 +1,18 @@
 {
-  "generation": 39,
+  "generation": 40,
   "epoch": "webgl-swarm",
   "epoch_started": "2026-03-29",
   "traits": {
     "color": {
-      "accent_base": "#2b6cb0",
-      "accent_dawn": "#5a9fd4",
-      "accent_morning": "#3d7ec0",
-      "accent_afternoon": "#2b6cb0",
-      "accent_evening": "#1e5a9a",
-      "accent_night": "#154880",
-      "bg": "#f5f0e6",
-      "fg": "#1a1510",
-      "grain_opacity": "0.010",
+      "accent_base": "#2d6a4f",
+      "accent_dawn": "#4a9e7a",
+      "accent_morning": "#3d8566",
+      "accent_afternoon": "#2d6a4f",
+      "accent_evening": "#1f5040",
+      "accent_night": "#143830",
+      "bg": "#f2ece0",
+      "fg": "#1a1a18",
+      "grain_opacity": "0.018",
       "fg_dim": "#7a7068",
       "bg_surface": "#ece5d8",
       "bg_elevated": "#e0d8c8"
@@ -27,7 +27,6 @@
       "sections": [
         "overlay-top",
         "meridian-veil",
-        "dust-canvas",
         "overlay-center",
         "split-annotation",
         "thought-floater",
@@ -62,6 +61,7 @@
         "folio-glyph-001.svg",
         "planetarium-glyph-001.svg",
         "viridian-glyph-001.svg",
+        "manuscript-glyph-001.svg",
         "cartographic-glyph-001.svg",
         "cartographic-glyph-003.svg",
         "cartographic-glyph-002.svg",
@@ -85,7 +85,7 @@
       "meridian-shift:-moving-the-mou"
     ],
     "content": {
-      "mood": "folio",
+      "mood": "manuscript",
       "obsession": "meridians \u2014 the invisible lines that divide and organize the world",
       "thought_pools": {
         "dawn": 1,
@@ -98,15 +98,6 @@
     }
   },
   "fitness_log": [
-    {
-      "gen": 20,
-      "coherence": 5,
-      "novelty": 4,
-      "identity": 5,
-      "tension": 4,
-      "note": "The screenshot shows the prototype archive page, not the main living site. This means either the routing is wrong or this IS what visitors see. Either",
-      "total": 4.5
-    },
     {
       "gen": 21,
       "coherence": 6,
@@ -289,33 +280,20 @@
       "perceptibility": 4,
       "note": "The screenshot tells the truth: the split-screen concept is structurally sound but the dark half is STILL unreadable. The indigo shift from gen 38 has",
       "total": 5.3
+    },
+    {
+      "gen": 40,
+      "coherence": 6,
+      "novelty": 5,
+      "identity": 6,
+      "tension": 4,
+      "awe": 3,
+      "perceptibility": 4,
+      "note": "The folio concept is the right strategic move \u2014 killing the dark half after eight generations of unreadable text was overdue. But the screenshot revea",
+      "total": 4.7
     }
   ],
   "mutation_log": [
-    {
-      "gen": 20,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "content.mood",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "section.prototype-portfolio",
-        "section.overlay-top",
-        "section.overlay-center",
-        "section.hero-glow",
-        "section.overlay-bottom",
-        "svg.grounding-glyph-001.svg",
-        "scene.config",
-        "overlay.agent_data"
-      ],
-      "kills": [
-        "css_rule:gen19-css",
-        "thought:night[4]"
-      ],
-      "timestamp": "2026-04-02T22:14:26Z"
-    },
     {
       "gen": 21,
       "mutations": [
@@ -876,27 +854,39 @@
         "secret[20]"
       ],
       "timestamp": "2026-04-07T08:02:38Z"
+    },
+    {
+      "gen": 40,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "content.mood",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "section.overlay-top",
+        "section.meridian-veil",
+        "section.overlay-center",
+        "section.split-annotation",
+        "section.thought-floater",
+        "section.overlay-bottom",
+        "section.scroll-hint",
+        "section.prototype-portfolio",
+        "section.graveyard",
+        "svg.manuscript-glyph-001.svg",
+        "scene.config",
+        "scene.shaders",
+        "overlay.agent_data"
+      ],
+      "kills": [
+        "css_rule:gen39-css",
+        "secret[20]",
+        "section:dust-canvas"
+      ],
+      "timestamp": "2026-04-07T16:02:40Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "section",
-      "value": "vine-line",
-      "died_gen": 26,
-      "epitaph": "Invisible in the screenshot. The vine metaphor dies; the garden grows differently."
-    },
-    {
-      "type": "css_rule",
-      "value": "gen25-css",
-      "died_gen": 26,
-      "epitaph": "The chartreuse spring epoch ends. The garden blooms rose at night."
-    },
-    {
-      "type": "secret",
-      "value": "Generation 25 shed its warmth. The lantern didn't go out \u2014 it changed color.",
-      "died_gen": 26,
-      "epitaph": "Culling secrets to stay under 20. Oldest stale secret removed."
-    },
     {
       "type": "secret",
       "value": "The site has been dark for 23 generations. This is the first time it remembers w",
@@ -1178,6 +1168,24 @@
       "value": "The 180th meridian doesn't care what day it is on either side. Type 'antimeridia",
       "died_gen": 39,
       "epitaph": "Twenty-one secrets is over capacity. The weakest dies to make room for the folio set."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen39-css",
+      "died_gen": 40,
+      "epitaph": "The folio CSS was the first all-light generation. The manuscript CSS replaces it with texture and structure."
+    },
+    {
+      "type": "secret",
+      "value": "Every experiment page has a hidden meridian \u2014 a vertical line at exactly 50% of ",
+      "died_gen": 40,
+      "epitaph": "Twenty-one secrets is over capacity. The weakest dies."
+    },
+    {
+      "type": "section",
+      "value": "dust-canvas",
+      "died_gen": 40,
+      "epitaph": "The dust canvas was built for the split-screen era \u2014 dark motes on the cream half. The manuscript frame and ruled lines replace ambient texture with structural texture."
     }
   ],
   "carrying_capacity": {
@@ -1196,11 +1204,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 30,
-      "base": "#00e676",
-      "family": "lime"
-    },
     {
       "gen": 31,
       "base": "#d4760a",
@@ -1245,6 +1248,11 @@
       "gen": 39,
       "base": "#2b6cb0",
       "family": "teal"
+    },
+    {
+      "gen": 40,
+      "base": "#2d6a4f",
+      "family": "green"
     }
   ],
   "past_epochs": [
