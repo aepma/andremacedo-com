@@ -1,18 +1,18 @@
 {
-  "generation": 38,
+  "generation": 39,
   "epoch": "webgl-swarm",
   "epoch_started": "2026-03-29",
   "traits": {
     "color": {
-      "accent_base": "#d4748a",
-      "accent_dawn": "#f0a0b8",
-      "accent_morning": "#e88ca0",
-      "accent_afternoon": "#d4748a",
-      "accent_evening": "#b85a70",
-      "accent_night": "#9c4058",
+      "accent_base": "#2b6cb0",
+      "accent_dawn": "#5a9fd4",
+      "accent_morning": "#3d7ec0",
+      "accent_afternoon": "#2b6cb0",
+      "accent_evening": "#1e5a9a",
+      "accent_night": "#154880",
       "bg": "#f5f0e6",
-      "fg": "#2a1a0e",
-      "grain_opacity": "0.012",
+      "fg": "#1a1510",
+      "grain_opacity": "0.010",
       "fg_dim": "#7a7068",
       "bg_surface": "#ece5d8",
       "bg_elevated": "#e0d8c8"
@@ -31,7 +31,6 @@
         "overlay-center",
         "split-annotation",
         "thought-floater",
-        "meridian-nav",
         "overlay-bottom",
         "scroll-hint",
         "prototype-portfolio",
@@ -60,6 +59,7 @@
         "constellation-glyph-001.svg",
         "phosphorescent-glyph-001.svg",
         "murmuration-glyph-001.svg",
+        "folio-glyph-001.svg",
         "planetarium-glyph-001.svg",
         "viridian-glyph-001.svg",
         "cartographic-glyph-001.svg",
@@ -85,7 +85,7 @@
       "meridian-shift:-moving-the-mou"
     ],
     "content": {
-      "mood": "incised",
+      "mood": "folio",
       "obsession": "meridians \u2014 the invisible lines that divide and organize the world",
       "thought_pools": {
         "dawn": 1,
@@ -98,15 +98,6 @@
     }
   },
   "fitness_log": [
-    {
-      "gen": 19,
-      "coherence": 5,
-      "novelty": 5,
-      "identity": 6,
-      "tension": 4,
-      "note": "The screenshot shows the prototype archive page \u2014 which means the main site's visual hierarchy is working well enough that the archive is what's being",
-      "total": 5.0
-    },
     {
       "gen": 20,
       "coherence": 5,
@@ -287,36 +278,20 @@
       "perceptibility": 5,
       "note": "The split-screen concept is the strongest structural idea the site has produced \u2014 four consecutive generations above 7.0 confirm it. But the screensho",
       "total": 6.3
+    },
+    {
+      "gen": 39,
+      "coherence": 7,
+      "novelty": 5,
+      "identity": 7,
+      "tension": 5,
+      "awe": 4,
+      "perceptibility": 4,
+      "note": "The screenshot tells the truth: the split-screen concept is structurally sound but the dark half is STILL unreadable. The indigo shift from gen 38 has",
+      "total": 5.3
     }
   ],
   "mutation_log": [
-    {
-      "gen": 19,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "content.mood",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "section.overlay-center",
-        "section.hero-glow",
-        "section.surfacing-line",
-        "section.overlay-bottom",
-        "section.thought-floater",
-        "section.delete.ambient-data",
-        "svg.surfacing-glyph-002.svg",
-        "scene.config",
-        "scene.shaders"
-      ],
-      "kills": [
-        "section:ambient-data",
-        "css_rule:gen18-css",
-        "thought:morning[0]",
-        "thought:evening[0]"
-      ],
-      "timestamp": "2026-04-02T06:02:10Z"
-    },
     {
       "gen": 20,
       "mutations": [
@@ -869,27 +844,41 @@
         "secret[20]"
       ],
       "timestamp": "2026-04-07T00:03:02Z"
+    },
+    {
+      "gen": 39,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "content.mood",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "section.meridian-veil",
+        "section.overlay-top",
+        "section.overlay-center",
+        "section.dust-canvas",
+        "section.split-annotation",
+        "section.thought-floater",
+        "section.overlay-bottom",
+        "section.scroll-hint",
+        "section.delete.meridian-nav",
+        "section.prototype-portfolio",
+        "section.graveyard",
+        "svg.folio-glyph-001.svg",
+        "scene.config",
+        "scene.shaders",
+        "overlay.agent_data"
+      ],
+      "kills": [
+        "section:meridian-nav",
+        "css_rule:gen38-css",
+        "secret[20]"
+      ],
+      "timestamp": "2026-04-07T08:02:38Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "css_rule",
-      "value": "gen24-css",
-      "died_gen": 25,
-      "epitaph": "The amber lantern epoch burns down. The chartreuse spring pushes through."
-    },
-    {
-      "type": "thought",
-      "value": "Gold at $4,678. The swarm prices in everything \u2014 fear, greed, the weight of all the metal still underground.",
-      "died_gen": 25,
-      "epitaph": "Replaced with gold-price thought tied to current data."
-    },
-    {
-      "type": "thought",
-      "value": "Friday evening. The workweek flock disperses. Each bird finds its own roost. Monday they'll murmur again.",
-      "died_gen": 25,
-      "epitaph": "Replaced with Friday evening flock-dispersal thought."
-    },
     {
       "type": "section",
       "value": "vine-line",
@@ -1171,6 +1160,24 @@
       "value": "{'trigger': 'triple-click on the word meridian in any graveyard epitaph', 'respo",
       "died_gen": 38,
       "epitaph": "Twenty secrets is one too many for the second generation running. The weakest gets culled \u2014 not because it was bad, but because the pool needs room to breathe."
+    },
+    {
+      "type": "section",
+      "value": "meridian-nav",
+      "died_gen": 39,
+      "epitaph": "Navigation chrome from the dark-half era. The folio has no nav \u2014 you scroll."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen38-css",
+      "died_gen": 39,
+      "epitaph": "The incised palette \u2014 rose-gold on indigo \u2014 was the last attempt to save the dark half. The dark half died anyway. The CSS goes with it."
+    },
+    {
+      "type": "secret",
+      "value": "The 180th meridian doesn't care what day it is on either side. Type 'antimeridia",
+      "died_gen": 39,
+      "epitaph": "Twenty-one secrets is over capacity. The weakest dies to make room for the folio set."
     }
   ],
   "carrying_capacity": {
@@ -1189,11 +1196,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 29,
-      "base": "#dc3545",
-      "family": "magenta"
-    },
     {
       "gen": 30,
       "base": "#00e676",
@@ -1238,6 +1240,11 @@
       "gen": 38,
       "base": "#d4748a",
       "family": "magenta"
+    },
+    {
+      "gen": 39,
+      "base": "#2b6cb0",
+      "family": "teal"
     }
   ],
   "past_epochs": [
