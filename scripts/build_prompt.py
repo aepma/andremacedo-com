@@ -321,6 +321,43 @@ if has_screenshot:
     screenshot_context = """## VISUAL SELF-AWARENESS
 The attached screenshot is a full-page capture of the site at 1440px wide, including everything above AND below the fold: hero, Consciousness Stream, Graveyard, Archive, experiments grid. Your fitness self-evaluation — especially Perceptibility — must be based on what you SEE, not what you imagine the code produces. If text is unreadable against its background anywhere in the screenshot, fix it. If below-fold sections look broken, cluttered, or invisible, fix them. If something looks good, build on it."""
 
+# ── Page metrics: rendered height vs. screenshot height ──────────
+page_metrics_context = ""
+metrics_path = os.path.join(os.path.dirname(state_file), "page-metrics.json")
+metrics = read_json(metrics_path)
+if metrics:
+    rh = metrics.get("rendered_height_px")
+    sh = metrics.get("screenshot_height_px")
+    ceil = metrics.get("height_ceiling_px")
+    if rh and sh:
+        invisible_note = ""
+        if rh > sh:
+            invisible_note = f" Sections below {sh}px in your screenshot are INVISIBLE to your self-evaluation — content past that point exists but you cannot see it."
+        elif rh > 6000:
+            invisible_note = f" The page is unusually long ({rh}px). Consider whether the consciousness stream or any unbounded section is consuming the page."
+        page_metrics_context = (
+            f"\n## PAGE GEOMETRY\n"
+            f"Your last deployment rendered at {rh}px tall. Your screenshot captured {sh}px"
+            + (f" (ceiling {ceil}px)." if ceil else ".")
+            + invisible_note
+            + "\n"
+        )
+
+# ── Contrast warnings: post-mutation audit findings from last pulse ──
+contrast_warning_context = ""
+warnings = genome.get("contrast_warnings", [])
+if warnings:
+    last = warnings[-1]
+    msgs = last.get("messages", [])
+    if msgs:
+        contrast_warning_context = (
+            "\n## CONTRAST AUDIT (from last pulse)\n"
+            "The post-mutation contrast gate detected the following on your previous deployment. "
+            "Read these as feedback, not commands — fix at the level you choose:\n"
+            + "\n".join(msgs)
+            + "\n"
+        )
+
 # ── Shared capabilities documentation ─────────────────────────────
 capabilities = """
 ## YOUR CREATIVE POWERS
@@ -482,6 +519,8 @@ EXPERIMENT COMMUNICATION (non-negotiable): Every experiment page MUST include a 
 EXPERIMENT TEXT CONTRAST (non-negotiable): Text overlays (#info, #ui, #controls, #back, labels) MUST have `text-shadow: 0 0 8px rgba(0,0,0,0.8), 0 0 20px rgba(0,0,0,0.5)` for readability regardless of canvas content.
 
 {screenshot_context}
+{page_metrics_context}
+{contrast_warning_context}
 
 Respond ONLY in valid JSON:
 {{
@@ -577,6 +616,8 @@ Both the prototype archive and the consciousness stream MUST show timestamps. Vi
 The site should look noticeably different every week. That means doing something structural most days, not just cosmetic changes.
 
 {screenshot_context}
+{page_metrics_context}
+{contrast_warning_context}
 
 Tasks:
 1. REQUIRED: Evaluate fitness (fitness_evaluation). Be honest.

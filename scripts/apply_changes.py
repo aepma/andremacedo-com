@@ -79,6 +79,170 @@ def read_current_css_var(html, var_name):
     return m.group(1).strip() if m else None
 
 
+# ── Scope-aware contrast helpers ────────────────────────────────────
+
+def parse_color_to_hex(color_str):
+    """Parse rgba(), rgb(), or #hex into a hex string. Composites alpha over black."""
+    if not color_str:
+        return None
+    s = color_str.strip().rstrip(';').strip()
+    if s.startswith('#'):
+        s = s.split()[0]
+        if len(s) == 4:  # #abc -> #aabbcc
+            s = '#' + ''.join(c * 2 for c in s[1:])
+        if re.fullmatch(r'#[0-9a-fA-F]{6}', s):
+            return s.lower()
+        return None
+    m = re.match(r'rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*(?:,\s*([\d.]+))?\s*\)', s)
+    if m:
+        r, g, b = int(m.group(1)), int(m.group(2)), int(m.group(3))
+        a = float(m.group(4)) if m.group(4) else 1.0
+        # Composite over black (worst case for dark-bg pages)
+        r, g, b = int(r * a), int(g * a), int(b * a)
+        return f"#{r:02x}{g:02x}{b:02x}"
+    return None
+
+
+def find_scope_background(html, scope_selector):
+    """Find the effective hex background for a CSS rule's scope. None if absent."""
+    pattern = re.escape(scope_selector) + r'\s*\{([^}]+)\}'
+    m = re.search(pattern, html)
+    if not m:
+        return None
+    block = m.group(1)
+    bg_m = re.search(r'background(?:-color)?\s*:\s*([^;]+);', block)
+    if bg_m:
+        return parse_color_to_hex(bg_m.group(1))
+    return None
+
+
+def find_scoped_fg_violations(html, min_ratio=4.5):
+    """Walk all CSS rule blocks that declare --fg* vars and check against scope bg.
+
+    Returns list of (selector, var_name, old_val, new_val, bg_hex).
+    """
+    fixes = []
+    rule_re = re.compile(
+        r'(\.[\w-]+)\s*\{([^}]*?)\}',
+        re.DOTALL,
+    )
+    for m in rule_re.finditer(html):
+        selector = m.group(1)
+        block = m.group(2)
+        if '--fg' not in block:
+            continue
+        bg_hex = find_scope_background(html, selector)
+        if not bg_hex:
+            continue
+        for var_m in re.finditer(r'(--fg[a-z-]*)\s*:\s*([^;]+);', block):
+            var_name = var_m.group(1)
+            val = var_m.group(2).strip()
+            val_hex = parse_color_to_hex(val)
+            if not val_hex:
+                continue
+            ratio = contrast_ratio(val_hex, bg_hex)
+            if ratio < min_ratio:
+                fixed = ensure_contrast(val_hex, bg_hex, min_ratio)
+                fixes.append((selector, var_name, val, fixed, bg_hex))
+    return fixes
+
+
+def apply_scoped_fg_fixes(html, fixes):
+    """Apply scoped fg violations in place. Returns updated html."""
+    for selector, var_name, old_val, new_val, bg in fixes:
+        rule_re = re.compile(
+            r'(' + re.escape(selector) + r'\s*\{[^}]*?' + re.escape(var_name) + r'\s*:\s*)'
+            + re.escape(old_val) + r'(\s*;)',
+            re.DOTALL,
+        )
+        new_html, n = rule_re.subn(r'\1' + new_val + r'\2', html, count=1)
+        if n:
+            html = new_html
+            print(f"  [contrast-gate scoped] {selector} {var_name}: {old_val} -> {new_val} (against bg {bg})")
+    return html
+
+
+def extract_below_fold_region(html):
+    """Return the substring of html between the .below-fold container start and its closing.
+    Heuristic: from `<div class="below-fold"` (or single quotes) to the closing </div> before
+    the cdnjs three.js script tag.
+    """
+    m = re.search(r'<div\s+class=[\'"]below-fold[\'"][^>]*>', html)
+    if not m:
+        return None
+    start = m.end()
+    # End at the three.js cdnjs include or end of document
+    end_marker = re.search(r'<script\s+src=["\']https://cdnjs', html[start:])
+    end = start + (end_marker.start() if end_marker else len(html) - start)
+    return html[start:end]
+
+
+def collect_below_fold_text_colors(html):
+    """Collect every hex text color used inside .below-fold (inline + JS literals)."""
+    region = extract_below_fold_region(html)
+    if not region:
+        return []
+    colors = set()
+    # Inline `color: #xxx` (in style attrs OR in <style> blocks scoped to below-fold)
+    for m in re.finditer(r'color\s*:\s*(#[0-9a-fA-F]{3,8})', region):
+        h = parse_color_to_hex(m.group(1))
+        if h:
+            colors.add(h)
+    # Inline `color: rgba(...)`
+    for m in re.finditer(r'color\s*:\s*(rgba?\([^)]+\))', region):
+        h = parse_color_to_hex(m.group(1))
+        if h:
+            colors.add(h)
+    # Hex literals inside <script> blocks (e.g. JS template strings)
+    for m in re.finditer(r"['\"`](#[0-9a-fA-F]{6})['\"`]", region):
+        h = parse_color_to_hex(m.group(1))
+        if h:
+            colors.add(h)
+    return sorted(colors)
+
+
+def below_fold_contrast_audit(html, min_ratio=4.5, hierarchy_min_distance=0.15):
+    """Run after every mutation. Returns (html, list_of_messages).
+
+    1. Walk all scoped --fg* declarations, validate against scope bg, clamp violations.
+    2. Find .below-fold background, collect every text color used in that region,
+       check each against the actual below-fold bg.
+    3. Hierarchy collapse: if all collected text luminances span < hierarchy_min_distance,
+       emit a CONTRAST GATE warning (the agent must respond, gate does not auto-fix).
+    """
+    messages = []
+
+    # 1. Scoped --fg* fixes (auto-clamp)
+    fixes = find_scoped_fg_violations(html, min_ratio=min_ratio)
+    if fixes:
+        html = apply_scoped_fg_fixes(html, fixes)
+
+    # 2. Below-fold inline/JS color check (warn-only — agent owns these)
+    bf_bg = find_scope_background(html, '.below-fold') or '#0a0a0a'
+    colors = collect_below_fold_text_colors(html)
+    failing = []
+    for c in colors:
+        ratio = contrast_ratio(c, bf_bg)
+        if ratio < min_ratio:
+            failing.append((c, ratio))
+    if failing:
+        messages.append(f"  [contrast-gate below-fold] effective bg = {bf_bg}")
+        for c, r in failing:
+            messages.append(f"    FAIL  {c}  ratio={r:.2f}:1  (< {min_ratio})")
+
+    # 3. Hierarchy collapse detection
+    if len(colors) >= 2:
+        lums = sorted(hex_to_relative_luminance(c) for c in colors)
+        lo, hi = lums[0], lums[-1]
+        if (hi - lo) < hierarchy_min_distance:
+            messages.append(
+                f"  CONTRAST GATE: hierarchy collapse detected — all text tiers within "
+                f"luminance range [{lo:.3f}, {hi:.3f}] (span {hi-lo:.3f}, min {hierarchy_min_distance})"
+            )
+
+    return html, messages
+
+
 site_dir = os.environ["SITE_DIR"]
 pulse_type = os.environ["PULSE_TYPE"]
 total_tokens = int(os.environ["TOTAL_TOKENS"])
@@ -1024,6 +1188,27 @@ if exp_files:
             html = html[:m.start(2)] + new_links + m.group(2) + html[m.end(2):]
             with open(index_path, "w") as f: f.write(html)
             parts.append(f"auto-linked experiments: {', '.join(missing)}")
+
+# ── Post-mutation contrast audit (scope-aware) ────────────────────
+# Catches the failure mode the original gate missed: scoped CSS vars
+# (.below-fold { --fg: #1a1a18 }) being validated against the wrong bg.
+# Also surfaces inline/JS color failures and hierarchy collapse to the agent.
+with open(index_path) as f: html = f.read()
+html_after, audit_messages = below_fold_contrast_audit(html)
+if html_after != html:
+    with open(index_path, "w") as f: f.write(html_after)
+    parts.append("contrast-gate: scoped fg clamped")
+if audit_messages:
+    print("[contrast-gate audit]")
+    for msg in audit_messages:
+        print(msg)
+    # Persist warnings into genome so the next prompt can include them
+    genome.setdefault("contrast_warnings", []).append({
+        "gen": new_version,
+        "messages": audit_messages,
+        "timestamp": now,
+    })
+    genome["contrast_warnings"] = genome["contrast_warnings"][-10:]
 
 # ── Save everything ───────────────────────────────────────────────
 with open(thoughts_path, "w") as f: json.dump(thoughts, f, indent=2)
