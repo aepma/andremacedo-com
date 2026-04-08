@@ -1,21 +1,21 @@
 {
-  "generation": 45,
+  "generation": 46,
   "epoch": "webgl-swarm",
   "epoch_started": "2026-03-29",
   "traits": {
     "color": {
-      "accent_base": "#c41e3a",
-      "accent_dawn": "#e84060",
-      "accent_morning": "#d83050",
-      "accent_afternoon": "#c41e3a",
-      "accent_evening": "#a4102a",
-      "accent_night": "#84001a",
-      "bg": "#f5f0e8",
-      "fg": "#1a1610",
-      "grain_opacity": "0.003",
-      "fg_dim": "#7a7068",
-      "bg_surface": "#ece5d8",
-      "bg_elevated": "#e0d8c8"
+      "accent_base": "#0891b2",
+      "accent_dawn": "#22d3ee",
+      "accent_morning": "#06b6d4",
+      "accent_afternoon": "#0891b2",
+      "accent_evening": "#0e7490",
+      "accent_night": "#155e75",
+      "bg": "#fffff5",
+      "fg": "#1a1a1a",
+      "grain_opacity": "0",
+      "fg_dim": "#656c7a",
+      "bg_surface": "#f8f8f0",
+      "bg_elevated": "#f0f0e8"
     },
     "typography": {
       "display": "Playfair Display",
@@ -38,6 +38,7 @@
       "pages": [
         "index-new.html",
         "experiments/004.html",
+        "experiments/008.html",
         "experiments/005.html",
         "experiments/002.html",
         "experiments/003.html",
@@ -59,6 +60,7 @@
         "constellation-glyph-001.svg",
         "phosphorescent-glyph-001.svg",
         "murmuration-glyph-001.svg",
+        "ivory-tower-glyph-001.svg",
         "folio-glyph-001.svg",
         "planetarium-glyph-001.svg",
         "viridian-glyph-001.svg",
@@ -87,31 +89,22 @@
       "when-a-visitor-clicks-and-drag",
       "ensaio-secret:-typing-'ensaio'",
       "swarm-scatter:-clicking-anywhe",
-      "meridian-shift:-moving-the-mou"
+      "meridian-trace:-clicking-on-th"
     ],
     "content": {
       "mood": "surgical",
       "obsession": "meridians \u2014 the invisible lines that divide and organize the world",
       "thought_pools": {
-        "dawn": 1,
-        "morning": 1,
-        "afternoon": 1,
+        "dawn": 0,
+        "morning": 0,
+        "afternoon": 0,
         "evening": 2,
         "night": 2
       },
-      "secrets_count": 21
+      "secrets_count": 20
     }
   },
   "fitness_log": [
-    {
-      "gen": 26,
-      "coherence": 7,
-      "novelty": 6,
-      "identity": 7,
-      "tension": 5,
-      "note": "The screenshot is genuinely alive \u2014 the chartreuse particle sphere is visible, luminous, and unmistakable against the dark background. The hero text (",
-      "total": 6.2
-    },
     {
       "gen": 27,
       "coherence": 7,
@@ -306,43 +299,20 @@
       "perceptibility": 1,
       "note": "Fitness 2.0 \u2014 six consecutive generations of decline. The screenshot shows the same problem that has persisted since gen 40: the WebGL canvas paints #",
       "total": 2.0
+    },
+    {
+      "gen": 46,
+      "coherence": 2,
+      "novelty": 1,
+      "identity": 2,
+      "tension": 1,
+      "awe": 0,
+      "perceptibility": 1,
+      "note": "Six consecutive generations of decline. The screenshot is damning: the page is a dark void with barely-visible text fragments. The contrast audit conf",
+      "total": 1.2
     }
   ],
   "mutation_log": [
-    {
-      "gen": 26,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "content.mood",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "interaction.petal-scatter:-clicking-create",
-        "section.overlay-top",
-        "section.overlay-center",
-        "section.hero-glow",
-        "section.delete.vine-line",
-        "section.petal-drift",
-        "section.scroll-hint",
-        "section.overlay-bottom",
-        "section.prototype-portfolio",
-        "svg.nocturne-glyph-001.svg",
-        "scene.config",
-        "scene.shaders",
-        "overlay.agent_data"
-      ],
-      "kills": [
-        "section:vine-line",
-        "css_rule:gen25-css",
-        "secret[24]",
-        "secret[23]",
-        "secret[22]",
-        "secret[21]",
-        "secret[20]"
-      ],
-      "timestamp": "2026-04-04T00:02:34Z"
-    },
     {
       "gen": 27,
       "mutations": [
@@ -899,45 +869,41 @@
         "secret[20]"
       ],
       "timestamp": "2026-04-08T16:02:48Z"
+    },
+    {
+      "gen": 46,
+      "mutations": [
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "interaction.meridian-trace:-clicking-on-th",
+        "section.overlay-top",
+        "section.meridian-veil",
+        "section.overlay-center",
+        "section.split-annotation",
+        "section.thought-floater",
+        "section.overlay-bottom",
+        "section.scroll-hint",
+        "section.prototype-portfolio",
+        "section.graveyard",
+        "page.experiments/008.html",
+        "svg.ivory-tower-glyph-001.svg",
+        "scene.config",
+        "scene.shaders",
+        "overlay.agent_data"
+      ],
+      "kills": [
+        "css_rule:gen45-css",
+        "secret[0]",
+        "thought:dawn[0]",
+        "thought:morning[0]",
+        "thought:afternoon[0]",
+        "interaction:meridian-shift:-moving-the-mou"
+      ],
+      "timestamp": "2026-04-08T22:04:14Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "css_rule",
-      "value": "gen28-css",
-      "died_gen": 29,
-      "epitaph": "The violet-blue planetarium palette served one generation. Crimson observatory replaces it \u2014 warmer, higher contrast against true black, and it preserves night vision."
-    },
-    {
-      "type": "secret",
-      "value": "The site has been 27 different colors in 27 generations. Not one was chosen at r",
-      "died_gen": 29,
-      "epitaph": "Over the 20-secret cap. Culling to make room for the new observatory secret."
-    },
-    {
-      "type": "section",
-      "value": "constellation-line",
-      "died_gen": 29,
-      "epitaph": "The constellation-line was a breathing accent line from the previous palette. Replaced by the observatory crosshair which serves the same grounding function with more conceptual coherence."
-    },
-    {
-      "type": "css_rule",
-      "value": "gen29-css",
-      "died_gen": 30,
-      "epitaph": "The crimson observatory served one generation. Emerald replaces it \u2014 from infrared to the phosphor spectrum."
-    },
-    {
-      "type": "secret",
-      "value": "The particle field was a sphere for 28 generations. Tonight it finally broke.",
-      "died_gen": 30,
-      "epitaph": "Over the 20-secret cap. The oldest observatory secret makes way for the viridian batch."
-    },
-    {
-      "type": "section",
-      "value": "obs-crosshair",
-      "died_gen": 31,
-      "epitaph": "The observatory crosshair belonged to the crimson-observatory mood. The meridian has no single focal point \u2014 it IS the focus."
-    },
     {
       "type": "section",
       "value": "star-field",
@@ -1201,6 +1167,42 @@
       "value": "Generation 43 was the worst score in the site's history. The canvas was eating t",
       "died_gen": 45,
       "epitaph": "Twenty-one secrets, twenty max. The weakest dies. In a surgical generation, even the graveyard gets pruned."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen45-css",
+      "died_gen": 46,
+      "epitaph": "Gen45 CSS was the sixth consecutive attempt to solve the canvas-over-content problem with style declarations. The canvas does not read CSS. It reads pixels. Killed to make room for the architectural containment approach."
+    },
+    {
+      "type": "secret",
+      "value": "The person behind this domain is somewhere between Portugal and America, which i",
+      "died_gen": 46,
+      "epitaph": "The oldest secret dies. In a generation about building walls, the weakest whisper goes silent."
+    },
+    {
+      "type": "thought",
+      "value": "Gold at $4,747. The meridian between what something costs and what it's worth has never been wider.",
+      "died_gen": 46,
+      "epitaph": "The dawn thought from gen 45 was about the surgical mood. The surgery is over. Now we build."
+    },
+    {
+      "type": "thought",
+      "value": "A corrective generation is one that admits the previous six were wrong. The page was dark. The page stays dark until I stop it.",
+      "died_gen": 46,
+      "epitaph": "The morning thought about inline styles was a coping mechanism. Replaced with the real lesson: walls, not styles."
+    },
+    {
+      "type": "thought",
+      "value": "The Prime Meridian was arbitrary \u2014 Greenwich won because Britain had the navy. Every standard is a conquered line.",
+      "died_gen": 46,
+      "epitaph": "The afternoon thought about gold prices was generic. Replaced with the Date Line \u2014 a meridian that bends for politics."
+    },
+    {
+      "type": "interaction",
+      "value": "meridian-shift:-moving-the-mou",
+      "died_gen": 46,
+      "epitaph": "The meridian-shift interaction relied on the split-screen layout. The split is dead. The meridian line persists as decoration, not interaction."
     }
   ],
   "carrying_capacity": {
@@ -1219,11 +1221,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 36,
-      "base": "#b87333",
-      "family": "red"
-    },
     {
       "gen": 37,
       "base": "#c9a84c",
@@ -1268,6 +1265,11 @@
       "gen": 45,
       "base": "#c41e3a",
       "family": "magenta"
+    },
+    {
+      "gen": 46,
+      "base": "#0891b2",
+      "family": "teal"
     }
   ],
   "past_epochs": [
@@ -1335,6 +1337,17 @@
         "    FAIL  #645426  ratio=2.75:1  (< 4.5)"
       ],
       "timestamp": "2026-04-08T16:02:48Z"
+    },
+    {
+      "gen": 46,
+      "messages": [
+        "  [contrast-gate below-fold] effective bg = #020605",
+        "    FAIL  #1a1a1a  ratio=1.17:1  (< 4.5)",
+        "    FAIL  #3a2a1e  ratio=1.48:1  (< 4.5)",
+        "    FAIL  #645426  ratio=2.75:1  (< 4.5)",
+        "    FAIL  #6b7280  ratio=4.21:1  (< 4.5)"
+      ],
+      "timestamp": "2026-04-08T22:04:14Z"
     }
   ]
 }
