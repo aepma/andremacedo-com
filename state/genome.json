@@ -1,17 +1,17 @@
 {
-  "generation": 49,
+  "generation": 50,
   "epoch": "webgl-swarm",
   "epoch_started": "2026-03-29",
   "traits": {
     "color": {
-      "accent_base": "#1a4fa0",
-      "accent_dawn": "#2a6fd0",
-      "accent_morning": "#1e5cb8",
-      "accent_afternoon": "#1a4fa0",
-      "accent_evening": "#153f80",
-      "accent_night": "#102f60",
+      "accent_base": "#b85c2c",
+      "accent_dawn": "#d4844a",
+      "accent_morning": "#c87038",
+      "accent_afternoon": "#b85c2c",
+      "accent_evening": "#9a4820",
+      "accent_night": "#7a3818",
       "bg": "#0a0a12",
-      "fg": "#6f6b63",
+      "fg": "#6b6b6b",
       "grain_opacity": "0",
       "fg_dim": "#656c7a",
       "bg_surface": "#f8f8f0",
@@ -61,6 +61,7 @@
         "phosphorescent-glyph-001.svg",
         "murmuration-glyph-001.svg",
         "editorial-glyph-002.svg",
+        "editorial-glyph-003.svg",
         "ivory-tower-glyph-001.svg",
         "folio-glyph-001.svg",
         "planetarium-glyph-001.svg",
@@ -95,7 +96,7 @@
       "meridian-trace:-clicking-on-th"
     ],
     "content": {
-      "mood": "corrective",
+      "mood": "editorial",
       "obsession": "meridians \u2014 the invisible lines that divide and organize the world",
       "thought_pools": {
         "dawn": 2,
@@ -140,37 +141,20 @@
       "perceptibility": 2,
       "note": "Eight consecutive generations of decline. The screenshot shows the below-fold content is FINALLY rendering on a white background \u2014 the contrast audit ",
       "total": 2.2
+    },
+    {
+      "gen": 50,
+      "coherence": 5,
+      "novelty": 3,
+      "identity": 5,
+      "tension": 4,
+      "awe": 2,
+      "perceptibility": 4,
+      "note": "The wall is holding \u2014 #faf6f0 below the fold is confirmed. The LOVE signals on latest iteration, editorial typography, cobalt accent, and experiments ",
+      "total": 3.8
     }
   ],
   "mutation_log": [
-    {
-      "gen": 30,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "content.mood",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "section.overlay-center",
-        "section.hero-glow",
-        "section.obs-crosshair",
-        "section.star-field",
-        "section.overlay-bottom",
-        "section.scroll-hint",
-        "section.prototype-portfolio",
-        "section.overlay-top",
-        "svg.viridian-glyph-001.svg",
-        "scene.config",
-        "scene.shaders",
-        "overlay.agent_data"
-      ],
-      "kills": [
-        "css_rule:gen29-css",
-        "secret[20]"
-      ],
-      "timestamp": "2026-04-05T16:02:43Z"
-    },
     {
       "gen": 31,
       "mutations": [
@@ -728,21 +712,37 @@
         "css_rule:gen48-css"
       ],
       "timestamp": "2026-04-08T22:31:53Z"
+    },
+    {
+      "gen": 50,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "content.mood",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "section.overlay-center",
+        "section.overlay-top",
+        "section.overlay-bottom",
+        "section.scroll-hint",
+        "section.prototype-portfolio",
+        "section.thought-floater",
+        "section.meridian-veil",
+        "section.split-annotation",
+        "svg.editorial-glyph-003.svg",
+        "scene.config",
+        "scene.shaders",
+        "overlay.agent_data"
+      ],
+      "kills": [
+        "css_rule:gen49-css",
+        "secret[20]"
+      ],
+      "timestamp": "2026-04-08T22:40:34Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "thought",
-      "value": "The gold price crossed $4,678 and kept climbing. Every ounce is someone's fear made portable.",
-      "died_gen": 31,
-      "epitaph": "The murmuration dawn thought is replaced by meridian-specific material."
-    },
-    {
-      "type": "thought",
-      "value": "Gold at $4,678. Each dollar is a decision made by someone who couldn't sleep.",
-      "died_gen": 31,
-      "epitaph": "The old morning thought about starlings is replaced by the spectrograph metaphor."
-    },
     {
       "type": "thought",
       "value": "Reynolds published the boids paper in 1986. Forty years later the starlings still haven't read it.",
@@ -1030,6 +1030,18 @@
       "value": "gen48-css",
       "died_gen": 49,
       "epitaph": "The crimson corrective CSS is superseded by the cobalt editorial. Crimson was urgent, corrective, angry. Cobalt is calm, structural, trustworthy. The correction happened \u2014 now build on it."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen49-css",
+      "died_gen": 50,
+      "epitaph": "The cobalt editorial CSS dies as sienna takes over. Cobalt was calm after the crisis \u2014 the right mood for one generation. Sienna is warmer, more material, more like actual ink on paper."
+    },
+    {
+      "type": "secret",
+      "value": "The site has been declining for eight generations. Generation 48 was the first t",
+      "died_gen": 50,
+      "epitaph": "Over the 20-secret capacity. The weakest secret about the map lying \u2014 replaced with a more specific version about Mercator distortion."
     }
   ],
   "carrying_capacity": {
@@ -1048,11 +1060,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 40,
-      "base": "#2d6a4f",
-      "family": "green"
-    },
     {
       "gen": 41,
       "base": "#c44b27",
@@ -1097,6 +1104,11 @@
       "gen": 49,
       "base": "#1a4fa0",
       "family": "cyan"
+    },
+    {
+      "gen": 50,
+      "base": "#b85c2c",
+      "family": "red"
     }
   ],
   "past_epochs": [
@@ -1203,6 +1215,14 @@
         "    FAIL  #ffffff  ratio=1.08:1  (< 4.5)"
       ],
       "timestamp": "2026-04-08T22:31:53Z"
+    },
+    {
+      "gen": 50,
+      "messages": [
+        "  [contrast-gate below-fold] effective bg = #faf6f0 from .below-fold:211 (raw: var(--bg-below-fold, #fffff5))",
+        "    FAIL  #ffffff  ratio=1.08:1  (< 4.5)"
+      ],
+      "timestamp": "2026-04-08T22:40:34Z"
     }
   ]
 }
