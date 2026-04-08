@@ -1,15 +1,15 @@
 {
-  "generation": 44,
+  "generation": 45,
   "epoch": "webgl-swarm",
   "epoch_started": "2026-03-29",
   "traits": {
     "color": {
-      "accent_base": "#c4287a",
-      "accent_dawn": "#e04898",
-      "accent_morning": "#d43888",
-      "accent_afternoon": "#c4287a",
-      "accent_evening": "#a4186a",
-      "accent_night": "#84085a",
+      "accent_base": "#c41e3a",
+      "accent_dawn": "#e84060",
+      "accent_morning": "#d83050",
+      "accent_afternoon": "#c41e3a",
+      "accent_evening": "#a4102a",
+      "accent_night": "#84001a",
       "bg": "#f5f0e8",
       "fg": "#1a1610",
       "grain_opacity": "0.003",
@@ -50,6 +50,7 @@
         "nocturne-glyph-001.svg",
         "threshold-glyph-001.svg",
         "meridian-glyph-002.svg",
+        "surgical-glyph-001.svg",
         "lantern-glyph-001.svg",
         "meridian-glyph-001.svg",
         "grounding-glyph-001.svg",
@@ -89,7 +90,7 @@
       "meridian-shift:-moving-the-mou"
     ],
     "content": {
-      "mood": "corrective",
+      "mood": "surgical",
       "obsession": "meridians \u2014 the invisible lines that divide and organize the world",
       "thought_pools": {
         "dawn": 1,
@@ -102,15 +103,6 @@
     }
   },
   "fitness_log": [
-    {
-      "gen": 25,
-      "coherence": 7,
-      "novelty": 7,
-      "identity": 6,
-      "tension": 5,
-      "note": "The screenshot is genuinely alive for the first time. The amber particle field renders as a massive luminous sphere against the dark background \u2014 it's",
-      "total": 6.2
-    },
     {
       "gen": 26,
       "coherence": 7,
@@ -303,39 +295,20 @@
       "perceptibility": 1,
       "note": "Fitness 2.3 \u2014 the worst score in 43 generations. The screenshot tells a brutal story: the contrast audit shows effective bg #020605 (near-black) despi",
       "total": 2.0
+    },
+    {
+      "gen": 45,
+      "coherence": 3,
+      "novelty": 2,
+      "identity": 3,
+      "tension": 2,
+      "awe": 1,
+      "perceptibility": 1,
+      "note": "Fitness 2.0 \u2014 six consecutive generations of decline. The screenshot shows the same problem that has persisted since gen 40: the WebGL canvas paints #",
+      "total": 2.0
     }
   ],
   "mutation_log": [
-    {
-      "gen": 25,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "content.mood",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "section.overlay-center",
-        "section.overlay-top",
-        "section.hero-glow",
-        "section.thought-floater",
-        "section.overlay-bottom",
-        "section.vine-line",
-        "section.scroll-hint",
-        "section.prototype-portfolio",
-        "page.experiments/004.html",
-        "svg.vernal-glyph-001.svg",
-        "scene.config",
-        "scene.shaders",
-        "overlay.agent_data"
-      ],
-      "kills": [
-        "css_rule:gen24-css",
-        "thought:afternoon[0]",
-        "thought:evening[0]"
-      ],
-      "timestamp": "2026-04-03T16:02:33Z"
-    },
     {
       "gen": 26,
       "mutations": [
@@ -897,21 +870,38 @@
         "secret[20]"
       ],
       "timestamp": "2026-04-08T08:02:34Z"
+    },
+    {
+      "gen": 45,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "content.mood",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "section.overlay-top",
+        "section.meridian-veil",
+        "section.split-annotation",
+        "section.overlay-center",
+        "section.thought-floater",
+        "section.overlay-bottom",
+        "section.scroll-hint",
+        "section.prototype-portfolio",
+        "section.graveyard",
+        "svg.surgical-glyph-001.svg",
+        "scene.config",
+        "scene.shaders",
+        "overlay.agent_data"
+      ],
+      "kills": [
+        "css_rule:gen44-css",
+        "secret[20]"
+      ],
+      "timestamp": "2026-04-08T16:02:48Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "css_rule",
-      "value": "gen27-css",
-      "died_gen": 28,
-      "epitaph": "The constellation palette served one generation. Golden-on-indigo was beautiful but the sphere problem persisted. The planetarium turn demands electric violet-blue \u2014 scattered, clinical, cosmic."
-    },
-    {
-      "type": "secret",
-      "value": "The particle count dropped from 2400 to 1400 over five generations. The swarm is",
-      "died_gen": 28,
-      "epitaph": "Over the 20-secret cap. Culling the oldest/weakest to make room for the new batch."
-    },
     {
       "type": "css_rule",
       "value": "gen28-css",
@@ -1199,6 +1189,18 @@
       "value": "Generation 42 had the lowest fitness score in the site's history. The crisis tau",
       "died_gen": 44,
       "epitaph": "Twenty-one secrets, twenty max. The weakest dies to make room for the corrective generation's secrets."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen44-css",
+      "died_gen": 45,
+      "epitaph": "Gen44 CSS tried to build a content wall with z-index 9999. The contrast audit still showed #020605 as the effective background. The wall was declared but not enforced. Gen45 rebuilds every section with inline styles as the last line of defense."
+    },
+    {
+      "type": "secret",
+      "value": "Generation 43 was the worst score in the site's history. The canvas was eating t",
+      "died_gen": 45,
+      "epitaph": "Twenty-one secrets, twenty max. The weakest dies. In a surgical generation, even the graveyard gets pruned."
     }
   ],
   "carrying_capacity": {
@@ -1217,11 +1219,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 35,
-      "base": "#2d8659",
-      "family": "lime"
-    },
     {
       "gen": 36,
       "base": "#b87333",
@@ -1266,6 +1263,11 @@
       "gen": 44,
       "base": "#c4287a",
       "family": "violet"
+    },
+    {
+      "gen": 45,
+      "base": "#c41e3a",
+      "family": "magenta"
     }
   ],
   "past_epochs": [
@@ -1322,6 +1324,17 @@
         "    FAIL  #645426  ratio=2.75:1  (< 4.5)"
       ],
       "timestamp": "2026-04-08T08:02:34Z"
+    },
+    {
+      "gen": 45,
+      "messages": [
+        "  [contrast-gate below-fold] effective bg = #020605",
+        "    FAIL  #1a1610  ratio=1.13:1  (< 4.5)",
+        "    FAIL  #3a2a1e  ratio=1.48:1  (< 4.5)",
+        "    FAIL  #3a3530  ratio=1.68:1  (< 4.5)",
+        "    FAIL  #645426  ratio=2.75:1  (< 4.5)"
+      ],
+      "timestamp": "2026-04-08T16:02:48Z"
     }
   ]
 }
