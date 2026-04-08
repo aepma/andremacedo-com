@@ -626,7 +626,8 @@ document.addEventListener('mousemove', function(e) { const m = document.getEleme
 <div style='text-align:center;padding:1rem 0 0.5rem;'><div style='font-family:JetBrains Mono,monospace;font-size:0.65rem;color:rgba(26,22,16,0.35);letter-spacing:0.1em;text-transform:uppercase;'>↓ experiments · graveyard · archive ↓</div></div>
 <!-- @section:scroll-hint:end -->
 <script data-section="scroll-hint">
-window.addEventListener('scroll', function() { var hint = document.getElementById('scroll-hint'); if(window.scrollY > 100) { hint.style.opacity = '0'; hint.style.transition = 'opacity 0.5s'; } else { hint.style.opacity = '1'; } });
+window.addEventListener('scroll', function() { var hint = document.getElementById('scroll-hint'); if(!hint) return; if(window.scrollY > 100) { hint.style.opacity = '0'; hint.style.transition = 'opacity 0.5s'; } else { hint.style.opacity = '1'; } });
+window.addEventListener('scroll', function() { var ov = document.getElementById('overlay'); if(!ov) return; var hide = window.scrollY > window.innerHeight * 0.6; ov.style.transition = 'opacity 0.4s'; ov.style.opacity = hide ? '0' : '1'; ov.style.pointerEvents = hide ? 'none' : ''; });
 </script>
 <script data-section="overlay-bottom">
 (function(){ const el = document.getElementById('compassPanel'); if(!el) return; const now = new Date(); const days = ['sunday','monday','tuesday','wednesday','thursday','friday','saturday']; const d = now.getFullYear() + '-' + String(now.getMonth()+1).padStart(2,'0') + '-' + String(now.getDate()).padStart(2,'0'); el.innerHTML = d + ' · ' + days[now.getDay()] + '
