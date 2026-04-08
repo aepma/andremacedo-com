@@ -116,6 +116,24 @@ def find_scope_background(html, scope_selector):
     return None
 
 
+def find_scope_background_with_source(html, scope_selector):
+    """Like find_scope_background but also returns (line_number, raw_value).
+    Returns (hex, line, raw) or (None, None, None)."""
+    pattern = re.escape(scope_selector) + r'\s*\{([^}]+)\}'
+    m = re.search(pattern, html)
+    if not m:
+        return None, None, None
+    block = m.group(1)
+    bg_m = re.search(r'background(?:-color)?\s*:\s*([^;]+);', block)
+    if not bg_m:
+        return None, None, None
+    raw = bg_m.group(1).strip()
+    hex_val = parse_color_to_hex(raw)
+    bg_offset = m.start(1) + bg_m.start(1)
+    line = html.count('\n', 0, bg_offset) + 1
+    return hex_val, line, raw
+
+
 def find_scoped_fg_violations(html, min_ratio=4.5):
     """Walk all CSS rule blocks that declare --fg* vars and check against scope bg.
 
@@ -218,7 +236,9 @@ def below_fold_contrast_audit(html, min_ratio=4.5, hierarchy_min_distance=0.15):
         html = apply_scoped_fg_fixes(html, fixes)
 
     # 2. Below-fold inline/JS color check (warn-only — agent owns these)
-    bf_bg = find_scope_background(html, '.below-fold') or '#0a0a0a'
+    bf_bg, bf_line, bf_raw = find_scope_background_with_source(html, '.below-fold')
+    if not bf_bg:
+        bf_bg = '#0a0a0a'
     colors = collect_below_fold_text_colors(html)
     failing = []
     for c in colors:
@@ -226,7 +246,8 @@ def below_fold_contrast_audit(html, min_ratio=4.5, hierarchy_min_distance=0.15):
         if ratio < min_ratio:
             failing.append((c, ratio))
     if failing:
-        messages.append(f"  [contrast-gate below-fold] effective bg = {bf_bg}")
+        source_note = f" from .below-fold:{bf_line} (raw: {bf_raw})" if bf_line else ""
+        messages.append(f"  [contrast-gate below-fold] effective bg = {bf_bg}{source_note}")
         for c, r in failing:
             messages.append(f"    FAIL  {c}  ratio={r:.2f}:1  (< {min_ratio})")
 

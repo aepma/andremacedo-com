@@ -18,6 +18,8 @@
     --bg: #fffff5;
     --bg-surface: #f8f8f0;
     --bg-elevated: #f0f0e8;
+    --bg-below-fold: #fffff5;
+    --border-below-fold: rgba(8,145,178,0.18);
     --grain-opacity: 0;
   }
 
@@ -206,14 +208,12 @@
     position: relative;
     z-index: 20;
     min-height: 100vh;
-    background: rgba(3,8,7,0.85);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border-top: 1px solid rgba(61,232,197,0.08);
+    background: var(--bg-below-fold, #fffff5);
+    border-top: 1px solid var(--border-below-fold, rgba(8,145,178,0.18));
     padding: 4rem 2.5rem;
-    --fg: #777777;
-    --fg-dim: #717886;
-    --fg-accent: #0c82a3;
+    --fg: #1a1610;
+    --fg-dim: #555047;
+    --fg-accent: #0891b2;
     --bg-surface: #f8f8f0;
     --bg-elevated: #f0f0e8;
   }
