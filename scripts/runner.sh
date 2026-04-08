@@ -15,6 +15,14 @@ APPLY_SCRIPT="$SCRIPT_DIR/apply_changes.py"
 LOG_FILE="$HOME/.openclaw/logs/andremacedo-agent.log"
 mkdir -p "$(dirname "$LOG_FILE")"
 
+# Per-site logs and failure tracking (local to the site repo)
+SITE_LOG_DIR="$SITE_DIR/logs"
+ERROR_LOG="$SITE_LOG_DIR/build-errors.log"
+BUILD_LOG="$SITE_LOG_DIR/build-$(date -u +%Y-%m-%d).log"
+FAILURE_COUNTER="$SITE_DIR/state/build-failures.count"
+FAILURE_THRESHOLD=3
+mkdir -p "$SITE_LOG_DIR"
+
 # launchd runs zsh -l -c which is non-interactive, so .zshrc is NOT sourced.
 # Source it explicitly if ANTHROPIC_API_KEY is missing.
 if [ -z "${ANTHROPIC_API_KEY:-}" ] && [ -f "$HOME/.zshrc" ]; then
@@ -51,10 +59,37 @@ telegram() {
     -d chat_id="$CHAT_ID" -d parse_mode="Markdown" -d text="$1" >/dev/null 2>&1 || true
 }
 
+# Route build errors to the local error log. No Telegram noise on individual runs.
+log_error() {
+  echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] [$PULSE_TYPE] $*" >> "$ERROR_LOG"
+  log "ERROR: $*"
+}
+
+# Consecutive-failure counter — launchd retries via the next scheduled run.
+# After $FAILURE_THRESHOLD consecutive failures, send one Telegram and reset.
+read_failure_count() {
+  if [ -f "$FAILURE_COUNTER" ]; then cat "$FAILURE_COUNTER"; else echo 0; fi
+}
+
+record_failure() {
+  local count
+  count=$(read_failure_count)
+  count=$((count + 1))
+  echo "$count" > "$FAILURE_COUNTER"
+  if [ "$count" -ge "$FAILURE_THRESHOLD" ]; then
+    telegram "andremacedo.com daily build failed ($count consecutive runs). Check $ERROR_LOG"
+    echo 0 > "$FAILURE_COUNTER"
+  fi
+}
+
+record_success() {
+  echo 0 > "$FAILURE_COUNTER"
+}
+
 # ── Pre-flight ─────────────────────────────────────────────────────
 if [ -z "$API_KEY" ]; then
-  log "ERROR: ANTHROPIC_API_KEY not set"
-  telegram "andremacedo.com agent ERROR: ANTHROPIC_API_KEY not set"
+  log_error "ANTHROPIC_API_KEY not set"
+  record_failure
   exit 1
 fi
 
@@ -68,7 +103,7 @@ MONTHLY_CEILING=$(python3 -c 'import json,sys; print(json.load(sys.stdin).get("m
 
 if [ "$MONTHLY_USED" -ge "$MONTHLY_CEILING" ]; then
   log "Token ceiling reached ($MONTHLY_USED/$MONTHLY_CEILING). Skipping."
-  telegram "andremacedo.com: token ceiling reached. Skipping $PULSE_TYPE."
+  echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] [$PULSE_TYPE] Token ceiling reached ($MONTHLY_USED/$MONTHLY_CEILING). Skipping." >> "$ERROR_LOG"
   exit 0
 fi
 
@@ -126,14 +161,20 @@ HTTP_CODE=$(curl -s -o "$HTTP_RESPONSE_FILE" -w '%{http_code}' -X POST "$API_URL
   -H "x-api-key: $API_KEY" \
   -H 'anthropic-version: 2023-06-01' \
   -d @"$REQUEST_FILE") || {
-  log "ERROR: API call failed"
-  telegram "andremacedo.com: API call failed ($PULSE_TYPE)"
+  log_error "API call failed (curl)"
+  record_failure
   exit 1
 }
 
 if [ "$HTTP_CODE" != "200" ]; then
-  log "ERROR: HTTP $HTTP_CODE"
-  telegram "andremacedo.com: API error HTTP $HTTP_CODE ($PULSE_TYPE)"
+  # Capture the API error body for diagnosis, no Telegram noise.
+  {
+    echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] [$PULSE_TYPE] API error HTTP $HTTP_CODE"
+    head -c 2000 "$HTTP_RESPONSE_FILE" 2>/dev/null || true
+    echo ""
+  } >> "$ERROR_LOG"
+  log "ERROR: HTTP $HTTP_CODE (details in $ERROR_LOG)"
+  record_failure
   exit 1
 fi
 
@@ -149,11 +190,31 @@ log "Tokens: $INPUT_TOKENS in + $OUTPUT_TOKENS out = $TOTAL_TOKENS"
 cd "$SITE_DIR"
 export SITE_DIR PULSE_TYPE
 
-SUMMARY="$(python3 "$APPLY_SCRIPT")" || {
-  log "ERROR: Failed to apply changes"
-  telegram "andremacedo.com: apply failed ($PULSE_TYPE)"
+# Capture apply_changes.py output: full text goes to $BUILD_LOG, stderr to $ERROR_LOG,
+# and $SUMMARY is the final line only (the short description apply_changes.py prints last).
+APPLY_STDOUT="$(mktemp)"
+if ! python3 "$APPLY_SCRIPT" >"$APPLY_STDOUT" 2>>"$ERROR_LOG"; then
+  log_error "Failed to apply changes"
+  cat "$APPLY_STDOUT" >> "$ERROR_LOG"
+  rm -f "$APPLY_STDOUT"
+  record_failure
   exit 1
-}
+fi
+
+# Append this run's full apply output to the daily build log for diagnosis
+{
+  echo "=== $(date -u +%Y-%m-%dT%H:%M:%SZ) [$PULSE_TYPE] apply_changes output ==="
+  cat "$APPLY_STDOUT"
+  echo ""
+} >> "$BUILD_LOG"
+
+# Count change types from the full output for the brief Telegram summary.
+# awk is used (not grep -c) so that zero matches return "0" cleanly under set -e + pipefail.
+CONTRAST_COUNT=$(awk '/contrast-gate/ {n++} END {print n+0}' "$APPLY_STDOUT")
+SECTION_COUNT=$(awk '/replaced section|created section|deleted section|killed section/ {n++} END {print n+0}' "$APPLY_STDOUT")
+
+SUMMARY="$(tail -n 1 "$APPLY_STDOUT")"
+rm -f "$APPLY_STDOUT"
 
 CURRENT_MOOD="$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1])).get("current_mood","unknown"))' "$STATE_FILE")"
 GENERATION="$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1])).get("generation",0))' "$SITE_DIR/state/genome.json")"
@@ -296,11 +357,11 @@ git commit -m "agent: ${SUMMARY} | mood: ${CURRENT_MOOD} | pulse: ${PULSE_TYPE}"
 log "Deploying to Cloudflare Pages..."
 
 export CLOUDFLARE_ACCOUNT_ID="98a1dcdbeec2aa3aac24e49c22c652d2"
-npx wrangler pages deploy "$SITE_DIR" --project-name="andremacedo-com" --branch="main" --commit-dirty=true 2>&1 | tee -a "$LOG_FILE" || {
-  log "ERROR: wrangler deploy failed"
-  telegram "andremacedo.com: deploy failed. Check logs."
+if ! npx wrangler pages deploy "$SITE_DIR" --project-name="andremacedo-com" --branch="main" --commit-dirty=true 2>&1 | tee -a "$LOG_FILE" "$BUILD_LOG"; then
+  log_error "wrangler deploy failed"
+  record_failure
   exit 1
-}
+fi
 
 log "Deployed to andremacedo.com"
 
@@ -308,11 +369,27 @@ log "Deployed to andremacedo.com"
 git -C "$SITE_DIR" push origin main 2>/dev/null || log "WARN: git push failed (non-fatal)"
 
 # ── Notify ─────────────────────────────────────────────────────────
-case "$PULSE_TYPE" in
-  daily)  NEXT="daily ~06:00 UTC tomorrow" ;;
-  weekly) NEXT="daily ~06:00 UTC tomorrow" ;;
-  event)  NEXT="daily ~06:00 UTC" ;;
-esac
+# Mark the run as successful: reset the consecutive-failure counter.
+record_success
 
-telegram "andremacedo.com updated | ${SUMMARY} | mood: ${CURRENT_MOOD} | next: ${NEXT}"
-log "$PULSE_TYPE complete. Tokens: $TOTAL_TOKENS"
+# Brief success message. Full technical output is in $BUILD_LOG.
+FITNESS="$(python3 -c '
+import json, sys
+try:
+    g = json.load(open(sys.argv[1]))
+    log = g.get("fitness_log", [])
+    if log:
+        total = log[-1].get("total")
+        print(total if total is not None else "n/a")
+    else:
+        print("n/a")
+except Exception:
+    print("n/a")
+' "$SITE_DIR/state/genome.json")"
+
+TG_MSG="andremacedo.com updated
+Mood: ${CURRENT_MOOD} | Fitness: ${FITNESS}
+${CONTRAST_COUNT} contrast fixes | ${SECTION_COUNT} section changes"
+
+telegram "$TG_MSG"
+log "$PULSE_TYPE complete. Tokens: $TOTAL_TOKENS. Contrast: $CONTRAST_COUNT, sections: $SECTION_COUNT, fitness: $FITNESS"
