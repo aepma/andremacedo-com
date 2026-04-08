@@ -1,16 +1,16 @@
 {
-  "generation": 47,
+  "generation": 48,
   "epoch": "webgl-swarm",
   "epoch_started": "2026-03-29",
   "traits": {
     "color": {
-      "accent_base": "#2d6b45",
-      "accent_dawn": "#4a9e6e",
-      "accent_morning": "#3a8558",
-      "accent_afternoon": "#2d6b45",
-      "accent_evening": "#245a3a",
-      "accent_night": "#1a4a2e",
-      "bg": "#faf8f3",
+      "accent_base": "#b82030",
+      "accent_dawn": "#d44050",
+      "accent_morning": "#c83040",
+      "accent_afternoon": "#b82030",
+      "accent_evening": "#981828",
+      "accent_night": "#781020",
+      "bg": "#ffffff",
       "fg": "#1a1a1a",
       "grain_opacity": "0",
       "fg_dim": "#656c7a",
@@ -39,6 +39,7 @@
         "index-new.html",
         "experiments/004.html",
         "experiments/008.html",
+        "experiments/009.html",
         "experiments/005.html",
         "experiments/002.html",
         "experiments/003.html",
@@ -79,6 +80,7 @@
         "abyssal-glyph-001.svg",
         "corrective-glyph-001.svg",
         "surfacing-glyph-002.svg",
+        "corrective-glyph-002.svg",
         "incised-glyph-001.svg",
         "bioluminescent-glyph-001.svg",
         "observatory-glyph-001.svg"
@@ -93,7 +95,7 @@
       "meridian-trace:-clicking-on-th"
     ],
     "content": {
-      "mood": "archaeological",
+      "mood": "corrective",
       "obsession": "meridians \u2014 the invisible lines that divide and organize the world",
       "thought_pools": {
         "dawn": 2,
@@ -106,15 +108,6 @@
     }
   },
   "fitness_log": [
-    {
-      "gen": 28,
-      "coherence": 7,
-      "novelty": 6,
-      "identity": 7,
-      "tension": 5,
-      "note": "The screenshot is genuinely beautiful \u2014 the golden particle sphere against deep indigo is the highest-contrast, most visually striking composition the",
-      "total": 6.2
-    },
     {
       "gen": 29,
       "coherence": 7,
@@ -313,38 +306,20 @@
       "perceptibility": 1,
       "note": "Fitness 1.2 \u2014 the lowest score in the site's history. Seven consecutive generations of decline. The contrast audit STILL shows #020605 as the effectiv",
       "total": 1.2
+    },
+    {
+      "gen": 48,
+      "coherence": 2,
+      "novelty": 1,
+      "identity": 2,
+      "tension": 1,
+      "awe": 0,
+      "perceptibility": 1,
+      "note": "Seven consecutive generations of decline. Fitness 1.2 \u2014 the worst in the site's history. The contrast audit STILL shows #0a0a0a as the effective backg",
+      "total": 1.2
     }
   ],
   "mutation_log": [
-    {
-      "gen": 28,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "content.mood",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "section.overlay-center",
-        "section.overlay-top",
-        "section.hero-glow",
-        "section.star-field",
-        "section.thought-floater",
-        "section.overlay-bottom",
-        "section.scroll-hint",
-        "section.prototype-portfolio",
-        "section.constellation-line",
-        "svg.planetarium-glyph-001.svg",
-        "scene.config",
-        "scene.shaders",
-        "overlay.agent_data"
-      ],
-      "kills": [
-        "css_rule:gen27-css",
-        "secret[20]"
-      ],
-      "timestamp": "2026-04-04T16:02:37Z"
-    },
     {
       "gen": 29,
       "mutations": [
@@ -902,21 +877,39 @@
         "secret[19]"
       ],
       "timestamp": "2026-04-08T22:19:50Z"
+    },
+    {
+      "gen": 48,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "content.mood",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "section.overlay-top",
+        "section.meridian-veil",
+        "section.overlay-center",
+        "section.split-annotation",
+        "section.thought-floater",
+        "section.overlay-bottom",
+        "section.scroll-hint",
+        "section.prototype-portfolio",
+        "section.graveyard",
+        "page.experiments/009.html",
+        "svg.corrective-glyph-002.svg",
+        "scene.config",
+        "scene.shaders",
+        "overlay.agent_data"
+      ],
+      "kills": [
+        "css_rule:gen47-css",
+        "secret[18]"
+      ],
+      "timestamp": "2026-04-08T22:24:23Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "css_rule",
-      "value": "gen30-css",
-      "died_gen": 31,
-      "epitaph": "The emerald darkroom served one generation. It was the last of the single-background generations \u2014 30 consecutive dark backgrounds, finally broken by the meridian split."
-    },
-    {
-      "type": "interaction",
-      "value": "petal-scatter:-clicking-create",
-      "died_gen": 31,
-      "epitaph": "Petals belonged to the nocturne garden. The meridian epoch has no gardens \u2014 only lines."
-    },
     {
       "type": "interaction",
       "value": "breath-cycle:-the-entire-parti",
@@ -1204,6 +1197,18 @@
       "value": "The site has been declining for six consecutive generations. Generation 45 is ei",
       "died_gen": 47,
       "epitaph": "The oldest surviving secret about meridian etymology \u2014 replaced with the full Latin origin story."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen47-css",
+      "died_gen": 48,
+      "epitaph": "The broadsheet CSS is superseded by the corrective generation. The green forest gives way to crimson ink."
+    },
+    {
+      "type": "secret",
+      "value": "The site has died 34 times. Each death made the next life slightly more legible.",
+      "died_gen": 48,
+      "epitaph": "The oldest secret about the Date Line \u2014 replaced with a more specific version about Kiribati and Samoa."
     }
   ],
   "carrying_capacity": {
@@ -1222,11 +1227,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 38,
-      "base": "#d4748a",
-      "family": "magenta"
-    },
     {
       "gen": 39,
       "base": "#2b6cb0",
@@ -1271,6 +1271,11 @@
       "gen": 47,
       "base": "#2d6b45",
       "family": "lime"
+    },
+    {
+      "gen": 48,
+      "base": "#b82030",
+      "family": "magenta"
     }
   ],
   "past_epochs": [
@@ -1358,6 +1363,16 @@
         "    FAIL  #645426  ratio=2.68:1  (< 4.5)"
       ],
       "timestamp": "2026-04-08T22:19:50Z"
+    },
+    {
+      "gen": 48,
+      "messages": [
+        "  [contrast-gate below-fold] effective bg = #ffffff from .below-fold:211 (raw: var(--bg-below-fold, #fffff5))",
+        "    FAIL  #888888  ratio=3.54:1  (< 4.5)",
+        "    FAIL  #d4748a  ratio=3.15:1  (< 4.5)",
+        "    FAIL  #ffffff  ratio=1.00:1  (< 4.5)"
+      ],
+      "timestamp": "2026-04-08T22:24:23Z"
     }
   ]
 }
