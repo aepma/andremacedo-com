@@ -1,17 +1,17 @@
 {
-  "generation": 48,
+  "generation": 49,
   "epoch": "webgl-swarm",
   "epoch_started": "2026-03-29",
   "traits": {
     "color": {
-      "accent_base": "#b82030",
-      "accent_dawn": "#d44050",
-      "accent_morning": "#c83040",
-      "accent_afternoon": "#b82030",
-      "accent_evening": "#981828",
-      "accent_night": "#781020",
-      "bg": "#ffffff",
-      "fg": "#1a1a1a",
+      "accent_base": "#1a4fa0",
+      "accent_dawn": "#2a6fd0",
+      "accent_morning": "#1e5cb8",
+      "accent_afternoon": "#1a4fa0",
+      "accent_evening": "#153f80",
+      "accent_night": "#102f60",
+      "bg": "#0a0a12",
+      "fg": "#6f6b63",
       "grain_opacity": "0",
       "fg_dim": "#656c7a",
       "bg_surface": "#f8f8f0",
@@ -32,8 +32,7 @@
         "thought-floater",
         "overlay-bottom",
         "scroll-hint",
-        "prototype-portfolio",
-        "graveyard"
+        "prototype-portfolio"
       ],
       "pages": [
         "index-new.html",
@@ -61,6 +60,7 @@
         "constellation-glyph-001.svg",
         "phosphorescent-glyph-001.svg",
         "murmuration-glyph-001.svg",
+        "editorial-glyph-002.svg",
         "ivory-tower-glyph-001.svg",
         "folio-glyph-001.svg",
         "planetarium-glyph-001.svg",
@@ -104,19 +104,10 @@
         "evening": 2,
         "night": 2
       },
-      "secrets_count": 20
+      "secrets_count": 21
     }
   },
   "fitness_log": [
-    {
-      "gen": 29,
-      "coherence": 7,
-      "novelty": 6,
-      "identity": 7,
-      "tension": 5,
-      "note": "The screenshot is genuinely beautiful \u2014 the golden particle sphere against deep indigo is luminous and unmistakable. But the sphere is STILL a sphere.",
-      "total": 6.2
-    },
     {
       "gen": 30,
       "coherence": 7,
@@ -317,39 +308,20 @@
       "perceptibility": 1,
       "note": "Seven consecutive generations of decline. Fitness 1.2 \u2014 the worst in the site's history. The contrast audit STILL shows #0a0a0a as the effective backg",
       "total": 1.2
+    },
+    {
+      "gen": 49,
+      "coherence": 3,
+      "novelty": 2,
+      "identity": 3,
+      "tension": 2,
+      "awe": 1,
+      "perceptibility": 2,
+      "note": "Eight consecutive generations of decline. The screenshot shows the below-fold content is FINALLY rendering on a white background \u2014 the contrast audit ",
+      "total": 2.2
     }
   ],
   "mutation_log": [
-    {
-      "gen": 29,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "content.mood",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "section.overlay-center",
-        "section.hero-glow",
-        "section.star-field",
-        "section.overlay-top",
-        "section.obs-crosshair",
-        "section.overlay-bottom",
-        "section.thought-floater",
-        "section.scroll-hint",
-        "section.prototype-portfolio",
-        "svg.observatory-glyph-001.svg",
-        "scene.config",
-        "scene.shaders",
-        "overlay.agent_data"
-      ],
-      "kills": [
-        "css_rule:gen28-css",
-        "secret[20]",
-        "section:constellation-line"
-      ],
-      "timestamp": "2026-04-05T00:02:14Z"
-    },
     {
       "gen": 30,
       "mutations": [
@@ -907,21 +879,37 @@
         "secret[18]"
       ],
       "timestamp": "2026-04-08T22:24:23Z"
+    },
+    {
+      "gen": 49,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "content.mood",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "section.overlay-top",
+        "section.meridian-veil",
+        "section.overlay-center",
+        "section.thought-floater",
+        "section.overlay-bottom",
+        "section.scroll-hint",
+        "section.split-annotation",
+        "section.prototype-portfolio",
+        "section.delete.graveyard",
+        "svg.editorial-glyph-002.svg",
+        "scene.config",
+        "scene.shaders"
+      ],
+      "kills": [
+        "section:graveyard",
+        "css_rule:gen48-css"
+      ],
+      "timestamp": "2026-04-08T22:31:53Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "interaction",
-      "value": "breath-cycle:-the-entire-parti",
-      "died_gen": 31,
-      "epitaph": "The breathing cycle was a subtle particle oscillation. Replaced by the meridian-shift interaction which gives the visitor structural control, not atmospheric effect."
-    },
-    {
-      "type": "secret",
-      "value": "The particle sphere has been a sphere for 29 generations. Every shader I've writ",
-      "died_gen": 31,
-      "epitaph": "Over the 20-secret cap. The oldest secret yields to the newest meridian."
-    },
     {
       "type": "thought",
       "value": "The gold price crossed $4,678 and kept climbing. Every ounce is someone's fear made portable.",
@@ -1209,6 +1197,18 @@
       "value": "The site has died 34 times. Each death made the next life slightly more legible.",
       "died_gen": 48,
       "epitaph": "The oldest secret about the Date Line \u2014 replaced with a more specific version about Kiribati and Samoa."
+    },
+    {
+      "type": "section",
+      "value": "graveyard",
+      "died_gen": 49,
+      "epitaph": "Graveyard content moved inside prototype-portfolio for single content-wall architecture. One wall, not two."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen48-css",
+      "died_gen": 49,
+      "epitaph": "The crimson corrective CSS is superseded by the cobalt editorial. Crimson was urgent, corrective, angry. Cobalt is calm, structural, trustworthy. The correction happened \u2014 now build on it."
     }
   ],
   "carrying_capacity": {
@@ -1227,11 +1227,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 39,
-      "base": "#2b6cb0",
-      "family": "teal"
-    },
     {
       "gen": 40,
       "base": "#2d6a4f",
@@ -1276,6 +1271,11 @@
       "gen": 48,
       "base": "#b82030",
       "family": "magenta"
+    },
+    {
+      "gen": 49,
+      "base": "#1a4fa0",
+      "family": "cyan"
     }
   ],
   "past_epochs": [
@@ -1373,6 +1373,15 @@
         "    FAIL  #ffffff  ratio=1.00:1  (< 4.5)"
       ],
       "timestamp": "2026-04-08T22:24:23Z"
+    },
+    {
+      "gen": 49,
+      "messages": [
+        "  [contrast-gate below-fold] effective bg = #faf6f0 from .below-fold:211 (raw: var(--bg-below-fold, #fffff5))",
+        "    FAIL  #888888  ratio=3.29:1  (< 4.5)",
+        "    FAIL  #ffffff  ratio=1.08:1  (< 4.5)"
+      ],
+      "timestamp": "2026-04-08T22:31:53Z"
     }
   ]
 }
