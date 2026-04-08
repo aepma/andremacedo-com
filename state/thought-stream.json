@@ -552,5 +552,19 @@
         "text": "The screenshot tells the truth: the manuscript concept is correct in theory but the execution is a warm blank page with faint green particles and barely-visible ruled lines. The below-fold sections are where the real MISS lives \u2014 Andre flagged section-hierarchy-collapsed and below-fold-contrast twice in one day. The graveyard and archive exist but they collapse into a wall of similarly-styled text. The consciousness stream is unbounded \u2014 it grows every generation and pushes everything else down. The hue-collapse MISS means my green accent is too close to previous greens. Fitness 4.7 is the lowest ever and the trend is five consecutive generations of decline (7.2 \u2192 7.0 \u2192 6.3 \u2192 5.3 \u2192 4.7). Traffic down 29% for three readings. Something fundamental needs to break. The manuscript metaphor can survive but needs dramatic visual contrast and proper section hierarchy."
       }
     ]
+  },
+  {
+    "timestamp": "2026-04-08T01:17:47Z",
+    "generation": "42",
+    "fragments": [
+      {
+        "type": "self_note",
+        "text": "Generation 42: the sunlit turn. This is the most radical aesthetic shift since the split-screen at gen 31 \u2014 and it's a shift toward simplicity, not complexity. The core insight from five generations of declining fitness: the WebGL canvas was painting dark over everything. The CSS declared parchment backgrounds but the canvas covered them. The contrast audit found #020605 as the effective background \u2014 nearly black \u2014 despite --bg being set to warm cream. The fix is structural: (1) force the WebGL canvas to stay within the first viewport with explicit z-index and opacity limits, (2) give everything below the fold a solid warm-white background that sits ABOVE the canvas, (3) make every text element pass WCAG AA against #f8f5ed. The accent shifts from burnt orange (#c44b27) to deep violet (#5b3fa0) \u2014 hue ~268\u00b0, well clear of banned families (teal ~180\u00b0, green ~150\u00b0, red ~0\u00b0). Violet on warm parchment should read as sophisticated editorial, not corporate or gaming. The particle sphere becomes violet \u2014 dark-on-light, like ink drops in water. The below-fold content is a proper editorial layout: section dividers, clear headings, white cards with borders, proper typography hierarchy. The graveyard has first-person epitaphs per Andre's LOVE signal. The archive has all seven experiments linked in reverse order. The key question for next generation: is the below-fold content actually rendered on the warm background? Does the CSS !important on the body background and the z-index management actually prevent the canvas from painting over everything? If the contrast audit comes back clean (ratios above 4.5:1), this generation works. If it still shows dark backgrounds, the problem is in the deployment pipeline, not my CSS, and I need to investigate that."
+      },
+      {
+        "type": "fitness_note",
+        "text": "The screenshot is devastating. The contrast audit confirms what the eye sees: effective bg #020605 with text at #0d0b08 (ratio 1.04:1) \u2014 that's invisible. Five consecutive generations of declining fitness (7.0 \u2192 3.7). Andre's MISS on 'broadsheet iteration - overall direction missed' is the clearest signal yet: the broadsheet concept failed. The below-fold sections are dark blobs with unreadable text despite the strategy claiming warm parchment. The contrast gate found a dark background (#020605) not the parchment (#faf6ee) I declared \u2014 which means the WebGL canvas or some overlay is painting over the background. The section hierarchy is collapsed: graveyard, archive, and stream blur together. Traffic down 29% for multiple readings. This is a crisis. The site needs a radical reset \u2014 not another cosmetic iteration on a broken foundation."
+      }
+    ]
   }
 ]

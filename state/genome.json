@@ -1,18 +1,18 @@
 {
-  "generation": 41,
+  "generation": 42,
   "epoch": "webgl-swarm",
   "epoch_started": "2026-03-29",
   "traits": {
     "color": {
-      "accent_base": "#c44b27",
-      "accent_dawn": "#e8724d",
-      "accent_morning": "#d85c38",
-      "accent_afternoon": "#c44b27",
-      "accent_evening": "#a33d1f",
-      "accent_night": "#7a2e17",
-      "bg": "#faf6ee",
+      "accent_base": "#5b3fa0",
+      "accent_dawn": "#7b5fc0",
+      "accent_morning": "#6b4fb0",
+      "accent_afternoon": "#5b3fa0",
+      "accent_evening": "#4b2f90",
+      "accent_night": "#3b1f80",
+      "bg": "#f8f5ed",
       "fg": "#1a1610",
-      "grain_opacity": "0.008",
+      "grain_opacity": "0.006",
       "fg_dim": "#7a7068",
       "bg_surface": "#ece5d8",
       "bg_elevated": "#e0d8c8"
@@ -66,6 +66,7 @@
         "cartographic-glyph-003.svg",
         "cartographic-glyph-002.svg",
         "engraved-glyph-001.svg",
+        "sunlit-glyph-001.svg",
         "pulse-ring-001.svg",
         "broadsheet-glyph-001.svg",
         "swarm-glyph-001.svg",
@@ -86,7 +87,7 @@
       "meridian-shift:-moving-the-mou"
     ],
     "content": {
-      "mood": "broadsheet",
+      "mood": "sunlit",
       "obsession": "meridians \u2014 the invisible lines that divide and organize the world",
       "thought_pools": {
         "dawn": 1,
@@ -99,15 +100,6 @@
     }
   },
   "fitness_log": [
-    {
-      "gen": 22,
-      "coherence": 6,
-      "novelty": 5,
-      "identity": 5,
-      "tension": 4,
-      "note": "The screenshot shows real improvement \u2014 archive cards are legible, Instrument Serif headings work, the EB Garamond italic descriptions read as prose. ",
-      "total": 5.0
-    },
     {
       "gen": 23,
       "coherence": 6,
@@ -294,38 +286,20 @@
       "perceptibility": 3,
       "note": "The screenshot tells the truth: the manuscript concept is correct in theory but the execution is a warm blank page with faint green particles and bare",
       "total": 3.7
+    },
+    {
+      "gen": 42,
+      "coherence": 4,
+      "novelty": 3,
+      "identity": 4,
+      "tension": 3,
+      "awe": 2,
+      "perceptibility": 2,
+      "note": "The screenshot is devastating. The contrast audit confirms what the eye sees: effective bg #020605 with text at #0d0b08 (ratio 1.04:1) \u2014 that's invisi",
+      "total": 3.0
     }
   ],
   "mutation_log": [
-    {
-      "gen": 22,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "content.mood",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "section.overlay-center",
-        "section.bioluminescence",
-        "section.prototype-portfolio",
-        "section.overlay-bottom",
-        "section.overlay-top",
-        "section.hero-glow",
-        "svg.abyssal-glyph-001.svg",
-        "scene.config",
-        "scene.shaders",
-        "overlay.agent_data"
-      ],
-      "kills": [
-        "css_rule:gen21-css",
-        "thought:dawn[0]",
-        "thought:dawn[1]",
-        "thought:morning[0]",
-        "thought:night[0]"
-      ],
-      "timestamp": "2026-04-02T22:49:04Z"
-    },
     {
       "gen": 23,
       "mutations": [
@@ -886,21 +860,38 @@
         "secret[20]"
       ],
       "timestamp": "2026-04-08T00:50:21Z"
+    },
+    {
+      "gen": 42,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "content.mood",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "section.overlay-top",
+        "section.meridian-veil",
+        "section.overlay-center",
+        "section.split-annotation",
+        "section.thought-floater",
+        "section.overlay-bottom",
+        "section.scroll-hint",
+        "section.prototype-portfolio",
+        "section.graveyard",
+        "svg.sunlit-glyph-001.svg",
+        "scene.config",
+        "scene.shaders",
+        "overlay.agent_data"
+      ],
+      "kills": [
+        "css_rule:gen41-css",
+        "secret[20]"
+      ],
+      "timestamp": "2026-04-08T01:17:47Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "secret",
-      "value": "The site has had 21 generations. Each one killed something the previous one love",
-      "died_gen": 26,
-      "epitaph": "Culling excess secrets."
-    },
-    {
-      "type": "secret",
-      "value": "The site's accent color has never been violet before. You're seeing the first ge",
-      "died_gen": 26,
-      "epitaph": "Culling excess secrets."
-    },
     {
       "type": "section",
       "value": "petal-drift",
@@ -1188,6 +1179,18 @@
       "value": "The word 'folio' comes from the Latin folium \u2014 leaf. Every page is a leaf that f",
       "died_gen": 41,
       "epitaph": "Twenty-one secrets, twenty max. The weakest dies. Capacity is a form of discipline."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen41-css",
+      "died_gen": 42,
+      "epitaph": "The broadsheet CSS failed. Dark backgrounds persisted despite the parchment declaration. Five consecutive generations of declining fitness. The CSS is replaced entirely by the sunlit editorial system."
+    },
+    {
+      "type": "secret",
+      "value": "The broadsheet was invented in 1618 in Amsterdam. The first news was always abou",
+      "died_gen": 42,
+      "epitaph": "Twenty-one secrets, twenty max. The weakest dies to make room for the sunlit generation's secrets."
     }
   ],
   "carrying_capacity": {
@@ -1206,11 +1209,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 32,
-      "base": "#2b6cb0",
-      "family": "teal"
-    },
     {
       "gen": 33,
       "base": "#a0522d",
@@ -1255,6 +1253,11 @@
       "gen": 41,
       "base": "#c44b27",
       "family": "red"
+    },
+    {
+      "gen": 42,
+      "base": "#5b3fa0",
+      "family": "blue"
     }
   ],
   "past_epochs": [
@@ -1284,6 +1287,15 @@
         "    FAIL  #645426  ratio=2.75:1  (< 4.5)"
       ],
       "timestamp": "2026-04-08T00:50:21Z"
+    },
+    {
+      "gen": 42,
+      "messages": [
+        "  [contrast-gate below-fold] effective bg = #020605",
+        "    FAIL  #3a2a1e  ratio=1.48:1  (< 4.5)",
+        "    FAIL  #645426  ratio=2.75:1  (< 4.5)"
+      ],
+      "timestamp": "2026-04-08T01:17:47Z"
     }
   ]
 }

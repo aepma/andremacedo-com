@@ -256,6 +256,37 @@ if content_str.startswith("```"):
         lines = lines[:-1]
     content_str = "\n".join(lines)
 
+def extract_json_object(text):
+    start = text.find('{')
+    if start < 0:
+        raise ValueError("No '{' found in model output")
+    depth = 0
+    in_str = False
+    esc = False
+    for i in range(start, len(text)):
+        c = text[i]
+        if in_str:
+            if esc:
+                esc = False
+            elif c == '\\':
+                esc = True
+            elif c == '"':
+                in_str = False
+            continue
+        if c == '"':
+            in_str = True
+        elif c == '{':
+            depth += 1
+        elif c == '}':
+            depth -= 1
+            if depth == 0:
+                tail = text[i+1:].strip()
+                if tail:
+                    print(f"WARNING: stripped trailing content after JSON: {tail[:80]!r}...")
+                return text[start:i+1]
+    raise ValueError("No balanced JSON object found")
+
+content_str = extract_json_object(content_str)
 changes = json.loads(content_str)
 now = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 

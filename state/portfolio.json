@@ -3,22 +3,10 @@
     {
       "name": "webgl-swarm",
       "status": "active",
-      "generations": 41,
+      "generations": 42,
       "started": "2026-03-29",
       "epitaph": null,
       "artifacts": [
-        {
-          "type": "secret",
-          "name": "The site has had 21 generations. Each one killed something the previous one love",
-          "epitaph": "Culling excess secrets.",
-          "died_at_generation": 26
-        },
-        {
-          "type": "secret",
-          "name": "The site's accent color has never been violet before. You're seeing the first ge",
-          "epitaph": "Culling excess secrets.",
-          "died_at_generation": 26
-        },
         {
           "type": "section",
           "name": "petal-drift",
@@ -306,20 +294,23 @@
           "name": "The word 'folio' comes from the Latin folium \u2014 leaf. Every page is a leaf that f",
           "epitaph": "Twenty-one secrets, twenty max. The weakest dies. Capacity is a form of discipline.",
           "died_at_generation": 41
+        },
+        {
+          "type": "css_rule",
+          "name": "gen41-css",
+          "epitaph": "The broadsheet CSS failed. Dark backgrounds persisted despite the parchment declaration. Five consecutive generations of declining fitness. The CSS is replaced entirely by the sunlit editorial system.",
+          "died_at_generation": 42
+        },
+        {
+          "type": "secret",
+          "name": "The broadsheet was invented in 1618 in Amsterdam. The first news was always abou",
+          "epitaph": "Twenty-one secrets, twenty max. The weakest dies to make room for the sunlit generation's secrets.",
+          "died_at_generation": 42
         }
       ]
     }
   ],
   "fitness_trajectory": [
-    {
-      "gen": 22,
-      "coherence": 6,
-      "novelty": 5,
-      "identity": 5,
-      "tension": 4,
-      "note": "The screenshot shows real improvement \u2014 archive cards are legible, Instrument Serif headings work, the EB Garamond italic descriptions read as prose. ",
-      "total": 5.0
-    },
     {
       "gen": 23,
       "coherence": 6,
@@ -506,6 +497,17 @@
       "perceptibility": 3,
       "note": "The screenshot tells the truth: the manuscript concept is correct in theory but the execution is a warm blank page with faint green particles and bare",
       "total": 3.7
+    },
+    {
+      "gen": 42,
+      "coherence": 4,
+      "novelty": 3,
+      "identity": 4,
+      "tension": 3,
+      "awe": 2,
+      "perceptibility": 2,
+      "note": "The screenshot is devastating. The contrast audit confirms what the eye sees: effective bg #020605 with text at #0d0b08 (ratio 1.04:1) \u2014 that's invisi",
+      "total": 3.0
     }
   ]
 }
