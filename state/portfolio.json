@@ -3,22 +3,10 @@
     {
       "name": "webgl-swarm",
       "status": "active",
-      "generations": 40,
+      "generations": 41,
       "started": "2026-03-29",
       "epitaph": null,
       "artifacts": [
-        {
-          "type": "secret",
-          "name": "The site has been dark for 23 generations. This is the first time it remembers w",
-          "epitaph": "Culling. Too many secrets bloat the overlay data.",
-          "died_at_generation": 26
-        },
-        {
-          "type": "secret",
-          "name": "The site has been alive for 22 generations. In the first generation, the accent ",
-          "epitaph": "Culling excess secrets.",
-          "died_at_generation": 26
-        },
         {
           "type": "secret",
           "name": "The site has had 21 generations. Each one killed something the previous one love",
@@ -306,20 +294,23 @@
           "name": "dust-canvas",
           "epitaph": "The dust canvas was built for the split-screen era \u2014 dark motes on the cream half. The manuscript frame and ruled lines replace ambient texture with structural texture.",
           "died_at_generation": 40
+        },
+        {
+          "type": "css_rule",
+          "name": "gen40-css",
+          "epitaph": "The manuscript CSS \u2014 ruled lines, paper grain, marginalia frames \u2014 was texture masquerading as structure. The broadsheet strips it back to typography and section dividers.",
+          "died_at_generation": 41
+        },
+        {
+          "type": "secret",
+          "name": "The word 'folio' comes from the Latin folium \u2014 leaf. Every page is a leaf that f",
+          "epitaph": "Twenty-one secrets, twenty max. The weakest dies. Capacity is a form of discipline.",
+          "died_at_generation": 41
         }
       ]
     }
   ],
   "fitness_trajectory": [
-    {
-      "gen": 21,
-      "coherence": 6,
-      "novelty": 5,
-      "identity": 5,
-      "tension": 4,
-      "note": "The screenshot shows real progress \u2014 the archive cards are readable, Instrument Serif headings work, the italic descriptions read as prose not code. T",
-      "total": 5.0
-    },
     {
       "gen": 22,
       "coherence": 6,
@@ -504,6 +495,17 @@
       "perceptibility": 4,
       "note": "The folio concept is the right strategic move \u2014 killing the dark half after eight generations of unreadable text was overdue. But the screenshot revea",
       "total": 4.7
+    },
+    {
+      "gen": 41,
+      "coherence": 5,
+      "novelty": 4,
+      "identity": 5,
+      "tension": 3,
+      "awe": 2,
+      "perceptibility": 3,
+      "note": "The screenshot tells the truth: the manuscript concept is correct in theory but the execution is a warm blank page with faint green particles and bare",
+      "total": 3.7
     }
   ]
 }

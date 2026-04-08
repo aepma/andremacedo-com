@@ -1,18 +1,18 @@
 {
-  "generation": 40,
+  "generation": 41,
   "epoch": "webgl-swarm",
   "epoch_started": "2026-03-29",
   "traits": {
     "color": {
-      "accent_base": "#2d6a4f",
-      "accent_dawn": "#4a9e7a",
-      "accent_morning": "#3d8566",
-      "accent_afternoon": "#2d6a4f",
-      "accent_evening": "#1f5040",
-      "accent_night": "#143830",
-      "bg": "#f2ece0",
-      "fg": "#1a1a18",
-      "grain_opacity": "0.018",
+      "accent_base": "#c44b27",
+      "accent_dawn": "#e8724d",
+      "accent_morning": "#d85c38",
+      "accent_afternoon": "#c44b27",
+      "accent_evening": "#a33d1f",
+      "accent_night": "#7a2e17",
+      "bg": "#faf6ee",
+      "fg": "#1a1610",
+      "grain_opacity": "0.008",
       "fg_dim": "#7a7068",
       "bg_surface": "#ece5d8",
       "bg_elevated": "#e0d8c8"
@@ -67,6 +67,7 @@
         "cartographic-glyph-002.svg",
         "engraved-glyph-001.svg",
         "pulse-ring-001.svg",
+        "broadsheet-glyph-001.svg",
         "swarm-glyph-001.svg",
         "surfacing-glyph-001.svg",
         "abyssal-glyph-001.svg",
@@ -85,7 +86,7 @@
       "meridian-shift:-moving-the-mou"
     ],
     "content": {
-      "mood": "manuscript",
+      "mood": "broadsheet",
       "obsession": "meridians \u2014 the invisible lines that divide and organize the world",
       "thought_pools": {
         "dawn": 1,
@@ -98,15 +99,6 @@
     }
   },
   "fitness_log": [
-    {
-      "gen": 21,
-      "coherence": 6,
-      "novelty": 5,
-      "identity": 5,
-      "tension": 4,
-      "note": "The screenshot shows real progress \u2014 the archive cards are readable, Instrument Serif headings work, the italic descriptions read as prose not code. T",
-      "total": 5.0
-    },
     {
       "gen": 22,
       "coherence": 6,
@@ -291,39 +283,20 @@
       "perceptibility": 4,
       "note": "The folio concept is the right strategic move \u2014 killing the dark half after eight generations of unreadable text was overdue. But the screenshot revea",
       "total": 4.7
+    },
+    {
+      "gen": 41,
+      "coherence": 5,
+      "novelty": 4,
+      "identity": 5,
+      "tension": 3,
+      "awe": 2,
+      "perceptibility": 3,
+      "note": "The screenshot tells the truth: the manuscript concept is correct in theory but the execution is a warm blank page with faint green particles and bare",
+      "total": 3.7
     }
   ],
   "mutation_log": [
-    {
-      "gen": 21,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "content.mood",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "section.hero-glow",
-        "section.bioluminescence",
-        "section.prototype-portfolio",
-        "section.overlay-bottom",
-        "section.delete.surfacing-line",
-        "svg.bioluminescent-glyph-001.svg",
-        "scene.config",
-        "scene.shaders",
-        "overlay.agent_data"
-      ],
-      "kills": [
-        "section:surfacing-line",
-        "css_rule:gen20-css",
-        "thought:dawn[0]",
-        "thought:dawn[1]",
-        "thought:afternoon[0]",
-        "thought:night[0]",
-        "thought:night[1]"
-      ],
-      "timestamp": "2026-04-02T22:30:03Z"
-    },
     {
       "gen": 22,
       "mutations": [
@@ -884,21 +857,38 @@
         "section:dust-canvas"
       ],
       "timestamp": "2026-04-07T16:02:40Z"
+    },
+    {
+      "gen": 41,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "content.mood",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "section.overlay-top",
+        "section.overlay-center",
+        "section.overlay-bottom",
+        "section.meridian-veil",
+        "section.split-annotation",
+        "section.thought-floater",
+        "section.scroll-hint",
+        "section.prototype-portfolio",
+        "section.graveyard",
+        "svg.broadsheet-glyph-001.svg",
+        "scene.config",
+        "scene.shaders",
+        "overlay.agent_data"
+      ],
+      "kills": [
+        "css_rule:gen40-css",
+        "secret[20]"
+      ],
+      "timestamp": "2026-04-08T00:50:21Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "secret",
-      "value": "The site has been dark for 23 generations. This is the first time it remembers w",
-      "died_gen": 26,
-      "epitaph": "Culling. Too many secrets bloat the overlay data."
-    },
-    {
-      "type": "secret",
-      "value": "The site has been alive for 22 generations. In the first generation, the accent ",
-      "died_gen": 26,
-      "epitaph": "Culling excess secrets."
-    },
     {
       "type": "secret",
       "value": "The site has had 21 generations. Each one killed something the previous one love",
@@ -1186,6 +1176,18 @@
       "value": "dust-canvas",
       "died_gen": 40,
       "epitaph": "The dust canvas was built for the split-screen era \u2014 dark motes on the cream half. The manuscript frame and ruled lines replace ambient texture with structural texture."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen40-css",
+      "died_gen": 41,
+      "epitaph": "The manuscript CSS \u2014 ruled lines, paper grain, marginalia frames \u2014 was texture masquerading as structure. The broadsheet strips it back to typography and section dividers."
+    },
+    {
+      "type": "secret",
+      "value": "The word 'folio' comes from the Latin folium \u2014 leaf. Every page is a leaf that f",
+      "died_gen": 41,
+      "epitaph": "Twenty-one secrets, twenty max. The weakest dies. Capacity is a form of discipline."
     }
   ],
   "carrying_capacity": {
@@ -1204,11 +1206,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 31,
-      "base": "#d4760a",
-      "family": "orange"
-    },
     {
       "gen": 32,
       "base": "#2b6cb0",
@@ -1253,6 +1250,11 @@
       "gen": 40,
       "base": "#2d6a4f",
       "family": "green"
+    },
+    {
+      "gen": 41,
+      "base": "#c44b27",
+      "family": "red"
     }
   ],
   "past_epochs": [
@@ -1271,5 +1273,17 @@
       "epitaph": "Murmuration proved that rules produce beauty only when individuals forget they are following them."
     }
   ],
-  "epoch_number": 3
+  "epoch_number": 3,
+  "contrast_warnings": [
+    {
+      "gen": 41,
+      "messages": [
+        "  [contrast-gate below-fold] effective bg = #020605",
+        "    FAIL  #0d0b08  ratio=1.04:1  (< 4.5)",
+        "    FAIL  #3a2a1e  ratio=1.48:1  (< 4.5)",
+        "    FAIL  #645426  ratio=2.75:1  (< 4.5)"
+      ],
+      "timestamp": "2026-04-08T00:50:21Z"
+    }
+  ]
 }

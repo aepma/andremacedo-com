@@ -68,6 +68,13 @@ fi
 # Step 3: Scale width to 1200px (proportional height follows)
 sips --resampleWidth 1200 "$OUT" --out "$OUT" >/dev/null 2>&1 || true
 
+# Step 3b: API image size cap. Anthropic accepts ≤8000px on any side.
+# If the scaled image exceeds 7500px tall, resample by height and let width shrink.
+CUR_H=$(sips -g pixelHeight "$OUT" 2>/dev/null | tail -1 | awk '{print $2}')
+if [ "${CUR_H:-0}" -gt 7500 ]; then
+    sips --resampleHeight 7500 "$OUT" --out "$OUT" >/dev/null 2>&1 || true
+fi
+
 FINAL_HEIGHT=$(sips -g pixelHeight "$OUT" 2>/dev/null | tail -1 | awk '{print $2}')
 
 # Step 4: Update metrics file with final screenshot height
