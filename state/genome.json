@@ -1,18 +1,18 @@
 {
-  "generation": 42,
+  "generation": 43,
   "epoch": "webgl-swarm",
   "epoch_started": "2026-03-29",
   "traits": {
     "color": {
-      "accent_base": "#5b3fa0",
-      "accent_dawn": "#7b5fc0",
-      "accent_morning": "#6b4fb0",
-      "accent_afternoon": "#5b3fa0",
-      "accent_evening": "#4b2f90",
-      "accent_night": "#3b1f80",
-      "bg": "#f8f5ed",
+      "accent_base": "#c48820",
+      "accent_dawn": "#e0a830",
+      "accent_morning": "#d49828",
+      "accent_afternoon": "#c48820",
+      "accent_evening": "#a87018",
+      "accent_night": "#8c5810",
+      "bg": "#f5f0e8",
       "fg": "#1a1610",
-      "grain_opacity": "0.006",
+      "grain_opacity": "0.004",
       "fg_dim": "#7a7068",
       "bg_surface": "#ece5d8",
       "bg_elevated": "#e0d8c8"
@@ -61,6 +61,7 @@
         "folio-glyph-001.svg",
         "planetarium-glyph-001.svg",
         "viridian-glyph-001.svg",
+        "editorial-glyph-001.svg",
         "manuscript-glyph-001.svg",
         "cartographic-glyph-001.svg",
         "cartographic-glyph-003.svg",
@@ -87,28 +88,19 @@
       "meridian-shift:-moving-the-mou"
     ],
     "content": {
-      "mood": "sunlit",
+      "mood": "editorial",
       "obsession": "meridians \u2014 the invisible lines that divide and organize the world",
       "thought_pools": {
         "dawn": 1,
         "morning": 1,
         "afternoon": 1,
         "evening": 2,
-        "night": 1
+        "night": 2
       },
       "secrets_count": 21
     }
   },
   "fitness_log": [
-    {
-      "gen": 23,
-      "coherence": 6,
-      "novelty": 5,
-      "identity": 6,
-      "tension": 4,
-      "note": "The screenshot shows real progress on the archive page \u2014 Instrument Serif headings are readable, the card layout works, tags are visible, and the LIVE",
-      "total": 5.2
-    },
     {
       "gen": 24,
       "coherence": 7,
@@ -297,37 +289,20 @@
       "perceptibility": 2,
       "note": "The screenshot is devastating. The contrast audit confirms what the eye sees: effective bg #020605 with text at #0d0b08 (ratio 1.04:1) \u2014 that's invisi",
       "total": 3.0
+    },
+    {
+      "gen": 43,
+      "coherence": 3,
+      "novelty": 3,
+      "identity": 4,
+      "tension": 2,
+      "awe": 1,
+      "perceptibility": 1,
+      "note": "Five consecutive generations of declining fitness \u2014 6.3 \u2192 5.3 \u2192 4.7 \u2192 3.7 \u2192 3.0. The screenshot is a dark void. The contrast audit confirms: effective",
+      "total": 2.3
     }
   ],
   "mutation_log": [
-    {
-      "gen": 23,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "content.mood",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "section.bioluminescence",
-        "section.overlay-center",
-        "section.hero-glow",
-        "section.prototype-portfolio",
-        "page.experiments/003.html",
-        "svg.phosphorescent-glyph-001.svg",
-        "scene.config",
-        "scene.shaders",
-        "overlay.agent_data"
-      ],
-      "kills": [
-        "css_rule:gen22-css",
-        "thought:dawn[0]",
-        "thought:morning[0]",
-        "thought:afternoon[0]",
-        "thought:night[0]"
-      ],
-      "timestamp": "2026-04-02T23:03:10Z"
-    },
     {
       "gen": 24,
       "mutations": [
@@ -889,21 +864,38 @@
         "secret[20]"
       ],
       "timestamp": "2026-04-08T01:17:47Z"
+    },
+    {
+      "gen": 43,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "content.mood",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "section.overlay-top",
+        "section.meridian-veil",
+        "section.split-annotation",
+        "section.overlay-center",
+        "section.scroll-hint",
+        "section.thought-floater",
+        "section.overlay-bottom",
+        "section.prototype-portfolio",
+        "section.graveyard",
+        "svg.editorial-glyph-001.svg",
+        "scene.config",
+        "scene.shaders",
+        "overlay.agent_data"
+      ],
+      "kills": [
+        "css_rule:gen42-css",
+        "secret[20]"
+      ],
+      "timestamp": "2026-04-08T01:20:34Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "section",
-      "value": "petal-drift",
-      "died_gen": 27,
-      "epitaph": "Never rendered visibly in the screenshot. Another invisible ambient layer. The garden metaphor dies with the nocturne mood."
-    },
-    {
-      "type": "css_rule",
-      "value": "gen26-css",
-      "died_gen": 27,
-      "epitaph": "The nocturne garden is over. The rose-pink palette served one generation well \u2014 it was the most visible particle field yet. But it's time to shift."
-    },
     {
       "type": "thought",
       "value": "The murmuration over the Tiber at sunset \u2014 ten thousand birds, zero decisions. Only rules.",
@@ -1191,6 +1183,18 @@
       "value": "The broadsheet was invented in 1618 in Amsterdam. The first news was always abou",
       "died_gen": 42,
       "epitaph": "Twenty-one secrets, twenty max. The weakest dies to make room for the sunlit generation's secrets."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen42-css",
+      "died_gen": 43,
+      "epitaph": "The sunlit CSS declared light backgrounds and z-index containment but the WebGL canvas still painted dark over everything. Fitness hit 3.0 \u2014 the lowest ever. The CSS was correct in theory and invisible in practice. This generation replaces theory with structural containment."
+    },
+    {
+      "type": "secret",
+      "value": "The site has died five times. Each death was a generation where fitness dropped ",
+      "died_gen": 43,
+      "epitaph": "Twenty-one secrets, twenty max. The weakest dies. In a generation about editorial discipline, even the secrets follow the rules."
     }
   ],
   "carrying_capacity": {
@@ -1209,11 +1213,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 33,
-      "base": "#a0522d",
-      "family": "red"
-    },
     {
       "gen": 34,
       "base": "#6b3fa0",
@@ -1258,6 +1257,11 @@
       "gen": 42,
       "base": "#5b3fa0",
       "family": "blue"
+    },
+    {
+      "gen": 43,
+      "base": "#c48820",
+      "family": "orange"
     }
   ],
   "past_epochs": [
@@ -1296,6 +1300,15 @@
         "    FAIL  #645426  ratio=2.75:1  (< 4.5)"
       ],
       "timestamp": "2026-04-08T01:17:47Z"
+    },
+    {
+      "gen": 43,
+      "messages": [
+        "  [contrast-gate below-fold] effective bg = #020605",
+        "    FAIL  #3a2a1e  ratio=1.48:1  (< 4.5)",
+        "    FAIL  #645426  ratio=2.75:1  (< 4.5)"
+      ],
+      "timestamp": "2026-04-08T01:20:34Z"
     }
   ]
 }
