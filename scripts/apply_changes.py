@@ -103,6 +103,33 @@ def parse_color_to_hex(color_str):
     return None
 
 
+def resolve_css_value(html, value, scope_block=None):
+    """If `value` is var(--name, fallback), look up --name in scope_block then :root,
+    else return the fallback (or None). Otherwise return the value verbatim."""
+    if not value:
+        return value
+    s = value.strip().rstrip(';').strip()
+    m = re.match(r'var\(\s*(--[\w-]+)\s*(?:,\s*(.+))?\s*\)$', s)
+    if not m:
+        return s
+    var_name, fallback = m.group(1), (m.group(2) or '').strip()
+    # 1. Try scope-local declaration
+    if scope_block:
+        local = re.search(re.escape(var_name) + r'\s*:\s*([^;]+);', scope_block)
+        if local:
+            return resolve_css_value(html, local.group(1), scope_block)
+    # 2. Try :root declaration
+    root_m = re.search(r':root\s*\{([^}]+)\}', html)
+    if root_m:
+        root_local = re.search(re.escape(var_name) + r'\s*:\s*([^;]+);', root_m.group(1))
+        if root_local:
+            return resolve_css_value(html, root_local.group(1), None)
+    # 3. Use fallback if present
+    if fallback:
+        return resolve_css_value(html, fallback, scope_block)
+    return None
+
+
 def find_scope_background(html, scope_selector):
     """Find the effective hex background for a CSS rule's scope. None if absent."""
     pattern = re.escape(scope_selector) + r'\s*\{([^}]+)\}'
@@ -112,7 +139,8 @@ def find_scope_background(html, scope_selector):
     block = m.group(1)
     bg_m = re.search(r'background(?:-color)?\s*:\s*([^;]+);', block)
     if bg_m:
-        return parse_color_to_hex(bg_m.group(1))
+        resolved = resolve_css_value(html, bg_m.group(1), block)
+        return parse_color_to_hex(resolved)
     return None
 
 
@@ -128,7 +156,8 @@ def find_scope_background_with_source(html, scope_selector):
     if not bg_m:
         return None, None, None
     raw = bg_m.group(1).strip()
-    hex_val = parse_color_to_hex(raw)
+    resolved = resolve_css_value(html, raw, block)
+    hex_val = parse_color_to_hex(resolved)
     bg_offset = m.start(1) + bg_m.start(1)
     line = html.count('\n', 0, bg_offset) + 1
     return hex_val, line, raw
