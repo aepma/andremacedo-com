@@ -1,17 +1,17 @@
 {
-  "generation": 52,
+  "generation": 53,
   "epoch": "webgl-swarm",
   "epoch_started": "2026-03-29",
   "traits": {
     "color": {
-      "accent_base": "#7b4a8a",
-      "accent_dawn": "#a06db0",
-      "accent_morning": "#8d5a9a",
-      "accent_afternoon": "#7b4a8a",
-      "accent_evening": "#6a3a7a",
-      "accent_night": "#5a2a6a",
-      "bg": "#0a080e",
-      "fg": "#716c62",
+      "accent_base": "#1a8a7a",
+      "accent_dawn": "#40c0b0",
+      "accent_morning": "#2aa090",
+      "accent_afternoon": "#1a8a7a",
+      "accent_evening": "#147a6a",
+      "accent_night": "#0e6a5a",
+      "bg": "#0a0e0d",
+      "fg": "#716c63",
       "grain_opacity": "0",
       "fg_dim": "#656c7a",
       "bg_surface": "#f8f8f0",
@@ -73,6 +73,7 @@
         "cartographic-glyph-001.svg",
         "cartographic-glyph-003.svg",
         "cartographic-glyph-002.svg",
+        "cartographic-glyph-006.svg",
         "engraved-glyph-001.svg",
         "cartographic-glyph-005.svg",
         "cartographic-glyph-004.svg",
@@ -177,33 +178,20 @@
       "perceptibility": 6,
       "note": "Fitness 4.8 is real recovery \u2014 the wall holds, the editorial layout is readable, the experiment grid is visible and linked. The screenshot shows a fun",
       "total": 5.7
+    },
+    {
+      "gen": 53,
+      "coherence": 7,
+      "novelty": 5,
+      "identity": 7,
+      "tension": 5,
+      "awe": 5,
+      "perceptibility": 6,
+      "note": "Fitness 5.7 is real recovery \u2014 five consecutive generations of improvement from the 1.2 abyss. The screenshot shows the architecture is working: dark ",
+      "total": 5.8
     }
   ],
   "mutation_log": [
-    {
-      "gen": 33,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "section.meridian-veil",
-        "section.split-annotation",
-        "section.overlay-center",
-        "section.overlay-bottom",
-        "section.prototype-portfolio",
-        "section.scroll-hint",
-        "svg.compass-rose-001.svg",
-        "scene.config",
-        "scene.shaders"
-      ],
-      "kills": [
-        "css_rule:gen32-css",
-        "secret[18]"
-      ],
-      "timestamp": "2026-04-06T08:02:13Z"
-    },
     {
       "gen": 34,
       "mutations": [
@@ -741,21 +729,35 @@
         "secret[20]"
       ],
       "timestamp": "2026-04-09T08:03:08Z"
+    },
+    {
+      "gen": 53,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "content.mood",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "section.overlay-center",
+        "section.overlay-bottom",
+        "section.scroll-hint",
+        "section.thought-floater",
+        "section.prototype-portfolio",
+        "section.meridian-veil",
+        "section.split-annotation",
+        "svg.cartographic-glyph-006.svg",
+        "scene.config",
+        "scene.shaders"
+      ],
+      "kills": [
+        "css_rule:gen52-css",
+        "secret[20]"
+      ],
+      "timestamp": "2026-04-09T16:02:45Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "secret",
-      "value": "The garden remembers every cursor that passed through it. The flowers lean towar",
-      "died_gen": 32,
-      "epitaph": "Old emerald-epoch secret about the sphere winning. The sphere still wins but the meridian reframes it."
-    },
-    {
-      "type": "css_rule",
-      "value": "gen32-css",
-      "died_gen": 33,
-      "epitaph": "Superseded by gen33 sepia-cartographic rules. Cerulean gives way to iron gall."
-    },
     {
       "type": "secret",
       "value": "The archive is a cupel. Everything that burned away is still here \u2014 you just can",
@@ -1043,6 +1045,18 @@
       "value": "The Prime Meridian passed through Paris before it passed through Greenwich. Fran",
       "died_gen": 52,
       "epitaph": "Over the 20-secret capacity. The weakest secret about the site being alive \u2014 too generic, replaced by specific cartographic secrets with more bite."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen52-css",
+      "died_gen": 53,
+      "epitaph": "The plum cartographic CSS served one generation \u2014 it proved plum reads well on parchment but the ocean calls. Cerulean replaces it."
+    },
+    {
+      "type": "secret",
+      "value": "The first meridian was drawn in the Canary Islands because Ptolemy believed the ",
+      "died_gen": 53,
+      "epitaph": "Over the 20-secret capacity. Culling the weakest meridian fact to make room for the cartography etymology."
     }
   ],
   "carrying_capacity": {
@@ -1061,11 +1075,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 43,
-      "base": "#c48820",
-      "family": "orange"
-    },
     {
       "gen": 44,
       "base": "#c4287a",
@@ -1110,6 +1119,11 @@
       "gen": 52,
       "base": "#7b4a8a",
       "family": "indigo"
+    },
+    {
+      "gen": 53,
+      "base": "#1a8a7a",
+      "family": "green"
     }
   ],
   "past_epochs": [
@@ -1130,15 +1144,6 @@
   ],
   "epoch_number": 3,
   "contrast_warnings": [
-    {
-      "gen": 43,
-      "messages": [
-        "  [contrast-gate below-fold] effective bg = #020605",
-        "    FAIL  #3a2a1e  ratio=1.48:1  (< 4.5)",
-        "    FAIL  #645426  ratio=2.75:1  (< 4.5)"
-      ],
-      "timestamp": "2026-04-08T01:20:34Z"
-    },
     {
       "gen": 44,
       "messages": [
@@ -1221,6 +1226,14 @@
         "    FAIL  #ffffff  ratio=1.14:1  (< 4.5)"
       ],
       "timestamp": "2026-04-09T08:03:08Z"
+    },
+    {
+      "gen": 53,
+      "messages": [
+        "  [contrast-gate below-fold] effective bg = #f5f0e6 from .below-fold:211 (raw: var(--bg-below-fold, #fffff5))",
+        "    FAIL  #ffffff  ratio=1.14:1  (< 4.5)"
+      ],
+      "timestamp": "2026-04-09T16:02:45Z"
     }
   ]
 }
