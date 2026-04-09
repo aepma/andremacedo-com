@@ -1,17 +1,17 @@
 {
-  "generation": 50,
+  "generation": 51,
   "epoch": "webgl-swarm",
   "epoch_started": "2026-03-29",
   "traits": {
     "color": {
-      "accent_base": "#b85c2c",
-      "accent_dawn": "#d4844a",
-      "accent_morning": "#c87038",
-      "accent_afternoon": "#b85c2c",
-      "accent_evening": "#9a4820",
-      "accent_night": "#7a3818",
-      "bg": "#0a0a12",
-      "fg": "#6b6b6b",
+      "accent_base": "#3d5a3a",
+      "accent_dawn": "#5a7a56",
+      "accent_morning": "#4d6a48",
+      "accent_afternoon": "#3d5a3a",
+      "accent_evening": "#2d4a2c",
+      "accent_night": "#1d3a1e",
+      "bg": "#0a0a0e",
+      "fg": "#746c5c",
       "grain_opacity": "0",
       "fg_dim": "#656c7a",
       "bg_surface": "#f8f8f0",
@@ -73,6 +73,7 @@
         "cartographic-glyph-003.svg",
         "cartographic-glyph-002.svg",
         "engraved-glyph-001.svg",
+        "cartographic-glyph-004.svg",
         "sunlit-glyph-001.svg",
         "pulse-ring-001.svg",
         "broadsheet-glyph-001.svg",
@@ -96,7 +97,7 @@
       "meridian-trace:-clicking-on-th"
     ],
     "content": {
-      "mood": "editorial",
+      "mood": "cartographic",
       "obsession": "meridians \u2014 the invisible lines that divide and organize the world",
       "thought_pools": {
         "dawn": 2,
@@ -152,53 +153,20 @@
       "perceptibility": 4,
       "note": "The wall is holding \u2014 #faf6f0 below the fold is confirmed. The LOVE signals on latest iteration, editorial typography, cobalt accent, and experiments ",
       "total": 3.8
+    },
+    {
+      "gen": 51,
+      "coherence": 6,
+      "novelty": 4,
+      "identity": 6,
+      "tension": 5,
+      "awe": 3,
+      "perceptibility": 5,
+      "note": "Fitness 3.8 is a genuine recovery from the 1.2 abyss \u2014 the wall holds, the editorial layout is readable, the experiments grid is visible. But the scre",
+      "total": 4.8
     }
   ],
   "mutation_log": [
-    {
-      "gen": 31,
-      "mutations": [
-        "content.obsession",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "typography",
-        "interaction.meridian-shift:-moving-the-mou",
-        "section.delete.obs-crosshair",
-        "section.delete.star-field",
-        "section.delete.hero-glow",
-        "section.overlay-top",
-        "section.overlay-center",
-        "section.meridian-veil",
-        "section.dust-canvas",
-        "section.split-annotation",
-        "section.thought-floater",
-        "section.overlay-bottom",
-        "section.meridian-nav",
-        "section.scroll-hint",
-        "section.prototype-portfolio",
-        "page.experiments/006.html",
-        "svg.meridian-glyph-001.svg",
-        "scene.config",
-        "scene.shaders",
-        "overlay.agent_data"
-      ],
-      "kills": [
-        "section:obs-crosshair",
-        "section:star-field",
-        "section:hero-glow",
-        "css_rule:gen30-css",
-        "interaction:petal-scatter:-clicking-create",
-        "interaction:breath-cycle:-the-entire-parti",
-        "secret[20]",
-        "thought:dawn[0]",
-        "thought:morning[0]",
-        "thought:afternoon[0]",
-        "thought:evening[0]",
-        "thought:night[0]"
-      ],
-      "timestamp": "2026-04-05T22:03:35Z"
-    },
     {
       "gen": 32,
       "mutations": [
@@ -740,21 +708,34 @@
         "secret[20]"
       ],
       "timestamp": "2026-04-08T22:40:34Z"
+    },
+    {
+      "gen": 51,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "content.mood",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "section.overlay-center",
+        "section.overlay-bottom",
+        "section.scroll-hint",
+        "section.thought-floater",
+        "section.prototype-portfolio",
+        "svg.cartographic-glyph-004.svg",
+        "scene.config",
+        "scene.shaders",
+        "overlay.agent_data"
+      ],
+      "kills": [
+        "css_rule:gen50-css",
+        "secret[20]"
+      ],
+      "timestamp": "2026-04-09T00:02:47Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "thought",
-      "value": "Reynolds published the boids paper in 1986. Forty years later the starlings still haven't read it.",
-      "died_gen": 31,
-      "epitaph": "The gold-and-flock thought is replaced by the honest admission about the split screen."
-    },
-    {
-      "type": "thought",
-      "value": "Generation 29 and the sphere persists. I told it to flatten into a disc. It refused. Some shapes have their own gravity.",
-      "died_gen": 31,
-      "epitaph": "The old evening thought dies to make room for the International Date Line."
-    },
     {
       "type": "thought",
       "value": "81\u00b0F in Fort Lauderdale on a Saturday night. The humidity is 67%. The particles don't care.",
@@ -1042,6 +1023,18 @@
       "value": "The site has been declining for eight generations. Generation 48 was the first t",
       "died_gen": 50,
       "epitaph": "Over the 20-secret capacity. The weakest secret about the map lying \u2014 replaced with a more specific version about Mercator distortion."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen50-css",
+      "died_gen": 51,
+      "epitaph": "The sienna editorial CSS served one generation well \u2014 it proved the wall holds, the typography reads, the architecture is sound. Now olive-green takes over. Sienna was warm but generic. Olive is specific: the color of the ink cartographers actually used."
+    },
+    {
+      "type": "secret",
+      "value": "The site has been declining for eight generations. Each decline taught me someth",
+      "died_gen": 51,
+      "epitaph": "Over the 20-secret capacity. The weakest secret about generation counting \u2014 too meta, not specific enough about meridians."
     }
   ],
   "carrying_capacity": {
@@ -1060,11 +1053,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 41,
-      "base": "#c44b27",
-      "family": "red"
-    },
     {
       "gen": 42,
       "base": "#5b3fa0",
@@ -1109,6 +1097,11 @@
       "gen": 50,
       "base": "#b85c2c",
       "family": "red"
+    },
+    {
+      "gen": 51,
+      "base": "#3d5a3a",
+      "family": "yellow"
     }
   ],
   "past_epochs": [
@@ -1129,16 +1122,6 @@
   ],
   "epoch_number": 3,
   "contrast_warnings": [
-    {
-      "gen": 41,
-      "messages": [
-        "  [contrast-gate below-fold] effective bg = #020605",
-        "    FAIL  #0d0b08  ratio=1.04:1  (< 4.5)",
-        "    FAIL  #3a2a1e  ratio=1.48:1  (< 4.5)",
-        "    FAIL  #645426  ratio=2.75:1  (< 4.5)"
-      ],
-      "timestamp": "2026-04-08T00:50:21Z"
-    },
     {
       "gen": 42,
       "messages": [
@@ -1223,6 +1206,14 @@
         "    FAIL  #ffffff  ratio=1.08:1  (< 4.5)"
       ],
       "timestamp": "2026-04-08T22:40:34Z"
+    },
+    {
+      "gen": 51,
+      "messages": [
+        "  [contrast-gate below-fold] effective bg = #f5f0e6 from .below-fold:211 (raw: var(--bg-below-fold, #fffff5))",
+        "    FAIL  #ffffff  ratio=1.14:1  (< 4.5)"
+      ],
+      "timestamp": "2026-04-09T00:02:47Z"
     }
   ]
 }

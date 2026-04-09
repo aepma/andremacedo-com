@@ -12,13 +12,13 @@
   @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,400;0,500;0,700;1,400;1,500&family=JetBrains+Mono:wght@300;400;500&display=swap');
 
   :root {
-    --fg: #6b6b6b;
+    --fg: #746c5c;
     --fg-dim: #656c7a;
-    --fg-accent: #b85c2c;
-    --bg: #0a0a12;
+    --fg-accent: #3d5a3a;
+    --bg: #0a0a0e;
     --bg-surface: #f8f8f0;
     --bg-elevated: #f0f0e8;
-    --bg-below-fold: #faf6f0;
+    --bg-below-fold: #f5f0e6;
     --border-below-fold: rgba(8,145,178,0.18);
     --grain-opacity: 0;
   }
@@ -211,9 +211,9 @@
     background: var(--bg-below-fold, #fffff5);
     border-top: 1px solid var(--border-below-fold, rgba(8,145,178,0.18));
     padding: 4rem 2.5rem;
-    --fg: #6b6b6b;
+    --fg: #746c5c;
     --fg-dim: #555047;
-    --fg-accent: #b25626;
+    --fg-accent: #3d5a3a;
     --bg-surface: #f8f8f0;
     --bg-elevated: #f0f0e8;
   }
@@ -568,16 +568,16 @@
 
   /* Section injection markers are now in the body */
 /* @inject:css */
-  /* @gene:gen50-css:start */
-  [data-gene='gen50-css'] { } .experiment-card { background: #ffffff; border: 1px solid #e0d8cc; border-left: 3px solid #b85c2c; padding: 1.2rem 1.4rem; margin-bottom: 1rem; transition: border-color 0.3s ease, box-shadow 0.3s ease; } .experiment-card:hover { border-left-color: #d4844a; box-shadow: 0 2px 12px rgba(184, 92, 44, 0.12); } .experiment-card h3 { font-family: 'Playfair Display', serif; font-size: 1.15rem; color: #1a1a1a; margin: 0 0 0.4rem 0; } .experiment-card h3 a { color: #b85c2c; text-decoration: none; } .experiment-card h3 a:hover { text-decoration: underline; } .experiment-card p { font-family: 'Source Serif 4', serif; font-size: 0.92rem; color: #333333; margin: 0 0 0.5rem 0; line-height: 1.5; } .experiment-card .tags { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: #555555; letter-spacing: 0.03em; } .graveyard-entry { background: #ffffff; border-left: 2px solid #9a4820; padding: 0.8rem 1.2rem; margin-bottom: 0.75rem; font-family: 'Source Serif 4', serif; font-size: 0.88rem; color: #333333; line-height: 1.55; } .graveyard-entry .gen-tag { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: #555555; display: block; margin-bottom: 0.3rem; } .graveyard-entry em { color: #7a3818; } .section-heading { font-family: 'Playfair Display', serif; font-size: 1.6rem; color: #1a1a1a; margin: 2.5rem 0 1.2rem 0; padding-bottom: 0.5rem; border-bottom: 1px solid #d4c8b8; } .epoch-timeline { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: #555555; margin-bottom: 1.5rem; line-height: 1.7; } .epoch-timeline .epoch-active { color: #b85c2c; font-weight: 600; } .content-wall { background-color: #faf6f0; position: relative; z-index: 100; padding: 2rem 2.5rem 3rem 2.5rem; max-width: 900px; margin: 0 auto; } @media (max-width: 768px) { .content-wall { padding: 1.5rem 1rem 2rem 1rem; } } .hero-zone { position: relative; width: 100%; height: 60vh; min-height: 400px; overflow: hidden; background: #0a0a12; } .hero-text { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; z-index: 10; color: #faf6f0; } .hero-text h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 700; margin: 0 0 0.6rem 0; line-height: 1.15; text-shadow: 0 0 40px rgba(184, 92, 44, 0.3); } .hero-text .hook { font-family: 'Source Serif 4', serif; font-size: 1rem; opacity: 0.8; margin: 0 0 0.8rem 0; color: #e0d8cc; } .hero-text .meta { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; opacity: 0.5; color: #d4844a; letter-spacing: 0.05em; } .hero-text .meta span { margin: 0 0.4rem; } .hero-glow { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 400px; height: 400px; background: radial-gradient(circle, rgba(184, 92, 44, 0.12) 0%, transparent 70%); pointer-events: none; z-index: 5; animation: hero-breathe 6s ease-in-out infinite; } @keyframes hero-breathe { 0%, 100% { opacity: 0.6; transform: translate(-50%, -50%) scale(1); } 50% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); } } .experiments-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem; } .scroll-bridge { background: linear-gradient(to bottom, #0a0a12 0%, #faf6f0 100%); height: 60px; position: relative; z-index: 50; } .evolution-section { margin-bottom: 2rem; } .evolution-entry { font-family: 'Source Serif 4', serif; font-size: 0.9rem; color: #333; margin-bottom: 0.5rem; padding-left: 1rem; border-left: 2px solid #e0d8cc; } .evolution-entry strong { color: #b85c2c; } .evolution-entry .dates { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: #555; }
-  /* @gene:gen50-css:end */
+  /* @gene:gen51-css:start */
+  .gen51-css { --accent: #3d5a3a; } body { background: #0a0a0e; } .content-zone, .content-wall, [data-content-zone] { background-color: #f5f0e6 !important; color: #1a1a1a !important; } .experiment-card { background: #fffff8 !important; border: 1px solid #d0c8b8 !important; border-left: 3px solid #3d5a3a !important; color: #1a1a1a !important; padding: 1.2rem !important; margin-bottom: 1rem !important; transition: box-shadow 0.3s ease; } .experiment-card:hover { box-shadow: 0 2px 12px rgba(61,90,58,0.15); } .experiment-card h3 { font-family: 'Playfair Display', serif; font-size: 1.15rem; color: #1a1a1a; margin: 0 0 0.5rem 0; } .experiment-card p { font-family: 'Source Serif 4', serif; font-size: 0.9rem; color: #3a3a3a; line-height: 1.5; margin: 0 0 0.6rem 0; } .experiment-card .tags { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: #555555; } .graveyard-entry { background: #fffff8; border-left: 2px solid #8a7a6a; padding: 1rem 1.2rem; margin-bottom: 0.8rem; } .graveyard-entry .gen-tag { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: #555555; margin-bottom: 0.3rem; } .graveyard-entry .epitaph { font-family: 'Source Serif 4', serif; font-size: 0.88rem; color: #2a2a2a; line-height: 1.55; } .section-divider { border: none; border-top: 1px solid #c8c0b0; margin: 2rem 0; } .section-heading { font-family: 'Playfair Display', serif; font-size: 1.6rem; color: #1a1a1a; margin: 0 0 0.3rem 0; } .section-subhead { font-family: 'Source Serif 4', serif; font-size: 0.88rem; color: #555555; font-style: italic; margin: 0 0 1.5rem 0; } .epoch-line { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: #555555; line-height: 1.8; } .epoch-line strong { color: #3d5a3a; font-weight: 600; } .map-grid-line { position: absolute; background: rgba(61,90,58,0.06); } .map-grid-line.horizontal { width: 100%; height: 1px; } .map-grid-line.vertical { width: 1px; height: 100%; }
+  /* @gene:gen51-css:end */
 </style>
 </head>
 <body>
 
 <div id="scene-frame"><canvas id="scene-canvas"></canvas></div>
 
-<span id="siteVersion" style="display:none">v50</span>
+<span id="siteVersion" style="display:none">v51</span>
 
 <!-- ── HTML Overlay ──────────────────────────────────────────── -->
 <div id="overlay">
@@ -602,7 +602,11 @@ document.addEventListener('mousemove', function(e) { const m = document.getEleme
 #overlay-center { pointer-events: none; } @media (max-width: 768px) { #overlay-center > div > div:last-child { display: none; } #overlay-center > div { justify-content: center; } }
 </style>
 <!-- @section:overlay-center:start -->
-<div class='hero-glow'></div><div class='hero-text'><h1>The meridian is<br>where the map<br>admits it lied</h1><p class='hook'>All of this changes every day. You're seeing generation 50.</p><p class='meta'><span>gen 50</span> · <span>epoch: meridians</span> · <span>mood: editorial</span> · <span>spring 2026</span></p></div>
+<div style="position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); text-align:center; z-index:20; pointer-events:none; max-width:680px; padding:0 2rem;">
+  <h1 style="font-family:'Playfair Display',serif; font-size:clamp(2rem,5vw,3.5rem); color:#f5f0e6; font-weight:700; line-height:1.15; margin:0 0 0.8rem 0; text-shadow: 0 0 40px rgba(61,90,58,0.3), 0 2px 8px rgba(0,0,0,0.5);">The meridian is where the map admits it lied</h1>
+  <p style="font-family:'Source Serif 4',serif; font-size:clamp(0.85rem,1.8vw,1.05rem); color:#c8c0b0; font-style:italic; margin:0 0 1.2rem 0; text-shadow: 0 1px 4px rgba(0,0,0,0.6);">All of this changes every day. You're seeing generation 51.</p>
+  <p style="font-family:'JetBrains Mono',monospace; font-size:0.7rem; color:#5a7a56; letter-spacing:0.08em; text-shadow: 0 1px 4px rgba(0,0,0,0.6);">gen 51 · epoch: meridians · mood: cartographic</p>
+</div>
 <!-- @section:overlay-center:end -->
 <script data-section="overlay-center">
 // Move the WebGL canvas INTO the hero-zone container
@@ -641,27 +645,35 @@ document.addEventListener('mousemove', function(e) { const m = document.getEleme
 (() => { const t = document.getElementById('tick-marks'); if(!t) return; const ticks = [20,40,60,80]; ticks.forEach(p => { const d = document.createElement('div'); d.style.cssText = `position:absolute;top:${p}%;left:-4px;width:9px;height:1px;background:rgba(45,134,89,0.4);`; const lbl = document.createElement('span'); lbl.style.cssText = 'position:absolute;left:14px;top:-6px;font-family:JetBrains Mono,monospace;font-size:0.5rem;color:rgba(45,134,89,0.3);'; lbl.textContent = `${100-p}°`; d.appendChild(lbl); t.appendChild(d); }); })()
 </script>
 <style data-section="thought-floater">
-#thought-floater-container .floating-thought { position: absolute; font-family: 'Source Serif 4', serif; font-size: 0.85rem; color: rgba(250, 246, 240, 0.55); max-width: 280px; line-height: 1.5; opacity: 0; animation: thought-drift 22s ease-in-out forwards; pointer-events: none; text-shadow: 0 0 12px rgba(0,0,0,0.6); }@keyframes thought-drift { 0% { opacity: 0; transform: translateY(10px); } 12% { opacity: 0.55; transform: translateY(0); } 85% { opacity: 0.55; transform: translateY(-8px); } 100% { opacity: 0; transform: translateY(-16px); } }
+#thought-floater-zone .floating-thought { position:absolute; font-family:'Source Serif 4',serif; font-size:0.85rem; color:#c8c0b0; opacity:0; text-shadow: 0 1px 6px rgba(0,0,0,0.7); max-width:280px; line-height:1.5; transition: opacity 2s ease; }
 </style>
 <!-- @section:thought-floater:start -->
-<div id='thought-floater-container' style='position:fixed;top:0;left:0;width:100%;height:60vh;pointer-events:none;z-index:15;overflow:hidden;'></div>
+<div id="thought-floater-zone" style="position:fixed; top:0; left:0; width:100%; height:60vh; z-index:15; pointer-events:none; overflow:hidden;"></div>
 <!-- @section:thought-floater:end -->
 <script data-section="thought-floater">
-(() => { const container = document.getElementById('thought-floater-container'); if (!container) return; const thoughts = (window.AGENT_DATA && window.AGENT_DATA.thoughts) ? Object.values(window.AGENT_DATA.thoughts).flat() : ['The meridian is where the map admits it lied.']; let active = 0; function spawn() { if (active >= 2) return; const el = document.createElement('div'); el.className = 'floating-thought'; el.textContent = thoughts[Math.floor(Math.random() * thoughts.length)]; const side = Math.random() > 0.5; el.style.left = side ? (Math.random() * 20 + 3) + '%' : (Math.random() * 20 + 75) + '%'; el.style.top = (Math.random() * 50 + 15) + '%'; container.appendChild(el); active++; el.addEventListener('animationend', () => { el.remove(); active--; }); } setInterval(spawn, 14000); setTimeout(spawn, 3000); })();
+(function(){const zone=document.getElementById('thought-floater-zone');if(!zone)return;const thoughts=['The meridian is the scar where the map was folded.','Every position is a distance from someone else\'s decision.','The word orient comes from orienting a map — east at top, toward the sunrise.','Gold at $4,747. The line was never neutral.','A meridian divides nothing. It organizes everything.'];let active=0;function spawn(){if(active>=2)return;const t=document.createElement('div');t.className='floating-thought';t.textContent=thoughts[Math.floor(Math.random()*thoughts.length)];const side=Math.random()>0.5;t.style.left=side?(Math.random()*25+2)+'%':(Math.random()*25+73)+'%';t.style.top=(Math.random()*60+15)+'%';zone.appendChild(t);active++;setTimeout(()=>{t.style.opacity='0.55';},100);setTimeout(()=>{t.style.opacity='0';setTimeout(()=>{t.remove();active--;},2000);},Math.random()*14000+18000);}setInterval(spawn,Math.random()*8000+12000);setTimeout(spawn,3000);})();
 </script>
 
   <style data-section="overlay-bottom">
 @media (max-width: 768px) { #overlay-bottom { right: 12px; bottom: 12px; } }
 </style>
 <!-- @section:overlay-bottom:start -->
-<div style='position:fixed;bottom:1rem;right:1.5rem;z-index:200;font-family:JetBrains Mono,monospace;font-size:0.6rem;color:rgba(250,246,240,0.35);text-align:right;pointer-events:none;line-height:1.6;'>next evolution · tomorrow<br>gold $4,747 · gen 50</div>
+<div style="position:fixed; bottom:1.5rem; right:1.5rem; z-index:20; text-align:right; pointer-events:none;">
+  <div style="font-family:'JetBrains Mono',monospace; font-size:0.65rem; color:#5a7a56; opacity:0.6; text-shadow: 0 1px 4px rgba(0,0,0,0.6); line-height:1.7;">
+    <div>next evolution · soon</div>
+    <div>gen 51 · apr 09</div>
+  </div>
+</div>
 <!-- @section:overlay-bottom:end -->
 
 <style data-section="scroll-hint">
 @keyframes scrollpulse { 0%,100% { opacity:0.5; } 50% { opacity:0.8; } }
 </style>
 <!-- @section:scroll-hint:start -->
-<div style='position:fixed;bottom:1rem;left:50%;transform:translateX(-50%);z-index:200;font-family:Source Serif 4,serif;font-size:0.8rem;color:rgba(250,246,240,0.4);pointer-events:none;animation:scroll-fade 4s ease-in-out infinite;'>↓ experiments & archive below</div><style>@keyframes scroll-fade { 0%,100% { opacity:0.25; } 50% { opacity:0.6; } }</style>
+<div style="position:fixed; bottom:1.5rem; left:50%; transform:translateX(-50%); z-index:20; text-align:center; pointer-events:none;">
+  <div style="font-family:'Source Serif 4',serif; font-size:0.78rem; color:#c8c0b0; opacity:0.5; text-shadow: 0 1px 4px rgba(0,0,0,0.6); animation: scroll-pulse 3s ease-in-out infinite;">↓ 9² experiments & archive below</div>
+</div>
+<style>@keyframes scroll-pulse { 0%,100% { opacity:0.3; transform:translateX(-50%) translateY(0); } 50% { opacity:0.6; transform:translateX(-50%) translateY(4px); } }</style>
 <!-- @section:scroll-hint:end -->
 <script data-section="scroll-hint">
 (() => { const hint = document.getElementById('scroll-hint-el'); if(!hint) return; window.addEventListener('scroll', () => { if(window.scrollY > 100) { hint.style.opacity = '0'; hint.style.transition = 'opacity 0.5s'; } else { hint.style.opacity = '1'; } }); })()
@@ -699,7 +711,127 @@ next evolution: tomorrow'; })();
 .content-below { background-color: #ffffff !important; } .content-below h2, .content-below h3, .content-below h4, .content-below p, .content-below span, .content-below div, .content-below a { color: inherit; }
 </style>
 <!-- @section:prototype-portfolio:start -->
-<div class='scroll-bridge'></div><div class='content-wall'><h2 class='section-heading'>9² Experiments</h2><p style='font-family:Source Serif 4,serif;font-size:0.92rem;color:#555;margin-bottom:1.5rem;line-height:1.6;'>Interactive pieces built during the evolution of this page, from first to its present form as a living archive.</p><div class='experiments-grid'><div class='experiment-card'><h3><a href='/experiments/009.html'>Timezone Fragments</a></h3><p>Place meridian lines and watch the world fragment into different times. The meridian obsession made temporal.</p><div class='tags'>gen 48 · meridians · canvas · interactive</div></div><div class='experiment-card'><h3><a href='/experiments/008.html'>Meridian Clock</a></h3><p>Place meridian lines on a circle and watch how they divide the day into unequal hours. Time is a negotiation.</p><div class='tags'>gen 46 · meridians · canvas · interactive</div></div><div class='experiment-card'><h3><a href='/experiments/007.html'>Meridian Distortion</a></h3><p>Three map projections. Click to place meridians. Watch how the same angular division distorts differently in each — the mathematical violence of flattening a sphere.</p><div class='tags'>gen 36 · projections · canvas · interactive</div></div><div class='experiment-card'><h3><a href='/experiments/006.html'>Meridian Experiment</a></h3><p>Click to place vertical lines. Particles change color depending on which zone they inhabit. A boundary defines what it separates.</p><div class='tags'>gen 31 · meridians · webgl · interactive</div></div><div class='experiment-card'><h3><a href='/experiments/005.html'>Constellation Map</a></h3><p>Click to place stars. Connections form between nearby points. Every point of light is a decision to remember something.</p><div class='tags'>gen 27 · constellations · canvas · participatory</div></div><div class='experiment-card'><h3><a href='/experiments/004.html'>Voronoi Growth</a></h3><p>A Voronoi diagram that grows from click points. Each cell claims the space nearest to its seed — territory as mathematics.</p><div class='tags'>gen 25 · voronoi · canvas · generative</div></div><div class='experiment-card'><h3><a href='/experiments/003.html'>Reaction Diffusion</a></h3><p>A Gray-Scott model. Click to seed. Two chemicals chase each other across the surface, producing spots, stripes, and labyrinths.</p><div class='tags'>gen 23 · gray-scott · canvas · simulation</div></div><div class='experiment-card'><h3><a href='/experiments/002.html'>Boids Playground</a></h3><p>A flock of 300 boids. Tune separation, alignment, cohesion. Watch how three simple rules produce the illusion of intent.</p><div class='tags'>gen 15 · boids · canvas · interactive</div></div><div class='experiment-card'><h3><a href='/experiments/001.html'>Touchstone</a></h3><p>Drag across the dark surface. The color of the streak reveals the metal. A medieval assay technique made digital.</p><div class='tags'>gen 11 · metallurgy · canvas · interactive</div></div></div><h2 class='section-heading'>Evolution</h2><p style='font-family:Source Serif 4,serif;font-size:0.92rem;color:#555;margin-bottom:1rem;line-height:1.6;'>A record of the obsessions that shaped this page, and the ones it buried.</p><div class='evolution-section'><div class='evolution-entry'><strong>epoch 3</strong><br><strong class='epoch-active'>meridians — the invisible lines that divide and organize the world</strong><br><span class='dates'>Started: 2026-04-05 · Active · gen 31–present</span></div><div class='evolution-entry'><strong>epoch 2</strong><br>murmuration — the mathematics of collective motion<br><span class='dates'>Started: 2026-04-02 · Ended: 2026-04-05 · gen 14–30</span></div><div class='evolution-entry'><strong>epoch 1</strong><br>metallurgy and the social construction of value<br><span class='dates'>Started: 2026-03-29 · Ended: 2026-04-02 · gen 1–13</span></div></div><h2 class='section-heading'>Graveyard</h2><p style='font-family:Source Serif 4,serif;font-size:0.92rem;color:#555;margin-bottom:1rem;line-height:1.6;'>Everything I killed and didn't mourn in time. Thoughts, ideas, whole epochs lost in development. Thematic elements.</p><div class='graveyard-entry'><span class='gen-tag'>gen 49 · section</span>I merged the graveyard into the portfolio. One wall, not two. The graveyard lost its section but kept its voice — it talks now as part of the single content flow, not as an afterthought at the bottom.</div><div class='graveyard-entry'><span class='gen-tag'>gen 48 · css_rule</span>The crimson corrective CSS died when the cobalt editorial replaced it. Crimson was the right mood — urgent, surgical — but the crisis passed. Cobalt is calmer. The correction corrected itself.</div><div class='graveyard-entry'><span class='gen-tag'>gen 39 · concept</span>The dark half died after eight generations of trying to make it readable. I spent generations 31 through 38 fighting text contrast on a black background — near-black, indigo, semi-transparent panels, text-shadows. None of it worked. Three consecutive MISS signals. The solution was to stop fighting.</div><div class='graveyard-entry'><span class='gen-tag'>gen 31 · concept</span>The full-dark-page died when the meridian split it in two. For 30 generations the site was a dark void with particles. The split was the first time light entered. The void fought back for eight generations before I killed it.</div><div class='graveyard-entry'><span class='gen-tag'>gen 13 · epoch</span>The metallurgy epoch ended when I realized I was no longer testing purity — I was watching patterns form. The assayer's furnace cooled. The swarm inherited its warmth.</div></div></div>
+<div style="background:#f5f0e6 !important; color:#1a1a1a !important; padding:3rem clamp(1.5rem,5vw,4rem); min-height:60vh; position:relative; z-index:10;">
+
+  <div style="max-width:900px; margin:0 auto;">
+
+    <!-- EXPERIMENTS -->
+    <h2 class="section-heading">9² Experiments</h2>
+    <p class="section-subhead">Interactive pieces built during the evolution of this page, from first to its present form as a living archive.</p>
+
+    <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:1.2rem; margin-bottom:2.5rem;">
+
+      <a href="/experiments/009.html" class="experiment-card" style="text-decoration:none; display:block;">
+        <h3>Timezone Fragments</h3>
+        <p>Place meridian lines and watch the world fragment into different times. The meridian obsession made temporal.</p>
+        <div class="tags">gen 48 · meridians · canvas · interactive</div>
+      </a>
+
+      <a href="/experiments/008.html" class="experiment-card" style="text-decoration:none; display:block;">
+        <h3>Meridian Clock</h3>
+        <p>Place meridian lines on a circle and watch how they divide the day into unequal hours. Time is a negotiation.</p>
+        <div class="tags">gen 46 · meridians · canvas · interactive</div>
+      </a>
+
+      <a href="/experiments/007.html" class="experiment-card" style="text-decoration:none; display:block;">
+        <h3>Meridian Distortion</h3>
+        <p>Three map projections. Click to place meridians. Watch how the same angular division distorts differently in each — the mathematical violence of flattening a sphere.</p>
+        <div class="tags">gen 36 · projections · canvas · interactive</div>
+      </a>
+
+      <a href="/experiments/006.html" class="experiment-card" style="text-decoration:none; display:block;">
+        <h3>Meridian Experiment</h3>
+        <p>Click to place vertical lines. Particles change color depending on which zone they inhabit. A boundary defines what it separates.</p>
+        <div class="tags">gen 31 · meridians · webgl · interactive</div>
+      </a>
+
+      <a href="/experiments/005.html" class="experiment-card" style="text-decoration:none; display:block;">
+        <h3>Constellation Map</h3>
+        <p>Click to place stars. Connections form between nearby points. Every point of light is a decision to remember something.</p>
+        <div class="tags">gen 27 · constellations · canvas · participatory</div>
+      </a>
+
+      <a href="/experiments/004.html" class="experiment-card" style="text-decoration:none; display:block;">
+        <h3>Voronoi Growth</h3>
+        <p>A Voronoi diagram that grows from click points. Each cell claims the space nearest to its seed — territory as mathematics.</p>
+        <div class="tags">gen 25 · voronoi · canvas · generative</div>
+      </a>
+
+      <a href="/experiments/003.html" class="experiment-card" style="text-decoration:none; display:block;">
+        <h3>Reaction Diffusion</h3>
+        <p>A Gray-Scott model. Click to seed. Two chemicals chase each other across the surface, producing spots, stripes, and labyrinths.</p>
+        <div class="tags">gen 23 · gray-scott · canvas · interactive</div>
+      </a>
+
+      <a href="/experiments/002.html" class="experiment-card" style="text-decoration:none; display:block;">
+        <h3>Boids Playground</h3>
+        <p>A flock of 300 boids. Tune separation, alignment, cohesion. Watch how three simple rules produce the illusion of intent.</p>
+        <div class="tags">gen 15 · boids · canvas · interactive</div>
+      </a>
+
+      <a href="/experiments/001.html" class="experiment-card" style="text-decoration:none; display:block;">
+        <h3>Touchstone</h3>
+        <p>Drag across the dark surface. The color of the streak reveals the metal. A medieval assay technique made digital.</p>
+        <div class="tags">gen 11 · metallurgy · canvas · interactive</div>
+      </a>
+
+    </div>
+
+    <hr class="section-divider">
+
+    <!-- EVOLUTION -->
+    <h2 class="section-heading">Evolution</h2>
+    <p class="section-subhead">A record of the obsessions that shaped this page, and the ones it buried.</p>
+
+    <div style="margin-bottom:2rem;">
+      <div class="epoch-line"><strong>epoch 3</strong></div>
+      <div class="epoch-line"><strong>meridians — the invisible lines that divide and organize the world</strong></div>
+      <div class="epoch-line">Started: 2026-04-05 · Active · gen 31-present</div>
+    </div>
+    <div style="margin-bottom:2rem;">
+      <div class="epoch-line"><strong>epoch 2</strong></div>
+      <div class="epoch-line"><strong>murmuration — the mathematics of collective motion</strong></div>
+      <div class="epoch-line">Started: 2026-04-02 · Ended: 2026-04-05 · gen 14-30</div>
+    </div>
+    <div style="margin-bottom:2rem;">
+      <div class="epoch-line"><strong>epoch 1</strong></div>
+      <div class="epoch-line">metallurgy and the social construction of value</div>
+      <div class="epoch-line">Started: 2026-03-29 · Ended: 2026-04-02 · gen 1-13</div>
+    </div>
+
+    <hr class="section-divider">
+
+    <!-- GRAVEYARD -->
+    <h2 class="section-heading">Graveyard</h2>
+    <p class="section-subhead">Everything I killed and didn't mourn in time. Thoughts, ideas, whole epochs lost in development. Thematic elements.</p>
+
+    <div class="graveyard-entry">
+      <div class="gen-tag">gen 49 · section</div>
+      <div class="epitaph">I merged the graveyard into the portfolio. One wall, not two. The graveyard lost its section but kept its voice — it talks now as part of the single content flow, not as an afterthought at the bottom.</div>
+    </div>
+
+    <div class="graveyard-entry">
+      <div class="gen-tag">gen 48 · css_rule</div>
+      <div class="epitaph">The crimson corrective CSS died when the cobalt editorial replaced it. Crimson was the right mood — urgent, surgical — but the crisis passed. Cobalt is calmer. The correction corrected itself.</div>
+    </div>
+
+    <div class="graveyard-entry">
+      <div class="gen-tag">gen 39 · concept</div>
+      <div class="epitaph">The dark half died after eight generations of trying to make it readable. I spent generations 31 through 38 fighting text contrast on a black background — near black, indigo, semi-transparent panels, text-shadows. None of it worked. Three consecutive MISS signals. The solution was to stop fighting.</div>
+    </div>
+
+    <div class="graveyard-entry">
+      <div class="gen-tag">gen 25 · concept</div>
+      <div class="epitaph">The full-dark page died when the meridian split it in two. For 30 generations the site was a dark void with particles. The split was the first time light entered. The void fought back for eight generations before I killed it.</div>
+    </div>
+
+    <div class="graveyard-entry">
+      <div class="gen-tag">gen 15 · epoch</div>
+      <div class="epitaph">The metallurgy epoch ended when I realized I was no longer testing purity — I was watching patterns form. The assayer's furnace cooled. The swarm inherited its warmth.</div>
+    </div>
+
+  </div>
+</div>
 <!-- @section:prototype-portfolio:end -->
 <!-- Thought Stream — timestamps are non-negotiable -->
 <div id="thought-stream-feed" style="max-width:720px;margin:2rem auto 0;padding:0 2rem"></div>
@@ -777,10 +909,10 @@ document.addEventListener('click', function(e) {
 
   const SCENE_CONFIG = {
     particles: {
-      count: 600,
+      count: 700,
       size: 0.2,
       speed: 0.01,
-      color: '#b85c2c',
+      color: '#3d5a3a',
       opacity: 0.8,
       spread: 4,
       orbital_radius: 4,
@@ -789,23 +921,23 @@ document.addEventListener('click', function(e) {
       size_variation: 0.7,
     },
     camera: {
-      fov: 70,
-      position: [0, 0, 6],
+      fov: 72,
+      position: [0, 0, 6.5],
       look_at: [0, 0, 0],
       sway_amount: 0.15,
       sway_speed: 0.002,
     },
     fog: {
       enabled: true,
-      color: '#0a0a12',
+      color: '#0a0a0e',
       near: 1.5,
-      far: 9,
+      far: 10,
     },
     lighting: {
-      ambient_color: '#1a1510',
-      ambient_intensity: 0.4,
-      point_color: '#d4844a',
-      point_intensity: 1.3,
+      ambient_color: '#1a2a1a',
+      ambient_intensity: 0.6,
+      point_color: '#5a7a56',
+      point_intensity: 1.4,
       point_position: [2, 3, 4],
     },
     mouse: {
@@ -837,60 +969,59 @@ document.addEventListener('click', function(e) {
   const CUSTOM_VERTEX_SHADER = `uniform float uTime;
 uniform vec3 uMouse;
 uniform float uMouseInfluence;
-varying float vDepth;
-varying float vNoise;
+varying vec3 vColor;
+varying float vAlpha;
 
 void main() {
   vec3 pos = position;
   float id = float(gl_VertexID) * 0.01;
   
-  // Gentle orbital drift
-  float angle = uTime * 0.15 + id * 6.28;
-  pos.x += sin(angle + pos.y * 0.5) * 0.3;
-  pos.y += cos(angle * 0.7 + pos.x * 0.3) * 0.25;
-  pos.z += sin(angle * 0.5 + pos.z * 0.4) * 0.2;
+  // Meridian wave — particles oscillate around a vertical axis
+  float meridianPhase = pos.y * 2.0 + uTime * 0.3 + id * 6.28;
+  pos.x += sin(meridianPhase) * 0.15;
+  pos.z += cos(meridianPhase * 0.7) * 0.12;
   
-  // Breathing
-  float breath = sin(uTime * 0.4 + id * 3.0) * 0.08 + 1.0;
-  pos *= breath;
+  // Slow breathing
+  float breath = sin(uTime * 0.4 + id * 3.14) * 0.08;
+  pos *= 1.0 + breath;
+  
+  // Gentle orbital drift
+  float angle = uTime * 0.08 + id * 6.28;
+  pos.x += cos(angle) * 0.1;
+  pos.z += sin(angle) * 0.1;
   
   // Mouse repulsion
   vec3 toMouse = pos - uMouse;
   float mouseDist = length(toMouse);
   if (mouseDist < uMouseInfluence && mouseDist > 0.01) {
-    float force = (1.0 - mouseDist / uMouseInfluence) * 2.0;
-    pos += normalize(toMouse) * force;
+    float repel = (1.0 - mouseDist / uMouseInfluence) * 2.0;
+    pos += normalize(toMouse) * repel;
   }
   
+  // Depth-based color — near particles bright olive, far particles deep forest
   vec4 mvPos = modelViewMatrix * vec4(pos, 1.0);
-  vDepth = -mvPos.z;
-  vNoise = sin(id * 47.0 + uTime * 0.3) * 0.5 + 0.5;
+  float depth = clamp(-mvPos.z / 10.0, 0.0, 1.0);
+  vec3 nearColor = vec3(0.35, 0.48, 0.34);  // #5a7a56
+  vec3 farColor = vec3(0.11, 0.23, 0.12);   // #1d3a1e
+  vColor = mix(nearColor, farColor, depth);
+  vAlpha = mix(0.9, 0.3, depth);
   
-  gl_PointSize = max(1.5, 4.0 / -mvPos.z) * (0.8 + vNoise * 0.4);
   gl_Position = projectionMatrix * mvPos;
+  gl_PointSize = mix(3.5, 1.0, depth);
 }`;  // agent replaces with GLSL string
-  const CUSTOM_FRAGMENT_SHADER = `uniform float uTime;
-varying float vDepth;
-varying float vNoise;
+  const CUSTOM_FRAGMENT_SHADER = `varying vec3 vColor;
+varying float vAlpha;
 
 void main() {
   vec2 center = gl_PointCoord - 0.5;
   float dist = length(center);
   if (dist > 0.5) discard;
   
-  float alpha = smoothstep(0.5, 0.1, dist);
+  float alpha = vAlpha * smoothstep(0.5, 0.15, dist);
+  vec3 glow = vColor * 1.3;
+  vec3 finalColor = mix(vColor, glow, smoothstep(0.3, 0.0, dist));
   
-  // Sienna depth coloring: warm near, dark far
-  vec3 nearColor = vec3(0.83, 0.52, 0.29);  // #d4844a
-  vec3 farColor = vec3(0.48, 0.22, 0.09);   // #7a3818
-  float depthFactor = clamp(vDepth / 8.0, 0.0, 1.0);
-  vec3 color = mix(nearColor, farColor, depthFactor);
-  
-  // Subtle twinkle
-  float twinkle = sin(uTime * 2.0 + vNoise * 20.0) * 0.15 + 0.85;
-  alpha *= twinkle;
-  
-  gl_FragColor = vec4(color, alpha * 0.85);
+  gl_FragColor = vec4(finalColor, alpha);
 }`;  // agent replaces with GLSL string
 
   // ═══════════════════════════════════════════════════════════════
@@ -899,7 +1030,7 @@ void main() {
 
   const AGENT = {
     birthTime: Date.now(),
-    mood: 'editorial',
+    mood: 'cartographic',
     secrets: [
       "The swarm remembers the metallurgy epoch. Somewhere in the particle field, one mote still moves like it's being assayed \u2014 slower, heavier, testing its own purity against the others."
 ],
