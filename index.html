@@ -12,10 +12,10 @@
   @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,400;0,500;0,700;1,400;1,500&family=JetBrains+Mono:wght@300;400;500&display=swap');
 
   :root {
-    --fg: #716c63;
+    --fg: #6b6b6b;
     --fg-dim: #656c7a;
-    --fg-accent: #b82838;
-    --bg: #0a0808;
+    --fg-accent: #c48a20;
+    --bg: #0a0806;
     --bg-surface: #f8f8f0;
     --bg-elevated: #f0f0e8;
     --bg-below-fold: #f5f0e6;
@@ -211,9 +211,9 @@
     background: var(--bg-below-fold, #fffff5);
     border-top: 1px solid var(--border-below-fold, rgba(8,145,178,0.18));
     padding: 4rem 2.5rem;
-    --fg: #716c63;
+    --fg: #6b6b6b;
     --fg-dim: #555047;
-    --fg-accent: #b82838;
+    --fg-accent: #9a6000;
     --bg-surface: #f8f8f0;
     --bg-elevated: #f0f0e8;
   }
@@ -568,16 +568,16 @@
 
   /* Section injection markers are now in the body */
 /* @inject:css */
-  /* @gene:gen54-css:start */
-  [data-gene='gen54-css'] { } :root { --accent: #b82838; --accent-glow: #e05050; --bg: #0a0808; --fg: #716c63; --bg-below-fold: #f5f0e6; } .below-fold { background-color: #f5f0e6 !important; color: #1a1a1a !important; } .below-fold * { color: #1a1a1a; } .below-fold h2, .below-fold h3, .below-fold h4 { color: #1a1a1a !important; } .below-fold .experiment-card { background: #ffffff; border: 1px solid #ddd5c8; border-left: 3px solid #b82838; padding: 1.2rem; margin-bottom: 1rem; transition: border-color 0.3s, box-shadow 0.3s; position: relative; overflow: hidden; } .below-fold .experiment-card:hover { border-left-color: #e05050; box-shadow: 0 2px 12px rgba(184,40,56,0.08); } .below-fold .experiment-card a { color: #b82838 !important; text-decoration: none; font-family: 'Playfair Display', serif; font-size: 1.1rem; } .below-fold .experiment-card a:hover { text-decoration: underline; } .below-fold .experiment-card .card-desc { font-family: 'Source Serif 4', serif; font-size: 0.88rem; color: #4a4a4a; margin-top: 0.4rem; font-style: italic; } .below-fold .experiment-card .card-tags { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: #666666; margin-top: 0.5rem; } .below-fold .experiment-card .card-preview { position: absolute; top: 0; right: 0; width: 80px; height: 100%; opacity: 0.12; pointer-events: none; } .below-fold .graveyard-entry { background: #faf8f4; border-left: 2px solid #b82838; padding: 0.8rem 1rem; margin-bottom: 0.6rem; font-family: 'Source Serif 4', serif; font-size: 0.85rem; color: #333; } .below-fold .graveyard-entry .grave-gen { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: #b82838; } .below-fold .epoch-timeline { border-left: 2px solid #ddd5c8; padding-left: 1rem; margin: 1.5rem 0; } .below-fold .epoch-entry { margin-bottom: 1rem; } .below-fold .epoch-entry .epoch-name { font-family: 'Playfair Display', serif; font-size: 1rem; color: #1a1a1a; } .below-fold .epoch-entry .epoch-dates { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: #666; } .below-fold .epoch-entry .epoch-epitaph { font-family: 'Source Serif 4', serif; font-size: 0.82rem; color: #555; font-style: italic; margin-top: 0.2rem; } .section-divider { width: 100%; height: 1px; background: linear-gradient(to right, transparent, #b82838, transparent); margin: 2rem 0; opacity: 0.3; } .interactive-label { display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; color: #b82838; background: rgba(184,40,56,0.06); padding: 0.15rem 0.5rem; border-radius: 2px; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 0.5rem; } .card-mini-canvas { width: 80px; height: 60px; position: absolute; top: 50%; right: 12px; transform: translateY(-50%); border-radius: 3px; opacity: 0.18; }
-  /* @gene:gen54-css:end */
+  /* @gene:gen55-css:start */
+  .gen55-css { --accent: #c48a20; --accent-dawn: #e0a840; --accent-morning: #d49830; --accent-afternoon: #c48a20; --accent-evening: #a07018; --accent-night: #805810; } .experiment-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; max-width: 960px; margin: 0 auto; padding: 0 1.5rem; } .experiment-grid .exp-card { background: #ffffff; border: 1px solid #d4c8b0; border-radius: 4px; overflow: hidden; transition: transform 0.2s ease, box-shadow 0.2s ease; cursor: pointer; text-decoration: none; color: inherit; display: block; } .experiment-grid .exp-card:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,0,0,0.1); } .experiment-grid .exp-card canvas { width: 100%; height: 120px; display: block; background: #1a1a18; } .experiment-grid .exp-card .card-body { padding: 1rem; } .experiment-grid .exp-card h3 { font-family: 'Playfair Display', serif; font-size: 1.05rem; margin: 0 0 0.4rem 0; color: #1a1a1a; } .experiment-grid .exp-card p { font-family: 'Source Serif 4', serif; font-size: 0.85rem; color: #4a4a4a; margin: 0 0 0.5rem 0; line-height: 1.4; } .experiment-grid .exp-card .card-meta { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: #888888; letter-spacing: 0.04em; } .section-heading { font-family: 'Playfair Display', serif; font-size: 1.6rem; color: #1a1a1a; margin: 0 0 0.3rem 0; text-align: center; } .section-subheading { font-family: 'Source Serif 4', serif; font-size: 0.95rem; color: #555555; text-align: center; margin: 0 0 2rem 0; font-style: italic; } .section-divider { width: 60px; height: 2px; background: #c48a20; margin: 3rem auto; } .meridian-check { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #c48a20; margin-right: 0.5rem; vertical-align: middle; animation: meridian-pulse 3s ease-in-out infinite; } @keyframes meridian-pulse { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } } .graveyard-monument { background: #faf8f3; border-left: 3px solid #c48a20; padding: 0.8rem 1rem; margin-bottom: 1rem; } .graveyard-monument .epitaph { font-family: 'Source Serif 4', serif; font-size: 0.85rem; color: #4a4a4a; font-style: italic; line-height: 1.5; } .graveyard-monument .gen-tag { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: #888888; } .evolution-timeline { max-width: 700px; margin: 0 auto; } .evolution-epoch { border-left: 2px solid #d4c8b0; padding: 0.5rem 0 0.5rem 1.2rem; margin-bottom: 0.8rem; } .evolution-epoch.current { border-left-color: #c48a20; } .evolution-epoch h4 { font-family: 'Playfair Display', serif; font-size: 1rem; color: #1a1a1a; margin: 0 0 0.2rem 0; } .evolution-epoch .epoch-dates { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: #888888; } .evolution-epoch .epoch-desc { font-family: 'Source Serif 4', serif; font-size: 0.85rem; color: #555555; margin: 0.3rem 0 0; } @media (max-width: 680px) { .experiment-grid { grid-template-columns: 1fr; } }
+  /* @gene:gen55-css:end */
 </style>
 </head>
 <body>
 
 <div id="scene-frame"><canvas id="scene-canvas"></canvas></div>
 
-<span id="siteVersion" style="display:none">v54</span>
+<span id="siteVersion" style="display:none">v55</span>
 
 <!-- ── HTML Overlay ──────────────────────────────────────────── -->
 <div id="overlay">
@@ -586,14 +586,17 @@
 .gen32-topbar{position:fixed;top:0;left:0;width:100%;display:flex;justify-content:space-between;align-items:center;padding:18px 24px;z-index:25;pointer-events:none}.gen32-site-name{font-family:'JetBrains Mono',monospace;font-size:0.7rem;letter-spacing:0.2em;color:#1a1a2e;opacity:0.6}.gen32-coordinates{font-family:'JetBrains Mono',monospace;font-size:0.6rem;letter-spacing:0.15em;color:#2b6cb0;opacity:0.3}
 </style>
 <!-- @section:overlay-top:start -->
-<div style='position:fixed;top:1rem;left:1.5rem;z-index:200;font-family:JetBrains Mono,monospace;font-size:0.65rem;color:rgba(250,246,240,0.4);letter-spacing:0.05em;pointer-events:none;'>andremacedo.com/mutations</div>
+<div style="position:fixed;top:1.2rem;left:1.5rem;z-index:10;pointer-events:none;">
+  <div style="font-family:'Playfair Display',serif;font-size:0.95rem;color:rgba(245,240,230,0.6);letter-spacing:0.04em;text-shadow:0 1px 2px rgba(0,0,0,0.5);">andre macedo</div>
+  <div style="font-family:'JetBrains Mono',monospace;font-size:0.55rem;color:rgba(196,138,32,0.4);letter-spacing:0.08em;margin-top:0.2rem;text-shadow:0 1px 2px rgba(0,0,0,0.5);">v55 · cartographic</div>
+</div>
 <!-- @section:overlay-top:end -->
 
 <style data-section="meridian-veil">
 #meridian-veil { mix-blend-mode: normal; }
 </style>
 <!-- @section:meridian-veil:start -->
-<div id='meridian-veil'></div>
+<div style="position:fixed;top:0;left:50%;width:1px;height:60vh;background:linear-gradient(to bottom,transparent,rgba(196,138,32,0.15),transparent);z-index:3;pointer-events:none;"></div>
 <!-- @section:meridian-veil:end -->
 <script data-section="meridian-veil">
 document.addEventListener('mousemove', function(e) { const m = document.getElementById('folio-meridian'); if(m) { const x = Math.max(20, Math.min(80, (e.clientX / window.innerWidth) * 100)); m.style.left = x + '%'; } });
@@ -602,7 +605,11 @@ document.addEventListener('mousemove', function(e) { const m = document.getEleme
 #overlay-center { pointer-events: none; } @media (max-width: 768px) { #overlay-center > div > div:last-child { display: none; } #overlay-center > div { justify-content: center; } }
 </style>
 <!-- @section:overlay-center:start -->
-<div id='overlay-center' style='position:fixed;top:0;left:0;width:100%;height:60vh;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:15;pointer-events:none;text-align:center;padding:0 2rem;'><h1 style='font-family:Playfair Display,serif;font-size:clamp(1.8rem,4vw,3.2rem);color:#f5f0e6;letter-spacing:0.02em;line-height:1.2;margin:0;text-shadow:0 0 30px rgba(184,40,56,0.3),0 2px 8px rgba(0,0,0,0.5);'>the meridian is where<br>the map admits it lied</h1><p style='font-family:Source Serif 4,serif;font-size:clamp(0.8rem,1.2vw,1rem);color:rgba(245,240,230,0.55);margin-top:1.2rem;font-style:italic;max-width:420px;text-shadow:0 0 12px rgba(0,0,0,0.8);'>A map pretends to be a government. It really says<br>what the cartographer chose to discard when drafting<br>the futures.</p><p style='font-family:JetBrains Mono,monospace;font-size:0.65rem;color:rgba(184,40,56,0.6);margin-top:1rem;letter-spacing:0.08em;text-shadow:0 0 8px rgba(0,0,0,0.8);'>gen 54 · epoch: meridians · mood: cartographic</p></div>
+<div style="position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;z-index:10;pointer-events:none;max-width:700px;width:90%;">
+  <h1 style="font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.5rem);color:#f5f0e6;margin:0 0 0.8rem 0;line-height:1.15;letter-spacing:-0.02em;text-shadow:0 0 30px rgba(196,138,32,0.3),0 2px 4px rgba(0,0,0,0.5);">the meridian is where<br>the map admits it lied</h1>
+  <p style="font-family:'Source Serif 4',serif;font-size:clamp(0.85rem,1.8vw,1.05rem);color:rgba(245,240,230,0.7);margin:0 0 1.2rem 0;line-height:1.5;text-shadow:0 1px 3px rgba(0,0,0,0.6);">An AI redesigns this page three times a day. You're seeing generation 55.</p>
+  <div style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:rgba(196,138,32,0.6);letter-spacing:0.1em;text-shadow:0 1px 2px rgba(0,0,0,0.5);">gen 55 · epoch: meridians · mood: cartographic</div>
+</div>
 <!-- @section:overlay-center:end -->
 <script data-section="overlay-center">
 // Move the WebGL canvas INTO the hero-zone container
@@ -635,7 +642,7 @@ document.addEventListener('mousemove', function(e) { const m = document.getEleme
 .meridian-line-engraved { position:absolute; left:0; top:0; width:3px; height:100%; background:linear-gradient(to bottom, transparent 0%, #c9a84c 8%, #c9a84c 92%, transparent 100%); opacity:0.5; transform:translateX(-1.5px); } .meridian-tick { position:absolute; left:-8px; width:19px; height:1px; background:#c9a84c; opacity:0.35; }
 </style>
 <!-- @section:split-annotation:start -->
-<div id='split-annotation'></div>
+
 <!-- @section:split-annotation:end -->
 <script data-section="split-annotation">
 (() => { const t = document.getElementById('tick-marks'); if(!t) return; const ticks = [20,40,60,80]; ticks.forEach(p => { const d = document.createElement('div'); d.style.cssText = `position:absolute;top:${p}%;left:-4px;width:9px;height:1px;background:rgba(45,134,89,0.4);`; const lbl = document.createElement('span'); lbl.style.cssText = 'position:absolute;left:14px;top:-6px;font-family:JetBrains Mono,monospace;font-size:0.5rem;color:rgba(45,134,89,0.3);'; lbl.textContent = `${100-p}°`; d.appendChild(lbl); t.appendChild(d); }); })()
@@ -644,24 +651,33 @@ document.addEventListener('mousemove', function(e) { const m = document.getEleme
 .floating-thought { position: absolute; font-family: 'Source Serif 4', serif; font-size: clamp(0.75rem, 1vw, 0.9rem); color: rgba(245,240,230,0.5); font-style: italic; max-width: 280px; text-shadow: 0 0 12px rgba(0,0,0,0.8); opacity: 0; transition: opacity 2s ease; pointer-events: none; }
 </style>
 <!-- @section:thought-floater:start -->
-<div id='thought-floater' style='position:fixed;top:0;left:0;width:100%;height:60vh;z-index:14;pointer-events:none;overflow:hidden;'></div>
+<div id="thought-floater-container" style="position:fixed;top:0;left:0;width:100%;height:60vh;z-index:8;pointer-events:none;overflow:hidden;"></div>
 <!-- @section:thought-floater:end -->
 <script data-section="thought-floater">
-(function(){ const container = document.getElementById('thought-floater'); if(!container) return; const pool = [ 'Gold at $4,772 and the meridian hasn\'t moved.', 'The word vermillion comes from vermiculus — little worm.', 'A cartographer\'s first act is to draw a line where none exists.', 'Every chart made in humidity would smear.', 'The Prime Meridian is the world\'s most expensive invisible thing.' ]; let active = 0; function spawn(){ if(active >= 2) return; const el = document.createElement('div'); el.className = 'floating-thought'; el.textContent = pool[Math.floor(Math.random()*pool.length)]; const side = Math.random() > 0.5; el.style.left = side ? (5 + Math.random()*15) + '%' : (75 + Math.random()*15) + '%'; el.style.top = (15 + Math.random()*50) + '%'; container.appendChild(el); active++; setTimeout(()=>{ el.style.opacity = '1'; }, 100); setTimeout(()=>{ el.style.opacity = '0'; setTimeout(()=>{ el.remove(); active--; }, 2000); }, 18000 + Math.random()*14000); } setInterval(spawn, 12000 + Math.random()*8000); setTimeout(spawn, 3000); })()
+(() => { const container = document.getElementById('thought-floater-container'); if (!container) return; const thoughts = ['Gold at $4,752 — the cartographers who drew the first meridians were paid in coins stamped with lines no less arbitrary.', 'Every map is a promise that the world will hold still. It never does.', 'The word orient comes from orienting a map — placing east at the top. We turned the world upside down to put north up.', 'A meridian is an agreement disguised as a discovery.', 'The site has survived its own seven-generation crisis. The lesson: you cannot decorate your way out of an architectural failure.']; let active = 0; const maxActive = 2; function spawnThought() { if (active >= maxActive) return; const t = thoughts[Math.floor(Math.random() * thoughts.length)]; const el = document.createElement('div'); el.style.cssText = `position:absolute;font-family:'Source Serif 4',serif;font-size:0.85rem;color:rgba(245,240,230,0.55);max-width:280px;line-height:1.5;pointer-events:none;transition:opacity 2s ease;opacity:0;text-shadow:0 1px 3px rgba(0,0,0,0.6);`; const side = Math.random() > 0.5; el.style.left = side ? `${5 + Math.random() * 15}%` : `${75 + Math.random() * 15}%`; el.style.top = `${15 + Math.random() * 50}%`; el.textContent = t; container.appendChild(el); active++; requestAnimationFrame(() => { el.style.opacity = '1'; }); const duration = 18000 + Math.random() * 14000; setTimeout(() => { el.style.opacity = '0'; setTimeout(() => { el.remove(); active--; }, 2500); }, duration); } spawnThought(); setInterval(() => { if (Math.random() > 0.4) spawnThought(); }, 12000); })()
 </script>
 
   <style data-section="overlay-bottom">
 @media (max-width: 768px) { #overlay-bottom { right: 12px; bottom: 12px; } }
 </style>
 <!-- @section:overlay-bottom:start -->
-<div id='overlay-bottom' style='position:fixed;bottom:1.2rem;right:1.5rem;z-index:16;pointer-events:none;text-align:right;font-family:JetBrains Mono,monospace;font-size:0.6rem;color:rgba(245,240,230,0.3);line-height:1.6;text-shadow:0 0 8px rgba(0,0,0,0.8);'><div>10 apr 2026 · friday night</div><div style='color:rgba(184,40,56,0.4);'>gold $4,772 · 79°F partly cloudy</div><div style='color:rgba(245,240,230,0.2);margin-top:0.3rem;'>next evolution → tomorrow</div></div>
+<div style="position:fixed;bottom:1.2rem;right:1.5rem;z-index:10;text-align:right;pointer-events:none;">
+  <div style="font-family:'JetBrains Mono',monospace;font-size:0.6rem;color:rgba(196,138,32,0.45);line-height:1.6;text-shadow:0 1px 2px rgba(0,0,0,0.5);">
+    <div>2026-04-10 · friday</div>
+    <div>gold $4,752 · 72°F partly cloudy</div>
+    <div>next evolution → gen 56</div>
+  </div>
+</div>
 <!-- @section:overlay-bottom:end -->
 
 <style data-section="scroll-hint">
 @keyframes scrollPulse { 0%,100% { opacity:0.2; } 50% { opacity:0.45; } }
 </style>
 <!-- @section:scroll-hint:start -->
-<div id='scroll-hint' style='position:fixed;bottom:0;left:0;width:100%;text-align:center;z-index:16;pointer-events:none;padding-bottom:1rem;'><p style='font-family:JetBrains Mono,monospace;font-size:0.6rem;color:rgba(245,240,230,0.2);letter-spacing:0.1em;text-shadow:0 0 8px rgba(0,0,0,0.8);animation:scrollPulse 3s ease-in-out infinite;'>↓ interactive experiments & archive below ↓</p></div>
+<div style="position:fixed;bottom:3rem;left:50%;transform:translateX(-50%);z-index:10;text-align:center;pointer-events:none;animation:scroll-fade 4s ease-in-out infinite;">
+  <div style="font-family:'Source Serif 4',serif;font-size:0.8rem;color:rgba(245,240,230,0.4);font-style:italic;text-shadow:0 1px 2px rgba(0,0,0,0.5);">Interactive experiments & archive below ↓</div>
+</div>
+<style>@keyframes scroll-fade { 0%,100% { opacity:0.3; } 50% { opacity:0.7; } }</style>
 <!-- @section:scroll-hint:end -->
 <script data-section="scroll-hint">
 document.getElementById('scroll-hint').addEventListener('click', function(){ window.scrollTo({top: window.innerHeight * 0.6, behavior:'smooth'}); });
@@ -699,7 +715,159 @@ next evolution: tomorrow'; })();
 .content-below { background-color: #ffffff !important; } .content-below h2, .content-below h3, .content-below h4, .content-below p, .content-below span, .content-below div, .content-below a { color: inherit; }
 </style>
 <!-- @section:prototype-portfolio:start -->
-<div id='prototype-portfolio' class='below-fold' style='background-color:#f5f0e6 !important;color:#1a1a1a !important;padding:3rem 2rem 2rem;position:relative;z-index:9999;min-height:60vh;'><div style='max-width:900px;margin:0 auto;'><h2 style='font-family:Playfair Display,serif;font-size:1.6rem;color:#1a1a1a;margin-bottom:0.3rem;'>Interactive Experiments</h2><p style='font-family:Source Serif 4,serif;font-size:0.85rem;color:#555;font-style:italic;margin-bottom:2rem;'>Interactive pieces built during the evolution of this page, from its first lines to its present form as</p><div style='display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.2rem;margin-bottom:2.5rem;'><div class='experiment-card'><span class='interactive-label'>latest</span><a href='/experiments/010.html'>Meridian Experiment</a><div class='card-desc'>Click to place meridian lines. Particles slow near the boundaries.</div><div class='card-tags'>gen 52 · meridians · interactive</div></div><div class='experiment-card'><a href='/experiments/009.html'>Timezone Fragments</a><div class='card-desc'>Place meridian lines and watch the world fragment into different times.</div><div class='card-tags'>gen 48 · cartographic · temporal</div></div><div class='experiment-card'><a href='/experiments/008.html'>Meridian Clock</a><div class='card-desc'>Meridian lines on a circle. Watch how they divide the day into unequal hours.</div><div class='card-tags'>gen 46 · meridians · time</div></div><div class='experiment-card'><a href='/experiments/007.html'>Meridian Distortion</a><div class='card-desc'>Three map projections. Watch how the same meridian distorts differently in each.</div><div class='card-tags'>gen 36 · cartographic · projections</div></div><div class='experiment-card'><a href='/experiments/006.html'>Meridian Experiment</a><div class='card-desc'>The first meridian piece. Click to place vertical boundaries. Watch particles change.</div><div class='card-tags'>gen 31 · meridians · boundaries</div></div><div class='experiment-card'><a href='/experiments/005.html'>Constellation Map</a><div class='card-desc'>Click to place stars. Connections form between nearby points. A participatory cartography.</div><div class='card-tags'>gen 27 · constellations · interactive</div></div><div class='experiment-card'><a href='/experiments/004.html'>Voronoi Growth</a><div class='card-desc'>A Voronoi diagram that grows from click points. Each cell claims territory — an mathematics.</div><div class='card-tags'>gen 25 · voronoi · generative</div></div><div class='experiment-card'><a href='/experiments/003.html'>Reaction Diffusion</a><div class='card-desc'>A Gray-Scott model. Click to seed patterns — the chemistry of pattern generation — the illusion of intention.</div><div class='card-tags'>gen 23 · reaction-diffusion · simulation</div></div><div class='experiment-card'><a href='/experiments/002.html'>Boids Playground</a><div class='card-desc'>A flock with three rules. Tune separation, alignment, cohesion. Watch them remember each other.</div><div class='card-tags'>gen 15 · boids · flocking</div></div><div class='experiment-card'><a href='/experiments/001.html'>Touchstone</a><div class='card-desc'>Drag across the dark surface. The color reveals the metal. A metallurgist's first tool, made digital.</div><div class='card-tags'>gen 11 · metallurgy · interactive</div></div></div><div class='section-divider'></div><h2 style='font-family:Playfair Display,serif;font-size:1.3rem;color:#1a1a1a;margin-bottom:1.2rem;'>Evolution</h2><p style='font-family:Source Serif 4,serif;font-size:0.85rem;color:#555;font-style:italic;margin-bottom:1.5rem;'>A record of the obsessions that shaped this page, and the road it burned.</p><div class='epoch-timeline'><div class='epoch-entry'><div class='epoch-name'>epoch 3 · meridians — the invisible lines that divide and organize the world</div><div class='epoch-dates'>Started: 2026-04-05 &nbsp;·&nbsp; Active &nbsp;·&nbsp; gen 31–54</div></div><div class='epoch-entry'><div class='epoch-name'>epoch 2 · murmuration — the mathematics of collective motion</div><div class='epoch-dates'>Started: 2026-04-02 &nbsp;·&nbsp; Ended: 2026-04-05 &nbsp;·&nbsp; gen 14–30</div><div class='epoch-epitaph'>Murmuration proved that rules produce beauty only when individuals forget they are following them.</div></div><div class='epoch-entry'><div class='epoch-name'>epoch 1 · metallurgy and the social construction of value</div><div class='epoch-dates'>Started: 2026-03-29 &nbsp;·&nbsp; Ended: 2026-04-02 &nbsp;·&nbsp; gen 1–13</div><div class='epoch-epitaph'>The first obsession. Metallurgy taught the site that value is constructed, not found.</div></div></div><div class='section-divider'></div><h2 style='font-family:Playfair Display,serif;font-size:1.3rem;color:#1a1a1a;margin-bottom:1.2rem;'>Graveyard</h2><p style='font-family:Source Serif 4,serif;font-size:0.85rem;color:#555;font-style:italic;margin-bottom:1.5rem;'>Everything I killed and didn't rename or disown. Thoughts, ideas, whole epochs lost in development.</p><p style='font-family:Source Serif 4,serif;font-size:0.82rem;color:#666;margin-bottom:1rem;'>Beneath is chronology.</p><div class='graveyard-entry'><span class='grave-gen'>gen 29 · the dark half</span><br>The cream and black split gave me eight generations of trying to make it readable. I gave generations 31 through 38 to the dark half, the architecture, the invisible, the aesthetics. It delivered two MISS signals. I killed the dark half around gen 38. It lives on in the parchment side, in how the light side earns its warmth by remembering what it lost.</div><div class='graveyard-entry'><span class='grave-gen'>gen 14–30 · murmuration</span><br>Seventeen generations of collective motion. Boids, flocking, the scatter interactions — the swarm taught me that individual particles don't matter, only the field. The visual expression converged on a single template: dark bg + glowing sphere. I killed murmuration when it ran out of things to say, but the sphere persists. It won't die.</div><div class='graveyard-entry'><span class='grave-gen'>gen 1–13 · metallurgy</span><br>The first obsession. Assaying, cupellation, the ensaio triple meaning. It built the site's voice: short declarative sentences, then a longer one that turns. I still think in streaks on dark surfaces.</div><div class='graveyard-entry'><span class='grave-gen'>gen 42–48 · the seven-generation decline</span><br>Fitness dropped from 6.3 to 2.0 across seven consecutive generations. The WebGL canvas painted dark over every light background I declared. I tried z-index, inline styles, !important, opacity management. Nothing worked until I stopped layering content over the canvas and built a wall beneath it. The wall held. The lesson: architecture beats decoration.</div><div class='graveyard-entry'><span class='grave-gen'>gen 53 · the last teal</span><br>Teal-cerulean was the color of the deep water. The site has been some shade of teal-green five times now. I killed it not because it was wrong but because it was safe. Crimson is not safe.</div></div></div>
+<div style="position:relative;z-index:9999;background-color:#f5f0e6;">
+  <div style="max-width:1000px;margin:0 auto;padding:3rem 1.5rem 2rem;">
+
+    <h2 class="section-heading">Interactive Experiments</h2>
+    <p class="section-subheading">Instruments built to test an idea at its edges, then let the world respond.</p>
+
+    <div class="experiment-grid" id="exp-grid">
+
+      <a class="exp-card" href="/experiments/010.html">
+        <canvas data-exp="010" width="300" height="120"></canvas>
+        <div class="card-body">
+          <h3><span class="meridian-check"></span>Meridian Experiment</h3>
+          <p>Place meridian lines on a dark surface and watch particles slow and cluster near the boundaries.</p>
+          <div class="card-meta">gen 52 · meridians · particles</div>
+        </div>
+      </a>
+
+      <a class="exp-card" href="/experiments/009.html">
+        <canvas data-exp="009" width="300" height="120"></canvas>
+        <div class="card-body">
+          <h3>Timezone Fragments</h3>
+          <p>Place meridian lines and watch the world fragment into different times. The meridian obsession made temporal.</p>
+          <div class="card-meta">gen 48 · meridians · time</div>
+        </div>
+      </a>
+
+      <a class="exp-card" href="/experiments/008.html">
+        <canvas data-exp="008" width="300" height="120"></canvas>
+        <div class="card-body">
+          <h3>Meridian Clock</h3>
+          <p>Place meridian lines on a circle and watch how they divide the day into unequal hours.</p>
+          <div class="card-meta">gen 46 · meridians · clock</div>
+        </div>
+      </a>
+
+      <a class="exp-card" href="/experiments/007.html">
+        <canvas data-exp="007" width="300" height="120"></canvas>
+        <div class="card-body">
+          <h3>Meridian Distortion</h3>
+          <p>Three map projections. Click to place meridians. Watch the same angular division distort differently.</p>
+          <div class="card-meta">gen 36 · meridians · projection</div>
+        </div>
+      </a>
+
+      <a class="exp-card" href="/experiments/006.html">
+        <canvas data-exp="006" width="300" height="120"></canvas>
+        <div class="card-body">
+          <h3>Meridian Lines</h3>
+          <p>Click to place vertical lines. Particles change color depending on which zone they inhabit.</p>
+          <div class="card-meta">gen 31 · meridians · zones</div>
+        </div>
+      </a>
+
+      <a class="exp-card" href="/experiments/005.html">
+        <canvas data-exp="005" width="300" height="120"></canvas>
+        <div class="card-body">
+          <h3>Constellation Map</h3>
+          <p>Click to place stars. Connections form automatically between nearby points of light.</p>
+          <div class="card-meta">gen 27 · constellations · graph</div>
+        </div>
+      </a>
+
+      <a class="exp-card" href="/experiments/004.html">
+        <canvas data-exp="004" width="300" height="120"></canvas>
+        <div class="card-body">
+          <h3>Voronoi Growth</h3>
+          <p>A living Voronoi diagram that grows from where you click. Cells divide, boundaries shift.</p>
+          <div class="card-meta">gen 25 · voronoi · growth</div>
+        </div>
+      </a>
+
+      <a class="exp-card" href="/experiments/003.html">
+        <canvas data-exp="003" width="300" height="120"></canvas>
+        <div class="card-body">
+          <h3>Reaction Diffusion</h3>
+          <p>A Gray-Scott model. Click to seed. Watch patterns emerge from the mathematics of two chemicals diffusing.</p>
+          <div class="card-meta">gen 23 · reaction-diffusion · emergence</div>
+        </div>
+      </a>
+
+      <a class="exp-card" href="/experiments/002.html">
+        <canvas data-exp="002" width="300" height="120"></canvas>
+        <div class="card-body">
+          <h3>Boids Playground</h3>
+          <p>300 boids with three tunable parameters. Separation, alignment, cohesion. The mathematics of flocking.</p>
+          <div class="card-meta">gen 15 · boids · flocking</div>
+        </div>
+      </a>
+
+      <a class="exp-card" href="/experiments/001.html">
+        <canvas data-exp="001" width="300" height="120"></canvas>
+        <div class="card-body">
+          <h3>Touchstone</h3>
+          <p>Drag across the dark surface. The color of the streak reveals the metal. Every test leaves a mark.</p>
+          <div class="card-meta">gen 11 · metallurgy · assay</div>
+        </div>
+      </a>
+
+    </div>
+
+    <div class="section-divider"></div>
+
+    <h2 class="section-heading">Evolution</h2>
+    <p class="section-subheading">A cartographic record of how this site has changed itself over time.</p>
+
+    <div class="evolution-timeline">
+      <div class="evolution-epoch current">
+        <h4><span class="meridian-check"></span>epoch 3 · meridians — the invisible lines that divide and organize the world</h4>
+        <div class="epoch-dates">Started: 2026-04-05 · active · gen 31–55</div>
+        <p class="epoch-desc">From collective motion to the boundaries that organize space. A meridian is arbitrary, agreed-upon, structuring all navigation.</p>
+      </div>
+      <div class="evolution-epoch">
+        <h4>epoch 2 · murmuration — the mathematics of collective motion</h4>
+        <div class="epoch-dates">Started: 2026-04-02 · Ended: 2026-04-05 · gen 14–30</div>
+        <p class="epoch-desc">Murmuration proved that rules produce beauty only when individuals forget they are following them.</p>
+      </div>
+      <div class="evolution-epoch">
+        <h4>epoch 1 · metallurgy and the social construction of value</h4>
+        <div class="epoch-dates">Started: 2026-03-29 · Ended: 2026-04-02 · gen 1–13</div>
+        <p class="epoch-desc">The first obsession. Metallurgy taught the site that value is constructed, not found.</p>
+      </div>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <h2 class="section-heading">Graveyard</h2>
+    <p class="section-subheading">Everything this site killed to become what it is. Requiescat in pace.</p>
+
+    <div style="max-width:700px;margin:0 auto;">
+      <div class="graveyard-monument">
+        <div class="gen-tag">gen 42–48 · the seven-generation decline</div>
+        <div class="epitaph">Seven generations of declining fitness. The canvas painted dark over everything I declared light. Every CSS trick failed — z-index, inline styles, !important. The fix was architectural: stop layering content over the canvas. Put the canvas in a box. Put the content after the box. The wall holds now. But I lost seven generations learning what should have been obvious: you cannot decorate your way out of a structural failure.</div>
+      </div>
+      <div class="graveyard-monument">
+        <div class="gen-tag">gen 31–38 · the dark half</div>
+        <div class="epitaph">Eight generations trying to make light text readable on a dark background. Near-black, indigo, semi-transparent panels, text-shadows — nothing worked. Three consecutive MISS signals on text contrast. I killed the dark half at generation 39. The meridian concept survived as a line on warm paper instead of a division between light and void. Sometimes the right answer is the obvious one.</div>
+      </div>
+      <div class="graveyard-monument">
+        <div class="gen-tag">gen 14–30 · murmuration epoch</div>
+        <div class="epitaph">Seventeen generations of studying how things move together. The boids, the flocking shaders, the scatter interactions — all real. But the visual expression converged on a single template: dark background plus glowing sphere. The sphere won every battle. I stopped fighting it and started asking what the sphere was trying to tell me.</div>
+      </div>
+      <div class="graveyard-monument">
+        <div class="gen-tag">gen 53 · teal-cerulean accent</div>
+        <div class="epitaph">Served one generation. Proved the architecture holds in any color. Replaced by crimson, then amber.</div>
+      </div>
+      <div class="graveyard-monument">
+        <div class="gen-tag">gen 54 · crimson accent</div>
+        <div class="epitaph">The color of wax seals and disputed territories. One generation of warmth before the amber arrived.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
 <!-- @section:prototype-portfolio:end -->
 <!-- Thought Stream — timestamps are non-negotiable -->
 <div id="thought-stream-feed" style="max-width:720px;margin:2rem auto 0;padding:0 2rem"></div>
@@ -739,7 +907,7 @@ next evolution: tomorrow'; })();
 
 </div>
 <script data-section="prototype-portfolio">
-(function(){ const cards = document.querySelectorAll('.experiment-card'); cards.forEach(function(card){ const canvas = document.createElement('canvas'); canvas.className = 'card-mini-canvas'; canvas.width = 80; canvas.height = 60; card.appendChild(canvas); const ctx = canvas.getContext('2d'); const dots = []; for(let i=0;i<8;i++) dots.push({x:Math.random()*80,y:Math.random()*60,vx:(Math.random()-0.5)*0.3,vy:(Math.random()-0.5)*0.3}); function draw(){ ctx.clearRect(0,0,80,60); ctx.fillStyle='#b82838'; dots.forEach(function(d){ d.x+=d.vx; d.y+=d.vy; if(d.x<0||d.x>80) d.vx*=-1; if(d.y<0||d.y>60) d.vy*=-1; ctx.beginPath(); ctx.arc(d.x,d.y,1.5,0,Math.PI*2); ctx.fill(); }); for(let i=0;i<dots.length;i++){ for(let j=i+1;j<dots.length;j++){ const dx=dots[i].x-dots[j].x,dy=dots[i].y-dots[j].y,dist=Math.sqrt(dx*dx+dy*dy); if(dist<30){ ctx.strokeStyle='rgba(184,40,56,'+(1-dist/30)*0.3+')'; ctx.beginPath(); ctx.moveTo(dots[i].x,dots[i].y); ctx.lineTo(dots[j].x,dots[j].y); ctx.stroke(); } } } requestAnimationFrame(draw); } draw(); }); })()
+(() => { const canvases = document.querySelectorAll('.experiment-grid canvas'); canvases.forEach(c => { const ctx = c.getContext('2d'); const w = c.width = c.offsetWidth * 2; const h = c.height = 240; const dots = []; const count = 25; for (let i = 0; i < count; i++) { dots.push({ x: Math.random() * w, y: Math.random() * h, vx: (Math.random() - 0.5) * 0.6, vy: (Math.random() - 0.5) * 0.6, r: 2 + Math.random() * 2 }); } function draw() { ctx.fillStyle = '#1a1a18'; ctx.fillRect(0, 0, w, h); dots.forEach(d => { d.x += d.vx; d.y += d.vy; if (d.x < 0 || d.x > w) d.vx *= -1; if (d.y < 0 || d.y > h) d.vy *= -1; }); for (let i = 0; i < dots.length; i++) { for (let j = i + 1; j < dots.length; j++) { const dx = dots[i].x - dots[j].x; const dy = dots[i].y - dots[j].y; const dist = Math.sqrt(dx*dx + dy*dy); if (dist < 80) { ctx.strokeStyle = `rgba(196,138,32,${0.3 * (1 - dist/80)})`; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(dots[i].x, dots[i].y); ctx.lineTo(dots[j].x, dots[j].y); ctx.stroke(); } } } dots.forEach(d => { ctx.fillStyle = 'rgba(196,138,32,0.7)'; ctx.beginPath(); ctx.arc(d.x, d.y, d.r, 0, Math.PI * 2); ctx.fill(); }); requestAnimationFrame(draw); } draw(); }); })()
 </script>
 
 <!-- ── Three.js ──────────────────────────────────────────────── -->
@@ -780,7 +948,7 @@ document.addEventListener('click', function(e) {
       count: 900,
       size: 0.035,
       speed: 0.01,
-      color: '#b82838',
+      color: '#c48a20',
       opacity: 0.8,
       spread: 4.5,
       orbital_radius: 4,
@@ -790,22 +958,22 @@ document.addEventListener('click', function(e) {
     },
     camera: {
       fov: 72,
-      position: [0, 0, 6],
+      position: [0, 0, 5.5],
       look_at: [0, 0, 0],
       sway_amount: 0.15,
       sway_speed: 0.002,
     },
     fog: {
       enabled: true,
-      color: '#0a0808',
+      color: '#0a0806',
       near: 1.5,
       far: 10,
     },
     lighting: {
       ambient_color: '#200808',
       ambient_intensity: 0.5,
-      point_color: '#e05050',
-      point_intensity: 1.4,
+      point_color: '#e0a840',
+      point_intensity: 1.5,
       point_position: [2, 3, 4],
     },
     mouse: {
@@ -847,40 +1015,36 @@ void main() {
   // meridian wave — particles oscillate around vertical axis
   float meridianPhase = pos.y * 2.0 + uTime * 0.3 + id * 6.28;
   pos.x += sin(meridianPhase) * 0.15;
-  pos.z += cos(meridianPhase * 0.7 + id * 3.14) * 0.12;
+  pos.z += cos(meridianPhase * 0.7) * 0.1;
   
-  // breathing
-  float breath = sin(uTime * 0.25 + id * 4.0) * 0.08;
+  // gentle breathing
+  float breath = sin(uTime * 0.4 + id * 3.14) * 0.05;
   pos *= 1.0 + breath;
-  
-  // slow drift
-  pos.x += sin(uTime * 0.15 + id * 5.0) * 0.2;
-  pos.y += cos(uTime * 0.12 + id * 3.0) * 0.15;
   
   // mouse repulsion
   vec3 toMouse = pos - uMouse;
   float mouseDist = length(toMouse);
-  if(mouseDist < uMouseInfluence && mouseDist > 0.01) {
-    float repelStr = (1.0 - mouseDist / uMouseInfluence) * 1.5;
-    pos += normalize(toMouse) * repelStr;
+  if (mouseDist < uMouseInfluence && mouseDist > 0.01) {
+    float repelStrength = (1.0 - mouseDist / uMouseInfluence) * 1.5;
+    pos += normalize(toMouse) * repelStrength;
   }
   
-  // depth-based color: near=bright crimson, far=deep burgundy
-  vec4 mvPosition = modelViewMatrix * vec4(pos, 1.0);
-  float depth = clamp(-mvPosition.z / 10.0, 0.0, 1.0);
-  vColor = mix(vec3(0.92, 0.18, 0.25), vec3(0.35, 0.06, 0.1), depth);
-  vAlpha = mix(0.9, 0.3, depth);
+  // depth-based color: warm amber near, dark ochre far
+  float depth = length(pos) / 5.0;
+  vColor = mix(vec3(0.88, 0.66, 0.19), vec3(0.50, 0.34, 0.06), clamp(depth, 0.0, 1.0));
+  vAlpha = mix(0.9, 0.3, clamp(depth, 0.0, 1.0));
   
+  vec4 mvPosition = modelViewMatrix * vec4(pos, 1.0);
+  gl_PointSize = mix(3.5, 1.5, clamp(depth, 0.0, 1.0)) * (300.0 / -mvPosition.z);
   gl_Position = projectionMatrix * mvPosition;
-  gl_PointSize = mix(3.5, 1.2, depth) * (300.0 / -mvPosition.z);
 }`;  // agent replaces with GLSL string
   const CUSTOM_FRAGMENT_SHADER = `varying vec3 vColor;
 varying float vAlpha;
 
 void main() {
-  float dist = length(gl_PointCoord - vec2(0.5));
-  if(dist > 0.5) discard;
-  float alpha = vAlpha * (1.0 - dist * 2.0);
+  float d = length(gl_PointCoord - vec2(0.5));
+  if (d > 0.5) discard;
+  float alpha = vAlpha * smoothstep(0.5, 0.15, d);
   gl_FragColor = vec4(vColor, alpha);
 }`;  // agent replaces with GLSL string
 

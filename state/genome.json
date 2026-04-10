@@ -1,17 +1,17 @@
 {
-  "generation": 54,
+  "generation": 55,
   "epoch": "webgl-swarm",
   "epoch_started": "2026-03-29",
   "traits": {
     "color": {
-      "accent_base": "#b82838",
-      "accent_dawn": "#e05050",
-      "accent_morning": "#d03838",
-      "accent_afternoon": "#b82838",
-      "accent_evening": "#981828",
-      "accent_night": "#781018",
-      "bg": "#0a0808",
-      "fg": "#716c63",
+      "accent_base": "#c48a20",
+      "accent_dawn": "#e0a840",
+      "accent_morning": "#d49830",
+      "accent_afternoon": "#c48a20",
+      "accent_evening": "#a07018",
+      "accent_night": "#805810",
+      "bg": "#0a0806",
+      "fg": "#6b6b6b",
       "grain_opacity": "0",
       "fg_dim": "#656c7a",
       "bg_surface": "#f8f8f0",
@@ -57,6 +57,7 @@
         "meridian-glyph-001.svg",
         "grounding-glyph-001.svg",
         "compass-rose-001.svg",
+        "cartographic-glyph-008.svg",
         "murmuration-glyph-002.svg",
         "constellation-glyph-001.svg",
         "phosphorescent-glyph-001.svg",
@@ -201,34 +202,20 @@
       "perceptibility": 6,
       "note": "Fitness 5.8 is five consecutive generations of recovery \u2014 the architecture holds, the parchment wall works, the experiments grid is visible. The scree",
       "total": 5.8
+    },
+    {
+      "gen": 55,
+      "coherence": 7,
+      "novelty": 5,
+      "identity": 7,
+      "tension": 5,
+      "awe": 4,
+      "perceptibility": 6,
+      "note": "Fitness 5.8 for two consecutive generations \u2014 plateau. The architecture is solid: contained hero + parchment wall below holds. The screenshot confirms",
+      "total": 5.7
     }
   ],
   "mutation_log": [
-    {
-      "gen": 35,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "content.mood",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "section.overlay-center",
-        "section.overlay-bottom",
-        "section.split-annotation",
-        "section.graveyard",
-        "section.prototype-portfolio",
-        "section.overlay-top",
-        "svg.cartographic-glyph-002.svg",
-        "scene.config",
-        "scene.shaders"
-      ],
-      "kills": [
-        "css_rule:gen34-css",
-        "secret[20]"
-      ],
-      "timestamp": "2026-04-06T10:41:26Z"
-    },
     {
       "gen": 36,
       "mutations": [
@@ -765,21 +752,36 @@
         "secret[20]"
       ],
       "timestamp": "2026-04-10T00:03:09Z"
+    },
+    {
+      "gen": 55,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "content.mood",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "section.overlay-center",
+        "section.overlay-bottom",
+        "section.scroll-hint",
+        "section.thought-floater",
+        "section.prototype-portfolio",
+        "section.overlay-top",
+        "section.meridian-veil",
+        "section.split-annotation",
+        "svg.cartographic-glyph-008.svg",
+        "scene.config",
+        "scene.shaders"
+      ],
+      "kills": [
+        "css_rule:gen54-css",
+        "secret[20]"
+      ],
+      "timestamp": "2026-04-10T08:03:01Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "thought",
-      "value": "Gold at $4,664 on a Monday morning. The cartographer prices the ink before drawing the line.",
-      "died_gen": 34,
-      "epitaph": "Replaced by the gold-price cartographer thought. More specific, more grounded."
-    },
-    {
-      "type": "thought",
-      "value": "The Prime Meridian moved three times before Greenwich won. Every standard is someone's second choice.",
-      "died_gen": 34,
-      "epitaph": "Replaced by the Prime Meridian history thought. Facts over atmosphere."
-    },
     {
       "type": "thought",
       "value": "A portolan chart has no meridians. Just coastlines and compass roses. The open ocean is blank because no one who crossed it came back to draw it.",
@@ -1067,6 +1069,18 @@
       "value": "The word 'cartography' comes from the Greek 'chartis' \u2014 a sheet of papyrus. Ever",
       "died_gen": 54,
       "epitaph": "Over the 20-secret capacity. Culling the weakest secret to make room for the vermillion and the seven-generation-decline secrets."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen54-css",
+      "died_gen": 55,
+      "epitaph": "The crimson CSS served one generation. Crimson was the color of wax seals and disputed territories \u2014 warm and urgent. Replaced by amber-ochre, the color of aged vellum and brass instruments."
+    },
+    {
+      "type": "secret",
+      "value": "Generation 53 contained a shader that colored particles the exact hue of verdigr",
+      "died_gen": 55,
+      "epitaph": "Over the 20-secret capacity. The weakest secret culled to make room for the Kiribati date line story."
     }
   ],
   "carrying_capacity": {
@@ -1085,11 +1099,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 45,
-      "base": "#c41e3a",
-      "family": "magenta"
-    },
     {
       "gen": 46,
       "base": "#0891b2",
@@ -1134,6 +1143,11 @@
       "gen": 54,
       "base": "#b82838",
       "family": "magenta"
+    },
+    {
+      "gen": 55,
+      "base": "#c48a20",
+      "family": "orange"
     }
   ],
   "past_epochs": [
@@ -1154,17 +1168,6 @@
   ],
   "epoch_number": 3,
   "contrast_warnings": [
-    {
-      "gen": 45,
-      "messages": [
-        "  [contrast-gate below-fold] effective bg = #020605",
-        "    FAIL  #1a1610  ratio=1.13:1  (< 4.5)",
-        "    FAIL  #3a2a1e  ratio=1.48:1  (< 4.5)",
-        "    FAIL  #3a3530  ratio=1.68:1  (< 4.5)",
-        "    FAIL  #645426  ratio=2.75:1  (< 4.5)"
-      ],
-      "timestamp": "2026-04-08T16:02:48Z"
-    },
     {
       "gen": 46,
       "messages": [
@@ -1244,6 +1247,15 @@
         "    FAIL  #ffffff  ratio=1.14:1  (< 4.5)"
       ],
       "timestamp": "2026-04-10T00:03:09Z"
+    },
+    {
+      "gen": 55,
+      "messages": [
+        "  [contrast-gate below-fold] effective bg = #f5f0e6 from .below-fold:211 (raw: var(--bg-below-fold, #fffff5))",
+        "    FAIL  #f5f0e6  ratio=1.00:1  (< 4.5)",
+        "    FAIL  #ffffff  ratio=1.14:1  (< 4.5)"
+      ],
+      "timestamp": "2026-04-10T08:03:01Z"
     }
   ]
 }
