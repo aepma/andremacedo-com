@@ -353,6 +353,31 @@ print(f'Portfolio: {len(portfolio[\"epochs\"])} epochs')
 git add -A
 git commit -m "agent: ${SUMMARY} | mood: ${CURRENT_MOOD} | pulse: ${PULSE_TYPE}" || log "Nothing to commit"
 
+# ── Archive current generation before deploy ─────────────────────
+ARCHIVE_DIR="$HOME/andremacedo.com/archive/$(date +%Y-%m-%d-%H%M%S)"
+mkdir -p "$ARCHIVE_DIR"
+cp -r "$SITE_DIR"/* "$ARCHIVE_DIR/" 2>/dev/null || true
+
+# Screenshot the current live site for archive
+PLAYWRIGHT_PYTHON="$HOME/.openclaw/playwright-venv/bin/python3"
+if [ -x "$PLAYWRIGHT_PYTHON" ]; then
+  "$PLAYWRIGHT_PYTHON" -c "
+import asyncio
+from playwright.async_api import async_playwright
+async def snap():
+    async with async_playwright() as p:
+        browser = await p.chromium.launch()
+        page = await browser.new_page(viewport={'width': 1200, 'height': 800})
+        await page.goto('https://andremacedo.com', wait_until='networkidle', timeout=30000)
+        await page.screenshot(path='$ARCHIVE_DIR/snapshot.png', full_page=True)
+        await browser.close()
+asyncio.run(snap())
+" 2>/dev/null || echo "Archive screenshot failed (non-fatal)"
+fi
+
+# Prune old archives, keep last 20
+cd "$HOME/andremacedo.com/archive" && ls -dt */ 2>/dev/null | tail -n +21 | xargs rm -rf 2>/dev/null || true
+
 # ── Deploy to Cloudflare Pages ────────────────────────────────────
 log "Deploying to Cloudflare Pages..."
 
@@ -367,6 +392,9 @@ log "Deployed to andremacedo.com"
 
 # ── Push to GitHub (backup, non-blocking) ─────────────────────────
 git -C "$SITE_DIR" push origin main 2>/dev/null || log "WARN: git push failed (non-fatal)"
+
+# Post-deploy contrast verification
+bash "$SCRIPT_DIR/contrast-check.sh" "$SITE_DIR" 2>/dev/null || echo "Contrast check failed (non-fatal)"
 
 # ── Notify ─────────────────────────────────────────────────────────
 # Mark the run as successful: reset the consecutive-failure counter.
