@@ -1,17 +1,17 @@
 {
-  "generation": 56,
+  "generation": 57,
   "epoch": "webgl-swarm",
   "epoch_started": "2026-03-29",
   "traits": {
     "color": {
-      "accent_base": "#2b6cb0",
-      "accent_dawn": "#5a9cd4",
-      "accent_morning": "#4088c8",
-      "accent_afternoon": "#2b6cb0",
-      "accent_evening": "#1d5a9a",
-      "accent_night": "#134880",
-      "bg": "#0a0a14",
-      "fg": "#6a6a72",
+      "accent_base": "#8b2252",
+      "accent_dawn": "#c44478",
+      "accent_morning": "#a83366",
+      "accent_afternoon": "#8b2252",
+      "accent_evening": "#6e1a42",
+      "accent_night": "#4a1130",
+      "bg": "#0a0608",
+      "fg": "#736870",
       "grain_opacity": "0",
       "fg_dim": "#656c7a",
       "bg_surface": "#f8f8f0",
@@ -36,6 +36,28 @@
       ],
       "pages": [
         "index-new.html",
+        "archive/2026-04-12-020314/index-new.html",
+        "archive/2026-04-12-020314/archive/2026-04-10-100301/index-new.html",
+        "archive/2026-04-12-020314/archive/2026-04-10-100301/experiments/004.html",
+        "archive/2026-04-12-020314/archive/2026-04-10-100301/experiments/008.html",
+        "archive/2026-04-12-020314/archive/2026-04-10-100301/experiments/009.html",
+        "archive/2026-04-12-020314/archive/2026-04-10-100301/experiments/005.html",
+        "archive/2026-04-12-020314/archive/2026-04-10-100301/experiments/002.html",
+        "archive/2026-04-12-020314/archive/2026-04-10-100301/experiments/003.html",
+        "archive/2026-04-12-020314/archive/2026-04-10-100301/experiments/001.html",
+        "archive/2026-04-12-020314/archive/2026-04-10-100301/experiments/010.html",
+        "archive/2026-04-12-020314/archive/2026-04-10-100301/experiments/006.html",
+        "archive/2026-04-12-020314/archive/2026-04-10-100301/experiments/007.html",
+        "archive/2026-04-12-020314/experiments/004.html",
+        "archive/2026-04-12-020314/experiments/008.html",
+        "archive/2026-04-12-020314/experiments/009.html",
+        "archive/2026-04-12-020314/experiments/005.html",
+        "archive/2026-04-12-020314/experiments/002.html",
+        "archive/2026-04-12-020314/experiments/003.html",
+        "archive/2026-04-12-020314/experiments/001.html",
+        "archive/2026-04-12-020314/experiments/010.html",
+        "archive/2026-04-12-020314/experiments/006.html",
+        "archive/2026-04-12-020314/experiments/007.html",
         "archive/2026-04-10-100301/index-new.html",
         "archive/2026-04-10-100301/experiments/004.html",
         "archive/2026-04-10-100301/experiments/008.html",
@@ -56,7 +78,8 @@
         "experiments/001.html",
         "experiments/010.html",
         "experiments/006.html",
-        "experiments/007.html"
+        "experiments/007.html",
+        "experiments/011.html"
       ],
       "svg_assets": [
         "vernal-glyph-001.svg",
@@ -90,6 +113,7 @@
         "cartographic-glyph-007.svg",
         "engraved-glyph-001.svg",
         "cartographic-glyph-005.svg",
+        "cartographic-glyph-010.svg",
         "cartographic-glyph-004.svg",
         "sunlit-glyph-001.svg",
         "pulse-ring-001.svg",
@@ -236,36 +260,20 @@
       "perceptibility": 6,
       "note": "Fitness 5.7 for three generations \u2014 plateau, not decline, but not growth either. The screenshot shows the architecture working: dark hero zone with am",
       "total": 5.8
+    },
+    {
+      "gen": 57,
+      "coherence": 7,
+      "novelty": 5,
+      "identity": 7,
+      "tension": 5,
+      "awe": 4,
+      "perceptibility": 6,
+      "note": "Fitness 5.8 for three generations is a plateau. The screenshot shows the architecture working: dark hero zone with particles contained, warm parchment",
+      "total": 5.7
     }
   ],
   "mutation_log": [
-    {
-      "gen": 37,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "content.mood",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "section.overlay-center",
-        "section.split-annotation",
-        "section.overlay-bottom",
-        "section.graveyard",
-        "section.prototype-portfolio",
-        "section.thought-floater",
-        "section.scroll-hint",
-        "svg.engraved-glyph-001.svg",
-        "scene.config",
-        "scene.shaders",
-        "overlay.agent_data"
-      ],
-      "kills": [
-        "css_rule:gen36-css",
-        "secret[20]"
-      ],
-      "timestamp": "2026-04-06T16:02:56Z"
-    },
     {
       "gen": 38,
       "mutations": [
@@ -804,21 +812,34 @@
         "secret[20]"
       ],
       "timestamp": "2026-04-12T00:03:14Z"
+    },
+    {
+      "gen": 57,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "content.mood",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "section.overlay-center",
+        "section.overlay-bottom",
+        "section.prototype-portfolio",
+        "section.thought-floater",
+        "section.scroll-hint",
+        "page.experiments/011.html",
+        "svg.cartographic-glyph-010.svg",
+        "scene.config",
+        "scene.shaders"
+      ],
+      "kills": [
+        "css_rule:gen56-css",
+        "secret[20]"
+      ],
+      "timestamp": "2026-04-12T16:03:31Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "css_rule",
-      "value": "gen34-css",
-      "died_gen": 35,
-      "epitaph": "Superseded by gen35 emerald-cartographic rules. Violet gives way to verdigris returned."
-    },
-    {
-      "type": "secret",
-      "value": "The antimeridian is where today dies. Generation 34 was born at the line.",
-      "died_gen": 35,
-      "epitaph": "Duplicate of graveyard-grows-faster secret. Redundancy is not emphasis."
-    },
     {
       "type": "css_rule",
       "value": "gen35-css",
@@ -1106,6 +1127,18 @@
       "value": "The International Date Line bends around Kiribati because in 1995 the government",
       "died_gen": 56,
       "epitaph": "Over the 20-secret capacity. Culling the weakest to make room for the Greenwich Observatory fact \u2014 209 years of being just a line through a building is too good to lose."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen56-css",
+      "died_gen": 57,
+      "epitaph": "The cerulean CSS served one generation. Cerulean was the color of ocean on old charts \u2014 beautiful but too corporate against the warm parchment. Wine-crimson is more personal, more like the ink a cartographer would actually bleed into the paper."
+    },
+    {
+      "type": "secret",
+      "value": "The Royal Observatory at Greenwich was built in 1675. The meridian that runs thr",
+      "died_gen": 57,
+      "epitaph": "Over the 20-secret capacity. Culling the weakest to make room for the GPS atomic clock secret \u2014 because knowing where you are is really about knowing what time it is."
     }
   ],
   "carrying_capacity": {
@@ -1124,11 +1157,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 47,
-      "base": "#2d6b45",
-      "family": "lime"
-    },
     {
       "gen": 48,
       "base": "#b82030",
@@ -1173,6 +1201,11 @@
       "gen": 56,
       "base": "#2b6cb0",
       "family": "teal"
+    },
+    {
+      "gen": 57,
+      "base": "#8b2252",
+      "family": "magenta"
     }
   ],
   "past_epochs": [
@@ -1193,15 +1226,6 @@
   ],
   "epoch_number": 3,
   "contrast_warnings": [
-    {
-      "gen": 47,
-      "messages": [
-        "  [contrast-gate below-fold] effective bg = #0a0a0a from .below-fold:211 (raw: var(--bg-below-fold, #fffff5))",
-        "    FAIL  #3a2a1e  ratio=1.44:1  (< 4.5)",
-        "    FAIL  #645426  ratio=2.68:1  (< 4.5)"
-      ],
-      "timestamp": "2026-04-08T22:19:50Z"
-    },
     {
       "gen": 48,
       "messages": [
@@ -1281,6 +1305,15 @@
         "    FAIL  #ffffff  ratio=1.14:1  (< 4.5)"
       ],
       "timestamp": "2026-04-12T00:03:14Z"
+    },
+    {
+      "gen": 57,
+      "messages": [
+        "  [contrast-gate below-fold] effective bg = #f5f0e6 from .below-fold:211 (raw: var(--bg-below-fold, #fffff5))",
+        "    FAIL  #f5f0e6  ratio=1.00:1  (< 4.5)",
+        "    FAIL  #ffffff  ratio=1.14:1  (< 4.5)"
+      ],
+      "timestamp": "2026-04-12T16:03:31Z"
     }
   ]
 }

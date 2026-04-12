@@ -337,7 +337,12 @@ def extract_json_object(text):
     raise ValueError("No balanced JSON object found")
 
 content_str = extract_json_object(content_str)
-changes = json.loads(content_str)
+try:
+    changes = json.loads(content_str)
+except json.JSONDecodeError as e:
+    print(f"ERROR: LLM output is not valid JSON: {e}", file=sys.stderr)
+    print(f"Raw content (first 500 chars): {content_str[:500]}", file=sys.stderr)
+    sys.exit(1)
 now = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
 state_path = os.path.join(site_dir, "state", "agent-state.json")

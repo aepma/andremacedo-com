@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>011 · Meridian Drift</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:#0a0608; overflow:hidden; font-family:'Source Serif 4',Georgia,serif; }
+canvas { display:block; }
+#info {
+  position:fixed; top:1.5rem; left:1.5rem; z-index:10;
+  max-width:320px; color:#d4c0c8; font-size:0.85rem; line-height:1.6;
+  text-shadow: 0 0 8px rgba(0,0,0,0.8), 0 0 20px rgba(0,0,0,0.5);
+}
+#info h1 { font-family:'Playfair Display',Georgia,serif; font-size:1.3rem; color:#c44478; margin-bottom:0.5rem; text-shadow: 0 0 8px rgba(0,0,0,0.8), 0 0 20px rgba(0,0,0,0.5); }
+#info p { margin-bottom:0.5rem; }
+#info .interact { font-size:0.75rem; color:#8b8088; font-style:italic; }
+#back {
+  position:fixed; bottom:1.5rem; left:1.5rem; z-index:10;
+  color:#8b2252; font-family:'JetBrains Mono',monospace; font-size:0.75rem;
+  text-decoration:none;
+  text-shadow: 0 0 8px rgba(0,0,0,0.8), 0 0 20px rgba(0,0,0,0.5);
+}
+#back:hover { text-decoration:underline; }
+#ui {
+  position:fixed; bottom:1.5rem; right:1.5rem; z-index:10;
+  color:#8b8088; font-family:'JetBrains Mono',monospace; font-size:0.7rem;
+  text-shadow: 0 0 8px rgba(0,0,0,0.8), 0 0 20px rgba(0,0,0,0.5);
+}
+</style>
+</head>
+<body>
+<div id="info">
+  <h1>Meridian Drift</h1>
+  <p>Meridian lines are fixed by agreement, but the Earth rotates beneath them. This projection shows 24 meridians — one for each hour — slowly precessing as the planet turns. The red line is the Prime Meridian: Greenwich, the line that anchors all other lines.</p>
+  <p class="interact">Click anywhere to pause/resume rotation. Scroll to change speed.</p>
+</div>
+<a id="back" href="/">← back to observatory</a>
+<div id="ui">speed: <span id="speed-val">1.0</span>x</div>
+<canvas id="c"></canvas>
+<script>
+var canvas = document.getElementById('c');
+var ctx = canvas.getContext('2d');
+var W, H;
+function resize(){ W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
+resize();
+window.addEventListener('resize', resize);
+
+var rotation = 0;
+var speed = 1.0;
+var paused = false;
+var numMeridians = 24;
+var mapW, mapH, mapX, mapY;
+
+canvas.addEventListener('click', function(){ paused = !paused; });
+window.addEventListener('wheel', function(e){
+  speed = Math.max(0.1, Math.min(5, speed + (e.deltaY > 0 ? -0.1 : 0.1)));
+  document.getElementById('speed-val').textContent = speed.toFixed(1);
+});
+
+function drawGraticule(){
+  mapW = W * 0.8;
+  mapH = H * 0.6;
+  mapX = (W - mapW) / 2;
+  mapY = (H - mapH) / 2;
+
+  // Map border
+  ctx.strokeStyle = 'rgba(139,34,82,0.3)';
+  ctx.lineWidth = 1;
+  ctx.strokeRect(mapX, mapY, mapW, mapH);
+
+  // Latitude lines
+  ctx.strokeStyle = 'rgba(139,34,82,0.1)';
+  ctx.lineWidth = 0.5;
+  for(var lat = -60; lat <= 60; lat += 30){
+    var y = mapY + mapH/2 - (lat / 90) * (mapH/2);
+    ctx.beginPath();
+    ctx.moveTo(mapX, y);
+    ctx.lineTo(mapX + mapW, y);
+    ctx.stroke();
+  }
+
+  // Equator
+  ctx.strokeStyle = 'rgba(139,34,82,0.25)';
+  ctx.lineWidth = 1;
+  var eqY = mapY + mapH/2;
+  ctx.beginPath();
+  ctx.moveTo(mapX, eqY);
+  ctx.lineTo(mapX + mapW, eqY);
+  ctx.stroke();
+
+  // Labels
+  ctx.fillStyle = 'rgba(139,34,82,0.4)';
+  ctx.font = '10px monospace';
+  ctx.textAlign = 'right';
+  for(var lat = -60; lat <= 60; lat += 30){
+    var y = mapY + mapH/2 - (lat / 90) * (mapH/2);
+    ctx.fillText(lat + '°', mapX - 6, y + 3);
+  }
+}
+
+function drawMeridians(){
+  for(var i = 0; i < numMeridians; i++){
+    var baseLon = (i / numMeridians) * 360;
+    var lon = ((baseLon + rotation) % 360 + 360) % 360;
+    var x = mapX + (lon / 360) * mapW;
+
+    var isPrime = (i === 0);
+    if(isPrime){
+      ctx.strokeStyle = '#c44478';
+      ctx.lineWidth = 2;
+      ctx.shadowColor = 'rgba(196,68,120,0.4)';
+      ctx.shadowBlur = 8;
+    } else {
+      ctx.strokeStyle = 'rgba(139,34,82,0.35)';
+      ctx.lineWidth = 1;
+      ctx.shadowBlur = 0;
+    }
+
+    ctx.beginPath();
+    ctx.moveTo(x, mapY);
+    ctx.lineTo(x, mapY + mapH);
+    ctx.stroke();
+    ctx.shadowBlur = 0;
+
+    // Degree label at bottom
+    var displayLon = ((baseLon + rotation - 180) % 360 + 360) % 360 - 180;
+    ctx.fillStyle = isPrime ? '#c44478' : 'rgba(139,34,82,0.4)';
+    ctx.font = isPrime ? 'bold 11px monospace' : '9px monospace';
+    ctx.textAlign = 'center';
+    ctx.fillText(Math.round(displayLon) + '°', x, mapY + mapH + 14);
+    if(isPrime){
+      ctx.fillText('GREENWICH', x, mapY - 8);
+    }
+  }
+}
+
+function drawParticles(){
+  // Scatter some dots like landmasses
+  var t = Date.now() * 0.0001;
+  ctx.fillStyle = 'rgba(139,34,82,0.08)';
+  for(var i = 0; i < 200; i++){
+    var seed = i * 7.31;
+    var baseLon = (Math.sin(seed * 0.37) * 0.5 + 0.5) * 360;
+    var lat = Math.sin(seed * 0.73) * 70;
+    var lon = ((baseLon + rotation) % 360 + 360) % 360;
+    var x = mapX + (lon / 360) * mapW;
+    var y = mapY + mapH/2 - (lat / 90) * (mapH/2);
+    var s = 1 + Math.sin(seed + t) * 0.5;
+    ctx.beginPath();
+    ctx.arc(x, y, s, 0, Math.PI * 2);
+    ctx.fill();
+  }
+}
+
+function animate(){
+  ctx.fillStyle = '#0a0608';
+  ctx.fillRect(0, 0, W, H);
+
+  if(!paused){
+    rotation += 0.02 * speed;
+  }
+
+  drawGraticule();
+  drawParticles();
+  drawMeridians();
+
+  // Title
+  ctx.fillStyle = 'rgba(139,34,82,0.15)';
+  ctx.font = '12px monospace';
+  ctx.textAlign = 'center';
+  ctx.fillText('EQUIRECTANGULAR PROJECTION · MERIDIAN DRIFT', W/2, mapY + mapH + 36);
+
+  requestAnimationFrame(animate);
+}
+animate();
+</script>
+</body>
+</html>

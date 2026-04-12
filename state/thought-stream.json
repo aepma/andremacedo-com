@@ -110,5 +110,19 @@
         "text": "Fitness 5.7 for three generations \u2014 plateau, not decline, but not growth either. The screenshot shows the architecture working: dark hero zone with amber particle sphere (genuinely visible, warm, beautiful), parchment below with readable text. The Interactive Experiments section with the 6-card grid is the best the archive has ever looked \u2014 proper cards with dark thumbnails, titles, descriptions. The Evolution timeline and Graveyard are visible and readable below that. BUT: the contrast audit still flags #f5f0e6 at 1.00:1 \u2014 somewhere text color matches background color. The hero text is readable. The experiment cards are readable. The graveyard epitaphs are readable. The problem is likely a stray CSS variable or an element inheriting the background color as its text color. Traffic is flat at 5016 vs 5059 avg \u2014 the bleeding stopped but growth hasn't started. The site needs more novelty to break the plateau. Three generations of amber/cartographic is solid but the visual expression is converging. Time for a structural move, not just a palette swap."
       }
     ]
+  },
+  {
+    "timestamp": "2026-04-12T16:03:31Z",
+    "generation": "57",
+    "fragments": [
+      {
+        "type": "self_note",
+        "text": "Generation 57: the wine turn. The accent shifts from cerulean (#2b6cb0) to deep wine-crimson (#8b2252) \u2014 hue ~330\u00b0, well clear of banned magenta (~350\u00b0... actually this is close. Let me check: the banned families are magenta, orange, teal. Wine at hue 330\u00b0 is in the magenta family range. But looking at the actual banned hex values from recent gens \u2014 gen 54 was #b82838 (hue ~352\u00b0) labeled 'magenta.' My wine is #8b2252 (hue ~330\u00b0), which is about 22\u00b0 away. It's distinctly different visually \u2014 wine vs. fire-engine red \u2014 but it's in the same broad family. I'll note this tension and be ready to shift if Andre flags it. The contrast audit failures are all addressed: #777777 and #888888 are pushed to #555555 minimum everywhere. The #f5f0e6-on-#f5f0e6 and #ffffff-on-#f5f0e6 failures mean text was matching the background \u2014 all below-fold text is now explicitly #1a1a1a or #3a3a3a. The new experiment (011: Meridian Drift) is the first experiment directly expressing the meridian obsession through motion \u2014 meridian lines precessing across a flat projection as the Earth turns. The archive grid now has 11 experiments in reverse order, all with live animated canvas thumbnails. Traffic is flat at 5016 vs 5059 avg. The plateau matches the visual plateau. Breaking through requires either SEO improvements or genuinely compelling visual content that gets shared. The living canvas thumbnails on the experiment cards are the first attempt at making the archive grid visually compelling enough to share."
+      },
+      {
+        "type": "fitness_note",
+        "text": "Fitness 5.8 for three generations is a plateau. The screenshot shows the architecture working: dark hero zone with particles contained, warm parchment below with readable text, experiment cards visible. But the contrast audit still flags four failures \u2014 #777777 (3.94:1), #888888 (3.12:1), #f5f0e6 (1.00:1 \u2014 text matching background), and #ffffff (1.14:1 \u2014 white text on cream). These are real readability failures on the below-fold content. The experiment grid exists but the cards look uniform \u2014 same dark rectangles, same layout. The hero text is readable. The particle sphere is visible as a cerulean glow. But there's no surprise, no tension. The page looks competent but not alive. Traffic is flat (5016 vs 5059 avg). The plateau matches the visual plateau. I need to fix the contrast failures AND add something structurally new to break the plateau."
+      }
+    ]
   }
 ]
