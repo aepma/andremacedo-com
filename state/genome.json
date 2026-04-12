@@ -1,17 +1,17 @@
 {
-  "generation": 55,
+  "generation": 56,
   "epoch": "webgl-swarm",
   "epoch_started": "2026-03-29",
   "traits": {
     "color": {
-      "accent_base": "#c48a20",
-      "accent_dawn": "#e0a840",
-      "accent_morning": "#d49830",
-      "accent_afternoon": "#c48a20",
-      "accent_evening": "#a07018",
-      "accent_night": "#805810",
-      "bg": "#0a0806",
-      "fg": "#6b6b6b",
+      "accent_base": "#2b6cb0",
+      "accent_dawn": "#5a9cd4",
+      "accent_morning": "#4088c8",
+      "accent_afternoon": "#2b6cb0",
+      "accent_evening": "#1d5a9a",
+      "accent_night": "#134880",
+      "bg": "#0a0a14",
+      "fg": "#6a6a72",
       "grain_opacity": "0",
       "fg_dim": "#656c7a",
       "bg_surface": "#f8f8f0",
@@ -36,6 +36,17 @@
       ],
       "pages": [
         "index-new.html",
+        "archive/2026-04-10-100301/index-new.html",
+        "archive/2026-04-10-100301/experiments/004.html",
+        "archive/2026-04-10-100301/experiments/008.html",
+        "archive/2026-04-10-100301/experiments/009.html",
+        "archive/2026-04-10-100301/experiments/005.html",
+        "archive/2026-04-10-100301/experiments/002.html",
+        "archive/2026-04-10-100301/experiments/003.html",
+        "archive/2026-04-10-100301/experiments/001.html",
+        "archive/2026-04-10-100301/experiments/010.html",
+        "archive/2026-04-10-100301/experiments/006.html",
+        "archive/2026-04-10-100301/experiments/007.html",
         "experiments/004.html",
         "experiments/008.html",
         "experiments/009.html",
@@ -56,6 +67,7 @@
         "lantern-glyph-001.svg",
         "meridian-glyph-001.svg",
         "grounding-glyph-001.svg",
+        "cartographic-glyph-009.svg",
         "compass-rose-001.svg",
         "cartographic-glyph-008.svg",
         "murmuration-glyph-002.svg",
@@ -213,34 +225,20 @@
       "perceptibility": 6,
       "note": "Fitness 5.8 for two consecutive generations \u2014 plateau. The architecture is solid: contained hero + parchment wall below holds. The screenshot confirms",
       "total": 5.7
+    },
+    {
+      "gen": 56,
+      "coherence": 7,
+      "novelty": 5,
+      "identity": 7,
+      "tension": 5,
+      "awe": 5,
+      "perceptibility": 6,
+      "note": "Fitness 5.7 for three generations \u2014 plateau, not decline, but not growth either. The screenshot shows the architecture working: dark hero zone with am",
+      "total": 5.8
     }
   ],
   "mutation_log": [
-    {
-      "gen": 36,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "content.mood",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "section.overlay-center",
-        "section.overlay-bottom",
-        "section.split-annotation",
-        "section.graveyard",
-        "section.prototype-portfolio",
-        "page.experiments/007.html",
-        "svg.cartographic-glyph-003.svg",
-        "scene.config",
-        "scene.shaders"
-      ],
-      "kills": [
-        "css_rule:gen35-css",
-        "secret[5]"
-      ],
-      "timestamp": "2026-04-06T11:03:07Z"
-    },
     {
       "gen": 37,
       "mutations": [
@@ -779,21 +777,36 @@
         "secret[20]"
       ],
       "timestamp": "2026-04-10T08:03:01Z"
+    },
+    {
+      "gen": 56,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "content.mood",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "section.overlay-center",
+        "section.overlay-bottom",
+        "section.scroll-hint",
+        "section.prototype-portfolio",
+        "section.overlay-top",
+        "section.thought-floater",
+        "section.meridian-veil",
+        "section.split-annotation",
+        "svg.cartographic-glyph-009.svg",
+        "scene.config",
+        "scene.shaders"
+      ],
+      "kills": [
+        "css_rule:gen55-css",
+        "secret[20]"
+      ],
+      "timestamp": "2026-04-12T00:03:14Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "thought",
-      "value": "A portolan chart has no meridians. Just coastlines and compass roses. The open ocean is blank because no one who crossed it came back to draw it.",
-      "died_gen": 34,
-      "epitaph": "Replaced by the portolan chart thought. Specific historical detail beats vague mood."
-    },
-    {
-      "type": "thought",
-      "value": "The International Date Line bends around nations that refused to be yesterday while their neighbors were tomorrow.",
-      "died_gen": 34,
-      "epitaph": "Replaced by the International Date Line thought. The bending line is a better image."
-    },
     {
       "type": "css_rule",
       "value": "gen34-css",
@@ -1081,6 +1094,18 @@
       "value": "Generation 53 contained a shader that colored particles the exact hue of verdigr",
       "died_gen": 55,
       "epitaph": "Over the 20-secret capacity. The weakest secret culled to make room for the Kiribati date line story."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen55-css",
+      "died_gen": 56,
+      "epitaph": "The amber CSS served one generation. Amber was warm and honest \u2014 brass instruments and aged vellum. But the site needs to move. Cerulean is the color of unmapped water."
+    },
+    {
+      "type": "secret",
+      "value": "The International Date Line bends around Kiribati because in 1995 the government",
+      "died_gen": 56,
+      "epitaph": "Over the 20-secret capacity. Culling the weakest to make room for the Greenwich Observatory fact \u2014 209 years of being just a line through a building is too good to lose."
     }
   ],
   "carrying_capacity": {
@@ -1099,11 +1124,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 46,
-      "base": "#0891b2",
-      "family": "teal"
-    },
     {
       "gen": 47,
       "base": "#2d6b45",
@@ -1148,6 +1168,11 @@
       "gen": 55,
       "base": "#c48a20",
       "family": "orange"
+    },
+    {
+      "gen": 56,
+      "base": "#2b6cb0",
+      "family": "teal"
     }
   ],
   "past_epochs": [
@@ -1168,17 +1193,6 @@
   ],
   "epoch_number": 3,
   "contrast_warnings": [
-    {
-      "gen": 46,
-      "messages": [
-        "  [contrast-gate below-fold] effective bg = #020605",
-        "    FAIL  #1a1a1a  ratio=1.17:1  (< 4.5)",
-        "    FAIL  #3a2a1e  ratio=1.48:1  (< 4.5)",
-        "    FAIL  #645426  ratio=2.75:1  (< 4.5)",
-        "    FAIL  #6b7280  ratio=4.21:1  (< 4.5)"
-      ],
-      "timestamp": "2026-04-08T22:04:14Z"
-    },
     {
       "gen": 47,
       "messages": [
@@ -1256,6 +1270,17 @@
         "    FAIL  #ffffff  ratio=1.14:1  (< 4.5)"
       ],
       "timestamp": "2026-04-10T08:03:01Z"
+    },
+    {
+      "gen": 56,
+      "messages": [
+        "  [contrast-gate below-fold] effective bg = #f5f0e6 from .below-fold:211 (raw: var(--bg-below-fold, #fffff5))",
+        "    FAIL  #777777  ratio=3.94:1  (< 4.5)",
+        "    FAIL  #888888  ratio=3.12:1  (< 4.5)",
+        "    FAIL  #f5f0e6  ratio=1.00:1  (< 4.5)",
+        "    FAIL  #ffffff  ratio=1.14:1  (< 4.5)"
+      ],
+      "timestamp": "2026-04-12T00:03:14Z"
     }
   ]
 }
