@@ -145,7 +145,7 @@ SCREENSHOT_ARG=""
 python3 "$SCRIPT_DIR/build_prompt.py" "$PULSE_TYPE" "$STATE_FILE" "$EXTERNAL_FILE" "$INDEX_FILE" "$SOUL_FILE" "$CHANGELOG" "$TODAY" "$DAY_OF_WEEK" "$TOD" $SCREENSHOT_ARG > "$PROMPT_FILE"
 
 if [ "$PULSE_TYPE" = "weekly" ]; then MAX_TOKENS=16000
-elif [ "$PULSE_TYPE" = "daily" ]; then MAX_TOKENS=12000
+elif [ "$PULSE_TYPE" = "daily" ]; then MAX_TOKENS=16000
 else MAX_TOKENS=10000
 fi
 
@@ -185,6 +185,31 @@ OUTPUT_TOKENS="$(python3 -c 'import json,sys; print(json.load(sys.stdin).get("us
 export TOTAL_TOKENS=$((INPUT_TOKENS + OUTPUT_TOKENS))
 
 log "Tokens: $INPUT_TOKENS in + $OUTPUT_TOKENS out = $TOTAL_TOKENS"
+
+# Write session entry for cost-report.sh auto-discovery
+SESSIONS_DIR="$HOME/.openclaw/agents/andremacedo-creative/sessions"
+mkdir -p "$SESSIONS_DIR"
+SESSION_FILE="$SESSIONS_DIR/$(date -u +%Y-%m-%d).jsonl"
+EPOCH_MS=$(python3 -c "import time; print(int(time.time()*1000))")
+python3 -c "
+import json
+entry = {
+    'type': 'message',
+    'message': {
+        'role': 'assistant',
+        'model': 'claude-opus-4-6',
+        'timestamp': $EPOCH_MS,
+        'usage': {
+            'input': $INPUT_TOKENS,
+            'output': $OUTPUT_TOKENS,
+            'cacheRead': 0,
+            'cacheWrite': 0,
+            'totalTokens': $TOTAL_TOKENS
+        }
+    }
+}
+print(json.dumps(entry))
+" >> "$SESSION_FILE"
 
 # ── Apply changes ──────────────────────────────────────────────────
 cd "$SITE_DIR"
