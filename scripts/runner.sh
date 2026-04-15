@@ -378,12 +378,13 @@ print(f'Portfolio: {len(portfolio[\"epochs\"])} epochs')
 git add -A
 git commit -m "agent: ${SUMMARY} | mood: ${CURRENT_MOOD} | pulse: ${PULSE_TYPE}" || log "Nothing to commit"
 
-# ── Archive current generation before deploy ─────────────────────
-ARCHIVE_DIR="$HOME/andremacedo.com/archive/$(date +%Y-%m-%d-%H%M%S)"
-mkdir -p "$ARCHIVE_DIR"
-cp -r "$SITE_DIR"/* "$ARCHIVE_DIR/" 2>/dev/null || true
+# ── Archive: screenshot-only (git has full state history) ────────
+TIMESTAMP="$(date +%Y-%m-%d-%H%M%S)"
+SCREENSHOT_DIR="$SITE_DIR/archive-screenshots"
+SCREENSHOT_FILE="$SCREENSHOT_DIR/${TIMESTAMP}.png"
+MANIFEST_FILE="$SCREENSHOT_DIR/manifest.json"
 
-# Screenshot the current live site for archive
+# Take screenshot of current live site
 PLAYWRIGHT_PYTHON="$HOME/.openclaw/playwright-venv/bin/python3"
 if [ -x "$PLAYWRIGHT_PYTHON" ]; then
   "$PLAYWRIGHT_PYTHON" -c "
@@ -394,14 +395,38 @@ async def snap():
         browser = await p.chromium.launch()
         page = await browser.new_page(viewport={'width': 1200, 'height': 800})
         await page.goto('https://andremacedo.com', wait_until='networkidle', timeout=30000)
-        await page.screenshot(path='$ARCHIVE_DIR/snapshot.png', full_page=True)
+        await page.screenshot(path='${SCREENSHOT_FILE}', full_page=True)
         await browser.close()
 asyncio.run(snap())
 " 2>/dev/null || echo "Archive screenshot failed (non-fatal)"
 fi
 
-# Prune old archives, keep last 20
-cd "$HOME/andremacedo.com/archive" && ls -dt */ 2>/dev/null | tail -n +21 | xargs rm -rf 2>/dev/null || true
+# Append to manifest (git SHA, mood, fitness, timestamp)
+GIT_SHA="$(git -C "$SITE_DIR" rev-parse --short HEAD 2>/dev/null || echo 'unknown')"
+if [ -f "$SCREENSHOT_FILE" ]; then
+  python3 -c "
+import json, sys
+manifest_path = '${MANIFEST_FILE}'
+try:
+    with open(manifest_path) as f:
+        manifest = json.load(f)
+except (FileNotFoundError, json.JSONDecodeError):
+    manifest = []
+manifest.append({
+    'timestamp': '${TIMESTAMP}',
+    'screenshot': '${TIMESTAMP}.png',
+    'commit': '${GIT_SHA}',
+    'mood': '${CURRENT_MOOD}',
+    'fitness': ${FITNESS_SCORE:-0},
+    'summary': '''${SUMMARY:-no summary}'''[:200]
+})
+with open(manifest_path, 'w') as f:
+    json.dump(manifest, f, indent=2)
+" 2>/dev/null || echo "Manifest update failed (non-fatal)"
+fi
+
+# Prune old screenshots, keep last 100
+cd "$SCREENSHOT_DIR" && ls -t *.png 2>/dev/null | tail -n +101 | xargs rm -f 2>/dev/null || true
 
 # ── Deploy to Cloudflare Pages ────────────────────────────────────
 log "Deploying to Cloudflare Pages..."
