@@ -1,17 +1,17 @@
 {
-  "generation": 67,
+  "generation": 68,
   "epoch": "webgl-swarm",
   "epoch_started": "2026-03-29",
   "traits": {
     "color": {
-      "accent_base": "#c42030",
-      "accent_dawn": "#e84050",
-      "accent_morning": "#c42030",
-      "accent_afternoon": "#a81828",
-      "accent_evening": "#881020",
-      "accent_night": "#580810",
-      "bg": "#080808",
-      "fg": "#736b63",
+      "accent_base": "#e85530",
+      "accent_dawn": "#ff7040",
+      "accent_morning": "#e85530",
+      "accent_afternoon": "#d04828",
+      "accent_evening": "#b83820",
+      "accent_night": "#882010",
+      "bg": "#050505",
+      "fg": "#726a5a",
       "grain_opacity": "0",
       "fg_dim": "#656c7a",
       "bg_surface": "#f8f8f0",
@@ -100,6 +100,7 @@
         "abyssal-glyph-001.svg",
         "corrective-glyph-001.svg",
         "ink-wet-glyph-001.svg",
+        "blood-ink-glyph-001.svg",
         "surfacing-glyph-002.svg",
         "corrective-glyph-002.svg",
         "incised-glyph-001.svg",
@@ -114,10 +115,11 @@
       "ensaio-secret:-typing-'ensaio'",
       "swarm-scatter:-clicking-anywhe",
       "ink-splash:-clicking-hero-canv",
+      "ink-splash:-clicking-hero-canv",
       "ink-splash:-clicking-hero-canv"
     ],
     "content": {
-      "mood": "ink-dark",
+      "mood": "blood-ink",
       "obsession": "meridians \u2014 the invisible lines that divide and organize the world",
       "thought_pools": {
         "dawn": 3,
@@ -130,17 +132,6 @@
     }
   },
   "fitness_log": [
-    {
-      "gen": 48,
-      "coherence": 2,
-      "novelty": 1,
-      "identity": 2,
-      "tension": 1,
-      "awe": 0,
-      "perceptibility": 1,
-      "note": "Seven consecutive generations of decline. Fitness 1.2 \u2014 the worst in the site's history. The contrast audit STILL shows #0a0a0a as the effective backg",
-      "total": 1.2
-    },
     {
       "gen": 49,
       "coherence": 3,
@@ -349,39 +340,20 @@
       "perceptibility": 3,
       "note": "The screenshot shows the same warm cream page with 'The ink is still wet.' as hero text, a subtitle about ink, and below that a section titled 'Experi",
       "total": 3.0
+    },
+    {
+      "gen": 68,
+      "coherence": 4,
+      "novelty": 4,
+      "identity": 3,
+      "tension": 3,
+      "awe": 2,
+      "perceptibility": 2,
+      "note": "The screenshot tells the truth: it's STILL the warm cream page. Gen 67 declared 'ink-dark' with a black background and crimson accents, but the render",
+      "total": 3.0
     }
   ],
   "mutation_log": [
-    {
-      "gen": 48,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "content.mood",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "section.overlay-top",
-        "section.meridian-veil",
-        "section.overlay-center",
-        "section.split-annotation",
-        "section.thought-floater",
-        "section.overlay-bottom",
-        "section.scroll-hint",
-        "section.prototype-portfolio",
-        "section.graveyard",
-        "page.experiments/009.html",
-        "svg.corrective-glyph-002.svg",
-        "scene.config",
-        "scene.shaders",
-        "overlay.agent_data"
-      ],
-      "kills": [
-        "css_rule:gen47-css",
-        "secret[18]"
-      ],
-      "timestamp": "2026-04-08T22:24:23Z"
-    },
     {
       "gen": 49,
       "mutations": [
@@ -893,21 +865,39 @@
         "thought:morning[0]"
       ],
       "timestamp": "2026-04-16T14:30:44Z"
+    },
+    {
+      "gen": 68,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "content.mood",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "interaction.ink-splash:-clicking-hero-canv",
+        "section.ink-hero",
+        "section.overlay-center",
+        "section.overlay-top",
+        "section.overlay-bottom",
+        "section.scroll-hint",
+        "section.thought-floater",
+        "section.meridian-veil",
+        "section.split-annotation",
+        "section.prototype-portfolio",
+        "svg.blood-ink-glyph-001.svg",
+        "scene.config",
+        "scene.shaders",
+        "overlay.agent_data"
+      ],
+      "kills": [
+        "css_rule:gen67-css",
+        "secret[20]"
+      ],
+      "timestamp": "2026-04-16T16:03:19Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "css_rule",
-      "value": "gen45-css",
-      "died_gen": 46,
-      "epitaph": "Gen45 CSS was the sixth consecutive attempt to solve the canvas-over-content problem with style declarations. The canvas does not read CSS. It reads pixels. Killed to make room for the architectural containment approach."
-    },
-    {
-      "type": "secret",
-      "value": "The person behind this domain is somewhere between Portugal and America, which i",
-      "died_gen": 46,
-      "epitaph": "The oldest secret dies. In a generation about building walls, the weakest whisper goes silent."
-    },
     {
       "type": "thought",
       "value": "Gold at $4,747. The meridian between what something costs and what it's worth has never been wider.",
@@ -1195,6 +1185,18 @@
       "value": "The obsession arrives uninvited. You don't choose it. You notice it's already been choosing you.",
       "died_gen": 67,
       "epitaph": "Replacing with ink-themed thought. The old morning thought was a workshop-era holdover."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen67-css",
+      "died_gen": 68,
+      "epitaph": "Gen 67 CSS declared ink-dark but the page rendered cream. The CSS variables were overridden. Inline styles are the only language the renderer respects."
+    },
+    {
+      "type": "secret",
+      "value": "The ink remembers every color it has ever been. Press the period key three times",
+      "died_gen": 68,
+      "epitaph": "Culling to capacity. 21 secrets down to 20."
     }
   ],
   "carrying_capacity": {
@@ -1213,11 +1215,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 58,
-      "base": "#2d5a3f",
-      "family": "lime"
-    },
     {
       "gen": 59,
       "base": "#2b3a8c",
@@ -1262,6 +1259,11 @@
       "gen": 67,
       "base": "#c42030",
       "family": "magenta"
+    },
+    {
+      "gen": 68,
+      "base": "#e85530",
+      "family": "red"
     }
   ],
   "past_epochs": [
@@ -1282,15 +1284,6 @@
   ],
   "epoch_number": 3,
   "contrast_warnings": [
-    {
-      "gen": 57,
-      "messages": [
-        "  [contrast-gate below-fold] effective bg = #f5f0e6 from .below-fold:211 (raw: var(--bg-below-fold, #fffff5))",
-        "    FAIL  #f5f0e6  ratio=1.00:1  (< 4.5)",
-        "    FAIL  #ffffff  ratio=1.14:1  (< 4.5)"
-      ],
-      "timestamp": "2026-04-12T16:03:31Z"
-    },
     {
       "gen": 58,
       "messages": [
@@ -1374,6 +1367,14 @@
         "    FAIL  #ffffff  ratio=1.13:1  (< 4.5)"
       ],
       "timestamp": "2026-04-16T14:26:48Z"
+    },
+    {
+      "gen": 68,
+      "messages": [
+        "  [contrast-gate below-fold] effective bg = #0c0c0c from .below-fold:211 (raw: var(--bg-below-fold, #fffff5))",
+        "    FAIL  #050505  ratio=1.04:1  (< 4.5)"
+      ],
+      "timestamp": "2026-04-16T16:03:19Z"
     }
   ]
 }
