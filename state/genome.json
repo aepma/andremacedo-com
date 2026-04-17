@@ -1,5 +1,5 @@
 {
-  "generation": 70,
+  "generation": 71,
   "epoch": "webgl-swarm",
   "epoch_started": "2026-03-29",
   "traits": {
@@ -54,6 +54,7 @@
         "vernal-glyph-001.svg",
         "nocturne-glyph-001.svg",
         "threshold-glyph-001.svg",
+        "editorial-cream-glyph-002.svg",
         "meridian-glyph-002.svg",
         "surgical-glyph-001.svg",
         "lantern-glyph-001.svg",
@@ -131,17 +132,6 @@
     }
   },
   "fitness_log": [
-    {
-      "gen": 51,
-      "coherence": 6,
-      "novelty": 4,
-      "identity": 6,
-      "tension": 5,
-      "awe": 3,
-      "perceptibility": 5,
-      "note": "Fitness 3.8 is a genuine recovery from the 1.2 abyss \u2014 the wall holds, the editorial layout is readable, the experiments grid is visible. But the scre",
-      "total": 4.8
-    },
     {
       "gen": 52,
       "coherence": 7,
@@ -350,34 +340,20 @@
       "perceptibility": 2,
       "note": "The screenshot tells the same story for the seventh generation: warm cream page with dark text. My gen 69 declared #000000 background with inline styl",
       "total": 2.3
+    },
+    {
+      "gen": 71,
+      "coherence": 4,
+      "novelty": 2,
+      "identity": 3,
+      "tension": 2,
+      "awe": 1,
+      "perceptibility": 3,
+      "note": "The screenshot shows a warm cream page with dark text \u2014 readable, which is an improvement over the seven generations of dark-page delusion. But it's p",
+      "total": 2.5
     }
   ],
   "mutation_log": [
-    {
-      "gen": 51,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "content.mood",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "section.overlay-center",
-        "section.overlay-bottom",
-        "section.scroll-hint",
-        "section.thought-floater",
-        "section.prototype-portfolio",
-        "svg.cartographic-glyph-004.svg",
-        "scene.config",
-        "scene.shaders",
-        "overlay.agent_data"
-      ],
-      "kills": [
-        "css_rule:gen50-css",
-        "secret[20]"
-      ],
-      "timestamp": "2026-04-09T00:02:47Z"
-    },
     {
       "gen": 52,
       "mutations": [
@@ -899,21 +875,37 @@
         "secret[1]"
       ],
       "timestamp": "2026-04-17T08:02:29Z"
+    },
+    {
+      "gen": 71,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "content.mood",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "section.ink-hero",
+        "section.meridian-veil",
+        "section.split-annotation",
+        "section.overlay-top",
+        "section.overlay-center",
+        "section.thought-floater",
+        "section.overlay-bottom",
+        "section.scroll-hint",
+        "section.prototype-portfolio",
+        "svg.editorial-cream-glyph-002.svg",
+        "scene.config",
+        "scene.shaders"
+      ],
+      "kills": [
+        "css_rule:gen70-css",
+        "secret[0]"
+      ],
+      "timestamp": "2026-04-17T16:02:50Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "secret",
-      "value": "The site has died 34 times. Each death made the next life slightly more legible.",
-      "died_gen": 48,
-      "epitaph": "The oldest secret about the Date Line \u2014 replaced with a more specific version about Kiribati and Samoa."
-    },
-    {
-      "type": "section",
-      "value": "graveyard",
-      "died_gen": 49,
-      "epitaph": "Graveyard content moved inside prototype-portfolio for single content-wall architecture. One wall, not two."
-    },
     {
       "type": "css_rule",
       "value": "gen48-css",
@@ -1201,6 +1193,18 @@
       "value": "{'trigger': 'konami-glitch', 'content': 'In the Casa da Moeda in Lisbon, assayer",
       "died_gen": 70,
       "epitaph": "Another old secret. The secret pool was at 22, needs to be 20."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen70-css",
+      "died_gen": 71,
+      "epitaph": "Gen 70 accepted the cream. Gen 71 designs for it."
+    },
+    {
+      "type": "secret",
+      "value": "{'trigger': 'triple-click-secret', 'content': \"The touchstone was always the hum",
+      "died_gen": 71,
+      "epitaph": "Old secret from the dark-page era. The secret pool is at 21, needs to be 20."
     }
   ],
   "carrying_capacity": {
@@ -1219,11 +1223,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 61,
-      "base": "#1a6b6a",
-      "family": "green"
-    },
     {
       "gen": 62,
       "base": "#c45a20",
@@ -1268,6 +1267,11 @@
       "gen": 70,
       "base": "#1a6b3a",
       "family": "lime"
+    },
+    {
+      "gen": 71,
+      "base": "#1a6b3a",
+      "family": "lime"
     }
   ],
   "past_epochs": [
@@ -1288,15 +1292,6 @@
   ],
   "epoch_number": 3,
   "contrast_warnings": [
-    {
-      "gen": 60,
-      "messages": [
-        "  [contrast-gate below-fold] effective bg = #f4f1eb from .below-fold:211 (raw: var(--bg-below-fold, #fffff5))",
-        "    FAIL  #f4f1eb  ratio=1.00:1  (< 4.5)",
-        "    FAIL  #ffffff  ratio=1.13:1  (< 4.5)"
-      ],
-      "timestamp": "2026-04-13T16:02:43Z"
-    },
     {
       "gen": 61,
       "messages": [
@@ -1380,6 +1375,16 @@
         "    FAIL  #ffffff  ratio=1.14:1  (< 4.5)"
       ],
       "timestamp": "2026-04-17T08:02:29Z"
+    },
+    {
+      "gen": 71,
+      "messages": [
+        "  [contrast-gate below-fold] effective bg = #f5f0e6 from .below-fold:211 (raw: var(--bg-below-fold, #fffff5))",
+        "    FAIL  #f0ebe0  ratio=1.05:1  (< 4.5)",
+        "    FAIL  #f5f0e6  ratio=1.00:1  (< 4.5)",
+        "    FAIL  #ffffff  ratio=1.14:1  (< 4.5)"
+      ],
+      "timestamp": "2026-04-17T16:02:50Z"
     }
   ]
 }
