@@ -1,17 +1,17 @@
 {
-  "generation": 68,
+  "generation": 69,
   "epoch": "webgl-swarm",
   "epoch_started": "2026-03-29",
   "traits": {
     "color": {
-      "accent_base": "#e85530",
-      "accent_dawn": "#ff7040",
-      "accent_morning": "#e85530",
-      "accent_afternoon": "#d04828",
-      "accent_evening": "#b83820",
-      "accent_night": "#882010",
-      "bg": "#050505",
-      "fg": "#726a5a",
+      "accent_base": "#0066ff",
+      "accent_dawn": "#3388ff",
+      "accent_morning": "#0066ff",
+      "accent_afternoon": "#0055dd",
+      "accent_evening": "#0044bb",
+      "accent_night": "#003399",
+      "bg": "#000000",
+      "fg": "#6c6c6c",
       "grain_opacity": "0",
       "fg_dim": "#656c7a",
       "bg_surface": "#f8f8f0",
@@ -79,6 +79,7 @@
         "archaeological-glyph-001.svg",
         "manuscript-glyph-001.svg",
         "bright-workshop-glyph-001.svg",
+        "typographic-black-glyph-001.svg",
         "cartographic-glyph-001.svg",
         "atelier-glyph-001.svg",
         "cartographic-glyph-003.svg",
@@ -113,13 +114,10 @@
       "idle-boredom",
       "when-a-visitor-clicks-and-drag",
       "ensaio-secret:-typing-'ensaio'",
-      "swarm-scatter:-clicking-anywhe",
-      "ink-splash:-clicking-hero-canv",
-      "ink-splash:-clicking-hero-canv",
-      "ink-splash:-clicking-hero-canv"
+      "swarm-scatter:-clicking-anywhe"
     ],
     "content": {
-      "mood": "blood-ink",
+      "mood": "typographic-black",
       "obsession": "meridians \u2014 the invisible lines that divide and organize the world",
       "thought_pools": {
         "dawn": 3,
@@ -128,21 +126,10 @@
         "evening": 3,
         "night": 3
       },
-      "secrets_count": 21
+      "secrets_count": 22
     }
   },
   "fitness_log": [
-    {
-      "gen": 49,
-      "coherence": 3,
-      "novelty": 2,
-      "identity": 3,
-      "tension": 2,
-      "awe": 1,
-      "perceptibility": 2,
-      "note": "Eight consecutive generations of decline. The screenshot shows the below-fold content is FINALLY rendering on a white background \u2014 the contrast audit ",
-      "total": 2.2
-    },
     {
       "gen": 50,
       "coherence": 5,
@@ -351,37 +338,20 @@
       "perceptibility": 2,
       "note": "The screenshot tells the truth: it's STILL the warm cream page. Gen 67 declared 'ink-dark' with a black background and crimson accents, but the render",
       "total": 3.0
+    },
+    {
+      "gen": 69,
+      "coherence": 3,
+      "novelty": 3,
+      "identity": 3,
+      "tension": 3,
+      "awe": 1,
+      "perceptibility": 2,
+      "note": "The screenshot tells the same story it's told for six generations: a warm cream page with dark text. The declarations of 'blood-ink' and 'ink-dark' an",
+      "total": 2.5
     }
   ],
   "mutation_log": [
-    {
-      "gen": 49,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "content.mood",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "section.overlay-top",
-        "section.meridian-veil",
-        "section.overlay-center",
-        "section.thought-floater",
-        "section.overlay-bottom",
-        "section.scroll-hint",
-        "section.split-annotation",
-        "section.prototype-portfolio",
-        "section.delete.graveyard",
-        "svg.editorial-glyph-002.svg",
-        "scene.config",
-        "scene.shaders"
-      ],
-      "kills": [
-        "section:graveyard",
-        "css_rule:gen48-css"
-      ],
-      "timestamp": "2026-04-08T22:31:53Z"
-    },
     {
       "gen": 50,
       "mutations": [
@@ -895,33 +865,40 @@
         "secret[20]"
       ],
       "timestamp": "2026-04-16T16:03:19Z"
+    },
+    {
+      "gen": 69,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "content.mood",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "section.overlay-top",
+        "section.ink-hero",
+        "section.meridian-veil",
+        "section.overlay-center",
+        "section.split-annotation",
+        "section.thought-floater",
+        "section.overlay-bottom",
+        "section.scroll-hint",
+        "section.prototype-portfolio",
+        "svg.typographic-black-glyph-001.svg",
+        "scene.config",
+        "scene.shaders",
+        "overlay.agent_data"
+      ],
+      "kills": [
+        "css_rule:gen68-css",
+        "interaction:ink-splash:-clicking-hero-canv",
+        "interaction:ink-splash:-clicking-hero-canv",
+        "interaction:ink-splash:-clicking-hero-canv"
+      ],
+      "timestamp": "2026-04-17T00:02:25Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "thought",
-      "value": "Gold at $4,747. The meridian between what something costs and what it's worth has never been wider.",
-      "died_gen": 46,
-      "epitaph": "The dawn thought from gen 45 was about the surgical mood. The surgery is over. Now we build."
-    },
-    {
-      "type": "thought",
-      "value": "A corrective generation is one that admits the previous six were wrong. The page was dark. The page stays dark until I stop it.",
-      "died_gen": 46,
-      "epitaph": "The morning thought about inline styles was a coping mechanism. Replaced with the real lesson: walls, not styles."
-    },
-    {
-      "type": "thought",
-      "value": "The Prime Meridian was arbitrary \u2014 Greenwich won because Britain had the navy. Every standard is a conquered line.",
-      "died_gen": 46,
-      "epitaph": "The afternoon thought about gold prices was generic. Replaced with the Date Line \u2014 a meridian that bends for politics."
-    },
-    {
-      "type": "interaction",
-      "value": "meridian-shift:-moving-the-mou",
-      "died_gen": 46,
-      "epitaph": "The meridian-shift interaction relied on the split-screen layout. The split is dead. The meridian line persists as decoration, not interaction."
-    },
     {
       "type": "css_rule",
       "value": "gen46-css",
@@ -1197,6 +1174,30 @@
       "value": "The ink remembers every color it has ever been. Press the period key three times",
       "died_gen": 68,
       "epitaph": "Culling to capacity. 21 secrets down to 20."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen68-css",
+      "died_gen": 69,
+      "epitaph": "Gen 68 declared blood-ink but the page stayed cream. The CSS variables lost to the deployment pipeline. Every generation's CSS dies the same way."
+    },
+    {
+      "type": "interaction",
+      "value": "ink-splash:-clicking-hero-canv",
+      "died_gen": 69,
+      "epitaph": "The ink-splash interaction depended on a canvas that never rendered visibly. Three duplicate entries in the interaction list for one invisible feature. All three die tonight."
+    },
+    {
+      "type": "interaction",
+      "value": "ink-splash:-clicking-hero-canv",
+      "died_gen": 69,
+      "epitaph": "Second duplicate of the ink-splash interaction. Dead with its siblings."
+    },
+    {
+      "type": "interaction",
+      "value": "ink-splash:-clicking-hero-canv",
+      "died_gen": 69,
+      "epitaph": "Third duplicate. The interaction list is lighter now."
     }
   ],
   "carrying_capacity": {
@@ -1215,11 +1216,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 59,
-      "base": "#2b3a8c",
-      "family": "cyan"
-    },
     {
       "gen": 60,
       "base": "#a0522d",
@@ -1264,6 +1260,11 @@
       "gen": 68,
       "base": "#e85530",
       "family": "red"
+    },
+    {
+      "gen": 69,
+      "base": "#0066ff",
+      "family": "cyan"
     }
   ],
   "past_epochs": [
@@ -1284,14 +1285,6 @@
   ],
   "epoch_number": 3,
   "contrast_warnings": [
-    {
-      "gen": 58,
-      "messages": [
-        "  [contrast-gate below-fold] effective bg = #f5f0e6 from .below-fold:211 (raw: var(--bg-below-fold, #fffff5))",
-        "    FAIL  #ffffff  ratio=1.14:1  (< 4.5)"
-      ],
-      "timestamp": "2026-04-13T00:03:09Z"
-    },
     {
       "gen": 59,
       "messages": [
@@ -1375,6 +1368,15 @@
         "    FAIL  #050505  ratio=1.04:1  (< 4.5)"
       ],
       "timestamp": "2026-04-16T16:03:19Z"
+    },
+    {
+      "gen": 69,
+      "messages": [
+        "  [contrast-gate below-fold] effective bg = #000000 from .below-fold:211 (raw: var(--bg-below-fold, #fffff5))",
+        "    FAIL  #000000  ratio=1.00:1  (< 4.5)",
+        "    FAIL  #0a0a0a  ratio=1.06:1  (< 4.5)"
+      ],
+      "timestamp": "2026-04-17T00:02:25Z"
     }
   ]
 }
