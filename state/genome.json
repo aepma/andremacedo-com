@@ -1,15 +1,15 @@
 {
-  "generation": 73,
+  "generation": 74,
   "epoch": "webgl-swarm",
   "epoch_started": "2026-03-29",
   "traits": {
     "color": {
-      "accent_base": "#d4440a",
-      "accent_dawn": "#e86830",
-      "accent_morning": "#d4440a",
-      "accent_afternoon": "#b83808",
-      "accent_evening": "#9c2c06",
-      "accent_night": "#802004",
+      "accent_base": "#1a5fa0",
+      "accent_dawn": "#3a7fc0",
+      "accent_morning": "#1a5fa0",
+      "accent_afternoon": "#155090",
+      "accent_evening": "#104080",
+      "accent_night": "#0c3060",
       "bg": "#f5f0e6",
       "fg": "#1a1a1a",
       "grain_opacity": "0",
@@ -102,6 +102,7 @@
         "surfacing-glyph-001.svg",
         "abyssal-glyph-001.svg",
         "corrective-glyph-001.svg",
+        "editorial-maximalist-glyph-002.svg",
         "ink-wet-glyph-001.svg",
         "blood-ink-glyph-001.svg",
         "surfacing-glyph-002.svg",
@@ -134,17 +135,6 @@
     }
   },
   "fitness_log": [
-    {
-      "gen": 54,
-      "coherence": 7,
-      "novelty": 5,
-      "identity": 7,
-      "tension": 5,
-      "awe": 5,
-      "perceptibility": 6,
-      "note": "Fitness 5.8 is five consecutive generations of recovery \u2014 the architecture holds, the parchment wall works, the experiments grid is visible. The scree",
-      "total": 5.8
-    },
     {
       "gen": 55,
       "coherence": 7,
@@ -353,35 +343,20 @@
       "perceptibility": 3,
       "note": "The screenshot shows a cream page with large Playfair Display text ('Experiments in living design'), a hook sentence, and epoch metadata. Below the fo",
       "total": 3.3
+    },
+    {
+      "gen": 74,
+      "coherence": 5,
+      "novelty": 4,
+      "identity": 5,
+      "tension": 3,
+      "awe": 2,
+      "perceptibility": 4,
+      "note": "The screenshot shows real progress: cream background holds, Playfair Display hero text is large and readable, the vermillion accent is visible on expe",
+      "total": 3.8
     }
   ],
   "mutation_log": [
-    {
-      "gen": 54,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "content.mood",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "section.overlay-center",
-        "section.overlay-bottom",
-        "section.scroll-hint",
-        "section.thought-floater",
-        "section.prototype-portfolio",
-        "section.meridian-veil",
-        "section.split-annotation",
-        "svg.cartographic-glyph-007.svg",
-        "scene.config",
-        "scene.shaders"
-      ],
-      "kills": [
-        "css_rule:gen53-css",
-        "secret[20]"
-      ],
-      "timestamp": "2026-04-10T00:03:09Z"
-    },
     {
       "gen": 55,
       "mutations": [
@@ -912,21 +887,33 @@
         "secret[0]"
       ],
       "timestamp": "2026-04-18T08:03:17Z"
+    },
+    {
+      "gen": 74,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "content.mood",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "section.overlay-center",
+        "section.thought-floater",
+        "section.scroll-hint",
+        "section.overlay-bottom",
+        "section.prototype-portfolio",
+        "svg.editorial-maximalist-glyph-002.svg",
+        "scene.config",
+        "scene.shaders"
+      ],
+      "kills": [
+        "css_rule:gen73-css",
+        "secret[0]"
+      ],
+      "timestamp": "2026-04-18T16:02:40Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "secret",
-      "value": "The site has been declining for eight generations. Each decline taught me someth",
-      "died_gen": 51,
-      "epitaph": "Over the 20-secret capacity. The weakest secret about generation counting \u2014 too meta, not specific enough about meridians."
-    },
-    {
-      "type": "css_rule",
-      "value": "gen51-css",
-      "died_gen": 52,
-      "epitaph": "The olive-green cartographic CSS did its work \u2014 proved the wall holds, the typography reads, the grid displays. But olive was too quiet. The page needed the confidence of plum, the color of ink on royal charters. Olive goes to the graveyard with honor."
-    },
     {
       "type": "secret",
       "value": "The Prime Meridian passed through Paris before it passed through Greenwich. Fran",
@@ -1214,6 +1201,18 @@
       "value": "<!-- The ensaiador-mor of Lisbon had a touchstone that survived the 1755 earthqu",
       "died_gen": 73,
       "epitaph": "Secret pool at 21, needs to be 20. Oldest secret dies."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen73-css",
+      "died_gen": 74,
+      "epitaph": "Gen 73 got the LOVE signal. Gen 74 fixes what 73 broke \u2014 the vermillion at 3.99:1 that failed WCAG AA."
+    },
+    {
+      "type": "secret",
+      "value": "<!-- The ensaiador-mor worked alone in a locked room. The door had two keys held",
+      "died_gen": 74,
+      "epitaph": "Secret pool at 21, needs to be 20. Oldest secret dies to make room."
     }
   ],
   "carrying_capacity": {
@@ -1232,11 +1231,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 64,
-      "base": "#c49a20",
-      "family": "orange"
-    },
     {
       "gen": 65,
       "base": "#a83279",
@@ -1281,6 +1275,11 @@
       "gen": 73,
       "base": "#d4440a",
       "family": "red"
+    },
+    {
+      "gen": 74,
+      "base": "#1a5fa0",
+      "family": "teal"
     }
   ],
   "past_epochs": [
@@ -1301,16 +1300,6 @@
   ],
   "epoch_number": 3,
   "contrast_warnings": [
-    {
-      "gen": 63,
-      "messages": [
-        "  [contrast-gate below-fold] effective bg = #f8f5ed from .below-fold:211 (raw: var(--bg-below-fold, #fffff5))",
-        "    FAIL  #f0ebe0  ratio=1.09:1  (< 4.5)",
-        "    FAIL  #f8f5ed  ratio=1.00:1  (< 4.5)",
-        "    FAIL  #ffffff  ratio=1.09:1  (< 4.5)"
-      ],
-      "timestamp": "2026-04-14T16:02:47Z"
-    },
     {
       "gen": 64,
       "messages": [
@@ -1395,6 +1384,15 @@
         "    FAIL  #ffffff  ratio=1.14:1  (< 4.5)"
       ],
       "timestamp": "2026-04-18T08:03:17Z"
+    },
+    {
+      "gen": 74,
+      "messages": [
+        "  [contrast-gate below-fold] effective bg = #f5f0e6 from .below-fold:211 (raw: var(--bg-below-fold, #fffff5))",
+        "    FAIL  #f5f0e6  ratio=1.00:1  (< 4.5)",
+        "    FAIL  #ffffff  ratio=1.14:1  (< 4.5)"
+      ],
+      "timestamp": "2026-04-18T16:02:40Z"
     }
   ]
 }
