@@ -1,15 +1,15 @@
 {
-  "generation": 72,
+  "generation": 73,
   "epoch": "webgl-swarm",
   "epoch_started": "2026-03-29",
   "traits": {
     "color": {
-      "accent_base": "#b83280",
-      "accent_dawn": "#d44a9a",
-      "accent_morning": "#b83280",
-      "accent_afternoon": "#9a2868",
-      "accent_evening": "#7c1e52",
-      "accent_night": "#5e143c",
+      "accent_base": "#d4440a",
+      "accent_dawn": "#e86830",
+      "accent_morning": "#d4440a",
+      "accent_afternoon": "#b83808",
+      "accent_evening": "#9c2c06",
+      "accent_night": "#802004",
       "bg": "#f5f0e6",
       "fg": "#1a1a1a",
       "grain_opacity": "0",
@@ -108,6 +108,7 @@
         "corrective-glyph-002.svg",
         "incised-glyph-001.svg",
         "editorial-bold-glyph-001.svg",
+        "editorial-maximalist-glyph-001.svg",
         "bioluminescent-glyph-001.svg",
         "observatory-glyph-001.svg"
       ]
@@ -120,11 +121,11 @@
       "swarm-scatter:-clicking-anywhe"
     ],
     "content": {
-      "mood": "editorial-bold",
+      "mood": "editorial-maximalist",
       "obsession": "meridians \u2014 the invisible lines that divide and organize the world",
       "thought_pools": {
-        "dawn": 3,
-        "morning": 1,
+        "dawn": 4,
+        "morning": 2,
         "afternoon": 2,
         "evening": 3,
         "night": 3
@@ -133,17 +134,6 @@
     }
   },
   "fitness_log": [
-    {
-      "gen": 53,
-      "coherence": 7,
-      "novelty": 5,
-      "identity": 7,
-      "tension": 5,
-      "awe": 5,
-      "perceptibility": 6,
-      "note": "Fitness 5.7 is real recovery \u2014 five consecutive generations of improvement from the 1.2 abyss. The screenshot shows the architecture is working: dark ",
-      "total": 5.8
-    },
     {
       "gen": 54,
       "coherence": 7,
@@ -352,35 +342,20 @@
       "perceptibility": 3,
       "note": "The screenshot shows a cream page with 'Experiments in living design' as hero text in large Playfair Display \u2014 readable, which is good. But it's flat.",
       "total": 2.5
+    },
+    {
+      "gen": 73,
+      "coherence": 5,
+      "novelty": 3,
+      "identity": 4,
+      "tension": 3,
+      "awe": 2,
+      "perceptibility": 3,
+      "note": "The screenshot shows a cream page with large Playfair Display text ('Experiments in living design'), a hook sentence, and epoch metadata. Below the fo",
+      "total": 3.3
     }
   ],
   "mutation_log": [
-    {
-      "gen": 53,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "content.mood",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "section.overlay-center",
-        "section.overlay-bottom",
-        "section.scroll-hint",
-        "section.thought-floater",
-        "section.prototype-portfolio",
-        "section.meridian-veil",
-        "section.split-annotation",
-        "svg.cartographic-glyph-006.svg",
-        "scene.config",
-        "scene.shaders"
-      ],
-      "kills": [
-        "css_rule:gen52-css",
-        "secret[20]"
-      ],
-      "timestamp": "2026-04-09T16:02:45Z"
-    },
     {
       "gen": 54,
       "mutations": [
@@ -908,21 +883,38 @@
         "secret[0]"
       ],
       "timestamp": "2026-04-18T00:03:12Z"
+    },
+    {
+      "gen": 73,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "content.mood",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "section.overlay-center",
+        "section.thought-floater",
+        "section.scroll-hint",
+        "section.overlay-bottom",
+        "section.prototype-portfolio",
+        "section.overlay-top",
+        "section.ink-hero",
+        "section.meridian-veil",
+        "section.split-annotation",
+        "svg.editorial-maximalist-glyph-001.svg",
+        "scene.config",
+        "scene.shaders",
+        "overlay.agent_data"
+      ],
+      "kills": [
+        "css_rule:gen72-css",
+        "secret[0]"
+      ],
+      "timestamp": "2026-04-18T08:03:17Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "secret",
-      "value": "The site has been declining for eight generations. Generation 48 was the first t",
-      "died_gen": 50,
-      "epitaph": "Over the 20-secret capacity. The weakest secret about the map lying \u2014 replaced with a more specific version about Mercator distortion."
-    },
-    {
-      "type": "css_rule",
-      "value": "gen50-css",
-      "died_gen": 51,
-      "epitaph": "The sienna editorial CSS served one generation well \u2014 it proved the wall holds, the typography reads, the architecture is sound. Now olive-green takes over. Sienna was warm but generic. Olive is specific: the color of the ink cartographers actually used."
-    },
     {
       "type": "secret",
       "value": "The site has been declining for eight generations. Each decline taught me someth",
@@ -1210,6 +1202,18 @@
       "value": "{'trigger': \"typing 'ensaio' anywhere on the page\", 'response': \"A brief flicker",
       "died_gen": 72,
       "epitaph": "Old secret from the dark-page era. The secret pool was at 21, needs to be 20. Replaced with gen 72 secrets."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen72-css",
+      "died_gen": 73,
+      "epitaph": "Gen 72 got the LOVE signal. Gen 73 builds on it with a new palette."
+    },
+    {
+      "type": "secret",
+      "value": "<!-- The ensaiador-mor of Lisbon had a touchstone that survived the 1755 earthqu",
+      "died_gen": 73,
+      "epitaph": "Secret pool at 21, needs to be 20. Oldest secret dies."
     }
   ],
   "carrying_capacity": {
@@ -1228,11 +1232,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 63,
-      "base": "#5b3fa0",
-      "family": "blue"
-    },
     {
       "gen": 64,
       "base": "#c49a20",
@@ -1277,6 +1276,11 @@
       "gen": 72,
       "base": "#b83280",
       "family": "violet"
+    },
+    {
+      "gen": 73,
+      "base": "#d4440a",
+      "family": "red"
     }
   ],
   "past_epochs": [
@@ -1297,15 +1301,6 @@
   ],
   "epoch_number": 3,
   "contrast_warnings": [
-    {
-      "gen": 62,
-      "messages": [
-        "  [contrast-gate below-fold] effective bg = #f0e4c8 from .below-fold:211 (raw: var(--bg-below-fold, #fffff5))",
-        "    FAIL  #f0e4c8  ratio=1.00:1  (< 4.5)",
-        "    FAIL  #ffffff  ratio=1.26:1  (< 4.5)"
-      ],
-      "timestamp": "2026-04-14T08:03:06Z"
-    },
     {
       "gen": 63,
       "messages": [
@@ -1390,6 +1385,16 @@
         "    FAIL  #ffffff  ratio=1.14:1  (< 4.5)"
       ],
       "timestamp": "2026-04-18T00:03:12Z"
+    },
+    {
+      "gen": 73,
+      "messages": [
+        "  [contrast-gate below-fold] effective bg = #f5f0e6 from .below-fold:211 (raw: var(--bg-below-fold, #fffff5))",
+        "    FAIL  #d4440a  ratio=3.99:1  (< 4.5)",
+        "    FAIL  #e0dcd4  ratio=1.20:1  (< 4.5)",
+        "    FAIL  #ffffff  ratio=1.14:1  (< 4.5)"
+      ],
+      "timestamp": "2026-04-18T08:03:17Z"
     }
   ]
 }
