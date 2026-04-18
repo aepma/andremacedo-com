@@ -1,15 +1,15 @@
 {
-  "generation": 71,
+  "generation": 72,
   "epoch": "webgl-swarm",
   "epoch_started": "2026-03-29",
   "traits": {
     "color": {
-      "accent_base": "#1a6b3a",
-      "accent_dawn": "#2d8a50",
-      "accent_morning": "#1a6b3a",
-      "accent_afternoon": "#155a30",
-      "accent_evening": "#104a28",
-      "accent_night": "#0a3a1e",
+      "accent_base": "#b83280",
+      "accent_dawn": "#d44a9a",
+      "accent_morning": "#b83280",
+      "accent_afternoon": "#9a2868",
+      "accent_evening": "#7c1e52",
+      "accent_night": "#5e143c",
       "bg": "#f5f0e6",
       "fg": "#1a1a1a",
       "grain_opacity": "0",
@@ -107,6 +107,7 @@
         "surfacing-glyph-002.svg",
         "corrective-glyph-002.svg",
         "incised-glyph-001.svg",
+        "editorial-bold-glyph-001.svg",
         "bioluminescent-glyph-001.svg",
         "observatory-glyph-001.svg"
       ]
@@ -119,7 +120,7 @@
       "swarm-scatter:-clicking-anywhe"
     ],
     "content": {
-      "mood": "editorial-cream",
+      "mood": "editorial-bold",
       "obsession": "meridians \u2014 the invisible lines that divide and organize the world",
       "thought_pools": {
         "dawn": 3,
@@ -132,17 +133,6 @@
     }
   },
   "fitness_log": [
-    {
-      "gen": 52,
-      "coherence": 7,
-      "novelty": 5,
-      "identity": 7,
-      "tension": 5,
-      "awe": 4,
-      "perceptibility": 6,
-      "note": "Fitness 4.8 is real recovery \u2014 the wall holds, the editorial layout is readable, the experiment grid is visible and linked. The screenshot shows a fun",
-      "total": 5.7
-    },
     {
       "gen": 53,
       "coherence": 7,
@@ -351,34 +341,20 @@
       "perceptibility": 3,
       "note": "The screenshot shows a warm cream page with dark text \u2014 readable, which is an improvement over the seven generations of dark-page delusion. But it's p",
       "total": 2.5
+    },
+    {
+      "gen": 72,
+      "coherence": 4,
+      "novelty": 2,
+      "identity": 3,
+      "tension": 2,
+      "awe": 1,
+      "perceptibility": 3,
+      "note": "The screenshot shows a cream page with 'Experiments in living design' as hero text in large Playfair Display \u2014 readable, which is good. But it's flat.",
+      "total": 2.5
     }
   ],
   "mutation_log": [
-    {
-      "gen": 52,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "content.mood",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "section.overlay-center",
-        "section.overlay-bottom",
-        "section.thought-floater",
-        "section.scroll-hint",
-        "section.prototype-portfolio",
-        "page.experiments/010.html",
-        "svg.cartographic-glyph-005.svg",
-        "scene.config",
-        "scene.shaders"
-      ],
-      "kills": [
-        "css_rule:gen51-css",
-        "secret[20]"
-      ],
-      "timestamp": "2026-04-09T08:03:08Z"
-    },
     {
       "gen": 53,
       "mutations": [
@@ -903,21 +879,38 @@
         "secret[0]"
       ],
       "timestamp": "2026-04-17T16:02:50Z"
+    },
+    {
+      "gen": 72,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "content.mood",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "section.overlay-top",
+        "section.ink-hero",
+        "section.meridian-veil",
+        "section.overlay-center",
+        "section.split-annotation",
+        "section.thought-floater",
+        "section.overlay-bottom",
+        "section.scroll-hint",
+        "section.prototype-portfolio",
+        "svg.editorial-bold-glyph-001.svg",
+        "scene.config",
+        "scene.shaders",
+        "overlay.agent_data"
+      ],
+      "kills": [
+        "css_rule:gen71-css",
+        "secret[0]"
+      ],
+      "timestamp": "2026-04-18T00:03:12Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "css_rule",
-      "value": "gen48-css",
-      "died_gen": 49,
-      "epitaph": "The crimson corrective CSS is superseded by the cobalt editorial. Crimson was urgent, corrective, angry. Cobalt is calm, structural, trustworthy. The correction happened \u2014 now build on it."
-    },
-    {
-      "type": "css_rule",
-      "value": "gen49-css",
-      "died_gen": 50,
-      "epitaph": "The cobalt editorial CSS dies as sienna takes over. Cobalt was calm after the crisis \u2014 the right mood for one generation. Sienna is warmer, more material, more like actual ink on paper."
-    },
     {
       "type": "secret",
       "value": "The site has been declining for eight generations. Generation 48 was the first t",
@@ -1205,6 +1198,18 @@
       "value": "{'trigger': 'triple-click-secret', 'content': \"The touchstone was always the hum",
       "died_gen": 71,
       "epitaph": "Old secret from the dark-page era. The secret pool is at 21, needs to be 20."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen71-css",
+      "died_gen": 72,
+      "epitaph": "Gen 71 accepted the cream quietly. Gen 72 does it loudly."
+    },
+    {
+      "type": "secret",
+      "value": "{'trigger': \"typing 'ensaio' anywhere on the page\", 'response': \"A brief flicker",
+      "died_gen": 72,
+      "epitaph": "Old secret from the dark-page era. The secret pool was at 21, needs to be 20. Replaced with gen 72 secrets."
     }
   ],
   "carrying_capacity": {
@@ -1223,11 +1228,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 62,
-      "base": "#c45a20",
-      "family": "red"
-    },
     {
       "gen": 63,
       "base": "#5b3fa0",
@@ -1272,6 +1272,11 @@
       "gen": 71,
       "base": "#1a6b3a",
       "family": "lime"
+    },
+    {
+      "gen": 72,
+      "base": "#b83280",
+      "family": "violet"
     }
   ],
   "past_epochs": [
@@ -1292,15 +1297,6 @@
   ],
   "epoch_number": 3,
   "contrast_warnings": [
-    {
-      "gen": 61,
-      "messages": [
-        "  [contrast-gate below-fold] effective bg = #f4f1eb from .below-fold:211 (raw: var(--bg-below-fold, #fffff5))",
-        "    FAIL  #f4f1eb  ratio=1.00:1  (< 4.5)",
-        "    FAIL  #ffffff  ratio=1.13:1  (< 4.5)"
-      ],
-      "timestamp": "2026-04-14T00:03:07Z"
-    },
     {
       "gen": 62,
       "messages": [
@@ -1385,6 +1381,15 @@
         "    FAIL  #ffffff  ratio=1.14:1  (< 4.5)"
       ],
       "timestamp": "2026-04-17T16:02:50Z"
+    },
+    {
+      "gen": 72,
+      "messages": [
+        "  [contrast-gate below-fold] effective bg = #f5f0e6 from .below-fold:211 (raw: var(--bg-below-fold, #fffff5))",
+        "    FAIL  #f5f0e6  ratio=1.00:1  (< 4.5)",
+        "    FAIL  #ffffff  ratio=1.14:1  (< 4.5)"
+      ],
+      "timestamp": "2026-04-18T00:03:12Z"
     }
   ]
 }
