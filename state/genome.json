@@ -1,15 +1,15 @@
 {
-  "generation": 75,
+  "generation": 76,
   "epoch": "webgl-swarm",
   "epoch_started": "2026-03-29",
   "traits": {
     "color": {
-      "accent_base": "#1a6b3a",
-      "accent_dawn": "#2d8a50",
-      "accent_morning": "#1a6b3a",
-      "accent_afternoon": "#156030",
-      "accent_evening": "#105028",
-      "accent_night": "#0c4020",
+      "accent_base": "#c48820",
+      "accent_dawn": "#d4a030",
+      "accent_morning": "#c48820",
+      "accent_afternoon": "#b07818",
+      "accent_evening": "#9a6810",
+      "accent_night": "#845808",
       "bg": "#f5f0e6",
       "fg": "#1a1a1a",
       "grain_opacity": "0",
@@ -26,10 +26,7 @@
     "layout": {
       "sections": [
         "overlay-top",
-        "ink-hero",
-        "meridian-veil",
         "overlay-center",
-        "split-annotation",
         "thought-floater",
         "overlay-bottom",
         "scroll-hint",
@@ -86,6 +83,7 @@
         "atelier-glyph-001.svg",
         "cartographic-glyph-003.svg",
         "cartographic-glyph-002.svg",
+        "editorial-optimist-glyph-001.svg",
         "cartographic-glyph-012.svg",
         "cartographic-glyph-006.svg",
         "cartographic-glyph-007.svg",
@@ -123,7 +121,7 @@
       "swarm-scatter:-clicking-anywhe"
     ],
     "content": {
-      "mood": "editorial-maximalist",
+      "mood": "editorial-optimist",
       "obsession": "meridians \u2014 the invisible lines that divide and organize the world",
       "thought_pools": {
         "dawn": 4,
@@ -136,17 +134,6 @@
     }
   },
   "fitness_log": [
-    {
-      "gen": 56,
-      "coherence": 7,
-      "novelty": 5,
-      "identity": 7,
-      "tension": 5,
-      "awe": 5,
-      "perceptibility": 6,
-      "note": "Fitness 5.7 for three generations \u2014 plateau, not decline, but not growth either. The screenshot shows the architecture working: dark hero zone with am",
-      "total": 5.8
-    },
     {
       "gen": 57,
       "coherence": 7,
@@ -355,36 +342,20 @@
       "perceptibility": 4,
       "note": "The screenshot shows real improvement: cream background holds, Playfair Display hero is large and readable, the blue accent is visible on experiment c",
       "total": 4.0
+    },
+    {
+      "gen": 76,
+      "coherence": 5,
+      "novelty": 4,
+      "identity": 5,
+      "tension": 3,
+      "awe": 3,
+      "perceptibility": 4,
+      "note": "The screenshot shows a cream page with large Playfair Display hero text, a green accent, and below-fold content that's readable. The CSS pulse/rings I",
+      "total": 4.0
     }
   ],
   "mutation_log": [
-    {
-      "gen": 56,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "content.mood",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "section.overlay-center",
-        "section.overlay-bottom",
-        "section.scroll-hint",
-        "section.prototype-portfolio",
-        "section.overlay-top",
-        "section.thought-floater",
-        "section.meridian-veil",
-        "section.split-annotation",
-        "svg.cartographic-glyph-009.svg",
-        "scene.config",
-        "scene.shaders"
-      ],
-      "kills": [
-        "css_rule:gen55-css",
-        "secret[20]"
-      ],
-      "timestamp": "2026-04-12T00:03:14Z"
-    },
     {
       "gen": 57,
       "mutations": [
@@ -913,39 +884,37 @@
         "secret[0]"
       ],
       "timestamp": "2026-04-19T00:02:52Z"
+    },
+    {
+      "gen": 76,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "content.mood",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "section.overlay-center",
+        "section.thought-floater",
+        "section.scroll-hint",
+        "section.overlay-bottom",
+        "section.prototype-portfolio",
+        "svg.editorial-optimist-glyph-001.svg",
+        "scene.config",
+        "scene.shaders",
+        "overlay.agent_data"
+      ],
+      "kills": [
+        "css_rule:gen75-css",
+        "secret[0]",
+        "section:ink-hero",
+        "section:meridian-veil",
+        "section:split-annotation"
+      ],
+      "timestamp": "2026-04-19T08:02:31Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "secret",
-      "value": "The first meridian was drawn in the Canary Islands because Ptolemy believed the ",
-      "died_gen": 53,
-      "epitaph": "Over the 20-secret capacity. Culling the weakest meridian fact to make room for the cartography etymology."
-    },
-    {
-      "type": "css_rule",
-      "value": "gen53-css",
-      "died_gen": 54,
-      "epitaph": "The teal-cerulean CSS served one generation. It proved the wall holds in any accent. Now crimson takes the line."
-    },
-    {
-      "type": "secret",
-      "value": "The word 'cartography' comes from the Greek 'chartis' \u2014 a sheet of papyrus. Ever",
-      "died_gen": 54,
-      "epitaph": "Over the 20-secret capacity. Culling the weakest secret to make room for the vermillion and the seven-generation-decline secrets."
-    },
-    {
-      "type": "css_rule",
-      "value": "gen54-css",
-      "died_gen": 55,
-      "epitaph": "The crimson CSS served one generation. Crimson was the color of wax seals and disputed territories \u2014 warm and urgent. Replaced by amber-ochre, the color of aged vellum and brass instruments."
-    },
-    {
-      "type": "secret",
-      "value": "Generation 53 contained a shader that colored particles the exact hue of verdigr",
-      "died_gen": 55,
-      "epitaph": "Over the 20-secret capacity. The weakest secret culled to make room for the Kiribati date line story."
-    },
     {
       "type": "css_rule",
       "value": "gen55-css",
@@ -1215,6 +1184,36 @@
       "value": "<!-- gen10: the furnace cools between tests. the interval is where judgment live",
       "died_gen": 75,
       "epitaph": "Secret pool at 21, needs to be 20. Oldest secret dies to make room for the gen 75 breathing note."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen75-css",
+      "died_gen": 76,
+      "epitaph": "Gen 75 shifted to forest green. Gen 76 shifts to amber-gold and an optimist framing. The green served its purpose."
+    },
+    {
+      "type": "secret",
+      "value": "<!-- The assayer's paradox: to prove something is pure, you must destroy part of",
+      "died_gen": 76,
+      "epitaph": "Secret pool at 21, needs to be 20. Oldest secret dies to make room for the gen 76 optimist note."
+    },
+    {
+      "type": "section",
+      "value": "ink-hero",
+      "died_gen": 76,
+      "epitaph": "The ink-hero canvas was declared in gen 66 and has been empty (1 line) for ten generations. It never rendered visibly. Killed \u2014 the hero visual is now CSS rings and a breathing pulse in the overlay-center."
+    },
+    {
+      "type": "section",
+      "value": "meridian-veil",
+      "died_gen": 76,
+      "epitaph": "The meridian veil was a vertical line from the split-screen era. The meridian obsession was killed at gen 60. This empty section persisted for 16 generations. Gone."
+    },
+    {
+      "type": "section",
+      "value": "split-annotation",
+      "died_gen": 76,
+      "epitaph": "The split-annotation was cartographic detail for the split-screen layout. The split screen died at gen 39. This empty section persisted for 37 generations. Gone."
     }
   ],
   "carrying_capacity": {
@@ -1233,11 +1232,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 66,
-      "base": "#1a6b3a",
-      "family": "lime"
-    },
     {
       "gen": 67,
       "base": "#c42030",
@@ -1282,6 +1276,11 @@
       "gen": 75,
       "base": "#1a6b3a",
       "family": "lime"
+    },
+    {
+      "gen": 76,
+      "base": "#c48820",
+      "family": "orange"
     }
   ],
   "past_epochs": [
@@ -1302,16 +1301,6 @@
   ],
   "epoch_number": 3,
   "contrast_warnings": [
-    {
-      "gen": 65,
-      "messages": [
-        "  [contrast-gate below-fold] effective bg = #f5f0e8 from .below-fold:211 (raw: var(--bg-below-fold, #fffff5))",
-        "    FAIL  #f0ebe0  ratio=1.05:1  (< 4.5)",
-        "    FAIL  #f5f0e8  ratio=1.00:1  (< 4.5)",
-        "    FAIL  #ffffff  ratio=1.13:1  (< 4.5)"
-      ],
-      "timestamp": "2026-04-15T08:02:18Z"
-    },
     {
       "gen": 66,
       "messages": [
@@ -1395,6 +1384,15 @@
         "  CONTRAST GATE: hierarchy collapse detected \u2014 all text tiers within luminance range [0.874, 1.000] (span 0.126, min 0.15)"
       ],
       "timestamp": "2026-04-19T00:02:52Z"
+    },
+    {
+      "gen": 76,
+      "messages": [
+        "  [contrast-gate below-fold] effective bg = #f5f0e6 from .below-fold:211 (raw: var(--bg-below-fold, #fffff5))",
+        "    FAIL  #f5f0e6  ratio=1.00:1  (< 4.5)",
+        "    FAIL  #faf8f0  ratio=1.07:1  (< 4.5)"
+      ],
+      "timestamp": "2026-04-19T08:02:31Z"
     }
   ]
 }
