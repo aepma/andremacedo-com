@@ -1,0 +1,179 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>013 — Letter City</title><style>*{margin:0;padding:0;box-sizing:border-box}body{background:#0a0a0a;overflow:hidden;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif}canvas{display:block;width:100vw;height:100vh}#info{position:fixed;top:20px;left:20px;color:#ffffff;font-size:13px;line-height:1.6;max-width:320px;opacity:0.7;z-index:10;text-shadow:0 0 8px rgba(0,0,0,0.8),0 0 20px rgba(0,0,0,0.5)}#info h1{font-size:16px;font-weight:700;margin-bottom:6px;color:#4400ff}#info p{margin-bottom:6px;color:#cccccc}#input-zone{position:fixed;bottom:40px;left:50%;transform:translateX(-50%);z-index:10;display:flex;gap:8px;align-items:center}#word-input{background:transparent;border:1px solid #333;color:#fff;font-family:'Courier New',monospace;font-size:18px;padding:8px 16px;width:280px;outline:none;text-align:center;letter-spacing:0.1em}#word-input:focus{border-color:#4400ff}#word-input::placeholder{color:#444}#back{position:fixed;top:20px;right:20px;color:#666;text-decoration:none;font-size:12px;letter-spacing:0.1em;text-transform:uppercase;z-index:10;text-shadow:0 0 8px rgba(0,0,0,0.8),0 0 20px rgba(0,0,0,0.5)}#back:hover{color:#4400ff}</style></head><body><div id="info"><h1>013 — Letter City</h1><p>Type a word. Each letter becomes a building. The city grows from your language.</p><p>Press Enter to build. Click anywhere to clear.</p></div><a id="back" href="/">← Back</a><canvas id="city"></canvas><div id="input-zone"><input type="text" id="word-input" placeholder="type a word" maxlength="12" autofocus></div><script>
+const canvas = document.getElementById('city');
+const ctx = canvas.getContext('2d');
+let W, H;
+let buildings = [];
+let groundY;
+
+function resize() {
+  W = canvas.width = window.innerWidth * 2;
+  H = canvas.height = window.innerHeight * 2;
+  canvas.style.width = window.innerWidth + 'px';
+  canvas.style.height = window.innerHeight + 'px';
+  groundY = H * 0.78;
+}
+window.addEventListener('resize', resize);
+resize();
+
+const ACCENT = '#4400ff';
+const GREY = '#1a1a1a';
+
+function letterToBuilding(letter, x, baseY) {
+  const ch = letter.toUpperCase();
+  const rand = (a, b) => a + Math.random() * (b - a);
+  const w = rand(50, 100);
+  const h = rand(120, 400);
+  const floors = Math.floor(h / rand(20, 40));
+  const hasAntenna = Math.random() > 0.6;
+  const windowRows = floors;
+  const windowCols = Math.floor(w / rand(14, 22));
+  const lit = [];
+  for (let r = 0; r < windowRows; r++) {
+    const row = [];
+    for (let c = 0; c < windowCols; c++) {
+      row.push(Math.random() > 0.4);
+    }
+    lit.push(row);
+  }
+  return {
+    x, y: baseY - h, w, h, floors, hasAntenna,
+    letter: ch, windowRows, windowCols, lit,
+    antennaH: rand(20, 60),
+    targetY: baseY - h,
+    currentY: baseY,
+    opacity: 0,
+    born: Date.now()
+  };
+}
+
+function buildWord(word) {
+  if (!word) return;
+  buildings = [];
+  const letters = word.split('');
+  const totalW = letters.length * 110;
+  let startX = (W - totalW) / 2;
+  letters.forEach((ch, i) => {
+    const b = letterToBuilding(ch, startX + i * 110 + Math.random() * 20, groundY);
+    buildings.push(b);
+  });
+}
+
+function drawBuilding(b) {
+  const progress = Math.min(1, (Date.now() - b.born) / 1200);
+  const ease = 1 - Math.pow(1 - progress, 3);
+  b.currentY = groundY - (groundY - b.targetY) * ease;
+  b.opacity = ease;
+  
+  ctx.save();
+  ctx.globalAlpha = b.opacity;
+  
+  // Building body
+  ctx.fillStyle = '#111111';
+  ctx.fillRect(b.x, b.currentY, b.w, groundY - b.currentY);
+  ctx.strokeStyle = '#222';
+  ctx.lineWidth = 1;
+  ctx.strokeRect(b.x, b.currentY, b.w, groundY - b.currentY);
+  
+  // Windows
+  const winW = 6;
+  const winH = 8;
+  const padX = (b.w - b.windowCols * (winW + 6)) / 2;
+  const padY = 14;
+  const rowH = (groundY - b.currentY - padY * 2) / b.windowRows;
+  
+  for (let r = 0; r < b.windowRows; r++) {
+    for (let c = 0; c < b.windowCols; c++) {
+      const wx = b.x + padX + c * (winW + 6) + 3;
+      const wy = b.currentY + padY + r * rowH;
+      if (b.lit[r] && b.lit[r][c]) {
+        ctx.fillStyle = ACCENT;
+        ctx.globalAlpha = b.opacity * (0.3 + Math.random() * 0.4);
+      } else {
+        ctx.fillStyle = '#080808';
+        ctx.globalAlpha = b.opacity * 0.6;
+      }
+      ctx.fillRect(wx, wy, winW, winH);
+    }
+  }
+  ctx.globalAlpha = b.opacity;
+  
+  // Antenna
+  if (b.hasAntenna) {
+    ctx.strokeStyle = '#333';
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.moveTo(b.x + b.w / 2, b.currentY);
+    ctx.lineTo(b.x + b.w / 2, b.currentY - b.antennaH * ease);
+    ctx.stroke();
+    ctx.fillStyle = ACCENT;
+    ctx.globalAlpha = b.opacity * (0.5 + 0.5 * Math.sin(Date.now() / 400));
+    ctx.beginPath();
+    ctx.arc(b.x + b.w / 2, b.currentY - b.antennaH * ease, 2.5, 0, Math.PI * 2);
+    ctx.fill();
+  }
+  
+  // Letter label
+  ctx.globalAlpha = b.opacity * 0.15;
+  ctx.fillStyle = '#ffffff';
+  ctx.font = `bold ${Math.min(b.w * 0.8, 60)}px 'Helvetica Neue', sans-serif`;
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText(b.letter, b.x + b.w / 2, b.currentY + (groundY - b.currentY) / 2);
+  
+  ctx.restore();
+}
+
+function draw() {
+  ctx.clearRect(0, 0, W, H);
+  
+  // Ground line
+  ctx.strokeStyle = '#222';
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(0, groundY);
+  ctx.lineTo(W, groundY);
+  ctx.stroke();
+  
+  // Ground hatching
+  ctx.strokeStyle = '#111';
+  ctx.lineWidth = 0.5;
+  for (let x = 0; x < W; x += 12) {
+    ctx.beginPath();
+    ctx.moveTo(x, groundY);
+    ctx.lineTo(x - 8, groundY + 20);
+    ctx.stroke();
+  }
+  
+  buildings.forEach(drawBuilding);
+  
+  // Subtle skyline reflection
+  ctx.save();
+  ctx.globalAlpha = 0.03;
+  ctx.scale(1, -1);
+  ctx.translate(0, -groundY * 2);
+  buildings.forEach(b => {
+    ctx.fillStyle = ACCENT;
+    ctx.fillRect(b.x, b.currentY, b.w, groundY - b.currentY);
+  });
+  ctx.restore();
+  
+  requestAnimationFrame(draw);
+}
+draw();
+
+const input = document.getElementById('word-input');
+input.addEventListener('keydown', e => {
+  if (e.key === 'Enter') {
+    buildWord(input.value.trim());
+  }
+});
+
+canvas.addEventListener('click', () => {
+  buildings = [];
+  input.value = '';
+  input.focus();
+});
+
+// Auto-build on load
+setTimeout(() => buildWord('HELLO'), 800);
+</script></body></html>

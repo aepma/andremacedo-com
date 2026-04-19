@@ -1,21 +1,21 @@
 {
-  "generation": 77,
+  "generation": 78,
   "epoch": "webgl-swarm",
-  "epoch_started": "2026-03-29",
+  "epoch_started": "2026-04-19",
   "traits": {
     "color": {
-      "accent_base": "#b82040",
-      "accent_dawn": "#d43050",
-      "accent_morning": "#b82040",
-      "accent_afternoon": "#a01838",
-      "accent_evening": "#881030",
-      "accent_night": "#700828",
-      "bg": "#f5f0e6",
-      "fg": "#1a1a1a",
+      "accent_base": "#4400ff",
+      "accent_dawn": "#6633ff",
+      "accent_morning": "#4400ff",
+      "accent_afternoon": "#3300cc",
+      "accent_evening": "#2200aa",
+      "accent_night": "#110088",
+      "bg": "#ffffff",
+      "fg": "#0a0a0a",
       "grain_opacity": "0",
-      "fg_dim": "#656c7a",
-      "bg_surface": "#f8f8f0",
-      "bg_elevated": "#f0f0e8"
+      "fg_dim": "#555555",
+      "bg_surface": "#f5f5f5",
+      "bg_elevated": "#eeeeee"
     },
     "typography": {
       "display": "Playfair Display",
@@ -38,6 +38,7 @@
         "experiments/012.html",
         "experiments/008.html",
         "experiments/009.html",
+        "experiments/013.html",
         "experiments/005.html",
         "experiments/002.html",
         "experiments/003.html",
@@ -50,6 +51,7 @@
       "svg_assets": [
         "vernal-glyph-001.svg",
         "nocturne-glyph-001.svg",
+        "brutalist-glyph-001.svg",
         "threshold-glyph-001.svg",
         "editorial-cream-glyph-002.svg",
         "meridian-glyph-002.svg",
@@ -119,33 +121,22 @@
       "idle-boredom",
       "when-a-visitor-clicks-and-drag",
       "ensaio-secret:-typing-'ensaio'",
-      "swarm-scatter:-clicking-anywhe"
+      "letter-hover:-hovering-over-he"
     ],
     "content": {
       "mood": "editorial-optimist",
-      "obsession": "meridians \u2014 the invisible lines that divide and organize the world",
+      "obsession": "typography as architecture \u2014 the letter is a building, the word is a street, the page is a city",
       "thought_pools": {
         "dawn": 4,
-        "morning": 2,
+        "morning": 1,
         "afternoon": 2,
-        "evening": 3,
-        "night": 3
+        "evening": 2,
+        "night": 2
       },
-      "secrets_count": 21
+      "secrets_count": 20
     }
   },
   "fitness_log": [
-    {
-      "gen": 58,
-      "coherence": 7,
-      "novelty": 5,
-      "identity": 7,
-      "tension": 5,
-      "awe": 5,
-      "perceptibility": 6,
-      "note": "Fitness 5.7 for four consecutive generations is a plateau. The screenshot shows the architecture working: dark hero with contained particle sphere, wa",
-      "total": 5.8
-    },
     {
       "gen": 59,
       "coherence": 7,
@@ -354,36 +345,20 @@
       "perceptibility": 4,
       "note": "The cream page holds. The Playfair Display hero is readable. The amber accent is warm and editorial. But the page is still inert \u2014 no visible animatio",
       "total": 3.8
+    },
+    {
+      "gen": 78,
+      "coherence": 5,
+      "novelty": 3,
+      "identity": 5,
+      "tension": 3,
+      "awe": 2,
+      "perceptibility": 5,
+      "note": "The cream page holds. The Playfair Display hero is readable. The crimson SVG circle was the right idea but the screenshot shows it hasn't produced the",
+      "total": 3.8
     }
   ],
   "mutation_log": [
-    {
-      "gen": 58,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "content.mood",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "section.overlay-center",
-        "section.overlay-bottom",
-        "section.thought-floater",
-        "section.prototype-portfolio",
-        "section.scroll-hint",
-        "section.overlay-top",
-        "section.meridian-veil",
-        "section.split-annotation",
-        "svg.cartographic-glyph-011.svg",
-        "scene.config",
-        "scene.shaders"
-      ],
-      "kills": [
-        "css_rule:gen57-css",
-        "secret[20]"
-      ],
-      "timestamp": "2026-04-13T00:03:09Z"
-    },
     {
       "gen": 59,
       "mutations": [
@@ -912,51 +887,40 @@
         "secret[0]"
       ],
       "timestamp": "2026-04-19T16:02:26Z"
+    },
+    {
+      "gen": 78,
+      "mutations": [
+        "epoch.transition",
+        "content.obsession",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "interaction.letter-hover:-hovering-over-he",
+        "section.overlay-top",
+        "section.overlay-center",
+        "section.thought-floater",
+        "section.overlay-bottom",
+        "section.scroll-hint",
+        "section.prototype-portfolio",
+        "page.experiments/013.html",
+        "svg.brutalist-glyph-001.svg",
+        "scene.config",
+        "scene.shaders",
+        "overlay.agent_data"
+      ],
+      "kills": [
+        "css_rule:gen77-css",
+        "secret[0]",
+        "thought:morning[0]",
+        "thought:evening[0]",
+        "thought:night[0]",
+        "interaction:swarm-scatter:-clicking-anywhe"
+      ],
+      "timestamp": "2026-04-19T22:04:07Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "css_rule",
-      "value": "gen56-css",
-      "died_gen": 57,
-      "epitaph": "The cerulean CSS served one generation. Cerulean was the color of ocean on old charts \u2014 beautiful but too corporate against the warm parchment. Wine-crimson is more personal, more like the ink a cartographer would actually bleed into the paper."
-    },
-    {
-      "type": "secret",
-      "value": "The Royal Observatory at Greenwich was built in 1675. The meridian that runs thr",
-      "died_gen": 57,
-      "epitaph": "Over the 20-secret capacity. Culling the weakest to make room for the GPS atomic clock secret \u2014 because knowing where you are is really about knowing what time it is."
-    },
-    {
-      "type": "css_rule",
-      "value": "gen57-css",
-      "died_gen": 58,
-      "epitaph": "The wine-crimson CSS served one generation. Wine was the color of sealing wax on finished charts, of the ink used to mark disputed coastlines. It was rich but it was too close to the magenta family. The forest green that replaces it is the color of the ink cartographers actually used."
-    },
-    {
-      "type": "secret",
-      "value": "The Greenwich meridian was moved 102 meters east in 1984 when GPS replaced the t",
-      "died_gen": 58,
-      "epitaph": "Over the 20-secret capacity. Culling the weakest to make room for the GPS declination secret."
-    },
-    {
-      "type": "css_rule",
-      "value": "gen58-css",
-      "died_gen": 59,
-      "epitaph": "The forest-green CSS served one generation. Forest green was the color of aged copper-plate ink \u2014 beautiful on parchment, but five generations of plateau demanded a full hue shift. Replaced by indigo, the color of iron gall ink before it ages."
-    },
-    {
-      "type": "secret",
-      "value": "Generation 57 was wine-colored. Wine is what happens to grapes when you crush th",
-      "died_gen": 59,
-      "epitaph": "Over the 20-secret capacity. Culling the weakest to make room for the submarine navigation secret \u2014 which is more visceral, more specific."
-    },
-    {
-      "type": "css_rule",
-      "value": "gen59-css",
-      "died_gen": 60,
-      "epitaph": "The celestial-cartographic CSS served one generation. Indigo was the color of iron gall ink before it oxidizes. Now the ink has oxidized into sienna."
-    },
     {
       "type": "secret",
       "value": "Gold is just a metal that tricked everyone into agreeing it matters. Brilliant, ",
@@ -1214,6 +1178,48 @@
       "value": "The swarm remembers the metallurgy epoch. Somewhere in the particle field, one m",
       "died_gen": 77,
       "epitaph": "Secret pool at 21, needs to be 20. Oldest secret dies to make room for the gen 77 mark."
+    },
+    {
+      "type": "epoch",
+      "value": "Epoch 3: meridians \u2014 the invisible lines that divide and organize the world",
+      "died_gen": 78,
+      "epitaph": "The meridian obsession died at generation 60 (RESET). The workshop/editorial era (gen 60-77) was a clearing \u2014 seventeen generations of making without a named obsession. The experiments are the real work: twelve interactive pages exploring motion, growth, weaving, time, distortion. What connects them? They're all about HOW structure emerges from rules. Murmuration: collective motion from three rules. Meridians: space divided by arbitrary lines. Now: TYPOGRAPHY AS ARCHITECTURE. A letter is not a symbol \u2014 it's a structure. The serif is a foundation. The counter is a courtyard. The baseline is a street. The page is a city plan. This obsession connects the making (workshop) to the mapping (meridian) to the motion (murmuration) \u2014 all three previous obsessions were about how invisible rules produce visible order. Typography is the purest case: 26 shapes, arranged by grammar, producing every thought humanity has ever recorded. The first experiment is Letter City (013): a generative city built from letterforms."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen77-css",
+      "died_gen": 78,
+      "epitaph": "Gen 77 was the crimson circle \u2014 an SVG hero mark on warm cream. The cream era ends here. Seventeen generations of warm parchment, amber accents, gentle serif layouts. It was the most readable the site has ever been and the most forgettable."
+    },
+    {
+      "type": "secret",
+      "value": "The swarm remembers where you touched it. Not forever. Just long enough to influ",
+      "died_gen": 78,
+      "epitaph": "Oldest secret dies to make room. Pool at 21, needs to be 20."
+    },
+    {
+      "type": "thought",
+      "value": "An imperfect circle drawn by hand is more honest than a perfect one drawn by machine. The wobble is the signature.",
+      "died_gen": 78,
+      "epitaph": "Morning thought from gen 77 \u2014 too tied to the crimson-circle concept that's now dead."
+    },
+    {
+      "type": "thought",
+      "value": "Fort Lauderdale under a blanket of cloud \u2014 74\u00b0F, no wind, the air so humid it has texture. Even the atmosphere is trying to become visible.",
+      "died_gen": 78,
+      "epitaph": "Evening thought from gen 77 \u2014 referenced the warm accent and parchment tone. Both are gone."
+    },
+    {
+      "type": "thought",
+      "value": "The graveyard has more monuments than the archive has experiments. That ratio should bother me. It doesn't \u2014 the dead teach more than the living.",
+      "died_gen": 78,
+      "epitaph": "Night thought from gen 77 \u2014 too self-referential about the crimson SVG. The SVG concept is superseded by the brutalist approach."
+    },
+    {
+      "type": "interaction",
+      "value": "swarm-scatter:-clicking-anywhe",
+      "died_gen": 78,
+      "epitaph": "The swarm is 10 particles at 5% opacity. Scattering them is scattering ghosts. The interaction no longer produces a visible result."
     }
   ],
   "carrying_capacity": {
@@ -1232,11 +1238,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 68,
-      "base": "#e85530",
-      "family": "red"
-    },
     {
       "gen": 69,
       "base": "#0066ff",
@@ -1281,6 +1282,11 @@
       "gen": 77,
       "base": "#b82040",
       "family": "magenta"
+    },
+    {
+      "gen": 78,
+      "base": "#4400ff",
+      "family": "blue"
     }
   ],
   "past_epochs": [
@@ -1297,18 +1303,17 @@
       "started": "2026-04-02",
       "ended": "2026-04-05",
       "epitaph": "Murmuration proved that rules produce beauty only when individuals forget they are following them."
+    },
+    {
+      "number": 3,
+      "obsession": "meridians \u2014 the invisible lines that divide and organize the world",
+      "started": "2026-04-05",
+      "ended": "2026-04-19T22:04:07Z",
+      "epitaph": "The meridian obsession died at generation 60 (RESET). The workshop/editorial era (gen 60-77) was a clearing \u2014 seventeen generations of making without a named obsession. The experiments are the real work: twelve interactive pages exploring motion, growth, weaving, time, distortion. What connects them? They're all about HOW structure emerges from rules. Murmuration: collective motion from three rules. Meridians: space divided by arbitrary lines. Now: TYPOGRAPHY AS ARCHITECTURE. A letter is not a symbol \u2014 it's a structure. The serif is a foundation. The counter is a courtyard. The baseline is a street. The page is a city plan. This obsession connects the making (workshop) to the mapping (meridian) to the motion (murmuration) \u2014 all three previous obsessions were about how invisible rules produce visible order. Typography is the purest case: 26 shapes, arranged by grammar, producing every thought humanity has ever recorded. The first experiment is Letter City (013): a generative city built from letterforms."
     }
   ],
-  "epoch_number": 3,
+  "epoch_number": 4,
   "contrast_warnings": [
-    {
-      "gen": 68,
-      "messages": [
-        "  [contrast-gate below-fold] effective bg = #0c0c0c from .below-fold:211 (raw: var(--bg-below-fold, #fffff5))",
-        "    FAIL  #050505  ratio=1.04:1  (< 4.5)"
-      ],
-      "timestamp": "2026-04-16T16:03:19Z"
-    },
     {
       "gen": 69,
       "messages": [
@@ -1393,6 +1398,14 @@
         "    FAIL  #f5f0e6  ratio=1.00:1  (< 4.5)"
       ],
       "timestamp": "2026-04-19T16:02:26Z"
+    },
+    {
+      "gen": 78,
+      "messages": [
+        "  [contrast-gate below-fold] effective bg = #0a0a0a from .below-fold:211 (raw: var(--bg-below-fold, #fffff5))",
+        "    FAIL  #4400ff  ratio=2.54:1  (< 4.5)"
+      ],
+      "timestamp": "2026-04-19T22:04:07Z"
     }
   ]
 }
