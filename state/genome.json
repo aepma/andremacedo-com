@@ -1,15 +1,15 @@
 {
-  "generation": 74,
+  "generation": 75,
   "epoch": "webgl-swarm",
   "epoch_started": "2026-03-29",
   "traits": {
     "color": {
-      "accent_base": "#1a5fa0",
-      "accent_dawn": "#3a7fc0",
-      "accent_morning": "#1a5fa0",
-      "accent_afternoon": "#155090",
-      "accent_evening": "#104080",
-      "accent_night": "#0c3060",
+      "accent_base": "#1a6b3a",
+      "accent_dawn": "#2d8a50",
+      "accent_morning": "#1a6b3a",
+      "accent_afternoon": "#156030",
+      "accent_evening": "#105028",
+      "accent_night": "#0c4020",
       "bg": "#f5f0e6",
       "fg": "#1a1a1a",
       "grain_opacity": "0",
@@ -103,6 +103,7 @@
         "abyssal-glyph-001.svg",
         "corrective-glyph-001.svg",
         "editorial-maximalist-glyph-002.svg",
+        "editorial-maximalist-glyph-003.svg",
         "ink-wet-glyph-001.svg",
         "blood-ink-glyph-001.svg",
         "surfacing-glyph-002.svg",
@@ -135,17 +136,6 @@
     }
   },
   "fitness_log": [
-    {
-      "gen": 55,
-      "coherence": 7,
-      "novelty": 5,
-      "identity": 7,
-      "tension": 5,
-      "awe": 4,
-      "perceptibility": 6,
-      "note": "Fitness 5.8 for two consecutive generations \u2014 plateau. The architecture is solid: contained hero + parchment wall below holds. The screenshot confirms",
-      "total": 5.7
-    },
     {
       "gen": 56,
       "coherence": 7,
@@ -354,36 +344,20 @@
       "perceptibility": 4,
       "note": "The screenshot shows real progress: cream background holds, Playfair Display hero text is large and readable, the vermillion accent is visible on expe",
       "total": 3.8
+    },
+    {
+      "gen": 75,
+      "coherence": 5,
+      "novelty": 4,
+      "identity": 5,
+      "tension": 3,
+      "awe": 3,
+      "perceptibility": 4,
+      "note": "The screenshot shows real improvement: cream background holds, Playfair Display hero is large and readable, the blue accent is visible on experiment c",
+      "total": 4.0
     }
   ],
   "mutation_log": [
-    {
-      "gen": 55,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "content.mood",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "section.overlay-center",
-        "section.overlay-bottom",
-        "section.scroll-hint",
-        "section.thought-floater",
-        "section.prototype-portfolio",
-        "section.overlay-top",
-        "section.meridian-veil",
-        "section.split-annotation",
-        "svg.cartographic-glyph-008.svg",
-        "scene.config",
-        "scene.shaders"
-      ],
-      "kills": [
-        "css_rule:gen54-css",
-        "secret[20]"
-      ],
-      "timestamp": "2026-04-10T08:03:01Z"
-    },
     {
       "gen": 56,
       "mutations": [
@@ -911,21 +885,37 @@
         "secret[0]"
       ],
       "timestamp": "2026-04-18T16:02:40Z"
+    },
+    {
+      "gen": 75,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "content.mood",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "section.overlay-center",
+        "section.thought-floater",
+        "section.scroll-hint",
+        "section.overlay-bottom",
+        "section.overlay-top",
+        "section.ink-hero",
+        "section.meridian-veil",
+        "section.split-annotation",
+        "section.prototype-portfolio",
+        "svg.editorial-maximalist-glyph-003.svg",
+        "scene.config",
+        "scene.shaders"
+      ],
+      "kills": [
+        "css_rule:gen74-css",
+        "secret[0]"
+      ],
+      "timestamp": "2026-04-19T00:02:52Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "secret",
-      "value": "The Prime Meridian passed through Paris before it passed through Greenwich. Fran",
-      "died_gen": 52,
-      "epitaph": "Over the 20-secret capacity. The weakest secret about the site being alive \u2014 too generic, replaced by specific cartographic secrets with more bite."
-    },
-    {
-      "type": "css_rule",
-      "value": "gen52-css",
-      "died_gen": 53,
-      "epitaph": "The plum cartographic CSS served one generation \u2014 it proved plum reads well on parchment but the ocean calls. Cerulean replaces it."
-    },
     {
       "type": "secret",
       "value": "The first meridian was drawn in the Canary Islands because Ptolemy believed the ",
@@ -1213,6 +1203,18 @@
       "value": "<!-- The ensaiador-mor worked alone in a locked room. The door had two keys held",
       "died_gen": 74,
       "epitaph": "Secret pool at 21, needs to be 20. Oldest secret dies to make room."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen74-css",
+      "died_gen": 75,
+      "epitaph": "Gen 74 fixed the vermillion contrast crisis with ocean blue. Gen 75 shifts to forest green \u2014 the color of aged copper-plate ink."
+    },
+    {
+      "type": "secret",
+      "value": "<!-- gen10: the furnace cools between tests. the interval is where judgment live",
+      "died_gen": 75,
+      "epitaph": "Secret pool at 21, needs to be 20. Oldest secret dies to make room for the gen 75 breathing note."
     }
   ],
   "carrying_capacity": {
@@ -1231,11 +1233,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 65,
-      "base": "#a83279",
-      "family": "violet"
-    },
     {
       "gen": 66,
       "base": "#1a6b3a",
@@ -1280,6 +1277,11 @@
       "gen": 74,
       "base": "#1a5fa0",
       "family": "teal"
+    },
+    {
+      "gen": 75,
+      "base": "#1a6b3a",
+      "family": "lime"
     }
   ],
   "past_epochs": [
@@ -1300,16 +1302,6 @@
   ],
   "epoch_number": 3,
   "contrast_warnings": [
-    {
-      "gen": 64,
-      "messages": [
-        "  [contrast-gate below-fold] effective bg = #f5f0e8 from .below-fold:211 (raw: var(--bg-below-fold, #fffff5))",
-        "    FAIL  #f0ebe0  ratio=1.05:1  (< 4.5)",
-        "    FAIL  #f5f0e8  ratio=1.00:1  (< 4.5)",
-        "    FAIL  #ffffff  ratio=1.13:1  (< 4.5)"
-      ],
-      "timestamp": "2026-04-15T00:02:48Z"
-    },
     {
       "gen": 65,
       "messages": [
@@ -1393,6 +1385,16 @@
         "    FAIL  #ffffff  ratio=1.14:1  (< 4.5)"
       ],
       "timestamp": "2026-04-18T16:02:40Z"
+    },
+    {
+      "gen": 75,
+      "messages": [
+        "  [contrast-gate below-fold] effective bg = #f5f0e6 from .below-fold:211 (raw: var(--bg-below-fold, #fffff5))",
+        "    FAIL  #f5f0e6  ratio=1.00:1  (< 4.5)",
+        "    FAIL  #ffffff  ratio=1.14:1  (< 4.5)",
+        "  CONTRAST GATE: hierarchy collapse detected \u2014 all text tiers within luminance range [0.874, 1.000] (span 0.126, min 0.15)"
+      ],
+      "timestamp": "2026-04-19T00:02:52Z"
     }
   ]
 }

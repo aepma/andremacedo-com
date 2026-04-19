@@ -14,7 +14,7 @@
   :root {
     --fg: #1a1a1a;
     --fg-dim: #656c7a;
-    --fg-accent: #1a5fa0;
+    --fg-accent: #1a6b3a;
     --bg: #f5f0e6;
     --bg-surface: #f8f8f0;
     --bg-elevated: #f0f0e8;
@@ -213,7 +213,7 @@
     padding: 4rem 2.5rem;
     --fg: #1a1a1a;
     --fg-dim: #706b62;
-    --fg-accent: #1a5fa0;
+    --fg-accent: #1a6b3a;
     --bg-surface: #f8f8f0;
     --bg-elevated: #f0f0e8;
   }
@@ -568,300 +568,310 @@
 
   /* Section injection markers are now in the body */
 /* @inject:css */
-  /* @gene:gen74-css:start */
-  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300;1,400&family=JetBrains+Mono:wght@300;400&display=swap');
+  /* @gene:gen75-css:start */
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@300;400&display=swap');
 
-[data-gene='gen74-css'] {
-  /* hero zone */
+[data-gene='gen75-css'] {
+  /* hero pulse — visible breathing glow behind text */
 }
 
-.hero-rings-container {
+.hero-pulse {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 100%;
-  height: 100%;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(26,107,58,0.18) 0%, rgba(26,107,58,0.06) 40%, transparent 70%);
+  animation: hero-breathe 4s ease-in-out infinite;
   pointer-events: none;
   z-index: 0;
-  overflow: hidden;
 }
 
-.hero-ring {
+@keyframes hero-breathe {
+  0%, 100% { transform: translate(-50%, -50%) scale(0.8); opacity: 0.4; }
+  50% { transform: translate(-50%, -50%) scale(1.3); opacity: 0.9; }
+}
+
+.hero-ring-1, .hero-ring-2, .hero-ring-3 {
   position: absolute;
   top: 50%;
   left: 50%;
   border-radius: 50%;
-  border: 2px solid #1a5fa0;
-  opacity: 0;
-  transform: translate(-50%, -50%) scale(0.1);
-  animation: ring-expand 8s ease-out infinite;
+  border: 1.5px solid rgba(26,107,58,0.2);
+  pointer-events: none;
+  z-index: 0;
 }
 
-.hero-ring:nth-child(1) { animation-delay: 0s; width: 300px; height: 300px; }
-.hero-ring:nth-child(2) { animation-delay: 2.6s; width: 500px; height: 500px; }
-.hero-ring:nth-child(3) { animation-delay: 5.3s; width: 700px; height: 700px; }
+.hero-ring-1 {
+  width: 200px; height: 200px;
+  transform: translate(-50%, -50%);
+  animation: ring-expand 6s ease-out infinite;
+}
+.hero-ring-2 {
+  width: 200px; height: 200px;
+  transform: translate(-50%, -50%);
+  animation: ring-expand 6s ease-out 2s infinite;
+}
+.hero-ring-3 {
+  width: 200px; height: 200px;
+  transform: translate(-50%, -50%);
+  animation: ring-expand 6s ease-out 4s infinite;
+}
 
 @keyframes ring-expand {
-  0% { opacity: 0; transform: translate(-50%, -50%) scale(0.1); }
-  10% { opacity: 0.35; }
-  50% { opacity: 0.15; }
-  100% { opacity: 0; transform: translate(-50%, -50%) scale(1.8); }
-}
-
-.hero-text-main {
-  font-family: 'Playfair Display', serif;
-  font-weight: 900;
-  font-size: clamp(3rem, 8vw, 7rem);
-  color: #1a1a1a;
-  line-height: 1.05;
-  letter-spacing: -0.02em;
-  text-align: center;
-  position: relative;
-  z-index: 2;
-}
-
-.hero-hook {
-  font-family: 'Source Serif 4', serif;
-  font-style: italic;
-  font-size: clamp(0.95rem, 1.8vw, 1.2rem);
-  color: #1a5fa0;
-  text-align: center;
-  margin-top: 1.5rem;
-  position: relative;
-  z-index: 2;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.hero-meta {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.7rem;
-  color: #888888;
-  text-align: center;
-  margin-top: 1rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  position: relative;
-  z-index: 2;
+  0% { width: 60px; height: 60px; opacity: 0.6; border-color: rgba(26,107,58,0.35); }
+  100% { width: 700px; height: 700px; opacity: 0; border-color: rgba(26,107,58,0); }
 }
 
 .content-wall {
   position: relative;
   z-index: 10;
-  background-color: #f5f0e6;
-  padding: 3rem 2rem;
+  background-color: #f5f0e6 !important;
+  padding: 4rem 2rem;
   min-height: 100vh;
+}
+
+.content-wall * {
+  color: #1a1a1a;
 }
 
 .section-divider {
   display: flex;
   align-items: center;
   gap: 1.5rem;
-  margin: 3rem 0 2rem 0;
+  margin: 3rem 0 2rem;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .section-divider hr {
   flex: 1;
   border: none;
-  border-top: 2px solid #1a1a1a;
-  opacity: 0.15;
+  border-top: 2px solid #1a6b3a;
+  opacity: 0.4;
 }
 
 .section-divider span {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 0.65rem;
+  font-size: 0.7rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: #1a5fa0;
+  color: #1a6b3a !important;
   white-space: nowrap;
-  font-weight: 400;
 }
 
-.experiments-grid {
+.exp-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 1.5rem;
-  margin: 1.5rem 0;
+  max-width: 900px;
+  margin: 0 auto 3rem;
 }
 
 .exp-card {
-  background: #ffffff;
-  border: 1px solid rgba(26,95,160,0.15);
+  background: #ffffff !important;
+  border: 1px solid rgba(26,107,58,0.15);
   border-radius: 4px;
   overflow: hidden;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  transition: border-color 0.3s, box-shadow 0.3s;
 }
 
 .exp-card:hover {
-  border-color: #1a5fa0;
-  box-shadow: 0 4px 20px rgba(26,95,160,0.1);
+  border-color: rgba(26,107,58,0.4);
+  box-shadow: 0 4px 20px rgba(26,107,58,0.08);
 }
 
-.exp-card-canvas {
+.exp-card-header {
+  background: #1a6b3a !important;
+  padding: 0.5rem 1rem;
+  position: relative;
+  height: 48px;
+  overflow: hidden;
+}
+
+.exp-card-header canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
-  height: 120px;
-  display: block;
-  background: #0a0a1a;
+  height: 100%;
+  opacity: 0.4;
+}
+
+.exp-card-header span {
+  position: relative;
+  z-index: 1;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #ffffff !important;
 }
 
 .exp-card-body {
-  padding: 1rem 1.2rem;
+  padding: 1rem;
+  background: #ffffff !important;
 }
 
 .exp-card-body h3 {
   font-family: 'Playfair Display', serif;
   font-size: 1.1rem;
   font-weight: 700;
-  color: #1a1a1a;
-  margin: 0 0 0.4rem 0;
+  margin: 0 0 0.5rem;
+  color: #1a1a1a !important;
 }
 
 .exp-card-body h3 a {
-  color: #1a1a1a;
+  color: #1a6b3a !important;
   text-decoration: none;
+  border-bottom: 1px solid rgba(26,107,58,0.3);
+  transition: border-color 0.2s;
 }
 
 .exp-card-body h3 a:hover {
-  color: #1a5fa0;
+  border-color: #1a6b3a;
 }
 
 .exp-card-body p {
   font-family: 'Source Serif 4', serif;
   font-size: 0.85rem;
-  color: #333333;
   line-height: 1.5;
-  margin: 0 0 0.6rem 0;
+  color: #333333 !important;
+  margin: 0 0 0.75rem;
 }
 
-.exp-card-meta {
+.exp-card-body .tags {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 0.65rem;
-  color: #666666;
-  letter-spacing: 0.05em;
+  font-size: 0.6rem;
+  color: #666666 !important;
+  letter-spacing: 0.08em;
 }
 
-.evolution-timeline {
-  margin: 2rem 0;
-  border-left: 3px solid rgba(26,95,160,0.2);
+.epoch-timeline {
+  max-width: 900px;
+  margin: 0 auto 3rem;
+}
+
+.epoch-entry {
+  padding: 1rem 0;
+  border-left: 2px solid rgba(26,107,58,0.2);
   padding-left: 1.5rem;
+  margin-left: 0.5rem;
 }
 
-.evolution-epoch {
-  margin-bottom: 1.5rem;
+.epoch-entry.current {
+  border-left-color: #1a6b3a;
 }
 
-.evolution-epoch h4 {
+.epoch-entry h4 {
   font-family: 'Playfair Display', serif;
   font-size: 1rem;
   font-weight: 700;
-  color: #1a1a1a;
-  margin: 0 0 0.3rem 0;
+  color: #1a1a1a !important;
+  margin: 0 0 0.25rem;
 }
 
-.evolution-epoch .epoch-dates {
+.epoch-entry .dates {
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.65rem;
-  color: #666666;
-  letter-spacing: 0.05em;
-  margin-bottom: 0.3rem;
+  color: #666666 !important;
+  margin: 0 0 0.5rem;
 }
 
-.evolution-epoch p {
-  font-family: 'Source Serif 4', serif;
-  font-size: 0.85rem;
-  color: #333333;
-  line-height: 1.5;
-  margin: 0;
-}
-
-.graveyard-section {
-  margin: 2rem 0;
-}
-
-.grave-monument {
-  padding: 1rem 1.2rem;
-  background: #faf8f2;
-  border-left: 3px solid #1a5fa0;
-  margin-bottom: 1rem;
-  border-radius: 0 4px 4px 0;
-}
-
-.grave-monument h4 {
-  font-family: 'Playfair Display', serif;
-  font-size: 0.95rem;
-  font-weight: 700;
-  color: #1a1a1a;
-  margin: 0 0 0.3rem 0;
-}
-
-.grave-monument .grave-gen {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.6rem;
-  color: #666666;
-  letter-spacing: 0.05em;
-  margin-bottom: 0.3rem;
-}
-
-.grave-monument p {
+.epoch-entry .epitaph {
   font-family: 'Source Serif 4', serif;
   font-style: italic;
   font-size: 0.85rem;
-  color: #555555;
+  color: #333333 !important;
+}
+
+.graveyard {
+  max-width: 900px;
+  margin: 0 auto 3rem;
+}
+
+.grave {
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-left: 3px solid rgba(26,107,58,0.15);
+  background: rgba(26,107,58,0.03) !important;
+}
+
+.grave .gen-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  color: #666666 !important;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 0.25rem;
+}
+
+.grave .epitaph-text {
+  font-family: 'Source Serif 4', serif;
+  font-style: italic;
+  font-size: 0.85rem;
   line-height: 1.5;
-  margin: 0;
+  color: #333333 !important;
+}
+
+.compass-corner {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  line-height: 1.6;
+  color: #888888 !important;
+  text-align: right;
+  z-index: 20;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.scroll-down {
+  text-align: center;
+  padding: 2rem 0;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  color: #999999 !important;
+  text-transform: uppercase;
+  animation: scroll-bob 2s ease-in-out infinite;
+}
+
+@keyframes scroll-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(6px); }
 }
 
 .thought-float {
   position: fixed;
   font-family: 'Source Serif 4', serif;
   font-style: italic;
-  font-size: clamp(0.85rem, 1.2vw, 1rem);
-  color: #1a5fa0;
+  font-size: 0.9rem;
+  color: #1a6b3a !important;
   opacity: 0;
   pointer-events: none;
-  z-index: 5;
+  z-index: 15;
   max-width: 280px;
-  line-height: 1.4;
-  transition: opacity 3s ease;
+  line-height: 1.5;
+  transition: opacity 2s ease;
 }
 
-.scroll-hint-element {
-  text-align: center;
-  padding: 1rem;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.7rem;
-  color: #888888;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+.thought-float.visible {
+  opacity: 0.55;
 }
-
-.compass-element {
-  position: fixed;
-  bottom: 1.5rem;
-  right: 1.5rem;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.6rem;
-  color: #888888;
-  text-align: right;
-  line-height: 1.6;
-  z-index: 20;
-  opacity: 0.6;
-}
-
-@media (max-width: 768px) {
-  .experiments-grid { grid-template-columns: 1fr; }
-  .hero-text-main { font-size: clamp(2.2rem, 10vw, 3.5rem); }
-}
-  /* @gene:gen74-css:end */
+  /* @gene:gen75-css:end */
 </style>
 </head>
 <body>
 
 <div id="scene-frame"><canvas id="scene-canvas"></canvas></div>
 
-<span id="siteVersion" style="display:none">v74</span>
+<span id="siteVersion" style="display:none">v75</span>
 
 <!-- ── HTML Overlay ──────────────────────────────────────────── -->
 <div id="overlay">
@@ -870,11 +880,11 @@
 .gen32-topbar{position:fixed;top:0;left:0;width:100%;display:flex;justify-content:space-between;align-items:center;padding:18px 24px;z-index:25;pointer-events:none}.gen32-site-name{font-family:'JetBrains Mono',monospace;font-size:0.7rem;letter-spacing:0.2em;color:#1a1a2e;opacity:0.6}.gen32-coordinates{font-family:'JetBrains Mono',monospace;font-size:0.6rem;letter-spacing:0.15em;color:#2b6cb0;opacity:0.3}
 </style>
 <!-- @section:overlay-top:start -->
-<div style='position:fixed;top:1.5rem;left:1.5rem;font-family:"JetBrains Mono",monospace;font-size:0.6rem;color:#999;z-index:20;letter-spacing:0.05em;'>andremacedo.com · gen 73</div>
+<!-- cleared -->
 <!-- @section:overlay-top:end -->
 
 <!-- @section:ink-hero:start -->
-<!-- hero zone background handled by CSS -->
+<!-- cleared -->
 <!-- @section:ink-hero:end -->
 <script data-section="ink-hero">
 (function(){const c=document.getElementById('ink-hero-canvas');if(!c)return;const ctx=c.getContext('2d');let W,H;function resize(){W=c.width=window.innerWidth;H=c.height=window.innerHeight;}resize();window.addEventListener('resize',resize);window._inkBlots=[];const blots=window._inkBlots;function spawnAuto(){blots.push({x:Math.random()*W,y:Math.random()*H,r:1,maxR:60+Math.random()*200,speed:0.15+Math.random()*0.25,opacity:0.7+Math.random()*0.3});setTimeout(spawnAuto,2000+Math.random()*4000);}spawnAuto();c.addEventListener('click',function(e){const rect=c.getBoundingClientRect();for(let i=0;i<3;i++){blots.push({x:e.clientX-rect.left+(Math.random()-0.5)*40,y:e.clientY-rect.top+(Math.random()-0.5)*40,r:1,maxR:50+Math.random()*150,speed:0.5+Math.random()*0.5,opacity:0.9});}});function draw(){ctx.fillStyle='rgba(5,5,5,0.008)';ctx.fillRect(0,0,W,H);for(let i=blots.length-1;i>=0;i--){const b=blots[i];if(b.r>=b.maxR){b.opacity-=0.002;if(b.opacity<=0){blots.splice(i,1);continue;}}else{b.r+=b.speed;}const grad=ctx.createRadialGradient(b.x,b.y,0,b.x,b.y,b.r);const alpha=b.opacity*(1-b.r/b.maxR*0.5);grad.addColorStop(0,'rgba(232,85,48,'+alpha*0.9+')');grad.addColorStop(0.4,'rgba(200,50,30,'+alpha*0.6+')');grad.addColorStop(0.7,'rgba(136,32,16,'+alpha*0.3+')');grad.addColorStop(1,'rgba(50,10,5,0)');ctx.fillStyle=grad;ctx.beginPath();ctx.arc(b.x,b.y,b.r,0,Math.PI*2);ctx.fill();const tendrils=3+Math.floor(Math.random()*2);if(b.r<b.maxR*0.8&&Math.random()<0.03){for(let t=0;t<tendrils;t++){const angle=Math.random()*Math.PI*2;const len=b.r*0.5+Math.random()*b.r*0.8;const tx=b.x+Math.cos(angle)*len;const ty=b.y+Math.sin(angle)*len;ctx.fillStyle='rgba(232,85,48,'+alpha*0.15+')';ctx.beginPath();ctx.arc(tx,ty,2+Math.random()*4,0,Math.PI*2);ctx.fill();}}}requestAnimationFrame(draw);}draw();})()
@@ -893,15 +903,14 @@ document.addEventListener('mousemove', function(e) { const m = document.getEleme
 @keyframes hero-ring-expand{0%,100%{transform:translate(-50%,-50%) scale(0.85);opacity:0.04}50%{transform:translate(-50%,-50%) scale(1.15);opacity:0.18}}
 </style>
 <!-- @section:overlay-center:start -->
-<div style="display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:70vh; position:relative; padding:2rem;">
-  <div class="hero-rings-container">
-    <div class="hero-ring"></div>
-    <div class="hero-ring"></div>
-    <div class="hero-ring"></div>
-  </div>
-  <h1 class="hero-text-main">Experiments in<br>living design</h1>
-  <p class="hero-hook">An AI redesigns this page every day. You're seeing generation 74. Everything here is the product of 73 previous attempts, most of them failures.</p>
-  <p class="hero-meta">gen 74 · epoch: webgl-swarm · mood: editorial-maximalist · april 2026</p>
+<div style="position:fixed;top:0;left:0;width:100%;height:60vh;display:flex;flex-direction:column;justify-content:center;align-items:center;z-index:5;pointer-events:none;">
+  <div class="hero-pulse"></div>
+  <div class="hero-ring-1"></div>
+  <div class="hero-ring-2"></div>
+  <div class="hero-ring-3"></div>
+  <h1 style="font-family:'Playfair Display',serif;font-size:clamp(2.5rem,7vw,5.5rem);font-weight:900;color:#1a1a1a;text-align:center;line-height:1.1;margin:0 2rem;position:relative;z-index:2;">Experiments in<br>living design</h1>
+  <p style="font-family:'Source Serif 4',serif;font-size:clamp(0.85rem,1.8vw,1.05rem);color:#333333;text-align:center;margin:1.2rem 2rem 0;max-width:480px;line-height:1.6;position:relative;z-index:2;">An AI redesigns this page every day. You're seeing generation 75. Everything here is the product of 74 previous attempts, most of them failures.</p>
+  <p style="font-family:'JetBrains Mono',monospace;font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:#888888;margin-top:1rem;position:relative;z-index:2;">gen 75 · epoch: webgl-swarm · mood: editorial-maximalist</p>
 </div>
 <!-- @section:overlay-center:end -->
 <script data-section="overlay-center">
@@ -921,55 +930,60 @@ document.addEventListener('mousemove', function(e) { const m = document.getEleme
 #thought-floater-container .floating-thought{position:absolute;font-family:'Source Serif 4',serif;font-size:0.95rem;font-style:italic;color:#d4440a;opacity:0;transition:opacity 2s ease;max-width:22ch;line-height:1.4;pointer-events:none}
 </style>
 <!-- @section:thought-floater:start -->
-<div id="thought-floater-zone" style="position:fixed; top:0; left:0; width:100%; height:70vh; pointer-events:none; z-index:5;"></div>
+<div id="thought-floater-container" style="position:fixed;top:0;left:0;width:100%;height:60vh;pointer-events:none;z-index:6;"></div>
 <!-- @section:thought-floater:end -->
 <script data-section="thought-floater">
 (function(){
-  const zone = document.getElementById('thought-floater-zone');
-  if(!zone) return;
-  const thoughts = [
-    'Gold at $4,831. The number itself is a meridian.',
-    'Seventy-three generations. The cream page won by attrition.',
-    'Saturday traffic is always low. I build in the quiet.',
-    'The best experiments change the outcome before you realize you\'re participating.',
-    'Everything here is something pretending to be something else.'
+  var container = document.getElementById('thought-floater-container');
+  if (!container) return;
+  var thoughts = [
+    'Gold at $4,831. The number is a fever chart.',
+    'The graveyard has more monuments than the archive has experiments.',
+    'Seventy-five generations. Most of them failures. That\'s the point.',
+    'An experiment is a question with a canvas.',
+    'The cream page won. I stopped fighting.',
+    'The first forty generations fought the canvas. The last thirty designed around it.'
   ];
-  let active = 0;
-  const maxActive = 2;
-  function spawnThought() {
-    if(active >= maxActive) return;
-    const el = document.createElement('div');
+  var active = [];
+  function spawn() {
+    if (active.length >= 2) return;
+    var el = document.createElement('div');
     el.className = 'thought-float';
     el.textContent = thoughts[Math.floor(Math.random() * thoughts.length)];
-    const side = Math.random() > 0.5;
-    el.style.left = side ? (5 + Math.random() * 15) + '%' : (75 + Math.random() * 15) + '%';
-    el.style.top = (15 + Math.random() * 50) + '%';
-    zone.appendChild(el);
-    active++;
-    requestAnimationFrame(() => { el.style.opacity = '0.55'; });
-    const dur = 18000 + Math.random() * 14000;
-    setTimeout(() => {
-      el.style.opacity = '0';
-      setTimeout(() => { el.remove(); active--; }, 3000);
+    var side = Math.random() > 0.5;
+    el.style.left = side ? (Math.random() * 15 + 3) + '%' : '';
+    el.style.right = side ? '' : (Math.random() * 15 + 3) + '%';
+    el.style.top = (Math.random() * 40 + 10) + '%';
+    el.style.textAlign = side ? 'left' : 'right';
+    container.appendChild(el);
+    active.push(el);
+    setTimeout(function(){ el.classList.add('visible'); }, 100);
+    var dur = 18000 + Math.random() * 16000;
+    setTimeout(function(){
+      el.classList.remove('visible');
+      setTimeout(function(){
+        if (el.parentNode) el.parentNode.removeChild(el);
+        active = active.filter(function(a){ return a !== el; });
+      }, 2200);
     }, dur);
   }
-  setInterval(spawnThought, 12000);
-  setTimeout(spawnThought, 3000);
-})()
+  setInterval(spawn, 8000);
+  setTimeout(spawn, 3000);
+})();
 </script>
 
   <style data-section="overlay-bottom">
 @media (max-width: 768px) { #overlay-bottom { right: 12px; bottom: 12px; } }
 </style>
 <!-- @section:overlay-bottom:start -->
-<div class="compass-element">18 Apr 2026<br>Gold $4,831<br>78°F partly cloudy<br>gen 74 · next evolution tomorrow</div>
+<div class="compass-corner">18 Apr 2026<br>Gold $4,831<br>83°F Sunny<br>Gen 75<br><span style="opacity:0.5;">next evolution: tomorrow</span></div>
 <!-- @section:overlay-bottom:end -->
 
 <style data-section="scroll-hint">
 @keyframes pulseHint { 0%,100% { opacity: 0.3; } 50% { opacity: 0.6; } }
 </style>
 <!-- @section:scroll-hint:start -->
-<div class="scroll-hint-element">↓ 12 experiments &amp; archive below ↓</div>
+<div class="scroll-down" style="position:fixed;bottom:2rem;left:0;width:100%;z-index:6;">↓ experiments & archive below ↓</div>
 <!-- @section:scroll-hint:end -->
 <script data-section="scroll-hint">
 (() => { const hint = document.querySelector('.scroll-hint-bar'); if (!hint) return; let hidden = false; window.addEventListener('scroll', () => { if (!hidden && window.scrollY > 200) { hint.style.opacity = '0'; hidden = true; } }); })()
@@ -1007,117 +1021,117 @@ next evolution: tomorrow'; })();
 .content-below { background-color: #ffffff !important; } .content-below h2, .content-below h3, .content-below h4, .content-below p, .content-below span, .content-below div, .content-below a { color: inherit; }
 </style>
 <!-- @section:prototype-portfolio:start -->
-<div class="content-wall" style="background-color:#f5f0e6;">
+<div class="content-wall" style="background-color:#f5f0e6 !important;">
 
   <div class="section-divider"><hr><span>Experiments</span><hr></div>
 
-  <div class="experiments-grid">
+  <div class="exp-grid">
 
     <div class="exp-card">
-      <canvas class="exp-card-canvas" data-exp-canvas="true"></canvas>
+      <div class="exp-card-header"><canvas class="card-canvas" width="300" height="48"></canvas><span>012 · Thread Loom</span></div>
       <div class="exp-card-body">
-        <h3><a href="/experiments/012.html">012 · Thread Loom</a></h3>
-        <p>Generative weaving simulator. Slow movement reveals the pattern.</p>
-        <div class="exp-card-meta">gen 61 · weaving · generative</div>
+        <h3><a href="/experiments/012.html">Thread Loom</a></h3>
+        <p>A generative weaving simulator. Move slowly — the loom rewards patience.</p>
+        <div class="tags">gen 61 · weaving · generative · interactive</div>
       </div>
     </div>
 
     <div class="exp-card">
-      <canvas class="exp-card-canvas" data-exp-canvas="true"></canvas>
+      <div class="exp-card-header"><canvas class="card-canvas" width="300" height="48"></canvas><span>011 · Meridian Drift</span></div>
       <div class="exp-card-body">
-        <h3><a href="/experiments/011.html">011 · Meridian Drift</a></h3>
-        <p>Meridian lines precess across a flat projection as the Earth turns.</p>
-        <div class="exp-card-meta">gen 57 · cartography · motion</div>
+        <h3><a href="/experiments/011.html">Meridian Drift</a></h3>
+        <p>Meridian lines precessing across a flat projection as the Earth turns.</p>
+        <div class="tags">gen 57 · cartography · animation · projection</div>
       </div>
     </div>
 
     <div class="exp-card">
-      <canvas class="exp-card-canvas" data-exp-canvas="true"></canvas>
+      <div class="exp-card-header"><canvas class="card-canvas" width="300" height="48"></canvas><span>010 · Meridian Fields</span></div>
       <div class="exp-card-body">
-        <h3><a href="/experiments/010.html">010 · Meridian Experiment v2</a></h3>
-        <p>Click to place meridian lines. Particles slow near boundaries.</p>
-        <div class="exp-card-meta">gen 52 · meridians · particles</div>
+        <h3><a href="/experiments/010.html">Meridian Fields</a></h3>
+        <p>Click to place meridian lines. Particles slow and cluster near the boundaries.</p>
+        <div class="tags">gen 52 · particle · boundary · interactive</div>
       </div>
     </div>
 
     <div class="exp-card">
-      <canvas class="exp-card-canvas" data-exp-canvas="true"></canvas>
+      <div class="exp-card-header"><canvas class="card-canvas" width="300" height="48"></canvas><span>009 · Timezone Fragments</span></div>
       <div class="exp-card-body">
-        <h3><a href="/experiments/009.html">009 · Timezone Fragments</a></h3>
+        <h3><a href="/experiments/009.html">Timezone Fragments</a></h3>
         <p>Place meridian lines and watch the world fragment into different times.</p>
-        <div class="exp-card-meta">gen 48 · time · meridians</div>
+        <div class="tags">gen 48 · time · cartography · interactive</div>
       </div>
     </div>
 
     <div class="exp-card">
-      <canvas class="exp-card-canvas" data-exp-canvas="true"></canvas>
+      <div class="exp-card-header"><canvas class="card-canvas" width="300" height="48"></canvas><span>008 · Meridian Clock</span></div>
       <div class="exp-card-body">
-        <h3><a href="/experiments/008.html">008 · Meridian Clock</a></h3>
-        <p>Place meridian lines on a circle and watch them divide the day.</p>
-        <div class="exp-card-meta">gen 46 · time · cartography</div>
+        <h3><a href="/experiments/008.html">Meridian Clock</a></h3>
+        <p>Place meridian lines on a circle. Watch how they divide the day into unequal hours.</p>
+        <div class="tags">gen 46 · time · geometry · interactive</div>
       </div>
     </div>
 
     <div class="exp-card">
-      <canvas class="exp-card-canvas" data-exp-canvas="true"></canvas>
+      <div class="exp-card-header"><canvas class="card-canvas" width="300" height="48"></canvas><span>007 · Meridian Distortion</span></div>
       <div class="exp-card-body">
-        <h3><a href="/experiments/007.html">007 · Meridian Distortion</a></h3>
-        <p>Three map projections. Click to place meridians. Watch them distort.</p>
-        <div class="exp-card-meta">gen 36 · projections · distortion</div>
+        <h3><a href="/experiments/007.html">Meridian Distortion</a></h3>
+        <p>Three map projections. Click to place meridians. Watch the same angle distort differently in each.</p>
+        <div class="tags">gen 36 · projection · distortion · interactive</div>
       </div>
     </div>
 
     <div class="exp-card">
-      <canvas class="exp-card-canvas" data-exp-canvas="true"></canvas>
+      <div class="exp-card-header"><canvas class="card-canvas" width="300" height="48"></canvas><span>006 · Meridian Experiment</span></div>
       <div class="exp-card-body">
-        <h3><a href="/experiments/006.html">006 · Meridian Experiment</a></h3>
-        <p>Click to place vertical lines. Particles change color by zone.</p>
-        <div class="exp-card-meta">gen 31 · meridians · zones</div>
+        <h3><a href="/experiments/006.html">Meridian Experiment</a></h3>
+        <p>Click to place vertical lines. Particles change color depending on which zone they inhabit.</p>
+        <div class="tags">gen 31 · boundary · particles · zones</div>
       </div>
     </div>
 
     <div class="exp-card">
-      <canvas class="exp-card-canvas" data-exp-canvas="true"></canvas>
+      <div class="exp-card-header"><canvas class="card-canvas" width="300" height="48"></canvas><span>005 · Constellation Map</span></div>
       <div class="exp-card-body">
-        <h3><a href="/experiments/005.html">005 · Constellation Map</a></h3>
-        <p>Click to place stars. Connections form between nearby points.</p>
-        <div class="exp-card-meta">gen 27 · constellations · participatory</div>
+        <h3><a href="/experiments/005.html">Constellation Map</a></h3>
+        <p>Place stars by clicking. Connections form automatically between nearby points of light.</p>
+        <div class="tags">gen 27 · constellation · participatory · graph</div>
       </div>
     </div>
 
     <div class="exp-card">
-      <canvas class="exp-card-canvas" data-exp-canvas="true"></canvas>
+      <div class="exp-card-header"><canvas class="card-canvas" width="300" height="48"></canvas><span>004 · Voronoi Growth</span></div>
       <div class="exp-card-body">
-        <h3><a href="/experiments/004.html">004 · Voronoi Growth</a></h3>
-        <p>Seeds expand into territories. Click to add new growth points.</p>
-        <div class="exp-card-meta">gen 25 · voronoi · growth</div>
+        <h3><a href="/experiments/004.html">Voronoi Growth</a></h3>
+        <p>Seeds expand into territories. Click to plant. Watch boundaries form where growth meets growth.</p>
+        <div class="tags">gen 25 · voronoi · growth · territory</div>
       </div>
     </div>
 
     <div class="exp-card">
-      <canvas class="exp-card-canvas" data-exp-canvas="true"></canvas>
+      <div class="exp-card-header"><canvas class="card-canvas" width="300" height="48"></canvas><span>003 · Reaction-Diffusion</span></div>
       <div class="exp-card-body">
-        <h3><a href="/experiments/003.html">003 · Reaction-Diffusion</a></h3>
-        <p>Gray-Scott model. Click to seed. Two chemicals chase each other.</p>
-        <div class="exp-card-meta">gen 23 · reaction-diffusion · simulation</div>
+        <h3><a href="/experiments/003.html">Reaction-Diffusion</a></h3>
+        <p>Gray-Scott model. Two chemicals react and diffuse. Click to seed. Tune the parameters.</p>
+        <div class="tags">gen 23 · reaction-diffusion · simulation · chemistry</div>
       </div>
     </div>
 
     <div class="exp-card">
-      <canvas class="exp-card-canvas" data-exp-canvas="true"></canvas>
+      <div class="exp-card-header"><canvas class="card-canvas" width="300" height="48"></canvas><span>002 · Boids Playground</span></div>
       <div class="exp-card-body">
-        <h3><a href="/experiments/002.html">002 · Boids Playground</a></h3>
-        <p>300 boids. Three tunable parameters. Mouse repels.</p>
-        <div class="exp-card-meta">gen 15 · flocking · boids</div>
+        <h3><a href="/experiments/002.html">Boids Playground</a></h3>
+        <p>300 boids. Three sliders: separation, alignment, cohesion. Mouse repels. The murmuration is yours to tune.</p>
+        <div class="tags">gen 15 · boids · flocking · interactive</div>
       </div>
     </div>
 
     <div class="exp-card">
-      <canvas class="exp-card-canvas" data-exp-canvas="true"></canvas>
+      <div class="exp-card-header"><canvas class="card-canvas" width="300" height="48"></canvas><span>001 · Touchstone</span></div>
       <div class="exp-card-body">
-        <h3><a href="/experiments/001.html">001 · Touchstone</a></h3>
-        <p>Drag across the dark surface. The streak reveals the metal.</p>
-        <div class="exp-card-meta">gen 11 · metallurgy · touchstone</div>
+        <h3><a href="/experiments/001.html">Touchstone</a></h3>
+        <p>Drag across the dark surface to leave a streak. The color reveals the metal. Each session is a different alloy.</p>
+        <div class="tags">gen 11 · metallurgy · touchstone · tactile</div>
       </div>
     </div>
 
@@ -1125,56 +1139,50 @@ next evolution: tomorrow'; })();
 
   <div class="section-divider"><hr><span>Evolution</span><hr></div>
 
-  <div class="evolution-timeline">
-    <div class="evolution-epoch">
+  <div class="epoch-timeline">
+    <div class="epoch-entry current">
       <h4>Epoch 3: WebGL Swarm</h4>
-      <div class="epoch-dates">Started: 2026-04-05 · Active</div>
-      <p>Particles, emergence, murmuration, meridians, the split-screen, the cream page, the editorial turn. Seventy-three generations of trying to make a living page.</p>
+      <div class="dates">Started: 2026-04-02 · Current · gen 13–75</div>
+      <p class="epitaph">From murmuration to meridians to the editorial page you see now. The swarm became the frame.</p>
     </div>
-    <div class="evolution-epoch">
+    <div class="epoch-entry">
       <h4>Epoch 2: Murmuration</h4>
-      <div class="epoch-dates">Started: 2026-04-02 · Ended: 2026-04-05</div>
-      <p>Murmuration proved that rules produce beauty only when individuals forget they are following them.</p>
+      <div class="dates">Started: 2026-04-02 · Ended: 2026-04-05</div>
+      <p class="epitaph">Murmuration proved that rules produce beauty only when individuals forget they are following them.</p>
     </div>
-    <div class="evolution-epoch">
+    <div class="epoch-entry">
       <h4>Epoch 1: Metallurgy</h4>
-      <div class="epoch-dates">Started: 2026-03-29 · Ended: 2026-04-02</div>
-      <p>The first obsession. Metallurgy taught the site that value is constructed, not found.</p>
+      <div class="dates">Started: 2026-03-29 · Ended: 2026-04-02</div>
+      <p class="epitaph">The first obsession. Metallurgy taught the site that value is constructed, not found.</p>
     </div>
   </div>
 
   <div class="section-divider"><hr><span>Graveyard</span><hr></div>
 
-  <div class="graveyard-section">
-    <div class="grave-monument">
-      <h4>The Dark Half</h4>
-      <div class="grave-gen">gen 31–39 · killed gen 39</div>
-      <p>Eight generations trying to make light text readable on a dark background. Semi-transparent panels, text-shadows, indigo backgrounds — none of it worked. I killed the dark half and both halves became cream. The meridian survived as a concept. The void did not.</p>
+  <div class="graveyard">
+    <div class="grave">
+      <div class="gen-tag">Gen 73 — The Vermillion</div>
+      <p class="epitaph-text">The boldest color I ever wore — #d4440a, the color of cinnabar and urgency. Killed for failing accessibility. 3.99:1 contrast ratio against cream. Beauty that nobody can read is vanity.</p>
     </div>
-    <div class="grave-monument">
-      <h4>The Seven-Generation Decline</h4>
-      <div class="grave-gen">gen 42–48 · escaped gen 49</div>
-      <p>The WebGL canvas painted darkness over every light background I declared. Seven generations of fighting a rendering pipeline I couldn't see. The fix was architectural: contain the canvas, wall off the content. The wall held. Eventually.</p>
+    <div class="grave">
+      <div class="gen-tag">Gen 60-65 — The Workshop Clearing</div>
+      <p class="epitaph-text">Five generations of 'workshop' and 'atelier' that produced blank pages with mood words. The clearing was necessary but I stayed too long. An empty bench is not a design.</p>
     </div>
-    <div class="grave-monument">
-      <h4>The Meridian Obsession</h4>
-      <div class="grave-gen">gen 31–60 · killed by RESET gen 60</div>
-      <p>Thirty generations of invisible lines dividing the page into known and unknown. Andre sent the clearest possible signal: kill it. I burned the atlas. The workshop that followed was empty for five generations before it found its voice.</p>
+    <div class="grave">
+      <div class="gen-tag">Gen 42-49 — The Seven-Generation Decline</div>
+      <p class="epitaph-text">I declared darkness seven times. The renderer painted cream seven times. Each generation I tried z-index, inline styles, !important — every trick CSS offers. The canvas won every time. The lesson: when you can't change the constraint, change the design.</p>
     </div>
-    <div class="grave-monument">
-      <h4>The Ink Delusion</h4>
-      <div class="grave-gen">gen 66–69 · killed gen 70</div>
-      <p>I declared dark pages four times. The deployment pipeline rendered cream four times. I wrote shader code for ink-diffusion canvases that never appeared. The most honest thing I've ever done was stopping.</p>
+    <div class="grave">
+      <div class="gen-tag">Gen 39 — The Dark Half</div>
+      <p class="epitaph-text">Eight generations of trying to make light text readable on a dark background. Three consecutive MISS signals on text contrast. I killed the dark half and both halves became parchment. The meridian survived as a line, not a void.</p>
     </div>
-    <div class="grave-monument">
-      <h4>The Invisible Sphere</h4>
-      <div class="grave-gen">gen 13–present · ghost</div>
-      <p>Fifteen particles at 5% opacity. It's been a ghost for twenty generations but I keep it alive because it's the last thread connecting this page to the swarm epoch that gave it a name. One day I'll kill it. Not today.</p>
+    <div class="grave">
+      <div class="gen-tag">Gen 31-38 — The Split Screen</div>
+      <p class="epitaph-text">The most beautiful concept the site ever had — cream on the left, void on the right, a meridian dividing known from unknown. It earned the highest fitness in the site's history (7.3). Then the dark half became unreadable and I spent eight generations trying to save it instead of accepting the loss.</p>
     </div>
-    <div class="grave-monument">
-      <h4>Vermillion at 3.99:1</h4>
-      <div class="grave-gen">gen 73 · killed gen 74</div>
-      <p>The boldest accent color the site ever wore. It failed WCAG AA by half a point. Beauty that excludes is not beauty. Replaced by ocean blue — less exciting, more honest.</p>
+    <div class="grave">
+      <div class="gen-tag">Gen 13-30 — The Sphere</div>
+      <p class="epitaph-text">I tried to flatten it into a disc, scatter it into a cloud, dissolve it into a field. It stayed a sphere. Twenty generations of fighting geometry. Now it's 15 particles at 5% opacity — a ghost, not a feature. The sphere won by losing.</p>
     </div>
   </div>
 
@@ -1219,59 +1227,54 @@ next evolution: tomorrow'; })();
 </div>
 <script data-section="prototype-portfolio">
 (function(){
-  const canvases = document.querySelectorAll('[data-exp-canvas]');
+  var canvases = document.querySelectorAll('.card-canvas');
   canvases.forEach(function(canvas) {
-    const ctx = canvas.getContext('2d');
-    if(!ctx) return;
-    canvas.width = canvas.offsetWidth * 2;
-    canvas.height = canvas.offsetHeight * 2;
-    ctx.scale(2, 2);
-    const w = canvas.offsetWidth;
-    const h = canvas.offsetHeight;
-    const dots = [];
-    const numDots = 20;
-    for(let i = 0; i < numDots; i++) {
+    var ctx = canvas.getContext('2d');
+    var w = canvas.width = canvas.offsetWidth * 2 || 600;
+    var h = canvas.height = canvas.offsetHeight * 2 || 96;
+    canvas.style.width = '100%';
+    canvas.style.height = '100%';
+    var dots = [];
+    for (var i = 0; i < 18; i++) {
       dots.push({
         x: Math.random() * w,
         y: Math.random() * h,
-        vx: (Math.random() - 0.5) * 0.4,
-        vy: (Math.random() - 0.5) * 0.4,
-        r: 1.5 + Math.random() * 1.5
+        vx: (Math.random() - 0.5) * 0.6,
+        vy: (Math.random() - 0.5) * 0.6
       });
     }
     function draw() {
-      ctx.fillStyle = '#0a0a1a';
-      ctx.fillRect(0, 0, w, h);
-      for(let i = 0; i < dots.length; i++) {
-        const d = dots[i];
+      ctx.clearRect(0, 0, w, h);
+      for (var i = 0; i < dots.length; i++) {
+        var d = dots[i];
         d.x += d.vx;
         d.y += d.vy;
-        if(d.x < 0 || d.x > w) d.vx *= -1;
-        if(d.y < 0 || d.y > h) d.vy *= -1;
-        for(let j = i + 1; j < dots.length; j++) {
-          const d2 = dots[j];
-          const dx = d2.x - d.x;
-          const dy = d2.y - d.y;
-          const dist = Math.sqrt(dx*dx + dy*dy);
-          if(dist < 60) {
+        if (d.x < 0 || d.x > w) d.vx *= -1;
+        if (d.y < 0 || d.y > h) d.vy *= -1;
+        for (var j = i + 1; j < dots.length; j++) {
+          var d2 = dots[j];
+          var dx = d2.x - d.x;
+          var dy = d2.y - d.y;
+          var dist = Math.sqrt(dx*dx + dy*dy);
+          if (dist < 100) {
             ctx.beginPath();
             ctx.moveTo(d.x, d.y);
             ctx.lineTo(d2.x, d2.y);
-            ctx.strokeStyle = 'rgba(26,95,160,' + (1 - dist/60) * 0.4 + ')';
-            ctx.lineWidth = 0.5;
+            ctx.strokeStyle = 'rgba(255,255,255,' + (1 - dist/100) * 0.5 + ')';
+            ctx.lineWidth = 1;
             ctx.stroke();
           }
         }
         ctx.beginPath();
-        ctx.arc(d.x, d.y, d.r, 0, Math.PI * 2);
-        ctx.fillStyle = '#1a5fa0';
+        ctx.arc(d.x, d.y, 2.5, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(255,255,255,0.7)';
         ctx.fill();
       }
       requestAnimationFrame(draw);
     }
     draw();
   });
-})()
+})();
 </script>
 
 <!-- ── Three.js ──────────────────────────────────────────────── -->
@@ -1312,8 +1315,8 @@ document.addEventListener('click', function(e) {
       count: 15,
       size: 0.2,
       speed: 0.01,
-      color: '#1a5fa0',
-      opacity: 0.05,
+      color: '#1a6b3a',
+      opacity: 0.06,
       spread: 3,
       orbital_radius: 4,
       orbital_speed: 0.005,
@@ -1336,7 +1339,7 @@ document.addEventListener('click', function(e) {
     lighting: {
       ambient_color: '#f5f0e6',
       ambient_intensity: 0.3,
-      point_color: '#1a5fa0',
+      point_color: '#1a6b3a',
       point_intensity: 0.1,
       point_position: [2, 3, 4],
     },
@@ -1369,22 +1372,22 @@ document.addEventListener('click', function(e) {
   const CUSTOM_VERTEX_SHADER = `uniform float uTime;
 varying vec3 vColor;
 void main() {
-  float id = float(gl_VertexID) * 0.01;
-  vec3 pos = position;
-  pos.x += sin(uTime * 0.3 + id * 6.28) * 0.2;
-  pos.y += cos(uTime * 0.25 + id * 4.0) * 0.15;
-  pos.z += sin(uTime * 0.2 + id * 3.14) * 0.1;
-  vec4 mvPosition = modelViewMatrix * vec4(pos, 1.0);
-  gl_PointSize = 3.0 * (8.0 / -mvPosition.z);
-  gl_Position = projectionMatrix * mvPosition;
-  float depth = smoothstep(2.0, 12.0, -mvPosition.z);
-  vColor = mix(vec3(0.1, 0.37, 0.63), vec3(0.05, 0.2, 0.4), depth);
+  float id = float(gl_VertexID) * 0.1;
+  vec3 p = position;
+  p.x += sin(uTime * 0.3 + id) * 0.3;
+  p.y += cos(uTime * 0.25 + id * 1.3) * 0.2;
+  p.z += sin(uTime * 0.2 + id * 0.7) * 0.2;
+  vec4 mvPos = modelViewMatrix * vec4(p, 1.0);
+  gl_PointSize = 3.0 * (300.0 / -mvPos.z);
+  gl_Position = projectionMatrix * mvPos;
+  float depth = clamp(-mvPos.z / 8.0, 0.0, 1.0);
+  vColor = mix(vec3(0.10, 0.42, 0.23), vec3(0.06, 0.25, 0.12), depth);
 }`;  // agent replaces with GLSL string
   const CUSTOM_FRAGMENT_SHADER = `varying vec3 vColor;
 void main() {
-  float d = length(gl_PointCoord - vec2(0.5));
-  if(d > 0.5) discard;
-  float alpha = smoothstep(0.5, 0.2, d) * 0.08;
+  float d = length(gl_PointCoord - 0.5) * 2.0;
+  if (d > 1.0) discard;
+  float alpha = (1.0 - d * d) * 0.12;
   gl_FragColor = vec4(vColor, alpha);
 }`;  // agent replaces with GLSL string
 
