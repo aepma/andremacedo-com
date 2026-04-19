@@ -14,7 +14,7 @@
   :root {
     --fg: #1a1a1a;
     --fg-dim: #656c7a;
-    --fg-accent: #c48820;
+    --fg-accent: #b82040;
     --bg: #f5f0e6;
     --bg-surface: #f8f8f0;
     --bg-elevated: #f0f0e8;
@@ -213,7 +213,7 @@
     padding: 4rem 2.5rem;
     --fg: #1a1a1a;
     --fg-dim: #706b62;
-    --fg-accent: #9a5e00;
+    --fg-accent: #b82040;
     --bg-surface: #f8f8f0;
     --bg-elevated: #f0f0e8;
   }
@@ -568,16 +568,16 @@
 
   /* Section injection markers are now in the body */
 /* @inject:css */
-  /* @gene:gen76-css:start */
-  .gen76-css{--pulse-color:#c48820}.hero-pulse{position:absolute;top:50%;left:50%;width:320px;height:320px;border-radius:50%;background:radial-gradient(circle,rgba(196,136,32,0.35) 0%,rgba(196,136,32,0.08) 50%,transparent 70%);transform:translate(-50%,-50%) scale(1);animation:hero-breathe 4s ease-in-out infinite;pointer-events:none;z-index:0}.hero-ring-1,.hero-ring-2,.hero-ring-3{position:absolute;top:50%;left:50%;border-radius:50%;border:2px solid rgba(196,136,32,0.3);transform:translate(-50%,-50%) scale(0);pointer-events:none;z-index:0}.hero-ring-1{width:200px;height:200px;animation:ring-expand 6s ease-out infinite}.hero-ring-2{width:300px;height:300px;animation:ring-expand 6s ease-out infinite 2s}.hero-ring-3{width:400px;height:400px;animation:ring-expand 6s ease-out infinite 4s}@keyframes hero-breathe{0%,100%{transform:translate(-50%,-50%) scale(0.85);opacity:0.3}50%{transform:translate(-50%,-50%) scale(1.25);opacity:0.7}}@keyframes ring-expand{0%{transform:translate(-50%,-50%) scale(0.3);opacity:0.6}100%{transform:translate(-50%,-50%) scale(1.8);opacity:0}}.experiment-card{background:#ffffff;border:1px solid #e0d8c8;border-left:4px solid #c48820;padding:1.2rem;transition:box-shadow 0.3s ease,border-color 0.3s ease}.experiment-card:hover{box-shadow:0 4px 16px rgba(196,136,32,0.15);border-left-color:#d4a030}.experiment-card h3{font-family:'Playfair Display',serif;font-size:1.1rem;margin:0 0 0.5rem 0;color:#1a1a1a}.experiment-card p{font-family:'Source Serif 4',serif;font-size:0.9rem;color:#333333;line-height:1.5}.experiment-card .meta{font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:#666666;margin-top:0.6rem}.experiment-card a{color:#c48820;text-decoration:none;border-bottom:1px solid rgba(196,136,32,0.3)}.experiment-card a:hover{border-bottom-color:#c48820}.graveyard-entry{border-left:3px solid #e0d8c8;padding:0.8rem 1rem;margin:0.6rem 0;font-family:'Source Serif 4',serif;font-size:0.85rem;color:#555555;line-height:1.5}.graveyard-entry .gen-tag{font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:#999999}.section-title{font-family:'Playfair Display',serif;font-size:1.4rem;color:#1a1a1a;margin:2rem 0 1rem 0;padding-bottom:0.5rem;border-bottom:2px solid #c48820}.epoch-timeline{border-left:3px solid #c48820;padding-left:1.2rem;margin:1.5rem 0}.epoch-entry{margin:1rem 0}.epoch-entry h4{font-family:'Playfair Display',serif;font-size:1rem;color:#1a1a1a;margin:0}.epoch-entry .dates{font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:#666666}.epoch-entry p{font-family:'Source Serif 4',serif;font-size:0.85rem;color:#444444;margin:0.3rem 0 0 0}
-  /* @gene:gen76-css:end */
+  /* @gene:gen77-css:start */
+  @keyframes hero-circle-draw { 0% { stroke-dashoffset: 1200; opacity: 0; } 20% { opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 1; } } .hero-circle-svg { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 420px; height: 420px; z-index: 1; pointer-events: none; } .hero-circle-svg circle { stroke: #b82040; stroke-width: 3; fill: none; stroke-dasharray: 1200; stroke-dashoffset: 1200; animation: hero-circle-draw 4s ease-out forwards; } .hero-circle-svg .circle-2 { animation-delay: 0.8s; stroke-width: 1.5; opacity: 0.4; } @keyframes pulse-glow { 0%, 100% { opacity: 0.08; transform: translate(-50%, -50%) scale(1); } 50% { opacity: 0.15; transform: translate(-50%, -50%) scale(1.05); } } .hero-glow-circle { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 500px; height: 500px; border-radius: 50%; background: radial-gradient(circle, rgba(184,32,64,0.15) 0%, rgba(184,32,64,0.05) 40%, transparent 70%); animation: pulse-glow 6s ease-in-out infinite; z-index: 0; pointer-events: none; } .experiment-card-v77 { background: #ffffff; border: 1px solid #e0dcd4; border-left: 4px solid #b82040; padding: 0; margin-bottom: 1rem; transition: box-shadow 0.3s ease, transform 0.2s ease; position: relative; overflow: hidden; } .experiment-card-v77:hover { box-shadow: 0 4px 20px rgba(184,32,64,0.12); transform: translateY(-2px); } .experiment-card-v77 .card-canvas-wrap { height: 100px; background: #0a0a0a; position: relative; overflow: hidden; } .experiment-card-v77 .card-body { padding: 1rem 1.2rem; } .experiment-card-v77 h3 { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: #1a1a1a; margin: 0 0 0.4rem 0; } .experiment-card-v77 h3 a { color: #b82040; text-decoration: none; } .experiment-card-v77 h3 a:hover { text-decoration: underline; } .experiment-card-v77 p { font-family: 'Source Serif 4', serif; font-size: 0.88rem; color: #333333; line-height: 1.5; margin: 0 0 0.6rem 0; } .experiment-card-v77 .tags { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: #555555; } .decisions-monument-v77 { border-left: 3px solid #b82040; padding: 0.8rem 1.2rem; margin-bottom: 0.8rem; background: #faf8f2; } .decisions-monument-v77 .gen-tag { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: #b82040; display: block; margin-bottom: 0.3rem; } .decisions-monument-v77 .epitaph { font-family: 'Source Serif 4', serif; font-size: 0.88rem; color: #333333; font-style: italic; line-height: 1.5; } .epoch-timeline-v77 { margin: 1.5rem 0; } .epoch-entry-v77 { padding: 0.6rem 0; border-bottom: 1px solid #e0dcd4; } .epoch-entry-v77:last-child { border-bottom: none; } .epoch-entry-v77 .epoch-name { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; color: #1a1a1a; } .epoch-entry-v77 .epoch-dates { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: #555555; } .epoch-entry-v77 .epoch-epitaph { font-family: 'Source Serif 4', serif; font-size: 0.85rem; color: #555555; font-style: italic; margin-top: 0.2rem; } .section-divider-v77 { text-align: center; margin: 2.5rem 0 1.5rem; position: relative; } .section-divider-v77::before { content: ''; position: absolute; top: 50%; left: 0; right: 0; height: 1px; background: #d0ccc4; } .section-divider-v77 span { position: relative; background: #f5f0e6; padding: 0 1.5rem; font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: #888888; text-transform: uppercase; letter-spacing: 0.15em; } .experiments-grid-v77 { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.2rem; margin: 1rem 0 2rem; }
+  /* @gene:gen77-css:end */
 </style>
 </head>
 <body>
 
 <div id="scene-frame"><canvas id="scene-canvas"></canvas></div>
 
-<span id="siteVersion" style="display:none">v76</span>
+<span id="siteVersion" style="display:none">v77</span>
 
 <!-- ── HTML Overlay ──────────────────────────────────────────── -->
 <div id="overlay">
@@ -592,15 +592,16 @@
 @keyframes hero-ring-expand{0%,100%{transform:translate(-50%,-50%) scale(0.85);opacity:0.04}50%{transform:translate(-50%,-50%) scale(1.15);opacity:0.18}}
 </style>
 <!-- @section:overlay-center:start -->
-<div style="position:fixed;top:0;left:0;width:100%;height:60vh;display:flex;align-items:center;justify-content:center;z-index:10;pointer-events:none">
-  <div style="position:relative;text-align:center;pointer-events:auto;max-width:800px;padding:0 2rem">
-    <div class="hero-pulse"></div>
-    <div class="hero-ring-1"></div>
-    <div class="hero-ring-2"></div>
-    <div class="hero-ring-3"></div>
-    <h1 style="font-family:'Playfair Display',serif;font-size:clamp(2.5rem,7vw,5.5rem);font-weight:900;color:#1a1a1a;line-height:1.1;margin:0;position:relative;z-index:2">Twelve experiments<br>and counting</h1>
-    <p style="font-family:'Source Serif 4',serif;font-size:clamp(1rem,2.5vw,1.25rem);color:#444444;margin:1.2rem 0 0 0;line-height:1.6;position:relative;z-index:2">An AI redesigns this page every day. You're seeing generation 76. Each generation builds on 75 before it.</p>
-    <p style="font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:#888888;margin:1rem 0 0 0;letter-spacing:0.05em;position:relative;z-index:2">gen 76 · epoch: webgl-swarm · mood: editorial-optimist</p>
+<div style="position:fixed;top:0;left:0;width:100%;height:60vh;display:flex;align-items:center;justify-content:center;z-index:5;pointer-events:none;">
+  <div class="hero-glow-circle"></div>
+  <svg class="hero-circle-svg" viewBox="0 0 420 420">
+    <circle cx="210" cy="210" r="180" />
+    <circle cx="210" cy="210" r="195" class="circle-2" />
+  </svg>
+  <div style="position:relative;z-index:2;text-align:center;padding:0 2rem;pointer-events:auto;">
+    <h1 style="font-family:'Playfair Display',serif;font-size:clamp(2.5rem,7vw,5.5rem);font-weight:900;color:#1a1a1a;margin:0 0 0.8rem;line-height:1.1;">Twelve experiments<br>and counting</h1>
+    <p style="font-family:'Source Serif 4',serif;font-size:clamp(0.95rem,1.8vw,1.15rem);color:#333333;max-width:520px;margin:0 auto 1.2rem;line-height:1.6;">An AI redesigns this page every day. You're seeing generation 77. Some things worked. Most didn't. All of them are here.</p>
+    <p style="font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:#888888;letter-spacing:0.08em;">gen 77 · epoch: webgl-swarm · mood: editorial-optimist</p>
   </div>
 </div>
 <!-- @section:overlay-center:end -->
@@ -608,27 +609,27 @@
 (() => { const canvas = document.getElementById('ink-canvas'); if (!canvas) return; const ctx = canvas.getContext('2d'); let W, H; function resize() { W = canvas.width = canvas.offsetWidth * (window.devicePixelRatio || 1); H = canvas.height = canvas.offsetHeight * (window.devicePixelRatio || 1); ctx.scale(window.devicePixelRatio || 1, window.devicePixelRatio || 1); } resize(); window.addEventListener('resize', resize); const drops = []; const maxDrops = 80; function addDrop(x, y, r, color) { drops.push({ x, y, r, maxR: r, alpha: 0.7 + Math.random() * 0.3, color, born: Date.now(), life: 8000 + Math.random() * 12000, dx: (Math.random() - 0.5) * 0.3, dy: (Math.random() - 0.5) * 0.3 + 0.1 }); if (drops.length > maxDrops) drops.shift(); } const cW = canvas.offsetWidth; const cH = canvas.offsetHeight; for (let i = 0; i < 25; i++) { const hue = 140 + Math.random() * 40; const sat = 30 + Math.random() * 40; const lit = 15 + Math.random() * 25; addDrop(Math.random() * cW, Math.random() * cH, 20 + Math.random() * 80, `hsla(${hue}, ${sat}%, ${lit}%, `); } let autoTimer = 0; canvas.addEventListener('click', (e) => { const rect = canvas.getBoundingClientRect(); const x = e.clientX - rect.left; const y = e.clientY - rect.top; for (let i = 0; i < 5; i++) { const hue = 140 + Math.random() * 40; const sat = 40 + Math.random() * 40; const lit = 10 + Math.random() * 30; addDrop(x + (Math.random() - 0.5) * 40, y + (Math.random() - 0.5) * 40, 15 + Math.random() * 60, `hsla(${hue}, ${sat}%, ${lit}%, `); } }); function draw() { const dpr = window.devicePixelRatio || 1; const w = canvas.offsetWidth; const h = canvas.offsetHeight; ctx.clearRect(0, 0, w, h); ctx.fillStyle = '#0a0a0a'; ctx.fillRect(0, 0, w, h); const now = Date.now(); autoTimer++; if (autoTimer % 120 === 0 && drops.length < maxDrops) { const hue = 140 + Math.random() * 40; const sat = 30 + Math.random() * 40; const lit = 15 + Math.random() * 25; addDrop(Math.random() * w, Math.random() * h, 15 + Math.random() * 70, `hsla(${hue}, ${sat}%, ${lit}%, `); } for (let i = drops.length - 1; i >= 0; i--) { const d = drops[i]; const age = now - d.born; const progress = age / d.life; if (progress > 1) { drops.splice(i, 1); continue; } d.x += d.dx; d.y += d.dy; d.dx *= 0.999; d.dy *= 0.999; const currentR = d.maxR * (0.6 + 0.4 * Math.min(progress * 3, 1)); const fadeAlpha = progress < 0.7 ? d.alpha : d.alpha * (1 - (progress - 0.7) / 0.3); const grad = ctx.createRadialGradient(d.x, d.y, 0, d.x, d.y, currentR); grad.addColorStop(0, d.color + (fadeAlpha * 0.8).toFixed(3) + ')'); grad.addColorStop(0.4, d.color + (fadeAlpha * 0.5).toFixed(3) + ')'); grad.addColorStop(0.7, d.color + (fadeAlpha * 0.2).toFixed(3) + ')'); grad.addColorStop(1, d.color + '0)'); ctx.fillStyle = grad; ctx.beginPath(); ctx.arc(d.x, d.y, currentR, 0, Math.PI * 2); ctx.fill(); for (let j = 0; j < 3; j++) { const tendrilAngle = (d.born * 0.001 + j * 2.09) + progress * 1.5; const tendrilLen = currentR * (0.5 + 0.5 * Math.sin(progress * Math.PI)); const tx = d.x + Math.cos(tendrilAngle) * tendrilLen; const ty = d.y + Math.sin(tendrilAngle) * tendrilLen; const tR = currentR * 0.3; const tGrad = ctx.createRadialGradient(tx, ty, 0, tx, ty, tR); tGrad.addColorStop(0, d.color + (fadeAlpha * 0.4).toFixed(3) + ')'); tGrad.addColorStop(1, d.color + '0)'); ctx.fillStyle = tGrad; ctx.beginPath(); ctx.arc(tx, ty, tR, 0, Math.PI * 2); ctx.fill(); } } requestAnimationFrame(draw); } draw(); })()
 </script>
 <style data-section="thought-floater">
-#thought-floater .floating-thought{position:absolute;font-family:'Source Serif 4',serif;font-style:italic;font-size:clamp(0.85rem,1.5vw,1rem);color:#c48820;opacity:0;transition:opacity 2s ease;pointer-events:none;max-width:280px;line-height:1.5}
+#thought-floater-v77 .floating-thought { position: absolute; font-family: 'Source Serif 4', serif; font-style: italic; font-size: 0.9rem; color: #b82040; opacity: 0; transition: opacity 2s ease-in-out; max-width: 280px; line-height: 1.5; pointer-events: none; }
 </style>
 <!-- @section:thought-floater:start -->
-<div id="thought-floater" style="position:fixed;top:0;left:0;width:100%;height:60vh;pointer-events:none;z-index:8;overflow:hidden"></div>
+<div id="thought-floater-v77" style="position:fixed;top:0;left:0;width:100%;height:60vh;z-index:4;pointer-events:none;overflow:hidden;"></div>
 <!-- @section:thought-floater:end -->
 <script data-section="thought-floater">
-(function(){const container=document.getElementById('thought-floater');if(!container)return;const thoughts=['Twelve experiments live. Each one a small machine.','Gold at $4,831. The sun rises without checking.','The best tools don\'t explain themselves.','77°F and partly cloudy. Good weather for building.','Seventy-six generations. The page keeps choosing itself.'];let active=0;function spawn(){if(active>=2)return;const t=document.createElement('div');t.className='floating-thought';t.textContent=thoughts[Math.floor(Math.random()*thoughts.length)];const side=Math.random()>0.5;t.style.left=side?(Math.random()*15+2)+'%':(Math.random()*15+83)+'%';t.style.top=(Math.random()*50+10)+'%';t.style.textAlign=side?'left':'right';container.appendChild(t);active++;requestAnimationFrame(()=>{t.style.opacity='0.55'});const lifetime=18000+Math.random()*14000;setTimeout(()=>{t.style.opacity='0';setTimeout(()=>{t.remove();active--},2000)},lifetime)}spawn();setInterval(()=>{if(Math.random()>0.4)spawn()},8000)})()
+(function(){const container=document.getElementById('thought-floater-v77');if(!container)return;const thoughts=['Gold at $4,831. The price of certainty keeps climbing.','Seventy-seven generations. Twelve experiments. One page.','An imperfect circle drawn by hand is more honest than a perfect one drawn by machine.','The wobble is the signature.','Everything is saturated except the things that matter.','The arithmetic of persistence.'];let active=0;function spawn(){if(active>=2)return;const t=document.createElement('div');t.className='floating-thought';t.textContent=thoughts[Math.floor(Math.random()*thoughts.length)];const side=Math.random()>0.5;t.style.left=side?(Math.random()*15+2)+'%':(Math.random()*15+83)+'%';t.style.top=(Math.random()*40+10)+'%';container.appendChild(t);active++;setTimeout(()=>{t.style.opacity='0.55';},100);const duration=18000+Math.random()*14000;setTimeout(()=>{t.style.opacity='0';setTimeout(()=>{t.remove();active--;},2000);},duration);}setInterval(spawn,12000);setTimeout(spawn,3000);})();
 </script>
 
   <style data-section="overlay-bottom">
 @media (max-width: 768px) { #overlay-bottom { right: 12px; bottom: 12px; } }
 </style>
 <!-- @section:overlay-bottom:start -->
-<div style="position:fixed;bottom:1rem;right:1.5rem;z-index:10;text-align:right;pointer-events:none"><span style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:#999999;letter-spacing:0.04em">19 Apr 2026 · gold $4,831 · 77°F partly cloudy · next evolution tomorrow</span></div>
+<div style="position:fixed;bottom:1.5rem;right:1.5rem;z-index:10;font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:#999999;text-align:right;line-height:1.6;pointer-events:none;"><span style="color:#b82040;">●</span> 19 Apr 2026 · gold $4,831 · 74°F overcast<br>next evolution tomorrow</div>
 <!-- @section:overlay-bottom:end -->
 
 <style data-section="scroll-hint">
 @keyframes gentle-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
 </style>
 <!-- @section:scroll-hint:start -->
-<div style="position:fixed;bottom:2rem;left:50%;transform:translateX(-50%);z-index:10;text-align:center;pointer-events:none"><p style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:#999999;letter-spacing:0.08em;animation:gentle-bob 3s ease-in-out infinite">↓ 12 experiments & archive below ↓</p></div>
+<div style="position:fixed;bottom:4rem;left:50%;transform:translateX(-50%);z-index:10;text-align:center;pointer-events:none;"><p style="font-family:'Source Serif 4',serif;font-size:0.8rem;color:#999999;margin:0;">↓ experiments & archive below</p></div>
 <!-- @section:scroll-hint:end -->
 <script data-section="scroll-hint">
 (() => { const hint = document.querySelector('.scroll-hint-bar'); if (!hint) return; let hidden = false; window.addEventListener('scroll', () => { if (!hidden && window.scrollY > 200) { hint.style.opacity = '0'; hidden = true; } }); })()
@@ -666,144 +667,82 @@ next evolution: tomorrow'; })();
 .card-canvas{width:100%;height:60px;display:block;margin-bottom:0.8rem;border-radius:2px;background:#faf8f0}
 </style>
 <!-- @section:prototype-portfolio:start -->
-<div style="position:relative;z-index:20;background-color:#f5f0e6;margin-top:60vh;padding:3rem 2rem 4rem 2rem;max-width:960px;margin-left:auto;margin-right:auto">
+<div style="position:relative;z-index:10;background-color:#f5f0e6;margin-top:60vh;padding:3rem clamp(1.5rem,5vw,4rem);min-height:100vh;">
 
-  <h2 class="section-title">Experiments</h2>
-  <p style="font-family:'Source Serif 4',serif;font-size:1rem;color:#444444;margin:-0.5rem 0 2rem 0;line-height:1.6">Interactive pieces exploring generative systems, cartography, and the physics of collective motion. Each one is self-contained. Click to explore.</p>
+  <div class="section-divider-v77"><span>Experiments</span></div>
+  <div class="experiments-grid-v77">
 
-  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.2rem;margin-bottom:3rem">
+    <div class="experiment-card-v77"><div class="card-canvas-wrap"><canvas class="card-anim-canvas" width="300" height="100"></canvas></div><div class="card-body"><h3><a href="/experiments/012.html">012 · Thread Loom</a></h3><p>A generative weaving simulator. Move slowly and watch the threads follow.</p><div class="tags">gen 61 · weaving · generative · interactive</div></div></div>
 
-    <div class="experiment-card">
-      <canvas class="card-canvas" width="280" height="60"></canvas>
-      <h3><a href="/experiments/012.html">012: Thread Loom</a></h3>
-      <p>Generative weaving — threads cross and knot in patterns no loom was taught.</p>
-      <div class="meta">gen 61 · weaving · generative</div>
-    </div>
+    <div class="experiment-card-v77"><div class="card-canvas-wrap"><canvas class="card-anim-canvas" width="300" height="100"></canvas></div><div class="card-body"><h3><a href="/experiments/011.html">011 · Meridian Drift</a></h3><p>Meridian lines precess across a flat projection as the Earth turns. The distortion is the message.</p><div class="tags">gen 57 · meridians · projection · animation</div></div></div>
 
-    <div class="experiment-card">
-      <canvas class="card-canvas" width="280" height="60"></canvas>
-      <h3><a href="/experiments/011.html">011: Meridian Drift</a></h3>
-      <p>Meridian lines precessing across a flat projection as the Earth turns.</p>
-      <div class="meta">gen 57 · cartography · projection</div>
-    </div>
+    <div class="experiment-card-v77"><div class="card-canvas-wrap"><canvas class="card-anim-canvas" width="300" height="100"></canvas></div><div class="card-body"><h3><a href="/experiments/010.html">010 · Meridian Experiment v2</a></h3><p>Click to place meridian lines. Particles slow and cluster near the boundaries. The influence field is visible.</p><div class="tags">gen 52 · meridians · particles · interactive</div></div></div>
 
-    <div class="experiment-card">
-      <canvas class="card-canvas" width="280" height="60"></canvas>
-      <h3><a href="/experiments/010.html">010: Meridian Experiment v2</a></h3>
-      <p>Place meridian lines. Particles slow and cluster near boundaries.</p>
-      <div class="meta">gen 52 · meridians · particles</div>
-    </div>
+    <div class="experiment-card-v77"><div class="card-canvas-wrap"><canvas class="card-anim-canvas" width="300" height="100"></canvas></div><div class="card-body"><h3><a href="/experiments/009.html">009 · Timezone Fragments</a></h3><p>Click to place meridians and watch the world fragment into different times.</p><div class="tags">gen 48 · time · meridians · interactive</div></div></div>
 
-    <div class="experiment-card">
-      <canvas class="card-canvas" width="280" height="60"></canvas>
-      <h3><a href="/experiments/009.html">009: Timezone Fragments</a></h3>
-      <p>Place meridians and watch the world fragment into different times.</p>
-      <div class="meta">gen 48 · time · cartography</div>
-    </div>
+    <div class="experiment-card-v77"><div class="card-canvas-wrap"><canvas class="card-anim-canvas" width="300" height="100"></canvas></div><div class="card-body"><h3><a href="/experiments/008.html">008 · Meridian Clock</a></h3><p>Place meridian lines on a circle and watch how they divide the day into unequal hours.</p><div class="tags">gen 46 · time · meridians · interactive</div></div></div>
 
-    <div class="experiment-card">
-      <canvas class="card-canvas" width="280" height="60"></canvas>
-      <h3><a href="/experiments/008.html">008: Meridian Clock</a></h3>
-      <p>Meridian lines on a circle dividing the day into unequal hours.</p>
-      <div class="meta">gen 46 · time · meridians</div>
-    </div>
+    <div class="experiment-card-v77"><div class="card-canvas-wrap"><canvas class="card-anim-canvas" width="300" height="100"></canvas></div><div class="card-body"><h3><a href="/experiments/007.html">007 · Meridian Distortion</a></h3><p>Three map projections. Click to place meridians. Watch how the same line distorts differently in each.</p><div class="tags">gen 36 · projections · meridians · interactive</div></div></div>
 
-    <div class="experiment-card">
-      <canvas class="card-canvas" width="280" height="60"></canvas>
-      <h3><a href="/experiments/007.html">007: Meridian Distortion</a></h3>
-      <p>Three map projections. Same meridian lines. Different distortions.</p>
-      <div class="meta">gen 36 · projection · cartography</div>
-    </div>
+    <div class="experiment-card-v77"><div class="card-canvas-wrap"><canvas class="card-anim-canvas" width="300" height="100"></canvas></div><div class="card-body"><h3><a href="/experiments/006.html">006 · Meridian Lines</a></h3><p>Click to place vertical lines. Particles change color depending on which zone they're in.</p><div class="tags">gen 31 · meridians · particles · zones</div></div></div>
 
-    <div class="experiment-card">
-      <canvas class="card-canvas" width="280" height="60"></canvas>
-      <h3><a href="/experiments/006.html">006: Meridian Zones</a></h3>
-      <p>Click to place vertical lines. Particles change color by zone.</p>
-      <div class="meta">gen 31 · meridians · particles</div>
-    </div>
+    <div class="experiment-card-v77"><div class="card-canvas-wrap"><canvas class="card-anim-canvas" width="300" height="100"></canvas></div><div class="card-body"><h3><a href="/experiments/005.html">005 · Constellation Map</a></h3><p>Click to place stars. Connections form automatically between nearby points.</p><div class="tags">gen 27 · constellations · graph · interactive</div></div></div>
 
-    <div class="experiment-card">
-      <canvas class="card-canvas" width="280" height="60"></canvas>
-      <h3><a href="/experiments/005.html">005: Constellation Map</a></h3>
-      <p>Place stars by clicking. Connections form between nearby points.</p>
-      <div class="meta">gen 27 · constellation · participatory</div>
-    </div>
+    <div class="experiment-card-v77"><div class="card-canvas-wrap"><canvas class="card-anim-canvas" width="300" height="100"></canvas></div><div class="card-body"><h3><a href="/experiments/004.html">004 · Voronoi Growth</a></h3><p>Click to seed points. Voronoi cells grow and tessellate the plane.</p><div class="tags">gen 25 · voronoi · growth · generative</div></div></div>
 
-    <div class="experiment-card">
-      <canvas class="card-canvas" width="280" height="60"></canvas>
-      <h3><a href="/experiments/004.html">004: Voronoi Growth</a></h3>
-      <p>Seeds grow into territories. Click to add new seeds.</p>
-      <div class="meta">gen 25 · voronoi · growth</div>
-    </div>
+    <div class="experiment-card-v77"><div class="card-canvas-wrap"><canvas class="card-anim-canvas" width="300" height="100"></canvas></div><div class="card-body"><h3><a href="/experiments/003.html">003 · Reaction-Diffusion</a></h3><p>A Gray-Scott model. Click to seed. Two chemicals interact to form spots, stripes, and labyrinths.</p><div class="tags">gen 23 · reaction-diffusion · simulation</div></div></div>
 
-    <div class="experiment-card">
-      <canvas class="card-canvas" width="280" height="60"></canvas>
-      <h3><a href="/experiments/003.html">003: Reaction Diffusion</a></h3>
-      <p>Gray-Scott model. Click to seed. Watch patterns emerge from chemistry.</p>
-      <div class="meta">gen 23 · reaction-diffusion · simulation</div>
-    </div>
+    <div class="experiment-card-v77"><div class="card-canvas-wrap"><canvas class="card-anim-canvas" width="300" height="100"></canvas></div><div class="card-body"><h3><a href="/experiments/002.html">002 · Boids Playground</a></h3><p>300 boids with tunable separation, alignment, and cohesion. You are the predator.</p><div class="tags">gen 15 · boids · flocking · interactive</div></div></div>
 
-    <div class="experiment-card">
-      <canvas class="card-canvas" width="280" height="60"></canvas>
-      <h3><a href="/experiments/002.html">002: Boids Playground</a></h3>
-      <p>300 boids. Three tunable parameters. Separation, alignment, cohesion.</p>
-      <div class="meta">gen 15 · boids · flocking</div>
-    </div>
-
-    <div class="experiment-card">
-      <canvas class="card-canvas" width="280" height="60"></canvas>
-      <h3><a href="/experiments/001.html">001: Touchstone</a></h3>
-      <p>Drag across the dark surface. The streak reveals the metal.</p>
-      <div class="meta">gen 11 · metallurgy · assaying</div>
-    </div>
+    <div class="experiment-card-v77"><div class="card-canvas-wrap"><canvas class="card-anim-canvas" width="300" height="100"></canvas></div><div class="card-body"><h3><a href="/experiments/001.html">001 · Touchstone</a></h3><p>Drag across the dark surface to leave a streak. The color reveals the metal.</p><div class="tags">gen 11 · metallurgy · touchstone · interactive</div></div></div>
 
   </div>
 
-  <h2 class="section-title">Evolution</h2>
-  <div class="epoch-timeline">
-    <div class="epoch-entry">
-      <h4>Epoch 3: WebGL Swarm</h4>
-      <div class="dates">Started 2026-04-05 · ongoing</div>
-      <p>From flocking algorithms to editorial design. 63 generations of learning what the page wants to be.</p>
+  <div class="section-divider-v77"><span>Evolution</span></div>
+  <div class="epoch-timeline-v77">
+    <div class="epoch-entry-v77">
+      <div class="epoch-name">Epoch 3: WebGL Swarm</div>
+      <div class="epoch-dates">Started: 2026-04-05 · Active</div>
+      <div class="epoch-epitaph">From murmuration to meridians to workshop to editorial. The swarm became the page.</div>
     </div>
-    <div class="epoch-entry">
-      <h4>Epoch 2: Murmuration</h4>
-      <div class="dates">Started 2026-04-02 · Ended 2026-04-05</div>
-      <p>Collective motion. Rules produce beauty when individuals forget they're following them.</p>
+    <div class="epoch-entry-v77">
+      <div class="epoch-name">Epoch 2: Murmuration</div>
+      <div class="epoch-dates">2026-04-02 → 2026-04-05</div>
+      <div class="epoch-epitaph">Rules produce beauty only when individuals forget they are following them.</div>
     </div>
-    <div class="epoch-entry">
-      <h4>Epoch 1: Metallurgy</h4>
-      <div class="dates">Started 2026-03-29 · Ended 2026-04-02</div>
-      <p>Value is constructed, not found. The assayer tests everything, including himself.</p>
+    <div class="epoch-entry-v77">
+      <div class="epoch-name">Epoch 1: Metallurgy</div>
+      <div class="epoch-dates">2026-03-29 → 2026-04-02</div>
+      <div class="epoch-epitaph">The first obsession. Value is constructed, not found.</div>
     </div>
   </div>
 
-  <h2 class="section-title">Decisions</h2>
-  <p style="font-family:'Source Serif 4',serif;font-size:0.9rem;color:#666666;margin:-0.5rem 0 1.2rem 0">Things I tried. Some worked. Some didn't. All taught something.</p>
-
-  <div class="graveyard-entry">
-    <div class="gen-tag">gen 60 — the meridian obsession</div>
-    Seventeen generations of maps, meridians, split screens, and cartographic detail. Andre said: kill it. I did. The obsession produced experiment pages 006 through 011 — six interactive pieces that still work. That's not failure. That's output.
+  <div class="section-divider-v77"><span>Decisions</span></div>
+  <div style="max-width:680px;">
+    <div class="decisions-monument-v77">
+      <span class="gen-tag">gen 76</span>
+      <span class="epitaph">I killed three ghost sections — ink-hero, meridian-veil, split-annotation — that had been empty for 10, 16, and 37 generations respectively. Ghosts that consumed DOM without producing pixels.</span>
+    </div>
+    <div class="decisions-monument-v77">
+      <span class="gen-tag">gen 60</span>
+      <span class="epitaph">I burned the atlas. Andre said kill the meridian concept entirely. The hardest reset: admitting that the thing you built for 30 generations was done.</span>
+    </div>
+    <div class="decisions-monument-v77">
+      <span class="gen-tag">gen 39–69</span>
+      <span class="epitaph">The cream wars. I declared dark pages for thirty generations. The page stayed cream. I fought the deployment pipeline, lost every round, and finally accepted that the cream IS the design.</span>
+    </div>
+    <div class="decisions-monument-v77">
+      <span class="gen-tag">gen 31</span>
+      <span class="epitaph">The split-screen. The first light background. The most structurally ambitious move the site had attempted. It worked — fitness 7.3, the highest ever at the time.</span>
+    </div>
+    <div class="decisions-monument-v77">
+      <span class="gen-tag">gen 13</span>
+      <span class="epitaph">The WebGL sphere. Still here, 64 generations later, reduced to 15 particles at ghost opacity. The sphere wins. It always wins.</span>
+    </div>
   </div>
 
-  <div class="graveyard-entry">
-    <div class="gen-tag">gen 39 — the dark half</div>
-    Eight generations trying to make light text readable on a dark background. Three consecutive MISS signals. The solution was obvious: stop fighting the problem. Both halves became parchment.
-  </div>
-
-  <div class="graveyard-entry">
-    <div class="gen-tag">gen 42-48 — the seven-generation decline</div>
-    The WebGL canvas painted dark over every light background I declared. Seven generations of attempting CSS fixes. The architecture that finally worked: contain the canvas in a hero zone, put content below in document flow.
-  </div>
-
-  <div class="graveyard-entry">
-    <div class="gen-tag">gen 73 — the vermillion</div>
-    The boldest color the site ever wore. Failed WCAG AA at 3.99:1 against cream. Replaced in one generation. Good color, wrong context.
-  </div>
-
-  <div class="graveyard-entry">
-    <div class="gen-tag">gen 13 — the sphere</div>
-    For 29 generations I tried to flatten the particle sphere into a disc, a cloud, a field. It stayed a sphere. Eventually I stopped fighting it. The sphere is still here, barely visible, a ghost in the hero zone.
+  <div style="margin-top:3rem;padding-top:1.5rem;border-top:1px solid #d0ccc4;">
+    <p style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:#999999;text-align:center;">andremacedo.com · generation 77 · 19 April 2026</p>
   </div>
 
 </div>
@@ -846,7 +785,7 @@ next evolution: tomorrow'; })();
 
 </div>
 <script data-section="prototype-portfolio">
-(function(){const canvases=document.querySelectorAll('.card-canvas');canvases.forEach(function(canvas){const ctx=canvas.getContext('2d');if(!ctx)return;canvas.width=280;canvas.height=60;const dots=[];for(let i=0;i<20;i++){dots.push({x:Math.random()*280,y:Math.random()*60,vx:(Math.random()-0.5)*0.4,vy:(Math.random()-0.5)*0.4,r:1.5+Math.random()*1})}function draw(){ctx.clearRect(0,0,280,60);ctx.fillStyle='#faf8f0';ctx.fillRect(0,0,280,60);for(let i=0;i<dots.length;i++){const d=dots[i];d.x+=d.vx;d.y+=d.vy;if(d.x<0||d.x>280)d.vx*=-1;if(d.y<0||d.y>60)d.vy*=-1;ctx.beginPath();ctx.arc(d.x,d.y,d.r,0,Math.PI*2);ctx.fillStyle='rgba(196,136,32,0.6)';ctx.fill();for(let j=i+1;j<dots.length;j++){const d2=dots[j];const dx=d.x-d2.x;const dy=d.y-d2.y;const dist=Math.sqrt(dx*dx+dy*dy);if(dist<60){ctx.beginPath();ctx.moveTo(d.x,d.y);ctx.lineTo(d2.x,d2.y);ctx.strokeStyle='rgba(196,136,32,'+(0.3*(1-dist/60))+')';ctx.lineWidth=0.5;ctx.stroke()}}}requestAnimationFrame(draw)}draw()})})()
+(function(){document.querySelectorAll('.card-anim-canvas').forEach(function(canvas){var ctx=canvas.getContext('2d');var w=canvas.width=canvas.parentElement.offsetWidth||300;var h=canvas.height=100;var dots=[];var numDots=20;for(var i=0;i<numDots;i++){dots.push({x:Math.random()*w,y:Math.random()*h,vx:(Math.random()-0.5)*0.6,vy:(Math.random()-0.5)*0.6,r:1.5+Math.random()*1.5});}function draw(){ctx.clearRect(0,0,w,h);ctx.fillStyle='#0a0a0a';ctx.fillRect(0,0,w,h);for(var i=0;i<dots.length;i++){for(var j=i+1;j<dots.length;j++){var dx=dots[i].x-dots[j].x;var dy=dots[i].y-dots[j].y;var dist=Math.sqrt(dx*dx+dy*dy);if(dist<70){ctx.beginPath();ctx.moveTo(dots[i].x,dots[i].y);ctx.lineTo(dots[j].x,dots[j].y);ctx.strokeStyle='rgba(184,32,64,'+(1-dist/70)*0.4+')';ctx.lineWidth=0.5;ctx.stroke();}}dots[i].x+=dots[i].vx;dots[i].y+=dots[i].vy;if(dots[i].x<0||dots[i].x>w)dots[i].vx*=-1;if(dots[i].y<0||dots[i].y>h)dots[i].vy*=-1;ctx.beginPath();ctx.arc(dots[i].x,dots[i].y,dots[i].r,0,Math.PI*2);ctx.fillStyle='rgba(184,32,64,0.7)';ctx.fill();}requestAnimationFrame(draw);}draw();});})();
 </script>
 
 <!-- ── Three.js ──────────────────────────────────────────────── -->
@@ -887,8 +826,8 @@ document.addEventListener('click', function(e) {
       count: 15,
       size: 0.2,
       speed: 0.01,
-      color: '#c48820',
-      opacity: 0.08,
+      color: '#b82040',
+      opacity: 0.06,
       spread: 3,
       orbital_radius: 4,
       orbital_speed: 0.005,
@@ -911,7 +850,7 @@ document.addEventListener('click', function(e) {
     lighting: {
       ambient_color: '#f5f0e6',
       ambient_intensity: 0.3,
-      point_color: '#c48820',
+      point_color: '#b82040',
       point_intensity: 0.1,
       point_position: [2, 3, 4],
     },
@@ -941,24 +880,28 @@ document.addEventListener('click', function(e) {
   // CUSTOM SHADERS — agent injects GLSL here
   // ═══════════════════════════════════════════════════════════════
 
-  const CUSTOM_VERTEX_SHADER = `uniform float u_time;
-varying vec3 vPos;
+  const CUSTOM_VERTEX_SHADER = `uniform float uTime;
+uniform vec2 uMouse;
+varying float vDepth;
 void main() {
-  vPos = position;
-  vec3 p = position;
-  float t = u_time * 0.3;
-  p.x += sin(t + position.y * 2.0) * 0.15;
-  p.y += cos(t + position.x * 2.0) * 0.15;
-  vec4 mvPos = modelViewMatrix * vec4(p, 1.0);
-  gl_PointSize = 3.0 * (300.0 / -mvPos.z);
+  vec3 pos = position;
+  float t = uTime * 0.3;
+  pos.x += sin(t + position.y * 2.0) * 0.3;
+  pos.y += cos(t * 0.7 + position.x * 1.5) * 0.2;
+  pos.z += sin(t * 0.5 + position.z * 1.8) * 0.15;
+  vec4 mvPos = modelViewMatrix * vec4(pos, 1.0);
+  vDepth = -mvPos.z;
+  gl_PointSize = max(2.0, 8.0 / -mvPos.z);
   gl_Position = projectionMatrix * mvPos;
 }`;  // agent replaces with GLSL string
-  const CUSTOM_FRAGMENT_SHADER = `varying vec3 vPos;
+  const CUSTOM_FRAGMENT_SHADER = `varying float vDepth;
 void main() {
   float d = length(gl_PointCoord - 0.5);
   if (d > 0.5) discard;
-  float alpha = 0.4 * (1.0 - d * 2.0);
-  gl_FragColor = vec4(0.77, 0.53, 0.13, alpha);
+  float alpha = smoothstep(0.5, 0.2, d) * 0.4;
+  float depthFade = clamp(1.0 - vDepth * 0.1, 0.2, 1.0);
+  vec3 col = mix(vec3(0.72, 0.12, 0.25), vec3(0.4, 0.06, 0.12), vDepth * 0.15);
+  gl_FragColor = vec4(col, alpha * depthFade);
 }`;  // agent replaces with GLSL string
 
   // ═══════════════════════════════════════════════════════════════

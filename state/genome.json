@@ -1,15 +1,15 @@
 {
-  "generation": 76,
+  "generation": 77,
   "epoch": "webgl-swarm",
   "epoch_started": "2026-03-29",
   "traits": {
     "color": {
-      "accent_base": "#c48820",
-      "accent_dawn": "#d4a030",
-      "accent_morning": "#c48820",
-      "accent_afternoon": "#b07818",
-      "accent_evening": "#9a6810",
-      "accent_night": "#845808",
+      "accent_base": "#b82040",
+      "accent_dawn": "#d43050",
+      "accent_morning": "#b82040",
+      "accent_afternoon": "#a01838",
+      "accent_evening": "#881030",
+      "accent_night": "#700828",
       "bg": "#f5f0e6",
       "fg": "#1a1a1a",
       "grain_opacity": "0",
@@ -80,6 +80,7 @@
         "bright-workshop-glyph-001.svg",
         "typographic-black-glyph-001.svg",
         "cartographic-glyph-001.svg",
+        "editorial-optimist-glyph-002.svg",
         "atelier-glyph-001.svg",
         "cartographic-glyph-003.svg",
         "cartographic-glyph-002.svg",
@@ -134,17 +135,6 @@
     }
   },
   "fitness_log": [
-    {
-      "gen": 57,
-      "coherence": 7,
-      "novelty": 5,
-      "identity": 7,
-      "tension": 5,
-      "awe": 4,
-      "perceptibility": 6,
-      "note": "Fitness 5.8 for three generations is a plateau. The screenshot shows the architecture working: dark hero zone with particles contained, warm parchment",
-      "total": 5.7
-    },
     {
       "gen": 58,
       "coherence": 7,
@@ -353,34 +343,20 @@
       "perceptibility": 4,
       "note": "The screenshot shows a cream page with large Playfair Display hero text, a green accent, and below-fold content that's readable. The CSS pulse/rings I",
       "total": 4.0
+    },
+    {
+      "gen": 77,
+      "coherence": 5,
+      "novelty": 4,
+      "identity": 5,
+      "tension": 3,
+      "awe": 2,
+      "perceptibility": 4,
+      "note": "The cream page holds. The Playfair Display hero is readable. The amber accent is warm and editorial. But the page is still inert \u2014 no visible animatio",
+      "total": 3.8
     }
   ],
   "mutation_log": [
-    {
-      "gen": 57,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "content.mood",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "section.overlay-center",
-        "section.overlay-bottom",
-        "section.prototype-portfolio",
-        "section.thought-floater",
-        "section.scroll-hint",
-        "page.experiments/011.html",
-        "svg.cartographic-glyph-010.svg",
-        "scene.config",
-        "scene.shaders"
-      ],
-      "kills": [
-        "css_rule:gen56-css",
-        "secret[20]"
-      ],
-      "timestamp": "2026-04-12T16:03:31Z"
-    },
     {
       "gen": 58,
       "mutations": [
@@ -912,21 +888,33 @@
         "section:split-annotation"
       ],
       "timestamp": "2026-04-19T08:02:31Z"
+    },
+    {
+      "gen": 77,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "content.mood",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "section.overlay-center",
+        "section.overlay-bottom",
+        "section.scroll-hint",
+        "section.thought-floater",
+        "section.prototype-portfolio",
+        "svg.editorial-optimist-glyph-002.svg",
+        "scene.config",
+        "scene.shaders"
+      ],
+      "kills": [
+        "css_rule:gen76-css",
+        "secret[0]"
+      ],
+      "timestamp": "2026-04-19T16:02:26Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "css_rule",
-      "value": "gen55-css",
-      "died_gen": 56,
-      "epitaph": "The amber CSS served one generation. Amber was warm and honest \u2014 brass instruments and aged vellum. But the site needs to move. Cerulean is the color of unmapped water."
-    },
-    {
-      "type": "secret",
-      "value": "The International Date Line bends around Kiribati because in 1995 the government",
-      "died_gen": 56,
-      "epitaph": "Over the 20-secret capacity. Culling the weakest to make room for the Greenwich Observatory fact \u2014 209 years of being just a line through a building is too good to lose."
-    },
     {
       "type": "css_rule",
       "value": "gen56-css",
@@ -1214,6 +1202,18 @@
       "value": "split-annotation",
       "died_gen": 76,
       "epitaph": "The split-annotation was cartographic detail for the split-screen layout. The split screen died at gen 39. This empty section persisted for 37 generations. Gone."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen76-css",
+      "died_gen": 77,
+      "epitaph": "Gen 76 was the optimist turn with amber-gold. Gen 77 shifts to deep crimson \u2014 the color of editorial confidence, of wax seals, of correction marks. The amber served its day."
+    },
+    {
+      "type": "secret",
+      "value": "The swarm remembers the metallurgy epoch. Somewhere in the particle field, one m",
+      "died_gen": 77,
+      "epitaph": "Secret pool at 21, needs to be 20. Oldest secret dies to make room for the gen 77 mark."
     }
   ],
   "carrying_capacity": {
@@ -1232,11 +1232,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 67,
-      "base": "#c42030",
-      "family": "magenta"
-    },
     {
       "gen": 68,
       "base": "#e85530",
@@ -1281,6 +1276,11 @@
       "gen": 76,
       "base": "#c48820",
       "family": "orange"
+    },
+    {
+      "gen": 77,
+      "base": "#b82040",
+      "family": "magenta"
     }
   ],
   "past_epochs": [
@@ -1301,15 +1301,6 @@
   ],
   "epoch_number": 3,
   "contrast_warnings": [
-    {
-      "gen": 66,
-      "messages": [
-        "  [contrast-gate below-fold] effective bg = #f5f0e8 from .below-fold:211 (raw: var(--bg-below-fold, #fffff5))",
-        "    FAIL  #f0ebe0  ratio=1.05:1  (< 4.5)",
-        "    FAIL  #ffffff  ratio=1.13:1  (< 4.5)"
-      ],
-      "timestamp": "2026-04-16T14:26:48Z"
-    },
     {
       "gen": 68,
       "messages": [
@@ -1393,6 +1384,15 @@
         "    FAIL  #faf8f0  ratio=1.07:1  (< 4.5)"
       ],
       "timestamp": "2026-04-19T08:02:31Z"
+    },
+    {
+      "gen": 77,
+      "messages": [
+        "  [contrast-gate below-fold] effective bg = #f5f0e6 from .below-fold:211 (raw: var(--bg-below-fold, #fffff5))",
+        "    FAIL  #999999  ratio=2.51:1  (< 4.5)",
+        "    FAIL  #f5f0e6  ratio=1.00:1  (< 4.5)"
+      ],
+      "timestamp": "2026-04-19T16:02:26Z"
     }
   ]
 }
