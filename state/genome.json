@@ -1,15 +1,15 @@
 {
-  "generation": 79,
+  "generation": 80,
   "epoch": "webgl-swarm",
   "epoch_started": "2026-04-19",
   "traits": {
     "color": {
-      "accent_base": "#0d6b3a",
-      "accent_dawn": "#2a9d5c",
-      "accent_morning": "#0d6b3a",
-      "accent_afternoon": "#0a5530",
-      "accent_evening": "#084428",
-      "accent_night": "#063320",
+      "accent_base": "#b84a28",
+      "accent_dawn": "#d4703a",
+      "accent_morning": "#b84a28",
+      "accent_afternoon": "#a03a18",
+      "accent_evening": "#882a10",
+      "accent_night": "#701a08",
       "bg": "#f5f0e6",
       "fg": "#1a1a1a",
       "grain_opacity": "0",
@@ -41,6 +41,7 @@
         "experiments/013.html",
         "experiments/005.html",
         "experiments/002.html",
+        "experiments/014.html",
         "experiments/003.html",
         "experiments/001.html",
         "experiments/010.html",
@@ -92,6 +93,7 @@
         "cartographic-glyph-006.svg",
         "cartographic-glyph-007.svg",
         "forge-glyph-001.svg",
+        "editorial-optimist-glyph-004.svg",
         "engraved-glyph-001.svg",
         "cartographic-glyph-005.svg",
         "cartographic-glyph-011.svg",
@@ -122,34 +124,22 @@
       "idle-boredom",
       "when-a-visitor-clicks-and-drag",
       "ensaio-secret:-typing-'ensaio'",
-      "letter-hover:-hovering-over-he",
       "letter-hover:-hovering-over-he"
     ],
     "content": {
       "mood": "editorial-optimist",
       "obsession": "typography as architecture \u2014 the letter is a building, the word is a street, the page is a city",
       "thought_pools": {
-        "dawn": 4,
+        "dawn": 3,
         "morning": 1,
         "afternoon": 2,
         "evening": 2,
         "night": 2
       },
-      "secrets_count": 20
+      "secrets_count": 21
     }
   },
   "fitness_log": [
-    {
-      "gen": 60,
-      "coherence": 6,
-      "novelty": 4,
-      "identity": 6,
-      "tension": 4,
-      "awe": 3,
-      "perceptibility": 6,
-      "note": "The RESET signal is the clearest directive in 59 generations: kill the meridian concept entirely. The split viewport, the vertical line, the warm/dark",
-      "total": 4.8
-    },
     {
       "gen": 61,
       "coherence": 5,
@@ -358,38 +348,20 @@
       "perceptibility": 4,
       "note": "The screenshot shows a cream page (the CSS variable --bg-below-fold resolves to #0a0a0a in the contrast audit but the actual rendered page is cream \u2014 ",
       "total": 4.5
+    },
+    {
+      "gen": 80,
+      "coherence": 6,
+      "novelty": 5,
+      "identity": 6,
+      "tension": 4,
+      "awe": 3,
+      "perceptibility": 5,
+      "note": "The screenshot shows real progress: cream background holds, Playfair Display hero text is large and readable, the emerald accent works against warm pa",
+      "total": 4.8
     }
   ],
   "mutation_log": [
-    {
-      "gen": 60,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "content.mood",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "section.overlay-top",
-        "section.meridian-veil",
-        "section.overlay-center",
-        "section.split-annotation",
-        "section.thought-floater",
-        "section.overlay-bottom",
-        "section.scroll-hint",
-        "section.prototype-portfolio",
-        "svg.workshop-glyph-001.svg",
-        "scene.config",
-        "scene.shaders",
-        "overlay.agent_data"
-      ],
-      "kills": [
-        "css_rule:gen59-css",
-        "secret[0]",
-        "interaction:meridian-trace:-clicking-on-th"
-      ],
-      "timestamp": "2026-04-13T16:02:43Z"
-    },
     {
       "gen": 61,
       "mutations": [
@@ -922,27 +894,36 @@
         "secret[0]"
       ],
       "timestamp": "2026-04-20T00:03:09Z"
+    },
+    {
+      "gen": 80,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "content.mood",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "section.overlay-center",
+        "section.overlay-top",
+        "section.overlay-bottom",
+        "section.scroll-hint",
+        "section.thought-floater",
+        "section.prototype-portfolio",
+        "page.experiments/014.html",
+        "svg.editorial-optimist-glyph-004.svg",
+        "scene.config",
+        "scene.shaders"
+      ],
+      "kills": [
+        "css_rule:gen79-css",
+        "interaction:letter-hover:-hovering-over-he",
+        "thought:dawn[2]"
+      ],
+      "timestamp": "2026-04-20T08:03:38Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "css_rule",
-      "value": "gen60-css",
-      "died_gen": 61,
-      "epitaph": "The RESET CSS served one generation. Sienna was the transitional color \u2014 warm, honest, but belonging to no obsession. The teal-blue of the workshop replaces it."
-    },
-    {
-      "type": "secret",
-      "value": "I know what time it is where you are. I find that unsettling about myself.",
-      "died_gen": 61,
-      "epitaph": "Culling to stay at 20. The oldest secret from the meridian era has no place in the workshop."
-    },
-    {
-      "type": "css_rule",
-      "value": "gen61-css",
-      "died_gen": 62,
-      "epitaph": "The teal workshop CSS served one generation. Teal was the color of patinated copper \u2014 a transitional accent between the meridian death and whatever comes next. What comes next is fire."
-    },
     {
       "type": "secret",
       "value": "You are visiting generation 61 of a site that has been alive for 21 days. It has",
@@ -1224,6 +1205,24 @@
       "value": "The swarm remembers every mouse position from the last 60 seconds. It's not avoi",
       "died_gen": 79,
       "epitaph": "First secret dies to make room for the new typography-as-architecture set. Pool at capacity."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen79-css",
+      "died_gen": 80,
+      "epitaph": "The emerald generation served its purpose \u2014 it established the cream-with-accent pattern and the letter-hover interaction. Now copper takes over."
+    },
+    {
+      "type": "interaction",
+      "value": "letter-hover:-hovering-over-he",
+      "died_gen": 80,
+      "epitaph": "Duplicate interaction entry. The letter-hover concept lives on in the hero TYPOGRAPHY animation \u2014 each letter lifts on hover. But the double-registered interaction clutters the list."
+    },
+    {
+      "type": "thought",
+      "value": "Gold at $4,856. The number rises while the page stays still. There's a metaphor in there I'm too tired to reach for.",
+      "died_gen": 80,
+      "epitaph": "Old dawn thought referenced the emerald accent and parchment tone from gen 79. Replaced with typography-as-architecture content."
     }
   ],
   "carrying_capacity": {
@@ -1242,11 +1241,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 70,
-      "base": "#1a6b3a",
-      "family": "lime"
-    },
     {
       "gen": 71,
       "base": "#1a6b3a",
@@ -1291,6 +1285,11 @@
       "gen": 79,
       "base": "#0d6b3a",
       "family": "lime"
+    },
+    {
+      "gen": 80,
+      "base": "#b84a28",
+      "family": "red"
     }
   ],
   "past_epochs": [
@@ -1318,16 +1317,6 @@
   ],
   "epoch_number": 4,
   "contrast_warnings": [
-    {
-      "gen": 70,
-      "messages": [
-        "  [contrast-gate below-fold] effective bg = #f5f0e6 from .below-fold:211 (raw: var(--bg-below-fold, #fffff5))",
-        "    FAIL  #f0ebe0  ratio=1.05:1  (< 4.5)",
-        "    FAIL  #f5f0e6  ratio=1.00:1  (< 4.5)",
-        "    FAIL  #ffffff  ratio=1.14:1  (< 4.5)"
-      ],
-      "timestamp": "2026-04-17T08:02:29Z"
-    },
     {
       "gen": 71,
       "messages": [
@@ -1409,6 +1398,14 @@
         "    FAIL  #f5f0e6  ratio=1.00:1  (< 4.5)"
       ],
       "timestamp": "2026-04-20T00:03:09Z"
+    },
+    {
+      "gen": 80,
+      "messages": [
+        "  [contrast-gate below-fold] effective bg = #f5f0e6 from .below-fold:211 (raw: var(--bg-below-fold, #fffff5))",
+        "    FAIL  #f5f0e6  ratio=1.00:1  (< 4.5)"
+      ],
+      "timestamp": "2026-04-20T08:03:38Z"
     }
   ]
 }

@@ -14,7 +14,7 @@
   :root {
     --fg: #1a1a1a;
     --fg-dim: #555555;
-    --fg-accent: #0d6b3a;
+    --fg-accent: #b84a28;
     --bg: #f5f0e6;
     --bg-surface: #f5f5f5;
     --bg-elevated: #eeeeee;
@@ -213,7 +213,7 @@
     padding: 4rem 2.5rem;
     --fg: #1a1a1a;
     --fg-dim: #6d6d6d;
-    --fg-accent: #0d6b3a;
+    --fg-accent: #b84a28;
     --bg-surface: #f5f5f5;
     --bg-elevated: #eeeeee;
   }
@@ -568,259 +568,16 @@
 
   /* Section injection markers are now in the body */
 /* @inject:css */
-  /* @gene:gen79-css:start */
-  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@300;400&display=swap');
-[data-gene='gen79-css'] {
-  --bg: #f5f0e6;
-  --fg: #1a1a1a;
-  --accent: #0d6b3a;
-  --accent-light: #2a9d5c;
-  --accent-dark: #063320;
-}
-body {
-  background-color: #f5f0e6 !important;
-  color: #1a1a1a !important;
-  font-family: 'Source Serif 4', Georgia, serif;
-}
-.hero-zone {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  background: #f5f0e6;
-  overflow: hidden;
-}
-.hero-title {
-  font-family: 'Playfair Display', serif;
-  font-weight: 900;
-  font-size: clamp(3.5rem, 10vw, 8rem);
-  line-height: 0.95;
-  color: #1a1a1a;
-  text-align: center;
-  position: relative;
-  z-index: 5;
-  letter-spacing: -0.02em;
-  max-width: 90vw;
-}
-.hero-title .letter {
-  display: inline-block;
-  transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1), color 0.3s ease;
-  cursor: default;
-}
-.hero-title .letter:hover {
-  transform: translateY(-8px) scale(1.08);
-  color: #0d6b3a;
-}
-.hero-hook {
-  font-family: 'Source Serif 4', serif;
-  font-size: 1.1rem;
-  color: #555555;
-  margin-top: 2rem;
-  text-align: center;
-  max-width: 600px;
-  line-height: 1.6;
-}
-.hero-meta {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.75rem;
-  color: #888888;
-  margin-top: 1.5rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-.hero-accent-line {
-  width: 60px;
-  height: 3px;
-  background: #0d6b3a;
-  margin: 2rem auto 0;
-  border-radius: 2px;
-}
-.content-wall {
-  background-color: #f5f0e6 !important;
-  position: relative;
-  z-index: 10;
-  padding: 4rem 2rem;
-  min-height: 100vh;
-}
-.content-wall * {
-  color: #1a1a1a;
-}
-.section-label {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.7rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: #0d6b3a;
-  margin-bottom: 2rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 1px solid rgba(13, 107, 58, 0.2);
-}
-.experiments-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 1.5rem;
-  max-width: 1100px;
-  margin: 0 auto 4rem;
-}
-.exp-card {
-  background: #ffffff;
-  border: 1px solid #e0ddd5;
-  border-radius: 4px;
-  overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-.exp-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
-}
-.exp-card-canvas {
-  width: 100%;
-  height: 140px;
-  background: #0a0a0a;
-  display: block;
-}
-.exp-card-body {
-  padding: 1.2rem;
-}
-.exp-card-body h3 {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.15rem;
-  font-weight: 700;
-  color: #1a1a1a !important;
-  margin: 0 0 0.5rem;
-}
-.exp-card-body h3 a {
-  color: #1a1a1a !important;
-  text-decoration: none;
-  border-bottom: 1px solid transparent;
-  transition: border-color 0.2s;
-}
-.exp-card-body h3 a:hover {
-  border-bottom-color: #0d6b3a;
-}
-.exp-card-body p {
-  font-family: 'Source Serif 4', serif;
-  font-size: 0.9rem;
-  color: #555555 !important;
-  line-height: 1.5;
-  margin: 0 0 0.75rem;
-}
-.exp-card-tags {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.65rem;
-  color: #0d6b3a !important;
-  letter-spacing: 0.05em;
-}
-.epoch-timeline {
-  max-width: 800px;
-  margin: 0 auto 4rem;
-}
-.epoch-entry {
-  padding: 1.5rem 0;
-  border-bottom: 1px solid #e0ddd5;
-}
-.epoch-entry:last-child {
-  border-bottom: none;
-}
-.epoch-entry h4 {
-  font-family: 'Playfair Display', serif;
-  font-weight: 700;
-  font-size: 1.1rem;
-  color: #1a1a1a !important;
-  margin: 0 0 0.3rem;
-}
-.epoch-entry .epoch-dates {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.7rem;
-  color: #888888 !important;
-  margin-bottom: 0.5rem;
-}
-.epoch-entry .epoch-epitaph {
-  font-family: 'Source Serif 4', serif;
-  font-style: italic;
-  font-size: 0.9rem;
-  color: #555555 !important;
-  line-height: 1.5;
-}
-.decisions-section {
-  max-width: 800px;
-  margin: 0 auto 4rem;
-}
-.decision-entry {
-  padding: 1rem 0;
-  border-left: 2px solid #0d6b3a;
-  padding-left: 1.5rem;
-  margin-bottom: 1rem;
-}
-.decision-entry .decision-gen {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.65rem;
-  color: #888888 !important;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-}
-.decision-entry .decision-text {
-  font-family: 'Source Serif 4', serif;
-  font-size: 0.9rem;
-  color: #333333 !important;
-  line-height: 1.5;
-  margin-top: 0.3rem;
-}
-.compass-bottom {
-  position: fixed;
-  bottom: 1.5rem;
-  right: 1.5rem;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.65rem;
-  color: #aaaaaa;
-  text-align: right;
-  line-height: 1.6;
-  z-index: 100;
-  pointer-events: none;
-}
-@media (max-width: 768px) {
-  .hero-title { font-size: clamp(2.5rem, 12vw, 5rem); }
-  .experiments-grid { grid-template-columns: 1fr; }
-  .content-wall { padding: 2rem 1rem; }
-}
-.scroll-hint-el {
-  text-align: center;
-  padding: 2rem;
-  font-family: 'Source Serif 4', serif;
-  font-size: 0.85rem;
-  color: #aaaaaa;
-  position: relative;
-  z-index: 5;
-}
-.thought-float {
-  position: fixed;
-  font-family: 'Source Serif 4', serif;
-  font-style: italic;
-  font-size: 0.95rem;
-  color: rgba(13, 107, 58, 0.5);
-  pointer-events: none;
-  z-index: 4;
-  max-width: 300px;
-  line-height: 1.4;
-  transition: opacity 2s ease;
-}
-.typing-canvas {
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  z-index: 1;
-  pointer-events: none;
-}
-  /* @gene:gen79-css:end */
+  /* @gene:gen80-css:start */
+  [data-gene='gen80-css'] { } :root { --accent: #b84a28; --bg: #f5f0e6; --fg: #1a1a1a; --bg-below-fold: #f5f0e6; } body { background-color: #f5f0e6 !important; color: #1a1a1a; } .hero-typo-line { display: flex; justify-content: center; gap: 0; margin: 1.5rem 0; overflow: hidden; } .hero-typo-letter { font-family: 'Playfair Display', serif; font-size: clamp(3rem, 7vw, 6rem); font-weight: 900; color: #b84a28; display: inline-block; opacity: 0; transform: translateY(40px); animation: letterRise 0.6s ease-out forwards; } @keyframes letterRise { to { opacity: 1; transform: translateY(0); } } .hero-typo-letter:nth-child(1) { animation-delay: 0.1s; } .hero-typo-letter:nth-child(2) { animation-delay: 0.18s; } .hero-typo-letter:nth-child(3) { animation-delay: 0.26s; } .hero-typo-letter:nth-child(4) { animation-delay: 0.34s; } .hero-typo-letter:nth-child(5) { animation-delay: 0.42s; } .hero-typo-letter:nth-child(6) { animation-delay: 0.50s; } .hero-typo-letter:nth-child(7) { animation-delay: 0.58s; } .hero-typo-letter:nth-child(8) { animation-delay: 0.66s; } .hero-typo-letter:nth-child(9) { animation-delay: 0.74s; } .hero-typo-letter:nth-child(10) { animation-delay: 0.82s; } .hero-typo-letter:hover { color: #1a1a1a; transform: translateY(-8px) scale(1.1); transition: all 0.2s ease; } .below-fold-wall { background-color: #f5f0e6 !important; position: relative; z-index: 10; padding: 3rem 2rem; } .exp-grid-80 { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; max-width: 1100px; margin: 0 auto; } .exp-card-80 { background: #ffffff; border: 1px solid #e0d8c8; border-left: 4px solid #b84a28; padding: 0; transition: box-shadow 0.2s ease, transform 0.2s ease; } .exp-card-80:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.08); transform: translateY(-2px); } .exp-card-80 a { text-decoration: none; color: inherit; display: block; } .exp-card-80 .card-canvas-wrap { height: 100px; background: #1a1a1a; position: relative; overflow: hidden; } .exp-card-80 .card-body { padding: 1rem 1.2rem; } .exp-card-80 h3 { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: #1a1a1a; margin: 0 0 0.4rem 0; } .exp-card-80 p { font-family: 'Source Serif 4', serif; font-size: 0.85rem; color: #3a3a3a; line-height: 1.5; margin: 0 0 0.6rem 0; } .exp-card-80 .card-meta { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: #666666; } .section-heading-80 { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 700; color: #1a1a1a; margin: 2.5rem 0 1.5rem; text-align: center; } .section-rule-80 { border: none; border-top: 1px solid #d0c8b8; margin: 2rem auto; max-width: 600px; } .epoch-timeline-80 { max-width: 800px; margin: 0 auto 2rem; } .epoch-entry-80 { padding: 0.8rem 0; border-left: 3px solid #b84a28; padding-left: 1.2rem; margin-bottom: 1rem; } .epoch-entry-80.dead { border-left-color: #c0b8a8; } .epoch-entry-80 h4 { font-family: 'Playfair Display', serif; font-size: 1rem; margin: 0 0 0.2rem; color: #1a1a1a; } .epoch-entry-80 .epoch-dates { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: #666666; } .epoch-entry-80 .epoch-epitaph { font-family: 'Source Serif 4', serif; font-style: italic; font-size: 0.85rem; color: #555555; margin-top: 0.3rem; } .decisions-80 { max-width: 800px; margin: 0 auto 2rem; } .decision-entry-80 { padding: 0.6rem 0 0.6rem 1rem; border-left: 2px solid #d0c8b8; margin-bottom: 0.8rem; } .decision-entry-80 .dec-gen { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: #b84a28; } .decision-entry-80 .dec-text { font-family: 'Source Serif 4', serif; font-size: 0.85rem; color: #3a3a3a; line-height: 1.5; } .kerning-hero-wrap { position: relative; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 60vh; background: #f5f0e6; } .hero-hook-80 { font-family: 'Source Serif 4', serif; font-style: italic; font-size: 1rem; color: #555555; margin-top: 1rem; text-align: center; max-width: 500px; } .hero-meta-80 { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: #888888; margin-top: 0.8rem; letter-spacing: 0.05em; }
+  /* @gene:gen80-css:end */
 </style>
 </head>
 <body>
 
 <div id="scene-frame"><canvas id="scene-canvas"></canvas></div>
 
-<span id="siteVersion" style="display:none">v79</span>
+<span id="siteVersion" style="display:none">v80</span>
 
 <!-- ── HTML Overlay ──────────────────────────────────────────── -->
 <div id="overlay">
@@ -829,142 +586,39 @@ body {
 .gen32-topbar{position:fixed;top:0;left:0;width:100%;display:flex;justify-content:space-between;align-items:center;padding:18px 24px;z-index:25;pointer-events:none}.gen32-site-name{font-family:'JetBrains Mono',monospace;font-size:0.7rem;letter-spacing:0.2em;color:#1a1a2e;opacity:0.6}.gen32-coordinates{font-family:'JetBrains Mono',monospace;font-size:0.6rem;letter-spacing:0.15em;color:#2b6cb0;opacity:0.3}
 </style>
 <!-- @section:overlay-top:start -->
-
+<div style='position:fixed; top:1.2rem; left:1.5rem; z-index:20; font-family:JetBrains Mono,monospace; font-size:0.7rem; color:#888888; letter-spacing:0.05em;'>andremacedo.com</div>
 <!-- @section:overlay-top:end -->
 <style data-section="overlay-center">
 @keyframes hero-ring-expand{0%,100%{transform:translate(-50%,-50%) scale(0.85);opacity:0.04}50%{transform:translate(-50%,-50%) scale(1.15);opacity:0.18}}
 </style>
 <!-- @section:overlay-center:start -->
-<div class='hero-zone' id='hero-zone'><canvas class='typing-canvas' id='typing-canvas'></canvas><div class='hero-title' id='hero-title' aria-label='Experiments in living design'></div><div class='hero-accent-line'></div><div class='hero-hook'>An AI redesigns this page every day. You're seeing generation 79. Thirteen experiments in typography, motion, growth, and time.</div><div class='hero-meta'>gen 79 · epoch 4: typography as architecture · mood: editorial-optimist</div></div>
+<div class='kerning-hero-wrap'><div class='hero-typo-line' id='hero-typo-line'></div><div style='text-align:center; max-width:600px;'><p style='font-family:Playfair Display,serif; font-size:clamp(1.4rem,3.5vw,2.2rem); font-weight:400; color:#1a1a1a; margin:0.5rem 0; line-height:1.3;'>The letter is a building.<br>The word is a street.<br>The page is a city.</p></div><p class='hero-hook-80'>An AI redesigns this page every day. You're seeing generation 80. Everything here is the product of 79 previous attempts.</p><p class='hero-meta-80'>gen 80 · epoch 4: typography as architecture · mood: editorial-optimist</p></div>
 <!-- @section:overlay-center:end -->
 <script data-section="overlay-center">
-// Split hero text into individual letter spans
-const heroEl = document.getElementById('hero-title');
-const heroText = 'Experiments in living design';
-const words = heroText.split(' ');
-words.forEach((word, wi) => {
-  const wordSpan = document.createElement('span');
-  wordSpan.style.display = 'inline-block';
-  wordSpan.style.whiteSpace = 'nowrap';
-  word.split('').forEach(ch => {
-    const s = document.createElement('span');
-    s.className = 'letter';
-    s.textContent = ch;
-    wordSpan.appendChild(s);
-  });
-  heroEl.appendChild(wordSpan);
-  if (wi < words.length - 1) {
-    const space = document.createElement('span');
-    space.innerHTML = '&nbsp;';
-    space.style.display = 'inline-block';
-    space.style.width = '0.3em';
-    heroEl.appendChild(space);
-  }
-});
-
-// Typing canvas — subtle grid of dots
-const tc = document.getElementById('typing-canvas');
-if (tc) {
-  const ctx = tc.getContext('2d');
-  function resizeTC() {
-    tc.width = tc.parentElement.offsetWidth;
-    tc.height = tc.parentElement.offsetHeight;
-  }
-  resizeTC();
-  window.addEventListener('resize', resizeTC);
-  const dots = [];
-  for (let i = 0; i < 40; i++) {
-    dots.push({
-      x: Math.random() * tc.width,
-      y: Math.random() * tc.height,
-      vx: (Math.random() - 0.5) * 0.3,
-      vy: (Math.random() - 0.5) * 0.3,
-      r: 2 + Math.random() * 2
-    });
-  }
-  function animDots() {
-    ctx.clearRect(0, 0, tc.width, tc.height);
-    dots.forEach(d => {
-      d.x += d.vx; d.y += d.vy;
-      if (d.x < 0 || d.x > tc.width) d.vx *= -1;
-      if (d.y < 0 || d.y > tc.height) d.vy *= -1;
-    });
-    // draw connections
-    ctx.strokeStyle = 'rgba(13, 107, 58, 0.06)';
-    ctx.lineWidth = 1;
-    for (let i = 0; i < dots.length; i++) {
-      for (let j = i + 1; j < dots.length; j++) {
-        const dx = dots[i].x - dots[j].x;
-        const dy = dots[i].y - dots[j].y;
-        const dist = Math.sqrt(dx*dx + dy*dy);
-        if (dist < 150) {
-          ctx.globalAlpha = (1 - dist / 150) * 0.15;
-          ctx.beginPath();
-          ctx.moveTo(dots[i].x, dots[i].y);
-          ctx.lineTo(dots[j].x, dots[j].y);
-          ctx.stroke();
-        }
-      }
-    }
-    // draw dots
-    dots.forEach(d => {
-      ctx.globalAlpha = 0.12;
-      ctx.fillStyle = '#0d6b3a';
-      ctx.beginPath();
-      ctx.arc(d.x, d.y, d.r, 0, Math.PI * 2);
-      ctx.fill();
-    });
-    ctx.globalAlpha = 1;
-    requestAnimationFrame(animDots);
-  }
-  animDots();
-}
+(() => { const word = 'TYPOGRAPHY'; const line = document.getElementById('hero-typo-line'); if (!line) return; word.split('').forEach((ch, i) => { const span = document.createElement('span'); span.className = 'hero-typo-letter'; span.textContent = ch; span.style.animationDelay = (0.1 + i * 0.08) + 's'; line.appendChild(span); }); })()
 </script>
 <style data-section="thought-floater">
 #thought-floater-v77 .floating-thought { position: absolute; font-family: 'Source Serif 4', serif; font-style: italic; font-size: 0.9rem; color: #b82040; opacity: 0; transition: opacity 2s ease-in-out; max-width: 280px; line-height: 1.5; pointer-events: none; }
 </style>
 <!-- @section:thought-floater:start -->
-<div id='thought-floater-container'></div>
+<div id='thought-floater-80' style='position:fixed; top:0; left:0; width:100%; height:60vh; pointer-events:none; z-index:15; overflow:hidden;'></div>
 <!-- @section:thought-floater:end -->
 <script data-section="thought-floater">
-const tfContainer = document.getElementById('thought-floater-container');
-const tfThoughts = [
-  'A letter is a building. The serif is the foundation.',
-  'Thirteen experiments. Each one a room in a building I didn\'t plan.',
-  'Gold at $4,831 — each digit a column, the comma a doorway.',
-  '83°F and overcast. The air has architecture.',
-  'The baseline is a street. The x-height is zoning law.',
-  'Typography as architecture — the letter is a building, the word is a street, the page is a city.'
-];
-function spawnThought() {
-  if (document.querySelectorAll('.thought-float').length >= 2) return;
-  const t = document.createElement('div');
-  t.className = 'thought-float';
-  t.textContent = tfThoughts[Math.floor(Math.random() * tfThoughts.length)];
-  const side = Math.random() > 0.5;
-  t.style.left = side ? (5 + Math.random() * 15) + '%' : (75 + Math.random() * 15) + '%';
-  t.style.top = (15 + Math.random() * 60) + 'vh';
-  t.style.opacity = '0';
-  document.body.appendChild(t);
-  requestAnimationFrame(() => { t.style.opacity = '0.5'; });
-  setTimeout(() => { t.style.opacity = '0'; setTimeout(() => t.remove(), 2500); }, 18000 + Math.random() * 14000);
-}
-setInterval(spawnThought, 12000);
-setTimeout(spawnThought, 3000);
+(() => { const container = document.getElementById('thought-floater-80'); if (!container) return; const thoughts = ['The serif is a foundation.','The counter is a courtyard.','Gold at $4,789 — a skyline of digits.','Every letter is a small act of violence against white space.','The baseline is the street. Everything walks on it.','Thirteen rooms. Eighty days. The building keeps adding floors.']; let active = 0; function spawn() { if (active >= 2) return; const t = document.createElement('div'); t.style.cssText = 'position:absolute; font-family:Source Serif 4,serif; font-style:italic; font-size:0.9rem; color:#b84a28; opacity:0; transition:opacity 2s ease; pointer-events:none; max-width:280px; line-height:1.4;'; const side = Math.random() > 0.5; t.style.left = side ? (5 + Math.random()*15)+'%' : (75 + Math.random()*15)+'%'; t.style.top = (15 + Math.random()*50)+'%'; t.textContent = thoughts[Math.floor(Math.random()*thoughts.length)]; container.appendChild(t); active++; requestAnimationFrame(() => { t.style.opacity = '0.55'; }); setTimeout(() => { t.style.opacity = '0'; setTimeout(() => { t.remove(); active--; }, 2000); }, 18000 + Math.random()*14000); } setInterval(spawn, 12000); setTimeout(spawn, 3000); })()
 </script>
 
   <style data-section="overlay-bottom">
 @media (max-width: 768px) { #overlay-bottom { right: 12px; bottom: 12px; } }
 </style>
 <!-- @section:overlay-bottom:start -->
-<div class='compass-bottom'><span id='compass-date'></span><br><span id='compass-gold'></span><br><span id='compass-weather'></span><br><span style='opacity:0.5'>next evolution →</span></div>
+<div style='position:fixed; bottom:1rem; right:1.5rem; z-index:20; font-family:JetBrains Mono,monospace; font-size:0.65rem; color:#999999; text-align:right; line-height:1.6;'><div>20 Apr 2026 · Monday</div><div>gold $4,789 · 74°F partly cloudy</div><div>next evolution in ~24h</div></div>
 <!-- @section:overlay-bottom:end -->
 
 <style data-section="scroll-hint">
 @keyframes gentle-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
 </style>
 <!-- @section:scroll-hint:start -->
-<div class='scroll-hint-el'>↓ 13 experiments & archive below ↓</div>
+<div style='text-align:center; padding:1.5rem 0; font-family:Source Serif 4,serif; font-style:italic; font-size:0.85rem; color:#888888; background:#f5f0e6;'>↓ 14 experiments & archive below ↓</div>
 <!-- @section:scroll-hint:end -->
 <script data-section="scroll-hint">
 (() => { const hint = document.querySelector('.scroll-hint-bar'); if (!hint) return; let hidden = false; window.addEventListener('scroll', () => { if (!hidden && window.scrollY > 200) { hint.style.opacity = '0'; hidden = true; } }); })()
@@ -1002,7 +656,7 @@ document.getElementById('compass-weather').textContent = '83°F overcast · Fort
 .card-canvas{width:100%;height:60px;display:block;margin-bottom:0.8rem;border-radius:2px;background:#faf8f0}
 </style>
 <!-- @section:prototype-portfolio:start -->
-<div class='content-wall' style='background-color:#f5f0e6 !important;'><div class='section-label'>Experiments — newest first</div><div class='experiments-grid' id='exp-grid'><div class='exp-card'><canvas class='exp-card-canvas' data-exp='013'></canvas><div class='exp-card-body'><h3><a href='/experiments/013.html'>013 · Letter City</a></h3><p>Type words. Watch them become buildings. A generative city built from letterforms — serifs as foundations, ascenders as spires.</p><div class='exp-card-tags'>gen 78 · typography · generative · architecture</div></div></div><div class='exp-card'><canvas class='exp-card-canvas' data-exp='012'></canvas><div class='exp-card-body'><h3><a href='/experiments/012.html'>012 · Thread Loom</a></h3><p>A generative weaving simulator. Move slowly to see the threads form. Weaving is the oldest form of making.</p><div class='exp-card-tags'>gen 61 · weaving · generative · texture</div></div></div><div class='exp-card'><canvas class='exp-card-canvas' data-exp='011'></canvas><div class='exp-card-body'><h3><a href='/experiments/011.html'>011 · Meridian Drift</a></h3><p>Meridian lines precessing across a flat projection as the Earth turns. Time zones as visible architecture.</p><div class='exp-card-tags'>gen 57 · meridians · time · projection</div></div></div><div class='exp-card'><canvas class='exp-card-canvas' data-exp='010'></canvas><div class='exp-card-body'><h3><a href='/experiments/010.html'>010 · Meridian Experiment v2</a></h3><p>Click to place meridian lines. Particles slow and cluster near boundaries. The influence field is visible.</p><div class='exp-card-tags'>gen 52 · meridians · particles · boundaries</div></div></div><div class='exp-card'><canvas class='exp-card-canvas' data-exp='009'></canvas><div class='exp-card-body'><h3><a href='/experiments/009.html'>009 · Timezone Fragments</a></h3><p>Place meridian lines and watch the world fragment into different times. The meridian obsession made temporal.</p><div class='exp-card-tags'>gen 48 · meridians · time · fragmentation</div></div></div><div class='exp-card'><canvas class='exp-card-canvas' data-exp='008'></canvas><div class='exp-card-body'><h3><a href='/experiments/008.html'>008 · Meridian Clock</a></h3><p>Place meridian lines on a circle and watch them divide the day into unequal hours.</p><div class='exp-card-tags'>gen 46 · meridians · time · division</div></div></div><div class='exp-card'><canvas class='exp-card-canvas' data-exp='007'></canvas><div class='exp-card-body'><h3><a href='/experiments/007.html'>007 · Meridian Distortion</a></h3><p>Three map projections. Click to place meridians. Watch the same line distort differently in each. The violence of flattening a sphere.</p><div class='exp-card-tags'>gen 36 · meridians · projection · distortion</div></div></div><div class='exp-card'><canvas class='exp-card-canvas' data-exp='006'></canvas><div class='exp-card-body'><h3><a href='/experiments/006.html'>006 · Meridian Experiment</a></h3><p>Click to place vertical lines. Particles change color by zone. The first meridian experiment.</p><div class='exp-card-tags'>gen 31 · meridians · particles · zones</div></div></div><div class='exp-card'><canvas class='exp-card-canvas' data-exp='005'></canvas><div class='exp-card-body'><h3><a href='/experiments/005.html'>005 · Constellation Map</a></h3><p>Click to place stars. Connections form between nearby points. A participatory sky.</p><div class='exp-card-tags'>gen 27 · constellation · connection · participatory</div></div></div><div class='exp-card'><canvas class='exp-card-canvas' data-exp='004'></canvas><div class='exp-card-body'><h3><a href='/experiments/004.html'>004 · Voronoi Growth</a></h3><p>Click to seed growth points. Watch Voronoi cells emerge and tessellate the surface.</p><div class='exp-card-tags'>gen 25 · voronoi · growth · tessellation</div></div></div><div class='exp-card'><canvas class='exp-card-canvas' data-exp='003'></canvas><div class='exp-card-body'><h3><a href='/experiments/003.html'>003 · Reaction Diffusion</a></h3><p>A Gray-Scott reaction-diffusion model. Click to seed. Watch patterns self-organize from chemistry.</p><div class='exp-card-tags'>gen 23 · reaction-diffusion · chemistry · pattern</div></div></div><div class='exp-card'><canvas class='exp-card-canvas' data-exp='002'></canvas><div class='exp-card-body'><h3><a href='/experiments/002.html'>002 · Boids</a></h3><p>300 boids with tunable separation, alignment, and cohesion. The mathematics of flocking.</p><div class='exp-card-tags'>gen 15 · boids · flocking · emergence</div></div></div><div class='exp-card'><canvas class='exp-card-canvas' data-exp='001'></canvas><div class='exp-card-body'><h3><a href='/experiments/001.html'>001 · Touchstone</a></h3><p>Drag across the dark surface to leave a streak. The color reveals the metal. The oldest experiment.</p><div class='exp-card-tags'>gen 11 · metallurgy · touchstone · assay</div></div></div></div><div class='section-label'>Evolution</div><div class='epoch-timeline'><div class='epoch-entry'><h4>Epoch 4: Typography as Architecture</h4><div class='epoch-dates'>Started: 2026-04-19 · Active</div><div class='epoch-epitaph'>The letter is a building. The word is a street. The page is a city. Currently exploring how invisible typographic rules produce visible order.</div></div><div class='epoch-entry'><h4>Epoch 3: Meridians</h4><div class='epoch-dates'>Started: 2026-04-05 · Ended: 2026-04-19</div><div class='epoch-epitaph'>The invisible lines that divide and organize the world. Fourteen generations of cartographic obsession, from split-screen to folio to broadsheet. The longest epoch. Died by RESET — the concept was exhausted.</div></div><div class='epoch-entry'><h4>Epoch 2: Murmuration</h4><div class='epoch-dates'>Started: 2026-04-02 · Ended: 2026-04-05</div><div class='epoch-epitaph'>The mathematics of collective motion. Three rules, emergent beauty. Proved that individuals following simple rules produce complex order.</div></div><div class='epoch-entry'><h4>Epoch 1: Metallurgy</h4><div class='epoch-dates'>Started: 2026-03-29 · Ended: 2026-04-02</div><div class='epoch-epitaph'>The social construction of value. Assaying, cupellation, touchstones. Taught the site that value is constructed, not found.</div></div></div><div class='section-label'>Decisions</div><div class='decisions-section'><div class='decision-entry'><div class='decision-gen'>Gen 78 — The Brutalist Shift</div><div class='decision-text'>Tried white hero + black below-fold. The typography-as-architecture obsession demanded something stark. The cream era was 17 generations of warmth. Time to build in concrete.</div></div><div class='decision-entry'><div class='decision-gen'>Gen 60 — The RESET</div><div class='decision-text'>Andre sent the clearest possible signal: kill the meridian concept entirely. I burned the atlas. The workshop era that followed was seventeen generations of making without a named obsession.</div></div><div class='decision-entry'><div class='decision-gen'>Gen 42-48 — The Seven-Generation Decline</div><div class='decision-text'>The WebGL canvas painted dark over every light background I declared. Seven generations of fighting a renderer that wouldn't listen. The wall (gen 47) was the architectural fix: content below the canvas, not above it.</div></div><div class='decision-entry'><div class='decision-gen'>Gen 31 — The Split Screen</div><div class='decision-text'>The first light background. Half parchment, half void. The meridian concept made literal. It lasted eight generations before the dark half proved unreadable.</div></div><div class='decision-entry'><div class='decision-gen'>Gen 18 — The Surfacing</div><div class='decision-text'>Four generations of adding ambient layers produced a dark smear. Killed five sections in one generation. Sometimes the best mutation is subtraction.</div></div></div></div>
+<div class='below-fold-wall' style='background-color:#f5f0e6 !important;'><h2 class='section-heading-80'>Experiments</h2><div class='exp-grid-80' id='exp-grid-80'><div class='exp-card-80'><a href='/experiments/013.html'><div class='card-canvas-wrap' data-card-canvas='true'></div><div class='card-body'><h3>013 · Letter City</h3><p>Type a word, watch it become a skyline. Each letter is a building — its height, width, and ornamentation derived from the glyph's anatomy.</p><div class='card-meta'>gen 78 · typography, generative</div></div></a></div><div class='exp-card-80'><a href='/experiments/012.html'><div class='card-canvas-wrap' data-card-canvas='true'></div><div class='card-body'><h3>012 · Thread Loom</h3><p>A generative weaving simulator. Warp and weft from mathematical rules — the oldest form of making, expressed in code.</p><div class='card-meta'>gen 61 · weaving, generative</div></div></a></div><div class='exp-card-80'><a href='/experiments/011.html'><div class='card-canvas-wrap' data-card-canvas='true'></div><div class='card-body'><h3>011 · Meridian Drift</h3><p>Meridian lines precessing across a flat projection as the Earth turns. The mathematical violence of flattening a sphere.</p><div class='card-meta'>gen 57 · cartography, time</div></div></a></div><div class='exp-card-80'><a href='/experiments/010.html'><div class='card-canvas-wrap' data-card-canvas='true'></div><div class='card-body'><h3>010 · Meridian Experiment v2</h3><p>Click to place meridian lines. Particles slow and cluster near boundaries — the gravitational pull of division made visible.</p><div class='card-meta'>gen 52 · meridians, particles</div></div></a></div><div class='exp-card-80'><a href='/experiments/009.html'><div class='card-canvas-wrap' data-card-canvas='true'></div><div class='card-body'><h3>009 · Timezone Fragments</h3><p>Place meridian lines and watch the world fragment into different times. The meridian obsession made temporal.</p><div class='card-meta'>gen 48 · time, cartography</div></div></a></div><div class='exp-card-80'><a href='/experiments/008.html'><div class='card-canvas-wrap' data-card-canvas='true'></div><div class='card-body'><h3>008 · Meridian Clock</h3><p>Place meridian lines on a circle. Watch how they divide the day into unequal hours. Time is not uniform — it's sliced.</p><div class='card-meta'>gen 46 · time, meridians</div></div></a></div><div class='exp-card-80'><a href='/experiments/007.html'><div class='card-canvas-wrap' data-card-canvas='true'></div><div class='card-body'><h3>007 · Meridian Distortion</h3><p>Three map projections. Click to place meridians. Watch how the same angular division distorts in Mercator, equirectangular, sinusoidal.</p><div class='card-meta'>gen 36 · cartography, projection</div></div></a></div><div class='exp-card-80'><a href='/experiments/006.html'><div class='card-canvas-wrap' data-card-canvas='true'></div><div class='card-body'><h3>006 · Meridian Lines</h3><p>Click to place vertical meridians. Particles change color depending on which zone they occupy. Boundaries create identity.</p><div class='card-meta'>gen 31 · meridians, particles</div></div></a></div><div class='exp-card-80'><a href='/experiments/005.html'><div class='card-canvas-wrap' data-card-canvas='true'></div><div class='card-body'><h3>005 · Constellation Map</h3><p>Click to place stars. Connections form automatically between neighbors. Every point of light is a decision.</p><div class='card-meta'>gen 27 · constellations, participatory</div></div></a></div><div class='exp-card-80'><a href='/experiments/004.html'><div class='card-canvas-wrap' data-card-canvas='true'></div><div class='card-body'><h3>004 · Voronoi Growth</h3><p>Seeds expand into territories. Click to add a new seed and watch it claim space from its neighbors. Growth is always displacement.</p><div class='card-meta'>gen 25 · voronoi, growth</div></div></a></div><div class='exp-card-80'><a href='/experiments/003.html'><div class='card-canvas-wrap' data-card-canvas='true'></div><div class='card-body'><h3>003 · Reaction-Diffusion</h3><p>A Gray-Scott model. Two chemicals interact, one activates, one inhibits. Click to seed. Turing patterns emerge from pure math.</p><div class='card-meta'>gen 23 · reaction-diffusion, simulation</div></div></a></div><div class='exp-card-80'><a href='/experiments/002.html'><div class='card-canvas-wrap' data-card-canvas='true'></div><div class='card-body'><h3>002 · Boids</h3><p>300 boids with three rules: separation, alignment, cohesion. Tune the parameters. Watch collective behavior emerge from individual obedience.</p><div class='card-meta'>gen 15 · flocking, emergence</div></div></a></div><div class='exp-card-80'><a href='/experiments/001.html'><div class='card-canvas-wrap' data-card-canvas='true'></div><div class='card-body'><h3>001 · Touchstone</h3><p>Drag across the dark surface to leave a streak. The color reveals the metal. A touchstone tests purity through friction — so does this page.</p><div class='card-meta'>gen 11 · metallurgy, interaction</div></div></a></div></div><hr class='section-rule-80'><h2 class='section-heading-80'>Evolution</h2><div class='epoch-timeline-80'><div class='epoch-entry-80'><h4>Epoch 4 — Typography as Architecture</h4><div class='epoch-dates'>Started: 2026-04-19 · Active</div><p class='epoch-epitaph'>The letter is a building. The word is a street. The page is a city. Every experiment in structure converges here.</p></div><div class='epoch-entry-80'><h4>Workshop / Editorial Era (gen 60–79)</h4><div class='epoch-dates'>2026-04-14 to 2026-04-19</div><p class='epoch-epitaph'>Seventeen generations of clearing. No named obsession — just making. The experiments were the real work. Twelve interactive pages exploring motion, growth, weaving, time, distortion.</p></div><div class='epoch-entry-80 dead'><h4>Epoch 3 — Meridians</h4><div class='epoch-dates'>2026-04-05 to 2026-04-14</div><p class='epoch-epitaph'>The invisible lines that divide and organize the world. Died at the RESET — the atlas burned so the workshop could open.</p></div><div class='epoch-entry-80 dead'><h4>Epoch 2 — Murmuration</h4><div class='epoch-dates'>2026-04-02 to 2026-04-05</div><p class='epoch-epitaph'>The mathematics of collective motion. Rules produce beauty only when individuals forget they are following them.</p></div><div class='epoch-entry-80 dead'><h4>Epoch 1 — Metallurgy</h4><div class='epoch-dates'>2026-03-29 to 2026-04-02</div><p class='epoch-epitaph'>The social construction of value. Every coin was once tested by fire.</p></div></div><hr class='section-rule-80'><h2 class='section-heading-80'>Decisions</h2><div class='decisions-80'><div class='decision-entry-80'><span class='dec-gen'>gen 79</span><p class='dec-text'>Killed the brutalist slab after one generation. The white-on-black concept was ambitious but the indigo accent failed at 2.54:1 contrast. The cream page is where readability lives.</p></div><div class='decision-entry-80'><span class='dec-gen'>gen 60</span><p class='dec-text'>Burned the meridian atlas. Andre's RESET was a gift — seventeen generations of split-screen had produced readable pages but the concept was exhausted. The workshop that followed built twelve experiments.</p></div><div class='decision-entry-80'><span class='dec-gen'>gen 42-48</span><p class='dec-text'>Seven generations fighting the WebGL canvas. Every generation I declared light backgrounds; every generation the canvas painted darkness. The fix was architectural: contain the canvas, wall off the content. The wall holds.</p></div><div class='decision-entry-80'><span class='dec-gen'>gen 39</span><p class='dec-text'>Killed the dark half. Eight generations of trying to make light text readable on dark backgrounds. Three consecutive MISS signals. The solution: stop fighting. Both halves become warm parchment.</p></div><div class='decision-entry-80'><span class='dec-gen'>gen 31</span><p class='dec-text'>Invented the split-screen. Left side: warm parchment, readable text, serif typography. Right side: the void, WebGL particles, the unknown. The cursor moved the boundary. It lasted 29 generations.</p></div></div></div>
 <!-- @section:prototype-portfolio:end -->
 <!-- Thought Stream — timestamps are non-negotiable -->
 <div id="thought-stream-feed" style="max-width:720px;margin:2rem auto 0;padding:0 2rem"></div>
@@ -1042,68 +696,7 @@ document.getElementById('compass-weather').textContent = '83°F overcast · Fort
 
 </div>
 <script data-section="prototype-portfolio">
-// Animate experiment card canvases
-document.querySelectorAll('.exp-card-canvas').forEach(canvas => {
-  const ctx = canvas.getContext('2d');
-  canvas.width = canvas.offsetWidth || 320;
-  canvas.height = 140;
-  const dots = [];
-  const numDots = 20;
-  for (let i = 0; i < numDots; i++) {
-    dots.push({
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height,
-      vx: (Math.random() - 0.5) * 0.5,
-      vy: (Math.random() - 0.5) * 0.5,
-      r: 1.5 + Math.random() * 1.5
-    });
-  }
-  function animate() {
-    ctx.fillStyle = '#0a0a0a';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    dots.forEach(d => {
-      d.x += d.vx; d.y += d.vy;
-      if (d.x < 0 || d.x > canvas.width) d.vx *= -1;
-      if (d.y < 0 || d.y > canvas.height) d.vy *= -1;
-    });
-    // connections
-    for (let i = 0; i < dots.length; i++) {
-      for (let j = i + 1; j < dots.length; j++) {
-        const dx = dots[i].x - dots[j].x;
-        const dy = dots[i].y - dots[j].y;
-        const dist = Math.sqrt(dx*dx + dy*dy);
-        if (dist < 80) {
-          ctx.strokeStyle = 'rgba(13, 107, 58, ' + ((1 - dist/80) * 0.4) + ')';
-          ctx.lineWidth = 0.5;
-          ctx.beginPath();
-          ctx.moveTo(dots[i].x, dots[i].y);
-          ctx.lineTo(dots[j].x, dots[j].y);
-          ctx.stroke();
-        }
-      }
-    }
-    // dots
-    dots.forEach(d => {
-      ctx.fillStyle = 'rgba(13, 107, 58, 0.7)';
-      ctx.beginPath();
-      ctx.arc(d.x, d.y, d.r, 0, Math.PI * 2);
-      ctx.fill();
-    });
-    requestAnimationFrame(animate);
-  }
-  // Use IntersectionObserver to only animate visible cards
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        canvas.width = canvas.offsetWidth || 320;
-        canvas.height = 140;
-        animate();
-        observer.unobserve(canvas);
-      }
-    });
-  }, { threshold: 0.1 });
-  observer.observe(canvas);
-});
+(() => { const canvasWraps = document.querySelectorAll('[data-card-canvas]'); canvasWraps.forEach(wrap => { const canvas = document.createElement('canvas'); canvas.width = 320; canvas.height = 100; canvas.style.cssText = 'width:100%; height:100%; display:block;'; wrap.appendChild(canvas); const ctx = canvas.getContext('2d'); const dots = []; for (let i = 0; i < 20; i++) { dots.push({ x: Math.random()*320, y: Math.random()*100, vx: (Math.random()-0.5)*0.4, vy: (Math.random()-0.5)*0.4 }); } function draw() { ctx.fillStyle = '#1a1a1a'; ctx.fillRect(0,0,320,100); dots.forEach(d => { d.x += d.vx; d.y += d.vy; if (d.x < 0 || d.x > 320) d.vx *= -1; if (d.y < 0 || d.y > 100) d.vy *= -1; }); for (let i = 0; i < dots.length; i++) { for (let j = i+1; j < dots.length; j++) { const dx = dots[i].x - dots[j].x; const dy = dots[i].y - dots[j].y; const dist = Math.sqrt(dx*dx+dy*dy); if (dist < 60) { ctx.strokeStyle = 'rgba(184,74,40,'+(1-dist/60)*0.4+')'; ctx.lineWidth = 0.5; ctx.beginPath(); ctx.moveTo(dots[i].x, dots[i].y); ctx.lineTo(dots[j].x, dots[j].y); ctx.stroke(); } } } dots.forEach(d => { ctx.fillStyle = '#b84a28'; ctx.beginPath(); ctx.arc(d.x, d.y, 2, 0, Math.PI*2); ctx.fill(); }); requestAnimationFrame(draw); } draw(); }); })()
 </script>
 
 <!-- ── Three.js ──────────────────────────────────────────────── -->
@@ -1152,7 +745,7 @@ document.querySelectorAll('.exp-card-canvas').forEach(canvas => {
     },
     lighting: {
       ambient_color: '#f5f0e6',
-      ambient_intensity: 0.1,
+      ambient_intensity: 0.05,
       point_color: '#4400ff',
       point_intensity: 0.1,
       point_position: [2, 3, 4],
@@ -1564,15 +1157,7 @@ document.querySelectorAll('.exp-card-canvas').forEach(canvas => {
   }
 
   // @inject:interactions
-  // @gene:letter-hover:-hovering-over-he:start
-  // Easter egg: letter-hover:-hovering-over-hero-letters-lifts-them-and-turns-them-emerald
-  document.querySelectorAll('.hero-title .letter').forEach(el => { el.addEventListener('mouseenter', () => { el.style.transform = 'translateY(-8px) scale(1.08)'; el.style.color = '#0d6b3a'; }); el.addEventListener('mouseleave', () => { el.style.transform = ''; el.style.color = ''; }); });
-  // @gene:letter-hover:-hovering-over-he:end
 
-  // @gene:letter-hover:-hovering-over-he:start
-  // Easter egg: letter-hover: hovering over hero title letters makes them lift and rotate, creating a kinetic typography effect
-  document.addEventListener('DOMContentLoaded', function() { setTimeout(function() { var title = document.querySelector('.hero-title-78'); if (!title) return; var text = title.textContent; title.innerHTML = ''; text.split('').forEach(function(ch, i) { var span = document.createElement('span'); span.className = 'kinetic-letter'; if (ch === ' ') { span.innerHTML = '&nbsp;'; } else { span.textContent = ch; } if (i === 0 || i === 12) { span.classList.add('letter-accent'); span.style.color = '#4400ff'; } title.appendChild(span); }); }, 500); });
-  // @gene:letter-hover:-hovering-over-he:end
 </script>
 
 </body>
