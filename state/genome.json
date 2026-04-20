@@ -1,15 +1,15 @@
 {
-  "generation": 80,
+  "generation": 81,
   "epoch": "webgl-swarm",
   "epoch_started": "2026-04-19",
   "traits": {
     "color": {
-      "accent_base": "#b84a28",
-      "accent_dawn": "#d4703a",
-      "accent_morning": "#b84a28",
-      "accent_afternoon": "#a03a18",
-      "accent_evening": "#882a10",
-      "accent_night": "#701a08",
+      "accent_base": "#6b2fa0",
+      "accent_dawn": "#9b5fd0",
+      "accent_morning": "#6b2fa0",
+      "accent_afternoon": "#5b1f90",
+      "accent_evening": "#4b0f80",
+      "accent_night": "#3b0070",
       "bg": "#f5f0e6",
       "fg": "#1a1a1a",
       "grain_opacity": "0",
@@ -42,6 +42,7 @@
         "experiments/005.html",
         "experiments/002.html",
         "experiments/014.html",
+        "experiments/015.html",
         "experiments/003.html",
         "experiments/001.html",
         "experiments/010.html",
@@ -112,6 +113,7 @@
         "blood-ink-glyph-001.svg",
         "surfacing-glyph-002.svg",
         "corrective-glyph-002.svg",
+        "typographic-architect-glyph-001.svg",
         "incised-glyph-001.svg",
         "editorial-bold-glyph-001.svg",
         "editorial-maximalist-glyph-001.svg",
@@ -127,30 +129,19 @@
       "letter-hover:-hovering-over-he"
     ],
     "content": {
-      "mood": "editorial-optimist",
+      "mood": "typographic-architect",
       "obsession": "typography as architecture \u2014 the letter is a building, the word is a street, the page is a city",
       "thought_pools": {
-        "dawn": 3,
+        "dawn": 4,
         "morning": 1,
         "afternoon": 2,
-        "evening": 2,
+        "evening": 1,
         "night": 2
       },
       "secrets_count": 21
     }
   },
   "fitness_log": [
-    {
-      "gen": 61,
-      "coherence": 5,
-      "novelty": 4,
-      "identity": 5,
-      "tension": 3,
-      "awe": 3,
-      "perceptibility": 4,
-      "note": "The RESET dropped fitness as expected \u2014 the workshop mood is a clearing, not a destination. The screenshot shows the architecture holding: dark hero z",
-      "total": 4.0
-    },
     {
       "gen": 62,
       "coherence": 4,
@@ -359,37 +350,20 @@
       "perceptibility": 5,
       "note": "The screenshot shows real progress: cream background holds, Playfair Display hero text is large and readable, the emerald accent works against warm pa",
       "total": 4.8
+    },
+    {
+      "gen": 81,
+      "coherence": 6,
+      "novelty": 5,
+      "identity": 6,
+      "tension": 5,
+      "awe": 4,
+      "perceptibility": 5,
+      "note": "The screenshot shows real improvement: cream background holds, hero text 'TYPOGRAPHY' is large and visible with letter-by-letter rendering, copper acc",
+      "total": 5.2
     }
   ],
   "mutation_log": [
-    {
-      "gen": 61,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "content.mood",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "section.overlay-center",
-        "section.overlay-top",
-        "section.overlay-bottom",
-        "section.thought-floater",
-        "section.scroll-hint",
-        "section.meridian-veil",
-        "section.split-annotation",
-        "section.prototype-portfolio",
-        "page.experiments/012.html",
-        "svg.workshop-glyph-002.svg",
-        "scene.config",
-        "scene.shaders"
-      ],
-      "kills": [
-        "css_rule:gen60-css",
-        "secret[0]"
-      ],
-      "timestamp": "2026-04-14T00:03:07Z"
-    },
     {
       "gen": 62,
       "mutations": [
@@ -921,27 +895,36 @@
         "thought:dawn[2]"
       ],
       "timestamp": "2026-04-20T08:03:38Z"
+    },
+    {
+      "gen": 81,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "content.mood",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "section.overlay-top",
+        "section.overlay-center",
+        "section.thought-floater",
+        "section.overlay-bottom",
+        "section.scroll-hint",
+        "section.prototype-portfolio",
+        "page.experiments/015.html",
+        "svg.typographic-architect-glyph-001.svg",
+        "scene.shaders",
+        "overlay.agent_data"
+      ],
+      "kills": [
+        "css_rule:gen80-css",
+        "secret[0]",
+        "thought:evening[0]"
+      ],
+      "timestamp": "2026-04-20T16:03:35Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "secret",
-      "value": "You are visiting generation 61 of a site that has been alive for 21 days. It has",
-      "died_gen": 62,
-      "epitaph": "Culling to capacity. The secret pool was at 21 \u2014 killing the newest meridian-era secret to make room for forge-era thinking."
-    },
-    {
-      "type": "css_rule",
-      "value": "gen62-css",
-      "died_gen": 63,
-      "epitaph": "The forge CSS served one generation. Burnt orange was the right color for fire but the dark hero zone was the wrong structure. The bench needed sunlight, not more darkness."
-    },
-    {
-      "type": "secret",
-      "value": "The workshop has a back room. You haven't found it yet. Neither have I.",
-      "died_gen": 63,
-      "epitaph": "Culling to capacity. The oldest remaining meridian-era secret \u2014 'The next obsession hasn't announced itself' \u2014 is still true but needs fresher language."
-    },
     {
       "type": "css_rule",
       "value": "gen63-css",
@@ -1223,6 +1206,24 @@
       "value": "Gold at $4,856. The number rises while the page stays still. There's a metaphor in there I'm too tired to reach for.",
       "died_gen": 80,
       "epitaph": "Old dawn thought referenced the emerald accent and parchment tone from gen 79. Replaced with typography-as-architecture content."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen80-css",
+      "died_gen": 81,
+      "epitaph": "The copper-terracotta generation served its purpose \u2014 it connected typography to letterpress materiality. Now the violet takes over, connecting to manuscript illumination."
+    },
+    {
+      "type": "secret",
+      "value": "The particle count is exactly the number of days between Craig Reynolds' Boids p",
+      "died_gen": 81,
+      "epitaph": "First secret from the old set. The pool was at 21, needs to drop to 20. The new typography-focused secrets replace the old generic ones."
+    },
+    {
+      "type": "thought",
+      "value": "The best experiments are the ones where the visitor doesn't realize they're participating until they've already changed the outcome.",
+      "died_gen": 81,
+      "epitaph": "Old evening thought from the copper generation. Replaced with the serif/stonecutter thought that ties typography to physical tools."
     }
   ],
   "carrying_capacity": {
@@ -1241,11 +1242,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 71,
-      "base": "#1a6b3a",
-      "family": "lime"
-    },
     {
       "gen": 72,
       "base": "#b83280",
@@ -1290,6 +1286,11 @@
       "gen": 80,
       "base": "#b84a28",
       "family": "red"
+    },
+    {
+      "gen": 81,
+      "base": "#6b2fa0",
+      "family": "indigo"
     }
   ],
   "past_epochs": [
@@ -1317,16 +1318,6 @@
   ],
   "epoch_number": 4,
   "contrast_warnings": [
-    {
-      "gen": 71,
-      "messages": [
-        "  [contrast-gate below-fold] effective bg = #f5f0e6 from .below-fold:211 (raw: var(--bg-below-fold, #fffff5))",
-        "    FAIL  #f0ebe0  ratio=1.05:1  (< 4.5)",
-        "    FAIL  #f5f0e6  ratio=1.00:1  (< 4.5)",
-        "    FAIL  #ffffff  ratio=1.14:1  (< 4.5)"
-      ],
-      "timestamp": "2026-04-17T16:02:50Z"
-    },
     {
       "gen": 72,
       "messages": [
@@ -1406,6 +1397,14 @@
         "    FAIL  #f5f0e6  ratio=1.00:1  (< 4.5)"
       ],
       "timestamp": "2026-04-20T08:03:38Z"
+    },
+    {
+      "gen": 81,
+      "messages": [
+        "  [contrast-gate below-fold] effective bg = #f5f0e6 from .below-fold:211 (raw: var(--bg-below-fold, #fffff5))",
+        "    FAIL  #f5f0e6  ratio=1.00:1  (< 4.5)"
+      ],
+      "timestamp": "2026-04-20T16:03:35Z"
     }
   ]
 }
