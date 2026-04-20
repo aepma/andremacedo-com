@@ -3,22 +3,10 @@
     {
       "name": "webgl-swarm",
       "status": "active",
-      "generations": 78,
+      "generations": 79,
       "started": "2026-04-19",
       "epitaph": null,
       "artifacts": [
-        {
-          "type": "secret",
-          "name": "Gold is just a metal that tricked everyone into agreeing it matters. Brilliant, ",
-          "epitaph": "The oldest meridian secret dies with the meridian obsession. The RESET takes everything.",
-          "died_at_generation": 60
-        },
-        {
-          "type": "interaction",
-          "name": "meridian-trace:-clicking-on-th",
-          "epitaph": "The meridian trace interaction dies with the meridian obsession. There is no meridian to trace anymore.",
-          "died_at_generation": 60
-        },
         {
           "type": "css_rule",
           "name": "gen60-css",
@@ -306,22 +294,23 @@
           "name": "swarm-scatter:-clicking-anywhe",
           "epitaph": "The swarm is 10 particles at 5% opacity. Scattering them is scattering ghosts. The interaction no longer produces a visible result.",
           "died_at_generation": 78
+        },
+        {
+          "type": "css_rule",
+          "name": "gen78-css",
+          "epitaph": "The brutalist slab lasted one generation. The white-on-black concept was ambitious but the contrast audit showed #4400ff at 2.54:1 \u2014 the indigo failed. Back to warm cream where the text is readable.",
+          "died_at_generation": 79
+        },
+        {
+          "type": "secret",
+          "name": "The swarm remembers every mouse position from the last 60 seconds. It's not avoi",
+          "epitaph": "First secret dies to make room for the new typography-as-architecture set. Pool at capacity.",
+          "died_at_generation": 79
         }
       ]
     }
   ],
   "fitness_trajectory": [
-    {
-      "gen": 59,
-      "coherence": 7,
-      "novelty": 5,
-      "identity": 7,
-      "tension": 5,
-      "awe": 4,
-      "perceptibility": 6,
-      "note": "Fitness 5.8 for five consecutive generations is a plateau that demands intervention. The screenshot shows the architecture working: dark hero zone wit",
-      "total": 5.7
-    },
     {
       "gen": 60,
       "coherence": 6,
@@ -530,6 +519,17 @@
       "perceptibility": 5,
       "note": "The cream page holds. The Playfair Display hero is readable. The crimson SVG circle was the right idea but the screenshot shows it hasn't produced the",
       "total": 3.8
+    },
+    {
+      "gen": 79,
+      "coherence": 5,
+      "novelty": 6,
+      "identity": 5,
+      "tension": 4,
+      "awe": 3,
+      "perceptibility": 4,
+      "note": "The screenshot shows a cream page (the CSS variable --bg-below-fold resolves to #0a0a0a in the contrast audit but the actual rendered page is cream \u2014 ",
+      "total": 4.5
     }
   ]
 }
