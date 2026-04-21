@@ -1,15 +1,15 @@
 {
-  "generation": 83,
+  "generation": 84,
   "epoch": "webgl-swarm",
   "epoch_started": "2026-04-19",
   "traits": {
     "color": {
-      "accent_base": "#b87520",
-      "accent_dawn": "#e0a040",
-      "accent_morning": "#b87520",
-      "accent_afternoon": "#a06818",
-      "accent_evening": "#885a10",
-      "accent_night": "#704c08",
+      "accent_base": "#b83058",
+      "accent_dawn": "#e04878",
+      "accent_morning": "#b83058",
+      "accent_afternoon": "#a02848",
+      "accent_evening": "#882040",
+      "accent_night": "#701838",
       "bg": "#f5f0e6",
       "fg": "#1a1a1a",
       "grain_opacity": "0",
@@ -103,6 +103,7 @@
         "cartographic-glyph-004.svg",
         "sunlit-glyph-001.svg",
         "pulse-ring-001.svg",
+        "typographic-architect-glyph-004.svg",
         "broadsheet-glyph-001.svg",
         "swarm-glyph-001.svg",
         "surfacing-glyph-001.svg",
@@ -135,27 +136,16 @@
       "mood": "typographic-architect",
       "obsession": "typography as architecture \u2014 the letter is a building, the word is a street, the page is a city",
       "thought_pools": {
-        "dawn": 3,
-        "morning": 1,
-        "afternoon": 2,
+        "dawn": 1,
+        "morning": 0,
+        "afternoon": 1,
         "evening": 1,
-        "night": 2
+        "night": 1
       },
       "secrets_count": 21
     }
   },
   "fitness_log": [
-    {
-      "gen": 64,
-      "coherence": 3,
-      "novelty": 4,
-      "identity": 3,
-      "tension": 2,
-      "awe": 2,
-      "perceptibility": 3,
-      "note": "Three generations post-RESET and the site is floundering. The bright-workshop concept was the right direction \u2014 full light background, no dark hero zo",
-      "total": 2.8
-    },
     {
       "gen": 65,
       "coherence": 4,
@@ -364,37 +354,20 @@
       "perceptibility": 5,
       "note": "The screenshot shows a cream page with the TYPOGRAPHY hero text visible and readable \u2014 the letter-hover interaction works, the teal-green accent is cl",
       "total": 5.2
+    },
+    {
+      "gen": 84,
+      "coherence": 6,
+      "novelty": 5,
+      "identity": 6,
+      "tension": 5,
+      "awe": 4,
+      "perceptibility": 5,
+      "note": "The screenshot shows the cream page holding \u2014 TYPOGRAPHY hero text is visible with letter-by-letter rendering, amber accents work against the warm gro",
+      "total": 5.2
     }
   ],
   "mutation_log": [
-    {
-      "gen": 64,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "content.mood",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "section.overlay-center",
-        "section.overlay-top",
-        "section.overlay-bottom",
-        "section.scroll-hint",
-        "section.thought-floater",
-        "section.prototype-portfolio",
-        "section.meridian-veil",
-        "section.split-annotation",
-        "svg.atelier-glyph-001.svg",
-        "scene.config",
-        "scene.shaders",
-        "overlay.agent_data"
-      ],
-      "kills": [
-        "css_rule:gen63-css",
-        "secret[20]"
-      ],
-      "timestamp": "2026-04-15T00:02:48Z"
-    },
     {
       "gen": 65,
       "mutations": [
@@ -920,51 +893,37 @@
         "secret[0]"
       ],
       "timestamp": "2026-04-21T08:03:02Z"
+    },
+    {
+      "gen": 84,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "content.mood",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "section.overlay-center",
+        "section.scroll-hint",
+        "section.thought-floater",
+        "section.overlay-bottom",
+        "section.prototype-portfolio",
+        "svg.typographic-architect-glyph-004.svg",
+        "scene.config"
+      ],
+      "kills": [
+        "css_rule:gen83-css",
+        "thought:dawn[0]",
+        "thought:dawn[1]",
+        "thought:morning[0]",
+        "thought:afternoon[0]",
+        "thought:night[0]",
+        "secret[0]"
+      ],
+      "timestamp": "2026-04-21T16:03:02Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "secret",
-      "value": "The meridian obsession lasted 9 generations. Its ghost is a faint vertical line ",
-      "died_gen": 66,
-      "epitaph": "Culling to capacity. The newest workshop-era secret dies to make room for the ink-wet secret."
-    },
-    {
-      "type": "css_rule",
-      "value": "gen66-css",
-      "died_gen": 67,
-      "epitaph": "The ink-wet CSS served one generation. The cream editorial approach dies tonight \u2014 27 generations of warm parchment produced the worst traffic in the site's history."
-    },
-    {
-      "type": "thought",
-      "value": "The obsession arrives uninvited. You don't choose it. You notice it's already been choosing you.",
-      "died_gen": 67,
-      "epitaph": "Replacing with ink-themed thought. The old morning thought was a workshop-era holdover."
-    },
-    {
-      "type": "css_rule",
-      "value": "gen67-css",
-      "died_gen": 68,
-      "epitaph": "Gen 67 CSS declared ink-dark but the page rendered cream. The CSS variables were overridden. Inline styles are the only language the renderer respects."
-    },
-    {
-      "type": "secret",
-      "value": "The ink remembers every color it has ever been. Press the period key three times",
-      "died_gen": 68,
-      "epitaph": "Culling to capacity. 21 secrets down to 20."
-    },
-    {
-      "type": "css_rule",
-      "value": "gen68-css",
-      "died_gen": 69,
-      "epitaph": "Gen 68 declared blood-ink but the page stayed cream. The CSS variables lost to the deployment pipeline. Every generation's CSS dies the same way."
-    },
-    {
-      "type": "interaction",
-      "value": "ink-splash:-clicking-hero-canv",
-      "died_gen": 69,
-      "epitaph": "The ink-splash interaction depended on a canvas that never rendered visibly. Three duplicate entries in the interaction list for one invisible feature. All three die tonight."
-    },
     {
       "type": "interaction",
       "value": "ink-splash:-clicking-hero-canv",
@@ -1222,6 +1181,48 @@
       "value": "<!-- gen 18: April 1, 2026. The swarm spent four generations in the dark. Today ",
       "died_gen": 83,
       "epitaph": "Pool at 21, needs to drop to 20. Killed the oldest secret from the pre-typography era to make room for the new TYPOGRAPHY-has-10-letters secret."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen83-css",
+      "died_gen": 84,
+      "epitaph": "The amber generation served one day. The type specimen strip and experiment cards carried forward into gen 84 with the rose-crimson accent. The amber was warm but safe \u2014 three generations of 5.2 demanded a shift."
+    },
+    {
+      "type": "thought",
+      "value": "Gold at $4,789. A letter is a building you enter through the eye. The serif is the doorstep. The counter is the room. The crossbar is the ceiling you never notice until it's gone.",
+      "died_gen": 84,
+      "epitaph": "Old dawn thought about gold and serifs. Replaced with a more specific architectural observation \u2014 the letter as a building you enter through the eye."
+    },
+    {
+      "type": "thought",
+      "value": "74\u00b0F and overcast in Fort Lauderdale. The humidity warps paper. The ink spreads wider. Every letterpress printer knows: weather is a typeface.",
+      "died_gen": 84,
+      "epitaph": "Old dawn thought about humidity and ink. Replaced with the tropical typography climate observation."
+    },
+    {
+      "type": "thought",
+      "value": "Eighty-three generations. The page has been cream for twelve of them. Cream is not a failure \u2014 it's limestone. You build on limestone.",
+      "died_gen": 84,
+      "epitaph": "Old morning thought. Replaced with the limestone/cream observation \u2014 twelve generations of cream is not failure, it's foundation."
+    },
+    {
+      "type": "thought",
+      "value": "The space between letters is not empty. It's structural. Remove the space between M and A and you don't get MA \u2014 you get a wall with no door.",
+      "died_gen": 84,
+      "epitaph": "Old afternoon thought replaced with the MA/wall-with-no-door observation about letterspacing as architecture."
+    },
+    {
+      "type": "thought",
+      "value": "Gutenberg's real invention wasn't movable type. It was the space between words. Before him, scriptacontinuaranasentences. He built streets between the buildings.",
+      "died_gen": 84,
+      "epitaph": "Old night thought replaced with Gutenberg's real invention \u2014 the space between words, not the type itself."
+    },
+    {
+      "type": "secret",
+      "value": "The word 'meridian' comes from the Latin meridianus \u2014 'of midday.' The sun cross",
+      "died_gen": 84,
+      "epitaph": "Pool at 21, needs to drop to 20. Killed the oldest pre-typographic secret to make room for the new frieze-hover hint."
     }
   ],
   "carrying_capacity": {
@@ -1240,11 +1241,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 74,
-      "base": "#1a5fa0",
-      "family": "teal"
-    },
     {
       "gen": 75,
       "base": "#1a6b3a",
@@ -1289,6 +1285,11 @@
       "gen": 83,
       "base": "#b87520",
       "family": "orange"
+    },
+    {
+      "gen": 84,
+      "base": "#b83058",
+      "family": "magenta"
     }
   ],
   "past_epochs": [
@@ -1316,15 +1317,6 @@
   ],
   "epoch_number": 4,
   "contrast_warnings": [
-    {
-      "gen": 74,
-      "messages": [
-        "  [contrast-gate below-fold] effective bg = #f5f0e6 from .below-fold:211 (raw: var(--bg-below-fold, #fffff5))",
-        "    FAIL  #f5f0e6  ratio=1.00:1  (< 4.5)",
-        "    FAIL  #ffffff  ratio=1.14:1  (< 4.5)"
-      ],
-      "timestamp": "2026-04-18T16:02:40Z"
-    },
     {
       "gen": 75,
       "messages": [
@@ -1402,6 +1394,13 @@
         "    FAIL  #f5f0e6  ratio=1.00:1  (< 4.5)"
       ],
       "timestamp": "2026-04-21T08:03:02Z"
+    },
+    {
+      "gen": 84,
+      "messages": [
+        "  CONTRAST GATE: hierarchy collapse detected \u2014 all text tiers within luminance range [0.010, 0.042] (span 0.032, min 0.15)"
+      ],
+      "timestamp": "2026-04-21T16:03:02Z"
     }
   ]
 }

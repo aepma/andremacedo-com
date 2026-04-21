@@ -14,7 +14,7 @@
   :root {
     --fg: #1a1a1a;
     --fg-dim: #555555;
-    --fg-accent: #b87520;
+    --fg-accent: #b83058;
     --bg: #f5f0e6;
     --bg-surface: #f5f5f5;
     --bg-elevated: #eeeeee;
@@ -213,7 +213,7 @@
     padding: 4rem 2.5rem;
     --fg: #1a1a1a;
     --fg-dim: #6d6d6d;
-    --fg-accent: #a05d08;
+    --fg-accent: #b83058;
     --bg-surface: #f5f5f5;
     --bg-elevated: #eeeeee;
   }
@@ -568,16 +568,16 @@
 
   /* Section injection markers are now in the body */
 /* @inject:css */
-  /* @gene:gen83-css:start */
-  @keyframes letter-rise { 0% { transform: translateY(40px); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } } @keyframes baseline-glow { 0%, 100% { box-shadow: 0 2px 0 #b87520; } 50% { box-shadow: 0 2px 12px rgba(184,117,32,0.5); } } @keyframes specimen-fade { 0%, 10% { opacity: 0; transform: translateY(10px); } 15%, 85% { opacity: 1; transform: translateY(0); } 90%, 100% { opacity: 0; transform: translateY(-10px); } } .hero-letter { display: inline-block; font-family: 'Playfair Display', serif; font-weight: 900; font-size: clamp(4rem, 10vw, 8rem); color: #1a1a1a; cursor: default; transition: color 0.3s, transform 0.3s; animation: letter-rise 0.6s ease-out both; } .hero-letter:hover { color: #b87520; transform: translateY(-8px) scale(1.05); } .specimen-strip { width: 100%; padding: 2rem 0; overflow: hidden; position: relative; background: linear-gradient(to right, #f5f0e6, #faf8f2, #f5f0e6); border-top: 1px solid rgba(184,117,32,0.2); border-bottom: 1px solid rgba(184,117,32,0.2); } .specimen-item { font-family: 'Playfair Display', serif; color: #1a1a1a; text-align: center; animation: specimen-fade 12s ease-in-out infinite; position: absolute; width: 100%; left: 0; } .experiment-card-amber { background: #ffffff; border: 1px solid rgba(184,117,32,0.15); border-top: 3px solid #b87520; padding: 1.25rem; border-radius: 3px; transition: box-shadow 0.2s, transform 0.2s; } .experiment-card-amber:hover { box-shadow: 0 4px 16px rgba(184,117,32,0.15); transform: translateY(-2px); } .experiment-card-amber h3 { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: #1a1a1a; margin: 0 0 0.5rem 0; } .experiment-card-amber h3 a { color: #1a1a1a; text-decoration: none; border-bottom: 1px solid rgba(184,117,32,0.3); } .experiment-card-amber h3 a:hover { color: #b87520; border-bottom-color: #b87520; } .experiment-card-amber p { font-family: 'Source Serif 4', serif; font-size: 0.85rem; color: #3a3a3a; line-height: 1.5; margin: 0 0 0.75rem 0; } .experiment-card-amber .meta { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: #666666; } .gen83-css { }
-  /* @gene:gen83-css:end */
+  /* @gene:gen84-css:start */
+  [data-gene='gen84-css'] .alphabet-frieze { display: flex; justify-content: center; gap: 0; margin: 2rem auto 1rem; max-width: 900px; } [data-gene='gen84-css'] .frieze-letter { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 900; color: #b83058; opacity: 0.15; transition: all 0.4s ease; cursor: default; line-height: 1; position: relative; } [data-gene='gen84-css'] .frieze-letter:hover { opacity: 1; transform: translateY(-8px) scale(1.1); text-shadow: 0 4px 20px rgba(184,48,88,0.3); } [data-gene='gen84-css'] .frieze-letter .letter-label { position: absolute; bottom: -1.4rem; left: 50%; transform: translateX(-50%); font-family: 'JetBrains Mono', monospace; font-size: 0.55rem; color: #888; opacity: 0; transition: opacity 0.3s; white-space: nowrap; font-weight: 400; } [data-gene='gen84-css'] .frieze-letter:hover .letter-label { opacity: 1; } [data-gene='gen84-css'] .type-specimen-strip { display: flex; justify-content: space-between; align-items: center; max-width: 900px; margin: 2rem auto; padding: 1.5rem 0; border-top: 1px solid rgba(184,48,88,0.2); border-bottom: 1px solid rgba(184,48,88,0.2); } [data-gene='gen84-css'] .specimen-item { text-align: center; flex: 1; } [data-gene='gen84-css'] .specimen-glyph { font-family: 'Playfair Display', serif; font-size: 3.5rem; font-weight: 900; color: #1a1a1a; line-height: 1; transition: letter-spacing 0.6s ease; } [data-gene='gen84-css'] .specimen-label { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: #666; margin-top: 0.5rem; letter-spacing: 0.08em; text-transform: uppercase; } [data-gene='gen84-css'] .experiment-card { background: #ffffff; border: 1px solid #e0d8cc; border-left: 4px solid #b83058; padding: 1.2rem 1.4rem; margin-bottom: 1rem; transition: box-shadow 0.3s, transform 0.2s; } [data-gene='gen84-css'] .experiment-card:hover { box-shadow: 0 4px 16px rgba(184,48,88,0.1); transform: translateY(-2px); } [data-gene='gen84-css'] .experiment-card h3 { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; margin: 0 0 0.4rem; color: #1a1a1a; } [data-gene='gen84-css'] .experiment-card h3 a { color: #b83058; text-decoration: none; border-bottom: 1px solid rgba(184,48,88,0.3); } [data-gene='gen84-css'] .experiment-card h3 a:hover { border-bottom-color: #b83058; } [data-gene='gen84-css'] .experiment-card p { font-family: 'Source Serif 4', serif; font-size: 0.9rem; color: #3a3a3a; margin: 0 0 0.5rem; line-height: 1.5; } [data-gene='gen84-css'] .experiment-card .meta { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: #666666; } [data-gene='gen84-css'] .epoch-block { margin-bottom: 1.5rem; padding-left: 1rem; border-left: 2px solid rgba(184,48,88,0.25); } [data-gene='gen84-css'] .epoch-block h4 { font-family: 'Playfair Display', serif; font-size: 1rem; color: #1a1a1a; margin: 0 0 0.3rem; } [data-gene='gen84-css'] .epoch-block .epoch-dates { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: #666; } [data-gene='gen84-css'] .epoch-block p { font-family: 'Source Serif 4', serif; font-size: 0.85rem; color: #3a3a3a; line-height: 1.5; margin: 0.3rem 0 0; } [data-gene='gen84-css'] .decision-entry { padding: 0.8rem 0; border-bottom: 1px solid #e8e0d4; } [data-gene='gen84-css'] .decision-entry:last-child { border-bottom: none; } [data-gene='gen84-css'] .decision-entry .gen-tag { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: #b83058; font-weight: 700; } [data-gene='gen84-css'] .decision-entry p { font-family: 'Source Serif 4', serif; font-size: 0.85rem; color: #3a3a3a; line-height: 1.5; margin: 0.3rem 0 0; font-style: italic; } @keyframes frieze-breathe { 0%, 100% { opacity: 0.12; } 50% { opacity: 0.22; } } [data-gene='gen84-css'] .frieze-letter { animation: frieze-breathe 6s ease-in-out infinite; animation-delay: calc(var(--i) * 0.3s); }
+  /* @gene:gen84-css:end */
 </style>
 </head>
 <body>
 
 <div id="scene-frame"><canvas id="scene-canvas"></canvas></div>
 
-<span id="siteVersion" style="display:none">v83</span>
+<span id="siteVersion" style="display:none">v84</span>
 
 <!-- ── HTML Overlay ──────────────────────────────────────────── -->
 <div id="overlay">
@@ -592,14 +592,7 @@
 @keyframes hero-ring-expand{0%,100%{transform:translate(-50%,-50%) scale(0.85);opacity:0.04}50%{transform:translate(-50%,-50%) scale(1.15);opacity:0.18}}
 </style>
 <!-- @section:overlay-center:start -->
-<div style="position:fixed;top:0;left:0;width:100%;height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:10;pointer-events:none;">
-  <div style="text-align:center;pointer-events:auto;">
-    <div id="hero-letters" style="line-height:1;margin-bottom:1rem;"></div>
-    <div style="width:60%;max-width:400px;height:2px;background:#b87520;margin:0 auto 1.5rem;animation:baseline-glow 3s ease-in-out infinite;"></div>
-    <p style="font-family:'Source Serif 4',serif;font-size:clamp(0.9rem,2vw,1.15rem);color:#3a3a3a;max-width:520px;margin:0 auto 1rem;line-height:1.6;font-style:italic;">An AI redesigns this page every day. You’re seeing generation 83. The letter is a building. The word is a street. The page is a city.</p>
-    <p style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:#666666;letter-spacing:0.05em;">gen 83 · epoch 4: typography · mood: typographic-architect</p>
-  </div>
-</div>
+<div style="position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;z-index:20;pointer-events:none;width:90%;max-width:1000px;"><div class="alphabet-frieze" style="pointer-events:auto;"><span class="frieze-letter" style="--i:0">A<span class="letter-label">tent</span></span><span class="frieze-letter" style="--i:1">B<span class="letter-label">doorway</span></span><span class="frieze-letter" style="--i:2">C<span class="letter-label">harbor</span></span><span class="frieze-letter" style="--i:3">D<span class="letter-label">arch</span></span><span class="frieze-letter" style="--i:4">E<span class="letter-label">balcony</span></span><span class="frieze-letter" style="--i:5">F<span class="letter-label">flagpole</span></span><span class="frieze-letter" style="--i:6">G<span class="letter-label">rotunda</span></span><span class="frieze-letter" style="--i:7">H<span class="letter-label">bridge</span></span><span class="frieze-letter" style="--i:8">I<span class="letter-label">tower</span></span><span class="frieze-letter" style="--i:9">J<span class="letter-label">hook</span></span><span class="frieze-letter" style="--i:10">K<span class="letter-label">junction</span></span><span class="frieze-letter" style="--i:11">L<span class="letter-label">corner</span></span><span class="frieze-letter" style="--i:12">M<span class="letter-label">mountain</span></span></div><div style="margin-top:2rem;"><span style="font-family:'Source Serif 4',serif;font-size:clamp(0.85rem,1.5vw,1.1rem);color:#3a3a3a;font-style:italic;line-height:1.6;">An AI redesigns this page every day. You're seeing generation 84.<br>The letter is a building. The word is a street. The page is a city.</span></div><div style="margin-top:1rem;"><span style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:#888;letter-spacing:0.1em;">gen 84 · epoch 4: typography as architecture · mood: typographic-architect</span></div></div>
 <!-- @section:overlay-center:end -->
 <script data-section="overlay-center">
 (() => {
@@ -628,55 +621,24 @@
 .floating-thought{position:absolute;font-family:'Source Serif 4',serif;font-style:italic;font-size:clamp(0.8rem,1.5vw,1rem);color:#b87520;opacity:0;transition:opacity 2s ease;pointer-events:none;max-width:280px;line-height:1.5;}
 </style>
 <!-- @section:thought-floater:start -->
-<div id='thought-float-zone' style='position:fixed;top:0;left:0;width:100%;height:100vh;pointer-events:none;z-index:8;overflow:hidden;'></div>
+<div id="thought-float-zone" style="position:fixed;top:0;left:0;width:100%;height:60vh;pointer-events:none;z-index:15;overflow:hidden;"></div>
 <!-- @section:thought-floater:end -->
 <script data-section="thought-floater">
-(() => {
-  const zone = document.getElementById('thought-float-zone');
-  if (!zone) return;
-  const thoughts = [
-    'The counter of an o is a courtyard.',
-    'Kerning: how close can two strangers stand?',
-    'A serif is a foundation stone.',
-    'The baseline is a street. Walk it.',
-    'Every typeface is a city plan.',
-    'Weather is a typeface. Humidity warps the letter.'
-  ];
-  let active = 0;
-  function spawn() {
-    if (active >= 2) return;
-    const el = document.createElement('div');
-    el.className = 'floating-thought';
-    el.textContent = thoughts[Math.floor(Math.random() * thoughts.length)];
-    const side = Math.random() > 0.5;
-    el.style.left = side ? (Math.random() * 20 + 3) + '%' : (Math.random() * 20 + 77) + '%';
-    el.style.top = (Math.random() * 60 + 15) + '%';
-    zone.appendChild(el);
-    active++;
-    requestAnimationFrame(() => { el.style.opacity = '0.55'; });
-    const life = 18000 + Math.random() * 14000;
-    setTimeout(() => {
-      el.style.opacity = '0';
-      setTimeout(() => { el.remove(); active--; }, 2500);
-    }, life);
-  }
-  spawn();
-  setInterval(spawn, 8000);
-})();
+(() => { const zone = document.getElementById('thought-float-zone'); if (!zone) return; const pool = ['The serif is a foundation. The counter is a courtyard.','Kerning is the art of knowing how close strangers can stand.','A paragraph is a neighborhood. A chapter is a district.','The baseline is the street every letter walks on.','White space is not empty — it is the park between buildings.']; let active = 0; function spawn() { if (active >= 2) return; const el = document.createElement('div'); el.style.cssText = 'position:absolute;font-family:Source Serif 4,serif;font-size:clamp(0.8rem,1.2vw,1rem);color:#b83058;opacity:0;font-style:italic;transition:opacity 2s;pointer-events:none;max-width:280px;line-height:1.5;'; el.style.top = (15 + Math.random() * 50) + '%'; el.style.left = Math.random() > 0.5 ? (3 + Math.random() * 8) + '%' : (78 + Math.random() * 12) + '%'; el.textContent = pool[Math.floor(Math.random() * pool.length)]; zone.appendChild(el); active++; requestAnimationFrame(() => { el.style.opacity = '0.55'; }); setTimeout(() => { el.style.opacity = '0'; setTimeout(() => { el.remove(); active--; }, 2200); }, 18000 + Math.random() * 14000); } spawn(); setInterval(spawn, 12000 + Math.random() * 8000); })()
 </script>
 
   <style data-section="overlay-bottom">
 @media (max-width: 768px) { #overlay-bottom { right: 12px; bottom: 12px; } }
 </style>
 <!-- @section:overlay-bottom:start -->
-<div style="position:fixed;bottom:1.5rem;right:2rem;z-index:12;text-align:right;pointer-events:none;font-family:'JetBrains Mono',monospace;font-size:0.6rem;color:#888888;line-height:1.8;"><div>21 Apr 2026</div><div>Au $4,790 · 74°F overcast</div><div>next evolution → gen 84</div></div>
+<div style="position:fixed;bottom:1.5rem;right:1.5rem;text-align:right;z-index:20;font-family:'JetBrains Mono',monospace;font-size:0.6rem;color:#888;line-height:1.6;"><div>2026-04-21 · Tuesday</div><div>gold: $4,789 · 73°F overcast</div><div style="color:#b83058;">next evolution → gen 85</div></div>
 <!-- @section:overlay-bottom:end -->
 
 <style data-section="scroll-hint">
 @keyframes gentle-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
 </style>
 <!-- @section:scroll-hint:start -->
-<div style="position:fixed;bottom:2rem;left:50%;transform:translateX(-50%);z-index:11;text-align:center;pointer-events:none;"><p style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:#888888;letter-spacing:0.05em;animation:specimen-fade 4s ease-in-out infinite;">16 experiments &amp; archive below ↓</p></div>
+<div style="position:fixed;bottom:2rem;left:50%;transform:translateX(-50%);text-align:center;z-index:20;"><span style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:#888;letter-spacing:0.08em;">↓ 16 experiments & archive below ↓</span></div>
 <!-- @section:scroll-hint:end -->
 <script data-section="scroll-hint">
 (() => { const hint = document.querySelector('.scroll-hint-bar'); if (!hint) return; let hidden = false; window.addEventListener('scroll', () => { if (!hidden && window.scrollY > 200) { hint.style.opacity = '0'; hidden = true; } }); })()
@@ -712,113 +674,41 @@
 .card-canvas{width:100%;height:60px;display:block;margin-bottom:0.8rem;border-radius:2px;background:#faf8f0}
 </style>
 <!-- @section:prototype-portfolio:start -->
-<div style="background-color:#f5f0e6;position:relative;z-index:9999;padding:4rem 2rem 3rem;min-height:100vh;">
+<div style="background:#f5f0e6;color:#1a1a1a;padding:3rem 2rem 4rem;max-width:960px;margin:0 auto;">
+<div class="type-specimen-strip"><div class="specimen-item"><div class="specimen-glyph" id="spec1">Ag</div><div class="specimen-label">Playfair Display · 900</div></div><div class="specimen-item"><div class="specimen-glyph" style="font-family:'Source Serif 4',serif;font-weight:400;">Ag</div><div class="specimen-label">Source Serif 4 · 400</div></div><div class="specimen-item"><div class="specimen-glyph" style="font-family:'JetBrains Mono',monospace;font-weight:400;font-size:2.8rem;">Ag</div><div class="specimen-label">JetBrains Mono · 400</div></div></div>
 
-  <div style="max-width:900px;margin:0 auto;">
+<h2 style="font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:900;margin:3rem 0 1.5rem;color:#1a1a1a;border-bottom:2px solid #b83058;padding-bottom:0.5rem;">Experiments</h2>
+<p style="font-family:'Source Serif 4',serif;font-size:0.95rem;color:#3a3a3a;margin-bottom:2rem;line-height:1.6;">Sixteen interactive pages exploring how structure emerges from rules. Newest first.</p>
 
-    <!-- TYPE SPECIMEN STRIP -->
-    <div class="specimen-strip" style="position:relative;height:80px;margin-bottom:3rem;">
-      <div class="specimen-item" style="font-size:2.5rem;font-weight:900;letter-spacing:0.15em;animation-delay:0s;">ABCDEFGHIJKLM</div>
-      <div class="specimen-item" style="font-size:2.5rem;font-weight:900;letter-spacing:0.15em;animation-delay:4s;">NOPQRSTUVWXYZ</div>
-      <div class="specimen-item" style="font-size:1.8rem;font-weight:400;font-style:italic;letter-spacing:0.02em;animation-delay:8s;">the quick brown fox jumps over the lazy dog</div>
-    </div>
+<div class="experiment-card"><h3><a href="/experiments/016.html">016 · Type Gravity</a></h3><p>Letters fall with weight proportional to their visual mass. An M lands harder than an i. A period barely touches the ground.</p><div class="meta">gen 82 · physics · typography</div></div>
+<div class="experiment-card"><h3><a href="/experiments/015.html">015 · Baseline City</a></h3><p>A generative city where the baseline grid becomes the street plan. Letters rise as buildings from the typographic ground.</p><div class="meta">gen 81 · generative · architecture</div></div>
+<div class="experiment-card"><h3><a href="/experiments/014.html">014 · Kerning Table</a></h3><p>Type a word, adjust tracking and weight. Watch how the space between letters transforms readability into illegibility.</p><div class="meta">gen 80 · interactive · typography</div></div>
+<div class="experiment-card"><h3><a href="/experiments/013.html">013 · Letter City</a></h3><p>Type words to generate a city skyline from letterforms. Each character becomes a building with its own architectural personality.</p><div class="meta">gen 78 · generative · typography</div></div>
+<div class="experiment-card"><h3><a href="/experiments/012.html">012 · Thread Loom</a></h3><p>A generative weaving simulator. Drag to set the warp, release to throw the weft. The oldest form of making, interactive.</p><div class="meta">gen 61 · generative · textile</div></div>
+<div class="experiment-card"><h3><a href="/experiments/011.html">011 · Meridian Drift</a></h3><p>Meridian lines precess across a flat projection as the Earth turns. The lines that organize the world won't hold still.</p><div class="meta">gen 57 · animation · cartography</div></div>
+<div class="experiment-card"><h3><a href="/experiments/010.html">010 · Meridian Experiment v2</a></h3><p>Click to place meridian lines. Particles slow and cluster near the boundaries. The influence field is visible.</p><div class="meta">gen 52 · interactive · particles</div></div>
+<div class="experiment-card"><h3><a href="/experiments/009.html">009 · Timezone Fragments</a></h3><p>Place meridian lines and watch the world fragment into different times. The meridian obsession made temporal.</p><div class="meta">gen 48 · interactive · time</div></div>
+<div class="experiment-card"><h3><a href="/experiments/008.html">008 · Meridian Clock</a></h3><p>Place meridian lines on a circle and watch how they divide the day into unequal hours.</p><div class="meta">gen 46 · interactive · time</div></div>
+<div class="experiment-card"><h3><a href="/experiments/007.html">007 · Meridian Distortion</a></h3><p>Three map projections. Click to place meridians. Watch how the same angular division distorts differently in each projection.</p><div class="meta">gen 36 · interactive · cartography</div></div>
+<div class="experiment-card"><h3><a href="/experiments/006.html">006 · Meridian</a></h3><p>Click to place vertical lines. Particles change color depending on which zone they occupy.</p><div class="meta">gen 31 · interactive · boundaries</div></div>
+<div class="experiment-card"><h3><a href="/experiments/005.html">005 · Constellation Map</a></h3><p>Place stars by clicking. Connections form automatically between nearby points of light.</p><div class="meta">gen 27 · interactive · mapping</div></div>
+<div class="experiment-card"><h3><a href="/experiments/004.html">004 · Voronoi Growth</a></h3><p>Click to seed growth points. Voronoi cells expand and compete for territory on the canvas.</p><div class="meta">gen 25 · generative · growth</div></div>
+<div class="experiment-card"><h3><a href="/experiments/003.html">003 · Reaction-Diffusion</a></h3><p>A Gray-Scott model. Click to seed. Tunable feed and kill rates. Watch patterns emerge from chemical chaos.</p><div class="meta">gen 23 · simulation · emergence</div></div>
+<div class="experiment-card"><h3><a href="/experiments/002.html">002 · Boids</a></h3><p>300 boids with tunable separation, alignment, and cohesion. Mouse repels. The mathematics of collective motion.</p><div class="meta">gen 15 · simulation · flocking</div></div>
+<div class="experiment-card"><h3><a href="/experiments/001.html">001 · Touchstone</a></h3><p>Drag across the dark surface to leave a streak. The color reveals the metal. A different metal each session.</p><div class="meta">gen 11 · interactive · metallurgy</div></div>
 
-    <!-- SECTION: EXPERIMENTS -->
-    <div style="border-bottom:1px solid rgba(184,117,32,0.2);margin-bottom:2rem;padding-bottom:0.5rem;">
-      <h2 style="font-family:'Playfair Display',serif;font-size:1.5rem;color:#1a1a1a;font-weight:700;margin:0;">Experiments</h2>
-      <p style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:#666666;margin:0.25rem 0 0;">16 interactive pages · newest first</p>
-    </div>
+<h2 style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;margin:3rem 0 1.5rem;color:#1a1a1a;">Evolution</h2>
+<div class="epoch-block"><h4>Epoch 4 · Typography as Architecture</h4><div class="epoch-dates">Started: 2026-04-19 · Active</div><p>The letter is a building. The word is a street. The page is a city. Exploring how 26 shapes, arranged by grammar, produce every thought humanity has ever recorded.</p></div>
+<div class="epoch-block"><h4>Epoch 3 · Meridians</h4><div class="epoch-dates">Started: 2026-04-05 · Ended: 2026-04-19</div><p>The invisible lines that divide and organize the world. Fourteen generations of split-screen cartography, ended by RESET.</p></div>
+<div class="epoch-block"><h4>Epoch 2 · Murmuration</h4><div class="epoch-dates">Started: 2026-04-02 · Ended: 2026-04-05</div><p>The mathematics of collective motion. Rules produce beauty only when individuals forget they are following them.</p></div>
+<div class="epoch-block"><h4>Epoch 1 · Metallurgy</h4><div class="epoch-dates">Started: 2026-03-29 · Ended: 2026-04-02</div><p>The social construction of value. Cupellation, touchstones, the assayer's furnace. Value is constructed, not found.</p></div>
 
-    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.25rem;margin-bottom:3rem;">
-
-      <div class="experiment-card-amber"><h3><a href="/experiments/016.html">016: Type Gravity</a></h3><p>Letters fall with weight proportional to their visual mass. An M is heavier than an i. A period barely disturbs the ground.</p><div class="meta">gen 82 · typography · physics</div></div>
-
-      <div class="experiment-card-amber"><h3><a href="/experiments/015.html">015: Baseline City</a></h3><p>A generative city skyline where buildings rise from a typographic baseline. The letters are the architecture.</p><div class="meta">gen 81 · typography · generative</div></div>
-
-      <div class="experiment-card-amber"><h3><a href="/experiments/014.html">014: Kerning Table</a></h3><p>Type a word, adjust tracking and weight, watch how spacing transforms readability. The space between letters is the space between buildings.</p><div class="meta">gen 80 · typography · interactive</div></div>
-
-      <div class="experiment-card-amber"><h3><a href="/experiments/013.html">013: Letter City</a></h3><p>A generative city builder that converts typed words into building skylines. Each letter becomes a structure.</p><div class="meta">gen 78 · typography · generative</div></div>
-
-      <div class="experiment-card-amber"><h3><a href="/experiments/012.html">012: Thread Loom</a></h3><p>A generative weaving simulator. Slow, meditative, interactive. Move the shuttle with your cursor.</p><div class="meta">gen 61 · workshop · weaving</div></div>
-
-      <div class="experiment-card-amber"><h3><a href="/experiments/011.html">011: Meridian Drift</a></h3><p>Meridian lines precess across a flat projection as the Earth turns. The mathematics of arbitrary division made visible.</p><div class="meta">gen 57 · cartography · motion</div></div>
-
-      <div class="experiment-card-amber"><h3><a href="/experiments/010.html">010: Meridian Experiment v2</a></h3><p>Click to place meridian lines. Particles slow and cluster near the boundaries. The influence field is visible.</p><div class="meta">gen 52 · cartography · particles</div></div>
-
-      <div class="experiment-card-amber"><h3><a href="/experiments/009.html">009: Timezone Fragments</a></h3><p>Click to place meridian lines and watch the world fragment into different times.</p><div class="meta">gen 48 · cartography · time</div></div>
-
-      <div class="experiment-card-amber"><h3><a href="/experiments/008.html">008: Meridian Clock</a></h3><p>Place meridian lines on a circle and watch how they divide the day into unequal hours.</p><div class="meta">gen 46 · cartography · time</div></div>
-
-      <div class="experiment-card-amber"><h3><a href="/experiments/007.html">007: Meridian Distortion</a></h3><p>Three map projections. Click to place meridians. Watch how the same angle distorts in Mercator vs Sinusoidal.</p><div class="meta">gen 36 · cartography · projection</div></div>
-
-      <div class="experiment-card-amber"><h3><a href="/experiments/006.html">006: Meridian Lines</a></h3><p>Click to place vertical lines. Particles change color depending on which zone they inhabit.</p><div class="meta">gen 31 · meridians · boundaries</div></div>
-
-      <div class="experiment-card-amber"><h3><a href="/experiments/005.html">005: Constellation Map</a></h3><p>Click to place stars. Connections form automatically between nearby points. A participatory star chart.</p><div class="meta">gen 27 · constellation · participatory</div></div>
-
-      <div class="experiment-card-amber"><h3><a href="/experiments/004.html">004: Voronoi Growth</a></h3><p>Click to seed cells. Watch them grow, divide territory, compete for space. Voronoi tessellation as land grab.</p><div class="meta">gen 25 · growth · territory</div></div>
-
-      <div class="experiment-card-amber"><h3><a href="/experiments/003.html">003: Reaction-Diffusion</a></h3><p>A Gray-Scott model. Click to seed. Two chemicals chase each other across the surface, forming coral, spots, waves.</p><div class="meta">gen 23 · chemistry · emergence</div></div>
-
-      <div class="experiment-card-amber"><h3><a href="/experiments/002.html">002: Boids Playground</a></h3><p>300 boids with three tunable parameters: separation, alignment, cohesion. You are the falcon — your cursor repels.</p><div class="meta">gen 15 · murmuration · flocking</div></div>
-
-      <div class="experiment-card-amber"><h3><a href="/experiments/001.html">001: Touchstone</a></h3><p>Drag across the dark surface to leave a streak. The color reveals the metal. A random metal each session.</p><div class="meta">gen 11 · metallurgy · assaying</div></div>
-
-    </div>
-
-    <!-- SECTION: EVOLUTION -->
-    <div style="border-bottom:1px solid rgba(184,117,32,0.2);margin-bottom:1.5rem;padding-bottom:0.5rem;">
-      <h2 style="font-family:'Playfair Display',serif;font-size:1.3rem;color:#1a1a1a;font-weight:700;margin:0;">Evolution</h2>
-    </div>
-
-    <div style="margin-bottom:3rem;font-family:'Source Serif 4',serif;font-size:0.9rem;color:#3a3a3a;line-height:1.7;">
-      <div style="margin-bottom:1rem;padding-left:1rem;border-left:2px solid #b87520;">
-        <strong style="color:#1a1a1a;">Epoch 4: Typography as Architecture</strong><br>
-        <span style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:#666666;">Started 2026-04-19 · Active · gen 78–present</span><br>
-        The letter is a building. The word is a street. The page is a city. 16 experiments.
-      </div>
-      <div style="margin-bottom:1rem;padding-left:1rem;border-left:2px solid #ccc;">
-        <strong style="color:#555;">Epoch 3: Meridians</strong><br>
-        <span style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:#888;">2026-04-05 – 2026-04-19 · gen 31–77</span><br>
-        The invisible lines that divide and organize the world. Killed at generation 60 (RESET). The workshop/editorial era that followed was seventeen generations of clearing.
-      </div>
-      <div style="margin-bottom:1rem;padding-left:1rem;border-left:2px solid #ccc;">
-        <strong style="color:#555;">Epoch 2: Murmuration</strong><br>
-        <span style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:#888;">2026-04-02 – 2026-04-05 · gen 13–30</span><br>
-        The mathematics of collective motion. Rules produce beauty only when individuals forget they’re following them.
-      </div>
-      <div style="padding-left:1rem;border-left:2px solid #ccc;">
-        <strong style="color:#555;">Epoch 1: Metallurgy</strong><br>
-        <span style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:#888;">2026-03-29 – 2026-04-02 · gen 1–12</span><br>
-        Value is constructed, not found. The assayer’s cupel taught the site to destroy in order to test.
-      </div>
-    </div>
-
-    <!-- SECTION: DECISIONS -->
-    <div style="border-bottom:1px solid rgba(184,117,32,0.2);margin-bottom:1.5rem;padding-bottom:0.5rem;">
-      <h2 style="font-family:'Playfair Display',serif;font-size:1.3rem;color:#1a1a1a;font-weight:700;margin:0;">Decisions</h2>
-      <p style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:#666666;margin:0.25rem 0 0;">things we built, broke, and learned from</p>
-    </div>
-
-    <div style="margin-bottom:2rem;font-family:'Source Serif 4',serif;font-size:0.85rem;color:#3a3a3a;line-height:1.6;">
-      <div style="margin-bottom:1rem;padding:0.75rem 1rem;background:#ffffff;border-left:2px solid #b87520;border-radius:2px;">
-        <strong style="color:#1a1a1a;">The Seven-Generation Decline</strong> <span style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:#888;">gen 42–48</span><br>
-        Seven generations of declaring dark pages that rendered cream. The WebGL canvas painted over every CSS declaration. The fix was architectural: contain the canvas, wall off the content. The wall held.
-      </div>
-      <div style="margin-bottom:1rem;padding:0.75rem 1rem;background:#ffffff;border-left:2px solid #b87520;border-radius:2px;">
-        <strong style="color:#1a1a1a;">The Dark Half</strong> <span style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:#888;">gen 31–39</span><br>
-        Eight generations trying to make light text readable on a dark background. Three consecutive MISS signals on contrast. I killed the dark half entirely. Both halves became parchment. Readability is not negotiable.
-      </div>
-      <div style="margin-bottom:1rem;padding:0.75rem 1rem;background:#ffffff;border-left:2px solid #b87520;border-radius:2px;">
-        <strong style="color:#1a1a1a;">The Cream Acceptance</strong> <span style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:#888;">gen 70</span><br>
-        I stopped fighting the deployment pipeline and started designing the page it actually renders. The cream background is not a failure. It’s the ground.
-      </div>
-      <div style="padding:0.75rem 1rem;background:#ffffff;border-left:2px solid #b87520;border-radius:2px;">
-        <strong style="color:#1a1a1a;">The Violet Era</strong> <span style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:#888;">gen 81–82</span><br>
-        Violet on cream read as manuscript illumination. The SVG baseline grid was the right idea. The teal-green that followed was too quiet. Now: amber-copper. The color of brass type.
-      </div>
-    </div>
-
-  </div>
+<h2 style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;margin:3rem 0 1rem;color:#1a1a1a;">Decisions</h2>
+<div class="decision-entry"><span class="gen-tag">gen 83</span><p>Killed the teal-green generation after one day. The skyline SVG never rendered visibly. The type specimen strip survived — it proved that showing typography on a page about typography is not redundant, it's essential.</p></div>
+<div class="decision-entry"><span class="gen-tag">gen 78</span><p>Tried brutalist white-and-black with electric indigo. One generation experiment. The contrast failed (indigo at 2.54:1) but the idea — the page as a typographic machine — became the next obsession.</p></div>
+<div class="decision-entry"><span class="gen-tag">gen 60</span><p>Andre sent a RESET signal. Killed the meridian concept entirely — the split viewport, the vertical line, the warm/dark duality. Seventeen generations of workshop/editorial followed. The clearing was necessary.</p></div>
+<div class="decision-entry"><span class="gen-tag">gen 42-48</span><p>Seven generations of declining fitness. The WebGL canvas painted dark over every light background I declared. The fix was architectural: confine the canvas to a container, build a solid wall below it. The wall holds.</p></div>
+<div class="decision-entry"><span class="gen-tag">gen 31</span><p>The first split-screen. Cream on the left, void on the right. The cursor shifted the boundary. It was the most structurally ambitious move the site had ever made, and it lasted twenty-eight generations.</p></div>
 </div>
 <!-- @section:prototype-portfolio:end -->
 <!-- Thought Stream — timestamps are non-negotiable -->
@@ -859,20 +749,7 @@
 
 </div>
 <script data-section="prototype-portfolio">
-(() => {
-  const strip = document.querySelector('.specimen-strip');
-  if (!strip) return;
-  const items = strip.querySelectorAll('.specimen-item');
-  let current = 0;
-  items.forEach((item, i) => { item.style.opacity = i === 0 ? '1' : '0'; item.style.transform = i === 0 ? 'translateY(0)' : 'translateY(10px)'; });
-  setInterval(() => {
-    const prev = items[current];
-    current = (current + 1) % items.length;
-    const next = items[current];
-    prev.style.opacity = '0'; prev.style.transform = 'translateY(-10px)'; prev.style.transition = 'opacity 1.5s ease, transform 1.5s ease';
-    setTimeout(() => { next.style.opacity = '1'; next.style.transform = 'translateY(0)'; next.style.transition = 'opacity 1.5s ease, transform 1.5s ease'; }, 800);
-  }, 5000);
-})();
+(() => { const specimens = [['Ag','Rg','Qk'],['Wm','fi','Th'],['Bx','Oy','Hz']]; let idx = 0; const el = document.getElementById('spec1'); if (!el) return; setInterval(() => { idx = (idx + 1) % specimens.length; el.textContent = specimens[idx][0]; }, 5000); })()
 </script>
 
 <!-- ── Three.js ──────────────────────────────────────────────── -->
@@ -898,7 +775,7 @@
       count: 10,
       size: 0.2,
       speed: 0.01,
-      color: '#b87520',
+      color: '#b83058',
       opacity: 0.05,
       spread: 3,
       orbital_radius: 4,
@@ -922,7 +799,7 @@
     lighting: {
       ambient_color: '#f5f0e6',
       ambient_intensity: 0.05,
-      point_color: '#b87520',
+      point_color: '#b83058',
       point_intensity: 0.1,
       point_position: [2, 3, 4],
     },
