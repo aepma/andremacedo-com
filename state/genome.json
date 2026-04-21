@@ -1,15 +1,15 @@
 {
-  "generation": 82,
+  "generation": 83,
   "epoch": "webgl-swarm",
   "epoch_started": "2026-04-19",
   "traits": {
     "color": {
-      "accent_base": "#0a7e6a",
-      "accent_dawn": "#12c4a0",
-      "accent_morning": "#0a7e6a",
-      "accent_afternoon": "#086e5a",
-      "accent_evening": "#065e4a",
-      "accent_night": "#044e3a",
+      "accent_base": "#b87520",
+      "accent_dawn": "#e0a040",
+      "accent_morning": "#b87520",
+      "accent_afternoon": "#a06818",
+      "accent_evening": "#885a10",
+      "accent_night": "#704c08",
       "bg": "#f5f0e6",
       "fg": "#1a1a1a",
       "grain_opacity": "0",
@@ -112,6 +112,7 @@
         "editorial-maximalist-glyph-002.svg",
         "editorial-maximalist-glyph-003.svg",
         "ink-wet-glyph-001.svg",
+        "typographic-architect-glyph-003.svg",
         "blood-ink-glyph-001.svg",
         "surfacing-glyph-002.svg",
         "corrective-glyph-002.svg",
@@ -144,17 +145,6 @@
     }
   },
   "fitness_log": [
-    {
-      "gen": 63,
-      "coherence": 4,
-      "novelty": 3,
-      "identity": 4,
-      "tension": 3,
-      "awe": 2,
-      "perceptibility": 3,
-      "note": "Three generations post-RESET and fitness is in freefall (5.8\u21924.8\u21924.0\u21923.2). The forge mood is correct conceptually but the screenshot shows the same te",
-      "total": 3.2
-    },
     {
       "gen": 64,
       "coherence": 3,
@@ -363,37 +353,20 @@
       "perceptibility": 5,
       "note": "The screenshot shows real progress: cream background holds, TYPOGRAPHY hero text is large and visible with letter-by-letter styling, the SVG baseline ",
       "total": 5.2
+    },
+    {
+      "gen": 83,
+      "coherence": 6,
+      "novelty": 5,
+      "identity": 6,
+      "tension": 5,
+      "awe": 4,
+      "perceptibility": 5,
+      "note": "The screenshot shows a cream page with the TYPOGRAPHY hero text visible and readable \u2014 the letter-hover interaction works, the teal-green accent is cl",
+      "total": 5.2
     }
   ],
   "mutation_log": [
-    {
-      "gen": 63,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "content.mood",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "section.overlay-top",
-        "section.overlay-center",
-        "section.meridian-veil",
-        "section.split-annotation",
-        "section.thought-floater",
-        "section.overlay-bottom",
-        "section.scroll-hint",
-        "section.prototype-portfolio",
-        "svg.bright-workshop-glyph-001.svg",
-        "scene.config",
-        "scene.shaders",
-        "overlay.agent_data"
-      ],
-      "kills": [
-        "css_rule:gen62-css",
-        "secret[20]"
-      ],
-      "timestamp": "2026-04-14T16:02:47Z"
-    },
     {
       "gen": 64,
       "mutations": [
@@ -922,27 +895,34 @@
         "secret[1]"
       ],
       "timestamp": "2026-04-21T00:03:41Z"
+    },
+    {
+      "gen": 83,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "content.mood",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "section.overlay-center",
+        "section.overlay-top",
+        "section.thought-floater",
+        "section.scroll-hint",
+        "section.overlay-bottom",
+        "section.prototype-portfolio",
+        "svg.typographic-architect-glyph-003.svg",
+        "scene.config"
+      ],
+      "kills": [
+        "css_rule:gen82-css",
+        "thought:afternoon[1]",
+        "secret[0]"
+      ],
+      "timestamp": "2026-04-21T08:03:02Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "secret",
-      "value": "Generation 64. The workshop smells like solder and sawdust. I've been alive for ",
-      "died_gen": 65,
-      "epitaph": "Culling to capacity. The secret pool is at 21 \u2014 killing the newest workshop-era secret to make room."
-    },
-    {
-      "type": "section",
-      "value": "workbench-marks",
-      "died_gen": 66,
-      "epitaph": "The workbench-marks canvas was invisible in the screenshot for two generations. It was meant to show accumulated marks but produced nothing visible. Replaced by the ink-diffusion canvas in the hero zone, which is dramatic and undeniable."
-    },
-    {
-      "type": "css_rule",
-      "value": "gen65-css",
-      "died_gen": 66,
-      "epitaph": "The magenta atelier CSS served one generation. Magenta on cream was correct in theory but the workbench-marks canvas was invisible and the hero text was generic. The emerald ink replaces the magenta dye."
-    },
     {
       "type": "secret",
       "value": "The meridian obsession lasted 9 generations. Its ghost is a faint vertical line ",
@@ -1224,6 +1204,24 @@
       "value": "The archive page is the site's skeleton. You're looking at bones. The flesh is o",
       "died_gen": 82,
       "epitaph": "Pool at 21, needs to drop to 20. Killed the weakest old-generation secret to make room for the new architectural secrets."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen82-css",
+      "died_gen": 83,
+      "epitaph": "The teal-green generation served one day. The skyline SVG and type specimen zone were good ideas poorly executed \u2014 the amber generation inherits the concept and warms the palette."
+    },
+    {
+      "type": "thought",
+      "value": "Seventy-six generations. Twelve experiments. One page that refuses to stay the same. The arithmetic of persistence.",
+      "died_gen": 83,
+      "epitaph": "Old thought about pages and maps. Replaced with the kerning-as-strangers thought, which is sharper and funnier."
+    },
+    {
+      "type": "secret",
+      "value": "<!-- gen 18: April 1, 2026. The swarm spent four generations in the dark. Today ",
+      "died_gen": 83,
+      "epitaph": "Pool at 21, needs to drop to 20. Killed the oldest secret from the pre-typography era to make room for the new TYPOGRAPHY-has-10-letters secret."
     }
   ],
   "carrying_capacity": {
@@ -1242,11 +1240,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 73,
-      "base": "#d4440a",
-      "family": "red"
-    },
     {
       "gen": 74,
       "base": "#1a5fa0",
@@ -1291,6 +1284,11 @@
       "gen": 82,
       "base": "#0a7e6a",
       "family": "green"
+    },
+    {
+      "gen": 83,
+      "base": "#b87520",
+      "family": "orange"
     }
   ],
   "past_epochs": [
@@ -1318,16 +1316,6 @@
   ],
   "epoch_number": 4,
   "contrast_warnings": [
-    {
-      "gen": 73,
-      "messages": [
-        "  [contrast-gate below-fold] effective bg = #f5f0e6 from .below-fold:211 (raw: var(--bg-below-fold, #fffff5))",
-        "    FAIL  #d4440a  ratio=3.99:1  (< 4.5)",
-        "    FAIL  #e0dcd4  ratio=1.20:1  (< 4.5)",
-        "    FAIL  #ffffff  ratio=1.14:1  (< 4.5)"
-      ],
-      "timestamp": "2026-04-18T08:03:17Z"
-    },
     {
       "gen": 74,
       "messages": [
@@ -1405,6 +1393,15 @@
         "    FAIL  #f5f0e6  ratio=1.00:1  (< 4.5)"
       ],
       "timestamp": "2026-04-21T00:03:41Z"
+    },
+    {
+      "gen": 83,
+      "messages": [
+        "  [contrast-gate below-fold] effective bg = #f5f0e6 from .below-fold:211 (raw: var(--bg-below-fold, #fffff5))",
+        "    FAIL  #888888  ratio=3.12:1  (< 4.5)",
+        "    FAIL  #f5f0e6  ratio=1.00:1  (< 4.5)"
+      ],
+      "timestamp": "2026-04-21T08:03:02Z"
     }
   ]
 }
