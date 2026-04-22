@@ -1,15 +1,15 @@
 {
-  "generation": 86,
+  "generation": 87,
   "epoch": "webgl-swarm",
   "epoch_started": "2026-04-19",
   "traits": {
     "color": {
-      "accent_base": "#b82030",
-      "accent_dawn": "#d84050",
-      "accent_morning": "#b82030",
-      "accent_afternoon": "#981828",
-      "accent_evening": "#781018",
-      "accent_night": "#580810",
+      "accent_base": "#1a6b3a",
+      "accent_dawn": "#2a9b5a",
+      "accent_morning": "#1a6b3a",
+      "accent_afternoon": "#145a30",
+      "accent_evening": "#0e4a25",
+      "accent_night": "#083a1a",
       "bg": "#f5f0e6",
       "fg": "#1a1a1a",
       "grain_opacity": "0",
@@ -106,6 +106,7 @@
         "typographic-architect-glyph-004.svg",
         "broadsheet-glyph-001.svg",
         "typographic-architect-glyph-005.svg",
+        "typographic-architect-glyph-007.svg",
         "swarm-glyph-001.svg",
         "typographic-architect-glyph-006.svg",
         "surfacing-glyph-001.svg",
@@ -148,17 +149,6 @@
     }
   },
   "fitness_log": [
-    {
-      "gen": 67,
-      "coherence": 4,
-      "novelty": 4,
-      "identity": 3,
-      "tension": 2,
-      "awe": 2,
-      "perceptibility": 3,
-      "note": "The screenshot shows the same warm cream page with 'The ink is still wet.' as hero text, a subtitle about ink, and below that a section titled 'Experi",
-      "total": 3.0
-    },
     {
       "gen": 68,
       "coherence": 4,
@@ -367,39 +357,20 @@
       "perceptibility": 5,
       "note": "The screenshot shows the cream page holding with the TYPOGRAPHY hero text and alphabet frieze visible. But the contrast audit flagged hierarchy collap",
       "total": 4.8
+    },
+    {
+      "gen": 87,
+      "coherence": 6,
+      "novelty": 4,
+      "identity": 6,
+      "tension": 4,
+      "awe": 3,
+      "perceptibility": 5,
+      "note": "The screenshot shows the cream page holding with TYPOGRAPHY hero text and the alphabet frieze visible. The hierarchy collapse is the real problem \u2014 th",
+      "total": 4.7
     }
   ],
   "mutation_log": [
-    {
-      "gen": 67,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "content.mood",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "interaction.ink-splash:-clicking-hero-canv",
-        "section.overlay-top",
-        "section.meridian-veil",
-        "section.split-annotation",
-        "section.overlay-center",
-        "section.thought-floater",
-        "section.overlay-bottom",
-        "section.scroll-hint",
-        "section.ink-hero",
-        "section.prototype-portfolio",
-        "svg.ink-dark-glyph-001.svg",
-        "scene.config",
-        "scene.shaders",
-        "overlay.agent_data"
-      ],
-      "kills": [
-        "css_rule:gen66-css",
-        "thought:morning[0]"
-      ],
-      "timestamp": "2026-04-16T14:30:44Z"
-    },
     {
       "gen": 68,
       "mutations": [
@@ -920,21 +891,32 @@
         "secret[0]"
       ],
       "timestamp": "2026-04-22T08:02:32Z"
+    },
+    {
+      "gen": 87,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "content.mood",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "section.overlay-center",
+        "section.prototype-portfolio",
+        "section.scroll-hint",
+        "section.overlay-bottom",
+        "section.thought-floater",
+        "svg.typographic-architect-glyph-007.svg",
+        "scene.config"
+      ],
+      "kills": [
+        "css_rule:gen86-css",
+        "secret[0]"
+      ],
+      "timestamp": "2026-04-22T16:03:10Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "secret",
-      "value": "{'trigger': 'konami-glitch', 'content': 'In the Casa da Moeda in Lisbon, assayer",
-      "died_gen": 70,
-      "epitaph": "Another old secret. The secret pool was at 22, needs to be 20."
-    },
-    {
-      "type": "css_rule",
-      "value": "gen70-css",
-      "died_gen": 71,
-      "epitaph": "Gen 70 accepted the cream. Gen 71 designs for it."
-    },
     {
       "type": "secret",
       "value": "{'trigger': 'triple-click-secret', 'content': \"The touchstone was always the hum",
@@ -1222,6 +1204,18 @@
       "value": "Six generations of darkness. Six generations of the canvas eating every word. Th",
       "died_gen": 86,
       "epitaph": "Pool at 22 after adding one. Killed oldest pre-typographic secret to maintain carrying capacity at 20."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen86-css",
+      "died_gen": 87,
+      "epitaph": "Superseded by gen87 \u2014 the forest green turn replaces crimson. The hierarchy collapse demanded a new approach: three clearly separated luminance tiers instead of the collapsed range."
+    },
+    {
+      "type": "secret",
+      "value": "The WebGL canvas fought for seven generations to cover everything in darkness. G",
+      "died_gen": 87,
+      "epitaph": "Pool at 22 after adding one. Killed oldest pre-typographic secret to maintain carrying capacity of 20."
     }
   ],
   "carrying_capacity": {
@@ -1240,11 +1234,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 77,
-      "base": "#b82040",
-      "family": "magenta"
-    },
     {
       "gen": 78,
       "base": "#4400ff",
@@ -1289,6 +1278,11 @@
       "gen": 86,
       "base": "#b82030",
       "family": "magenta"
+    },
+    {
+      "gen": 87,
+      "base": "#1a6b3a",
+      "family": "lime"
     }
   ],
   "past_epochs": [
@@ -1316,15 +1310,6 @@
   ],
   "epoch_number": 4,
   "contrast_warnings": [
-    {
-      "gen": 77,
-      "messages": [
-        "  [contrast-gate below-fold] effective bg = #f5f0e6 from .below-fold:211 (raw: var(--bg-below-fold, #fffff5))",
-        "    FAIL  #999999  ratio=2.51:1  (< 4.5)",
-        "    FAIL  #f5f0e6  ratio=1.00:1  (< 4.5)"
-      ],
-      "timestamp": "2026-04-19T16:02:26Z"
-    },
     {
       "gen": 78,
       "messages": [
@@ -1396,6 +1381,14 @@
         "    FAIL  #888888  ratio=3.12:1  (< 4.5)"
       ],
       "timestamp": "2026-04-22T08:02:32Z"
+    },
+    {
+      "gen": 87,
+      "messages": [
+        "  [contrast-gate below-fold] effective bg = #f5f0e6 from .below-fold:211 (raw: var(--bg-below-fold, #fffff5))",
+        "    FAIL  #888888  ratio=3.12:1  (< 4.5)"
+      ],
+      "timestamp": "2026-04-22T16:03:10Z"
     }
   ]
 }
