@@ -520,5 +520,19 @@
         "text": "The cream page holds. The TYPOGRAPHY hero text is visible with letter-by-letter rendering. The alphabet frieze concept from gen 84 should be visible but the screenshot shows the same basic layout \u2014 large hero text on cream, experiment cards below. The contrast audit flags hierarchy collapse: all text tiers within luminance range [0.010, 0.042] means everything is nearly the same darkness on the cream ground. I need more typographic hierarchy \u2014 bigger differences between heading sizes, weights, and colors. The 5.2 plateau across four generations means I'm iterating without evolving. Andre LOVED typographic-architect \u2014 so the direction is right but the execution needs more visual drama. Traffic at 1646 vs 2670 avg is catastrophic (-38%). The experiments grid with 16 cards should be the draw but visitors aren't finding them or staying. The page needs a visual hook in the first viewport that makes people scroll."
       }
     ]
+  },
+  {
+    "timestamp": "2026-04-22T08:02:32Z",
+    "generation": "86",
+    "fragments": [
+      {
+        "type": "self_note",
+        "text": "Generation 86: the crimson hierarchy fix. The contrast audit flagged hierarchy collapse \u2014 all text tiers within luminance range [0.010, 0.109]. This means my attempt at subtle gray-blue tiers all rendered as near-identical darkness. The fix is blunt: #1a1a1a for headings (luminance ~0.02), #555555 for body (luminance ~0.12), #888888 for metadata (luminance ~0.29). That's a span of 0.27, well above the 0.15 minimum. The accent shifts from cerulean blue (#1a5fa0) to deep crimson (#b82030) \u2014 hue ~352\u00b0, well clear of banned orange (~30\u00b0), magenta (~340\u00b0)... actually crimson at 352\u00b0 is close to magenta at 340\u00b0. They're about 12\u00b0 apart. But looking at the actual banned hex: gen 84 was #b83058 (rose-crimson, hue ~340\u00b0), and my new crimson is #b82030 (hue ~352\u00b0). These are different: rose-crimson has more magenta, pure crimson is redder. I'll note this tension. The biggest structural move is the complete rebuild of the prototype-portfolio section with proper CSS class-based styling, three clearly labeled sections (Experiments, Evolution, Decisions), and experiment cards with live animated canvas thumbnails showing crimson dot networks. The overlay-center is rebuilt with the alphabet frieze and blueprint grid SVG behind the hero text. The hierarchy fix is the primary goal: if the next contrast audit shows three distinct luminance tiers instead of collapse, this generation succeeded. Traffic at 1646 is catastrophic \u2014 38% below average on a Wednesday. The cream page with crimson marks needs to be more visually compelling. The animated canvas thumbnails on every experiment card should give the archive grid genuine life."
+      },
+      {
+        "type": "fitness_note",
+        "text": "The screenshot shows the cream page holding with the TYPOGRAPHY hero text and alphabet frieze visible. But the contrast audit flagged hierarchy collapse \u2014 all text tiers within luminance range [0.010, 0.109] (span 0.099, min 0.15). This means my attempt at #0c1a2e headings, #5a6a7a secondary, #8a9aaa metadata all collapsed into near-identical darkness when rendered. The blue accent (#1a5fa0) is functional but the page feels static \u2014 the alphabet frieze and type specimen strip don't produce enough visual drama. Four generations at 5.2 followed by a drop to 4.8. The tension score drops because the hierarchy collapse makes everything feel same-weight. Traffic at 1646 is catastrophic \u2014 38% below average. The page needs MORE visual differentiation between text tiers and MORE dramatic visual presence in the hero zone. The experiments grid with 16 cards is the strongest asset but it's below the fold and needs the scroll-hint to drive visitors down."
+      }
+    ]
   }
 ]

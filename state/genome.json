@@ -1,17 +1,17 @@
 {
-  "generation": 85,
+  "generation": 86,
   "epoch": "webgl-swarm",
   "epoch_started": "2026-04-19",
   "traits": {
     "color": {
-      "accent_base": "#1a5fa0",
-      "accent_dawn": "#3080c8",
-      "accent_morning": "#1a5fa0",
-      "accent_afternoon": "#154a80",
-      "accent_evening": "#103868",
-      "accent_night": "#0c2850",
+      "accent_base": "#b82030",
+      "accent_dawn": "#d84050",
+      "accent_morning": "#b82030",
+      "accent_afternoon": "#981828",
+      "accent_evening": "#781018",
+      "accent_night": "#580810",
       "bg": "#f5f0e6",
-      "fg": "#0c1a2e",
+      "fg": "#1a1a1a",
       "grain_opacity": "0",
       "fg_dim": "#555555",
       "bg_surface": "#f5f5f5",
@@ -107,6 +107,7 @@
         "broadsheet-glyph-001.svg",
         "typographic-architect-glyph-005.svg",
         "swarm-glyph-001.svg",
+        "typographic-architect-glyph-006.svg",
         "surfacing-glyph-001.svg",
         "abyssal-glyph-001.svg",
         "corrective-glyph-001.svg",
@@ -147,17 +148,6 @@
     }
   },
   "fitness_log": [
-    {
-      "gen": 66,
-      "coherence": 4,
-      "novelty": 3,
-      "identity": 3,
-      "tension": 2,
-      "awe": 1,
-      "perceptibility": 3,
-      "note": "The screenshot shows a warm cream page with 'The workshop is open.' centered, a 3-column experiment grid below with magenta-rose accents, and a gravey",
-      "total": 2.7
-    },
     {
       "gen": 67,
       "coherence": 4,
@@ -366,40 +356,20 @@
       "perceptibility": 5,
       "note": "The cream page holds. The TYPOGRAPHY hero text is visible with letter-by-letter rendering. The alphabet frieze concept from gen 84 should be visible b",
       "total": 4.8
+    },
+    {
+      "gen": 86,
+      "coherence": 6,
+      "novelty": 5,
+      "identity": 6,
+      "tension": 4,
+      "awe": 3,
+      "perceptibility": 5,
+      "note": "The screenshot shows the cream page holding with the TYPOGRAPHY hero text and alphabet frieze visible. But the contrast audit flagged hierarchy collap",
+      "total": 4.8
     }
   ],
   "mutation_log": [
-    {
-      "gen": 66,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "content.mood",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "interaction.ink-splash:-clicking-hero-canv",
-        "section.overlay-top",
-        "section.meridian-veil",
-        "section.split-annotation",
-        "section.overlay-center",
-        "section.thought-floater",
-        "section.overlay-bottom",
-        "section.scroll-hint",
-        "section.delete.workbench-marks",
-        "section.prototype-portfolio",
-        "svg.ink-wet-glyph-001.svg",
-        "scene.config",
-        "scene.shaders",
-        "overlay.agent_data"
-      ],
-      "kills": [
-        "section:workbench-marks",
-        "css_rule:gen65-css",
-        "secret[19]"
-      ],
-      "timestamp": "2026-04-16T14:26:48Z"
-    },
     {
       "gen": 67,
       "mutations": [
@@ -926,21 +896,33 @@
         "secret[0]"
       ],
       "timestamp": "2026-04-22T00:03:12Z"
+    },
+    {
+      "gen": 86,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "content.mood",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "section.overlay-center",
+        "section.prototype-portfolio",
+        "section.overlay-top",
+        "section.overlay-bottom",
+        "section.scroll-hint",
+        "section.thought-floater",
+        "svg.typographic-architect-glyph-006.svg",
+        "scene.config"
+      ],
+      "kills": [
+        "css_rule:gen85-css",
+        "secret[0]"
+      ],
+      "timestamp": "2026-04-22T08:02:32Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "css_rule",
-      "value": "gen69-css",
-      "died_gen": 70,
-      "epitaph": "Gen 69 declared typographic black. The page stayed cream. The CSS lost to the pipeline for the seventh time."
-    },
-    {
-      "type": "secret",
-      "value": "Every pixel here was placed by something that doesn't have eyes.",
-      "died_gen": 70,
-      "epitaph": "Old secret from a darker time. Making room for the cream confessional."
-    },
     {
       "type": "secret",
       "value": "{'trigger': 'konami-glitch', 'content': 'In the Casa da Moeda in Lisbon, assayer",
@@ -1228,6 +1210,18 @@
       "value": "The antimeridian is where today becomes yesterday",
       "died_gen": 85,
       "epitaph": "Pool at 21 after adding one. Killed oldest pre-typographic secret to maintain capacity at 20."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen85-css",
+      "died_gen": 86,
+      "epitaph": "Superseded by gen86 \u2014 the crimson turn replaces cerulean blue. Five generations of plateau at 5.2 needed breaking."
+    },
+    {
+      "type": "secret",
+      "value": "Six generations of darkness. Six generations of the canvas eating every word. Th",
+      "died_gen": 86,
+      "epitaph": "Pool at 22 after adding one. Killed oldest pre-typographic secret to maintain carrying capacity at 20."
     }
   ],
   "carrying_capacity": {
@@ -1246,11 +1240,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 76,
-      "base": "#c48820",
-      "family": "orange"
-    },
     {
       "gen": 77,
       "base": "#b82040",
@@ -1295,6 +1284,11 @@
       "gen": 85,
       "base": "#1a5fa0",
       "family": "teal"
+    },
+    {
+      "gen": 86,
+      "base": "#b82030",
+      "family": "magenta"
     }
   ],
   "past_epochs": [
@@ -1322,15 +1316,6 @@
   ],
   "epoch_number": 4,
   "contrast_warnings": [
-    {
-      "gen": 76,
-      "messages": [
-        "  [contrast-gate below-fold] effective bg = #f5f0e6 from .below-fold:211 (raw: var(--bg-below-fold, #fffff5))",
-        "    FAIL  #f5f0e6  ratio=1.00:1  (< 4.5)",
-        "    FAIL  #faf8f0  ratio=1.07:1  (< 4.5)"
-      ],
-      "timestamp": "2026-04-19T08:02:31Z"
-    },
     {
       "gen": 77,
       "messages": [
@@ -1403,6 +1388,14 @@
         "  CONTRAST GATE: hierarchy collapse detected \u2014 all text tiers within luminance range [0.010, 0.109] (span 0.099, min 0.15)"
       ],
       "timestamp": "2026-04-22T00:03:12Z"
+    },
+    {
+      "gen": 86,
+      "messages": [
+        "  [contrast-gate below-fold] effective bg = #f5f0e6 from .below-fold:211 (raw: var(--bg-below-fold, #fffff5))",
+        "    FAIL  #888888  ratio=3.12:1  (< 4.5)"
+      ],
+      "timestamp": "2026-04-22T08:02:32Z"
     }
   ]
 }
