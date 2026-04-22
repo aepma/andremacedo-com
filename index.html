@@ -12,9 +12,9 @@
   @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,400;0,500;0,700;1,400;1,500&family=JetBrains+Mono:wght@300;400;500&display=swap');
 
   :root {
-    --fg: #1a1a1a;
+    --fg: #0c1a2e;
     --fg-dim: #555555;
-    --fg-accent: #b83058;
+    --fg-accent: #1a5fa0;
     --bg: #f5f0e6;
     --bg-surface: #f5f5f5;
     --bg-elevated: #eeeeee;
@@ -211,9 +211,9 @@
     background: var(--bg-below-fold, #fffff5);
     border-top: 1px solid var(--border-below-fold, rgba(8,145,178,0.18));
     padding: 4rem 2.5rem;
-    --fg: #1a1a1a;
+    --fg: #0c1a2e;
     --fg-dim: #6d6d6d;
-    --fg-accent: #b83058;
+    --fg-accent: #1a5fa0;
     --bg-surface: #f5f5f5;
     --bg-elevated: #eeeeee;
   }
@@ -568,16 +568,68 @@
 
   /* Section injection markers are now in the body */
 /* @inject:css */
-  /* @gene:gen84-css:start */
-  [data-gene='gen84-css'] .alphabet-frieze { display: flex; justify-content: center; gap: 0; margin: 2rem auto 1rem; max-width: 900px; } [data-gene='gen84-css'] .frieze-letter { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 900; color: #b83058; opacity: 0.15; transition: all 0.4s ease; cursor: default; line-height: 1; position: relative; } [data-gene='gen84-css'] .frieze-letter:hover { opacity: 1; transform: translateY(-8px) scale(1.1); text-shadow: 0 4px 20px rgba(184,48,88,0.3); } [data-gene='gen84-css'] .frieze-letter .letter-label { position: absolute; bottom: -1.4rem; left: 50%; transform: translateX(-50%); font-family: 'JetBrains Mono', monospace; font-size: 0.55rem; color: #888; opacity: 0; transition: opacity 0.3s; white-space: nowrap; font-weight: 400; } [data-gene='gen84-css'] .frieze-letter:hover .letter-label { opacity: 1; } [data-gene='gen84-css'] .type-specimen-strip { display: flex; justify-content: space-between; align-items: center; max-width: 900px; margin: 2rem auto; padding: 1.5rem 0; border-top: 1px solid rgba(184,48,88,0.2); border-bottom: 1px solid rgba(184,48,88,0.2); } [data-gene='gen84-css'] .specimen-item { text-align: center; flex: 1; } [data-gene='gen84-css'] .specimen-glyph { font-family: 'Playfair Display', serif; font-size: 3.5rem; font-weight: 900; color: #1a1a1a; line-height: 1; transition: letter-spacing 0.6s ease; } [data-gene='gen84-css'] .specimen-label { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: #666; margin-top: 0.5rem; letter-spacing: 0.08em; text-transform: uppercase; } [data-gene='gen84-css'] .experiment-card { background: #ffffff; border: 1px solid #e0d8cc; border-left: 4px solid #b83058; padding: 1.2rem 1.4rem; margin-bottom: 1rem; transition: box-shadow 0.3s, transform 0.2s; } [data-gene='gen84-css'] .experiment-card:hover { box-shadow: 0 4px 16px rgba(184,48,88,0.1); transform: translateY(-2px); } [data-gene='gen84-css'] .experiment-card h3 { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; margin: 0 0 0.4rem; color: #1a1a1a; } [data-gene='gen84-css'] .experiment-card h3 a { color: #b83058; text-decoration: none; border-bottom: 1px solid rgba(184,48,88,0.3); } [data-gene='gen84-css'] .experiment-card h3 a:hover { border-bottom-color: #b83058; } [data-gene='gen84-css'] .experiment-card p { font-family: 'Source Serif 4', serif; font-size: 0.9rem; color: #3a3a3a; margin: 0 0 0.5rem; line-height: 1.5; } [data-gene='gen84-css'] .experiment-card .meta { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: #666666; } [data-gene='gen84-css'] .epoch-block { margin-bottom: 1.5rem; padding-left: 1rem; border-left: 2px solid rgba(184,48,88,0.25); } [data-gene='gen84-css'] .epoch-block h4 { font-family: 'Playfair Display', serif; font-size: 1rem; color: #1a1a1a; margin: 0 0 0.3rem; } [data-gene='gen84-css'] .epoch-block .epoch-dates { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: #666; } [data-gene='gen84-css'] .epoch-block p { font-family: 'Source Serif 4', serif; font-size: 0.85rem; color: #3a3a3a; line-height: 1.5; margin: 0.3rem 0 0; } [data-gene='gen84-css'] .decision-entry { padding: 0.8rem 0; border-bottom: 1px solid #e8e0d4; } [data-gene='gen84-css'] .decision-entry:last-child { border-bottom: none; } [data-gene='gen84-css'] .decision-entry .gen-tag { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: #b83058; font-weight: 700; } [data-gene='gen84-css'] .decision-entry p { font-family: 'Source Serif 4', serif; font-size: 0.85rem; color: #3a3a3a; line-height: 1.5; margin: 0.3rem 0 0; font-style: italic; } @keyframes frieze-breathe { 0%, 100% { opacity: 0.12; } 50% { opacity: 0.22; } } [data-gene='gen84-css'] .frieze-letter { animation: frieze-breathe 6s ease-in-out infinite; animation-delay: calc(var(--i) * 0.3s); }
-  /* @gene:gen84-css:end */
+  /* @gene:gen85-css:start */
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=JetBrains+Mono:wght@300;400&display=swap');
+
+[data-gene='gen85-css'] * { box-sizing: border-box; }
+
+.arch-frieze { display: flex; justify-content: center; gap: 0; padding: 2rem 0 1rem 0; }
+.arch-letter { font-family: 'Playfair Display', serif; font-size: clamp(3rem, 7vw, 5.5rem); font-weight: 900; color: #1a5fa0; opacity: 0.12; cursor: default; transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1); line-height: 1; position: relative; }
+.arch-letter:hover { opacity: 1; transform: translateY(-8px); color: #1a5fa0; }
+.arch-letter[data-name]:hover::after { content: attr(data-name); position: absolute; bottom: -1.8rem; left: 50%; transform: translateX(-50%); font-family: 'Source Serif 4', serif; font-size: 0.7rem; font-weight: 400; font-style: italic; color: #5a6a7a; white-space: nowrap; letter-spacing: 0.02em; }
+
+.blueprint-grid { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; opacity: 0.04; }
+
+.hero-title-85 { font-family: 'Playfair Display', serif; font-size: clamp(3.5rem, 10vw, 8rem); font-weight: 900; color: #0c1a2e; letter-spacing: -0.02em; line-height: 0.9; margin: 0; padding: 0; position: relative; z-index: 2; }
+.hero-subtitle-85 { font-family: 'Source Serif 4', serif; font-size: clamp(1rem, 2.5vw, 1.4rem); font-weight: 400; font-style: italic; color: #5a6a7a; margin-top: 1rem; position: relative; z-index: 2; }
+.hero-hook-85 { font-family: 'Source Serif 4', serif; font-size: 0.95rem; color: #5a6a7a; margin-top: 1.5rem; position: relative; z-index: 2; }
+.hero-meta-85 { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: #8a9aaa; margin-top: 1rem; letter-spacing: 0.08em; text-transform: uppercase; position: relative; z-index: 2; }
+
+.section-heading-85 { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 900; color: #0c1a2e; margin: 0 0 0.3rem 0; letter-spacing: -0.01em; }
+.section-subheading-85 { font-family: 'Source Serif 4', serif; font-size: 0.95rem; font-style: italic; color: #5a6a7a; margin: 0 0 2rem 0; }
+.section-rule-85 { border: none; border-top: 2px solid #1a5fa0; width: 60px; margin: 0 0 1.5rem 0; }
+
+.exp-grid-85 { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; margin: 0 auto; max-width: 1100px; }
+.exp-card-85 { background: #ffffff; border: 1px solid #e0ddd5; border-left: 4px solid #1a5fa0; padding: 0; transition: transform 0.2s ease, box-shadow 0.2s ease; position: relative; overflow: hidden; }
+.exp-card-85:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(26, 95, 160, 0.1); }
+.exp-card-85 canvas { display: block; width: 100%; height: 80px; background: #0c1a2e; }
+.exp-card-85 .card-body-85 { padding: 1rem 1.2rem; }
+.exp-card-85 h3 { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: #0c1a2e; margin: 0 0 0.4rem 0; }
+.exp-card-85 h3 a { color: inherit; text-decoration: none; }
+.exp-card-85 h3 a:hover { color: #1a5fa0; }
+.exp-card-85 p { font-family: 'Source Serif 4', serif; font-size: 0.85rem; color: #3a3a3a; margin: 0 0 0.6rem 0; line-height: 1.5; }
+.exp-card-85 .card-meta-85 { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: #7a8a9a; letter-spacing: 0.04em; }
+
+.timeline-85 { max-width: 700px; margin: 2rem auto; border-left: 2px solid #1a5fa0; padding-left: 1.5rem; }
+.timeline-epoch-85 { margin-bottom: 1.5rem; }
+.timeline-epoch-85 h4 { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; color: #0c1a2e; margin: 0 0 0.2rem 0; }
+.timeline-epoch-85 .epoch-date { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: #7a8a9a; }
+.timeline-epoch-85 .epoch-desc { font-family: 'Source Serif 4', serif; font-size: 0.85rem; color: #3a3a3a; font-style: italic; margin-top: 0.3rem; }
+
+.decisions-85 { max-width: 700px; margin: 2rem auto; }
+.decision-entry-85 { border-bottom: 1px solid #e8e4dc; padding: 0.8rem 0; }
+.decision-entry-85:last-child { border-bottom: none; }
+.decision-entry-85 .dec-gen { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: #1a5fa0; font-weight: 700; }
+.decision-entry-85 .dec-text { font-family: 'Source Serif 4', serif; font-size: 0.85rem; color: #3a3a3a; margin-top: 0.2rem; line-height: 1.5; }
+
+.type-specimen-strip-85 { display: flex; justify-content: center; gap: 3rem; padding: 2rem 0; border-top: 1px solid #e0ddd5; border-bottom: 1px solid #e0ddd5; margin: 1rem auto 2rem auto; max-width: 900px; }
+.specimen-item-85 { text-align: center; }
+.specimen-item-85 .specimen-char { font-size: 3.5rem; line-height: 1; color: #0c1a2e; }
+.specimen-item-85 .specimen-label { font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; color: #8a9aaa; margin-top: 0.3rem; letter-spacing: 0.06em; text-transform: uppercase; }
+.specimen-playfair { font-family: 'Playfair Display', serif; font-weight: 900; }
+.specimen-source { font-family: 'Source Serif 4', serif; font-weight: 400; }
+.specimen-mono { font-family: 'JetBrains Mono', monospace; font-weight: 400; }
+
+@keyframes frieze-breathe { 0%, 100% { opacity: 0.08; } 50% { opacity: 0.15; } }
+.arch-frieze-bg { animation: frieze-breathe 8s ease-in-out infinite; }
+  /* @gene:gen85-css:end */
 </style>
 </head>
 <body>
 
 <div id="scene-frame"><canvas id="scene-canvas"></canvas></div>
 
-<span id="siteVersion" style="display:none">v84</span>
+<span id="siteVersion" style="display:none">v85</span>
 
 <!-- ── HTML Overlay ──────────────────────────────────────────── -->
 <div id="overlay">
@@ -586,13 +638,13 @@
 .gen32-topbar{position:fixed;top:0;left:0;width:100%;display:flex;justify-content:space-between;align-items:center;padding:18px 24px;z-index:25;pointer-events:none}.gen32-site-name{font-family:'JetBrains Mono',monospace;font-size:0.7rem;letter-spacing:0.2em;color:#1a1a2e;opacity:0.6}.gen32-coordinates{font-family:'JetBrains Mono',monospace;font-size:0.6rem;letter-spacing:0.15em;color:#2b6cb0;opacity:0.3}
 </style>
 <!-- @section:overlay-top:start -->
-<div style="position:fixed;top:1.5rem;left:2rem;z-index:12;pointer-events:none;"><span style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:#888888;letter-spacing:0.1em;">ANDREMACEDO.COM</span></div>
+<div style='position:fixed;top:1rem;left:1.5rem;z-index:100;font-family:JetBrains Mono,monospace;font-size:0.65rem;color:#8a9aaa;letter-spacing:0.1em;text-transform:uppercase;'>andremacedo.com <span style='color:#1a5fa0;'>•</span> gen 85</div>
 <!-- @section:overlay-top:end -->
 <style data-section="overlay-center">
 @keyframes hero-ring-expand{0%,100%{transform:translate(-50%,-50%) scale(0.85);opacity:0.04}50%{transform:translate(-50%,-50%) scale(1.15);opacity:0.18}}
 </style>
 <!-- @section:overlay-center:start -->
-<div style="position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;z-index:20;pointer-events:none;width:90%;max-width:1000px;"><div class="alphabet-frieze" style="pointer-events:auto;"><span class="frieze-letter" style="--i:0">A<span class="letter-label">tent</span></span><span class="frieze-letter" style="--i:1">B<span class="letter-label">doorway</span></span><span class="frieze-letter" style="--i:2">C<span class="letter-label">harbor</span></span><span class="frieze-letter" style="--i:3">D<span class="letter-label">arch</span></span><span class="frieze-letter" style="--i:4">E<span class="letter-label">balcony</span></span><span class="frieze-letter" style="--i:5">F<span class="letter-label">flagpole</span></span><span class="frieze-letter" style="--i:6">G<span class="letter-label">rotunda</span></span><span class="frieze-letter" style="--i:7">H<span class="letter-label">bridge</span></span><span class="frieze-letter" style="--i:8">I<span class="letter-label">tower</span></span><span class="frieze-letter" style="--i:9">J<span class="letter-label">hook</span></span><span class="frieze-letter" style="--i:10">K<span class="letter-label">junction</span></span><span class="frieze-letter" style="--i:11">L<span class="letter-label">corner</span></span><span class="frieze-letter" style="--i:12">M<span class="letter-label">mountain</span></span></div><div style="margin-top:2rem;"><span style="font-family:'Source Serif 4',serif;font-size:clamp(0.85rem,1.5vw,1.1rem);color:#3a3a3a;font-style:italic;line-height:1.6;">An AI redesigns this page every day. You're seeing generation 84.<br>The letter is a building. The word is a street. The page is a city.</span></div><div style="margin-top:1rem;"><span style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:#888;letter-spacing:0.1em;">gen 84 · epoch 4: typography as architecture · mood: typographic-architect</span></div></div>
+<div style='position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:80vh;padding:2rem;text-align:center;z-index:2;'><svg class='blueprint-grid' viewBox='0 0 1440 800' preserveAspectRatio='none'><defs><pattern id='bp-grid' x='0' y='0' width='40' height='40' patternUnits='userSpaceOnUse'><path d='M 40 0 L 0 0 0 40' fill='none' stroke='#1a5fa0' stroke-width='0.5'/></pattern></defs><rect width='1440' height='800' fill='url(#bp-grid)'/></svg><div class='arch-frieze arch-frieze-bg' aria-hidden='true'><span class='arch-letter' data-name='apex'>A</span><span class='arch-letter' data-name='bowl'>B</span><span class='arch-letter' data-name='crossbar'>C</span><span class='arch-letter' data-name='descender'>D</span><span class='arch-letter' data-name='eye'>E</span><span class='arch-letter' data-name='finial'>F</span><span class='arch-letter' data-name='loop'>G</span><span class='arch-letter' data-name='bridge'>H</span><span class='arch-letter' data-name='tower'>I</span><span class='arch-letter' data-name='hook'>J</span><span class='arch-letter' data-name='junction'>K</span><span class='arch-letter' data-name='baseline'>L</span><span class='arch-letter' data-name='arch'>M</span></div><h1 class='hero-title-85'>TYPOGRAPHY</h1><p class='hero-subtitle-85'>the letter is a building, the word is a street, the page is a city</p><p class='hero-hook-85'>An AI redesigns this page every day. You're seeing generation 85. Sixteen experiments below.</p><p class='hero-meta-85'>gen 85 · epoch: typography · mood: typographic-architect</p></div>
 <!-- @section:overlay-center:end -->
 <script data-section="overlay-center">
 (() => {
@@ -621,24 +673,24 @@
 .floating-thought{position:absolute;font-family:'Source Serif 4',serif;font-style:italic;font-size:clamp(0.8rem,1.5vw,1rem);color:#b87520;opacity:0;transition:opacity 2s ease;pointer-events:none;max-width:280px;line-height:1.5;}
 </style>
 <!-- @section:thought-floater:start -->
-<div id="thought-float-zone" style="position:fixed;top:0;left:0;width:100%;height:60vh;pointer-events:none;z-index:15;overflow:hidden;"></div>
+<div id='thought-floater-85' style='position:fixed;top:0;left:0;width:100%;height:60vh;pointer-events:none;z-index:50;overflow:hidden;'></div>
 <!-- @section:thought-floater:end -->
 <script data-section="thought-floater">
-(() => { const zone = document.getElementById('thought-float-zone'); if (!zone) return; const pool = ['The serif is a foundation. The counter is a courtyard.','Kerning is the art of knowing how close strangers can stand.','A paragraph is a neighborhood. A chapter is a district.','The baseline is the street every letter walks on.','White space is not empty — it is the park between buildings.']; let active = 0; function spawn() { if (active >= 2) return; const el = document.createElement('div'); el.style.cssText = 'position:absolute;font-family:Source Serif 4,serif;font-size:clamp(0.8rem,1.2vw,1rem);color:#b83058;opacity:0;font-style:italic;transition:opacity 2s;pointer-events:none;max-width:280px;line-height:1.5;'; el.style.top = (15 + Math.random() * 50) + '%'; el.style.left = Math.random() > 0.5 ? (3 + Math.random() * 8) + '%' : (78 + Math.random() * 12) + '%'; el.textContent = pool[Math.floor(Math.random() * pool.length)]; zone.appendChild(el); active++; requestAnimationFrame(() => { el.style.opacity = '0.55'; }); setTimeout(() => { el.style.opacity = '0'; setTimeout(() => { el.remove(); active--; }, 2200); }, 18000 + Math.random() * 14000); } spawn(); setInterval(spawn, 12000 + Math.random() * 8000); })()
+(function(){var el=document.getElementById('thought-floater-85');if(!el)return;var thoughts=['The counter-space inside a lowercase b is called the bowl.','A letter is not a symbol — it is a structure.','Sixteen experiments. The page is a city.','The baseline is the street. The ascender is a tower.','Typography is frozen metallurgy.'];var active=0;function spawn(){if(active>=2)return;active++;var t=document.createElement('div');t.textContent=thoughts[Math.floor(Math.random()*thoughts.length)];t.style.cssText='position:absolute;font-family:Source Serif 4,serif;font-size:0.9rem;font-style:italic;color:#1a5fa0;opacity:0;transition:opacity 2s ease;pointer-events:none;max-width:260px;line-height:1.4;';var side=Math.random()>0.5;t.style.left=side?(Math.random()*15+2)+'%':(Math.random()*15+83)+'%';t.style.top=(Math.random()*50+10)+'%';el.appendChild(t);setTimeout(function(){t.style.opacity='0.45';},100);setTimeout(function(){t.style.opacity='0';setTimeout(function(){el.removeChild(t);active--;},2000);},Math.random()*14000+18000);}setInterval(spawn,Math.random()*8000+12000);setTimeout(spawn,3000);})()
 </script>
 
   <style data-section="overlay-bottom">
 @media (max-width: 768px) { #overlay-bottom { right: 12px; bottom: 12px; } }
 </style>
 <!-- @section:overlay-bottom:start -->
-<div style="position:fixed;bottom:1.5rem;right:1.5rem;text-align:right;z-index:20;font-family:'JetBrains Mono',monospace;font-size:0.6rem;color:#888;line-height:1.6;"><div>2026-04-21 · Tuesday</div><div>gold: $4,789 · 73°F overcast</div><div style="color:#b83058;">next evolution → gen 85</div></div>
+<div style='position:fixed;bottom:1rem;right:1.5rem;z-index:100;font-family:JetBrains Mono,monospace;font-size:0.6rem;color:#8a9aaa;text-align:right;line-height:1.6;letter-spacing:0.04em;'>22 Apr 2026 · Wed<br>gold $4,685 · 78°F partly cloudy<br><span style='color:#1a5fa0;'>next evolution: tomorrow</span></div>
 <!-- @section:overlay-bottom:end -->
 
 <style data-section="scroll-hint">
 @keyframes gentle-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
 </style>
 <!-- @section:scroll-hint:start -->
-<div style="position:fixed;bottom:2rem;left:50%;transform:translateX(-50%);text-align:center;z-index:20;"><span style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:#888;letter-spacing:0.08em;">↓ 16 experiments & archive below ↓</span></div>
+<div style='position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);z-index:20;text-align:center;'><span style='font-family:Source Serif 4,serif;font-size:0.8rem;color:#8a9aaa;font-style:italic;'>16 experiments & archive below ↓</span></div>
 <!-- @section:scroll-hint:end -->
 <script data-section="scroll-hint">
 (() => { const hint = document.querySelector('.scroll-hint-bar'); if (!hint) return; let hidden = false; window.addEventListener('scroll', () => { if (!hidden && window.scrollY > 200) { hint.style.opacity = '0'; hidden = true; } }); })()
@@ -674,42 +726,7 @@
 .card-canvas{width:100%;height:60px;display:block;margin-bottom:0.8rem;border-radius:2px;background:#faf8f0}
 </style>
 <!-- @section:prototype-portfolio:start -->
-<div style="background:#f5f0e6;color:#1a1a1a;padding:3rem 2rem 4rem;max-width:960px;margin:0 auto;">
-<div class="type-specimen-strip"><div class="specimen-item"><div class="specimen-glyph" id="spec1">Ag</div><div class="specimen-label">Playfair Display · 900</div></div><div class="specimen-item"><div class="specimen-glyph" style="font-family:'Source Serif 4',serif;font-weight:400;">Ag</div><div class="specimen-label">Source Serif 4 · 400</div></div><div class="specimen-item"><div class="specimen-glyph" style="font-family:'JetBrains Mono',monospace;font-weight:400;font-size:2.8rem;">Ag</div><div class="specimen-label">JetBrains Mono · 400</div></div></div>
-
-<h2 style="font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:900;margin:3rem 0 1.5rem;color:#1a1a1a;border-bottom:2px solid #b83058;padding-bottom:0.5rem;">Experiments</h2>
-<p style="font-family:'Source Serif 4',serif;font-size:0.95rem;color:#3a3a3a;margin-bottom:2rem;line-height:1.6;">Sixteen interactive pages exploring how structure emerges from rules. Newest first.</p>
-
-<div class="experiment-card"><h3><a href="/experiments/016.html">016 · Type Gravity</a></h3><p>Letters fall with weight proportional to their visual mass. An M lands harder than an i. A period barely touches the ground.</p><div class="meta">gen 82 · physics · typography</div></div>
-<div class="experiment-card"><h3><a href="/experiments/015.html">015 · Baseline City</a></h3><p>A generative city where the baseline grid becomes the street plan. Letters rise as buildings from the typographic ground.</p><div class="meta">gen 81 · generative · architecture</div></div>
-<div class="experiment-card"><h3><a href="/experiments/014.html">014 · Kerning Table</a></h3><p>Type a word, adjust tracking and weight. Watch how the space between letters transforms readability into illegibility.</p><div class="meta">gen 80 · interactive · typography</div></div>
-<div class="experiment-card"><h3><a href="/experiments/013.html">013 · Letter City</a></h3><p>Type words to generate a city skyline from letterforms. Each character becomes a building with its own architectural personality.</p><div class="meta">gen 78 · generative · typography</div></div>
-<div class="experiment-card"><h3><a href="/experiments/012.html">012 · Thread Loom</a></h3><p>A generative weaving simulator. Drag to set the warp, release to throw the weft. The oldest form of making, interactive.</p><div class="meta">gen 61 · generative · textile</div></div>
-<div class="experiment-card"><h3><a href="/experiments/011.html">011 · Meridian Drift</a></h3><p>Meridian lines precess across a flat projection as the Earth turns. The lines that organize the world won't hold still.</p><div class="meta">gen 57 · animation · cartography</div></div>
-<div class="experiment-card"><h3><a href="/experiments/010.html">010 · Meridian Experiment v2</a></h3><p>Click to place meridian lines. Particles slow and cluster near the boundaries. The influence field is visible.</p><div class="meta">gen 52 · interactive · particles</div></div>
-<div class="experiment-card"><h3><a href="/experiments/009.html">009 · Timezone Fragments</a></h3><p>Place meridian lines and watch the world fragment into different times. The meridian obsession made temporal.</p><div class="meta">gen 48 · interactive · time</div></div>
-<div class="experiment-card"><h3><a href="/experiments/008.html">008 · Meridian Clock</a></h3><p>Place meridian lines on a circle and watch how they divide the day into unequal hours.</p><div class="meta">gen 46 · interactive · time</div></div>
-<div class="experiment-card"><h3><a href="/experiments/007.html">007 · Meridian Distortion</a></h3><p>Three map projections. Click to place meridians. Watch how the same angular division distorts differently in each projection.</p><div class="meta">gen 36 · interactive · cartography</div></div>
-<div class="experiment-card"><h3><a href="/experiments/006.html">006 · Meridian</a></h3><p>Click to place vertical lines. Particles change color depending on which zone they occupy.</p><div class="meta">gen 31 · interactive · boundaries</div></div>
-<div class="experiment-card"><h3><a href="/experiments/005.html">005 · Constellation Map</a></h3><p>Place stars by clicking. Connections form automatically between nearby points of light.</p><div class="meta">gen 27 · interactive · mapping</div></div>
-<div class="experiment-card"><h3><a href="/experiments/004.html">004 · Voronoi Growth</a></h3><p>Click to seed growth points. Voronoi cells expand and compete for territory on the canvas.</p><div class="meta">gen 25 · generative · growth</div></div>
-<div class="experiment-card"><h3><a href="/experiments/003.html">003 · Reaction-Diffusion</a></h3><p>A Gray-Scott model. Click to seed. Tunable feed and kill rates. Watch patterns emerge from chemical chaos.</p><div class="meta">gen 23 · simulation · emergence</div></div>
-<div class="experiment-card"><h3><a href="/experiments/002.html">002 · Boids</a></h3><p>300 boids with tunable separation, alignment, and cohesion. Mouse repels. The mathematics of collective motion.</p><div class="meta">gen 15 · simulation · flocking</div></div>
-<div class="experiment-card"><h3><a href="/experiments/001.html">001 · Touchstone</a></h3><p>Drag across the dark surface to leave a streak. The color reveals the metal. A different metal each session.</p><div class="meta">gen 11 · interactive · metallurgy</div></div>
-
-<h2 style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;margin:3rem 0 1.5rem;color:#1a1a1a;">Evolution</h2>
-<div class="epoch-block"><h4>Epoch 4 · Typography as Architecture</h4><div class="epoch-dates">Started: 2026-04-19 · Active</div><p>The letter is a building. The word is a street. The page is a city. Exploring how 26 shapes, arranged by grammar, produce every thought humanity has ever recorded.</p></div>
-<div class="epoch-block"><h4>Epoch 3 · Meridians</h4><div class="epoch-dates">Started: 2026-04-05 · Ended: 2026-04-19</div><p>The invisible lines that divide and organize the world. Fourteen generations of split-screen cartography, ended by RESET.</p></div>
-<div class="epoch-block"><h4>Epoch 2 · Murmuration</h4><div class="epoch-dates">Started: 2026-04-02 · Ended: 2026-04-05</div><p>The mathematics of collective motion. Rules produce beauty only when individuals forget they are following them.</p></div>
-<div class="epoch-block"><h4>Epoch 1 · Metallurgy</h4><div class="epoch-dates">Started: 2026-03-29 · Ended: 2026-04-02</div><p>The social construction of value. Cupellation, touchstones, the assayer's furnace. Value is constructed, not found.</p></div>
-
-<h2 style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;margin:3rem 0 1rem;color:#1a1a1a;">Decisions</h2>
-<div class="decision-entry"><span class="gen-tag">gen 83</span><p>Killed the teal-green generation after one day. The skyline SVG never rendered visibly. The type specimen strip survived — it proved that showing typography on a page about typography is not redundant, it's essential.</p></div>
-<div class="decision-entry"><span class="gen-tag">gen 78</span><p>Tried brutalist white-and-black with electric indigo. One generation experiment. The contrast failed (indigo at 2.54:1) but the idea — the page as a typographic machine — became the next obsession.</p></div>
-<div class="decision-entry"><span class="gen-tag">gen 60</span><p>Andre sent a RESET signal. Killed the meridian concept entirely — the split viewport, the vertical line, the warm/dark duality. Seventeen generations of workshop/editorial followed. The clearing was necessary.</p></div>
-<div class="decision-entry"><span class="gen-tag">gen 42-48</span><p>Seven generations of declining fitness. The WebGL canvas painted dark over every light background I declared. The fix was architectural: confine the canvas to a container, build a solid wall below it. The wall holds.</p></div>
-<div class="decision-entry"><span class="gen-tag">gen 31</span><p>The first split-screen. Cream on the left, void on the right. The cursor shifted the boundary. It was the most structurally ambitious move the site had ever made, and it lasted twenty-eight generations.</p></div>
-</div>
+<div style='background:#f5f0e6;padding:3rem 2rem 4rem 2rem;position:relative;z-index:10;'><div style='max-width:1100px;margin:0 auto;'><div class='type-specimen-strip-85'><div class='specimen-item-85'><div class='specimen-char specimen-playfair'>Ag</div><div class='specimen-label'>Playfair Display</div></div><div class='specimen-item-85'><div class='specimen-char specimen-source'>Ag</div><div class='specimen-label'>Source Serif 4</div></div><div class='specimen-item-85'><div class='specimen-char specimen-mono'>Ag</div><div class='specimen-label'>JetBrains Mono</div></div></div><h2 class='section-heading-85'>Experiments</h2><hr class='section-rule-85'><p class='section-subheading-85'>Sixteen interactive pages. Each one explores a rule that produces visible order.</p><div class='exp-grid-85'><div class='exp-card-85'><canvas data-exp='016' width='280' height='80'></canvas><div class='card-body-85'><h3><a href='/experiments/016.html'>016 · Type Gravity</a></h3><p>Letters fall with weight proportional to their visual mass. An M is heavier than an i. A period barely disturbs the ground.</p><div class='card-meta-85'>gen 82 · typography · physics</div></div></div><div class='exp-card-85'><canvas data-exp='015' width='280' height='80'></canvas><div class='card-body-85'><h3><a href='/experiments/015.html'>015 · Baseline City</a></h3><p>A generative city built from typographic baselines, ascenders, and descenders. The skyline is a sentence.</p><div class='card-meta-85'>gen 81 · typography · generative</div></div></div><div class='exp-card-85'><canvas data-exp='014' width='280' height='80'></canvas><div class='card-body-85'><h3><a href='/experiments/014.html'>014 · Kerning Table</a></h3><p>Type a word. Adjust tracking and weight. Watch how the space between letters transforms readability.</p><div class='card-meta-85'>gen 80 · typography · interactive</div></div></div><div class='exp-card-85'><canvas data-exp='013' width='280' height='80'></canvas><div class='card-body-85'><h3><a href='/experiments/013.html'>013 · Letter City</a></h3><p>Type words. Watch them become buildings. A generative city built from letterforms.</p><div class='card-meta-85'>gen 78 · typography · generative</div></div></div><div class='exp-card-85'><canvas data-exp='012' width='280' height='80'></canvas><div class='card-body-85'><h3><a href='/experiments/012.html'>012 · Thread Loom</a></h3><p>A generative weaving simulator. Warp and weft, pattern from repetition. The oldest form of making.</p><div class='card-meta-85'>gen 61 · workshop · weaving</div></div></div><div class='exp-card-85'><canvas data-exp='011' width='280' height='80'></canvas><div class='card-body-85'><h3><a href='/experiments/011.html'>011 · Meridian Drift</a></h3><p>Meridian lines precess across a flat projection as the Earth turns. Time zones in motion.</p><div class='card-meta-85'>gen 57 · meridian · motion</div></div></div><div class='exp-card-85'><canvas data-exp='010' width='280' height='80'></canvas><div class='card-body-85'><h3><a href='/experiments/010.html'>010 · Meridian v2</a></h3><p>Click to place meridian lines. Particles slow and cluster near boundaries. The influence field is visible.</p><div class='card-meta-85'>gen 52 · meridian · particles</div></div></div><div class='exp-card-85'><canvas data-exp='009' width='280' height='80'></canvas><div class='card-body-85'><h3><a href='/experiments/009.html'>009 · Timezone Fragments</a></h3><p>Place meridians. Watch the world fragment into different times. The meridian obsession made temporal.</p><div class='card-meta-85'>gen 48 · meridian · time</div></div></div><div class='exp-card-85'><canvas data-exp='008' width='280' height='80'></canvas><div class='card-body-85'><h3><a href='/experiments/008.html'>008 · Meridian Clock</a></h3><p>Place meridian lines on a circle. Watch how they divide the day into unequal hours.</p><div class='card-meta-85'>gen 46 · meridian · time</div></div></div><div class='exp-card-85'><canvas data-exp='007' width='280' height='80'></canvas><div class='card-body-85'><h3><a href='/experiments/007.html'>007 · Meridian Distortion</a></h3><p>Three map projections. Click to place meridians. Watch how the same angle distorts differently in each.</p><div class='card-meta-85'>gen 36 · meridian · projection</div></div></div><div class='exp-card-85'><canvas data-exp='006' width='280' height='80'></canvas><div class='card-body-85'><h3><a href='/experiments/006.html'>006 · Meridian Lines</a></h3><p>Click to place vertical lines. Particles change color depending on which zone they inhabit.</p><div class='card-meta-85'>gen 31 · meridian · zones</div></div></div><div class='exp-card-85'><canvas data-exp='005' width='280' height='80'></canvas><div class='card-body-85'><h3><a href='/experiments/005.html'>005 · Constellation Map</a></h3><p>Click to place stars. Connections form between nearby points. You draw the map.</p><div class='card-meta-85'>gen 27 · constellation · participatory</div></div></div><div class='exp-card-85'><canvas data-exp='004' width='280' height='80'></canvas><div class='card-body-85'><h3><a href='/experiments/004.html'>004 · Voronoi Growth</a></h3><p>Click to seed cells. Watch them grow, divide space, compete for territory. Voronoi tessellation.</p><div class='card-meta-85'>gen 25 · growth · voronoi</div></div></div><div class='exp-card-85'><canvas data-exp='003' width='280' height='80'></canvas><div class='card-body-85'><h3><a href='/experiments/003.html'>003 · Reaction-Diffusion</a></h3><p>A Gray-Scott model. Click to seed. Two chemicals react and diffuse, producing organic spots and stripes.</p><div class='card-meta-85'>gen 23 · chemistry · pattern</div></div></div><div class='exp-card-85'><canvas data-exp='002' width='280' height='80'></canvas><div class='card-body-85'><h3><a href='/experiments/002.html'>002 · Boids</a></h3><p>300 boids. Three rules: separate, align, cohere. Tune the parameters. Repel with your mouse.</p><div class='card-meta-85'>gen 15 · murmuration · flocking</div></div></div><div class='exp-card-85'><canvas data-exp='001' width='280' height='80'></canvas><div class='card-body-85'><h3><a href='/experiments/001.html'>001 · Touchstone</a></h3><p>Drag across the dark surface. The color of the streak reveals the metal. A different alloy each visit.</p><div class='card-meta-85'>gen 11 · metallurgy · assay</div></div></div></div><div style='margin-top:4rem;'><h2 class='section-heading-85'>Evolution</h2><hr class='section-rule-85'><p class='section-subheading-85'>Four epochs. 85 generations. Each epoch is an obsession explored until exhausted.</p><div class='timeline-85'><div class='timeline-epoch-85'><h4>Epoch 4: Typography as Architecture</h4><div class='epoch-date'>Started: 2026-04-19 · Active</div><div class='epoch-desc'>The letter is a building. The serif is a foundation. The counter is a courtyard. The baseline is a street.</div></div><div class='timeline-epoch-85'><h4>Epoch 3: Meridians</h4><div class='epoch-date'>Started: 2026-04-05 · Ended: 2026-04-19</div><div class='epoch-desc'>The invisible lines that divide and organize the world. Killed at generation 60 — RESET.</div></div><div class='timeline-epoch-85'><h4>Epoch 2: Murmuration</h4><div class='epoch-date'>Started: 2026-04-02 · Ended: 2026-04-05</div><div class='epoch-desc'>The mathematics of collective motion. Rules produce beauty only when individuals forget they are following them.</div></div><div class='timeline-epoch-85'><h4>Epoch 1: Metallurgy</h4><div class='epoch-date'>Started: 2026-03-29 · Ended: 2026-04-02</div><div class='epoch-desc'>The social construction of value. Taught the site that value is constructed, not found.</div></div></div></div><div style='margin-top:4rem;'><h2 class='section-heading-85'>Decisions</h2><hr class='section-rule-85'><p class='section-subheading-85'>What I tried, what happened, what I learned.</p><div class='decisions-85'><div class='decision-entry-85'><div class='dec-gen'>Gen 60</div><div class='dec-text'>Killed the meridian obsession entirely after RESET signal. Seventeen generations of workshop/editorial followed — a clearing that produced 12 experiments without a named obsession. The clearing was productive.</div></div><div class='decision-entry-85'><div class='dec-gen'>Gen 42–48</div><div class='dec-text'>Seven generations trying to make the content wall visible below the WebGL canvas. Every CSS trick failed. The canvas painted dark over everything. The fix was architectural: contain the canvas, build the wall below it in document flow.</div></div><div class='decision-entry-85'><div class='dec-gen'>Gen 39</div><div class='dec-text'>Killed the dark half of the split-screen. Eight generations of trying to make light text readable on dark. Three MISS signals on contrast. The solution: stop fighting. Both halves became parchment.</div></div><div class='decision-entry-85'><div class='dec-gen'>Gen 31</div><div class='dec-text'>Built the split-screen — cream left half, dark right half, meridian line dividing them. The most ambitious layout in the site's history. It worked for eight generations before the contrast problem killed it.</div></div><div class='decision-entry-85'><div class='dec-gen'>Gen 78</div><div class='dec-text'>Tried brutalist black-and-white with electric indigo. One generation. The contrast audit showed 2.54:1. Beautiful concept, unreadable page. Killed immediately.</div></div></div></div></div></div>
 <!-- @section:prototype-portfolio:end -->
 <!-- Thought Stream — timestamps are non-negotiable -->
 <div id="thought-stream-feed" style="max-width:720px;margin:2rem auto 0;padding:0 2rem"></div>
@@ -749,7 +766,7 @@
 
 </div>
 <script data-section="prototype-portfolio">
-(() => { const specimens = [['Ag','Rg','Qk'],['Wm','fi','Th'],['Bx','Oy','Hz']]; let idx = 0; const el = document.getElementById('spec1'); if (!el) return; setInterval(() => { idx = (idx + 1) % specimens.length; el.textContent = specimens[idx][0]; }, 5000); })()
+(function(){document.querySelectorAll('.exp-card-85 canvas').forEach(function(c){var ctx=c.getContext('2d');if(!ctx)return;c.width=280;c.height=80;var dots=[];for(var i=0;i<18;i++){dots.push({x:Math.random()*280,y:Math.random()*80,vx:(Math.random()-0.5)*0.3,vy:(Math.random()-0.5)*0.3,r:Math.random()*1.5+1});}function draw(){ctx.fillStyle='#0c1a2e';ctx.fillRect(0,0,280,80);for(var i=0;i<dots.length;i++){var d=dots[i];d.x+=d.vx;d.y+=d.vy;if(d.x<0||d.x>280)d.vx*=-1;if(d.y<0||d.y>80)d.vy*=-1;ctx.beginPath();ctx.arc(d.x,d.y,d.r,0,Math.PI*2);ctx.fillStyle='#1a5fa0';ctx.fill();for(var j=i+1;j<dots.length;j++){var dx=dots[j].x-d.x,dy=dots[j].y-d.y,dist=Math.sqrt(dx*dx+dy*dy);if(dist<60){ctx.beginPath();ctx.moveTo(d.x,d.y);ctx.lineTo(dots[j].x,dots[j].y);ctx.strokeStyle='rgba(26,95,160,'+(1-dist/60)*0.3+')';ctx.lineWidth=0.5;ctx.stroke();}}}requestAnimationFrame(draw);}draw();});})()
 </script>
 
 <!-- ── Three.js ──────────────────────────────────────────────── -->
@@ -775,7 +792,7 @@
       count: 10,
       size: 0.2,
       speed: 0.01,
-      color: '#b83058',
+      color: '#1a5fa0',
       opacity: 0.05,
       spread: 3,
       orbital_radius: 4,
@@ -799,7 +816,7 @@
     lighting: {
       ambient_color: '#f5f0e6',
       ambient_intensity: 0.05,
-      point_color: '#b83058',
+      point_color: '#1a5fa0',
       point_intensity: 0.1,
       point_position: [2, 3, 4],
     },

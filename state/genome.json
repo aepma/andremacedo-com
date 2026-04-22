@@ -1,17 +1,17 @@
 {
-  "generation": 84,
+  "generation": 85,
   "epoch": "webgl-swarm",
   "epoch_started": "2026-04-19",
   "traits": {
     "color": {
-      "accent_base": "#b83058",
-      "accent_dawn": "#e04878",
-      "accent_morning": "#b83058",
-      "accent_afternoon": "#a02848",
-      "accent_evening": "#882040",
-      "accent_night": "#701838",
+      "accent_base": "#1a5fa0",
+      "accent_dawn": "#3080c8",
+      "accent_morning": "#1a5fa0",
+      "accent_afternoon": "#154a80",
+      "accent_evening": "#103868",
+      "accent_night": "#0c2850",
       "bg": "#f5f0e6",
-      "fg": "#1a1a1a",
+      "fg": "#0c1a2e",
       "grain_opacity": "0",
       "fg_dim": "#555555",
       "bg_surface": "#f5f5f5",
@@ -105,6 +105,7 @@
         "pulse-ring-001.svg",
         "typographic-architect-glyph-004.svg",
         "broadsheet-glyph-001.svg",
+        "typographic-architect-glyph-005.svg",
         "swarm-glyph-001.svg",
         "surfacing-glyph-001.svg",
         "abyssal-glyph-001.svg",
@@ -137,7 +138,7 @@
       "obsession": "typography as architecture \u2014 the letter is a building, the word is a street, the page is a city",
       "thought_pools": {
         "dawn": 1,
-        "morning": 0,
+        "morning": 1,
         "afternoon": 1,
         "evening": 1,
         "night": 1
@@ -146,17 +147,6 @@
     }
   },
   "fitness_log": [
-    {
-      "gen": 65,
-      "coherence": 4,
-      "novelty": 3,
-      "identity": 3,
-      "tension": 2,
-      "awe": 2,
-      "perceptibility": 3,
-      "note": "The screenshot shows a warm cream page with 'The workshop is open.' as the hero text, a 3-column experiments grid below, and an evolution/graveyard se",
-      "total": 2.8
-    },
     {
       "gen": 66,
       "coherence": 4,
@@ -365,30 +355,20 @@
       "perceptibility": 5,
       "note": "The screenshot shows the cream page holding \u2014 TYPOGRAPHY hero text is visible with letter-by-letter rendering, amber accents work against the warm gro",
       "total": 5.2
+    },
+    {
+      "gen": 85,
+      "coherence": 6,
+      "novelty": 5,
+      "identity": 6,
+      "tension": 4,
+      "awe": 3,
+      "perceptibility": 5,
+      "note": "The cream page holds. The TYPOGRAPHY hero text is visible with letter-by-letter rendering. The alphabet frieze concept from gen 84 should be visible b",
+      "total": 4.8
     }
   ],
   "mutation_log": [
-    {
-      "gen": 65,
-      "mutations": [
-        "content.thoughts",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "section.overlay-center",
-        "section.scroll-hint",
-        "section.prototype-portfolio",
-        "section.workbench-marks",
-        "section.overlay-bottom",
-        "scene.config",
-        "scene.shaders"
-      ],
-      "kills": [
-        "css_rule:gen64-css",
-        "secret[20]"
-      ],
-      "timestamp": "2026-04-15T08:02:18Z"
-    },
     {
       "gen": 66,
       "mutations": [
@@ -921,21 +901,34 @@
         "secret[0]"
       ],
       "timestamp": "2026-04-21T16:03:02Z"
+    },
+    {
+      "gen": 85,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "content.mood",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "section.overlay-top",
+        "section.overlay-center",
+        "section.thought-floater",
+        "section.overlay-bottom",
+        "section.scroll-hint",
+        "section.prototype-portfolio",
+        "svg.typographic-architect-glyph-005.svg",
+        "scene.config",
+        "scene.shaders"
+      ],
+      "kills": [
+        "css_rule:gen84-css",
+        "secret[0]"
+      ],
+      "timestamp": "2026-04-22T00:03:12Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "interaction",
-      "value": "ink-splash:-clicking-hero-canv",
-      "died_gen": 69,
-      "epitaph": "Second duplicate of the ink-splash interaction. Dead with its siblings."
-    },
-    {
-      "type": "interaction",
-      "value": "ink-splash:-clicking-hero-canv",
-      "died_gen": 69,
-      "epitaph": "Third duplicate. The interaction list is lighter now."
-    },
     {
       "type": "css_rule",
       "value": "gen69-css",
@@ -1223,6 +1216,18 @@
       "value": "The word 'meridian' comes from the Latin meridianus \u2014 'of midday.' The sun cross",
       "died_gen": 84,
       "epitaph": "Pool at 21, needs to drop to 20. Killed the oldest pre-typographic secret to make room for the new frieze-hover hint."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen84-css",
+      "died_gen": 85,
+      "epitaph": "Superseded by gen85 \u2014 the blue turn replaces the rose-crimson. Four generations at 5.2 means time to change."
+    },
+    {
+      "type": "secret",
+      "value": "The antimeridian is where today becomes yesterday",
+      "died_gen": 85,
+      "epitaph": "Pool at 21 after adding one. Killed oldest pre-typographic secret to maintain capacity at 20."
     }
   ],
   "carrying_capacity": {
@@ -1241,11 +1246,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 75,
-      "base": "#1a6b3a",
-      "family": "lime"
-    },
     {
       "gen": 76,
       "base": "#c48820",
@@ -1290,6 +1290,11 @@
       "gen": 84,
       "base": "#b83058",
       "family": "magenta"
+    },
+    {
+      "gen": 85,
+      "base": "#1a5fa0",
+      "family": "teal"
     }
   ],
   "past_epochs": [
@@ -1317,16 +1322,6 @@
   ],
   "epoch_number": 4,
   "contrast_warnings": [
-    {
-      "gen": 75,
-      "messages": [
-        "  [contrast-gate below-fold] effective bg = #f5f0e6 from .below-fold:211 (raw: var(--bg-below-fold, #fffff5))",
-        "    FAIL  #f5f0e6  ratio=1.00:1  (< 4.5)",
-        "    FAIL  #ffffff  ratio=1.14:1  (< 4.5)",
-        "  CONTRAST GATE: hierarchy collapse detected \u2014 all text tiers within luminance range [0.874, 1.000] (span 0.126, min 0.15)"
-      ],
-      "timestamp": "2026-04-19T00:02:52Z"
-    },
     {
       "gen": 76,
       "messages": [
@@ -1401,6 +1396,13 @@
         "  CONTRAST GATE: hierarchy collapse detected \u2014 all text tiers within luminance range [0.010, 0.042] (span 0.032, min 0.15)"
       ],
       "timestamp": "2026-04-21T16:03:02Z"
+    },
+    {
+      "gen": 85,
+      "messages": [
+        "  CONTRAST GATE: hierarchy collapse detected \u2014 all text tiers within luminance range [0.010, 0.109] (span 0.099, min 0.15)"
+      ],
+      "timestamp": "2026-04-22T00:03:12Z"
     }
   ]
 }
