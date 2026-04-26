@@ -36,7 +36,6 @@ BOT_TOKEN="${OPENCLAW_TELEGRAM_BOT_TOKEN:-}"
 CHAT_ID="${OPENCLAW_TELEGRAM_CHAT_ID:-}"
 API_KEY="${ANTHROPIC_API_KEY:-}"
 MODEL="claude-opus-4-6"
-API_URL="https://api.anthropic.com/v1/messages"
 
 PULSE_TYPE=""
 case "${1:-}" in
@@ -87,8 +86,13 @@ record_success() {
 }
 
 # ── Pre-flight ─────────────────────────────────────────────────────
-if [ -z "$API_KEY" ]; then
-  log_error "ANTHROPIC_API_KEY not set"
+if ! ~/.local/bin/claude auth status 2>/dev/null | python3 -c "
+import json, sys
+d = json.loads(sys.stdin.read())
+sub_ok = (d.get('subscriptionType') == 'max') or (d.get('authMethod') == 'oauth_token')
+sys.exit(0 if (sub_ok and d.get('loggedIn') is True and d.get('apiProvider') == 'firstParty') else 1)
+"; then
+  log_error "subscription auth precondition failed"
   record_failure
   exit 1
 fi
@@ -149,39 +153,89 @@ elif [ "$PULSE_TYPE" = "daily" ]; then MAX_TOKENS=16000
 else MAX_TOKENS=10000
 fi
 
-# ── Call Anthropic API ─────────────────────────────────────────────
+# ── Call Claude via subscription helper ───────────────────────────
 log "Starting $PULSE_TYPE pulse..."
 
-REQUEST_FILE="$(mktemp)"
-trap 'rm -f "$PROMPT_FILE" "$HTTP_RESPONSE_FILE" "$REQUEST_FILE"' EXIT
-python3 "$SCRIPT_DIR/build_request.py" "$PROMPT_FILE" "$MODEL" "$MAX_TOKENS" "${SCREENSHOT:-}" > "$REQUEST_FILE"
+INPUT_JSONL_FILE="$(mktemp)"
+HELPER_OUTPUT_FILE="$(mktemp)"
+PARSE_RESULT_FILE="$(mktemp)"
+trap 'rm -f "$PROMPT_FILE" "$HTTP_RESPONSE_FILE" "$INPUT_JSONL_FILE" "$HELPER_OUTPUT_FILE" "$PARSE_RESULT_FILE"' EXIT
 
-HTTP_CODE=$(curl -s -o "$HTTP_RESPONSE_FILE" -w '%{http_code}' -X POST "$API_URL" \
-  -H 'Content-Type: application/json' \
-  -H "x-api-key: $API_KEY" \
-  -H 'anthropic-version: 2023-06-01' \
-  -d @"$REQUEST_FILE") || {
-  log_error "API call failed (curl)"
-  record_failure
-  exit 1
-}
+python3 - "$PROMPT_FILE" "${SCREENSHOT:-}" "$INPUT_JSONL_FILE" <<'PYEOF'
+import base64, json, os, sys
+prompt_file, screenshot, out_file = sys.argv[1], sys.argv[2], sys.argv[3]
+with open(prompt_file) as f:
+    prompt_text = f.read()
+content = []
+if screenshot and os.path.isfile(screenshot):
+    with open(screenshot, 'rb') as f:
+        b64 = base64.b64encode(f.read()).decode('ascii')
+    content.append({"type": "image", "source": {"type": "base64", "media_type": "image/png", "data": b64}})
+content.append({"type": "text", "text": prompt_text})
+with open(out_file, 'w') as f:
+    f.write(json.dumps({"type": "user", "message": {"role": "user", "content": content}}) + '\n')
+PYEOF
 
-if [ "$HTTP_CODE" != "200" ]; then
-  # Capture the API error body for diagnosis, no Telegram noise.
+set +e
+INPUT_JSONL="$INPUT_JSONL_FILE" OUTPUT_FILE="$HELPER_OUTPUT_FILE" CLAUDE_MAX_BUDGET_USD=2.00 \
+  bash "$HOME/.openclaw/scripts/claude-subscription-exec.sh" \
+  --model opus \
+  --input-format stream-json --output-format stream-json \
+  --max-turns 1 --verbose
+HELPER_EXIT=$?
+set -e
+
+if [ "$HELPER_EXIT" != "0" ]; then
   {
-    echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] [$PULSE_TYPE] API error HTTP $HTTP_CODE"
-    head -c 2000 "$HTTP_RESPONSE_FILE" 2>/dev/null || true
+    echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] [$PULSE_TYPE] helper exit=$HELPER_EXIT"
+    head -c 2048 "$HELPER_OUTPUT_FILE" 2>/dev/null || true
     echo ""
   } >> "$ERROR_LOG"
-  log "ERROR: HTTP $HTTP_CODE (details in $ERROR_LOG)"
+  log "ERROR: helper exit=$HELPER_EXIT (details in $ERROR_LOG)"
   record_failure
   exit 1
 fi
 
+python3 - "$HELPER_OUTPUT_FILE" "$PARSE_RESULT_FILE" <<'PYEOF'
+import json, sys
+out_path, result_path = sys.argv[1], sys.argv[2]
+last = None
+for line in open(out_path, errors='replace'):
+    line = line.strip()
+    if not line:
+        continue
+    try:
+        o = json.loads(line)
+    except Exception:
+        continue
+    if isinstance(o, dict) and o.get('type') == 'result':
+        last = o
+assert last, "NO_RESULT_EVENT"
+assert not last.get('is_error'), f"IS_ERROR: {last}"
+text = (last.get('result') or '').strip()
+assert text, "EMPTY_RESULT"
+u = last.get('usage') or {}
+with open(result_path, 'w') as f:
+    json.dump({'text': text, 'usage': u}, f)
+PYEOF
+
 export CONTENT
-CONTENT="$(python3 -c 'import json,sys; print(json.load(sys.stdin)["content"][0]["text"])' < "$HTTP_RESPONSE_FILE")"
-INPUT_TOKENS="$(python3 -c 'import json,sys; print(json.load(sys.stdin).get("usage",{}).get("input_tokens",0))' < "$HTTP_RESPONSE_FILE")"
-OUTPUT_TOKENS="$(python3 -c 'import json,sys; print(json.load(sys.stdin).get("usage",{}).get("output_tokens",0))' < "$HTTP_RESPONSE_FILE")"
+CONTENT="$(python3 - "$PARSE_RESULT_FILE" <<'PYEOF'
+import json, sys
+print(json.load(open(sys.argv[1]))['text'])
+PYEOF
+)"
+INPUT_TOKENS="$(python3 - "$PARSE_RESULT_FILE" <<'PYEOF'
+import json, sys
+u = json.load(open(sys.argv[1]))['usage']
+print((u.get('input_tokens') or 0) + (u.get('cache_creation_input_tokens') or 0))
+PYEOF
+)"
+OUTPUT_TOKENS="$(python3 - "$PARSE_RESULT_FILE" <<'PYEOF'
+import json, sys
+print(json.load(open(sys.argv[1]))['usage'].get('output_tokens', 0))
+PYEOF
+)"
 export TOTAL_TOKENS=$((INPUT_TOKENS + OUTPUT_TOKENS))
 
 log "Tokens: $INPUT_TOKENS in + $OUTPUT_TOKENS out = $TOTAL_TOKENS"
