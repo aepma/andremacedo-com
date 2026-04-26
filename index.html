@@ -14,7 +14,7 @@
   :root {
     --fg: #1a1a1a;
     --fg-dim: #555555;
-    --fg-accent: #1a6b3a;
+    --fg-accent: #a8651a;
     --bg: #f5f0e6;
     --bg-surface: #f5f5f5;
     --bg-elevated: #eeeeee;
@@ -213,7 +213,7 @@
     padding: 4rem 2.5rem;
     --fg: #1a1a1a;
     --fg-dim: #6d6d6d;
-    --fg-accent: #1a6b3a;
+    --fg-accent: #9f5c11;
     --bg-surface: #f5f5f5;
     --bg-elevated: #eeeeee;
   }
@@ -568,16 +568,16 @@
 
   /* Section injection markers are now in the body */
 /* @inject:css */
-  /* @gene:gen87-css:start */
-  .gen87-css { } body { background: #f5f0e6; color: #1a1a1a; font-family: 'Source Serif 4', Georgia, serif; } .experiment-card .card-meta { color: #666666 !important; } .experiment-card .card-tags span { color: #666666 !important; background: #f0ede4 !important; } .compass-text { color: #666666 !important; } .letterform-grid { display: grid; grid-template-columns: repeat(13, 1fr); gap: 4px; max-width: 800px; margin: 0 auto 1.5rem; } .letterform-cell { aspect-ratio: 1; display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: clamp(1.2rem, 2.5vw, 2.2rem); font-weight: 700; color: #1a6b3a; border: 1px solid rgba(26,107,58,0.15); cursor: default; transition: all 0.3s ease; position: relative; } .letterform-cell:hover { background: rgba(26,107,58,0.08); transform: scale(1.1); z-index: 2; border-color: rgba(26,107,58,0.4); } .letterform-cell::after { content: attr(data-arch); position: absolute; bottom: -22px; left: 50%; transform: translateX(-50%); font-family: 'JetBrains Mono', monospace; font-size: 0.5rem; color: #1a6b3a; opacity: 0; transition: opacity 0.3s; white-space: nowrap; pointer-events: none; letter-spacing: 0.05em; text-transform: uppercase; } .letterform-cell:hover::after { opacity: 0.8; } .type-specimen-strip { display: flex; justify-content: space-between; align-items: baseline; padding: 1.5rem 0; border-top: 1px solid #ddd8ce; border-bottom: 1px solid #ddd8ce; margin: 2rem 0; overflow: hidden; } .type-specimen-strip .specimen { font-size: clamp(1.5rem, 4vw, 3rem); opacity: 0.12; transition: opacity 0.5s; } .type-specimen-strip .specimen:hover { opacity: 0.4; } .type-specimen-strip .specimen-playfair { font-family: 'Playfair Display', serif; font-weight: 900; } .type-specimen-strip .specimen-source { font-family: 'Source Serif 4', serif; font-style: italic; } .type-specimen-strip .specimen-mono { font-family: 'JetBrains Mono', monospace; font-size: clamp(1rem, 2.5vw, 2rem); } .content-wall { background: #f5f0e6 !important; position: relative; z-index: 10; } .content-wall * { color: #1a1a1a; } .content-wall .section-heading { color: #1a1a1a !important; } .content-wall .card-desc { color: #3a3a3a !important; } .content-wall .card-meta, .content-wall .card-tags span { color: #666666 !important; } .hero-letterform-svg { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 80%; max-width: 600px; opacity: 0.06; z-index: 0; } .hero-text-layer { position: relative; z-index: 1; }
-  /* @gene:gen87-css:end */
+  /* @gene:gen88-css:start */
+  /* gen88-css */ .below-fold .meta, .below-fold .tag, .below-fold time, .below-fold .date, .compass, .compass *, .card-meta, .epoch-date, .decision-meta { color: #555555 !important; } .below-fold p, .below-fold li, .below-fold .description { color: #2a2a2a !important; } .below-fold h1, .below-fold h2, .below-fold h3, .below-fold .heading { color: #0a0a0a !important; } .construction-letter { font-family: 'Playfair Display', serif; } @keyframes blueprintDraw { 0% { stroke-dashoffset: 1000; opacity: 0; } 30% { opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 1; } } @keyframes labelFade { 0%, 100% { opacity: 0.4; } 50% { opacity: 0.85; } } .construction-svg .guide-line { stroke: #a8651a; stroke-width: 1; stroke-dasharray: 4 6; opacity: 0.5; } .construction-svg .measurement-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; fill: #8a4f10; letter-spacing: 0.05em; } .construction-svg .letter-stroke { fill: none; stroke: #1a1a1a; stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+  /* @gene:gen88-css:end */
 </style>
 </head>
 <body>
 
 <div id="scene-frame"><canvas id="scene-canvas"></canvas></div>
 
-<span id="siteVersion" style="display:none">v87</span>
+<span id="siteVersion" style="display:none">v88</span>
 
 <!-- ── HTML Overlay ──────────────────────────────────────────── -->
 <div id="overlay">
@@ -589,45 +589,13 @@
 <div style='position:fixed; top:1rem; left:1.5rem; z-index:100; font-family:JetBrains Mono,monospace; font-size:0.6rem; color:#888888; letter-spacing:0.05em;'>andremacedo.com</div>
 <!-- @section:overlay-top:end -->
 <style data-section="overlay-center">
-#hero-letters span { display:inline-block; transition: transform 0.3s ease, color 0.3s ease; } #hero-letters span:hover { transform: translateY(-8px) scale(1.05); color: #b82030; } #alphabet-frieze .frieze-letter { font-family: Playfair Display, Georgia, serif; font-size: clamp(1.2rem, 2.5vw, 1.8rem); font-weight: 700; color: #c0b8a8; cursor: default; transition: color 0.3s ease, transform 0.3s ease; position: relative; } #alphabet-frieze .frieze-letter:hover { color: #b82030; transform: translateY(-4px); } #alphabet-frieze .frieze-letter .arch-name { position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%); font-family: JetBrains Mono, monospace; font-size: 0.5rem; color: #b82030; white-space: nowrap; opacity: 0; transition: opacity 0.3s ease; pointer-events: none; padding-bottom: 4px; } #alphabet-frieze .frieze-letter:hover .arch-name { opacity: 1; }
+.hero-zone { position: relative; z-index: 10; }
 </style>
 <!-- @section:overlay-center:start -->
-<div style="position:fixed;top:0;left:0;width:100%;height:60vh;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:5;pointer-events:none;">
-  <svg class="hero-letterform-svg" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
-    <style>@keyframes draw{from{stroke-dashoffset:1200}to{stroke-dashoffset:0}} .letter-stroke{fill:none;stroke:#1a6b3a;stroke-width:1.5;stroke-dasharray:1200;animation:draw 8s ease-in-out infinite alternate;opacity:0.5}</style>
-    <text x="200" y="220" text-anchor="middle" font-family="Playfair Display,serif" font-size="280" font-weight="900" class="letter-stroke">A</text>
-    <line x1="60" y1="350" x2="340" y2="350" stroke="#1a6b3a" stroke-width="0.5" opacity="0.3"/>
-    <text x="200" y="370" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8" fill="#1a6b3a" opacity="0.4">BASELINE</text>
-    <line x1="200" y1="30" x2="200" y2="380" stroke="#1a6b3a" stroke-width="0.3" opacity="0.15" stroke-dasharray="4,4"/>
-    <line x1="60" y1="100" x2="340" y2="100" stroke="#1a6b3a" stroke-width="0.3" opacity="0.15" stroke-dasharray="4,4"/>
-    <text x="345" y="103" font-family="JetBrains Mono,monospace" font-size="6" fill="#1a6b3a" opacity="0.3">CAP HEIGHT</text>
-    <line x1="60" y1="220" x2="340" y2="220" stroke="#1a6b3a" stroke-width="0.3" opacity="0.15" stroke-dasharray="4,4"/>
-    <text x="345" y="223" font-family="JetBrains Mono,monospace" font-size="6" fill="#1a6b3a" opacity="0.3">x-HEIGHT</text>
-  </svg>
-  <div class="hero-text-layer" style="text-align:center;pointer-events:auto;">
-    <div style="font-family:'Playfair Display',serif;font-size:clamp(2.5rem,7vw,6rem);font-weight:900;color:#1a1a1a;line-height:1.05;margin-bottom:0.5rem;letter-spacing:-0.02em;">TYPOGRAPHY</div>
-    <div class="letterform-grid" style="pointer-events:auto;">
-      <div class="letterform-cell" data-arch="tent">A</div>
-      <div class="letterform-cell" data-arch="rooms">B</div>
-      <div class="letterform-cell" data-arch="harbor">C</div>
-      <div class="letterform-cell" data-arch="door">D</div>
-      <div class="letterform-cell" data-arch="floors">E</div>
-      <div class="letterform-cell" data-arch="flag">F</div>
-      <div class="letterform-cell" data-arch="gargoyle">G</div>
-      <div class="letterform-cell" data-arch="bridge">H</div>
-      <div class="letterform-cell" data-arch="tower">I</div>
-      <div class="letterform-cell" data-arch="hook">J</div>
-      <div class="letterform-cell" data-arch="buttress">K</div>
-      <div class="letterform-cell" data-arch="plinth">L</div>
-      <div class="letterform-cell" data-arch="rampart">M</div>
-    </div>
-    <div style="font-family:'Source Serif 4',serif;font-size:clamp(0.85rem,1.5vw,1.1rem);color:#555555;font-style:italic;max-width:500px;margin:0.8rem auto 0.5rem;line-height:1.5;">An AI redesigns this page every day. You're seeing generation 87. The letter is a building. The word is a street. The page is a city.</div>
-    <div style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:#666666;letter-spacing:0.1em;text-transform:uppercase;">gen 87 · epoch 4: webgl-swarm · mood: typographic-architect</div>
-  </div>
-</div>
+<div class='hero-zone' style='position:relative;width:100%;min-height:90vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:6vh 4vw;background:#f5f0e6;'><div class='construction-canvas' style='position:relative;width:min(640px,90vw);height:min(480px,70vh);margin-bottom:3vh;'><svg class='construction-svg' viewBox='0 0 640 480' xmlns='http://www.w3.org/2000/svg' style='width:100%;height:100%;display:block;'><defs><pattern id='grid88' width='40' height='40' patternUnits='userSpaceOnUse'><path d='M 40 0 L 0 0 0 40' fill='none' stroke='#a8651a' stroke-width='0.4' opacity='0.18'/></pattern></defs><rect width='640' height='480' fill='url(#grid88)' /><line class='guide-line' x1='40' y1='80' x2='600' y2='80' /><line class='guide-line' x1='40' y1='140' x2='600' y2='140' /><line class='guide-line' x1='40' y1='400' x2='600' y2='400' /><line class='guide-line' x1='40' y1='440' x2='600' y2='440' /><text class='measurement-label' x='10' y='84'>asc</text><text class='measurement-label' x='10' y='144'>cap</text><text class='measurement-label' x='10' y='244'>x</text><text class='measurement-label' x='10' y='404'>base</text><text class='measurement-label' x='10' y='444'>desc</text><line class='guide-line' x1='40' y1='240' x2='600' y2='240' /><g class='letter-stroke' style='animation: blueprintDraw 4s ease-out forwards; stroke-dasharray: 1500;'><path d='M 200 400 L 320 140 L 440 400' /><path d='M 250 290 L 390 290' /></g><circle cx='200' cy='400' r='4' fill='#a8651a' opacity='0.7' /><circle cx='320' cy='140' r='4' fill='#a8651a' opacity='0.7' /><circle cx='440' cy='400' r='4' fill='#a8651a' opacity='0.7' /><text class='measurement-label' x='320' y='128' text-anchor='middle' style='animation: labelFade 6s ease-in-out infinite;'>apex</text><text class='measurement-label' x='320' y='305' text-anchor='middle' style='animation: labelFade 6s ease-in-out infinite;'>crossbar</text><text class='measurement-label' x='180' y='420' text-anchor='end' style='animation: labelFade 6s ease-in-out infinite;'>left foot</text><text class='measurement-label' x='460' y='420' text-anchor='start' style='animation: labelFade 6s ease-in-out infinite;'>right foot</text><text class='measurement-label' x='600' y='75' text-anchor='end' opacity='0.6'>letter A · construction</text><text class='measurement-label' x='600' y='465' text-anchor='end' opacity='0.5'>gen 88 · folio 14</text></svg></div><h1 style='font-family: Playfair Display, serif; font-weight: 900; font-size: clamp(2.4rem, 6vw, 4.8rem); color: #0a0a0a; margin: 0 0 1.2rem 0; text-align: center; line-height: 1.05; letter-spacing: -0.02em;'>The letter is a building.</h1><p style='font-family: "Source Serif 4", Georgia, serif; font-style: italic; font-size: clamp(1rem, 1.6vw, 1.25rem); color: #2a2a2a; max-width: 580px; text-align: center; margin: 0 0 2rem 0; line-height: 1.55;'>An AI redesigns this page every day. You are seeing generation 88. The hero shows the letter A as architectural drawing — baseline, cap height, apex, crossbar. Below: 16 experiments in living typography.</p><div style='font-family: JetBrains Mono, monospace; font-size: 0.7rem; color: #8a4f10; letter-spacing: 0.15em; text-transform: uppercase; opacity: 0.85;'>gen 88 · epoch: webgl-swarm · mood: typographic-architect</div></div>
 <!-- @section:overlay-center:end -->
 <script data-section="overlay-center">
-(() => { const word = 'TYPOGRAPHY'; const container = document.getElementById('hero-letters'); if (!container) return; container.innerHTML = ''; [...word].forEach((ch, i) => { const span = document.createElement('span'); span.textContent = ch; span.style.animationDelay = (i * 0.07) + 's'; container.appendChild(span); }); const archNames = { A:'tent', B:'double-room', C:'harbor', D:'arch', E:'balcony', F:'flag', G:'spiral', H:'bridge', I:'tower', J:'hook', K:'junction', L:'corner', M:'mountain', N:'zigzag', O:'dome', P:'overhang', Q:'courtyard', R:'gate', S:'river', T:'crossbeam', U:'valley', V:'ravine', W:'waves', X:'crossing', Y:'fork', Z:'staircase' }; const frieze = document.getElementById('alphabet-frieze'); if (!frieze) return; 'ABCDEFGHIJKLM'.split('').forEach(ch => { const el = document.createElement('span'); el.className = 'frieze-letter'; el.textContent = ch; const name = document.createElement('span'); name.className = 'arch-name'; name.textContent = archNames[ch] || ''; el.appendChild(name); frieze.appendChild(el); }); })();
+(function(){ const svg = document.querySelector('.construction-svg'); if(!svg) return; let clicks = 0; let timer = null; svg.style.cursor = 'crosshair'; svg.addEventListener('click', () => { clicks++; clearTimeout(timer); timer = setTimeout(()=>clicks=0, 600); if(clicks >= 3){ clicks = 0; const strokes = svg.querySelectorAll('.letter-stroke path'); strokes.forEach(p => { p.style.animation = 'none'; void p.offsetWidth; p.style.animation = 'blueprintDraw 3s ease-out forwards'; }); const labels = svg.querySelectorAll('.measurement-label'); labels.forEach((l,i) => { l.style.animation = 'none'; void l.offsetWidth; l.style.animation = `labelFade 4s ease-in-out infinite ${i*0.1}s`; }); } }); })();
 </script>
 <style data-section="thought-floater">
 #thought-floater-zone .floating-thought { position: absolute; font-family: 'Source Serif 4', serif; font-style: italic; font-size: 0.85rem; color: #1a6b3a; opacity: 0; transition: opacity 2s ease; max-width: 280px; line-height: 1.5; pointer-events: none; }
@@ -643,7 +611,7 @@
 @media (max-width: 768px) { #overlay-bottom { right: 12px; bottom: 12px; } }
 </style>
 <!-- @section:overlay-bottom:start -->
-<div style="position:fixed;bottom:1rem;right:1.5rem;z-index:6;text-align:right;pointer-events:none;"><div style="font-family:'JetBrains Mono',monospace;font-size:0.55rem;color:#888888;line-height:1.8;"><div>22 apr 2026 · 72°F partly cloudy</div><div>gold $4,755 · gen 87</div><div style="opacity:0.5;">next evolution: tomorrow</div></div></div>
+<div class='compass' style='position:fixed;bottom:1rem;right:1rem;z-index:50;font-family:JetBrains Mono,monospace;font-size:0.65rem;color:#555555;letter-spacing:0.08em;text-align:right;line-height:1.6;opacity:0.85;pointer-events:none;'><div>2026-04-26 · sun · evening</div><div>au $4710 · 79°F · partly cloudy</div><div>gen 88 · next evolution: tomorrow</div></div>
 <!-- @section:overlay-bottom:end -->
 
 <style data-section="scroll-hint">
@@ -961,7 +929,7 @@
       count: 10,
       size: 0.2,
       speed: 0.01,
-      color: '#1a6b3a',
+      color: '#a8651a',
       opacity: 0.05,
       spread: 3,
       orbital_radius: 4,
@@ -985,7 +953,7 @@
     lighting: {
       ambient_color: '#f5f0e6',
       ambient_intensity: 0.05,
-      point_color: '#1a6b3a',
+      point_color: '#a8651a',
       point_intensity: 0.1,
       point_position: [2, 3, 4],
     },
