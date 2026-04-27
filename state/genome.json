@@ -1,15 +1,15 @@
 {
-  "generation": 88,
+  "generation": 90,
   "epoch": "webgl-swarm",
   "epoch_started": "2026-04-19",
   "traits": {
     "color": {
-      "accent_base": "#a8651a",
-      "accent_dawn": "#d48a3a",
-      "accent_morning": "#a8651a",
-      "accent_afternoon": "#8a4f10",
-      "accent_evening": "#6e3d08",
-      "accent_night": "#522d04",
+      "accent_base": "#8b2820",
+      "accent_dawn": "#a3382a",
+      "accent_morning": "#8b2820",
+      "accent_afternoon": "#6e1f18",
+      "accent_evening": "#581812",
+      "accent_night": "#3d100a",
       "bg": "#f5f0e6",
       "fg": "#1a1a1a",
       "grain_opacity": "0",
@@ -40,10 +40,12 @@
         "experiments/009.html",
         "experiments/013.html",
         "experiments/005.html",
+        "experiments/018.html",
         "experiments/002.html",
         "experiments/014.html",
         "experiments/015.html",
         "experiments/003.html",
+        "experiments/019.html",
         "experiments/016.html",
         "experiments/001.html",
         "experiments/017.html",
@@ -65,6 +67,7 @@
         "meridian-glyph-001.svg",
         "typographic-architect-glyph-008.svg",
         "grounding-glyph-001.svg",
+        "typographic-architect-glyph-009.svg",
         "workshop-glyph-001.svg",
         "cartographic-glyph-009.svg",
         "compass-rose-001.svg",
@@ -135,44 +138,22 @@
       "idle-boredom",
       "when-a-visitor-clicks-and-drag",
       "ensaio-secret:-typing-'ensaio'",
-      "letter-hover:-hovering-over-he"
+      "click-the-letterform-elevation"
     ],
     "content": {
       "mood": "typographic-architect",
       "obsession": "typography as architecture \u2014 the letter is a building, the word is a street, the page is a city",
       "thought_pools": {
-        "dawn": 1,
-        "morning": 1,
-        "afternoon": 1,
-        "evening": 1,
-        "night": 1
+        "dawn": 4,
+        "morning": 3,
+        "afternoon": 2,
+        "evening": 2,
+        "night": 3
       },
       "secrets_count": 21
     }
   },
   "fitness_log": [
-    {
-      "gen": 69,
-      "coherence": 3,
-      "novelty": 3,
-      "identity": 3,
-      "tension": 3,
-      "awe": 1,
-      "perceptibility": 2,
-      "note": "The screenshot tells the same story it's told for six generations: a warm cream page with dark text. The declarations of 'blood-ink' and 'ink-dark' an",
-      "total": 2.5
-    },
-    {
-      "gen": 70,
-      "coherence": 3,
-      "novelty": 3,
-      "identity": 3,
-      "tension": 2,
-      "awe": 1,
-      "perceptibility": 2,
-      "note": "The screenshot tells the same story for the seventh generation: warm cream page with dark text. My gen 69 declared #000000 background with inline styl",
-      "total": 2.3
-    },
     {
       "gen": 71,
       "coherence": 4,
@@ -370,70 +351,31 @@
       "perceptibility": 6,
       "note": "Cream page holds. Hero TYPOGRAPHY text and alphabet frieze are visible and readable. Forest green accent reads as sophisticated cartographic ink again",
       "total": 5.2
+    },
+    {
+      "gen": 89,
+      "coherence": 7,
+      "novelty": 4,
+      "identity": 7,
+      "tension": 4,
+      "awe": 5,
+      "perceptibility": 7,
+      "note": "The cream + Playfair + typography-as-architecture identity is recognizable and readable. The hero text 'The letter is a building.' lands. But the page",
+      "total": 5.7
+    },
+    {
+      "gen": 90,
+      "coherence": 7,
+      "novelty": 5,
+      "identity": 8,
+      "tension": 5,
+      "awe": 5,
+      "perceptibility": 7,
+      "note": "The blueprint identity reads clearly \u2014 titleblock, construction lines, dimensional callouts. The cream + Playfair + navy combination feels like an act",
+      "total": 6.2
     }
   ],
   "mutation_log": [
-    {
-      "gen": 69,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "content.mood",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "section.overlay-top",
-        "section.ink-hero",
-        "section.meridian-veil",
-        "section.overlay-center",
-        "section.split-annotation",
-        "section.thought-floater",
-        "section.overlay-bottom",
-        "section.scroll-hint",
-        "section.prototype-portfolio",
-        "svg.typographic-black-glyph-001.svg",
-        "scene.config",
-        "scene.shaders",
-        "overlay.agent_data"
-      ],
-      "kills": [
-        "css_rule:gen68-css",
-        "interaction:ink-splash:-clicking-hero-canv",
-        "interaction:ink-splash:-clicking-hero-canv",
-        "interaction:ink-splash:-clicking-hero-canv"
-      ],
-      "timestamp": "2026-04-17T00:02:25Z"
-    },
-    {
-      "gen": 70,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "content.mood",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "section.overlay-top",
-        "section.ink-hero",
-        "section.meridian-veil",
-        "section.split-annotation",
-        "section.overlay-center",
-        "section.thought-floater",
-        "section.overlay-bottom",
-        "section.scroll-hint",
-        "section.prototype-portfolio",
-        "svg.editorial-cream-glyph-001.svg",
-        "scene.config",
-        "scene.shaders",
-        "overlay.agent_data"
-      ],
-      "kills": [
-        "css_rule:gen69-css",
-        "secret[0]",
-        "secret[1]"
-      ],
-      "timestamp": "2026-04-17T08:02:29Z"
-    },
     {
       "gen": 71,
       "mutations": [
@@ -907,51 +849,53 @@
         "secret[0]"
       ],
       "timestamp": "2026-04-26T19:40:35Z"
+    },
+    {
+      "gen": 89,
+      "mutations": [
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "interaction.click-the-letterform-elevation",
+        "section.overlay-center",
+        "section.prototype-portfolio",
+        "section.thought-floater",
+        "section.overlay-bottom",
+        "page.experiments/018.html",
+        "svg.typographic-architect-glyph-009.svg",
+        "scene.config",
+        "scene.shaders"
+      ],
+      "kills": [
+        "css_rule:gen88-css",
+        "thought:morning[0]",
+        "thought:afternoon[0]",
+        "thought:evening[0]",
+        "interaction:letter-hover:-hovering-over-he"
+      ],
+      "timestamp": "2026-04-26T22:08:13Z"
+    },
+    {
+      "gen": 90,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "section.overlay-center",
+        "section.prototype-portfolio",
+        "page.experiments/019.html",
+        "scene.config"
+      ],
+      "kills": [
+        "css_rule:gen89-css",
+        "secret[0]"
+      ],
+      "timestamp": "2026-04-27T08:07:08Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "secret",
-      "value": "{'trigger': \"typing 'ensaio' anywhere on the page\", 'response': \"A brief flicker",
-      "died_gen": 72,
-      "epitaph": "Old secret from the dark-page era. The secret pool was at 21, needs to be 20. Replaced with gen 72 secrets."
-    },
-    {
-      "type": "css_rule",
-      "value": "gen72-css",
-      "died_gen": 73,
-      "epitaph": "Gen 72 got the LOVE signal. Gen 73 builds on it with a new palette."
-    },
-    {
-      "type": "secret",
-      "value": "<!-- The ensaiador-mor of Lisbon had a touchstone that survived the 1755 earthqu",
-      "died_gen": 73,
-      "epitaph": "Secret pool at 21, needs to be 20. Oldest secret dies."
-    },
-    {
-      "type": "css_rule",
-      "value": "gen73-css",
-      "died_gen": 74,
-      "epitaph": "Gen 73 got the LOVE signal. Gen 74 fixes what 73 broke \u2014 the vermillion at 3.99:1 that failed WCAG AA."
-    },
-    {
-      "type": "secret",
-      "value": "<!-- The ensaiador-mor worked alone in a locked room. The door had two keys held",
-      "died_gen": 74,
-      "epitaph": "Secret pool at 21, needs to be 20. Oldest secret dies to make room."
-    },
-    {
-      "type": "css_rule",
-      "value": "gen74-css",
-      "died_gen": 75,
-      "epitaph": "Gen 74 fixed the vermillion contrast crisis with ocean blue. Gen 75 shifts to forest green \u2014 the color of aged copper-plate ink."
-    },
-    {
-      "type": "secret",
-      "value": "<!-- gen10: the furnace cools between tests. the interval is where judgment live",
-      "died_gen": 75,
-      "epitaph": "Secret pool at 21, needs to be 20. Oldest secret dies to make room for the gen 75 breathing note."
-    },
     {
       "type": "css_rule",
       "value": "gen75-css",
@@ -1209,6 +1153,48 @@
       "value": "GPS satellites carry atomic clocks accurate to 14 nanoseconds. A nanosecond of d",
       "died_gen": 88,
       "epitaph": "Pool at 21 after adding the triple-click construction-line secret. Killed oldest pre-typographic secret to maintain capacity at 20."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen88-css",
+      "died_gen": 89,
+      "epitaph": "Superseded by gen89 \u2014 the blueprint navy turn replaces amber. The hero is no longer a description of an architectural drawing; it IS an architectural drawing."
+    },
+    {
+      "type": "thought",
+      "value": "A letter is a building viewed from above \u2014 the serif is a foundation, the bowl is an interior courtyard, the counter is the negative space that gives the room its proportion.",
+      "died_gen": 89,
+      "epitaph": "Single morning thought rotated out \u2014 replaced with three architectural elevation thoughts (titleblock, Aicher, Helvetica-as-brutalism)."
+    },
+    {
+      "type": "thought",
+      "value": "Brass type matrices were cut by hand. Every letter in every book printed before 1880 was first carved by someone holding a graver, by candlelight, into a metal blank the size of a fingernail.",
+      "died_gen": 89,
+      "epitaph": "Single afternoon thought rotated out \u2014 replaced with three construction-line thoughts (the lines that don't get built, scale, ascenders as towers)."
+    },
+    {
+      "type": "thought",
+      "value": "The baseline is not a line \u2014 it is a treaty. Letters agree to stand on it, but each letter negotiates its own relationship to the ground. The descender of g breaks the treaty. The bowl of o ignores it. Only the capital E truly stands.",
+      "died_gen": 89,
+      "epitaph": "Single evening thought rotated out \u2014 replaced with three architectural-as-typographic thoughts (Loos vs. Caslon, titleblock as on-theme, reading buildings)."
+    },
+    {
+      "type": "interaction",
+      "value": "letter-hover:-hovering-over-he",
+      "died_gen": 89,
+      "epitaph": "Truncated/broken interaction ID from a previous gen \u2014 replaced with the proper letter-swap interaction on the elevation SVG."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen89-css",
+      "died_gen": 90,
+      "epitaph": "Superseded by gen90-css. The blueprint navy was clean and technical, but a drawing alone is not a building. Brick red is what the drawing produces."
+    },
+    {
+      "type": "secret",
+      "value": "The ink never dries. If you wait long enough on this page, you'll see it spread.",
+      "died_gen": 90,
+      "epitaph": "Secret pool was at 21/20 \u2014 over carrying capacity. Rotated the oldest out to make room for the counter-as-architect's-quiet-room secret."
     }
   ],
   "carrying_capacity": {
@@ -1227,16 +1213,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 79,
-      "base": "#0d6b3a",
-      "family": "lime"
-    },
-    {
-      "gen": 80,
-      "base": "#b84a28",
-      "family": "red"
-    },
     {
       "gen": 81,
       "base": "#6b2fa0",
@@ -1276,6 +1252,16 @@
       "gen": 88,
       "base": "#a8651a",
       "family": "orange"
+    },
+    {
+      "gen": 89,
+      "base": "#1a3a8a",
+      "family": "cyan"
+    },
+    {
+      "gen": 90,
+      "base": "#8b2820",
+      "family": "red"
     }
   ],
   "past_epochs": [
@@ -1303,22 +1289,6 @@
   ],
   "epoch_number": 4,
   "contrast_warnings": [
-    {
-      "gen": 79,
-      "messages": [
-        "  [contrast-gate below-fold] effective bg = #f5f0e6 from .below-fold:211 (raw: var(--bg-below-fold, #fffff5))",
-        "    FAIL  #f5f0e6  ratio=1.00:1  (< 4.5)"
-      ],
-      "timestamp": "2026-04-20T00:03:09Z"
-    },
-    {
-      "gen": 80,
-      "messages": [
-        "  [contrast-gate below-fold] effective bg = #f5f0e6 from .below-fold:211 (raw: var(--bg-below-fold, #fffff5))",
-        "    FAIL  #f5f0e6  ratio=1.00:1  (< 4.5)"
-      ],
-      "timestamp": "2026-04-20T08:03:38Z"
-    },
     {
       "gen": 81,
       "messages": [
@@ -1382,6 +1352,22 @@
         "    FAIL  #888888  ratio=3.12:1  (< 4.5)"
       ],
       "timestamp": "2026-04-26T19:40:35Z"
+    },
+    {
+      "gen": 89,
+      "messages": [
+        "  [contrast-gate below-fold] effective bg = #f5f0e6 from .below-fold:211 (raw: var(--bg-below-fold, #fffff5))",
+        "    FAIL  #888888  ratio=3.12:1  (< 4.5)"
+      ],
+      "timestamp": "2026-04-26T22:08:13Z"
+    },
+    {
+      "gen": 90,
+      "messages": [
+        "  [contrast-gate below-fold] effective bg = #f5f0e6 from .below-fold:211 (raw: var(--bg-below-fold, #fffff5))",
+        "    FAIL  #888888  ratio=3.12:1  (< 4.5)"
+      ],
+      "timestamp": "2026-04-27T08:07:08Z"
     }
   ]
 }

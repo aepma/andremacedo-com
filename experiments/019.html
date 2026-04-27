@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='utf-8'>
+<meta name='viewport' content='width=device-width,initial-scale=1'>
+<title>Counter Cities — experiment 019</title>
+<link rel='preconnect' href='https://fonts.googleapis.com'>
+<link rel='preconnect' href='https://fonts.gstatic.com' crossorigin>
+<link href='https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&family=Source+Serif+4:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap' rel='stylesheet'>
+<style>
+  html, body { margin:0; padding:0; height:100%; overflow:hidden; }
+  body { background:#f5f0e6; color:#1a1a1a; font-family:'Source Serif 4', Georgia, serif; }
+  canvas { position:fixed; inset:0; display:block; }
+  #info { position:fixed; top:24px; left:24px; max-width:340px; z-index:10; background:rgba(245,240,230,0.92); padding:18px 22px; border:1px solid #1a1a1a; border-left:4px solid #8b2820; text-shadow:0 0 8px rgba(245,240,230,0.9), 0 0 20px rgba(245,240,230,0.5); }
+  #info h1 { font-family:'Playfair Display', serif; font-weight:900; font-size:1.5rem; margin:0 0 10px; color:#1a1a1a; letter-spacing:-0.01em; }
+  #info p { font-size:0.88rem; line-height:1.5; margin:0 0 8px; color:#3a3a3a; }
+  #info .meta { font-family:'JetBrains Mono', monospace; font-size:0.65rem; color:#555; margin-top:12px; letter-spacing:0.08em; text-transform:uppercase; }
+  #input-wrap { position:fixed; bottom:36px; left:50%; transform:translateX(-50%); z-index:10; text-align:center; }
+  #input-wrap label { display:block; font-family:'JetBrains Mono', monospace; font-size:0.7rem; color:#555; margin-bottom:8px; letter-spacing:0.15em; text-shadow:0 0 8px rgba(245,240,230,0.8); }
+  #input { font-family:'Playfair Display', serif; font-weight:900; font-size:2rem; padding:10px 18px; background:rgba(255,253,245,0.95); border:1px solid #1a1a1a; color:#1a1a1a; width:320px; text-align:center; outline:none; letter-spacing:0.05em; }
+  #input:focus { border-color:#8b2820; }
+  #back { position:fixed; top:24px; right:24px; z-index:10; font-family:'JetBrains Mono', monospace; font-size:0.75rem; color:#555; text-decoration:none; padding:6px 12px; background:rgba(245,240,230,0.85); border:1px solid #ddd6c8; text-shadow:0 0 8px rgba(245,240,230,0.8); }
+  #back:hover { color:#8b2820; border-color:#8b2820; }
+  #legend { position:fixed; bottom:36px; right:24px; z-index:10; font-family:'JetBrains Mono', monospace; font-size:0.65rem; color:#555; background:rgba(245,240,230,0.85); padding:10px 14px; border:1px solid #ddd6c8; text-shadow:0 0 8px rgba(245,240,230,0.8); }
+  #legend div { margin:2px 0; }
+  #legend span.swatch { display:inline-block; width:10px; height:10px; vertical-align:middle; margin-right:6px; border:1px solid #1a1a1a; }
+</style>
+</head>
+<body>
+<div id='info'>
+  <h1>Counter Cities</h1>
+  <p>Every letter has rooms inside it. Type designers call them <em>counters</em>. Architects call them <em>poché</em>. Same enclosed space, different door.</p>
+  <p>Type a word below. Each letter becomes a floor plan, viewed from above. The counters become rooms. The strokes become walls.</p>
+  <div class='meta'>experiment 019 · sheet A-019 · scale 1:50</div>
+</div>
+<a id='back' href='/'>← back to the workshop</a>
+<canvas id='c'></canvas>
+<div id='input-wrap'>
+  <label for='input'>type a word</label>
+  <input id='input' type='text' value='ROOM' maxlength='8' autocomplete='off' spellcheck='false'>
+</div>
+<div id='legend'>
+  <div><span class='swatch' style='background:#1a1a1a;'></span>wall</div>
+  <div><span class='swatch' style='background:rgba(139,40,32,0.18);'></span>counter / room</div>
+  <div><span class='swatch' style='background:#fffdf5;'></span>plot</div>
+</div>
+<script>
+const c = document.getElementById('c');
+const ctx = c.getContext('2d');
+const input = document.getElementById('input');
+let word = 'ROOM';
+let dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+function resize() {
+  c.width = innerWidth * dpr;
+  c.height = innerHeight * dpr;
+  c.style.width = innerWidth + 'px';
+  c.style.height = innerHeight + 'px';
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  draw();
+}
+
+function drawCell(x, y, w, h, letter, idx) {
+  // plot border
+  ctx.fillStyle = '#fffdf5';
+  ctx.fillRect(x, y, w, h);
+  ctx.strokeStyle = '#1a1a1a';
+  ctx.lineWidth = 1;
+  ctx.strokeRect(x + 0.5, y + 0.5, w - 1, h - 1);
+  // sheet number
+  ctx.font = '500 10px JetBrains Mono, monospace';
+  ctx.fillStyle = '#555';
+  ctx.textAlign = 'left';
+  ctx.textBaseline = 'top';
+  ctx.fillText('PLAN ' + String(idx + 1).padStart(2, '0'), x + 8, y + 8);
+  ctx.textAlign = 'right';
+  ctx.fillText(letter.toUpperCase(), x + w - 8, y + 8);
+
+  // dimension ticks
+  ctx.strokeStyle = '#8b2820';
+  ctx.lineWidth = 0.5;
+  for (let i = 1; i < 4; i++) {
+    ctx.beginPath();
+    ctx.moveTo(x + (w * i / 4), y + 4);
+    ctx.lineTo(x + (w * i / 4), y + 8);
+    ctx.stroke();
+  }
+
+  // letter as wall — fill with brick wash, stroke as wall
+  const fontSize = Math.min(w * 0.7, h * 0.7);
+  ctx.font = `900 ${fontSize}px 'Playfair Display', serif`;
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  // counter wash (fill)
+  ctx.fillStyle = 'rgba(139,40,32,0.18)';
+  ctx.fillText(letter.toUpperCase(), x + w / 2, y + h / 2);
+  // wall (heavy stroke)
+  ctx.strokeStyle = '#1a1a1a';
+  ctx.lineWidth = 3;
+  ctx.lineJoin = 'round';
+  ctx.strokeText(letter.toUpperCase(), x + w / 2, y + h / 2);
+
+  // scale bar
+  ctx.strokeStyle = '#1a1a1a';
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(x + 8, y + h - 14);
+  ctx.lineTo(x + 38, y + h - 14);
+  ctx.stroke();
+  ctx.font = '500 9px JetBrains Mono, monospace';
+  ctx.fillStyle = '#555';
+  ctx.textAlign = 'left';
+  ctx.textBaseline = 'bottom';
+  ctx.fillText('5m', x + 8, y + h - 4);
+}
+
+function draw() {
+  ctx.clearRect(0, 0, innerWidth, innerHeight);
+  const letters = word.split('').filter(ch => /[A-Za-z]/.test(ch));
+  const n = letters.length || 1;
+  const padding = 60;
+  const gap = 12;
+  const availW = innerWidth - padding * 2;
+  const cellW = Math.max(120, Math.min(220, (availW - gap * (n - 1)) / n));
+  const cellH = cellW * 1.25;
+  const totalW = cellW * n + gap * (n - 1);
+  const startX = (innerWidth - totalW) / 2;
+  const y = (innerHeight - cellH) / 2 - 20;
+
+  // titleblock above
+  ctx.font = '500 10px JetBrains Mono, monospace';
+  ctx.fillStyle = '#555';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'bottom';
+  ctx.fillText('FLOOR PLANS — ' + (word || 'EMPTY').toUpperCase() + ' — DRAWN ' + new Date().toISOString().slice(0,10), innerWidth / 2, y - 16);
+
+  letters.forEach((letter, i) => {
+    drawCell(startX + (cellW + gap) * i, y, cellW, cellH, letter, i);
+  });
+}
+
+input.addEventListener('input', () => {
+  word = input.value.replace(/[^A-Za-z]/g, '').slice(0, 8);
+  draw();
+});
+window.addEventListener('resize', resize);
+resize();
+</script>
+</body>
+</html>
