@@ -188,8 +188,8 @@ set +e
 INPUT_JSONL="$INPUT_JSONL_FILE" OUTPUT_FILE="$HELPER_OUTPUT_FILE" CLAUDE_MAX_BUDGET_USD=2.00 \
   bash "$HOME/.openclaw/scripts/claude-subscription-exec.sh" \
   --model opus \
-  --input-format stream-json --output-format stream-json \
-  --max-turns 1 --verbose
+  --input-format stream-json --output-format json \
+  --max-turns 1
 HELPER_EXIT=$?
 set -e
 
