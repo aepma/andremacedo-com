@@ -71,6 +71,7 @@ read_failure_count() {
 }
 
 record_failure() {
+  DEPLOY_SUCCEEDED=1  # disarm EXIT trap — failure is already being recorded
   local count
   count=$(read_failure_count)
   count=$((count + 1))
@@ -84,6 +85,11 @@ record_failure() {
 record_success() {
   echo 0 > "$FAILURE_COUNTER"
 }
+
+# Any exit path that doesn't reach record_success counts as a failure.
+# Prevents silent skips (no deploy, no counter increment) from going undetected.
+DEPLOY_SUCCEEDED=0
+trap 'if [ "$DEPLOY_SUCCEEDED" = "0" ]; then record_failure; fi' EXIT
 
 # ── Pre-flight ─────────────────────────────────────────────────────
 if ! ~/.local/bin/claude auth status 2>/dev/null | python3 -c "
@@ -108,11 +114,13 @@ MONTHLY_CEILING=$(python3 -c 'import json,sys; print(json.load(sys.stdin).get("m
 if [ "$MONTHLY_USED" -ge "$MONTHLY_CEILING" ]; then
   log "Token ceiling reached ($MONTHLY_USED/$MONTHLY_CEILING). Skipping."
   echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] [$PULSE_TYPE] Token ceiling reached ($MONTHLY_USED/$MONTHLY_CEILING). Skipping." >> "$ERROR_LOG"
+  DEPLOY_SUCCEEDED=1  # intentional skip — do not count as failure
   exit 0
 fi
 
 if [ "$PULSE_TYPE" = "event" ] && [ "$MONTHLY_USED" -ge $((MONTHLY_CEILING * 80 / 100)) ]; then
   log "Near ceiling. Skipping event pulse."
+  DEPLOY_SUCCEEDED=1  # intentional skip — do not count as failure
   exit 0
 fi
 
@@ -309,10 +317,10 @@ from datetime import datetime, timezone
 
 content_raw = os.environ['CONTENT']
 content_str = content_raw.strip()
-if content_str.startswith('\`\`\`'):
+if content_str.startswith('```'):
     lines = content_str.split('\n')
     lines = lines[1:]
-    if lines and lines[-1].strip() == '\`\`\`':
+    if lines and lines[-1].strip() == '```':
         lines = lines[:-1]
     content_str = '\n'.join(lines)
 
@@ -357,7 +365,8 @@ if entry['fragments']:
     print(f'Thought stream: {len(entry[\"fragments\"])} fragments for gen {gen}')
 else:
     print('Thought stream: no fragments this pulse')
-" "$GENERATION" "$THOUGHT_STREAM_FILE" 2>&1 | tee -a "$LOG_FILE"
+" "$GENERATION" "$THOUGHT_STREAM_FILE" 2>&1 | tee -a "$LOG_FILE" \
+  || log_error "thought-stream failed (non-fatal, deploy continues)"
 
 # ── Portfolio: rebuild manifest from genome data ─────────────────
 python3 -c "
@@ -426,7 +435,8 @@ portfolio_path = os.path.join(site_dir, 'state', 'portfolio.json')
 with open(portfolio_path, 'w') as f:
     json.dump(portfolio, f, indent=2)
 print(f'Portfolio: {len(portfolio[\"epochs\"])} epochs')
-" "$SITE_DIR" 2>&1 | tee -a "$LOG_FILE"
+" "$SITE_DIR" 2>&1 | tee -a "$LOG_FILE" \
+  || log_error "portfolio rebuild failed (non-fatal, deploy continues)"
 
 # ── Git commit (for history) ──────────────────────────────────────
 git add -A
@@ -502,6 +512,7 @@ bash "$SCRIPT_DIR/contrast-check.sh" "$SITE_DIR" 2>/dev/null || echo "Contrast c
 
 # ── Notify ─────────────────────────────────────────────────────────
 # Mark the run as successful: reset the consecutive-failure counter.
+DEPLOY_SUCCEEDED=1
 record_success
 
 # Brief success message. Full technical output is in $BUILD_LOG.
