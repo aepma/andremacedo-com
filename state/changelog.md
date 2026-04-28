@@ -269,3 +269,12 @@
 
 ## 2026-04-27T08:07:08Z
 **Daily pulse.** refreshed thought pools; added new secret; reacted to external: 76°F clear in Fort Lauderdale — humid morning, the kind that softens brick befor; visual strategy: Brick on cream — the blueprint produces a building. Shift accent from blueprint ; accent palette: #8b2820; CSS updated: --bg, --fg, --accent; added new CSS rules; replaced section: overlay-center; replaced section: prototype-portfolio; new page: experiments/019.html; scene: particles.count, particles.color, particles.opacity, fog.color, lighting.point_color; killed CSS rule: gen89-css; killed secret[0]; fitness: 6.2. Tokens: 106698.
+
+## 2026-04-27T16:07:41Z
+**Daily pulse.** refreshed thought pools; reacted to external: Gold at $4706 on a clear 71° Monday. The architect's pencil costs nothing; the b; visual strategy: Architectural folio, third drawing. Extend the elevation+floor-plan duality with; accent palette: #5a2d6e; CSS updated: --bg, --fg, --accent, --bg-below-fold, --meta; added new CSS rules; created section: section-detail; replaced section: prototype-portfolio; new page: experiments/020.html; scene: particles.color, lighting.point_color; killed CSS rule: gen90-css; killed secret[0]; fitness: 6.2. Tokens: 114518.
+
+## 2026-04-28T00:10:10Z
+**Daily pulse.** refreshed thought pools; added new secret; visual strategy: Architectural folio, fourth sheet — axonometric. The page already shows elevatio; accent palette: #4a5d2a; CSS updated: --bg, --fg, --accent; added new CSS rules; created section: axonometric-view; replaced section: prototype-portfolio; new page: experiments/021.html; killed CSS rule: gen91-css; fitness: 6.0. Tokens: 136909.
+
+## 2026-04-28T08:03:05Z
+**Daily pulse.** refreshed thought pools; added new secret; reacted to external: Gold at $4679 — a number that has stopped meaning anything. The price has decoup; visual strategy: Wall section detail — the fifth folio sheet, but a SCALE shift instead of anothe; accent palette: #8b2851; CSS updated: --bg, --fg, --accent, --accent-soft, --rule, --meta, --body, --paper, --card; added new CSS rules; new interaction: Type 'detail' to replay the wall-section construction sequence — layers fade in one by one in the order a builder would lay them.; created section: wall-detail; replaced section: thought-floater; new page: experiments/022.html; SVG: assets/wall-section-glyph-001.svg; scene: particles.count, particles.color, particles.opacity, lighting.point_color, lighting.point_intensity; killed CSS rule: gen92-css; killed secret[0]; fitness: 5.7. Tokens: 101071.

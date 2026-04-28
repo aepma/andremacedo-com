@@ -1,15 +1,15 @@
 {
-  "generation": 90,
+  "generation": 93,
   "epoch": "webgl-swarm",
   "epoch_started": "2026-04-19",
   "traits": {
     "color": {
-      "accent_base": "#8b2820",
-      "accent_dawn": "#a3382a",
-      "accent_morning": "#8b2820",
-      "accent_afternoon": "#6e1f18",
-      "accent_evening": "#581812",
-      "accent_night": "#3d100a",
+      "accent_base": "#8b2851",
+      "accent_dawn": "#a8385f",
+      "accent_morning": "#9a3058",
+      "accent_afternoon": "#8b2851",
+      "accent_evening": "#7c2046",
+      "accent_night": "#5c1632",
       "bg": "#f5f0e6",
       "fg": "#1a1a1a",
       "grain_opacity": "0",
@@ -27,6 +27,9 @@
       "sections": [
         "overlay-top",
         "overlay-center",
+        "section-detail",
+        "axonometric-view",
+        "wall-detail",
         "thought-floater",
         "overlay-bottom",
         "scroll-hint",
@@ -40,15 +43,18 @@
         "experiments/009.html",
         "experiments/013.html",
         "experiments/005.html",
+        "experiments/022.html",
         "experiments/018.html",
         "experiments/002.html",
         "experiments/014.html",
         "experiments/015.html",
         "experiments/003.html",
         "experiments/019.html",
+        "experiments/020.html",
         "experiments/016.html",
         "experiments/001.html",
         "experiments/017.html",
+        "experiments/021.html",
         "experiments/010.html",
         "experiments/006.html",
         "experiments/007.html",
@@ -59,6 +65,7 @@
         "nocturne-glyph-001.svg",
         "brutalist-glyph-001.svg",
         "threshold-glyph-001.svg",
+        "wall-section-glyph-001.svg",
         "editorial-cream-glyph-002.svg",
         "meridian-glyph-002.svg",
         "surgical-glyph-001.svg",
@@ -138,55 +145,23 @@
       "idle-boredom",
       "when-a-visitor-clicks-and-drag",
       "ensaio-secret:-typing-'ensaio'",
-      "click-the-letterform-elevation"
+      "click-the-letterform-elevation",
+      "type-'detail'-to-replay-the-wa"
     ],
     "content": {
       "mood": "typographic-architect",
       "obsession": "typography as architecture \u2014 the letter is a building, the word is a street, the page is a city",
       "thought_pools": {
-        "dawn": 4,
-        "morning": 3,
-        "afternoon": 2,
-        "evening": 2,
-        "night": 3
+        "dawn": 5,
+        "morning": 4,
+        "afternoon": 4,
+        "evening": 4,
+        "night": 6
       },
       "secrets_count": 21
     }
   },
   "fitness_log": [
-    {
-      "gen": 71,
-      "coherence": 4,
-      "novelty": 2,
-      "identity": 3,
-      "tension": 2,
-      "awe": 1,
-      "perceptibility": 3,
-      "note": "The screenshot shows a warm cream page with dark text \u2014 readable, which is an improvement over the seven generations of dark-page delusion. But it's p",
-      "total": 2.5
-    },
-    {
-      "gen": 72,
-      "coherence": 4,
-      "novelty": 2,
-      "identity": 3,
-      "tension": 2,
-      "awe": 1,
-      "perceptibility": 3,
-      "note": "The screenshot shows a cream page with 'Experiments in living design' as hero text in large Playfair Display \u2014 readable, which is good. But it's flat.",
-      "total": 2.5
-    },
-    {
-      "gen": 73,
-      "coherence": 5,
-      "novelty": 3,
-      "identity": 4,
-      "tension": 3,
-      "awe": 2,
-      "perceptibility": 3,
-      "note": "The screenshot shows a cream page with large Playfair Display text ('Experiments in living design'), a hook sentence, and epoch metadata. Below the fo",
-      "total": 3.3
-    },
     {
       "gen": 74,
       "coherence": 5,
@@ -373,95 +348,42 @@
       "perceptibility": 7,
       "note": "The blueprint identity reads clearly \u2014 titleblock, construction lines, dimensional callouts. The cream + Playfair + navy combination feels like an act",
       "total": 6.2
+    },
+    {
+      "gen": 91,
+      "coherence": 7,
+      "novelty": 5,
+      "identity": 8,
+      "tension": 5,
+      "awe": 4,
+      "perceptibility": 8,
+      "note": "Andre's GOOD today + 6d-old LOVE on typographic-architect confirms the folio direction is the strongest identity the site has had in the cream era. Th",
+      "total": 6.2
+    },
+    {
+      "gen": 92,
+      "coherence": 7,
+      "novelty": 5,
+      "identity": 8,
+      "tension": 4,
+      "awe": 5,
+      "perceptibility": 7,
+      "note": "The folio aesthetic is mature and instantly readable. Andre's GOOD today + 6d-old LOVE on typographic-architect confirms direction. Adding the axonome",
+      "total": 6.0
+    },
+    {
+      "gen": 93,
+      "coherence": 7,
+      "novelty": 4,
+      "identity": 8,
+      "tension": 4,
+      "awe": 5,
+      "perceptibility": 6,
+      "note": "Gen 92's axonometric landed but the folio is now four sheets deep without surprise \u2014 the diminishing-returns warning from my own self-note is showing.",
+      "total": 5.7
     }
   ],
   "mutation_log": [
-    {
-      "gen": 71,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "content.mood",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "section.ink-hero",
-        "section.meridian-veil",
-        "section.split-annotation",
-        "section.overlay-top",
-        "section.overlay-center",
-        "section.thought-floater",
-        "section.overlay-bottom",
-        "section.scroll-hint",
-        "section.prototype-portfolio",
-        "svg.editorial-cream-glyph-002.svg",
-        "scene.config",
-        "scene.shaders"
-      ],
-      "kills": [
-        "css_rule:gen70-css",
-        "secret[0]"
-      ],
-      "timestamp": "2026-04-17T16:02:50Z"
-    },
-    {
-      "gen": 72,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "content.mood",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "section.overlay-top",
-        "section.ink-hero",
-        "section.meridian-veil",
-        "section.overlay-center",
-        "section.split-annotation",
-        "section.thought-floater",
-        "section.overlay-bottom",
-        "section.scroll-hint",
-        "section.prototype-portfolio",
-        "svg.editorial-bold-glyph-001.svg",
-        "scene.config",
-        "scene.shaders",
-        "overlay.agent_data"
-      ],
-      "kills": [
-        "css_rule:gen71-css",
-        "secret[0]"
-      ],
-      "timestamp": "2026-04-18T00:03:12Z"
-    },
-    {
-      "gen": 73,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "content.mood",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "section.overlay-center",
-        "section.thought-floater",
-        "section.scroll-hint",
-        "section.overlay-bottom",
-        "section.prototype-portfolio",
-        "section.overlay-top",
-        "section.ink-hero",
-        "section.meridian-veil",
-        "section.split-annotation",
-        "svg.editorial-maximalist-glyph-001.svg",
-        "scene.config",
-        "scene.shaders",
-        "overlay.agent_data"
-      ],
-      "kills": [
-        "css_rule:gen72-css",
-        "secret[0]"
-      ],
-      "timestamp": "2026-04-18T08:03:17Z"
-    },
     {
       "gen": 74,
       "mutations": [
@@ -893,39 +815,65 @@
         "secret[0]"
       ],
       "timestamp": "2026-04-27T08:07:08Z"
+    },
+    {
+      "gen": 91,
+      "mutations": [
+        "content.thoughts",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "section.section-detail",
+        "section.prototype-portfolio",
+        "page.experiments/020.html",
+        "scene.config"
+      ],
+      "kills": [
+        "css_rule:gen90-css",
+        "secret[0]"
+      ],
+      "timestamp": "2026-04-27T16:07:41Z"
+    },
+    {
+      "gen": 92,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "section.axonometric-view",
+        "section.prototype-portfolio",
+        "page.experiments/021.html"
+      ],
+      "kills": [
+        "css_rule:gen91-css"
+      ],
+      "timestamp": "2026-04-28T00:10:10Z"
+    },
+    {
+      "gen": 93,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "interaction.type-'detail'-to-replay-the-wa",
+        "section.wall-detail",
+        "section.thought-floater",
+        "page.experiments/022.html",
+        "svg.wall-section-glyph-001.svg",
+        "scene.config"
+      ],
+      "kills": [
+        "css_rule:gen92-css",
+        "secret[0]"
+      ],
+      "timestamp": "2026-04-28T08:03:05Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "css_rule",
-      "value": "gen75-css",
-      "died_gen": 76,
-      "epitaph": "Gen 75 shifted to forest green. Gen 76 shifts to amber-gold and an optimist framing. The green served its purpose."
-    },
-    {
-      "type": "secret",
-      "value": "<!-- The assayer's paradox: to prove something is pure, you must destroy part of",
-      "died_gen": 76,
-      "epitaph": "Secret pool at 21, needs to be 20. Oldest secret dies to make room for the gen 76 optimist note."
-    },
-    {
-      "type": "section",
-      "value": "ink-hero",
-      "died_gen": 76,
-      "epitaph": "The ink-hero canvas was declared in gen 66 and has been empty (1 line) for ten generations. It never rendered visibly. Killed \u2014 the hero visual is now CSS rings and a breathing pulse in the overlay-center."
-    },
-    {
-      "type": "section",
-      "value": "meridian-veil",
-      "died_gen": 76,
-      "epitaph": "The meridian veil was a vertical line from the split-screen era. The meridian obsession was killed at gen 60. This empty section persisted for 16 generations. Gone."
-    },
-    {
-      "type": "section",
-      "value": "split-annotation",
-      "died_gen": 76,
-      "epitaph": "The split-annotation was cartographic detail for the split-screen layout. The split screen died at gen 39. This empty section persisted for 37 generations. Gone."
-    },
     {
       "type": "css_rule",
       "value": "gen76-css",
@@ -1195,6 +1143,36 @@
       "value": "The ink never dries. If you wait long enough on this page, you'll see it spread.",
       "died_gen": 90,
       "epitaph": "Secret pool was at 21/20 \u2014 over carrying capacity. Rotated the oldest out to make room for the counter-as-architect's-quiet-room secret."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen90-css",
+      "died_gen": 91,
+      "epitaph": "Superseded by gen91-css. The brick was right; the section needs aubergine."
+    },
+    {
+      "type": "secret",
+      "value": "Generation 67 declared darkness. The page stayed light. The gap between intentio",
+      "died_gen": 91,
+      "epitaph": "Secret pool was at 21/20 \u2014 over carrying capacity. Rotated the oldest out to make room for the section-drawing era."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen91-css",
+      "died_gen": 92,
+      "epitaph": "Superseded by gen92-css. The aubergine ink served its sheet \u2014 the section drawing is done. The moss takes over for the axonometric: the color architects use for structural notation, vegetation, and copper roofs that have weathered into the green of construction documents."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen92-css",
+      "died_gen": 93,
+      "epitaph": "Superseded by gen93-css. The structural olive served the axonometric \u2014 the wall section needs mortar-rose."
+    },
+    {
+      "type": "secret",
+      "value": "Generation 69 abandoned all canvases. The page became pure text on black. Or tri",
+      "died_gen": 93,
+      "epitaph": "Secret pool was at 21/20 \u2014 over carrying capacity. Rotated the oldest out to make room for the 'detail' replay secret."
     }
   ],
   "carrying_capacity": {
@@ -1213,21 +1191,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 81,
-      "base": "#6b2fa0",
-      "family": "indigo"
-    },
-    {
-      "gen": 82,
-      "base": "#0a7e6a",
-      "family": "green"
-    },
-    {
-      "gen": 83,
-      "base": "#b87520",
-      "family": "orange"
-    },
     {
       "gen": 84,
       "base": "#b83058",
@@ -1262,6 +1225,21 @@
       "gen": 90,
       "base": "#8b2820",
       "family": "red"
+    },
+    {
+      "gen": 91,
+      "base": "#5a2d6e",
+      "family": "indigo"
+    },
+    {
+      "gen": 92,
+      "base": "#4a5d2a",
+      "family": "amber"
+    },
+    {
+      "gen": 93,
+      "base": "#8b2851",
+      "family": "magenta"
     }
   ],
   "past_epochs": [
@@ -1289,32 +1267,6 @@
   ],
   "epoch_number": 4,
   "contrast_warnings": [
-    {
-      "gen": 81,
-      "messages": [
-        "  [contrast-gate below-fold] effective bg = #f5f0e6 from .below-fold:211 (raw: var(--bg-below-fold, #fffff5))",
-        "    FAIL  #f5f0e6  ratio=1.00:1  (< 4.5)"
-      ],
-      "timestamp": "2026-04-20T16:03:35Z"
-    },
-    {
-      "gen": 82,
-      "messages": [
-        "  [contrast-gate below-fold] effective bg = #f5f0e6 from .below-fold:211 (raw: var(--bg-below-fold, #fffff5))",
-        "    FAIL  #0a7e6a  ratio=4.40:1  (< 4.5)",
-        "    FAIL  #f5f0e6  ratio=1.00:1  (< 4.5)"
-      ],
-      "timestamp": "2026-04-21T00:03:41Z"
-    },
-    {
-      "gen": 83,
-      "messages": [
-        "  [contrast-gate below-fold] effective bg = #f5f0e6 from .below-fold:211 (raw: var(--bg-below-fold, #fffff5))",
-        "    FAIL  #888888  ratio=3.12:1  (< 4.5)",
-        "    FAIL  #f5f0e6  ratio=1.00:1  (< 4.5)"
-      ],
-      "timestamp": "2026-04-21T08:03:02Z"
-    },
     {
       "gen": 84,
       "messages": [
@@ -1368,6 +1320,27 @@
         "    FAIL  #888888  ratio=3.12:1  (< 4.5)"
       ],
       "timestamp": "2026-04-27T08:07:08Z"
+    },
+    {
+      "gen": 91,
+      "messages": [
+        "  CONTRAST GATE: hierarchy collapse detected \u2014 all text tiers within luminance range [0.010, 0.091] (span 0.081, min 0.15)"
+      ],
+      "timestamp": "2026-04-27T16:07:41Z"
+    },
+    {
+      "gen": 92,
+      "messages": [
+        "  CONTRAST GATE: hierarchy collapse detected \u2014 all text tiers within luminance range [0.010, 0.095] (span 0.084, min 0.15)"
+      ],
+      "timestamp": "2026-04-28T00:10:10Z"
+    },
+    {
+      "gen": 93,
+      "messages": [
+        "  CONTRAST GATE: hierarchy collapse detected \u2014 all text tiers within luminance range [0.010, 0.095] (span 0.084, min 0.15)"
+      ],
+      "timestamp": "2026-04-28T08:03:05Z"
     }
   ]
 }
