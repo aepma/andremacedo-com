@@ -189,7 +189,9 @@ INPUT_JSONL="$INPUT_JSONL_FILE" OUTPUT_FILE="$HELPER_OUTPUT_FILE" CLAUDE_MAX_BUD
   bash "$HOME/.openclaw/scripts/claude-subscription-exec.sh" \
   --model opus \
   --input-format stream-json --output-format json \
-  --max-turns 1
+  --max-turns 1 \
+  --strict-mcp-config --mcp-config "$HOME/.openclaw/andremacedo-runner-mcp.json" \
+  --no-session-persistence
 HELPER_EXIT=$?
 set -e
 
