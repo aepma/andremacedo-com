@@ -88,8 +88,28 @@ record_success() {
 
 # Any exit path that doesn't reach record_success counts as a failure.
 # Prevents silent skips (no deploy, no counter increment) from going undetected.
+# One named function handles both cleanup and the guard so later trap calls
+# (for temp-file cleanup) cannot silently overwrite the guard.
 DEPLOY_SUCCEEDED=0
-trap 'if [ "$DEPLOY_SUCCEEDED" = "0" ]; then record_failure; fi' EXIT
+
+_on_exit() {
+  # Cleanup temp files. Use ${VAR:+"$VAR"} so unset vars (early exits) produce
+  # no argument rather than an empty-string argument to rm.
+  rm -f \
+    ${PROMPT_FILE:+"$PROMPT_FILE"} \
+    ${HTTP_RESPONSE_FILE:+"$HTTP_RESPONSE_FILE"} \
+    ${INPUT_JSONL_FILE:+"$INPUT_JSONL_FILE"} \
+    ${HELPER_OUTPUT_FILE:+"$HELPER_OUTPUT_FILE"} \
+    ${PARSE_RESULT_FILE:+"$PARSE_RESULT_FILE"} \
+    2>/dev/null || true
+  # Guard: any unexpected exit that didn't call record_failure must still trip
+  # the counter so launchd's next run starts with an accurate failure count.
+  if [ "${DEPLOY_SUCCEEDED:-0}" = "0" ]; then
+    log_error "unexpected exit without deploy — tripping failure counter"
+    record_failure
+  fi
+}
+trap '_on_exit' EXIT
 
 # ── Pre-flight ─────────────────────────────────────────────────────
 if ! ~/.local/bin/claude auth status 2>/dev/null | python3 -c "
@@ -149,7 +169,6 @@ bash "$SCRIPT_DIR/screenshot.sh" >> "$LOG_FILE" 2>&1 || {
 # ── Build prompt ───────────────────────────────────────────────────
 PROMPT_FILE="$(mktemp)"
 HTTP_RESPONSE_FILE="$(mktemp)"
-trap 'rm -f "$PROMPT_FILE" "$HTTP_RESPONSE_FILE"' EXIT  # updated below if REQUEST_FILE created
 
 SCREENSHOT_ARG=""
 [ -f "$SCREENSHOT" ] && SCREENSHOT_ARG="--screenshot=$SCREENSHOT"
@@ -167,7 +186,6 @@ log "Starting $PULSE_TYPE pulse..."
 INPUT_JSONL_FILE="$(mktemp)"
 HELPER_OUTPUT_FILE="$(mktemp)"
 PARSE_RESULT_FILE="$(mktemp)"
-trap 'rm -f "$PROMPT_FILE" "$HTTP_RESPONSE_FILE" "$INPUT_JSONL_FILE" "$HELPER_OUTPUT_FILE" "$PARSE_RESULT_FILE"' EXIT
 
 python3 - "$PROMPT_FILE" "${SCREENSHOT:-}" "$INPUT_JSONL_FILE" <<'PYEOF'
 import base64, json, os, sys
