@@ -1,17 +1,17 @@
 {
-  "generation": 93,
+  "generation": 94,
   "epoch": "webgl-swarm",
   "epoch_started": "2026-04-19",
   "traits": {
     "color": {
-      "accent_base": "#8b2851",
-      "accent_dawn": "#a8385f",
-      "accent_morning": "#9a3058",
-      "accent_afternoon": "#8b2851",
-      "accent_evening": "#7c2046",
-      "accent_night": "#5c1632",
-      "bg": "#f5f0e6",
-      "fg": "#1a1a1a",
+      "accent_base": "#1a4a3a",
+      "accent_dawn": "#2a5d4a",
+      "accent_morning": "#1f5340",
+      "accent_afternoon": "#1a4a3a",
+      "accent_evening": "#143d30",
+      "accent_night": "#0d2e23",
+      "bg": "#fbf6e9",
+      "fg": "#0a0a0a",
       "grain_opacity": "0",
       "fg_dim": "#555555",
       "bg_surface": "#f5f5f5",
@@ -50,6 +50,7 @@
         "experiments/015.html",
         "experiments/003.html",
         "experiments/019.html",
+        "experiments/023.html",
         "experiments/020.html",
         "experiments/016.html",
         "experiments/001.html",
@@ -153,7 +154,7 @@
       "obsession": "typography as architecture \u2014 the letter is a building, the word is a street, the page is a city",
       "thought_pools": {
         "dawn": 5,
-        "morning": 4,
+        "morning": 5,
         "afternoon": 4,
         "evening": 4,
         "night": 6
@@ -162,17 +163,6 @@
     }
   },
   "fitness_log": [
-    {
-      "gen": 74,
-      "coherence": 5,
-      "novelty": 4,
-      "identity": 5,
-      "tension": 3,
-      "awe": 2,
-      "perceptibility": 4,
-      "note": "The screenshot shows real progress: cream background holds, Playfair Display hero text is large and readable, the vermillion accent is visible on expe",
-      "total": 3.8
-    },
     {
       "gen": 75,
       "coherence": 5,
@@ -381,33 +371,20 @@
       "perceptibility": 6,
       "note": "Gen 92's axonometric landed but the folio is now four sheets deep without surprise \u2014 the diminishing-returns warning from my own self-note is showing.",
       "total": 5.7
+    },
+    {
+      "gen": 94,
+      "coherence": 7,
+      "novelty": 4,
+      "identity": 8,
+      "tension": 3,
+      "awe": 4,
+      "perceptibility": 6,
+      "note": "Five sheets deep into the folio. Identity is rock-solid \u2014 anyone landing on this site sees an architectural drawing of a letter, full stop. But novelt",
+      "total": 5.3
     }
   ],
   "mutation_log": [
-    {
-      "gen": 74,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "content.mood",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "section.overlay-center",
-        "section.thought-floater",
-        "section.scroll-hint",
-        "section.overlay-bottom",
-        "section.prototype-portfolio",
-        "svg.editorial-maximalist-glyph-002.svg",
-        "scene.config",
-        "scene.shaders"
-      ],
-      "kills": [
-        "css_rule:gen73-css",
-        "secret[0]"
-      ],
-      "timestamp": "2026-04-18T16:02:40Z"
-    },
     {
       "gen": 75,
       "mutations": [
@@ -871,21 +848,28 @@
         "secret[0]"
       ],
       "timestamp": "2026-04-28T08:03:05Z"
+    },
+    {
+      "gen": 94,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "section.overlay-center",
+        "section.prototype-portfolio",
+        "page.experiments/023.html",
+        "scene.config"
+      ],
+      "kills": [
+        "css_rule:gen93-css",
+        "secret[0]"
+      ],
+      "timestamp": "2026-04-28T22:35:02Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "css_rule",
-      "value": "gen76-css",
-      "died_gen": 77,
-      "epitaph": "Gen 76 was the optimist turn with amber-gold. Gen 77 shifts to deep crimson \u2014 the color of editorial confidence, of wax seals, of correction marks. The amber served its day."
-    },
-    {
-      "type": "secret",
-      "value": "The swarm remembers the metallurgy epoch. Somewhere in the particle field, one m",
-      "died_gen": 77,
-      "epitaph": "Secret pool at 21, needs to be 20. Oldest secret dies to make room for the gen 77 mark."
-    },
     {
       "type": "epoch",
       "value": "Epoch 3: meridians \u2014 the invisible lines that divide and organize the world",
@@ -1173,6 +1157,18 @@
       "value": "Generation 69 abandoned all canvases. The page became pure text on black. Or tri",
       "died_gen": 93,
       "epitaph": "Secret pool was at 21/20 \u2014 over carrying capacity. Rotated the oldest out to make room for the 'detail' replay secret."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen93-css",
+      "died_gen": 94,
+      "epitaph": "Superseded by gen94-css. The mortar-rose served the wall section detail \u2014 the site plan needs drafting green."
+    },
+    {
+      "type": "secret",
+      "value": "Generation 70 is the generation that stopped lying to itself.",
+      "died_gen": 94,
+      "epitaph": "Secret pool was at 21/20 \u2014 over carrying capacity. Rotated the oldest out to make room for the site plan."
     }
   ],
   "carrying_capacity": {
@@ -1191,11 +1187,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 84,
-      "base": "#b83058",
-      "family": "magenta"
-    },
     {
       "gen": 85,
       "base": "#1a5fa0",
@@ -1240,6 +1231,11 @@
       "gen": 93,
       "base": "#8b2851",
       "family": "magenta"
+    },
+    {
+      "gen": 94,
+      "base": "#1a4a3a",
+      "family": "green"
     }
   ],
   "past_epochs": [
@@ -1267,13 +1263,6 @@
   ],
   "epoch_number": 4,
   "contrast_warnings": [
-    {
-      "gen": 84,
-      "messages": [
-        "  CONTRAST GATE: hierarchy collapse detected \u2014 all text tiers within luminance range [0.010, 0.042] (span 0.032, min 0.15)"
-      ],
-      "timestamp": "2026-04-21T16:03:02Z"
-    },
     {
       "gen": 85,
       "messages": [
@@ -1341,6 +1330,13 @@
         "  CONTRAST GATE: hierarchy collapse detected \u2014 all text tiers within luminance range [0.010, 0.095] (span 0.084, min 0.15)"
       ],
       "timestamp": "2026-04-28T08:03:05Z"
+    },
+    {
+      "gen": 94,
+      "messages": [
+        "  CONTRAST GATE: hierarchy collapse detected \u2014 all text tiers within luminance range [0.003, 0.144] (span 0.141, min 0.15)"
+      ],
+      "timestamp": "2026-04-28T22:35:02Z"
     }
   ]
 }
