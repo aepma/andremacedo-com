@@ -128,6 +128,26 @@ if [ ! -f "$STATE_FILE" ]; then
   exit 1
 fi
 
+# --- Monthly token counter auto-reset ---
+# If state's last_token_reset_month differs from current YYYY-MM,
+# zero monthly_tokens_used and update last_token_reset_month.
+CURRENT_MONTH="$(date -u +%Y-%m)"
+LAST_RESET_MONTH=$(python3 -c 'import json,sys; print(json.load(sys.stdin).get("last_token_reset_month",""))' < "$STATE_FILE")
+if [ "$CURRENT_MONTH" != "$LAST_RESET_MONTH" ]; then
+  log "Month rollover detected (${LAST_RESET_MONTH:-unset} -> $CURRENT_MONTH). Resetting token counter."
+  python3 - "$STATE_FILE" "$CURRENT_MONTH" <<'PYEOF'
+import json, sys
+sf, cm = sys.argv[1], sys.argv[2]
+with open(sf) as f:
+    s = json.load(f)
+s['monthly_tokens_used'] = 0
+s['last_token_reset_month'] = cm
+with open(sf, 'w') as f:
+    json.dump(s, f, indent=2, ensure_ascii=False)
+PYEOF
+fi
+# --- end auto-reset ---
+
 MONTHLY_USED=$(python3 -c 'import json,sys; print(json.load(sys.stdin).get("monthly_tokens_used",0))' < "$STATE_FILE")
 MONTHLY_CEILING=$(python3 -c 'import json,sys; print(json.load(sys.stdin).get("monthly_token_ceiling",200000))' < "$STATE_FILE")
 
