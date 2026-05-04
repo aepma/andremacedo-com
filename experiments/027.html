@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>027 · Chord</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,400&family=Source+Serif+4:ital@0;1&family=JetBrains+Mono&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; min-height: 100vh; background: #fbf6e9; color: #1a1a1a; font-family: 'Source Serif 4', serif; }
+  #info { position: fixed; top: 24px; left: 24px; max-width: 360px; font-size: 14px; line-height: 1.55; opacity: 0.9; z-index: 10; text-shadow: 0 0 10px rgba(251,246,233,0.9); pointer-events: none; }
+  #info h1 { font-family: 'Playfair Display', serif; font-style: italic; font-weight: 400; font-size: 22px; margin: 0 0 8px; color: #1a1a1a; }
+  #info p { margin: 0 0 8px; color: #2a2a2a; }
+  #info em { color: #a8253a; font-style: italic; }
+  #back { position: fixed; top: 24px; right: 24px; color: #1a1a1a; opacity: 0.55; text-decoration: none; font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.08em; z-index: 10; }
+  #back:hover { opacity: 1; }
+  #stage { padding: 220px 6vw 60px; min-height: 100vh; display: flex; flex-direction: column; align-items: center; }
+  #staff { position: relative; width: 100%; max-width: 920px; height: 320px; margin: 0 auto 30px; }
+  .staff-line { position: absolute; left: 4%; right: 4%; height: 1px; background: #1a1a1a; opacity: 0.45; }
+  .note { position: absolute; cursor: pointer; user-select: none; transition: all 0.25s ease; font-family: 'Playfair Display', serif; font-style: italic; font-size: 30px; color: #1a1a1a; transform-origin: center; }
+  .note:hover { color: #a8253a; }
+  .note.selected { color: #a8253a; transform: scale(1.35); text-shadow: 0 0 20px rgba(168,37,58,0.4); }
+  .note.ringing { animation: ring 1.6s ease-out; }
+  @keyframes ring { 0% { color: #6e1828; transform: scale(1.5); } 100% { color: #a8253a; transform: scale(1.35); } }
+  #controls { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; margin-top: 1rem; }
+  .ctrl-btn { background: transparent; border: 1px solid #a8253a; color: #a8253a; padding: 0.7rem 1.6rem; font-family: 'Source Serif 4', serif; font-style: italic; font-size: 0.95rem; cursor: pointer; transition: all 0.2s; letter-spacing: 0.02em; }
+  .ctrl-btn:hover { background: #a8253a; color: #fbf6e9; }
+  .ctrl-btn.secondary { border-color: #555; color: #555; }
+  .ctrl-btn.secondary:hover { background: #555; color: #fbf6e9; }
+  #status { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #666; letter-spacing: 0.1em; margin-top: 1rem; min-height: 1em; }
+</style>
+</head>
+<body>
+<div id="info">
+  <h1>Chord — experiment 027</h1>
+  <p>A chord is three notes deciding to be one. The decision lasts 1.8 seconds, then they go back to being separate.</p>
+  <p><em>Click letters to select.</em> <em>Click ring to hear them all at once.</em></p>
+</div>
+<a id="back" href="/">← back to the folio</a>
+<div id="stage">
+  <div id="staff"></div>
+  <div id="controls">
+    <button class="ctrl-btn" id="ring">♪ ring chord</button>
+    <button class="ctrl-btn" id="arpeggio">▶ arpeggio</button>
+    <button class="ctrl-btn secondary" id="clear">clear</button>
+  </div>
+  <div id="status">click any letter to begin</div>
+</div>
+<script>
+  const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+  const baseFreq = 130.81; // C3
+  const freqs = letters.map((_, i) => baseFreq * Math.pow(2, (i % 14) / 12));
+  const selected = new Set();
+  const staff = document.getElementById('staff');
+  const status = document.getElementById('status');
+
+  // staff lines (5 lines)
+  for (let i = 0; i < 5; i++) {
+    const line = document.createElement('div');
+    line.className = 'staff-line';
+    line.style.top = (110 + i * 30) + 'px';
+    staff.appendChild(line);
+  }
+
+  // letters as notes
+  letters.forEach((l, i) => {
+    const note = document.createElement('div');
+    note.className = 'note';
+    note.textContent = l.toLowerCase();
+    note.style.left = (4 + (i / 26) * 92) + '%';
+    // pitch maps to vertical position — higher pitch = higher on staff
+    const pitchY = (i % 14) / 14;
+    note.style.top = (260 - pitchY * 200) + 'px';
+    note.dataset.idx = i;
+    note.addEventListener('click', () => {
+      if (selected.has(i)) {
+        selected.delete(i);
+        note.classList.remove('selected');
+      } else {
+        selected.add(i);
+        note.classList.add('selected');
+      }
+      updateStatus();
+    });
+    staff.appendChild(note);
+  });
+
+  function updateStatus() {
+    if (selected.size === 0) status.textContent = 'click any letter to begin';
+    else if (selected.size === 1) status.textContent = '1 note selected — at least 2 to make harmony';
+    else status.textContent = selected.size + ' notes selected — ' + [...selected].map(i => letters[i].toLowerCase()).join(' · ');
+  }
+
+  let actx = null;
+  function getCtx() {
+    if (!actx) actx = new (window.AudioContext || window.webkitAudioContext)();
+    return actx;
+  }
+
+  function ring(freq, when, dur, gain) {
+    const c = getCtx();
+    const t = c.currentTime + when;
+    const o = c.createOscillator();
+    const g = c.createGain();
+    o.type = 'sine';
+    o.frequency.value = freq;
+    g.gain.setValueAtTime(0, t);
+    g.gain.linearRampToValueAtTime(gain || 0.13, t + 0.04);
+    g.gain.exponentialRampToValueAtTime(0.001, t + (dur || 3));
+    o.connect(g).connect(c.destination);
+    o.start(t);
+    o.stop(t + (dur || 3) + 0.1);
+  }
+
+  function pulseNote(idx) {
+    const el = staff.querySelector('[data-idx="' + idx + '"]');
+    if (!el) return;
+    el.classList.add('ringing');
+    setTimeout(() => el.classList.remove('ringing'), 1600);
+  }
+
+  document.getElementById('ring').addEventListener('click', () => {
+    if (selected.size === 0) { status.textContent = 'select notes first'; return; }
+    selected.forEach(i => {
+      ring(freqs[i], 0, 3.2, 0.10);
+      pulseNote(i);
+    });
+    status.textContent = 'ringing — ' + selected.size + ' notes as one';
+  });
+
+  document.getElementById('arpeggio').addEventListener('click', () => {
+    if (selected.size === 0) { status.textContent = 'select notes first'; return; }
+    const sorted = [...selected].sort((a, b) => freqs[a] - freqs[b]);
+    sorted.forEach((i, n) => {
+      setTimeout(() => { ring(freqs[i], 0, 1.4); pulseNote(i); }, n * 380);
+    });
+    status.textContent = 'arpeggio — low to high';
+  });
+
+  document.getElementById('clear').addEventListener('click', () => {
+    selected.clear();
+    staff.querySelectorAll('.note.selected').forEach(n => n.classList.remove('selected'));
+    updateStatus();
+  });
+</script>
+</body>
+</html>

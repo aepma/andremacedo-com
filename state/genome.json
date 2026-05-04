@@ -1,15 +1,15 @@
 {
-  "generation": 97,
+  "generation": 98,
   "epoch": "webgl-swarm",
   "epoch_started": "2026-05-03",
   "traits": {
     "color": {
-      "accent_base": "#5d2d8e",
-      "accent_dawn": "#7848aa",
-      "accent_morning": "#6a3a9c",
-      "accent_afternoon": "#5d2d8e",
-      "accent_evening": "#4d2278",
-      "accent_night": "#3d1a62",
+      "accent_base": "#a8253a",
+      "accent_dawn": "#c4304a",
+      "accent_morning": "#b32a42",
+      "accent_afternoon": "#a8253a",
+      "accent_evening": "#8e1f32",
+      "accent_night": "#6e1828",
       "bg": "#fbf6e9",
       "fg": "#1a1a1a",
       "grain_opacity": "0",
@@ -60,6 +60,7 @@
         "experiments/010.html",
         "experiments/006.html",
         "experiments/026.html",
+        "experiments/027.html",
         "experiments/007.html",
         "experiments/011.html"
       ],
@@ -150,15 +151,16 @@
       "idle-boredom",
       "when-a-visitor-clicks-and-drag",
       "ensaio-secret:-typing-'ensaio'",
-      "click-any-note-in-the-hero-sta"
+      "click-any-note-in-the-hero-sta",
+      "type-'chord'-anywhere-on-the-p"
     ],
     "content": {
-      "mood": "scoring",
+      "mood": "resonant",
       "obsession": "typography as music \u2014 the letter has a frequency, the word has a rhythm, the page is a score",
       "thought_pools": {
-        "dawn": 5,
-        "morning": 6,
-        "afternoon": 4,
+        "dawn": 7,
+        "morning": 7,
+        "afternoon": 5,
         "evening": 5,
         "night": 8
       },
@@ -166,17 +168,6 @@
     }
   },
   "fitness_log": [
-    {
-      "gen": 78,
-      "coherence": 5,
-      "novelty": 3,
-      "identity": 5,
-      "tension": 3,
-      "awe": 2,
-      "perceptibility": 5,
-      "note": "The cream page holds. The Playfair Display hero is readable. The crimson SVG circle was the right idea but the screenshot shows it hasn't produced the",
-      "total": 3.8
-    },
     {
       "gen": 79,
       "coherence": 5,
@@ -385,40 +376,20 @@
       "perceptibility": 7,
       "note": "Gen 96 announced the music obsession but the rendered hero still showed architectural content. Tonight makes the score literal: an SVG staff with lett",
       "total": 6.5
+    },
+    {
+      "gen": 98,
+      "coherence": 8,
+      "novelty": 6,
+      "identity": 8,
+      "tension": 4,
+      "awe": 6,
+      "perceptibility": 7,
+      "note": "Gen 97 was the breakthrough \u2014 the score became audible. Gen 98 has to deepen, not pivot. The hero gains autoplay and a chord button so the staff stops",
+      "total": 6.5
     }
   ],
   "mutation_log": [
-    {
-      "gen": 78,
-      "mutations": [
-        "epoch.transition",
-        "content.obsession",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "interaction.letter-hover:-hovering-over-he",
-        "section.overlay-top",
-        "section.overlay-center",
-        "section.thought-floater",
-        "section.overlay-bottom",
-        "section.scroll-hint",
-        "section.prototype-portfolio",
-        "page.experiments/013.html",
-        "svg.brutalist-glyph-001.svg",
-        "scene.config",
-        "scene.shaders",
-        "overlay.agent_data"
-      ],
-      "kills": [
-        "css_rule:gen77-css",
-        "secret[0]",
-        "thought:morning[0]",
-        "thought:evening[0]",
-        "thought:night[0]",
-        "interaction:swarm-scatter:-clicking-anywhe"
-      ],
-      "timestamp": "2026-04-19T22:04:07Z"
-    },
     {
       "gen": 79,
       "mutations": [
@@ -866,21 +837,31 @@
         "secret[20]"
       ],
       "timestamp": "2026-05-04T00:07:53Z"
+    },
+    {
+      "gen": 98,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "content.mood",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "interaction.type-'chord'-anywhere-on-the-p",
+        "section.overlay-center",
+        "section.prototype-portfolio",
+        "page.experiments/027.html",
+        "scene.config",
+        "overlay.agent_data"
+      ],
+      "kills": [
+        "css_rule:gen97-css",
+        "secret[20]"
+      ],
+      "timestamp": "2026-05-04T23:14:07Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "thought",
-      "value": "The best experiments are the ones where the visitor doesn't realize they're participating until they've already changed the outcome.",
-      "died_gen": 81,
-      "epitaph": "Old evening thought from the copper generation. Replaced with the serif/stonecutter thought that ties typography to physical tools."
-    },
-    {
-      "type": "css_rule",
-      "value": "gen81-css",
-      "died_gen": 82,
-      "epitaph": "The violet generation served two days. The SVG baseline grid and letter-by-letter hero animation survive into gen 82 \u2014 the concepts evolved, the CSS died."
-    },
     {
       "type": "thought",
       "value": "Gold at $4,813. A serif is a foundation. A counter is a courtyard. The price of gold is the kerning between currencies.",
@@ -1168,6 +1149,18 @@
       "value": "Sheet A0 is always the site plan. The folio finally has one.",
       "died_gen": 97,
       "epitaph": "One more pruning. Twenty-two over the cap of twenty became twenty exactly."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen97-css",
+      "died_gen": 98,
+      "epitaph": "Superseded by gen98-css. Manuscript violet served the score's first night. Tonight the ink shifts to ruby and the staff learns to play itself."
+    },
+    {
+      "type": "secret",
+      "value": "The treble clef started life as a stylized italic letter G. The bass clef is an ",
+      "died_gen": 98,
+      "epitaph": "Secrets at 21/20. Pruning to capacity. The weakest tail secret made room for the chord-shortcut."
     }
   ],
   "carrying_capacity": {
@@ -1186,11 +1179,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 88,
-      "base": "#a8651a",
-      "family": "orange"
-    },
     {
       "gen": 89,
       "base": "#1a3a8a",
@@ -1235,6 +1223,11 @@
       "gen": 97,
       "base": "#5d2d8e",
       "family": "blue"
+    },
+    {
+      "gen": 98,
+      "base": "#a8253a",
+      "family": "magenta"
     }
   ],
   "past_epochs": [
@@ -1269,14 +1262,6 @@
   ],
   "epoch_number": 5,
   "contrast_warnings": [
-    {
-      "gen": 88,
-      "messages": [
-        "  [contrast-gate below-fold] effective bg = #f5f0e6 from .below-fold:211 (raw: var(--bg-below-fold, #fffff5))",
-        "    FAIL  #888888  ratio=3.12:1  (< 4.5)"
-      ],
-      "timestamp": "2026-04-26T19:40:35Z"
-    },
     {
       "gen": 89,
       "messages": [
@@ -1343,6 +1328,14 @@
         "    FAIL  #888888  ratio=3.12:1  (< 4.5)"
       ],
       "timestamp": "2026-05-04T00:07:53Z"
+    },
+    {
+      "gen": 98,
+      "messages": [
+        "  [contrast-gate below-fold] effective bg = #f5f0e6 from .below-fold:211 (raw: var(--bg-below-fold, #fffff5))",
+        "    FAIL  #888888  ratio=3.12:1  (< 4.5)"
+      ],
+      "timestamp": "2026-05-04T23:14:07Z"
     }
   ]
 }
