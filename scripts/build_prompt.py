@@ -80,6 +80,58 @@ def get_swarm_activity():
         return ""
 
 
+def get_sensorium_context():
+    """Read TELOS Clio sensorium and format as creative material section.
+    Fail-closed on auditor problems, graceful on missing/stale data.
+    """
+    try:
+        from datetime import datetime, timezone
+        path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'data', 'sensorium.json')
+        if not os.path.isfile(path):
+            return ""
+        with open(path) as f:
+            data = json.load(f)
+        # Fail-closed: if auditor smoke test failed, refuse to use any of it
+        smoke = data.get("auditor_smoke_test", {})
+        if not smoke.get("passed", False):
+            return ""
+        themes = data.get("themes", [])
+        if not themes:
+            return ""
+        # Compute freshness
+        gen_at = data.get("generated_at", "")
+        freshness = ""
+        try:
+            gen_dt = datetime.fromisoformat(gen_at.replace("Z", "+00:00"))
+            age_hours = (datetime.now(timezone.utc) - gen_dt).total_seconds() / 3600
+            if age_hours > 24:
+                freshness = f" (stale, {age_hours:.0f}h old)"
+            elif age_hours > 12:
+                freshness = f" ({age_hours:.0f}h old)"
+        except Exception:
+            pass
+        lines = [f"## TELOS sensorium{freshness}"]
+        lines.append(
+            "This is what the multi-agent system you live inside has been doing this week, "
+            "abstracted through a privacy-preserving pipeline. Use as creative material if "
+            "it moves you. Ignore if it doesn't. The system is reading itself."
+        )
+        lines.append("")
+        lines.append(f"Overall mood: {data.get('overall_mood', 'unknown')}")
+        lines.append(f"Overall tempo: {data.get('overall_tempo', 'unknown')}")
+        lines.append("")
+        lines.append("Themes (sorted by weight):")
+        for t in sorted(themes, key=lambda x: x.get('weight', 0), reverse=True):
+            label = t.get('label', '')
+            mood = t.get('mood', '')
+            tempo = t.get('tempo', '')
+            weight = t.get('weight', 0)
+            lines.append(f"- {label} | {mood} | {tempo} | w={weight}")
+        return '\n'.join(lines)
+    except Exception:
+        return ""
+
+
 pulse_type = sys.argv[1]
 state_file = sys.argv[2]
 external_file = sys.argv[3]
@@ -303,6 +355,7 @@ html = read_file(index_file)
 genome_summary = format_genome_summary(genome, html)
 feedback_context = get_feedback_signals()
 swarm_context = get_swarm_activity()
+sensorium_context = get_sensorium_context()
 
 # ── Dynamic experiment inventory ────────────────────────────────
 site_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -465,6 +518,8 @@ Current CSS variables:
 
 {swarm_context}
 
+{sensorium_context}
+
 {capabilities}
 
 ## VISITOR ANALYTICS (use for fitness evaluation)
@@ -560,6 +615,8 @@ Today is {today}, {day_of_week}. Time of day: {tod}.
 {feedback_context}
 
 {swarm_context}
+
+{sensorium_context}
 
 {capabilities}
 

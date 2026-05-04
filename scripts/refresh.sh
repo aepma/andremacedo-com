@@ -194,4 +194,15 @@ print(json.dumps(data, indent=2))
   exit 1
 }
 
+# ── Update TELOS sensorium ────────────────────────────────────────
+log "Updating TELOS sensorium (Clio pipeline)..."
+SENSORIUM_LOG=/tmp/sensorium-refresh.log
+if timeout 240 python3 "$SCRIPTS_DIR/sensorium.py" >"$SENSORIUM_LOG" 2>&1; then
+  SENSORIUM_THEMES=$(python3 -c "import json;d=json.load(open('$SITE_DIR/data/sensorium.json'));print(len(d.get('themes',[])))" 2>/dev/null || echo "?")
+  SENSORIUM_MOOD=$(python3 -c "import json;d=json.load(open('$SITE_DIR/data/sensorium.json'));print(d.get('overall_mood','?'))" 2>/dev/null || echo "?")
+  log "Sensorium updated: themes=$SENSORIUM_THEMES mood=\"$SENSORIUM_MOOD\""
+else
+  log "WARN: sensorium update failed (see $SENSORIUM_LOG); build_prompt.py will skip section"
+fi
+
 log "Refreshed: gold=$GOLD_USD temp=${WEATHER_TEMP}F ${WEATHER_DESC} pv_7d=$ANALYTICS_PAGEVIEWS_7D"
