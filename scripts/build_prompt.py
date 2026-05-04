@@ -132,38 +132,6 @@ def get_sensorium_context():
         return ""
 
 
-def get_toolkit_context():
-    """Read the curated toolkit pantry and surface it to the agent as material options.
-    Graceful on missing file, never breaks the pulse.
-    """
-    try:
-        path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'data', 'toolkit.json')
-        if not os.path.isfile(path):
-            return ""
-        with open(path) as f:
-            data = json.load(f)
-        affordances = data.get("affordances", [])
-        if not affordances:
-            return ""
-        lines = ["## Available materials (open web, " + str(data.get("curated_at", "")) + ")"]
-        intent = data.get("intent", "")
-        if intent:
-            lines.append(intent)
-            lines.append("")
-        for a in affordances:
-            lines.append(f"### {a.get('name', a.get('id', '?'))}")
-            if a.get('what'):
-                lines.append(a['what'])
-            if a.get('how'):
-                lines.append(f"How: {a['how']}")
-            if a.get('novelty'):
-                lines.append(f"Why it matters: {a['novelty']}")
-            lines.append("")
-        return '\n'.join(lines)
-    except Exception:
-        return ""
-
-
 pulse_type = sys.argv[1]
 state_file = sys.argv[2]
 external_file = sys.argv[3]
@@ -388,7 +356,6 @@ genome_summary = format_genome_summary(genome, html)
 feedback_context = get_feedback_signals()
 swarm_context = get_swarm_activity()
 sensorium_context = get_sensorium_context()
-toolkit_context = get_toolkit_context()
 
 # ── Dynamic experiment inventory ────────────────────────────────
 site_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -553,8 +520,6 @@ Current CSS variables:
 
 {sensorium_context}
 
-{toolkit_context}
-
 {capabilities}
 
 ## VISITOR ANALYTICS (use for fitness evaluation)
@@ -652,8 +617,6 @@ Today is {today}, {day_of_week}. Time of day: {tod}.
 {swarm_context}
 
 {sensorium_context}
-
-{toolkit_context}
 
 {capabilities}
 
