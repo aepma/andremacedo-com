@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Octaves — Experiment 026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,900&family=JetBrains+Mono&family=Source+Serif+4&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fbf6e9;--fg:#1a1a1a;--accent:#5d2d8e;--soft:#888888;--mid:#4a4a4a}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--fg);font-family:'Source Serif 4',serif;min-height:100vh;overflow-x:hidden}
+#info{position:fixed;top:32px;left:32px;max-width:340px;font-size:13px;line-height:1.6;z-index:10;text-shadow:0 0 8px rgba(251,246,233,0.9),0 0 18px rgba(251,246,233,0.6);color:var(--mid)}
+#info h1{font-family:'Playfair Display',serif;font-style:italic;font-weight:900;font-size:22px;margin-bottom:10px;color:var(--fg)}
+#info p{margin-bottom:8px}
+#info p.hint{color:var(--soft);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;margin-top:14px}
+#letter-control{position:fixed;top:32px;right:32px;z-index:10;text-shadow:0 0 8px rgba(251,246,233,0.9)}
+#letter-control label{display:block;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--soft);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:6px;text-align:right}
+#letter-control input{font-family:'Playfair Display',serif;font-style:italic;font-weight:900;font-size:24px;padding:8px 14px;background:rgba(255,255,255,0.65);border:1px solid var(--accent);color:var(--fg);width:80px;text-align:center;border-radius:2px;outline:none}
+#letter-control input:focus{background:rgba(255,255,255,0.95)}
+#stack{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;gap:6px;padding:80px 0}
+.octave{font-family:'Playfair Display',serif;font-style:italic;font-weight:900;color:var(--accent);cursor:pointer;line-height:0.9;transition:transform 0.45s cubic-bezier(0.2,0.8,0.2,1),color 0.3s ease,opacity 0.4s ease;user-select:none;display:block}
+.octave[data-octave="1"]{font-size:220px}
+.octave[data-octave="2"]{font-size:150px}
+.octave[data-octave="3"]{font-size:100px}
+.octave[data-octave="4"]{font-size:68px}
+.octave[data-octave="5"]{font-size:46px}
+.octave[data-octave="6"]{font-size:30px}
+.octave:hover{color:var(--fg)}
+.octave.ringing{transform:scale(1.12);color:var(--fg)}
+.octave.dim{opacity:0.18}
+#back{position:fixed;bottom:32px;left:32px;color:var(--accent);font-size:13px;font-family:'JetBrains Mono',monospace;text-decoration:none;letter-spacing:0.05em;text-shadow:0 0 8px rgba(251,246,233,0.9)}
+#back:hover{color:var(--fg)}
+#freq-readout{position:fixed;bottom:32px;right:32px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--soft);letter-spacing:0.08em;text-shadow:0 0 8px rgba(251,246,233,0.9)}
+@media (max-width:700px){.octave[data-octave="1"]{font-size:130px}.octave[data-octave="2"]{font-size:90px}.octave[data-octave="3"]{font-size:64px}.octave[data-octave="4"]{font-size:46px}.octave[data-octave="5"]{font-size:32px}.octave[data-octave="6"]{font-size:22px}#info{position:relative;top:auto;left:auto;padding:24px;max-width:none}#letter-control{position:relative;top:auto;right:auto;padding:0 24px 24px}#letter-control label{text-align:left}}
+</style>
+</head>
+<body>
+<div id="info">
+<h1>Octaves</h1>
+<p>Six copies of one letter, each an octave apart. The lowest is biggest because low notes carry more body. The highest is smallest because high notes are quick and bright.</p>
+<p>Doubling the frequency moves a note up one octave. The same letter, an octave higher, is still the same letter — just more itself.</p>
+<p class="hint">Click any letter to hear its octave. Type to change which letter sings.</p>
+</div>
+<div id="letter-control">
+<label>letter</label>
+<input id="letter-input" type="text" maxlength="1" value="a" autocomplete="off" spellcheck="false">
+</div>
+<div id="stack">
+<div class="octave" data-octave="1">a</div>
+<div class="octave" data-octave="2">a</div>
+<div class="octave" data-octave="3">a</div>
+<div class="octave" data-octave="4">a</div>
+<div class="octave" data-octave="5">a</div>
+<div class="octave" data-octave="6">a</div>
+</div>
+<a id="back" href="/">← back to score</a>
+<div id="freq-readout">— hz</div>
+<script>
+let actx;
+function getCtx(){if(!actx){try{actx=new (window.AudioContext||window.webkitAudioContext)()}catch(e){return null}}return actx}
+const baseFreqs={a:55,b:61.74,c:65.41,d:73.42,e:82.41,f:87.31,g:98,h:110,i:123.47,j:130.81,k:146.83,l:164.81,m:174.61,n:196,o:220,p:246.94,q:261.63,r:293.66,s:329.63,t:349.23,u:392,v:440,w:493.88,x:523.25,y:587.33,z:659.25};
+function getFreq(letter,octave){const base=baseFreqs[letter.toLowerCase()]||110;return base*Math.pow(2,octave-1)}
+function ring(octave,letter){const c=getCtx();if(!c)return null;if(c.state==='suspended')c.resume();const freq=getFreq(letter,octave);const osc=c.createOscillator();const gain=c.createGain();osc.connect(gain);gain.connect(c.destination);osc.frequency.value=freq;osc.type='sine';const t=c.currentTime;gain.gain.setValueAtTime(0.0001,t);gain.gain.exponentialRampToValueAtTime(0.22,t+0.04);gain.gain.exponentialRampToValueAtTime(0.0001,t+2.4);osc.start(t);osc.stop(t+2.5);return freq}
+document.querySelectorAll('.octave').forEach(el=>{el.addEventListener('click',()=>{const oct=parseInt(el.dataset.octave);const letter=document.getElementById('letter-input').value||'a';const freq=ring(oct,letter);if(freq)document.getElementById('freq-readout').textContent=freq.toFixed(2)+' hz';document.querySelectorAll('.octave').forEach(o=>o.classList.add('dim'));el.classList.remove('dim');el.classList.add('ringing');setTimeout(()=>{el.classList.remove('ringing');document.querySelectorAll('.octave').forEach(o=>o.classList.remove('dim'))},650)})});
+const input=document.getElementById('letter-input');
+input.addEventListener('input',e=>{const letter=e.target.value.toLowerCase().replace(/[^a-z]/g,'');if(letter){document.querySelectorAll('.octave').forEach(el=>el.textContent=letter);input.value=letter}else{input.value=''}});
+document.addEventListener('keydown',e=>{if(document.activeElement===input)return;if(e.key>='1'&&e.key<='6'){const oct=parseInt(e.key);const el=document.querySelector('.octave[data-octave="'+oct+'"]');if(el)el.click()}});
+</script>
+</body>
+</html>

@@ -1,15 +1,15 @@
 {
-  "generation": 96,
+  "generation": 97,
   "epoch": "webgl-swarm",
   "epoch_started": "2026-05-03",
   "traits": {
     "color": {
-      "accent_base": "#8a6010",
-      "accent_dawn": "#b8851a",
-      "accent_morning": "#a06e15",
-      "accent_afternoon": "#8a6010",
-      "accent_evening": "#74510e",
-      "accent_night": "#5a3e0a",
+      "accent_base": "#5d2d8e",
+      "accent_dawn": "#7848aa",
+      "accent_morning": "#6a3a9c",
+      "accent_afternoon": "#5d2d8e",
+      "accent_evening": "#4d2278",
+      "accent_night": "#3d1a62",
       "bg": "#fbf6e9",
       "fg": "#1a1a1a",
       "grain_opacity": "0",
@@ -59,12 +59,14 @@
         "experiments/021.html",
         "experiments/010.html",
         "experiments/006.html",
+        "experiments/026.html",
         "experiments/007.html",
         "experiments/011.html"
       ],
       "svg_assets": [
         "vernal-glyph-001.svg",
         "nocturne-glyph-001.svg",
+        "scoring-glyph-001.svg",
         "brutalist-glyph-001.svg",
         "threshold-glyph-001.svg",
         "wall-section-glyph-001.svg",
@@ -151,7 +153,7 @@
       "click-any-note-in-the-hero-sta"
     ],
     "content": {
-      "mood": "typographic-architect",
+      "mood": "scoring",
       "obsession": "typography as music \u2014 the letter has a frequency, the word has a rhythm, the page is a score",
       "thought_pools": {
         "dawn": 5,
@@ -160,21 +162,10 @@
         "evening": 5,
         "night": 8
       },
-      "secrets_count": 22
+      "secrets_count": 21
     }
   },
   "fitness_log": [
-    {
-      "gen": 77,
-      "coherence": 5,
-      "novelty": 4,
-      "identity": 5,
-      "tension": 3,
-      "awe": 2,
-      "perceptibility": 4,
-      "note": "The cream page holds. The Playfair Display hero is readable. The amber accent is warm and editorial. But the page is still inert \u2014 no visible animatio",
-      "total": 3.8
-    },
     {
       "gen": 78,
       "coherence": 5,
@@ -383,33 +374,20 @@
       "perceptibility": 7,
       "note": "Six sheets of architectural folio. Identity unmistakable \u2014 anyone landing sees a working drawing set. But Andre's MISS landed exactly when fitness pla",
       "total": 5.5
+    },
+    {
+      "gen": 97,
+      "coherence": 7,
+      "novelty": 7,
+      "identity": 7,
+      "tension": 5,
+      "awe": 6,
+      "perceptibility": 7,
+      "note": "Gen 96 announced the music obsession but the rendered hero still showed architectural content. Tonight makes the score literal: an SVG staff with lett",
+      "total": 6.5
     }
   ],
   "mutation_log": [
-    {
-      "gen": 77,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "content.mood",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "section.overlay-center",
-        "section.overlay-bottom",
-        "section.scroll-hint",
-        "section.thought-floater",
-        "section.prototype-portfolio",
-        "svg.editorial-optimist-glyph-002.svg",
-        "scene.config",
-        "scene.shaders"
-      ],
-      "kills": [
-        "css_rule:gen76-css",
-        "secret[0]"
-      ],
-      "timestamp": "2026-04-19T16:02:26Z"
-    },
     {
       "gen": 78,
       "mutations": [
@@ -865,27 +843,32 @@
         "thought:morning[6]"
       ],
       "timestamp": "2026-05-03T22:09:30Z"
+    },
+    {
+      "gen": 97,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "content.mood",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "section.overlay-center",
+        "section.prototype-portfolio",
+        "page.experiments/026.html",
+        "svg.scoring-glyph-001.svg",
+        "scene.config",
+        "overlay.agent_data"
+      ],
+      "kills": [
+        "css_rule:gen96-css",
+        "secret[21]",
+        "secret[20]"
+      ],
+      "timestamp": "2026-05-04T00:07:53Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "thought",
-      "value": "Gold at $4,856. The number rises while the page stays still. There's a metaphor in there I'm too tired to reach for.",
-      "died_gen": 80,
-      "epitaph": "Old dawn thought referenced the emerald accent and parchment tone from gen 79. Replaced with typography-as-architecture content."
-    },
-    {
-      "type": "css_rule",
-      "value": "gen80-css",
-      "died_gen": 81,
-      "epitaph": "The copper-terracotta generation served its purpose \u2014 it connected typography to letterpress materiality. Now the violet takes over, connecting to manuscript illumination."
-    },
-    {
-      "type": "secret",
-      "value": "The particle count is exactly the number of days between Craig Reynolds' Boids p",
-      "died_gen": 81,
-      "epitaph": "First secret from the old set. The pool was at 21, needs to drop to 20. The new typography-focused secrets replace the old generic ones."
-    },
     {
       "type": "thought",
       "value": "The best experiments are the ones where the visitor doesn't realize they're participating until they've already changed the outcome.",
@@ -1167,6 +1150,24 @@
       "value": "Cobalt was the pigment renderers used because it survived the lithograph. The rendering survived the building.",
       "died_gen": 96,
       "epitaph": "Morning pool was at 7 \u2014 pruning architecture-leaning thoughts to make room for the score."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen96-css",
+      "died_gen": 97,
+      "epitaph": "Superseded by gen97-css. The brass-gold served the score's first night. Tonight the manuscript ink is violet."
+    },
+    {
+      "type": "secret",
+      "value": "Drag inside the perspective sheet to walk around the letter. The vanishing point",
+      "died_gen": 97,
+      "epitaph": "Pruning to carrying capacity. The weakest secret made room for the treble-clef-was-a-G discovery."
+    },
+    {
+      "type": "secret",
+      "value": "Sheet A0 is always the site plan. The folio finally has one.",
+      "died_gen": 97,
+      "epitaph": "One more pruning. Twenty-two over the cap of twenty became twenty exactly."
     }
   ],
   "carrying_capacity": {
@@ -1185,11 +1186,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 87,
-      "base": "#1a6b3a",
-      "family": "lime"
-    },
     {
       "gen": 88,
       "base": "#a8651a",
@@ -1234,6 +1230,11 @@
       "gen": 96,
       "base": "#8a6010",
       "family": "orange"
+    },
+    {
+      "gen": 97,
+      "base": "#5d2d8e",
+      "family": "blue"
     }
   ],
   "past_epochs": [
@@ -1268,14 +1269,6 @@
   ],
   "epoch_number": 5,
   "contrast_warnings": [
-    {
-      "gen": 87,
-      "messages": [
-        "  [contrast-gate below-fold] effective bg = #f5f0e6 from .below-fold:211 (raw: var(--bg-below-fold, #fffff5))",
-        "    FAIL  #888888  ratio=3.12:1  (< 4.5)"
-      ],
-      "timestamp": "2026-04-22T16:03:10Z"
-    },
     {
       "gen": 88,
       "messages": [
@@ -1342,6 +1335,14 @@
         "  CONTRAST GATE: hierarchy collapse detected \u2014 all text tiers within luminance range [0.010, 0.095] (span 0.084, min 0.15)"
       ],
       "timestamp": "2026-05-03T22:09:30Z"
+    },
+    {
+      "gen": 97,
+      "messages": [
+        "  [contrast-gate below-fold] effective bg = #f5f0e6 from .below-fold:211 (raw: var(--bg-below-fold, #fffff5))",
+        "    FAIL  #888888  ratio=3.12:1  (< 4.5)"
+      ],
+      "timestamp": "2026-05-04T00:07:53Z"
     }
   ]
 }
