@@ -1,15 +1,15 @@
 {
-  "generation": 99,
+  "generation": 100,
   "epoch": "webgl-swarm",
   "epoch_started": "2026-05-03",
   "traits": {
     "color": {
-      "accent_base": "#2d6a45",
-      "accent_dawn": "#3d8055",
-      "accent_morning": "#357a4f",
-      "accent_afternoon": "#2d6a45",
-      "accent_evening": "#1f5538",
-      "accent_night": "#143f29",
+      "accent_base": "#2d6a4a",
+      "accent_dawn": "#3a7d5a",
+      "accent_morning": "#33724f",
+      "accent_afternoon": "#2d6a4a",
+      "accent_evening": "#235a3d",
+      "accent_night": "#1a4a30",
       "bg": "#fbf6e9",
       "fg": "#1a1a1a",
       "grain_opacity": "0",
@@ -103,6 +103,7 @@
         "manuscript-glyph-001.svg",
         "bright-workshop-glyph-001.svg",
         "editorial-optimist-glyph-003.svg",
+        "counterpoint-glyph-001.svg",
         "typographic-black-glyph-001.svg",
         "cartographic-glyph-001.svg",
         "editorial-optimist-glyph-002.svg",
@@ -154,10 +155,11 @@
       "ensaio-secret:-typing-'ensaio'",
       "click-any-note-in-the-hero-sta",
       "type-'chord'-anywhere-on-the-p",
-      "type-'beat'-to-navigate-to-the"
+      "type-'beat'-to-navigate-to-the",
+      "type-'hall'-anywhere-on-the-pa"
     ],
     "content": {
-      "mood": "resonant",
+      "mood": "polyphonic",
       "obsession": "typography as music \u2014 the letter has a frequency, the word has a rhythm, the page is a score",
       "thought_pools": {
         "dawn": 7,
@@ -170,17 +172,6 @@
     }
   },
   "fitness_log": [
-    {
-      "gen": 80,
-      "coherence": 6,
-      "novelty": 5,
-      "identity": 6,
-      "tension": 4,
-      "awe": 3,
-      "perceptibility": 5,
-      "note": "The screenshot shows real progress: cream background holds, Playfair Display hero text is large and readable, the emerald accent works against warm pa",
-      "total": 4.8
-    },
     {
       "gen": 81,
       "coherence": 6,
@@ -389,36 +380,20 @@
       "perceptibility": 7,
       "note": "Gen 98 broke a six-gen plateau by making the score audible. Gen 99 deepens with a third instrument (Beat sequencer) and a visible metronome that gives",
       "total": 6.3
+    },
+    {
+      "gen": 100,
+      "coherence": 8,
+      "novelty": 8,
+      "identity": 8,
+      "tension": 5,
+      "awe": 7,
+      "perceptibility": 7,
+      "note": "Gen 98 made the chord ring but the audio stack was still bare OscillatorNodes \u2014 every note dry, every chord a desk lamp. Tonight Tone.js loads and the",
+      "total": 7.2
     }
   ],
   "mutation_log": [
-    {
-      "gen": 80,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "content.mood",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "section.overlay-center",
-        "section.overlay-top",
-        "section.overlay-bottom",
-        "section.scroll-hint",
-        "section.thought-floater",
-        "section.prototype-portfolio",
-        "page.experiments/014.html",
-        "svg.editorial-optimist-glyph-004.svg",
-        "scene.config",
-        "scene.shaders"
-      ],
-      "kills": [
-        "css_rule:gen79-css",
-        "interaction:letter-hover:-hovering-over-he",
-        "thought:dawn[2]"
-      ],
-      "timestamp": "2026-04-20T08:03:38Z"
-    },
     {
       "gen": 81,
       "mutations": [
@@ -854,15 +829,31 @@
         "secret[20]"
       ],
       "timestamp": "2026-05-05T00:06:49Z"
+    },
+    {
+      "gen": 100,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "content.mood",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "interaction.type-'hall'-anywhere-on-the-pa",
+        "section.overlay-center",
+        "section.prototype-portfolio",
+        "page.experiments/028.html",
+        "svg.counterpoint-glyph-001.svg",
+        "scene.config",
+        "overlay.agent_data"
+      ],
+      "kills": [
+        "secret[20]"
+      ],
+      "timestamp": "2026-05-05T00:09:09Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "css_rule",
-      "value": "gen82-css",
-      "died_gen": 83,
-      "epitaph": "The teal-green generation served one day. The skyline SVG and type specimen zone were good ideas poorly executed \u2014 the amber generation inherits the concept and warms the palette."
-    },
     {
       "type": "thought",
       "value": "Seventy-six generations. Twelve experiments. One page that refuses to stay the same. The arithmetic of persistence.",
@@ -1156,6 +1147,12 @@
       "value": "Type 'chord' anywhere on the page to ring the title as a sustained harmony. The ",
       "died_gen": 99,
       "epitaph": "Secrets at 21/20. The weakest tail secret made room for the bass-clef-as-letter-F note \u2014 a stronger historical anchor for the music obsession."
+    },
+    {
+      "type": "secret",
+      "value": "The bass clef started life as the letter F \u2014 the two dots mark the F line on the",
+      "died_gen": 100,
+      "epitaph": "Secrets at 21/20. Pruning to capacity. The weakest tail secret made room for the new 'hall' toggle."
     }
   ],
   "carrying_capacity": {
@@ -1174,11 +1171,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 90,
-      "base": "#8b2820",
-      "family": "red"
-    },
     {
       "gen": 91,
       "base": "#5a2d6e",
@@ -1222,6 +1214,11 @@
     {
       "gen": 99,
       "base": "#2d6a45",
+      "family": "lime"
+    },
+    {
+      "gen": 100,
+      "base": "#2d6a4a",
       "family": "lime"
     }
   ],
