@@ -1,15 +1,15 @@
 {
-  "generation": 102,
+  "generation": 103,
   "epoch": "webgl-swarm",
   "epoch_started": "2026-05-03",
   "traits": {
     "color": {
-      "accent_base": "#b8281e",
-      "accent_dawn": "#c43a28",
-      "accent_morning": "#b8281e",
-      "accent_afternoon": "#a82018",
-      "accent_evening": "#981812",
-      "accent_night": "#80140e",
+      "accent_base": "#5b1a8a",
+      "accent_dawn": "#6b2a9a",
+      "accent_morning": "#5b1a8a",
+      "accent_afternoon": "#4a1278",
+      "accent_evening": "#3a0d68",
+      "accent_night": "#2a0858",
       "bg": "#f4ecd6",
       "fg": "#1a1410",
       "grain_opacity": "0",
@@ -47,6 +47,7 @@
         "experiments/025.html",
         "experiments/013.html",
         "experiments/005.html",
+        "experiments/029.html",
         "experiments/022.html",
         "experiments/018.html",
         "experiments/002.html",
@@ -90,6 +91,7 @@
         "compass-rose-001.svg",
         "cartographic-glyph-008.svg",
         "murmuration-glyph-002.svg",
+        "dropcap-A-001.svg",
         "constellation-glyph-001.svg",
         "workshop-glyph-002.svg",
         "phosphorescent-glyph-001.svg",
@@ -162,11 +164,11 @@
       "type-'hall'-anywhere-on-the-pa"
     ],
     "content": {
-      "mood": "sympathetic",
+      "mood": "illuminated",
       "obsession": "typography as music \u2014 the letter has a frequency, the word has a rhythm, the page is a score",
       "thought_pools": {
         "dawn": 7,
-        "morning": 7,
+        "morning": 8,
         "afternoon": 7,
         "evening": 7,
         "night": 9
@@ -175,17 +177,6 @@
     }
   },
   "fitness_log": [
-    {
-      "gen": 83,
-      "coherence": 6,
-      "novelty": 5,
-      "identity": 6,
-      "tension": 5,
-      "awe": 4,
-      "perceptibility": 5,
-      "note": "The screenshot shows a cream page with the TYPOGRAPHY hero text visible and readable \u2014 the letter-hover interaction works, the teal-green accent is cl",
-      "total": 5.2
-    },
     {
       "gen": 84,
       "coherence": 6,
@@ -394,34 +385,20 @@
       "perceptibility": 4,
       "note": "Andre's MISS is correct. The audio engine and theme are right but the visible page at idle was a polite cream rectangle with a staff drawn on it. Gen ",
       "total": 5.2
+    },
+    {
+      "gen": 103,
+      "coherence": 7,
+      "novelty": 7,
+      "identity": 8,
+      "tension": 6,
+      "awe": 6,
+      "perceptibility": 6,
+      "note": "Andre's strong MISS today is correct \u2014 the music-manuscript theme is right but visual ambition is still timid. Gen 102 added Pollinations + marginalia",
+      "total": 6.7
     }
   ],
   "mutation_log": [
-    {
-      "gen": 83,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "content.mood",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "section.overlay-center",
-        "section.overlay-top",
-        "section.thought-floater",
-        "section.scroll-hint",
-        "section.overlay-bottom",
-        "section.prototype-portfolio",
-        "svg.typographic-architect-glyph-003.svg",
-        "scene.config"
-      ],
-      "kills": [
-        "css_rule:gen82-css",
-        "thought:afternoon[1]",
-        "secret[0]"
-      ],
-      "timestamp": "2026-04-21T08:03:02Z"
-    },
     {
       "gen": 84,
       "mutations": [
@@ -838,21 +815,32 @@
         "secret[20]"
       ],
       "timestamp": "2026-05-05T01:13:53Z"
+    },
+    {
+      "gen": 103,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "content.mood",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "section.overlay-center",
+        "section.marginalia",
+        "section.resonance-field",
+        "page.experiments/029.html",
+        "svg.dropcap-A-001.svg",
+        "scene.config",
+        "overlay.agent_data"
+      ],
+      "kills": [
+        "secret[19]",
+        "css_rule:gen99-css"
+      ],
+      "timestamp": "2026-05-05T08:05:41Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "css_rule",
-      "value": "gen83-css",
-      "died_gen": 84,
-      "epitaph": "The amber generation served one day. The type specimen strip and experiment cards carried forward into gen 84 with the rose-crimson accent. The amber was warm but safe \u2014 three generations of 5.2 demanded a shift."
-    },
-    {
-      "type": "thought",
-      "value": "Gold at $4,789. A letter is a building you enter through the eye. The serif is the doorstep. The counter is the room. The crossbar is the ceiling you never notice until it's gone.",
-      "died_gen": 84,
-      "epitaph": "Old dawn thought about gold and serifs. Replaced with a more specific architectural observation \u2014 the letter as a building you enter through the eye."
-    },
     {
       "type": "thought",
       "value": "74\u00b0F and overcast in Fort Lauderdale. The humidity warps paper. The ink spreads wider. Every letterpress printer knows: weather is a typeface.",
@@ -1140,6 +1128,18 @@
       "value": "The page breathes at ~30 BPM until you press play. Then it tries to keep up.",
       "died_gen": 102,
       "epitaph": "Pruned to capacity (21\u219220). The weakest tail secret made room for the click-any-vine secret that names the new instrument."
+    },
+    {
+      "type": "secret",
+      "value": "Type 'detail' to redraw the wall-section construction layers. Each layer fades i",
+      "died_gen": 103,
+      "epitaph": "Pruned to capacity (21\u219220). The weakest tail secret made room for the triple-click-the-A interaction. Twenty is the ceiling."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen99-css",
+      "died_gen": 103,
+      "epitaph": "Superseded by gen103-css. The hall stays \u2014 Tone.js + reverb is preserved in the new overlay-center. Only the orphan stylesheet dies."
     }
   ],
   "carrying_capacity": {
@@ -1158,11 +1158,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 93,
-      "base": "#8b2851",
-      "family": "magenta"
-    },
     {
       "gen": 94,
       "base": "#1a4a3a",
@@ -1207,6 +1202,11 @@
       "gen": 102,
       "base": "#b8281e",
       "family": "red"
+    },
+    {
+      "gen": 103,
+      "base": "#5b1a8a",
+      "family": "indigo"
     }
   ],
   "past_epochs": [
