@@ -1,15 +1,15 @@
 {
-  "generation": 98,
+  "generation": 99,
   "epoch": "webgl-swarm",
   "epoch_started": "2026-05-03",
   "traits": {
     "color": {
-      "accent_base": "#a8253a",
-      "accent_dawn": "#c4304a",
-      "accent_morning": "#b32a42",
-      "accent_afternoon": "#a8253a",
-      "accent_evening": "#8e1f32",
-      "accent_night": "#6e1828",
+      "accent_base": "#2d6a45",
+      "accent_dawn": "#3d8055",
+      "accent_morning": "#357a4f",
+      "accent_afternoon": "#2d6a45",
+      "accent_evening": "#1f5538",
+      "accent_night": "#143f29",
       "bg": "#fbf6e9",
       "fg": "#1a1a1a",
       "grain_opacity": "0",
@@ -36,6 +36,7 @@
       ],
       "pages": [
         "index-old.html",
+        "experiments/028.html",
         "experiments/004.html",
         "experiments/012.html",
         "experiments/024.html",
@@ -152,7 +153,8 @@
       "when-a-visitor-clicks-and-drag",
       "ensaio-secret:-typing-'ensaio'",
       "click-any-note-in-the-hero-sta",
-      "type-'chord'-anywhere-on-the-p"
+      "type-'chord'-anywhere-on-the-p",
+      "type-'beat'-to-navigate-to-the"
     ],
     "content": {
       "mood": "resonant",
@@ -160,25 +162,14 @@
       "thought_pools": {
         "dawn": 7,
         "morning": 7,
-        "afternoon": 5,
-        "evening": 5,
+        "afternoon": 7,
+        "evening": 7,
         "night": 8
       },
       "secrets_count": 21
     }
   },
   "fitness_log": [
-    {
-      "gen": 79,
-      "coherence": 5,
-      "novelty": 6,
-      "identity": 5,
-      "tension": 4,
-      "awe": 3,
-      "perceptibility": 4,
-      "note": "The screenshot shows a cream page (the CSS variable --bg-below-fold resolves to #0a0a0a in the contrast audit but the actual rendered page is cream \u2014 ",
-      "total": 4.5
-    },
     {
       "gen": 80,
       "coherence": 6,
@@ -387,36 +378,20 @@
       "perceptibility": 7,
       "note": "Gen 97 was the breakthrough \u2014 the score became audible. Gen 98 has to deepen, not pivot. The hero gains autoplay and a chord button so the staff stops",
       "total": 6.5
+    },
+    {
+      "gen": 99,
+      "coherence": 7,
+      "novelty": 6,
+      "identity": 8,
+      "tension": 4,
+      "awe": 6,
+      "perceptibility": 7,
+      "note": "Gen 98 broke a six-gen plateau by making the score audible. Gen 99 deepens with a third instrument (Beat sequencer) and a visible metronome that gives",
+      "total": 6.3
     }
   ],
   "mutation_log": [
-    {
-      "gen": 79,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "content.mood",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "interaction.letter-hover:-hovering-over-he",
-        "section.overlay-top",
-        "section.overlay-center",
-        "section.thought-floater",
-        "section.overlay-bottom",
-        "section.scroll-hint",
-        "section.prototype-portfolio",
-        "svg.editorial-optimist-glyph-003.svg",
-        "scene.config",
-        "scene.shaders",
-        "overlay.agent_data"
-      ],
-      "kills": [
-        "css_rule:gen78-css",
-        "secret[0]"
-      ],
-      "timestamp": "2026-04-20T00:03:09Z"
-    },
     {
       "gen": 80,
       "mutations": [
@@ -859,21 +834,29 @@
         "secret[20]"
       ],
       "timestamp": "2026-05-04T23:14:07Z"
+    },
+    {
+      "gen": 99,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "interaction.type-'beat'-to-navigate-to-the",
+        "section.overlay-center",
+        "section.prototype-portfolio",
+        "page.experiments/028.html",
+        "scene.config"
+      ],
+      "kills": [
+        "css_rule:gen98-css",
+        "secret[20]"
+      ],
+      "timestamp": "2026-05-05T00:06:49Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "thought",
-      "value": "Gold at $4,813. A serif is a foundation. A counter is a courtyard. The price of gold is the kerning between currencies.",
-      "died_gen": 82,
-      "epitaph": "Old dawn thought about the word TYPOGRAPHY having ten letters. Replaced with a stronger image connecting baseline to streets and descenders to basements."
-    },
-    {
-      "type": "secret",
-      "value": "The archive page is the site's skeleton. You're looking at bones. The flesh is o",
-      "died_gen": 82,
-      "epitaph": "Pool at 21, needs to drop to 20. Killed the weakest old-generation secret to make room for the new architectural secrets."
-    },
     {
       "type": "css_rule",
       "value": "gen82-css",
@@ -1161,6 +1144,18 @@
       "value": "The treble clef started life as a stylized italic letter G. The bass clef is an ",
       "died_gen": 98,
       "epitaph": "Secrets at 21/20. Pruning to capacity. The weakest tail secret made room for the chord-shortcut."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen98-css",
+      "died_gen": 99,
+      "epitaph": "Superseded by gen99-css. Ruby served the harmony. Tonight the ink turns emerald and the score gains a heartbeat."
+    },
+    {
+      "type": "secret",
+      "value": "Type 'chord' anywhere on the page to ring the title as a sustained harmony. The ",
+      "died_gen": 99,
+      "epitaph": "Secrets at 21/20. The weakest tail secret made room for the bass-clef-as-letter-F note \u2014 a stronger historical anchor for the music obsession."
     }
   ],
   "carrying_capacity": {
@@ -1179,11 +1174,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 89,
-      "base": "#1a3a8a",
-      "family": "cyan"
-    },
     {
       "gen": 90,
       "base": "#8b2820",
@@ -1228,6 +1218,11 @@
       "gen": 98,
       "base": "#a8253a",
       "family": "magenta"
+    },
+    {
+      "gen": 99,
+      "base": "#2d6a45",
+      "family": "lime"
     }
   ],
   "past_epochs": [
@@ -1262,14 +1257,6 @@
   ],
   "epoch_number": 5,
   "contrast_warnings": [
-    {
-      "gen": 89,
-      "messages": [
-        "  [contrast-gate below-fold] effective bg = #f5f0e6 from .below-fold:211 (raw: var(--bg-below-fold, #fffff5))",
-        "    FAIL  #888888  ratio=3.12:1  (< 4.5)"
-      ],
-      "timestamp": "2026-04-26T22:08:13Z"
-    },
     {
       "gen": 90,
       "messages": [
@@ -1336,6 +1323,13 @@
         "    FAIL  #888888  ratio=3.12:1  (< 4.5)"
       ],
       "timestamp": "2026-05-04T23:14:07Z"
+    },
+    {
+      "gen": 99,
+      "messages": [
+        "  CONTRAST GATE: hierarchy collapse detected \u2014 all text tiers within luminance range [0.010, 0.113] (span 0.103, min 0.15)"
+      ],
+      "timestamp": "2026-05-05T00:06:49Z"
     }
   ]
 }

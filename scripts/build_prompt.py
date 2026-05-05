@@ -132,6 +132,20 @@ def get_sensorium_context():
         return ""
 
 
+def get_operator_brief():
+    """Read one-shot operator brief if present; return empty string if missing.
+    The brief file is deleted after a successful pulse, making this a transient mechanism.
+    """
+    try:
+        path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'data', 'operator-brief.md')
+        if not os.path.isfile(path):
+            return ""
+        with open(path) as f:
+            return f.read().strip()
+    except Exception:
+        return ""
+
+
 pulse_type = sys.argv[1]
 state_file = sys.argv[2]
 external_file = sys.argv[3]
@@ -356,6 +370,7 @@ genome_summary = format_genome_summary(genome, html)
 feedback_context = get_feedback_signals()
 swarm_context = get_swarm_activity()
 sensorium_context = get_sensorium_context()
+operator_brief = get_operator_brief()
 
 # ── Dynamic experiment inventory ────────────────────────────────
 site_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -514,6 +529,8 @@ Current CSS variables:
 
 {genome_summary}
 
+{operator_brief}
+
 {feedback_context}
 
 {swarm_context}
@@ -611,6 +628,8 @@ External context:
 Today is {today}, {day_of_week}. Time of day: {tod}.
 
 {genome_summary}
+
+{operator_brief}
 
 {feedback_context}
 
