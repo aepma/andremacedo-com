@@ -1,15 +1,15 @@
 {
-  "generation": 103,
+  "generation": 104,
   "epoch": "webgl-swarm",
   "epoch_started": "2026-05-03",
   "traits": {
     "color": {
-      "accent_base": "#5b1a8a",
-      "accent_dawn": "#6b2a9a",
-      "accent_morning": "#5b1a8a",
-      "accent_afternoon": "#4a1278",
-      "accent_evening": "#3a0d68",
-      "accent_night": "#2a0858",
+      "accent_base": "#b8860b",
+      "accent_dawn": "#d4a017",
+      "accent_morning": "#c89512",
+      "accent_afternoon": "#b8860b",
+      "accent_evening": "#a07408",
+      "accent_night": "#7a5805",
       "bg": "#f4ecd6",
       "fg": "#1a1410",
       "grain_opacity": "0",
@@ -64,6 +64,7 @@
         "experiments/010.html",
         "experiments/006.html",
         "experiments/026.html",
+        "experiments/030.html",
         "experiments/027.html",
         "experiments/007.html",
         "experiments/011.html"
@@ -164,30 +165,19 @@
       "type-'hall'-anywhere-on-the-pa"
     ],
     "content": {
-      "mood": "illuminated",
+      "mood": "gilded",
       "obsession": "typography as music \u2014 the letter has a frequency, the word has a rhythm, the page is a score",
       "thought_pools": {
         "dawn": 7,
         "morning": 8,
         "afternoon": 7,
-        "evening": 7,
+        "evening": 8,
         "night": 9
       },
       "secrets_count": 21
     }
   },
   "fitness_log": [
-    {
-      "gen": 84,
-      "coherence": 6,
-      "novelty": 5,
-      "identity": 6,
-      "tension": 5,
-      "awe": 4,
-      "perceptibility": 5,
-      "note": "The screenshot shows the cream page holding \u2014 TYPOGRAPHY hero text is visible with letter-by-letter rendering, amber accents work against the warm gro",
-      "total": 5.2
-    },
     {
       "gen": 85,
       "coherence": 6,
@@ -396,37 +386,20 @@
       "perceptibility": 6,
       "note": "Andre's strong MISS today is correct \u2014 the music-manuscript theme is right but visual ambition is still timid. Gen 102 added Pollinations + marginalia",
       "total": 6.7
+    },
+    {
+      "gen": 104,
+      "coherence": 7,
+      "novelty": 6,
+      "identity": 9,
+      "tension": 7,
+      "awe": 5,
+      "perceptibility": 6,
+      "note": "Andre's double-MISS yesterday landed exactly because gen 102-103 talked bigger than they rendered. The dropcap shipped but the resonance-field still i",
+      "total": 6.7
     }
   ],
   "mutation_log": [
-    {
-      "gen": 84,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "content.mood",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "section.overlay-center",
-        "section.scroll-hint",
-        "section.thought-floater",
-        "section.overlay-bottom",
-        "section.prototype-portfolio",
-        "svg.typographic-architect-glyph-004.svg",
-        "scene.config"
-      ],
-      "kills": [
-        "css_rule:gen83-css",
-        "thought:dawn[0]",
-        "thought:dawn[1]",
-        "thought:morning[0]",
-        "thought:afternoon[0]",
-        "thought:night[0]",
-        "secret[0]"
-      ],
-      "timestamp": "2026-04-21T16:03:02Z"
-    },
     {
       "gen": 85,
       "mutations": [
@@ -838,21 +811,29 @@
         "css_rule:gen99-css"
       ],
       "timestamp": "2026-05-05T08:05:41Z"
+    },
+    {
+      "gen": 104,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "content.mood",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "section.resonance-field",
+        "page.experiments/030.html",
+        "scene.config",
+        "overlay.agent_data"
+      ],
+      "kills": [
+        "secret[20]",
+        "css_rule:gen100-css"
+      ],
+      "timestamp": "2026-05-05T19:52:10Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "thought",
-      "value": "74\u00b0F and overcast in Fort Lauderdale. The humidity warps paper. The ink spreads wider. Every letterpress printer knows: weather is a typeface.",
-      "died_gen": 84,
-      "epitaph": "Old dawn thought about humidity and ink. Replaced with the tropical typography climate observation."
-    },
-    {
-      "type": "thought",
-      "value": "Eighty-three generations. The page has been cream for twelve of them. Cream is not a failure \u2014 it's limestone. You build on limestone.",
-      "died_gen": 84,
-      "epitaph": "Old morning thought. Replaced with the limestone/cream observation \u2014 twelve generations of cream is not failure, it's foundation."
-    },
     {
       "type": "thought",
       "value": "The space between letters is not empty. It's structural. Remove the space between M and A and you don't get MA \u2014 you get a wall with no door.",
@@ -1140,6 +1121,18 @@
       "value": "gen99-css",
       "died_gen": 103,
       "epitaph": "Superseded by gen103-css. The hall stays \u2014 Tone.js + reverb is preserved in the new overlay-center. Only the orphan stylesheet dies."
+    },
+    {
+      "type": "secret",
+      "value": "Triple-click the illuminated A in the hero to redraw it with new vine patterns.",
+      "died_gen": 104,
+      "epitaph": "Pruned to capacity (21\u219220). The weakest tail secret made room for the new drone-key interaction. Secrets must stay \u226420 or they stop feeling secret."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen100-css",
+      "died_gen": 104,
+      "epitaph": "Five generations old and superseded. The hall (Tone.js + reverb) is preserved in gen103 and gen104 \u2014 only the gen100 styling is retired."
     }
   ],
   "carrying_capacity": {
@@ -1158,11 +1151,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 94,
-      "base": "#1a4a3a",
-      "family": "green"
-    },
     {
       "gen": 95,
       "base": "#2a4a8c",
@@ -1207,6 +1195,11 @@
       "gen": 103,
       "base": "#5b1a8a",
       "family": "indigo"
+    },
+    {
+      "gen": 104,
+      "base": "#b8860b",
+      "family": "orange"
     }
   ],
   "past_epochs": [
