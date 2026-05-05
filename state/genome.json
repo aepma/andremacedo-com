@@ -1,15 +1,15 @@
 {
-  "generation": 100,
+  "generation": 101,
   "epoch": "webgl-swarm",
   "epoch_started": "2026-05-03",
   "traits": {
     "color": {
-      "accent_base": "#2d6a4a",
-      "accent_dawn": "#3a7d5a",
-      "accent_morning": "#33724f",
-      "accent_afternoon": "#2d6a4a",
-      "accent_evening": "#235a3d",
-      "accent_night": "#1a4a30",
+      "accent_base": "#1e3a8a",
+      "accent_dawn": "#2a4ba8",
+      "accent_morning": "#2545a0",
+      "accent_afternoon": "#1e3a8a",
+      "accent_evening": "#18308a",
+      "accent_night": "#122670",
       "bg": "#fbf6e9",
       "fg": "#1a1a1a",
       "grain_opacity": "0",
@@ -28,6 +28,7 @@
     "layout": {
       "sections": [
         "overlay-top",
+        "resonance-field",
         "overlay-center",
         "thought-floater",
         "overlay-bottom",
@@ -159,30 +160,19 @@
       "type-'hall'-anywhere-on-the-pa"
     ],
     "content": {
-      "mood": "polyphonic",
+      "mood": "sympathetic",
       "obsession": "typography as music \u2014 the letter has a frequency, the word has a rhythm, the page is a score",
       "thought_pools": {
         "dawn": 7,
         "morning": 7,
         "afternoon": 7,
         "evening": 7,
-        "night": 8
+        "night": 9
       },
       "secrets_count": 21
     }
   },
   "fitness_log": [
-    {
-      "gen": 81,
-      "coherence": 6,
-      "novelty": 5,
-      "identity": 6,
-      "tension": 5,
-      "awe": 4,
-      "perceptibility": 5,
-      "note": "The screenshot shows real improvement: cream background holds, hero text 'TYPOGRAPHY' is large and visible with letter-by-letter rendering, copper acc",
-      "total": 5.2
-    },
     {
       "gen": 82,
       "coherence": 6,
@@ -391,36 +381,20 @@
       "perceptibility": 7,
       "note": "Gen 98 made the chord ring but the audio stack was still bare OscillatorNodes \u2014 every note dry, every chord a desk lamp. Tonight Tone.js loads and the",
       "total": 7.2
+    },
+    {
+      "gen": 101,
+      "coherence": 8,
+      "novelty": 7,
+      "identity": 8,
+      "tension": 7,
+      "awe": 6,
+      "perceptibility": 8,
+      "note": "Gen 100 made the audio real (Tone.js + reverb) but the visual world stayed a polite cream page. Tonight closes the asymmetry: a full-viewport 2D canva",
+      "total": 7.3
     }
   ],
   "mutation_log": [
-    {
-      "gen": 81,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "content.mood",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "section.overlay-top",
-        "section.overlay-center",
-        "section.thought-floater",
-        "section.overlay-bottom",
-        "section.scroll-hint",
-        "section.prototype-portfolio",
-        "page.experiments/015.html",
-        "svg.typographic-architect-glyph-001.svg",
-        "scene.shaders",
-        "overlay.agent_data"
-      ],
-      "kills": [
-        "css_rule:gen80-css",
-        "secret[0]",
-        "thought:evening[0]"
-      ],
-      "timestamp": "2026-04-20T16:03:35Z"
-    },
     {
       "gen": 82,
       "mutations": [
@@ -851,15 +825,26 @@
         "secret[20]"
       ],
       "timestamp": "2026-05-05T00:09:09Z"
+    },
+    {
+      "gen": 101,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "content.mood",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "section.resonance-field",
+        "scene.config"
+      ],
+      "kills": [
+        "secret[20]"
+      ],
+      "timestamp": "2026-05-05T00:28:39Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "thought",
-      "value": "Seventy-six generations. Twelve experiments. One page that refuses to stay the same. The arithmetic of persistence.",
-      "died_gen": 83,
-      "epitaph": "Old thought about pages and maps. Replaced with the kerning-as-strangers thought, which is sharper and funnier."
-    },
     {
       "type": "secret",
       "value": "<!-- gen 18: April 1, 2026. The swarm spent four generations in the dark. Today ",
@@ -1153,6 +1138,12 @@
       "value": "The bass clef started life as the letter F \u2014 the two dots mark the F line on the",
       "died_gen": 100,
       "epitaph": "Secrets at 21/20. Pruning to capacity. The weakest tail secret made room for the new 'hall' toggle."
+    },
+    {
+      "type": "secret",
+      "value": "Type 'hall' anywhere on the page to toggle the reverb wet/dry mix \u2014 dry sounds l",
+      "died_gen": 101,
+      "epitaph": "Secrets at 21/20. Pruning to capacity. Tail secret retired so the new resonance-field secret could ring."
     }
   ],
   "carrying_capacity": {
@@ -1171,11 +1162,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 91,
-      "base": "#5a2d6e",
-      "family": "indigo"
-    },
     {
       "gen": 92,
       "base": "#4a5d2a",
@@ -1220,6 +1206,11 @@
       "gen": 100,
       "base": "#2d6a4a",
       "family": "lime"
+    },
+    {
+      "gen": 101,
+      "base": "#1e3a8a",
+      "family": "cyan"
     }
   ],
   "past_epochs": [
