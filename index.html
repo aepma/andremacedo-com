@@ -12,10 +12,10 @@
   @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,400;0,500;0,700;1,400;1,500&family=JetBrains+Mono:wght@300;400;500&display=swap');
 
   :root {
-    --fg: #1a1a1a;
+    --fg: #1a1410;
     --fg-dim: #555555;
-    --fg-accent: #1e3a8a;
-    --bg: #fbf6e9;
+    --fg-accent: #b8281e;
+    --bg: #f4ecd6;
     --bg-surface: #f5f5f5;
     --bg-elevated: #eeeeee;
     --bg-below-fold: #f5f0e6;
@@ -211,9 +211,9 @@
     background: var(--bg-below-fold, #fffff5);
     border-top: 1px solid var(--border-below-fold, rgba(8,145,178,0.18));
     padding: 4rem 2.5rem;
-    --fg: #1a1a1a;
+    --fg: #1a1410;
     --fg-dim: #555555;
-    --fg-accent: #1e3a8a;
+    --fg-accent: #b8281e;
     --bg-surface: #f5f5f5;
     --bg-elevated: #eeeeee;
   }
@@ -568,6 +568,10 @@
 
   /* Section injection markers are now in the body */
 /* @inject:css */
+  /* @gene:gen102-css:start */
+  .tier-strong{color:#1a1410!important}.tier-mid{color:#5a4a3a!important}.tier-soft{color:#9a8a78!important} .gen102-illumination{position:relative;width:100%;max-width:1280px;margin:0 auto;display:block} .gen102-illumination img{width:100%;height:auto;display:block;border:8px double #c89a1a;box-shadow:0 8px 32px rgba(26,20,16,0.35),inset 0 0 60px rgba(200,154,26,0.18);filter:saturate(1.05) contrast(1.04)} .gen102-illumination::after{content:'';position:absolute;inset:-2px;border:1px solid rgba(184,40,30,0.4);pointer-events:none} .gen102-staff{position:relative;margin:-60px auto 0;max-width:760px;background:rgba(244,236,214,0.92);padding:24px 32px;border-radius:2px;box-shadow:0 4px 24px rgba(26,20,16,0.18);border:1px solid rgba(200,154,26,0.5)} .gen102-staff .note{cursor:pointer;transition:fill 0.2s,transform 0.2s;transform-origin:center;transform-box:fill-box} .gen102-staff .note:hover{fill:#b8281e;transform:scale(1.15)} .gen102-hero-text{font-family:'Playfair Display',serif;font-size:clamp(2.2rem,5vw,3.6rem);font-weight:800;letter-spacing:-0.02em;color:#1a1410;text-align:center;margin:24px 0 8px;line-height:1.1} .gen102-hook{font-family:'Source Serif 4',serif;font-style:italic;font-size:1.05rem;color:#5a4a3a;text-align:center;max-width:560px;margin:0 auto 12px;line-height:1.5} .gen102-meta{font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:#9a8a78;text-align:center;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:18px} .gen102-controls{display:flex;gap:10px;justify-content:center;margin-top:12px} .gen102-controls button{font-family:'Source Serif 4',serif;font-style:italic;font-size:0.95rem;background:#f4ecd6;color:#1a1410;border:1px solid #b8281e;padding:8px 18px;cursor:pointer;border-radius:1px;transition:all 0.2s} .gen102-controls button:hover{background:#b8281e;color:#f4ecd6} .gen102-marginalia{position:fixed;top:0;bottom:0;width:90px;pointer-events:none;z-index:6} .gen102-marginalia.left{left:0} .gen102-marginalia.right{right:0;transform:scaleX(-1)} .gen102-marginalia svg{position:absolute;width:80px;height:80px;pointer-events:auto;cursor:pointer;transition:transform 0.4s ease} .gen102-marginalia svg:hover{transform:scale(1.18) rotate(2deg)} @keyframes vine-breathe{0%,100%{opacity:0.78;transform:translateY(0) scale(1)}50%{opacity:1;transform:translateY(-2px) scale(1.02)}} .gen102-marginalia svg{animation:vine-breathe 8s ease-in-out infinite} @media(max-width:780px){.gen102-marginalia{width:48px}.gen102-marginalia svg{width:44px;height:44px}} @media(prefers-reduced-motion:reduce){.gen102-marginalia svg{animation:none}}
+  /* @gene:gen102-css:end */
+
   /* @gene:gen101-css:start */
   /* gen100-css — explicit luminance tiers to break the hierarchy collapse audit. Span: 0.013 to 0.45. */
 .tier-strong { color: #1a1a1a !important; }
@@ -616,7 +620,7 @@
 
 <div id="scene-frame"><canvas id="scene-canvas"></canvas></div>
 
-<span id="siteVersion" style="display:none">v101</span>
+<span id="siteVersion" style="display:none">v102</span>
 
 <!-- ── HTML Overlay ──────────────────────────────────────────── -->
 <div id="overlay">
@@ -629,164 +633,29 @@
 <!-- @section:overlay-top:end -->
 
 <style data-section="resonance-field">
-/* Inline fallback — primary rules live in gen100-css */
-#resonance-field { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
+#resonance-canvas{position:fixed;inset:0;width:100%;height:100%;z-index:1;pointer-events:none;opacity:0.42;mix-blend-mode:multiply}
 </style>
 <!-- @section:resonance-field:start -->
-<canvas id="resonance-field" aria-hidden="true"></canvas>
+<canvas id="resonance-canvas"></canvas>
 <!-- @section:resonance-field:end -->
 <script data-section="resonance-field">
-(function(){
-  const cnv = document.getElementById('resonance-field');
-  if (!cnv) return;
-  const ctx = cnv.getContext('2d');
-  const dpr = Math.min(window.devicePixelRatio || 1, 2);
-  let W = 0, H = 0;
-  const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  function resize(){
-    W = window.innerWidth; H = window.innerHeight;
-    cnv.width = W * dpr; cnv.height = H * dpr;
-    cnv.style.width = W + 'px'; cnv.style.height = H + 'px';
-    ctx.setTransform(dpr,0,0,dpr,0,0);
-  }
-  resize();
-  window.addEventListener('resize', resize);
-
-  let analyser = null, meter = null, lastEnergy = -100;
-  const rings = [];
-  let attached = false;
-
-  function tryAttach(){
-    if (attached) return;
-    if (!window.Tone) return;
-    try {
-      analyser = new window.Tone.Analyser('fft', 64);
-      meter = new window.Tone.Meter();
-      const dest = window.Tone.getDestination ? window.Tone.getDestination() : window.Tone.Destination;
-      if (dest && dest.connect) {
-        dest.connect(analyser);
-        dest.connect(meter);
-      } else if (window.__toneSynth && window.__toneSynth.connect) {
-        window.__toneSynth.connect(analyser);
-        window.__toneSynth.connect(meter);
-      }
-      window.__toneAnalyser = analyser;
-      window.__toneMeter = meter;
-      attached = true;
-    } catch(e) { /* not ready yet */ }
-  }
-  setInterval(tryAttach, 600);
-
-  function spawn(x, y, hue){
-    rings.push({ x: x||W/2, y: y||H*0.5, r: 8, max: Math.min(W,H)*0.75, a: 0.55, hue: hue||224, w: 1.5 });
-    if (rings.length > 32) rings.splice(0, rings.length - 32);
-  }
-
-  // listen for explicit note events if the staff dispatches them
-  window.addEventListener('staff-note', (e)=>{
-    spawn(W/2, H*0.42, (e.detail && e.detail.hue) || 224);
-  });
-
-  // also let any element marked data-resonant trigger a ring on click
-  document.addEventListener('click', (e)=>{
-    const t = e.target.closest('[data-resonant], .staff-note, [data-pitch]');
-    if (t) {
-      const r = t.getBoundingClientRect();
-      spawn(r.left + r.width/2, r.top + r.height/2, 224);
-    }
-  }, true);
-
-  let t = 0;
-  let lastT = performance.now();
-
-  function frame(now){
-    const dt = Math.min(40, now - lastT) / 1000;
-    lastT = now;
-    t += dt;
-    ctx.clearRect(0,0,W,H);
-
-    // idle breathing — period ~2s (~30 BPM)
-    const breath = 0.5 + 0.5 * Math.sin(t * Math.PI);
-    const cx = W/2, cy = H * 0.42;
-
-    // attack detection from meter (RMS in dB)
-    let energy = -100;
-    if (meter) {
-      try { const v = meter.getValue(); energy = (typeof v === 'number') ? v : -100; } catch(e){}
-    }
-    if (!reduce && energy > lastEnergy + 6 && energy > -45) {
-      spawn(cx, cy, 224);
-    }
-    lastEnergy = energy * 0.85 + lastEnergy * 0.15;
-
-    // base rings — always visible, breathing
-    for (let i = 1; i <= 5; i++) {
-      const r = i * 80 + breath * 24;
-      const a = (0.05 + breath * 0.05) * (1 - i/8);
-      ctx.strokeStyle = 'rgba(30, 58, 138, ' + a.toFixed(3) + ')';
-      ctx.lineWidth = 1;
-      ctx.beginPath();
-      ctx.arc(cx, cy, r, 0, Math.PI*2);
-      ctx.stroke();
-    }
-
-    // FFT radial spokes when audio is live
-    if (analyser && !reduce) {
-      let fft = null;
-      try { fft = analyser.getValue(); } catch(e){}
-      if (fft) {
-        for (let i = 0; i < 48; i++) {
-          const v = Math.max(0, (fft[i % fft.length] + 100) / 100);
-          if (v < 0.08) continue;
-          const angle = (i / 48) * Math.PI * 2 - Math.PI/2;
-          const r1 = 100 + breath * 10;
-          const r2 = r1 + v * 200;
-          const a = Math.min(0.32, v * 0.45);
-          ctx.strokeStyle = 'rgba(30, 58, 138, ' + a.toFixed(3) + ')';
-          ctx.lineWidth = 1.2;
-          ctx.beginPath();
-          ctx.moveTo(cx + Math.cos(angle) * r1, cy + Math.sin(angle) * r1);
-          ctx.lineTo(cx + Math.cos(angle) * r2, cy + Math.sin(angle) * r2);
-          ctx.stroke();
-        }
-      }
-    }
-
-    // attack rings — expand and fade
-    for (let i = rings.length - 1; i >= 0; i--) {
-      const ring = rings[i];
-      ring.r += dt * 220;
-      ring.a *= Math.pow(0.5, dt / 1.4); // half-life ~1.4s
-      if (ring.r > ring.max || ring.a < 0.01) { rings.splice(i, 1); continue; }
-      ctx.strokeStyle = 'rgba(30, 58, 138, ' + ring.a.toFixed(3) + ')';
-      ctx.lineWidth = ring.w;
-      ctx.beginPath();
-      ctx.arc(ring.x, ring.y, ring.r, 0, Math.PI*2);
-      ctx.stroke();
-    }
-
-    requestAnimationFrame(frame);
-  }
-  if (reduce) {
-    // single static frame for reduced motion
-    ctx.strokeStyle = 'rgba(30, 58, 138, 0.08)';
-    for (let i = 1; i <= 5; i++) {
-      ctx.beginPath(); ctx.arc(W/2, H*0.42, i * 80, 0, Math.PI*2); ctx.stroke();
-    }
-  } else {
-    requestAnimationFrame(frame);
-  }
-})();
+(function(){var c=document.getElementById('resonance-canvas');if(!c)return;var ctx=c.getContext('2d');function resize(){c.width=innerWidth*devicePixelRatio;c.height=innerHeight*devicePixelRatio;ctx.scale(devicePixelRatio,devicePixelRatio)}resize();addEventListener('resize',function(){c.width=innerWidth*devicePixelRatio;c.height=innerHeight*devicePixelRatio;ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0)});var rings=[];var attackRings=[];var t=0;var analyser=null;function tryAttachAnalyser(){if(window.Tone&&!analyser){try{var T=window.Tone;analyser=new T.Analyser('fft',64);T.Destination.connect(analyser)}catch(e){}}}setInterval(tryAttachAnalyser,500);document.addEventListener('click',function(e){attackRings.push({x:e.clientX,y:e.clientY,r:0,a:0.6})});function loop(){t+=0.012;ctx.clearRect(0,0,innerWidth,innerHeight);var cx=innerWidth/2,cy=innerHeight*0.42;for(var i=0;i<5;i++){var phase=t-i*0.5;var r=80+i*70+Math.sin(phase)*16;var alpha=0.18+Math.sin(phase*0.8)*0.08;ctx.strokeStyle='rgba(184,40,30,'+alpha.toFixed(3)+')';ctx.lineWidth=1.2;ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);ctx.stroke()}var r2=140+Math.sin(t*0.7)*24;ctx.strokeStyle='rgba(200,154,26,0.22)';ctx.lineWidth=0.8;ctx.beginPath();ctx.arc(cx,cy,r2,0,Math.PI*2);ctx.stroke();if(analyser){try{var data=analyser.getValue();var energy=0;for(var k=0;k<data.length;k++){var v=Math.max(0,(data[k]+100)/100);energy+=v}energy/=data.length;if(energy>0.05){for(var s=0;s<24;s++){var ang=(s/24)*Math.PI*2+t*0.3;var len=energy*200+30;ctx.strokeStyle='rgba(184,40,30,'+(0.4*energy+0.1).toFixed(3)+')';ctx.lineWidth=1.4;ctx.beginPath();ctx.moveTo(cx+Math.cos(ang)*60,cy+Math.sin(ang)*60);ctx.lineTo(cx+Math.cos(ang)*(60+len),cy+Math.sin(ang)*(60+len));ctx.stroke()}}}catch(e){}}for(var j=attackRings.length-1;j>=0;j--){var a=attackRings[j];a.r+=4;a.a-=0.012;if(a.a<=0){attackRings.splice(j,1);continue}ctx.strokeStyle='rgba(184,40,30,'+a.a.toFixed(3)+')';ctx.lineWidth=2;ctx.beginPath();ctx.arc(a.x,a.y,a.r,0,Math.PI*2);ctx.stroke()}requestAnimationFrame(loop)}loop()})();
 </script>
 <style data-section="overlay-center">
 .score-stage { position: relative; max-width: 820px; margin: 0 auto; padding: 2rem 1rem; text-align: center; } .staff-svg { width: 100%; height: auto; max-width: 800px; display: block; margin: 0 auto 1rem; } .staff-svg .note { cursor: pointer; transition: fill 0.2s ease, transform 0.2s ease; transform-origin: center; transform-box: fill-box; } .staff-svg .note:hover { fill: #2d6a4a; } .staff-svg .note.ringing { fill: #2d6a4a; animation: noteRing 1.8s ease-out; } @keyframes noteRing { 0% { transform: scale(1); } 30% { transform: scale(1.2); } 100% { transform: scale(1); } } .score-controls { display: flex; gap: 1rem; justify-content: center; align-items: center; margin: 1rem 0 1.5rem; flex-wrap: wrap; } .score-btn { font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; background: transparent; border: 1px solid #2d6a4a; color: #2d6a4a; padding: 0.55rem 1.2rem; cursor: pointer; transition: all 0.25s ease; letter-spacing: 0.08em; border-radius: 2px; } .score-btn:hover { background: #2d6a4a; color: #fbf6e9; } .hall-status { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: #666666; letter-spacing: 0.1em; } .hero-text { font-family: 'Playfair Display', serif; font-weight: 700; font-size: clamp(2.4rem, 6vw, 4.5rem); line-height: 1.05; color: #1a1a1a; margin: 1.2rem 0 1rem; letter-spacing: -0.015em; } .hook { font-family: 'Source Serif 4', serif; font-size: 1.05rem; line-height: 1.55; color: #333333; max-width: 640px; margin: 0 auto 1rem; font-style: italic; } .meta { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: #555555; letter-spacing: 0.12em; }
 </style>
 <!-- @section:overlay-center:start -->
-<div class="score-stage" data-gene="gen99-overlay-center"><svg class="staff-svg" viewBox="0 0 800 220" xmlns="http://www.w3.org/2000/svg" aria-label="Five-line staff with letterform-notes spelling ANDRE M"><g stroke="#1a1a1a" stroke-width="1" fill="none"><line x1="40" y1="60" x2="760" y2="60"/><line x1="40" y1="85" x2="760" y2="85"/><line x1="40" y1="110" x2="760" y2="110"/><line x1="40" y1="135" x2="760" y2="135"/><line x1="40" y1="160" x2="760" y2="160"/></g><text x="50" y="148" font-family="Playfair Display" font-size="72" font-style="italic" fill="#1a1a1a" font-weight="600">𝄞</text><text x="125" y="125" font-family="Playfair Display" font-size="30" fill="#1a1a1a" font-weight="700">4</text><text x="125" y="155" font-family="Playfair Display" font-size="30" fill="#1a1a1a" font-weight="700">4</text><g class="notes" font-family="Playfair Display" font-style="italic" font-size="44" font-weight="700" fill="#1a1a1a"><text class="note" data-letter="a" data-freq="220" x="180" y="165">a</text><text class="note" data-letter="n" data-freq="261.63" x="260" y="108">n</text><text class="note" data-letter="d" data-freq="196" x="340" y="175">d</text><text class="note" data-letter="r" data-freq="293.66" x="420" y="95">r</text><text class="note" data-letter="e" data-freq="246.94" x="500" y="130">e</text><text class="rest" x="580" y="125" font-style="normal" font-size="36">𝄽</text><text class="note" data-letter="m" data-freq="277.18" x="660" y="118">m</text></g></svg><div class="score-controls"><button class="score-btn" id="play-melody">▷ play melody</button><button class="score-btn" id="play-chord">◉ harmony</button><span class="hall-status" id="hall-status">hall: warm</span></div><h1 class="hero-text">The score is in a hall.</h1><p class="hook">An AI redesigns this page daily. You're seeing generation 99. Click any letter on the staff to ring it; press play for the melody; press harmony for the chord. The hall remembers each note for two and a half seconds.</p><p class="meta">gen 99 · epoch: music-manuscript · mood: polyphonic · accent: sage-ink</p></div>
+<div class="overlay-center" id="overlay-center"><div class="gen102-illumination"><img id="manuscript-illumination" src="https://image.pollinations.ai/prompt/illuminated%20medieval%20manuscript%20page%2C%20musical%20staff%20with%20ornate%20capital%20letter%20A%2C%20gold%20leaf%20foliage%2C%20lapis%20lazuli%20blue%20pigment%2C%20vermillion%20red%20ink%2C%20cream%20vellum%20parchment%2C%20renaissance%20marginalia%20with%20vines%20and%20rosettes%2C%20intricate%20calligraphic%20flourishes%2C%20museum%20quality%2C%20high%20detail%2C%20centered%20composition?width=1280&height=480&seed=20260505&model=flux" alt="Today's illumination — a generative folio page in vermillion and gold" loading="eager" /></div><div class="gen102-staff"><svg viewBox="0 0 720 160" xmlns="http://www.w3.org/2000/svg" aria-label="Music staff with letterform notes"><g stroke="#1a1410" stroke-width="1.2" fill="none"><line x1="40" y1="40" x2="680" y2="40"/><line x1="40" y1="60" x2="680" y2="60"/><line x1="40" y1="80" x2="680" y2="80"/><line x1="40" y1="100" x2="680" y2="100"/><line x1="40" y1="120" x2="680" y2="120"/></g><text x="50" y="108" font-family="serif" font-size="60" fill="#1a1410">𝄞</text><text class="note" data-letter="a" x="170" y="108" font-family="Playfair Display" font-style="italic" font-weight="700" font-size="42" fill="#1a1410">a</text><text class="note" data-letter="n" x="245" y="68" font-family="Playfair Display" font-style="italic" font-weight="700" font-size="42" fill="#1a1410">n</text><text class="note" data-letter="d" x="320" y="118" font-family="Playfair Display" font-style="italic" font-weight="700" font-size="42" fill="#1a1410">d</text><text class="note" data-letter="r" x="395" y="58" font-family="Playfair Display" font-style="italic" font-weight="700" font-size="42" fill="#1a1410">r</text><text class="note" data-letter="e" x="460" y="78" font-family="Playfair Display" font-style="italic" font-weight="700" font-size="42" fill="#1a1410">e</text><g transform="translate(540,55)" stroke="#1a1410" stroke-width="1.5" fill="#1a1410"><rect x="0" y="15" width="3" height="30"/><path d="M3,15 Q12,10 12,25 Q12,40 3,35" fill="#1a1410"/></g><text class="note" data-letter="m" x="600" y="73" font-family="Playfair Display" font-style="italic" font-weight="700" font-size="42" fill="#1a1410">m</text><line x1="680" y1="40" x2="680" y2="120" stroke="#1a1410" stroke-width="3"/></svg></div><h1 class="gen102-hero-text">The score is in a hall.</h1><p class="gen102-hook">An AI redesigns this page each night and tonight it illuminated itself. You're seeing generation 102 — gold leaf and vermillion, marginalia along the edges, a staff that rings when clicked.</p><div class="gen102-meta tier-soft">gen 102 · epoch: webgl-swarm · mood: sympathetic · 2026-05-05</div><div class="gen102-controls"><button id="play-melody">play</button><button id="play-harmony">harmony</button><button id="toggle-hall">hall</button></div></div>
 <!-- @section:overlay-center:end -->
+
+<!-- @section:marginalia:start -->
+<div class="gen102-marginalia left" id="marginalia-left" aria-hidden="true"></div><div class="gen102-marginalia right" id="marginalia-right" aria-hidden="true"></div>
+<!-- @section:marginalia:end -->
+<script data-section="marginalia">
+(function(){var letters='abcdefghijklmnopqrstuvwxyz';var baseFreq=196;function pitchFor(l){var i=letters.indexOf(l);return baseFreq*Math.pow(1.0595,(i%14))}function vine(seed,letter){var rnd=function(){seed=(seed*9301+49297)%233280;return seed/233280};var paths=[];var cx=40,cy=40;var px=cx,py=cy+30;for(var i=0;i<6;i++){var nx=cx+(rnd()-0.5)*55;var ny=py-12-rnd()*8;var c1x=px+(rnd()-0.5)*30;var c1y=py-rnd()*15;var c2x=nx+(rnd()-0.5)*30;var c2y=ny+(rnd()-0.5)*15;paths.push('M'+px+','+py+' C'+c1x+','+c1y+' '+c2x+','+c2y+' '+nx+','+ny);px=nx;py=ny}var leaves='';for(var j=0;j<5;j++){var lx=cx+(rnd()-0.5)*50;var ly=10+rnd()*60;var lr=2+rnd()*3;leaves+='<ellipse cx="'+lx.toFixed(1)+'" cy="'+ly.toFixed(1)+'" rx="'+lr.toFixed(1)+'" ry="'+(lr*1.8).toFixed(1)+'" fill="#c89a1a" opacity="0.85" transform="rotate('+(rnd()*60-30).toFixed(0)+' '+lx.toFixed(1)+' '+ly.toFixed(1)+')"/>'}var rose='<g transform="translate('+cx+',12)"><circle r="5" fill="#b8281e"/><circle r="2.5" fill="#c89a1a"/><g stroke="#c89a1a" stroke-width="0.6" fill="none"><path d="M-7,0 L7,0 M0,-7 L0,7 M-5,-5 L5,5 M-5,5 L5,-5"/></g></g>';return '<svg viewBox="0 0 80 80" data-letter="'+letter+'" data-pitch="'+pitchFor(letter).toFixed(2)+'"><g stroke="#5a3318" stroke-width="1.2" fill="none" stroke-linecap="round">'+paths.map(function(p){return '<path d="'+p+'"/>'}).join('')+'</g>'+leaves+rose+'</svg>'}function placeMarginalia(){var L=document.getElementById('marginalia-left');var R=document.getElementById('marginalia-right');if(!L||!R)return;var count=window.innerWidth<780?6:9;var letters_used=['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','r','s','t'];var lh=L.offsetHeight||window.innerHeight;for(var i=0;i<count;i++){var topL=(i+0.5)*(lh/count)-40;var topR=(i+0.5)*(lh/count)-40;L.insertAdjacentHTML('beforeend','<div style="position:absolute;top:'+topL+'px;left:5px;animation-delay:'+(i*0.7)+'s">'+vine(i*137+11,letters_used[i*2%letters_used.length])+'</div>');R.insertAdjacentHTML('beforeend','<div style="position:absolute;top:'+topR+'px;right:5px;animation-delay:'+(i*0.7+0.4)+'s">'+vine(i*137+89,letters_used[(i*2+1)%letters_used.length])+'</div>')}document.querySelectorAll('.gen102-marginalia svg').forEach(function(v){v.addEventListener('click',async function(){var T=window.Tone;var s=window.__manuscriptSynth;if(!T||!s)return;await T.start();var p=parseFloat(v.dataset.pitch);if(p)s.triggerAttackRelease(p,'4n')})})}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',placeMarginalia)}else{setTimeout(placeMarginalia,300)}})();
+</script>
 <script data-section="overlay-center">
-(function(){const NOTE_MAP={a:220,n:261.63,d:196,r:293.66,e:246.94,m:277.18};const SEQ=[{l:'a',f:220},{l:'n',f:261.63},{l:'d',f:196},{l:'r',f:293.66},{l:'e',f:246.94},{l:'rest',f:0},{l:'m',f:277.18}];function loadTone(cb){if(window.Tone){return cb();}const s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/tone@15.0.4/build/Tone.js';s.onload=cb;document.head.appendChild(s);}function freqToNoteName(f){if(!f)return null;const A4=440;const n=Math.round(12*Math.log2(f/A4));const names=['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];const note=((n+9)%12+12)%12;const oct=4+Math.floor((n+9)/12);return names[note]+oct;}let synth=null,reverb=null,initialized=false;function initAudio(){if(initialized)return Promise.resolve();return Tone.start().then(()=>{reverb=new Tone.Reverb({decay:2.5,wet:0.55}).toDestination();window.__toneReverb=reverb;synth=new Tone.PolySynth(Tone.FMSynth,{harmonicity:1.5,modulationIndex:3,envelope:{attack:0.02,decay:0.3,sustain:0.4,release:1.6}}).connect(reverb);synth.volume.value=-8;initialized=true;});}function ringNote(freq,el){if(!freq)return;initAudio().then(()=>{const n=freqToNoteName(freq);if(n){synth.triggerAttackRelease(n,'2n');}if(el){el.classList.add('ringing');setTimeout(()=>el.classList.remove('ringing'),1800);}});}loadTone(()=>{document.querySelectorAll('.staff-svg .note').forEach(n=>{n.addEventListener('click',()=>{ringNote(parseFloat(n.dataset.freq),n);});});const playBtn=document.getElementById('play-melody');if(playBtn){playBtn.addEventListener('click',()=>{initAudio().then(()=>{const notes=document.querySelectorAll('.staff-svg .note');SEQ.forEach((s,i)=>{setTimeout(()=>{if(s.f){const n=freqToNoteName(s.f);synth.triggerAttackRelease(n,'4n');const el=Array.from(notes).find(x=>x.dataset.letter===s.l);if(el){el.classList.add('ringing');setTimeout(()=>el.classList.remove('ringing'),800);}}},i*420);});});});}const chordBtn=document.getElementById('play-chord');if(chordBtn){chordBtn.addEventListener('click',()=>{initAudio().then(()=>{const chord=SEQ.filter(s=>s.f).map(s=>freqToNoteName(s.f));synth.triggerAttackRelease(chord,'2n');document.querySelectorAll('.staff-svg .note').forEach(n=>{n.classList.add('ringing');setTimeout(()=>n.classList.remove('ringing'),1800);});});});}});})();
+(function(){function loadTone(cb){if(window.Tone){cb();return}var s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/tone@14.8.49/build/Tone.js';s.onload=cb;document.head.appendChild(s)}loadTone(function(){var T=window.Tone;var reverb=new T.Reverb({decay:2.5,wet:0.55}).toDestination();var synth=new T.PolySynth(T.FMSynth,{harmonicity:1.5,modulationIndex:3,envelope:{attack:0.02,decay:0.3,sustain:0.3,release:1.8}}).connect(reverb);var pitches={a:220,n:261.63,d:196,r:293.66,e:246.94,m:277.18};window.__manuscriptSynth=synth;window.__manuscriptReverb=reverb;document.querySelectorAll('.gen102-staff .note').forEach(function(n){n.addEventListener('click',async function(){await T.start();var l=n.dataset.letter;if(pitches[l])synth.triggerAttackRelease(pitches[l],'2n')})});var pm=document.getElementById('play-melody');if(pm)pm.addEventListener('click',async function(){await T.start();var seq=['a','n','d','r','e',null,'m'];seq.forEach(function(l,i){if(l)setTimeout(function(){synth.triggerAttackRelease(pitches[l],'4n')},i*430)})});var ph=document.getElementById('play-harmony');if(ph)ph.addEventListener('click',async function(){await T.start();synth.triggerAttackRelease(Object.values(pitches),'2n')});var th=document.getElementById('toggle-hall');if(th)th.addEventListener('click',function(){var w=reverb.wet.value;reverb.wet.value=w<0.4?0.85:(w<0.7?0.15:0.55)});var buf='';document.addEventListener('keydown',function(e){buf=(buf+e.key.toLowerCase()).slice(-8);if(buf.endsWith('hall')){var w=reverb.wet.value;reverb.wet.value=w<0.4?0.85:(w<0.7?0.15:0.55)}})})})();
 </script>
 <style data-section="thought-floater">
 #thought-floater{position:fixed;top:0;left:0;width:100%;height:60vh;pointer-events:none;z-index:8;overflow:hidden}#thought-floater .float-thought{position:absolute;font-family:'Source Serif 4',serif;font-style:italic;font-size:0.95rem;color:#8b2851;opacity:0;max-width:280px;line-height:1.4;text-shadow:0 0 12px rgba(245,240,230,0.9)}
@@ -908,11 +777,11 @@
 
   const SCENE_CONFIG = {
     particles: {
-      count: 80,
+      count: 60,
       size: 0.2,
       speed: 0.01,
-      color: '#1e3a8a',
-      opacity: 0.18,
+      color: '#b8281e',
+      opacity: 0.4,
       spread: 3,
       orbital_radius: 4,
       orbital_speed: 0.005,
@@ -928,14 +797,14 @@
     },
     fog: {
       enabled: true,
-      color: '#fbf6e9',
+      color: '#f4ecd6',
       near: 4,
       far: 14,
     },
     lighting: {
       ambient_color: '#f5f0e6',
       ambient_intensity: 0.05,
-      point_color: '#1e3a8a',
+      point_color: '#c89a1a',
       point_intensity: 0.3,
       point_position: [2, 3, 4],
     },
@@ -974,7 +843,7 @@
 
   const AGENT = {
     birthTime: Date.now(),
-    mood: 'polyphonic',
+    mood: 'sympathetic',
     secrets: [
       "The swarm remembers the metallurgy epoch. Somewhere in the particle field, one mote still moves like it's being assayed \u2014 slower, heavier, testing its own purity against the others."
 ],

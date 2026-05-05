@@ -1,17 +1,17 @@
 {
-  "generation": 101,
+  "generation": 102,
   "epoch": "webgl-swarm",
   "epoch_started": "2026-05-03",
   "traits": {
     "color": {
-      "accent_base": "#1e3a8a",
-      "accent_dawn": "#2a4ba8",
-      "accent_morning": "#2545a0",
-      "accent_afternoon": "#1e3a8a",
-      "accent_evening": "#18308a",
-      "accent_night": "#122670",
-      "bg": "#fbf6e9",
-      "fg": "#1a1a1a",
+      "accent_base": "#b8281e",
+      "accent_dawn": "#c43a28",
+      "accent_morning": "#b8281e",
+      "accent_afternoon": "#a82018",
+      "accent_evening": "#981812",
+      "accent_night": "#80140e",
+      "bg": "#f4ecd6",
+      "fg": "#1a1410",
       "grain_opacity": "0",
       "fg_dim": "#555555",
       "bg_surface": "#f5f5f5",
@@ -30,6 +30,7 @@
         "overlay-top",
         "resonance-field",
         "overlay-center",
+        "marginalia",
         "thought-floater",
         "overlay-bottom",
         "scroll-hint",
@@ -75,6 +76,7 @@
         "wall-section-glyph-001.svg",
         "editorial-cream-glyph-002.svg",
         "meridian-glyph-002.svg",
+        "illumination-glyph-001.svg",
         "surgical-glyph-001.svg",
         "lantern-glyph-001.svg",
         "type-score-glyph-001.svg",
@@ -173,17 +175,6 @@
     }
   },
   "fitness_log": [
-    {
-      "gen": 82,
-      "coherence": 6,
-      "novelty": 5,
-      "identity": 6,
-      "tension": 5,
-      "awe": 4,
-      "perceptibility": 5,
-      "note": "The screenshot shows real progress: cream background holds, TYPOGRAPHY hero text is large and visible with letter-by-letter styling, the SVG baseline ",
-      "total": 5.2
-    },
     {
       "gen": 83,
       "coherence": 6,
@@ -392,35 +383,20 @@
       "perceptibility": 8,
       "note": "Gen 100 made the audio real (Tone.js + reverb) but the visual world stayed a polite cream page. Tonight closes the asymmetry: a full-viewport 2D canva",
       "total": 7.3
+    },
+    {
+      "gen": 102,
+      "coherence": 7,
+      "novelty": 5,
+      "identity": 7,
+      "tension": 5,
+      "awe": 3,
+      "perceptibility": 4,
+      "note": "Andre's MISS is correct. The audio engine and theme are right but the visible page at idle was a polite cream rectangle with a staff drawn on it. Gen ",
+      "total": 5.2
     }
   ],
   "mutation_log": [
-    {
-      "gen": 82,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "content.mood",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "section.overlay-center",
-        "section.overlay-top",
-        "section.thought-floater",
-        "section.overlay-bottom",
-        "section.scroll-hint",
-        "section.prototype-portfolio",
-        "page.experiments/016.html",
-        "svg.typographic-architect-glyph-002.svg",
-        "scene.config"
-      ],
-      "kills": [
-        "css_rule:gen81-css",
-        "thought:dawn[1]",
-        "secret[1]"
-      ],
-      "timestamp": "2026-04-21T00:03:41Z"
-    },
     {
       "gen": 83,
       "mutations": [
@@ -842,15 +818,29 @@
         "secret[20]"
       ],
       "timestamp": "2026-05-05T00:28:39Z"
+    },
+    {
+      "gen": 102,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "section.overlay-center",
+        "section.marginalia",
+        "section.resonance-field",
+        "svg.illumination-glyph-001.svg",
+        "scene.config",
+        "overlay.agent_data"
+      ],
+      "kills": [
+        "secret[20]"
+      ],
+      "timestamp": "2026-05-05T01:13:53Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "secret",
-      "value": "<!-- gen 18: April 1, 2026. The swarm spent four generations in the dark. Today ",
-      "died_gen": 83,
-      "epitaph": "Pool at 21, needs to drop to 20. Killed the oldest secret from the pre-typography era to make room for the new TYPOGRAPHY-has-10-letters secret."
-    },
     {
       "type": "css_rule",
       "value": "gen83-css",
@@ -1144,6 +1134,12 @@
       "value": "Type 'hall' anywhere on the page to toggle the reverb wet/dry mix \u2014 dry sounds l",
       "died_gen": 101,
       "epitaph": "Secrets at 21/20. Pruning to capacity. Tail secret retired so the new resonance-field secret could ring."
+    },
+    {
+      "type": "secret",
+      "value": "The page breathes at ~30 BPM until you press play. Then it tries to keep up.",
+      "died_gen": 102,
+      "epitaph": "Pruned to capacity (21\u219220). The weakest tail secret made room for the click-any-vine secret that names the new instrument."
     }
   ],
   "carrying_capacity": {
@@ -1162,11 +1158,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 92,
-      "base": "#4a5d2a",
-      "family": "amber"
-    },
     {
       "gen": 93,
       "base": "#8b2851",
@@ -1211,6 +1202,11 @@
       "gen": 101,
       "base": "#1e3a8a",
       "family": "cyan"
+    },
+    {
+      "gen": 102,
+      "base": "#b8281e",
+      "family": "red"
     }
   ],
   "past_epochs": [
