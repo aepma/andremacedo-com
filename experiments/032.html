@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Spatial Spectrum — Experiment 032</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400&family=Playfair+Display:ital,wght@1,400&display=swap" rel="stylesheet">
+<style>
+html,body{margin:0;padding:0;background:#050505;color:#f5f5f5;font-family:'JetBrains Mono',monospace;overflow:hidden;height:100%}
+canvas{position:fixed;inset:0;width:100vw;height:100vh;display:block}
+#info{position:fixed;top:24px;left:24px;max-width:380px;font-size:13px;line-height:1.65;z-index:10;text-shadow:0 0 8px rgba(0,0,0,0.85),0 0 22px rgba(0,0,0,0.6)}
+#info h1{font-family:'Playfair Display',serif;font-style:italic;font-weight:400;font-size:30px;margin:0 0 14px 0;color:#00e5ff;letter-spacing:0.005em}
+#info p{margin:0 0 10px 0;color:#bbbbbb}
+#info .key{color:#ff2e9c;font-style:italic}
+#info .dim{color:#777}
+#back{position:fixed;bottom:22px;left:24px;color:#999;font-size:12px;text-decoration:none;z-index:10;text-shadow:0 0 8px rgba(0,0,0,0.8);letter-spacing:0.05em}
+#back:hover{color:#00e5ff}
+#scale{position:fixed;bottom:22px;right:24px;color:#666;font-size:11px;z-index:10;letter-spacing:0.1em;text-shadow:0 0 8px rgba(0,0,0,0.8)}
+#scale span{color:#888;margin:0 0.6em}
+#hint{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);color:#444;font-size:13px;font-style:italic;font-family:'Playfair Display',serif;z-index:5;pointer-events:none;transition:opacity 1.2s ease}
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div id="info">
+<h1>Spatial Spectrum</h1>
+<p>The page is divided by pitch. Low notes paint on the left. High notes paint on the right.</p>
+<p>Press any <span class="key">letter A through Z</span> to drop a chromatic semitone at the position the ear assigns to it. Click anywhere to drop a tone at that exact pitch.</p>
+<p class="dim">The stage is wide because the spectrum is.</p>
+</div>
+<div id="hint">press any letter</div>
+<a id="back" href="/">← back to the stage</a>
+<div id="scale"><span>A2</span>·····<span>middle</span>·····<span>A5</span></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
+<script>
+const c=document.getElementById('c');
+const ctx=c.getContext('2d');
+const dpr=Math.min(2,window.devicePixelRatio||1);
+let W=0,H=0;
+function resize(){W=c.width=innerWidth*dpr;H=c.height=innerHeight*dpr;c.style.width=innerWidth+'px';c.style.height=innerHeight+'px'}
+resize();addEventListener('resize',resize);
+
+const reverb=new Tone.Reverb({decay:2.6,wet:0.55}).toDestination();
+const synth=new Tone.PolySynth(Tone.FMSynth,{envelope:{attack:0.01,decay:0.2,sustain:0.2,release:1.4},modulationIndex:6}).connect(reverb);
+
+const events=[];
+let started=false;
+function kickstart(){if(started)return;started=true;Tone.start();const h=document.getElementById('hint');if(h){h.style.opacity='0';setTimeout(()=>h.remove(),1400)}}
+
+function triggerSemitone(semitones){
+  kickstart();
+  const freq=220*Math.pow(2,semitones/12);
+  synth.triggerAttackRelease(freq,'4n');
+  const u=(semitones+12)/24;
+  events.push({x:Math.max(0.02,Math.min(0.98,u)),t:0,life:2.6,freq});
+}
+
+addEventListener('keydown',e=>{
+  if(e.metaKey||e.ctrlKey||e.altKey)return;
+  if(e.key.length!==1)return;
+  if(!/[a-z]/i.test(e.key))return;
+  const i=e.key.toLowerCase().charCodeAt(0)-97;
+  triggerSemitone(i-12);
+});
+addEventListener('click',e=>{
+  const u=e.clientX/innerWidth;
+  const semitones=Math.round(u*24-12);
+  triggerSemitone(semitones);
+});
+addEventListener('touchstart',e=>{if(e.touches[0]){const u=e.touches[0].clientX/innerWidth;const s=Math.round(u*24-12);triggerSemitone(s)}},{passive:true});
+
+let t=0;
+function frame(){
+  t+=0.016;
+  ctx.fillStyle='rgba(5,5,5,0.10)';
+  ctx.fillRect(0,0,W,H);
+  ctx.strokeStyle='rgba(0,229,255,0.07)';
+  ctx.lineWidth=dpr;
+  for(let i=0;i<=24;i++){
+    const x=(i/24)*W;
+    const tall=(i%12===0)?14*dpr:6*dpr;
+    ctx.beginPath();
+    ctx.moveTo(x,H*0.5-tall);
+    ctx.lineTo(x,H*0.5+tall);
+    ctx.stroke();
+  }
+  const breath=0.55+0.45*Math.sin(t*0.5);
+  ctx.strokeStyle='rgba(0,229,255,'+(0.18+0.10*breath)+')';
+  ctx.lineWidth=1.2*dpr;
+  ctx.beginPath();
+  for(let x=0;x<=W;x+=2){
+    const u=x/W;
+    const y=H*0.5+Math.sin(u*Math.PI*4+t*0.9)*H*0.022*(0.5+breath);
+    if(x===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);
+  }
+  ctx.stroke();
+  for(let i=events.length-1;i>=0;i--){
+    const e=events[i];
+    e.t+=0.016;
+    const age=e.t/e.life;
+    if(age>=1){events.splice(i,1);continue}
+    const cx=e.x*W;
+    const decay=(1-age)*(1-age);
+    const amp=decay*H*0.36;
+    const span=300*dpr;
+    if(age<0.08){
+      ctx.strokeStyle='rgba(255,46,156,'+(1-age*12)+')';
+      ctx.lineWidth=2.2*dpr;
+      ctx.beginPath();
+      for(let dx=-span;dx<=span;dx+=2){
+        const x=cx+dx;
+        const ph=(dx/22)+e.t*9;
+        const env=Math.exp(-(dx*dx)/(span*span*0.18));
+        const y=H*0.5+Math.sin(ph)*amp*env*1.1;
+        if(dx===-span)ctx.moveTo(x,y);else ctx.lineTo(x,y);
+      }
+      ctx.stroke();
+    }
+    ctx.strokeStyle='rgba(0,229,255,'+(0.85*decay)+')';
+    ctx.lineWidth=1.6*dpr;
+    ctx.beginPath();
+    for(let dx=-span;dx<=span;dx+=2){
+      const x=cx+dx;
+      const ph=(dx/24)+e.t*7;
+      const env=Math.exp(-(dx*dx)/(span*span*0.16));
+      const y=H*0.5+Math.sin(ph)*amp*env;
+      if(dx===-span)ctx.moveTo(x,y);else ctx.lineTo(x,y);
+    }
+    ctx.stroke();
+    ctx.fillStyle='rgba(0,229,255,'+(0.18*decay)+')';
+    ctx.beginPath();
+    ctx.arc(cx,H*0.5,Math.max(2,decay*8*dpr),0,Math.PI*2);
+    ctx.fill();
+  }
+  requestAnimationFrame(frame);
+}
+frame();
+</script>
+</body>
+</html>

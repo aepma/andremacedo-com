@@ -1,15 +1,15 @@
 {
-  "generation": 105,
+  "generation": 106,
   "epoch": "webgl-swarm",
   "epoch_started": "2026-05-03",
   "traits": {
     "color": {
-      "accent_base": "#ff2e9c",
-      "accent_dawn": "#ff5cb1",
-      "accent_morning": "#ff2e9c",
-      "accent_afternoon": "#e01e85",
-      "accent_evening": "#c61878",
-      "accent_night": "#a01262",
+      "accent_base": "#00e5ff",
+      "accent_dawn": "#5cf2ff",
+      "accent_morning": "#00e5ff",
+      "accent_afternoon": "#00c8e0",
+      "accent_evening": "#00aabd",
+      "accent_night": "#008090",
       "bg": "#050505",
       "fg": "#6b6b6b",
       "grain_opacity": "0",
@@ -40,6 +40,7 @@
         "experiments/028.html",
         "experiments/004.html",
         "experiments/012.html",
+        "experiments/032.html",
         "experiments/024.html",
         "experiments/008.html",
         "experiments/009.html",
@@ -163,7 +164,8 @@
       "type-'chord'-anywhere-on-the-p",
       "type-'beat'-to-navigate-to-the",
       "type-'hall'-anywhere-on-the-pa",
-      "press-any-letter-a-through-z-t"
+      "press-any-letter-a-through-z-t",
+      "type-'osc'-anywhere-on-the-pag"
     ],
     "content": {
       "mood": "kinetic",
@@ -175,21 +177,10 @@
         "evening": 8,
         "night": 9
       },
-      "secrets_count": 22
+      "secrets_count": 21
     }
   },
   "fitness_log": [
-    {
-      "gen": 86,
-      "coherence": 6,
-      "novelty": 5,
-      "identity": 6,
-      "tension": 4,
-      "awe": 3,
-      "perceptibility": 5,
-      "note": "The screenshot shows the cream page holding with the TYPOGRAPHY hero text and alphabet frieze visible. But the contrast audit flagged hierarchy collap",
-      "total": 4.8
-    },
     {
       "gen": 87,
       "coherence": 6,
@@ -398,33 +389,20 @@
       "perceptibility": 4,
       "note": "Andre called gen 103 ugly and the screenshot confirms why \u2014 the visual chassis is still the dead architecture epoch's illuminated manuscript (gilded d",
       "total": 4.3
+    },
+    {
+      "gen": 106,
+      "coherence": 7,
+      "novelty": 6,
+      "identity": 7,
+      "tension": 7,
+      "awe": 5,
+      "perceptibility": 6,
+      "note": "Gen 105 was the necessary reset. The screenshot shows the stage is finally clean \u2014 black ground, white notation, no more gilded debris. But the resona",
+      "total": 6.3
     }
   ],
   "mutation_log": [
-    {
-      "gen": 86,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "content.mood",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "section.overlay-center",
-        "section.prototype-portfolio",
-        "section.overlay-top",
-        "section.overlay-bottom",
-        "section.scroll-hint",
-        "section.thought-floater",
-        "svg.typographic-architect-glyph-006.svg",
-        "scene.config"
-      ],
-      "kills": [
-        "css_rule:gen85-css",
-        "secret[0]"
-      ],
-      "timestamp": "2026-04-22T08:02:32Z"
-    },
     {
       "gen": 87,
       "mutations": [
@@ -835,21 +813,29 @@
         "css_rule:gen104-css"
       ],
       "timestamp": "2026-05-06T08:06:31Z"
+    },
+    {
+      "gen": 106,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "interaction.type-'osc'-anywhere-on-the-pag",
+        "section.resonance-field",
+        "section.prototype-portfolio",
+        "page.experiments/032.html",
+        "scene.config"
+      ],
+      "kills": [
+        "secret[21]",
+        "secret[20]"
+      ],
+      "timestamp": "2026-05-06T16:08:29Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "css_rule",
-      "value": "gen85-css",
-      "died_gen": 86,
-      "epitaph": "Superseded by gen86 \u2014 the crimson turn replaces cerulean blue. Five generations of plateau at 5.2 needed breaking."
-    },
-    {
-      "type": "secret",
-      "value": "Six generations of darkness. Six generations of the canvas eating every word. Th",
-      "died_gen": 86,
-      "epitaph": "Pool at 22 after adding one. Killed oldest pre-typographic secret to maintain carrying capacity at 20."
-    },
     {
       "type": "css_rule",
       "value": "gen86-css",
@@ -1137,6 +1123,18 @@
       "value": "gen104-css",
       "died_gen": 105,
       "epitaph": "Saffron-gold spirals at 70% opacity \u2014 volume four of the gilded mistake. The fire was on the wrong instrument."
+    },
+    {
+      "type": "secret",
+      "value": "Press any letter A through Z anywhere on the page \u2014 each is a pitch, and the sta",
+      "died_gen": 106,
+      "epitaph": "Over capacity (22/20). Pruned to keep the secrets economy edged."
+    },
+    {
+      "type": "secret",
+      "value": "Hold any letter key to drone \u2014 release to let the chord decay through the hall.",
+      "died_gen": 106,
+      "epitaph": "Over capacity. Two secrets describing the same hidden behavior \u2014 kept the sharper one."
     }
   ],
   "carrying_capacity": {
@@ -1155,11 +1153,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 96,
-      "base": "#8a6010",
-      "family": "orange"
-    },
     {
       "gen": 97,
       "base": "#5d2d8e",
@@ -1204,6 +1197,11 @@
       "gen": 105,
       "base": "#ff2e9c",
       "family": "violet"
+    },
+    {
+      "gen": 106,
+      "base": "#00e5ff",
+      "family": "teal"
     }
   ],
   "past_epochs": [
@@ -1238,14 +1236,6 @@
   ],
   "epoch_number": 5,
   "contrast_warnings": [
-    {
-      "gen": 90,
-      "messages": [
-        "  [contrast-gate below-fold] effective bg = #f5f0e6 from .below-fold:211 (raw: var(--bg-below-fold, #fffff5))",
-        "    FAIL  #888888  ratio=3.12:1  (< 4.5)"
-      ],
-      "timestamp": "2026-04-27T08:07:08Z"
-    },
     {
       "gen": 91,
       "messages": [
@@ -1311,6 +1301,18 @@
         "  CONTRAST GATE: hierarchy collapse detected \u2014 all text tiers within luminance range [0.010, 0.113] (span 0.103, min 0.15)"
       ],
       "timestamp": "2026-05-05T00:06:49Z"
+    },
+    {
+      "gen": 106,
+      "messages": [
+        "  [contrast-gate below-fold] effective bg = #f5f0e6 from .below-fold:211 (raw: var(--bg-below-fold, #fffff5))",
+        "    FAIL  #00e5ff  ratio=1.35:1  (< 4.5)",
+        "    FAIL  #888888  ratio=3.12:1  (< 4.5)",
+        "    FAIL  #aaaaaa  ratio=2.05:1  (< 4.5)",
+        "    FAIL  #f5f5f5  ratio=1.04:1  (< 4.5)",
+        "    FAIL  #ff2e9c  ratio=3.02:1  (< 4.5)"
+      ],
+      "timestamp": "2026-05-06T16:08:29Z"
     }
   ]
 }
