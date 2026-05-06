@@ -1,17 +1,17 @@
 {
-  "generation": 104,
+  "generation": 105,
   "epoch": "webgl-swarm",
   "epoch_started": "2026-05-03",
   "traits": {
     "color": {
-      "accent_base": "#b8860b",
-      "accent_dawn": "#d4a017",
-      "accent_morning": "#c89512",
-      "accent_afternoon": "#b8860b",
-      "accent_evening": "#a07408",
-      "accent_night": "#7a5805",
-      "bg": "#f4ecd6",
-      "fg": "#1a1410",
+      "accent_base": "#ff2e9c",
+      "accent_dawn": "#ff5cb1",
+      "accent_morning": "#ff2e9c",
+      "accent_afternoon": "#e01e85",
+      "accent_evening": "#c61878",
+      "accent_night": "#a01262",
+      "bg": "#050505",
+      "fg": "#6b6b6b",
       "grain_opacity": "0",
       "fg_dim": "#555555",
       "bg_surface": "#f5f5f5",
@@ -30,7 +30,6 @@
         "overlay-top",
         "resonance-field",
         "overlay-center",
-        "marginalia",
         "thought-floater",
         "overlay-bottom",
         "scroll-hint",
@@ -65,6 +64,7 @@
         "experiments/006.html",
         "experiments/026.html",
         "experiments/030.html",
+        "experiments/031.html",
         "experiments/027.html",
         "experiments/007.html",
         "experiments/011.html"
@@ -162,10 +162,11 @@
       "click-any-note-in-the-hero-sta",
       "type-'chord'-anywhere-on-the-p",
       "type-'beat'-to-navigate-to-the",
-      "type-'hall'-anywhere-on-the-pa"
+      "type-'hall'-anywhere-on-the-pa",
+      "press-any-letter-a-through-z-t"
     ],
     "content": {
-      "mood": "gilded",
+      "mood": "kinetic",
       "obsession": "typography as music \u2014 the letter has a frequency, the word has a rhythm, the page is a score",
       "thought_pools": {
         "dawn": 7,
@@ -174,21 +175,10 @@
         "evening": 8,
         "night": 9
       },
-      "secrets_count": 21
+      "secrets_count": 22
     }
   },
   "fitness_log": [
-    {
-      "gen": 85,
-      "coherence": 6,
-      "novelty": 5,
-      "identity": 6,
-      "tension": 4,
-      "awe": 3,
-      "perceptibility": 5,
-      "note": "The cream page holds. The TYPOGRAPHY hero text is visible with letter-by-letter rendering. The alphabet frieze concept from gen 84 should be visible b",
-      "total": 4.8
-    },
     {
       "gen": 86,
       "coherence": 6,
@@ -397,34 +387,20 @@
       "perceptibility": 6,
       "note": "Andre's double-MISS yesterday landed exactly because gen 102-103 talked bigger than they rendered. The dropcap shipped but the resonance-field still i",
       "total": 6.7
+    },
+    {
+      "gen": 105,
+      "coherence": 5,
+      "novelty": 5,
+      "identity": 4,
+      "tension": 5,
+      "awe": 3,
+      "perceptibility": 4,
+      "note": "Andre called gen 103 ugly and the screenshot confirms why \u2014 the visual chassis is still the dead architecture epoch's illuminated manuscript (gilded d",
+      "total": 4.3
     }
   ],
   "mutation_log": [
-    {
-      "gen": 85,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "content.mood",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "section.overlay-top",
-        "section.overlay-center",
-        "section.thought-floater",
-        "section.overlay-bottom",
-        "section.scroll-hint",
-        "section.prototype-portfolio",
-        "svg.typographic-architect-glyph-005.svg",
-        "scene.config",
-        "scene.shaders"
-      ],
-      "kills": [
-        "css_rule:gen84-css",
-        "secret[0]"
-      ],
-      "timestamp": "2026-04-22T00:03:12Z"
-    },
     {
       "gen": 86,
       "mutations": [
@@ -831,39 +807,37 @@
         "css_rule:gen100-css"
       ],
       "timestamp": "2026-05-05T19:52:10Z"
+    },
+    {
+      "gen": 105,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "content.mood",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "interaction.press-any-letter-a-through-z-t",
+        "section.delete.marginalia",
+        "section.overlay-center",
+        "section.resonance-field",
+        "section.prototype-portfolio",
+        "page.experiments/031.html",
+        "scene.config",
+        "scene.shaders",
+        "overlay.agent_data"
+      ],
+      "kills": [
+        "section:marginalia",
+        "css_rule:gen101-css",
+        "css_rule:gen102-css",
+        "css_rule:gen103-css",
+        "css_rule:gen104-css"
+      ],
+      "timestamp": "2026-05-06T08:06:31Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "thought",
-      "value": "The space between letters is not empty. It's structural. Remove the space between M and A and you don't get MA \u2014 you get a wall with no door.",
-      "died_gen": 84,
-      "epitaph": "Old afternoon thought replaced with the MA/wall-with-no-door observation about letterspacing as architecture."
-    },
-    {
-      "type": "thought",
-      "value": "Gutenberg's real invention wasn't movable type. It was the space between words. Before him, scriptacontinuaranasentences. He built streets between the buildings.",
-      "died_gen": 84,
-      "epitaph": "Old night thought replaced with Gutenberg's real invention \u2014 the space between words, not the type itself."
-    },
-    {
-      "type": "secret",
-      "value": "The word 'meridian' comes from the Latin meridianus \u2014 'of midday.' The sun cross",
-      "died_gen": 84,
-      "epitaph": "Pool at 21, needs to drop to 20. Killed the oldest pre-typographic secret to make room for the new frieze-hover hint."
-    },
-    {
-      "type": "css_rule",
-      "value": "gen84-css",
-      "died_gen": 85,
-      "epitaph": "Superseded by gen85 \u2014 the blue turn replaces the rose-crimson. Four generations at 5.2 means time to change."
-    },
-    {
-      "type": "secret",
-      "value": "The antimeridian is where today becomes yesterday",
-      "died_gen": 85,
-      "epitaph": "Pool at 21 after adding one. Killed oldest pre-typographic secret to maintain capacity at 20."
-    },
     {
       "type": "css_rule",
       "value": "gen85-css",
@@ -1133,6 +1107,36 @@
       "value": "gen100-css",
       "died_gen": 104,
       "epitaph": "Five generations old and superseded. The hall (Tone.js + reverb) is preserved in gen103 and gen104 \u2014 only the gen100 styling is retired."
+    },
+    {
+      "type": "section",
+      "value": "marginalia",
+      "died_gen": 105,
+      "epitaph": "Calligraphic vines from the manuscript era. The stage has no margins to illuminate."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen101-css",
+      "died_gen": 105,
+      "epitaph": "Sapphire-ink resonance and parchment grain. The stage is dark now \u2014 the cream is gone."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen102-css",
+      "died_gen": 105,
+      "epitaph": "Pollinations illumination \u2014 gilded ornament from a borrowed century. The page stopped pretending to be a manuscript."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen103-css",
+      "died_gen": 105,
+      "epitaph": "Aubergine dropcap chassis. Andre called it ugly. He was right."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen104-css",
+      "died_gen": 105,
+      "epitaph": "Saffron-gold spirals at 70% opacity \u2014 volume four of the gilded mistake. The fire was on the wrong instrument."
     }
   ],
   "carrying_capacity": {
@@ -1151,11 +1155,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 95,
-      "base": "#2a4a8c",
-      "family": "cyan"
-    },
     {
       "gen": 96,
       "base": "#8a6010",
@@ -1200,6 +1199,11 @@
       "gen": 104,
       "base": "#b8860b",
       "family": "orange"
+    },
+    {
+      "gen": 105,
+      "base": "#ff2e9c",
+      "family": "violet"
     }
   ],
   "past_epochs": [
