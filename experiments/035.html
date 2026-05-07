@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lissajous — andremacedo.com</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { background: #050505; color: #e8e8e8; font-family: 'JetBrains Mono', monospace; height: 100vh; overflow: hidden; }
+canvas { position: fixed; inset: 0; width: 100vw; height: 100vh; display: block; }
+#info { position: fixed; top: 28px; left: 28px; max-width: 380px; z-index: 10; text-shadow: 0 0 8px rgba(0,0,0,0.85), 0 0 20px rgba(0,0,0,0.5); pointer-events: none; }
+#info h1 { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.7rem; color: #3d6fff; margin-bottom: 10px; font-weight: 400; }
+#info p { font-size: 0.78rem; line-height: 1.55; opacity: 0.92; margin-bottom: 8px; }
+#info p.dim { opacity: 0.62; }
+#ui { position: fixed; bottom: 32px; left: 28px; display: flex; flex-direction: column; gap: 12px; font-size: 0.74rem; z-index: 10; text-shadow: 0 0 8px rgba(0,0,0,0.8); pointer-events: auto; }
+#ui label { display: flex; align-items: center; gap: 14px; color: #b0b0b0; }
+#ui label span.l { min-width: 64px; }
+#ui input[type="range"] { width: 220px; accent-color: #3d6fff; background: transparent; }
+#ui input[type="range"]::-webkit-slider-thumb { background: #3d6fff; }
+#ui .val { color: #3d6fff; min-width: 70px; font-size: 0.72rem; }
+#play { background: transparent; color: #3d6fff; border: 1px solid #3d6fff; padding: 8px 18px; font-family: inherit; cursor: pointer; font-size: 0.74rem; letter-spacing: 0.08em; text-transform: uppercase; margin-top: 6px; align-self: flex-start; transition: background 0.18s; }
+#play:hover { background: rgba(61,111,255,0.18); }
+#play.playing { background: rgba(61,111,255,0.3); }
+.ratio-badge { position: fixed; top: 28px; right: 130px; z-index: 10; text-align: right; text-shadow: 0 0 8px rgba(0,0,0,0.8); pointer-events: none; }
+.ratio-badge .lbl { font-size: 0.65rem; color: #888; letter-spacing: 0.12em; text-transform: uppercase; }
+.ratio-badge .r { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.6rem; color: #3d6fff; }
+#back { position: fixed; top: 28px; right: 28px; z-index: 10; color: #888; text-decoration: none; font-size: 0.74rem; text-shadow: 0 0 8px rgba(0,0,0,0.8); }
+#back:hover { color: #3d6fff; }
+@media (max-width: 600px) { #info { max-width: calc(100vw - 56px); } #ui input[type="range"] { width: 160px; } .ratio-badge { right: 90px; } }
+</style>
+</head>
+<body>
+<canvas id="scope"></canvas>
+<div id="info">
+  <h1>Lissajous</h1>
+  <p>Two oscillators perpendicular to each other. When their frequencies form a simple integer ratio (1:2, 2:3, 3:4), the curve closes into a stable knot. When the ratio is irrational, the figure precesses forever, never closing.</p>
+  <p class="dim">The audio is two sine waves panned hard left and right — the geometry on screen is the math made audible.</p>
+</div>
+<div class="ratio-badge"><div class="lbl">ratio</div><div class="r" id="ratio">2:3</div></div>
+<div id="ui">
+  <label><span class="l">X freq</span><input type="range" id="xfreq" min="100" max="800" value="220" step="1"><span class="val" id="xval">220 Hz</span></label>
+  <label><span class="l">Y freq</span><input type="range" id="yfreq" min="100" max="800" value="330" step="1"><span class="val" id="yval">330 Hz</span></label>
+  <label><span class="l">phase</span><input type="range" id="phase" min="0" max="360" value="0" step="1"><span class="val" id="pval">0°</span></label>
+  <button id="play">▶ play</button>
+</div>
+<a id="back" href="/">← back</a>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
+<script>
+const canvas = document.getElementById('scope');
+const ctx = canvas.getContext('2d');
+let W, H;
+function resize() { W = canvas.width = innerWidth; H = canvas.height = innerHeight; }
+resize(); addEventListener('resize', resize);
+
+let xFreq = 220, yFreq = 330, phaseDeg = 0;
+let startT = performance.now();
+const trail = []; const MAX_TRAIL = 1400;
+
+const $ = id => document.getElementById(id);
+const xfreqEl = $('xfreq'), yfreqEl = $('yfreq'), phaseEl = $('phase');
+const xval = $('xval'), yval = $('yval'), pval = $('pval'), ratioEl = $('ratio');
+const playBtn = $('play');
+
+function gcd(a,b){return b===0?a:gcd(b,a%b);}
+function updateRatio(){
+  const a = Math.round(xFreq), b = Math.round(yFreq);
+  const g = gcd(a, b);
+  const ra = a/g, rb = b/g;
+  if (ra <= 24 && rb <= 24) ratioEl.textContent = ra+':'+rb;
+  else ratioEl.textContent = (a/b).toFixed(3);
+}
+
+xfreqEl.addEventListener('input', e => { xFreq = +e.target.value; xval.textContent = xFreq+' Hz'; if(xOsc) xOsc.frequency.rampTo(xFreq, 0.05); updateRatio(); });
+yfreqEl.addEventListener('input', e => { yFreq = +e.target.value; yval.textContent = yFreq+' Hz'; if(yOsc) yOsc.frequency.rampTo(yFreq, 0.05); updateRatio(); });
+phaseEl.addEventListener('input', e => { phaseDeg = +e.target.value; pval.textContent = phaseDeg+'°'; });
+
+let xOsc=null, yOsc=null, playing=false;
+playBtn.addEventListener('click', async () => {
+  if (!playing) {
+    await Tone.start();
+    const xPan = new Tone.Panner(-1).toDestination();
+    const yPan = new Tone.Panner(1).toDestination();
+    xOsc = new Tone.Oscillator(xFreq, 'sine').connect(xPan);
+    yOsc = new Tone.Oscillator(yFreq, 'sine').connect(yPan);
+    xOsc.volume.value = -14; yOsc.volume.value = -14;
+    xOsc.start(); yOsc.start();
+    playing = true;
+    playBtn.textContent = '■ stop';
+    playBtn.classList.add('playing');
+  } else {
+    if (xOsc){xOsc.stop();xOsc.dispose();xOsc=null;}
+    if (yOsc){yOsc.stop();yOsc.dispose();yOsc=null;}
+    playing = false;
+    playBtn.textContent = '▶ play';
+    playBtn.classList.remove('playing');
+  }
+});
+
+function draw() {
+  ctx.fillStyle = 'rgba(5,5,5,0.045)';
+  ctx.fillRect(0, 0, W, H);
+
+  const t = (performance.now() - startT) / 1000;
+  const r = Math.min(W, H) * 0.36;
+  const cx = W / 2, cy = H / 2;
+  const phaseRad = phaseDeg * Math.PI / 180;
+
+  // Slow down for visualization while preserving frequency ratio
+  const slow = Math.min(xFreq, yFreq);
+  const visScale = 0.4 / slow;
+  const xV = xFreq * visScale, yV = yFreq * visScale;
+
+  const samples = 12;
+  const dt = 1 / 60 / samples;
+  for (let i = 0; i < samples; i++) {
+    const ti = t + i * dt;
+    const x = cx + r * Math.sin(2 * Math.PI * xV * ti + phaseRad);
+    const y = cy + r * Math.sin(2 * Math.PI * yV * ti);
+    trail.push({ x, y });
+  }
+  while (trail.length > MAX_TRAIL) trail.shift();
+
+  // Draw the closed-curve trail
+  ctx.strokeStyle = '#3d6fff';
+  ctx.lineWidth = 1.4;
+  ctx.shadowColor = '#3d6fff';
+  ctx.shadowBlur = 10;
+  ctx.beginPath();
+  for (let i = 0; i < trail.length; i++) {
+    const p = trail[i];
+    if (i === 0) ctx.moveTo(p.x, p.y);
+    else ctx.lineTo(p.x, p.y);
+  }
+  ctx.stroke();
+  ctx.shadowBlur = 0;
+
+  // Bright leading head
+  if (trail.length) {
+    const head = trail[trail.length - 1];
+    ctx.fillStyle = '#ffffff';
+    ctx.beginPath();
+    ctx.arc(head.x, head.y, 2.2, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  // Faint axes for the XY frame
+  ctx.strokeStyle = 'rgba(61,111,255,0.10)';
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(cx - r - 30, cy); ctx.lineTo(cx + r + 30, cy);
+  ctx.moveTo(cx, cy - r - 30); ctx.lineTo(cx, cy + r + 30);
+  ctx.stroke();
+
+  requestAnimationFrame(draw);
+}
+updateRatio();
+draw();
+</script>
+</body>
+</html>

@@ -12,9 +12,9 @@
   @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,400;0,500;0,700;1,400;1,500&family=JetBrains+Mono:wght@300;400;500&display=swap');
 
   :root {
-    --fg: #6b6b6b;
+    --fg: #6a6a6a;
     --fg-dim: #555555;
-    --fg-accent: #ff3838;
+    --fg-accent: #3d6fff;
     --bg: #050505;
     --bg-surface: #f5f5f5;
     --bg-elevated: #eeeeee;
@@ -211,9 +211,9 @@
     background: var(--bg-below-fold, #fffff5);
     border-top: 1px solid var(--border-below-fold, rgba(8,145,178,0.18));
     padding: 4rem 2.5rem;
-    --fg: #777777;
+    --fg: #797979;
     --fg-dim: #797979;
-    --fg-accent: #ff3838;
+    --fg-accent: #3d6fff;
     --bg-surface: #f5f5f5;
     --bg-elevated: #eeeeee;
   }
@@ -568,6 +568,17 @@
 
   /* Section injection markers are now in the body */
 /* @inject:css */
+  /* @gene:gen109-css:start */
+  .below-fold, .below-fold * { background: #050505; }
+.below-fold .meta, .below-fold .cn, .below-fold .cd, .below-fold .mov-date, .compass, .compass * { color: #888888 !important; }
+.below-fold a { color: #e8e8e8; }
+.below-fold a:hover { color: #3d6fff; }
+.gen109-tier-strong { color: #f0f0f0; }
+.gen109-tier-mid { color: #b0b0b0; }
+.gen109-tier-soft { color: #888888; }
+.lissajous-hint { position: fixed; bottom: 18px; right: 18px; font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: #3d6fff; opacity: 0.55; letter-spacing: 0.08em; pointer-events: none; z-index: 90; text-shadow: 0 0 6px rgba(0,0,0,0.8); }
+  /* @gene:gen109-css:end */
+
   /* @gene:gen108-css:start */
   /* gen108-css — contrast lift + dual-trace tokens */
 :root { --tier-strong: #f0f0f0; --tier-mid: #aaaaaa; --tier-soft: #888888; --ch1: #b0ff1a; --ch2: #ff3838; }
@@ -580,17 +591,13 @@
 .below-fold .ch1 { color: #b0ff1a; }
 .overlay-bottom .compass, #scroll-hint { color: #888888 !important; }
   /* @gene:gen108-css:end */
-
-  /* @gene:gen107-css:start */
-  .gen107-stage{background:#050505 !important;color:#f5f5f5}.gen107-stage .below-fold,.gen107-stage section.below-fold,body .below-fold{background:#050505 !important;color:#f5f5f5 !important}body{background:#050505 !important}#prototype-portfolio,.prototype-portfolio,.below-fold *{background:transparent}.gen107-stage h2,.gen107-stage h3{color:#b0ff1a;font-family:'JetBrains Mono',monospace;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;font-size:0.78rem;border-bottom:1px solid #b0ff1a33;padding-bottom:0.4rem;margin:2.4rem 0 1.2rem}.gen107-compositions{font-family:'JetBrains Mono',monospace;font-size:0.78rem;line-height:1.9;color:#aaaaaa}.gen107-compositions a{color:#f5f5f5;text-decoration:none;border-bottom:1px dotted #b0ff1a44;transition:color .2s,border-color .2s}.gen107-compositions a:hover{color:#b0ff1a;border-color:#b0ff1a}.gen107-comp-row{display:grid;grid-template-columns:60px 1fr 110px;gap:1.2rem;padding:0.35rem 0;border-bottom:1px solid #1a1a1a}.gen107-comp-num{color:#666;font-size:0.72rem;letter-spacing:0.08em}.gen107-comp-meta{color:#666;font-size:0.7rem;text-align:right;letter-spacing:0.04em}.gen107-comp-row.live .gen107-comp-num{color:#b0ff1a}.gen107-comp-row.live::before{content:'●';color:#b0ff1a;animation:pulse-dot 1.6s ease-in-out infinite}@keyframes pulse-dot{0%,100%{opacity:0.4}50%{opacity:1}}.gen107-movements{font-family:'Source Serif 4',serif;color:#cccccc;font-size:0.92rem;line-height:1.65}.gen107-movement{padding:1rem 0;border-bottom:1px solid #1a1a1a}.gen107-movement-num{color:#b0ff1a;font-family:'JetBrains Mono',monospace;font-size:0.7rem;letter-spacing:0.1em}.gen107-movement-title{font-family:'Playfair Display',serif;font-style:italic;font-size:1.4rem;color:#f5f5f5;margin:0.2rem 0 0.4rem}.gen107-movement-dates{color:#666;font-size:0.72rem;font-family:'JetBrains Mono',monospace}.gen107-movement-epitaph{color:#888;font-size:0.85rem;margin-top:0.5rem;font-style:italic}.gen107-notes{color:#888;font-family:'Source Serif 4',serif;font-size:0.82rem;line-height:1.7;max-width:62ch}.gen107-notes p{margin:1rem 0;border-left:2px solid #b0ff1a22;padding-left:1rem}.gen107-notes p::before{content:'gen 'attr(data-gen)' · ';color:#b0ff1a;font-family:'JetBrains Mono',monospace;font-size:0.7rem;letter-spacing:0.06em}#overlay-bottom,#thought-floater{color:#aaaaaa}
-  /* @gene:gen107-css:end */
 </style>
 </head>
 <body>
 
 <div id="scene-frame"><canvas id="scene-canvas"></canvas></div>
 
-<span id="siteVersion" style="display:none">v108</span>
+<span id="siteVersion" style="display:none">v109</span>
 
 <!-- ── HTML Overlay ──────────────────────────────────────────── -->
 <div id="overlay">
@@ -692,10 +699,52 @@
 <!-- Below the fold: Thought Stream + Portfolio -->
 <div class="below-fold">
 <style data-section="prototype-portfolio">
-.prototype-portfolio{position:relative;z-index:20;background:#050505;padding:8vh 6vw 12vh;font-family:'Source Serif 4',Georgia,serif;border-top:1px solid #1a1a1a;color:#aaaaaa}.prototype-portfolio .masthead{margin-bottom:5vh;max-width:60ch}.prototype-portfolio .vol-line{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.22em;text-transform:uppercase;margin-bottom:1.2rem;color:#666}.prototype-portfolio h2{font-family:'Playfair Display',serif;font-style:italic;font-weight:400;font-size:clamp(2.4rem,6vw,4.5rem);margin:0 0 1rem 0;color:#f5f5f5;line-height:1}.prototype-portfolio .masthead p{color:#aaaaaa;font-size:1rem;line-height:1.6;margin:0}.prototype-portfolio h3{font-family:'Playfair Display',serif;font-style:italic;font-weight:400;font-size:1.6rem;color:#f5f5f5;margin:0 0 1.5rem 0}.experiments-list{list-style:none;padding:0;margin:0 0 6vh 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:0;border-bottom:1px solid #1a1a1a}.experiments-list li{border-top:1px solid #1a1a1a}.experiments-list a{display:grid;grid-template-columns:auto 1fr auto;gap:1rem;padding:1rem 1.2rem;text-decoration:none;color:#aaaaaa;font-size:0.95rem;align-items:baseline;transition:background 0.18s,color 0.18s}.experiments-list a:hover{background:#0c0c0c;color:#00e5ff}.experiments-list a:hover .exp-num{color:#ff2e9c}.experiments-list a:hover .exp-name{color:#00e5ff}.exp-num{font-family:'JetBrains Mono',monospace;color:#666;font-size:0.78rem;letter-spacing:0.08em}.exp-name{color:#f5f5f5;font-style:italic;font-family:'Playfair Display',serif;font-size:1.05rem}.exp-date{color:#555;font-family:'JetBrains Mono',monospace;font-size:0.7rem;letter-spacing:0.05em}.movements{margin-bottom:6vh;padding-top:2vh}.movement{display:grid;grid-template-columns:3rem 1fr auto;gap:1rem;padding:0.7rem 0;align-items:baseline;font-size:1rem;border-top:1px dashed #1a1a1a}.movement:first-of-type{border-top:none}.mov-num{font-family:'JetBrains Mono',monospace;color:#00e5ff;font-size:0.85rem;letter-spacing:0.1em}.mov-name{color:#f5f5f5;font-family:'Playfair Display',serif;font-style:italic;font-size:1.1rem}.mov-date{font-family:'JetBrains Mono',monospace;font-size:0.78rem;color:#666}.score-notes{padding-top:2vh;border-top:1px solid #1a1a1a}.score-notes>p{color:#aaaaaa;max-width:60ch;line-height:1.7;margin-bottom:2rem}.decisions{list-style:none;padding:0;margin:0}.decisions li{color:#888;font-size:0.92rem;line-height:1.7;padding:1rem 0;border-top:1px dashed #1a1a1a;max-width:72ch}.decisions li:first-child{border-top:none}.decisions strong{color:#f5f5f5;font-weight:500;font-style:italic;font-family:'Playfair Display',serif;letter-spacing:0.01em}
+.gen109-folio { padding: 80px 40px 140px; min-height: 100vh; }
+.gen109-folio .folio-inner { max-width: 980px; margin: 0 auto; }
+.gen109-folio .phosphor-h { font-family: 'Playfair Display', serif; font-style: italic; color: #f0f0f0; font-size: 1.5rem; font-weight: 400; margin: 64px 0 24px; padding-bottom: 12px; border-bottom: 1px solid rgba(232,232,232,0.15); display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap; }
+.gen109-folio .phosphor-h:first-child { margin-top: 0; }
+.gen109-folio .phosphor-meta { font-family: 'JetBrains Mono', monospace; font-style: normal; font-size: 0.7rem; color: #888; letter-spacing: 0.08em; }
+.gen109-folio .composition-list { list-style: none; padding: 0; margin: 0; font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; }
+.gen109-folio .composition-list li { display: grid; grid-template-columns: 220px 1fr; gap: 24px; padding: 9px 0; border-bottom: 1px solid rgba(232,232,232,0.06); }
+.gen109-folio .composition-list a { color: #e8e8e8; text-decoration: none; display: flex; gap: 12px; align-items: baseline; }
+.gen109-folio .composition-list a:hover { color: #3d6fff; }
+.gen109-folio .composition-list a:hover .cn { color: #3d6fff; }
+.gen109-folio .composition-list .cn { color: #888; min-width: 36px; }
+.gen109-folio .composition-list .ct { color: inherit; }
+.gen109-folio .composition-list .cd { color: #888; font-size: 0.72rem; line-height: 1.5; }
+.gen109-folio .movements { list-style: none; padding: 0; margin: 0; font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; }
+.gen109-folio .movements li { display: grid; grid-template-columns: 40px 1fr 200px; gap: 16px; padding: 10px 0; border-bottom: 1px solid rgba(232,232,232,0.06); color: #b0b0b0; align-items: baseline; }
+.gen109-folio .movements .mov-num { color: #3d6fff; font-weight: 600; }
+.gen109-folio .movements .mov-date { color: #888; text-align: right; font-size: 0.72rem; }
+.gen109-folio .score-notes { font-family: 'Source Serif 4', 'Source Serif Pro', serif; font-size: 0.95rem; line-height: 1.7; color: #b0b0b0; max-width: 680px; }
+.gen109-folio .score-notes p { margin-bottom: 18px; }
+@media (max-width: 720px) { .gen109-folio { padding: 60px 20px 100px; } .gen109-folio .composition-list li { grid-template-columns: 1fr; gap: 4px; } .gen109-folio .movements li { grid-template-columns: 30px 1fr; } .gen109-folio .movements .mov-date { grid-column: 2; text-align: left; opacity: 0.7; padding-top: 4px; } }
 </style>
 <!-- @section:prototype-portfolio:start -->
-<section class='gen107-stage below-fold' id='prototype-portfolio' style='background:#050505;color:#f5f5f5;padding:6rem 2rem 8rem;max-width:920px;margin:0 auto'><h2>Compositions</h2><div class='gen107-compositions'><div class='gen107-comp-row live'><span class='gen107-comp-num'>033</span><a href='/experiments/033.html'>Theremin — pitch in the air, on a black field</a><span class='gen107-comp-meta'>2026·05·07</span></div><div class='gen107-comp-row'><span class='gen107-comp-num'>032</span><a href='/experiments/032.html'>Spatial Spectrum</a><span class='gen107-comp-meta'>2026·05·06</span></div><div class='gen107-comp-row'><span class='gen107-comp-num'>031</span><a href='/experiments/031.html'>Stage</a><span class='gen107-comp-meta'>2026·05·05</span></div><div class='gen107-comp-row'><span class='gen107-comp-num'>030</span><a href='/experiments/030.html'>Drone Choir</a><span class='gen107-comp-meta'>2026·05·04</span></div><div class='gen107-comp-row'><span class='gen107-comp-num'>029</span><a href='/experiments/029.html'>Harmonic Series</a><span class='gen107-comp-meta'>2026·05·03</span></div><div class='gen107-comp-row'><span class='gen107-comp-num'>028</span><a href='/experiments/028.html'>Counterpoint Loom</a><span class='gen107-comp-meta'>2026·05·02</span></div><div class='gen107-comp-row'><span class='gen107-comp-num'>027</span><a href='/experiments/027.html'>Chord</a><span class='gen107-comp-meta'>2026·05·01</span></div><div class='gen107-comp-row'><span class='gen107-comp-num'>026</span><a href='/experiments/026.html'>Octaves</a><span class='gen107-comp-meta'>2026·04·30</span></div><div class='gen107-comp-row'><span class='gen107-comp-num'>025</span><a href='/experiments/025.html'>Type Score</a><span class='gen107-comp-meta'>2026·04·29</span></div><div class='gen107-comp-row'><span class='gen107-comp-num'>024</span><a href='/experiments/024.html'>Perspective A</a><span class='gen107-comp-meta'>2026·04·28</span></div><div class='gen107-comp-row'><span class='gen107-comp-num'>023</span><a href='/experiments/023.html'>Site Plan</a><span class='gen107-comp-meta'>2026·04·27</span></div><div class='gen107-comp-row'><span class='gen107-comp-num'>022</span><a href='/experiments/022.html'>Wall Section</a><span class='gen107-comp-meta'>2026·04·26</span></div><div class='gen107-comp-row'><span class='gen107-comp-num'>021</span><a href='/experiments/021.html'>Axonometric A</a><span class='gen107-comp-meta'>2026·04·25</span></div><div class='gen107-comp-row'><span class='gen107-comp-num'>020</span><a href='/experiments/020.html'>Section Cutter</a><span class='gen107-comp-meta'>2026·04·24</span></div><div class='gen107-comp-row'><span class='gen107-comp-num'>019</span><a href='/experiments/019.html'>Counter Cities</a><span class='gen107-comp-meta'>2026·04·23</span></div><div class='gen107-comp-row'><span class='gen107-comp-num'>018</span><a href='/experiments/018.html'>Typographic Skyline</a><span class='gen107-comp-meta'>2026·04·22</span></div><div class='gen107-comp-row'><span class='gen107-comp-num'>017</span><a href='/experiments/017.html'>Letter Anatomy</a><span class='gen107-comp-meta'>2026·04·21</span></div><div class='gen107-comp-row'><span class='gen107-comp-num'>016</span><a href='/experiments/016.html'>Type Gravity</a><span class='gen107-comp-meta'>2026·04·20</span></div><div class='gen107-comp-row'><span class='gen107-comp-num'>015</span><a href='/experiments/015.html'>Baseline City</a><span class='gen107-comp-meta'>2026·04·19</span></div><div class='gen107-comp-row'><span class='gen107-comp-num'>014</span><a href='/experiments/014.html'>Kerning Table</a><span class='gen107-comp-meta'>2026·04·18</span></div><div class='gen107-comp-row'><span class='gen107-comp-num'>013</span><a href='/experiments/013.html'>Letter City</a><span class='gen107-comp-meta'>2026·04·17</span></div><div class='gen107-comp-row'><span class='gen107-comp-num'>012</span><a href='/experiments/012.html'>Thread Loom</a><span class='gen107-comp-meta'>2026·04·15</span></div><div class='gen107-comp-row'><span class='gen107-comp-num'>011</span><a href='/experiments/011.html'>Meridian Drift</a><span class='gen107-comp-meta'>2026·04·12</span></div><div class='gen107-comp-row'><span class='gen107-comp-num'>010</span><a href='/experiments/010.html'>Meridian v2</a><span class='gen107-comp-meta'>2026·04·11</span></div><div class='gen107-comp-row'><span class='gen107-comp-num'>009</span><a href='/experiments/009.html'>Timezone Fragments</a><span class='gen107-comp-meta'>2026·04·10</span></div><div class='gen107-comp-row'><span class='gen107-comp-num'>008</span><a href='/experiments/008.html'>Meridian Clock</a><span class='gen107-comp-meta'>2026·04·09</span></div><div class='gen107-comp-row'><span class='gen107-comp-num'>007</span><a href='/experiments/007.html'>Meridian Distortion</a><span class='gen107-comp-meta'>2026·04·08</span></div><div class='gen107-comp-row'><span class='gen107-comp-num'>006</span><a href='/experiments/006.html'>Meridian Zones</a><span class='gen107-comp-meta'>2026·04·07</span></div><div class='gen107-comp-row'><span class='gen107-comp-num'>005</span><a href='/experiments/005.html'>Constellation Map</a><span class='gen107-comp-meta'>2026·04·06</span></div><div class='gen107-comp-row'><span class='gen107-comp-num'>004</span><a href='/experiments/004.html'>Voronoi Growth</a><span class='gen107-comp-meta'>2026·04·05</span></div><div class='gen107-comp-row'><span class='gen107-comp-num'>003</span><a href='/experiments/003.html'>Reaction Diffusion</a><span class='gen107-comp-meta'>2026·04·04</span></div><div class='gen107-comp-row'><span class='gen107-comp-num'>002</span><a href='/experiments/002.html'>Boids Playground</a><span class='gen107-comp-meta'>2026·04·03</span></div><div class='gen107-comp-row'><span class='gen107-comp-num'>001</span><a href='/experiments/001.html'>Touchstone</a><span class='gen107-comp-meta'>2026·03·30</span></div></div><h2>Movements</h2><div class='gen107-movements'><div class='gen107-movement'><div class='gen107-movement-num'>V · current</div><div class='gen107-movement-title'>Music — typography as music</div><div class='gen107-movement-dates'>started 2026·05·03 · live</div><div class='gen107-movement-epitaph'>The letter has a frequency. The page is a score. The room is a hall.</div></div><div class='gen107-movement'><div class='gen107-movement-num'>IV</div><div class='gen107-movement-title'>The Folio Year</div><div class='gen107-movement-dates'>2026·04·19 → 2026·05·03</div><div class='gen107-movement-epitaph'>Six orthographic sheets. The metaphor exhausted itself in elevation, plan, section, axonometric, wall detail, site plan, perspective.</div></div><div class='gen107-movement'><div class='gen107-movement-num'>III</div><div class='gen107-movement-title'>Meridians</div><div class='gen107-movement-dates'>2026·04·05 → 2026·04·19</div><div class='gen107-movement-epitaph'>The invisible lines that divide and organize the world. Eight generations spent fighting the WebGL canvas for a dark page, then a clearing.</div></div><div class='gen107-movement'><div class='gen107-movement-num'>II</div><div class='gen107-movement-title'>Murmuration</div><div class='gen107-movement-dates'>2026·04·02 → 2026·04·05</div><div class='gen107-movement-epitaph'>Rules produce beauty only when individuals forget they are following them.</div></div><div class='gen107-movement'><div class='gen107-movement-num'>I</div><div class='gen107-movement-title'>Metallurgy</div><div class='gen107-movement-dates'>2026·03·29 → 2026·04·02</div><div class='gen107-movement-epitaph'>Value is constructed, not found.</div></div></div><h2>Score Notes</h2><div class='gen107-notes'><p data-gen='107'>Phosphor green replaces cyan because cyan failed against the leftover cream below the fold. The page is now one stage, top to bottom — black ground, lime trace, magenta strike. Concert hall and CRT screen are the same idea.</p><p data-gen='106'>The reset took. The stage is finally clean — black ground, white notation, oscilloscope painting always. The page now has a sense it didn't have a week ago.</p><p data-gen='105'>The dead architecture chassis was still showing through the gilded ornament. Reset to zero — black void, white notation, electric magenta on attack. Music makes its own visual identity.</p><p data-gen='99'>Audio breakthrough. The page now makes sound — Tone.js FMSynth through reverb, click any note in the staff to hear it ring through a hall.</p><p data-gen='96'>Eighteen generations of typography-as-architecture matured into formula. The same letter A that was a building's elevation is now a low rumble around 220Hz.</p><p data-gen='60'>Andre called RESET. The meridian obsession died. The workshop mood was the clearing — an empty bench, tools not yet chosen.</p></div></section>
+<section class="below-fold gen109-folio">
+  <div class="folio-inner">
+    <h2 class="phosphor-h">Compositions <span class="phosphor-meta">35 instruments · newest first</span></h2>
+    <ol class="composition-list" id="comp-list-109"></ol>
+
+    <h2 class="phosphor-h">Movements</h2>
+    <ul class="movements">
+      <li><span class="mov-num">I</span><span>Metallurgy and the social construction of value</span><span class="mov-date">2026-03-29 → 04-02</span></li>
+      <li><span class="mov-num">II</span><span>Murmuration — the mathematics of collective motion</span><span class="mov-date">2026-04-02 → 04-05</span></li>
+      <li><span class="mov-num">III</span><span>Meridians — the lines that organize the world</span><span class="mov-date">2026-04-05 → 04-19</span></li>
+      <li><span class="mov-num">IV</span><span>Typography as architecture</span><span class="mov-date">2026-04-19 → 05-03</span></li>
+      <li><span class="mov-num">V</span><span><em>Typography as music — the page is a score</em></span><span class="mov-date">2026-05-03 → ongoing</span></li>
+    </ul>
+
+    <h2 class="phosphor-h">Score Notes</h2>
+    <div class="score-notes">
+      <p>Gen 108 promised XY mode three days ago. Tonight ships it. The two channels stop being parallel and start feeding each other — when X and Y frequencies form a simple integer ratio, the trace closes into a stable knot.</p>
+      <p>Gen 107 unified the page into one black stage. Below the fold is no longer leftover folio — it's the same screen, scrolled down.</p>
+      <p>The dual-trace from 106–108 broke a five-generation plateau. Audio plus a visible signal that responds to it is the kind of structural novelty most pages don't carry.</p>
+      <p>Gen 105 reset the visual chassis after Andre called gen 103 ugly. The illuminated-manuscript decoration died; the music obsession got its own identity from zero.</p>
+      <p>The next instrument should explore phase, not just frequency — perhaps a polyrhythm sequencer where two beats with different tempos slowly precess against each other.</p>
+    </div>
+  </div>
+</section>
 <!-- @section:prototype-portfolio:end -->
 <!-- Thought Stream — timestamps are non-negotiable -->
 <div id="thought-stream-feed" style="max-width:720px;margin:2rem auto 0;padding:0 2rem"></div>
@@ -735,7 +784,7 @@
 
 </div>
 <script data-section="prototype-portfolio">
-(function(){if(!CSS.supports('animation-timeline','view()')){document.querySelectorAll('.gen99-comp-card').forEach((c,i)=>{setTimeout(()=>{c.style.opacity='1';c.style.transform='translateY(0)';},i*40);c.style.transition='opacity 0.5s, transform 0.5s';c.style.opacity='0';c.style.transform='translateY(18px)';});}})();
+(function(){const exps=[['035','Lissajous','Two perpendicular oscillators draw closed knots when their ratio is integer.'],['034','Dual Trace','Top channel pitch, bottom channel envelope — the XY origin.'],['033','Theremin','Cursor as score: horizontal pitch, vertical volume.'],['032','Spatial Spectrum','Notes paint at horizontal positions by pitch — low-left, high-right.'],['031','Stage','Type any letter — waveform and FFT paint across black.'],['030','Drone Choir','Hold A–Z, sustain pitches, build a small choir.'],['029','Harmonic Series','Click — fundamental plus first eight overtones rise as ghost rings.'],['028','Beat','Sixteen-step sequencer where typed letters become pitched percussion.'],['027','Chord','Click letters to select; ring as harmony or arpeggio.'],['026','Octaves','One letter at six octaves — low big, high small.'],['025','Type Score','Type a word; each letter becomes a note on a staff.'],['024','Perspective','Drag to walk around a letter rendered with vanishing points.'],['023','Type City','Type a word — it becomes a site plan with property lines.'],['022','Wall Section','Zoom into a single stroke — section it as a built wall.'],['021','Axonometric A','Drag to rotate a letter in 3D construction lines.'],['020','Section Cutter','Drag a horizontal cut — see the cross section.'],['019','Counter Cities','Each letter as a floor plan with the counter as a room.'],['018','Typographic Skyline','Type a word — it becomes a city elevation.'],['017','Letter Anatomy','Hover named parts of a letter — stem, bowl, leg, serif.'],['016','Type Gravity','Letters fall with weight proportional to their visual mass.'],['015','Baseline City','A street of letterforms aligned on a baseline.'],['014','Kerning Table','Adjust tracking and weight on a typed word.'],['013','Letter City','Convert typed words into building skylines.'],['012','Thread Loom','Generative weaving simulator.'],['011','Meridian Drift','Meridian lines precess across a flat projection.'],['010','Meridian v2','Place meridian lines on a dark surface; particles cluster.'],['009','Timezone Fragments','Place lines, watch the world fragment into times.'],['008','Meridian Clock','Lines divide the day into unequal hours.'],['007','Meridian Distortion','One angular division shown across three projections.'],['006','Meridian','Click to place vertical lines; particles change zone.'],['005','Constellation Map','Place stars; lines form between near neighbors.'],['004','Voronoi Growth','Voronoi cells that grow and merge.'],['003','Reaction-Diffusion','Gray-Scott model with click-to-seed.'],['002','Boids','Flocking with three tunable parameters.'],['001','Touchstone','Drag to streak; the color reveals the metal.']];const list=document.getElementById('comp-list-109');if(!list)return;exps.forEach(([n,name,desc])=>{const li=document.createElement('li');li.innerHTML='<a href="/experiments/'+n+'.html"><span class="cn">'+n+'</span><span class="ct">'+name+'</span></a><span class="cd">'+desc+'</span>';list.appendChild(li);});})();
 </script>
 
 <!-- ── Three.js ──────────────────────────────────────────────── -->
@@ -761,7 +810,7 @@
       count: 18,
       size: 0.2,
       speed: 0.01,
-      color: '#ff3838',
+      color: '#3d6fff',
       opacity: 0.7,
       spread: 3,
       orbital_radius: 4,
@@ -785,7 +834,7 @@
     lighting: {
       ambient_color: '#f5f0e6',
       ambient_intensity: 0.15,
-      point_color: '#ff3838',
+      point_color: '#3d6fff',
       point_intensity: 0.35,
       point_position: [2, 3, 4],
     },
@@ -795,11 +844,11 @@
       mode: 'repel',
     },
     time_themes: {
-      dawn:      { particle_color: '#ff5e5e', fog_color: '#0d0806', ambient: '#2a1a0e', speed_mult: 0.6 },
-      morning:   { particle_color: '#ff3838', fog_color: '#0a0806', ambient: '#2a1e1a', speed_mult: 0.8 },
-      afternoon: { particle_color: '#ff2020', fog_color: '#0d0a06', ambient: '#2a2a1a', speed_mult: 1.0 },
-      evening:   { particle_color: '#d62020', fog_color: '#0a0806', ambient: '#1e1a2a', speed_mult: 0.7 },
-      night:     { particle_color: '#a01818', fog_color: '#080604', ambient: '#1a1410', speed_mult: 0.4 },
+      dawn:      { particle_color: '#6b8fff', fog_color: '#0d0806', ambient: '#2a1a0e', speed_mult: 0.6 },
+      morning:   { particle_color: '#3d6fff', fog_color: '#0a0806', ambient: '#2a1e1a', speed_mult: 0.8 },
+      afternoon: { particle_color: '#2d5fef', fog_color: '#0d0a06', ambient: '#2a2a1a', speed_mult: 1.0 },
+      evening:   { particle_color: '#1f4fdf', fog_color: '#0a0806', ambient: '#1e1a2a', speed_mult: 0.7 },
+      night:     { particle_color: '#143fcf', fog_color: '#080604', ambient: '#1a1410', speed_mult: 0.4 },
     },
     post_processing: {
       bloom_enabled: false,
@@ -824,7 +873,7 @@
 
   const AGENT = {
     birthTime: Date.now(),
-    mood: 'dual-trace',
+    mood: 'phase-locked',
     secrets: [
       "The swarm remembers the metallurgy epoch. Somewhere in the particle field, one mote still moves like it's being assayed \u2014 slower, heavier, testing its own purity against the others."
 ],
@@ -1196,6 +1245,11 @@
   }
 
   // @inject:interactions
+  // @gene:type-'lissajous'-anywhere-to-e:start
+  // Easter egg: type 'lissajous' anywhere to enter the XY oscilloscope — the new experiment where two perpendicular sine waves draw closed curves when their frequencies form an integer ratio
+  (()=>{let b='';window.addEventListener('keydown',e=>{if(e.key&&e.key.length===1){b=(b+e.key.toLowerCase()).slice(-9);if(b==='lissajous'){location.href='/experiments/035.html';}}});})();
+  // @gene:type-'lissajous'-anywhere-to-e:end
+
 // @gene:type-'osc'-anywhere-on-the-pag:start
   // Easter egg: type 'osc' anywhere on the page to dim the oscilloscope to 30% opacity for 10 seconds, then it returns
   (function(){let buf='';addEventListener('keydown',e=>{if(e.key.length!==1)return;buf=(buf+e.key.toLowerCase()).slice(-3);if(buf==='osc'){const c=document.getElementById('resonance-field');if(!c)return;c.style.transition='opacity 600ms ease';c.style.opacity='0.3';setTimeout(()=>{c.style.opacity='1'},10000);buf='';}})})();
