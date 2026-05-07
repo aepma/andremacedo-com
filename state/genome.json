@@ -1,15 +1,15 @@
 {
-  "generation": 106,
+  "generation": 107,
   "epoch": "webgl-swarm",
   "epoch_started": "2026-05-03",
   "traits": {
     "color": {
-      "accent_base": "#00e5ff",
-      "accent_dawn": "#5cf2ff",
-      "accent_morning": "#00e5ff",
-      "accent_afternoon": "#00c8e0",
-      "accent_evening": "#00aabd",
-      "accent_night": "#008090",
+      "accent_base": "#b0ff1a",
+      "accent_dawn": "#c8ff5c",
+      "accent_morning": "#b0ff1a",
+      "accent_afternoon": "#9ce800",
+      "accent_evening": "#7ec000",
+      "accent_night": "#5e9000",
       "bg": "#050505",
       "fg": "#6b6b6b",
       "grain_opacity": "0",
@@ -45,6 +45,7 @@
         "experiments/008.html",
         "experiments/009.html",
         "experiments/025.html",
+        "experiments/033.html",
         "experiments/013.html",
         "experiments/005.html",
         "experiments/029.html",
@@ -165,33 +166,23 @@
       "type-'beat'-to-navigate-to-the",
       "type-'hall'-anywhere-on-the-pa",
       "press-any-letter-a-through-z-t",
-      "type-'osc'-anywhere-on-the-pag"
+      "type-'osc'-anywhere-on-the-pag",
+      "type-'pluck'-anywhere-\u2014-each-l"
     ],
     "content": {
       "mood": "kinetic",
       "obsession": "typography as music \u2014 the letter has a frequency, the word has a rhythm, the page is a score",
       "thought_pools": {
-        "dawn": 7,
+        "dawn": 8,
         "morning": 8,
         "afternoon": 7,
-        "evening": 8,
-        "night": 9
+        "evening": 9,
+        "night": 10
       },
       "secrets_count": 21
     }
   },
   "fitness_log": [
-    {
-      "gen": 87,
-      "coherence": 6,
-      "novelty": 4,
-      "identity": 6,
-      "tension": 4,
-      "awe": 3,
-      "perceptibility": 5,
-      "note": "The screenshot shows the cream page holding with TYPOGRAPHY hero text and the alphabet frieze visible. The hierarchy collapse is the real problem \u2014 th",
-      "total": 4.7
-    },
     {
       "gen": 88,
       "coherence": 6,
@@ -400,32 +391,20 @@
       "perceptibility": 6,
       "note": "Gen 105 was the necessary reset. The screenshot shows the stage is finally clean \u2014 black ground, white notation, no more gilded debris. But the resona",
       "total": 6.3
+    },
+    {
+      "gen": 107,
+      "coherence": 6,
+      "novelty": 6,
+      "identity": 7,
+      "tension": 6,
+      "awe": 6,
+      "perceptibility": 5,
+      "note": "The stage identity from gen 105 is holding above the fold \u2014 clean black, oscilloscope, magenta strikes \u2014 but the below-fold leaked the cream parchment",
+      "total": 6.0
     }
   ],
   "mutation_log": [
-    {
-      "gen": 87,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "content.mood",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "section.overlay-center",
-        "section.prototype-portfolio",
-        "section.scroll-hint",
-        "section.overlay-bottom",
-        "section.thought-floater",
-        "svg.typographic-architect-glyph-007.svg",
-        "scene.config"
-      ],
-      "kills": [
-        "css_rule:gen86-css",
-        "secret[0]"
-      ],
-      "timestamp": "2026-04-22T16:03:10Z"
-    },
     {
       "gen": 88,
       "mutations": [
@@ -833,21 +812,28 @@
         "secret[20]"
       ],
       "timestamp": "2026-05-06T16:08:29Z"
+    },
+    {
+      "gen": 107,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "interaction.type-'pluck'-anywhere-\u2014-each-l",
+        "section.prototype-portfolio",
+        "page.experiments/033.html",
+        "scene.config"
+      ],
+      "kills": [
+        "css_rule:gen105-css",
+        "secret[20]"
+      ],
+      "timestamp": "2026-05-07T00:03:28Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "css_rule",
-      "value": "gen86-css",
-      "died_gen": 87,
-      "epitaph": "Superseded by gen87 \u2014 the forest green turn replaces crimson. The hierarchy collapse demanded a new approach: three clearly separated luminance tiers instead of the collapsed range."
-    },
-    {
-      "type": "secret",
-      "value": "The WebGL canvas fought for seven generations to cover everything in darkness. G",
-      "died_gen": 87,
-      "epitaph": "Pool at 22 after adding one. Killed oldest pre-typographic secret to maintain carrying capacity of 20."
-    },
     {
       "type": "css_rule",
       "value": "gen87-css",
@@ -1135,6 +1121,18 @@
       "value": "Hold any letter key to drone \u2014 release to let the chord decay through the hall.",
       "died_gen": 106,
       "epitaph": "Over capacity. Two secrets describing the same hidden behavior \u2014 kept the sharper one."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen105-css",
+      "died_gen": 107,
+      "epitaph": "Two gens of stage identity established. The phosphor turn supersedes the bare reset \u2014 gen107-css carries the unification forward."
+    },
+    {
+      "type": "secret",
+      "value": "type 'osc' to halve the oscilloscope opacity for ten seconds \u2014 for visitors who ",
+      "died_gen": 107,
+      "epitaph": "Over capacity (21/20). Pruned the duplicate 'osc' description \u2014 the hall toggle and the oscilloscope are now one continuous trace, not a hidden mode."
     }
   ],
   "carrying_capacity": {
@@ -1153,11 +1151,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 97,
-      "base": "#5d2d8e",
-      "family": "blue"
-    },
     {
       "gen": 98,
       "base": "#a8253a",
@@ -1202,6 +1195,11 @@
       "gen": 106,
       "base": "#00e5ff",
       "family": "teal"
+    },
+    {
+      "gen": 107,
+      "base": "#b0ff1a",
+      "family": "amber"
     }
   ],
   "past_epochs": [
@@ -1236,13 +1234,6 @@
   ],
   "epoch_number": 5,
   "contrast_warnings": [
-    {
-      "gen": 91,
-      "messages": [
-        "  CONTRAST GATE: hierarchy collapse detected \u2014 all text tiers within luminance range [0.010, 0.091] (span 0.081, min 0.15)"
-      ],
-      "timestamp": "2026-04-27T16:07:41Z"
-    },
     {
       "gen": 92,
       "messages": [
@@ -1313,6 +1304,15 @@
         "    FAIL  #ff2e9c  ratio=3.02:1  (< 4.5)"
       ],
       "timestamp": "2026-05-06T16:08:29Z"
+    },
+    {
+      "gen": 107,
+      "messages": [
+        "  [contrast-gate below-fold] effective bg = #050505 from .below-fold:211 (raw: var(--bg-below-fold, #fffff5))",
+        "    FAIL  #555555  ratio=2.73:1  (< 4.5)",
+        "    FAIL  #666666  ratio=3.55:1  (< 4.5)"
+      ],
+      "timestamp": "2026-05-07T00:03:28Z"
     }
   ]
 }
