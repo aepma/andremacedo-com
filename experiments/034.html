@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>034 — Dual Trace</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:#050505;color:#aaa;font-family:'JetBrains Mono',monospace;overflow:hidden;height:100vh;width:100vw}
+canvas{position:fixed;inset:0;z-index:0}
+#info{position:fixed;top:28px;left:28px;z-index:5;max-width:360px;font-size:12px;line-height:1.65;color:#999;text-shadow:0 0 8px rgba(0,0,0,.85),0 0 22px rgba(0,0,0,.5)}
+#info h1{font-family:'Playfair Display',serif;font-style:italic;font-size:30px;color:#ff3838;font-weight:400;margin-bottom:14px;letter-spacing:.01em}
+#info p{margin-bottom:10px}
+#info .ch1{color:#b0ff1a}
+#info .ch2{color:#ff3838}
+#back{position:fixed;top:28px;right:28px;z-index:5;color:#aaa;text-decoration:none;font-size:11px;letter-spacing:.14em;text-transform:uppercase;text-shadow:0 0 8px rgba(0,0,0,.85)}
+#back:hover{color:#ff3838}
+#hint{position:fixed;bottom:28px;left:50%;transform:translateX(-50%);z-index:5;font-size:10px;color:#777;letter-spacing:.18em;text-transform:uppercase;text-shadow:0 0 8px rgba(0,0,0,.85)}
+#stamp{position:fixed;bottom:28px;right:28px;z-index:5;font-size:10px;color:#666;letter-spacing:.12em;text-transform:uppercase;text-shadow:0 0 8px rgba(0,0,0,.85)}
+</style>
+</head>
+<body>
+<canvas id="scope"></canvas>
+<div id="info">
+<h1>Dual Trace</h1>
+<p>One instrument, seen twice. <span class="ch1">Channel 1 (lime, top)</span> draws the live waveform of every note you play. <span class="ch2">Channel 2 (vermillion, bottom)</span> traces the amplitude envelope, scrolling right to left like a real two-channel scope.</p>
+<p>Click anywhere to play. X position picks the pitch across four octaves. Hold and drag to slide between notes.</p>
+</div>
+<a id="back" href="/">← back</a>
+<div id="hint">click · drag · release</div>
+<div id="stamp">034 / 2026-05-07</div>
+<script src="https://cdn.jsdelivr.net/npm/tone@14.8.49/build/Tone.js"></script>
+<script>
+const c=document.getElementById('scope');
+const x=c.getContext('2d');
+function r(){c.width=window.innerWidth;c.height=window.innerHeight;}
+r();window.addEventListener('resize',r);
+let syn=null,rev=null,an=null,active=null;
+let eb=new Array(2400).fill(0),ei=0;
+async function start(){await Tone.start();rev=new Tone.Reverb({decay:2.6,wet:0.42}).toDestination();syn=new Tone.PolySynth(Tone.FMSynth,{envelope:{attack:0.025,decay:0.32,sustain:0.55,release:1.4},modulationIndex:9,harmonicity:2}).connect(rev);an=new Tone.Analyser('waveform',1024);Tone.Destination.connect(an);}
+const sc=['C3','D3','E3','G3','A3','C4','D4','E4','G4','A4','C5','D5','E5','G5','A5','C6','D6','E6','G6','A6'];
+function pa(px){const i=Math.floor((px/c.width)*sc.length);return sc[Math.min(i,sc.length-1)];}
+async function dn(e){if(!syn)await start();const px=e.touches?e.touches[0].clientX:e.clientX;const p=pa(px);active=p;syn.triggerAttack(p);}
+function mv(e){if(!active||!syn)return;const px=e.touches?e.touches[0].clientX:e.clientX;const p=pa(px);if(p!==active){syn.triggerRelease(active);syn.triggerAttack(p);active=p;}}
+function up(){if(active&&syn){syn.triggerRelease(active);active=null;}}
+c.addEventListener('mousedown',dn);c.addEventListener('mousemove',mv);c.addEventListener('mouseup',up);c.addEventListener('mouseleave',up);
+c.addEventListener('touchstart',e=>{e.preventDefault();dn(e);},{passive:false});
+c.addEventListener('touchmove',e=>{e.preventDefault();mv(e);},{passive:false});
+c.addEventListener('touchend',e=>{e.preventDefault();up();},{passive:false});
+let ph=0;
+function paint(){
+  x.fillStyle='rgba(5,5,5,0.10)';x.fillRect(0,0,c.width,c.height);
+  const ch1=c.height*0.30,ch2=c.height*0.72,mid=c.height*0.5;
+  x.strokeStyle='rgba(170,170,170,0.04)';x.lineWidth=1;
+  for(let i=0;i<10;i++){const px=(i/9)*c.width;x.beginPath();x.moveTo(px,0);x.lineTo(px,c.height);x.stroke();}
+  x.strokeStyle='rgba(255,56,56,0.08)';x.beginPath();x.moveTo(0,mid);x.lineTo(c.width,mid);x.stroke();
+  let w=an?an.getValue():null;
+  x.strokeStyle='#b0ff1a';x.lineWidth=1.6;x.shadowBlur=12;x.shadowColor='#b0ff1a';x.beginPath();
+  for(let i=0;i<c.width;i++){let v;if(w&&w.length){v=w[Math.floor((i/c.width)*w.length)]||0;}else{v=Math.sin(ph+i*0.011)*0.04+Math.sin(ph*0.6+i*0.004)*0.02;}const y=ch1+v*c.height*0.20;if(i===0)x.moveTo(i,y);else x.lineTo(i,y);}
+  x.stroke();
+  let a=0;if(w&&w.length){for(let i=0;i<w.length;i++)a+=Math.abs(w[i]);a/=w.length;}else{a=0.015+Math.abs(Math.sin(ph*0.5))*0.008;}
+  eb[ei]=a;ei=(ei+1)%eb.length;
+  x.strokeStyle='#ff3838';x.shadowColor='#ff3838';x.lineWidth=1.6;x.beginPath();
+  const sw=Math.min(c.width,eb.length);
+  for(let i=0;i<sw;i++){const idx=(ei+i)%eb.length;const px=(i/sw)*c.width;const y=ch2-eb[idx]*c.height*0.45;if(i===0)x.moveTo(px,y);else x.lineTo(px,y);}
+  x.stroke();x.shadowBlur=0;
+  x.fillStyle='rgba(176,255,26,0.5)';x.font='10px JetBrains Mono, monospace';x.fillText('CH1 · PITCH',20,ch1-c.height*0.20-10);
+  x.fillStyle='rgba(255,56,56,0.5)';x.fillText('CH2 · ENVELOPE',20,ch2-c.height*0.45-10);
+  ph+=0.012;requestAnimationFrame(paint);
+}
+paint();
+</script>
+</body>
+</html>

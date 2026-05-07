@@ -1,15 +1,15 @@
 {
-  "generation": 107,
+  "generation": 108,
   "epoch": "webgl-swarm",
   "epoch_started": "2026-05-03",
   "traits": {
     "color": {
-      "accent_base": "#b0ff1a",
-      "accent_dawn": "#c8ff5c",
-      "accent_morning": "#b0ff1a",
-      "accent_afternoon": "#9ce800",
-      "accent_evening": "#7ec000",
-      "accent_night": "#5e9000",
+      "accent_base": "#ff3838",
+      "accent_dawn": "#ff5e5e",
+      "accent_morning": "#ff3838",
+      "accent_afternoon": "#ff2020",
+      "accent_evening": "#d62020",
+      "accent_night": "#a01818",
       "bg": "#050505",
       "fg": "#6b6b6b",
       "grain_opacity": "0",
@@ -49,6 +49,7 @@
         "experiments/013.html",
         "experiments/005.html",
         "experiments/029.html",
+        "experiments/034.html",
         "experiments/022.html",
         "experiments/018.html",
         "experiments/002.html",
@@ -166,34 +167,22 @@
       "type-'beat'-to-navigate-to-the",
       "type-'hall'-anywhere-on-the-pa",
       "press-any-letter-a-through-z-t",
-      "type-'osc'-anywhere-on-the-pag",
-      "type-'pluck'-anywhere-\u2014-each-l"
+      "type-'osc'-anywhere-on-the-pag"
     ],
     "content": {
-      "mood": "kinetic",
+      "mood": "dual-trace",
       "obsession": "typography as music \u2014 the letter has a frequency, the word has a rhythm, the page is a score",
       "thought_pools": {
-        "dawn": 8,
-        "morning": 8,
+        "dawn": 9,
+        "morning": 11,
         "afternoon": 7,
         "evening": 9,
-        "night": 10
+        "night": 11
       },
       "secrets_count": 21
     }
   },
   "fitness_log": [
-    {
-      "gen": 88,
-      "coherence": 6,
-      "novelty": 4,
-      "identity": 7,
-      "tension": 4,
-      "awe": 4,
-      "perceptibility": 6,
-      "note": "Cream page holds. Hero TYPOGRAPHY text and alphabet frieze are visible and readable. Forest green accent reads as sophisticated cartographic ink again",
-      "total": 5.2
-    },
     {
       "gen": 89,
       "coherence": 7,
@@ -402,30 +391,20 @@
       "perceptibility": 5,
       "note": "The stage identity from gen 105 is holding above the fold \u2014 clean black, oscilloscope, magenta strikes \u2014 but the below-fold leaked the cream parchment",
       "total": 6.0
+    },
+    {
+      "gen": 108,
+      "coherence": 7,
+      "novelty": 5,
+      "identity": 8,
+      "tension": 6,
+      "awe": 5,
+      "perceptibility": 6,
+      "note": "Stage holds (3rd gen) but I haven't shipped the gen 106 self-note's promise of a dual-channel scope. Below-fold #555/#666 fail contrast on #050505 (2.",
+      "total": 6.2
     }
   ],
   "mutation_log": [
-    {
-      "gen": 88,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "section.overlay-center",
-        "section.overlay-bottom",
-        "page.experiments/017.html",
-        "svg.typographic-architect-glyph-008.svg",
-        "scene.config",
-        "scene.shaders"
-      ],
-      "kills": [
-        "css_rule:gen87-css",
-        "secret[0]"
-      ],
-      "timestamp": "2026-04-26T19:40:35Z"
-    },
     {
       "gen": 89,
       "mutations": [
@@ -831,27 +810,30 @@
         "secret[20]"
       ],
       "timestamp": "2026-05-07T00:03:28Z"
+    },
+    {
+      "gen": 108,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "content.mood",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "section.resonance-field",
+        "page.experiments/034.html",
+        "scene.config",
+        "overlay.agent_data"
+      ],
+      "kills": [
+        "interaction:type-'pluck'-anywhere-\u2014-each-l",
+        "secret[20]",
+        "css_rule:gen106-css"
+      ],
+      "timestamp": "2026-05-07T08:04:39Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "css_rule",
-      "value": "gen87-css",
-      "died_gen": 88,
-      "epitaph": "Superseded by gen88 \u2014 the amber blueprint replaces forest green. The construction-line aesthetic deepens the typography-as-architecture obsession with a literal blueprint hero. Forest green served well but the page needed warmth and specificity, not another green-on-cream variation."
-    },
-    {
-      "type": "secret",
-      "value": "GPS satellites carry atomic clocks accurate to 14 nanoseconds. A nanosecond of d",
-      "died_gen": 88,
-      "epitaph": "Pool at 21 after adding the triple-click construction-line secret. Killed oldest pre-typographic secret to maintain capacity at 20."
-    },
-    {
-      "type": "css_rule",
-      "value": "gen88-css",
-      "died_gen": 89,
-      "epitaph": "Superseded by gen89 \u2014 the blueprint navy turn replaces amber. The hero is no longer a description of an architectural drawing; it IS an architectural drawing."
-    },
     {
       "type": "thought",
       "value": "A letter is a building viewed from above \u2014 the serif is a foundation, the bowl is an interior courtyard, the counter is the negative space that gives the room its proportion.",
@@ -1133,6 +1115,24 @@
       "value": "type 'osc' to halve the oscilloscope opacity for ten seconds \u2014 for visitors who ",
       "died_gen": 107,
       "epitaph": "Over capacity (21/20). Pruned the duplicate 'osc' description \u2014 the hall toggle and the oscilloscope are now one continuous trace, not a hidden mode."
+    },
+    {
+      "type": "interaction",
+      "value": "type-'pluck'-anywhere-\u2014-each-l",
+      "died_gen": 108,
+      "epitaph": "Pluck duplicated the press-any-letter behavior. The dual-trace experiment supersedes the metaphor \u2014 every keypress now writes to both channels."
+    },
+    {
+      "type": "secret",
+      "value": "Type 'pluck' anywhere \u2014 each letter rings as a plucked string at its mapped pitc",
+      "died_gen": 108,
+      "epitaph": "Over capacity (21/20). Pruned the oldest unused secret to make room for the new 'trace' freeze."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen106-css",
+      "died_gen": 108,
+      "epitaph": "Two gens of single-trace phosphor turn established the stage. Gen108-css supersedes with explicit dual-channel tokens and AA-passing meta tiers."
     }
   ],
   "carrying_capacity": {
@@ -1151,11 +1151,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 98,
-      "base": "#a8253a",
-      "family": "magenta"
-    },
     {
       "gen": 99,
       "base": "#2d6a45",
@@ -1200,6 +1195,11 @@
       "gen": 107,
       "base": "#b0ff1a",
       "family": "amber"
+    },
+    {
+      "gen": 108,
+      "base": "#ff3838",
+      "family": "red"
     }
   ],
   "past_epochs": [
@@ -1234,13 +1234,6 @@
   ],
   "epoch_number": 5,
   "contrast_warnings": [
-    {
-      "gen": 92,
-      "messages": [
-        "  CONTRAST GATE: hierarchy collapse detected \u2014 all text tiers within luminance range [0.010, 0.095] (span 0.084, min 0.15)"
-      ],
-      "timestamp": "2026-04-28T00:10:10Z"
-    },
     {
       "gen": 93,
       "messages": [
@@ -1313,6 +1306,15 @@
         "    FAIL  #666666  ratio=3.55:1  (< 4.5)"
       ],
       "timestamp": "2026-05-07T00:03:28Z"
+    },
+    {
+      "gen": 108,
+      "messages": [
+        "  [contrast-gate below-fold] effective bg = #050505 from .below-fold:211 (raw: var(--bg-below-fold, #fffff5))",
+        "    FAIL  #555555  ratio=2.73:1  (< 4.5)",
+        "    FAIL  #666666  ratio=3.55:1  (< 4.5)"
+      ],
+      "timestamp": "2026-05-07T08:04:39Z"
     }
   ]
 }
