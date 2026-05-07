@@ -335,6 +335,26 @@ fi
   echo ""
 } >> "$BUILD_LOG"
 
+# ── Validate inline JS before commit/deploy ────────────────────────
+# Gen 107 footgun: the agent emits minified IIFEs for new interactions and
+# a single misplaced brace kills the entire main <script>. node --check via
+# validate-build.py catches every inline <script> in index.html before
+# runner commits/deploys. See:
+# knowledge-base/personal/raw/2026-05-07-issue-runner-gene-injector-no-js-validation.md
+if ! python3 "$SCRIPT_DIR/validate-build.py" "$INDEX_FILE" 2>>"$ERROR_LOG"; then
+  log_error "JS validation failed — refusing to commit/deploy. Reverting index.html."
+  # Don't ship a parse error to prod. Revert working tree on index.html so
+  # the next launchd run starts clean. Genome.json may have advanced inside
+  # apply_changes.py; that's a tolerable inconsistency the next successful
+  # run absorbs.
+  git -C "$SITE_DIR" checkout -- "$INDEX_FILE" 2>/dev/null || true
+  if [ -n "$BOT_TOKEN" ] && [ -n "$CHAT_ID" ]; then
+    telegram "andremacedo.com $PULSE_TYPE: JS validation failed — deploy aborted, working tree reverted. See $ERROR_LOG."
+  fi
+  record_failure
+  exit 1
+fi
+
 # Count change types from the full output for the brief Telegram summary.
 # awk is used (not grep -c) so that zero matches return "0" cleanly under set -e + pipefail.
 CONTRAST_COUNT=$(awk '/contrast-gate/ {n++} END {print n+0}' "$APPLY_STDOUT")
