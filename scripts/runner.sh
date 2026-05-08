@@ -567,8 +567,51 @@ log "Deployed to andremacedo.com"
 # ── Push to GitHub (backup, non-blocking) ─────────────────────────
 git -C "$SITE_DIR" push origin main 2>/dev/null || log "WARN: git push failed (non-fatal)"
 
-# Post-deploy contrast verification
+# Post-deploy contrast verification (CSS-declared, existing)
 bash "$SCRIPT_DIR/contrast-check.sh" "$SITE_DIR" 2>/dev/null || echo "Contrast check failed (non-fatal)"
+
+# ── Rendered-pixel contrast audit (new, soft gate) ────────────────
+CONTRAST_AUDIT_OUTPUT="$SITE_DIR/state/contrast-audit-latest.json"
+set +e
+timeout 30 node "$SCRIPT_DIR/audit-contrast.js" "https://andremacedo.com" \
+  > "$CONTRAST_AUDIT_OUTPUT" 2>>"$ERROR_LOG"
+AUDIT_EXIT=$?
+set -e
+
+if [ "$AUDIT_EXIT" = "124" ]; then
+  echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] [gen $GENERATION] audit-error: playwright timeout" >> "$CHANGELOG"
+  log "Rendered-pixel audit timed out (non-fatal, skipping penalty)"
+elif [ "$AUDIT_EXIT" != "0" ]; then
+  echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] [gen $GENERATION] audit-error: script exited $AUDIT_EXIT" >> "$CHANGELOG"
+  log "Rendered-pixel audit error exit=$AUDIT_EXIT (non-fatal, skipping penalty)"
+else
+  MISS_COUNT=$(python3 - "$CONTRAST_AUDIT_OUTPUT" <<'PYEOF'
+import json, sys
+try:
+    data = json.load(open(sys.argv[1]))
+    print(sum(1 for r in data if isinstance(r, dict) and r.get('ratio', 99) < 4.5 and 'error' not in r))
+except Exception:
+    print(0)
+PYEOF
+)
+  log "Rendered-pixel audit: $MISS_COUNT elements below 4.5:1"
+  if [ "${MISS_COUNT:-0}" -gt 0 ]; then
+    echo "[gen $GENERATION] CONTRAST MISS: $MISS_COUNT elements below 4.5:1" >> "$CHANGELOG"
+    python3 - "$CONTRAST_AUDIT_OUTPUT" "$SITE_DIR/state/contrast-fail-gen-${GENERATION}.json" "$GENERATION" <<'PYEOF'
+import json, sys
+data = json.load(open(sys.argv[1]))
+fails = [r for r in data if isinstance(r, dict) and r.get('ratio', 99) < 4.5 and 'error' not in r]
+with open(sys.argv[2], 'w') as f:
+    json.dump({'gen': int(sys.argv[3]), 'failures': fails}, f, indent=2)
+PYEOF
+    python3 - "$SITE_DIR/state/fitness-penalty.json" "$GENERATION" <<'PYEOF'
+import json, sys
+with open(sys.argv[1], 'w') as f:
+    json.dump({'penalty': 1.5, 'reason': 'contrast', 'gen': int(sys.argv[2])}, f)
+PYEOF
+    log "Contrast penalty written: 1.5 for gen $GENERATION"
+  fi
+fi
 
 # ── Notify ─────────────────────────────────────────────────────────
 # Mark the run as successful: reset the consecutive-failure counter.
