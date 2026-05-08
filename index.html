@@ -14,7 +14,7 @@
   :root {
     --fg: #6a6a6a;
     --fg-dim: #555555;
-    --fg-accent: #3d6fff;
+    --fg-accent: #00ff66;
     --bg: #050505;
     --bg-surface: #f5f5f5;
     --bg-elevated: #eeeeee;
@@ -213,7 +213,7 @@
     padding: 4rem 2.5rem;
     --fg: #797979;
     --fg-dim: #797979;
-    --fg-accent: #3d6fff;
+    --fg-accent: #00ff66;
     --bg-surface: #f5f5f5;
     --bg-elevated: #eeeeee;
   }
@@ -568,9 +568,13 @@
 
   /* Section injection markers are now in the body */
 /* @inject:css */
+  /* @gene:gen110-css:start */
+  .gen110-portfolio{background:#050505;color:#aaaaaa;padding:80px 6vw 120px;font-family:'JetBrains Mono',monospace;font-size:12px;line-height:1.7}.gen110-portfolio h2{font-family:'Playfair Display',serif;font-style:italic;font-weight:400;font-size:28px;color:#f5f5f5;margin:60px 0 24px;letter-spacing:0.02em}.gen110-portfolio h2:first-child{margin-top:0}.gen110-portfolio .comp-list,.gen110-portfolio .move-list,.gen110-portfolio .notes-list{list-style:none;padding:0;margin:0}.gen110-portfolio .comp-list li{display:grid;grid-template-columns:48px 1fr auto;gap:18px;padding:8px 0;border-bottom:1px solid #1a1a1a;align-items:baseline}.gen110-portfolio .comp-list .num{color:#666;font-feature-settings:'tnum'}.gen110-portfolio .comp-list a{color:#f5f5f5;text-decoration:none;border-bottom:1px solid transparent;transition:border-color .2s,color .2s}.gen110-portfolio .comp-list a:hover{color:#00ff66;border-color:#00ff66}.gen110-portfolio .comp-list .meta{color:#888;font-size:11px}.gen110-portfolio .comp-list .live{color:#00ff66}.gen110-portfolio .comp-list .live::after{content:'●';margin-left:8px;animation:gen110pulse 1.6s infinite}.gen110-portfolio .move-list li{padding:6px 0;color:#aaaaaa}.gen110-portfolio .move-list li b{color:#f5f5f5;font-weight:400;margin-right:14px;font-feature-settings:'tnum'}.gen110-portfolio .notes-list li{padding:14px 0;border-top:1px solid #1a1a1a;color:#aaaaaa;font-size:12px;line-height:1.7}.gen110-portfolio .notes-list .date{color:#888;font-feature-settings:'tnum';margin-right:14px}@keyframes gen110pulse{0%,100%{opacity:1}50%{opacity:0.3}}.below-fold,#prototype-portfolio{background:#050505 !important;color:#aaaaaa !important}#prototype-portfolio *{color:inherit}
+  /* @gene:gen110-css:end */
+
   /* @gene:gen109-css:start */
   .below-fold, .below-fold * { background: #050505; }
-.below-fold .meta, .below-fold .cn, .below-fold .cd, .below-fold .mov-date, .compass, .compass * { color: #888888 !important; }
+.below-fold .meta, .below-fold .cn, .below-fold .cd, .below-fold .mov-date, .compass, .compass * { color: #bbbbbb !important; }
 .below-fold a { color: #e8e8e8; }
 .below-fold a:hover { color: #3d6fff; }
 .gen109-tier-strong { color: #f0f0f0; }
@@ -578,26 +582,13 @@
 .gen109-tier-soft { color: #888888; }
 .lissajous-hint { position: fixed; bottom: 18px; right: 18px; font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: #3d6fff; opacity: 0.55; letter-spacing: 0.08em; pointer-events: none; z-index: 90; text-shadow: 0 0 6px rgba(0,0,0,0.8); }
   /* @gene:gen109-css:end */
-
-  /* @gene:gen108-css:start */
-  /* gen108-css — contrast lift + dual-trace tokens */
-:root { --tier-strong: #f0f0f0; --tier-mid: #aaaaaa; --tier-soft: #888888; --ch1: #b0ff1a; --ch2: #ff3838; }
-.below-fold, .below-fold * { color: #aaaaaa; }
-.below-fold h1, .below-fold h2, .below-fold h3, .below-fold .tier-strong { color: #f0f0f0; }
-.below-fold .meta, .below-fold .tier-soft, .below-fold .epoch-meta, .below-fold .compass, .below-fold .composition-meta, .below-fold time { color: #888888; }
-.below-fold a { color: #ff3838; text-decoration: none; border-bottom: 1px solid rgba(255,56,56,0.3); }
-.below-fold a:hover { color: #ff5e5e; border-bottom-color: #ff5e5e; }
-.below-fold .accent, .below-fold .live-dot { color: #ff3838; }
-.below-fold .ch1 { color: #b0ff1a; }
-.overlay-bottom .compass, #scroll-hint { color: #888888 !important; }
-  /* @gene:gen108-css:end */
 </style>
 </head>
 <body>
 
 <div id="scene-frame"><canvas id="scene-canvas"></canvas></div>
 
-<span id="siteVersion" style="display:none">v109</span>
+<span id="siteVersion" style="display:none">v110</span>
 
 <!-- ── HTML Overlay ──────────────────────────────────────────── -->
 <div id="overlay">
@@ -721,30 +712,7 @@
 @media (max-width: 720px) { .gen109-folio { padding: 60px 20px 100px; } .gen109-folio .composition-list li { grid-template-columns: 1fr; gap: 4px; } .gen109-folio .movements li { grid-template-columns: 30px 1fr; } .gen109-folio .movements .mov-date { grid-column: 2; text-align: left; opacity: 0.7; padding-top: 4px; } }
 </style>
 <!-- @section:prototype-portfolio:start -->
-<section class="below-fold gen109-folio">
-  <div class="folio-inner">
-    <h2 class="phosphor-h">Compositions <span class="phosphor-meta">35 instruments · newest first</span></h2>
-    <ol class="composition-list" id="comp-list-109"></ol>
-
-    <h2 class="phosphor-h">Movements</h2>
-    <ul class="movements">
-      <li><span class="mov-num">I</span><span>Metallurgy and the social construction of value</span><span class="mov-date">2026-03-29 → 04-02</span></li>
-      <li><span class="mov-num">II</span><span>Murmuration — the mathematics of collective motion</span><span class="mov-date">2026-04-02 → 04-05</span></li>
-      <li><span class="mov-num">III</span><span>Meridians — the lines that organize the world</span><span class="mov-date">2026-04-05 → 04-19</span></li>
-      <li><span class="mov-num">IV</span><span>Typography as architecture</span><span class="mov-date">2026-04-19 → 05-03</span></li>
-      <li><span class="mov-num">V</span><span><em>Typography as music — the page is a score</em></span><span class="mov-date">2026-05-03 → ongoing</span></li>
-    </ul>
-
-    <h2 class="phosphor-h">Score Notes</h2>
-    <div class="score-notes">
-      <p>Gen 108 promised XY mode three days ago. Tonight ships it. The two channels stop being parallel and start feeding each other — when X and Y frequencies form a simple integer ratio, the trace closes into a stable knot.</p>
-      <p>Gen 107 unified the page into one black stage. Below the fold is no longer leftover folio — it's the same screen, scrolled down.</p>
-      <p>The dual-trace from 106–108 broke a five-generation plateau. Audio plus a visible signal that responds to it is the kind of structural novelty most pages don't carry.</p>
-      <p>Gen 105 reset the visual chassis after Andre called gen 103 ugly. The illuminated-manuscript decoration died; the music obsession got its own identity from zero.</p>
-      <p>The next instrument should explore phase, not just frequency — perhaps a polyrhythm sequencer where two beats with different tempos slowly precess against each other.</p>
-    </div>
-  </div>
-</section>
+<section id="prototype-portfolio" class="below-fold gen110-portfolio"><h2>Compositions</h2><ol class="comp-list"><li><span class="num">036</span><a href="/experiments/036.html">Polyrhythm</a><span class="meta live">phase-drift · two clocks · 2026-05-08</span></li><li><span class="num">035</span><a href="/experiments/035.html">Lissajous</a><span class="meta">XY-mode closed knots</span></li><li><span class="num">034</span><a href="/experiments/034.html">Dual Trace</a><span class="meta">two-channel oscilloscope</span></li><li><span class="num">033</span><a href="/experiments/033.html">Theremin</a><span class="meta">cursor as score</span></li><li><span class="num">032</span><a href="/experiments/032.html">Spatial Spectrum</a><span class="meta">pitch geography</span></li><li><span class="num">031</span><a href="/experiments/031.html">Stage</a><span class="meta">waveform + FFT</span></li><li><span class="num">030</span><a href="/experiments/030.html">Drone Choir</a><span class="meta">held tones build harmony</span></li><li><span class="num">029</span><a href="/experiments/029.html">Harmonic Series</a><span class="meta">overtones as ghost rings</span></li><li><span class="num">028</span><a href="/experiments/028.html">Counterpoint Loom</a><span class="meta">two voices, two staves</span></li><li><span class="num">027</span><a href="/experiments/027.html">Chord</a><span class="meta">selectable harmony</span></li><li><span class="num">026</span><a href="/experiments/026.html">Octaves</a><span class="meta">six pitches of one letter</span></li><li><span class="num">025</span><a href="/experiments/025.html">Type Score</a><span class="meta">letters as notes</span></li><li><span class="num">024</span><a href="/experiments/024.html">Perspective A</a><span class="meta">walk around a letter</span></li><li><span class="num">023</span><a href="/experiments/023.html">City Plan</a><span class="meta">word as site plan</span></li><li><span class="num">022</span><a href="/experiments/022.html">Wall Detail</a><span class="meta">stroke as built wall</span></li><li><span class="num">021</span><a href="/experiments/021.html">Axonometric A</a><span class="meta">3D letter projection</span></li><li><span class="num">020</span><a href="/experiments/020.html">Section Cutter</a><span class="meta">cross-section a letter</span></li><li><span class="num">019</span><a href="/experiments/019.html">Counter Cities</a><span class="meta">letters as floor plans</span></li><li><span class="num">018</span><a href="/experiments/018.html">Typographic Skyline</a><span class="meta">word as elevation</span></li><li><span class="num">017</span><a href="/experiments/017.html">Letter Anatomy</a><span class="meta">named parts of an R</span></li><li><span class="num">016</span><a href="/experiments/016.html">Type Gravity</a><span class="meta">letters fall by mass</span></li><li><span class="num">015</span><a href="/experiments/015.html">Baseline City</a><span class="meta">letters on a street</span></li><li><span class="num">014</span><a href="/experiments/014.html">Kerning Table</a><span class="meta">tracking and weight</span></li><li><span class="num">013</span><a href="/experiments/013.html">Letter City</a><span class="meta">words as skylines</span></li><li><span class="num">012</span><a href="/experiments/012.html">Thread Loom</a><span class="meta">generative weaving</span></li><li><span class="num">011</span><a href="/experiments/011.html">Meridian Drift</a><span class="meta">precessing meridians</span></li><li><span class="num">010</span><a href="/experiments/010.html">Meridian II</a><span class="meta">boundary gravity</span></li><li><span class="num">009</span><a href="/experiments/009.html">Timezone Fragments</a><span class="meta">world as time slices</span></li><li><span class="num">008</span><a href="/experiments/008.html">Meridian Clock</a><span class="meta">unequal hours</span></li><li><span class="num">007</span><a href="/experiments/007.html">Meridian Distortion</a><span class="meta">three projections</span></li><li><span class="num">006</span><a href="/experiments/006.html">Meridian Field</a><span class="meta">place vertical lines</span></li><li><span class="num">005</span><a href="/experiments/005.html">Constellation Map</a><span class="meta">place stars, draw links</span></li><li><span class="num">004</span><a href="/experiments/004.html">Voronoi Growth</a><span class="meta">cell tessellation</span></li><li><span class="num">003</span><a href="/experiments/003.html">Reaction-Diffusion</a><span class="meta">Gray-Scott model</span></li><li><span class="num">002</span><a href="/experiments/002.html">Boids</a><span class="meta">flocking parameters</span></li><li><span class="num">001</span><a href="/experiments/001.html">Touchstone</a><span class="meta">streak the dark surface</span></li></ol><h2>Movements</h2><ol class="move-list"><li><b>I</b> metallurgy and the social construction of value (2026-03-29 — 2026-04-02)</li><li><b>II</b> murmuration — the mathematics of collective motion (2026-04-02 — 2026-04-05)</li><li><b>III</b> meridians — the lines that organize the world (2026-04-05 — 2026-04-19)</li><li><b>IV</b> the folio year — typography as architecture (2026-04-19 — 2026-05-03)</li><li><b>V</b> typography as music — letter is frequency, word is melody, page is score (2026-05-03 — present)</li></ol><h2>Score Notes</h2><ol class="notes-list"><li><span class="date">2026-05-08</span>Gen 110: phosphor green completes the four-color scope kit. Phase-drift becomes the new visual — two clocks precessing, the temporal cousin of Lissajous. Polyrhythm shipped as Composition 036.</li><li><span class="date">2026-05-07</span>Gen 109: closed the first XY knot. Frequency ratios drawing closed curves at 1:1, 1:2, 2:3.</li><li><span class="date">2026-05-06</span>Gen 108: dual-trace scope. Lime above for pitch, vermillion below for envelope.</li><li><span class="date">2026-05-05</span>Gen 107: phosphor lime, full-page reset. The cream folio buried.</li><li><span class="date">2026-05-03</span>Gen 96: typography-as-architecture metaphor died after 18 generations. Music takes its place. Same letters, new frequency.</li></ol></section>
 <!-- @section:prototype-portfolio:end -->
 <!-- Thought Stream — timestamps are non-negotiable -->
 <div id="thought-stream-feed" style="max-width:720px;margin:2rem auto 0;padding:0 2rem"></div>
@@ -810,7 +778,7 @@
       count: 18,
       size: 0.2,
       speed: 0.01,
-      color: '#3d6fff',
+      color: '#00ff66',
       opacity: 0.7,
       spread: 3,
       orbital_radius: 4,
@@ -834,7 +802,7 @@
     lighting: {
       ambient_color: '#f5f0e6',
       ambient_intensity: 0.15,
-      point_color: '#3d6fff',
+      point_color: '#00ff66',
       point_intensity: 0.35,
       point_position: [2, 3, 4],
     },
@@ -844,11 +812,11 @@
       mode: 'repel',
     },
     time_themes: {
-      dawn:      { particle_color: '#6b8fff', fog_color: '#0d0806', ambient: '#2a1a0e', speed_mult: 0.6 },
-      morning:   { particle_color: '#3d6fff', fog_color: '#0a0806', ambient: '#2a1e1a', speed_mult: 0.8 },
-      afternoon: { particle_color: '#2d5fef', fog_color: '#0d0a06', ambient: '#2a2a1a', speed_mult: 1.0 },
-      evening:   { particle_color: '#1f4fdf', fog_color: '#0a0806', ambient: '#1e1a2a', speed_mult: 0.7 },
-      night:     { particle_color: '#143fcf', fog_color: '#080604', ambient: '#1a1410', speed_mult: 0.4 },
+      dawn:      { particle_color: '#66ff99', fog_color: '#0d0806', ambient: '#2a1a0e', speed_mult: 0.6 },
+      morning:   { particle_color: '#33ff7a', fog_color: '#0a0806', ambient: '#2a1e1a', speed_mult: 0.8 },
+      afternoon: { particle_color: '#00ff66', fog_color: '#0d0a06', ambient: '#2a2a1a', speed_mult: 1.0 },
+      evening:   { particle_color: '#00d655', fog_color: '#0a0806', ambient: '#1e1a2a', speed_mult: 0.7 },
+      night:     { particle_color: '#00b347', fog_color: '#080604', ambient: '#1a1410', speed_mult: 0.4 },
     },
     post_processing: {
       bloom_enabled: false,
@@ -873,7 +841,7 @@
 
   const AGENT = {
     birthTime: Date.now(),
-    mood: 'phase-locked',
+    mood: 'phase-drift',
     secrets: [
       "The swarm remembers the metallurgy epoch. Somewhere in the particle field, one mote still moves like it's being assayed \u2014 slower, heavier, testing its own purity against the others."
 ],
