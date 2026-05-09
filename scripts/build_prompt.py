@@ -164,6 +164,9 @@ for arg in sys.argv[10:]:
         if os.path.isfile(screenshot_path):
             has_screenshot = True
 
+MOBILE_SCREENSHOT_PATH = "/tmp/andremacedo-mobile.png"
+has_mobile_screenshot = has_screenshot and os.path.isfile(MOBILE_SCREENSHOT_PATH)
+
 def read_file(path, default=""):
     try:
         with open(path) as f:
@@ -386,8 +389,41 @@ min_kills_weekly = budget.get("min_kills_weekly", 2)
 
 screenshot_context = ""
 if has_screenshot:
-    screenshot_context = """## VISUAL SELF-AWARENESS
-The attached screenshot is a full-page capture of the site at 1440px wide, including everything above AND below the fold: hero, Consciousness Stream, Graveyard, Archive, experiments grid. Your fitness self-evaluation — especially Perceptibility — must be based on what you SEE, not what you imagine the code produces. If text is unreadable against its background anywhere in the screenshot, fix it. If below-fold sections look broken, cluttered, or invisible, fix them. If something looks good, build on it."""
+    if has_mobile_screenshot:
+        screenshot_context = """## VISUAL SELF-AWARENESS
+
+Two screenshots are attached: DESKTOP_1440 (first image, full-page at 1440px wide) and MOBILE_390 (second image, full-page at 390px mobile viewport, 2x device scale).
+
+**DESKTOP_1440**: Full-page capture at 1440px wide — hero, Consciousness Stream, Graveyard, Archive, experiments grid.
+**MOBILE_390**: Full-page capture at 390px mobile viewport. Evaluate mobile layout, text readability, and overflow.
+
+## MOBILE SUB-GATE (evaluate BEFORE fitness scoring)
+Examine MOBILE_390 for any of the following:
+1. Horizontal scroll — content extending beyond the 390px viewport right edge
+2. Communicative text that appears below ~12px effective rendered size on MOBILE_390
+3. Fixed-position overlays covering >40% of the MOBILE_390 viewport area
+4. Content clipped at the right edge of MOBILE_390
+
+If ANY of the above is found, respond ONLY with:
+{"mobile_gate_fail": true, "mobile_issue": "<brief description of what failed and where>"}
+Do not score. Do not mutate. The runner will skip this cycle and retry next cycle.
+
+If MOBILE_390 passes all checks, proceed with fitness scoring and mutations.
+
+Your fitness self-evaluation — especially Perceptibility — must reflect what you see in BOTH screenshots. Fix any readability issues on either viewport. If below-fold sections look broken, fix them."""
+    else:
+        screenshot_context = """## VISUAL SELF-AWARENESS
+The attached screenshot DESKTOP_1440 is a full-page capture of the site at 1440px wide, including everything above AND below the fold: hero, Consciousness Stream, Graveyard, Archive, experiments grid. Your fitness self-evaluation — especially Perceptibility — must be based on what you SEE, not what you imagine the code produces. If text is unreadable against its background anywhere in the screenshot, fix it. If below-fold sections look broken, cluttered, or invisible, fix them. If something looks good, build on it."""
+
+mobile_context = """
+## MOBILE COMPATIBILITY RULES (non-negotiable)
+Every generation must be mobile-compatible at 390px width. Treat mobile as a first-class viewport:
+- Fixed-position elements (topbar, overlays, telemetry panel) MUST NOT overflow or cause horizontal scroll at <600px width. Use max-width: 100%, box-sizing: border-box, overflow: hidden where needed.
+- The Consciousness Stream text MUST remain readable at 390px — minimum 14px font-size, no horizontal overflow.
+- The telemetry overlay (#swarmPanel or equivalent) MUST reflow at mobile width — stack vertically, reduce padding, never break horizontal layout.
+- Andre's name MUST be visible and readable at 390px viewport width.
+- No element should cause document.documentElement.scrollWidth > document.documentElement.clientWidth at 390px.
+"""
 
 # ── Page metrics: rendered height vs. screenshot height ──────────
 page_metrics_context = ""
@@ -590,6 +626,7 @@ EXPERIMENT COMMUNICATION (non-negotiable): Every experiment page MUST include a 
 
 EXPERIMENT TEXT CONTRAST (non-negotiable): Text overlays (#info, #ui, #controls, #back, labels) MUST have `text-shadow: 0 0 8px rgba(0,0,0,0.8), 0 0 20px rgba(0,0,0,0.5)` for readability regardless of canvas content.
 
+{mobile_context}
 {screenshot_context}
 {page_metrics_context}
 {contrast_warning_context}
@@ -691,6 +728,7 @@ Both the prototype archive and the consciousness stream MUST show timestamps. Vi
 
 The site should look noticeably different every week. That means doing something structural most days, not just cosmetic changes.
 
+{mobile_context}
 {screenshot_context}
 {page_metrics_context}
 {contrast_warning_context}

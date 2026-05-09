@@ -217,6 +217,11 @@ if screenshot and os.path.isfile(screenshot):
     with open(screenshot, 'rb') as f:
         b64 = base64.b64encode(f.read()).decode('ascii')
     content.append({"type": "image", "source": {"type": "base64", "media_type": "image/png", "data": b64}})
+mobile_screenshot = "/tmp/andremacedo-mobile.png"
+if os.path.isfile(mobile_screenshot):
+    with open(mobile_screenshot, 'rb') as f:
+        b64m = base64.b64encode(f.read()).decode('ascii')
+    content.append({"type": "image", "source": {"type": "base64", "media_type": "image/png", "data": b64m}})
 content.append({"type": "text", "text": prompt_text})
 with open(out_file, 'w') as f:
     f.write(json.dumps({"type": "user", "message": {"role": "user", "content": content}}) + '\n')
