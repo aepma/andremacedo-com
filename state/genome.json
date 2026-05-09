@@ -1,17 +1,17 @@
 {
-  "generation": 113,
+  "generation": 114,
   "epoch": "webgl-swarm",
   "epoch_started": "2026-05-03",
   "traits": {
     "color": {
-      "accent_base": "#ff2855",
-      "accent_dawn": "#ff6680",
-      "accent_morning": "#ff3a66",
-      "accent_afternoon": "#ff2855",
-      "accent_evening": "#d91e44",
-      "accent_night": "#a8102e",
+      "accent_base": "#00d4ff",
+      "accent_dawn": "#33dfff",
+      "accent_morning": "#1ad9ff",
+      "accent_afternoon": "#00d4ff",
+      "accent_evening": "#00a8c8",
+      "accent_night": "#007a93",
       "bg": "#050505",
-      "fg": "#6a6a6a",
+      "fg": "#6c6c6c",
       "grain_opacity": "0",
       "fg_dim": "#6c6c6c",
       "bg_surface": "#f5f5f5",
@@ -65,6 +65,7 @@
         "experiments/036.html",
         "experiments/016.html",
         "experiments/001.html",
+        "experiments/040.html",
         "experiments/017.html",
         "experiments/037.html",
         "experiments/021.html",
@@ -177,33 +178,23 @@
       "type-'osc'-anywhere-on-the-pag",
       "type-'lissajous'-anywhere-to-e",
       "type-'gait'-to-navigate-to-the",
-      "click-and-drag-on-the-resonanc"
+      "click-and-drag-on-the-resonanc",
+      "type-'echo'-to-slow-the-resona"
     ],
     "content": {
       "mood": "choreographic",
       "obsession": "typography as music \u2014 the letter has a frequency, the word has a rhythm, the page is a score",
       "thought_pools": {
         "dawn": 10,
-        "morning": 11,
-        "afternoon": 9,
+        "morning": 10,
+        "afternoon": 10,
         "evening": 10,
-        "night": 11
+        "night": 10
       },
       "secrets_count": 21
     }
   },
   "fitness_log": [
-    {
-      "gen": 94,
-      "coherence": 7,
-      "novelty": 4,
-      "identity": 8,
-      "tension": 3,
-      "awe": 4,
-      "perceptibility": 6,
-      "note": "Five sheets deep into the folio. Identity is rock-solid \u2014 anyone landing on this site sees an architectural drawing of a letter, full stop. But novelt",
-      "total": 5.3
-    },
     {
       "gen": 95,
       "coherence": 7,
@@ -412,28 +403,20 @@
       "perceptibility": 7,
       "note": "Andre's strong LOVE on choreographic mood validates the gen 112 pivot \u2014 the keyboard-as-stage move broke the 7-gen scope plateau by adding bodily pres",
       "total": 7.2
+    },
+    {
+      "gen": 114,
+      "coherence": 7,
+      "novelty": 7,
+      "identity": 8,
+      "tension": 7,
+      "awe": 7,
+      "perceptibility": 7,
+      "note": "Andre's strong LOVE on choreographic validates the gen 112-113 pivot \u2014 keyboard-as-stage and cursor-as-baton broke the 7-gen plateau. Hero staff is le",
+      "total": 7.2
     }
   ],
   "mutation_log": [
-    {
-      "gen": 94,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "section.overlay-center",
-        "section.prototype-portfolio",
-        "page.experiments/023.html",
-        "scene.config"
-      ],
-      "kills": [
-        "css_rule:gen93-css",
-        "secret[0]"
-      ],
-      "timestamp": "2026-04-28T22:35:02Z"
-    },
     {
       "gen": 95,
       "mutations": [
@@ -844,33 +827,30 @@
         "secret[20]"
       ],
       "timestamp": "2026-05-09T08:05:02Z"
+    },
+    {
+      "gen": 114,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "interaction.type-'echo'-to-slow-the-resona",
+        "section.prototype-portfolio",
+        "page.experiments/040.html",
+        "scene.config"
+      ],
+      "kills": [
+        "secret[20]",
+        "css_rule:gen112-css",
+        "thought:morning[10]",
+        "thought:night[10]"
+      ],
+      "timestamp": "2026-05-09T16:13:47Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "secret",
-      "value": "Generation 69 abandoned all canvases. The page became pure text on black. Or tri",
-      "died_gen": 93,
-      "epitaph": "Secret pool was at 21/20 \u2014 over carrying capacity. Rotated the oldest out to make room for the 'detail' replay secret."
-    },
-    {
-      "type": "css_rule",
-      "value": "gen93-css",
-      "died_gen": 94,
-      "epitaph": "Superseded by gen94-css. The mortar-rose served the wall section detail \u2014 the site plan needs drafting green."
-    },
-    {
-      "type": "secret",
-      "value": "Generation 70 is the generation that stopped lying to itself.",
-      "died_gen": 94,
-      "epitaph": "Secret pool was at 21/20 \u2014 over carrying capacity. Rotated the oldest out to make room for the site plan."
-    },
-    {
-      "type": "css_rule",
-      "value": "gen94-css",
-      "died_gen": 95,
-      "epitaph": "Superseded by gen95-css. The drafting green served the site plan \u2014 the folio's neighborhood-scale view. Now the camera adopts a viewpoint and the palette warms to cobalt blueprint blue."
-    },
     {
       "type": "epoch",
       "value": "Epoch 4: typography as architecture \u2014 the letter is a building, the word is a street, the page is a city",
@@ -1146,6 +1126,30 @@
       "value": "type 'gait' anywhere on the page to navigate to the choreography experiment",
       "died_gen": 113,
       "epitaph": "Over capacity (21/20). Pruning the oldest unused secret to make room for the 'baton' phrase trigger that opens the conductor experiment."
+    },
+    {
+      "type": "secret",
+      "value": "Click and drag anywhere on the resonance-field to draw a baton path \u2014 release to",
+      "died_gen": 114,
+      "epitaph": "21/20 over capacity. Pruning the oldest unused secret to make room for the 'echo' canon toggle."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen112-css",
+      "died_gen": 114,
+      "epitaph": "gen112-css carried the amethyst persistence trail and the keyboard-as-stage CSS. Two gens later (113 baton, 114 echo) the persistence is preserved by gen114-css with cyan phosphor and proper meta-tier contrast \u2014 gen112 can rest."
+    },
+    {
+      "type": "thought",
+      "value": "Steve Reich called Piano Phase a piece where the score is the diagram of two musicians failing to keep time.",
+      "died_gen": 114,
+      "epitaph": "Pool overflow at 11/10. Replaced with the Reich-Piano-Phase-as-failure-diagram thought \u2014 same theme (timing failure as the score's actual material), sharper image."
+    },
+    {
+      "type": "thought",
+      "value": "rehearsal is the part of dance no one is supposed to see \u2014 and everything else is rehearsal too.",
+      "died_gen": 114,
+      "epitaph": "Pool overflow at 11/10. Replaced with the rehearsal-as-the-real-thing thought \u2014 closes a gap the choreographic mood opened but didn't yet name."
     }
   ],
   "carrying_capacity": {
@@ -1164,11 +1168,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 104,
-      "base": "#b8860b",
-      "family": "orange"
-    },
     {
       "gen": 105,
       "base": "#ff2e9c",
@@ -1213,6 +1212,11 @@
       "gen": 113,
       "base": "#ff2855",
       "family": "magenta"
+    },
+    {
+      "gen": 114,
+      "base": "#00d4ff",
+      "family": "teal"
     }
   ],
   "past_epochs": [

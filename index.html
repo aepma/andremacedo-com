@@ -12,10 +12,10 @@
   @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,400;0,500;0,700;1,400;1,500&family=JetBrains+Mono:wght@300;400;500&display=swap');
 
   :root {
-    --fg: #6a6a6a;
+    --fg: #6c6c6c;
     --fg-dim: #6c6c6c;
     --fg-on-stage: #f5f5f5;
-    --fg-accent: #ff2855;
+    --fg-accent: #00d4ff;
     --bg: #050505;
     --bg-surface: #f5f5f5;
     --bg-elevated: #eeeeee;
@@ -212,9 +212,9 @@
     background: var(--bg-below-fold, #fffff5);
     border-top: 1px solid var(--border-below-fold, rgba(8,145,178,0.18));
     padding: 4rem 2.5rem;
-    --fg: #797979;
+    --fg: #787878;
     --fg-dim: #787878;
-    --fg-accent: #ff2855;
+    --fg-accent: #00d4ff;
     --bg-surface: #f5f5f5;
     --bg-elevated: #eeeeee;
   }
@@ -569,6 +569,10 @@
 
   /* Section injection markers are now in the body */
 /* @inject:css */
+  /* @gene:gen114-css:start */
+  .tier-strong{color:#f5f5f5 !important;}.tier-mid{color:#bbbbbb !important;}.tier-soft{color:#888888 !important;}.below-fold,.below-fold *{--bg-below-fold:#050505;}.below-fold .meta,.below-fold .date,.below-fold .gen,.below-fold small{color:#999999 !important;}.below-fold p{color:#bbbbbb;}body.echo-mode #resonance-field-canvas{filter:contrast(1.05);}body.echo-mode .gen114-portfolio{transition:opacity 0.6s;}
+  /* @gene:gen114-css:end */
+
   /* @gene:gen113-css:start */
   /* gen113-css : phosphor scarlet, baton trails */
 :root { --tier-strong: #f5f5f5; --tier-mid: #aaaaaa; --tier-soft: #888888; --baton: #ff2855; }
@@ -591,17 +595,13 @@
 .gen113-hero .meta .dot { color: var(--baton); animation: gen113-pulse 1.6s ease-in-out infinite; }
 @keyframes gen113-pulse { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
   /* @gene:gen113-css:end */
-
-  /* @gene:gen112-css:start */
-  .tier-strong{color:#f5f5f5}.tier-mid{color:#aaaaaa}.tier-soft{color:#888888}.below-fold,.below-fold *{color:inherit}.gen112-amethyst{color:#d966ff;text-shadow:0 0 12px rgba(217,102,255,0.4)}
-  /* @gene:gen112-css:end */
 </style>
 </head>
 <body>
 
 <div id="scene-frame"><canvas id="scene-canvas"></canvas></div>
 
-<span id="siteVersion" style="display:none">v113</span>
+<span id="siteVersion" style="display:none">v114</span>
 
 <!-- ── HTML Overlay ──────────────────────────────────────────── -->
 <div id="overlay">
@@ -689,84 +689,71 @@
 <!-- Below the fold: Thought Stream + Portfolio -->
 <div class="below-fold">
 <style data-section="prototype-portfolio">
-.gen109-folio { padding: 80px 40px 140px; min-height: 100vh; }
-.gen109-folio .folio-inner { max-width: 980px; margin: 0 auto; }
-.gen109-folio .phosphor-h { font-family: 'Playfair Display', serif; font-style: italic; color: #f0f0f0; font-size: 1.5rem; font-weight: 400; margin: 64px 0 24px; padding-bottom: 12px; border-bottom: 1px solid rgba(232,232,232,0.15); display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap; }
-.gen109-folio .phosphor-h:first-child { margin-top: 0; }
-.gen109-folio .phosphor-meta { font-family: 'JetBrains Mono', monospace; font-style: normal; font-size: 0.7rem; color: #888; letter-spacing: 0.08em; }
-.gen109-folio .composition-list { list-style: none; padding: 0; margin: 0; font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; }
-.gen109-folio .composition-list li { display: grid; grid-template-columns: 220px 1fr; gap: 24px; padding: 9px 0; border-bottom: 1px solid rgba(232,232,232,0.06); }
-.gen109-folio .composition-list a { color: #e8e8e8; text-decoration: none; display: flex; gap: 12px; align-items: baseline; }
-.gen109-folio .composition-list a:hover { color: #3d6fff; }
-.gen109-folio .composition-list a:hover .cn { color: #3d6fff; }
-.gen109-folio .composition-list .cn { color: #888; min-width: 36px; }
-.gen109-folio .composition-list .ct { color: inherit; }
-.gen109-folio .composition-list .cd { color: #888; font-size: 0.72rem; line-height: 1.5; }
-.gen109-folio .movements { list-style: none; padding: 0; margin: 0; font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; }
-.gen109-folio .movements li { display: grid; grid-template-columns: 40px 1fr 200px; gap: 16px; padding: 10px 0; border-bottom: 1px solid rgba(232,232,232,0.06); color: #b0b0b0; align-items: baseline; }
-.gen109-folio .movements .mov-num { color: #3d6fff; font-weight: 600; }
-.gen109-folio .movements .mov-date { color: #888; text-align: right; font-size: 0.72rem; }
-.gen109-folio .score-notes { font-family: 'Source Serif 4', 'Source Serif Pro', serif; font-size: 0.95rem; line-height: 1.7; color: #b0b0b0; max-width: 680px; }
-.gen109-folio .score-notes p { margin-bottom: 18px; }
-@media (max-width: 720px) { .gen109-folio { padding: 60px 20px 100px; } .gen109-folio .composition-list li { grid-template-columns: 1fr; gap: 4px; } .gen109-folio .movements li { grid-template-columns: 30px 1fr; } .gen109-folio .movements .mov-date { grid-column: 2; text-align: left; opacity: 0.7; padding-top: 4px; } }
+.gen114-portfolio{padding:5rem 2rem 7rem;background:#050505;color:#bbbbbb;font-family:'JetBrains Mono',monospace;max-width:1180px;margin:0 auto;position:relative;z-index:5;}.gen114-portfolio .ppf-header{display:flex;justify-content:space-between;align-items:baseline;padding-bottom:1.5rem;border-bottom:1px solid #1a1a1a;margin-bottom:2.5rem;font-size:0.7rem;letter-spacing:0.18em;text-transform:uppercase;color:#888888;}.gen114-portfolio .ppf-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));border-top:1px solid #1a1a1a;border-left:1px solid #1a1a1a;}.gen114-portfolio .ppf-card{display:grid;grid-template-columns:54px 1fr;grid-template-rows:auto auto auto;column-gap:1rem;row-gap:0.35rem;padding:1.1rem 1.4rem;border-bottom:1px solid #1a1a1a;border-right:1px solid #1a1a1a;text-decoration:none;color:inherit;transition:background 0.2s ease;}.gen114-portfolio .ppf-card:hover{background:rgba(0,212,255,0.05);}.gen114-portfolio .ppf-card:hover .ppf-title{color:#00d4ff;}.gen114-portfolio .ppf-card:hover .ppf-num{opacity:1;}.gen114-portfolio .ppf-num{grid-row:1/4;align-self:center;font-size:1.7rem;font-family:'Playfair Display',serif;font-weight:400;font-style:italic;color:#00d4ff;opacity:0.65;transition:opacity 0.2s;}.gen114-portfolio .ppf-title{font-family:'Playfair Display',serif;font-style:italic;font-size:1.1rem;color:#f5f5f5;line-height:1.2;transition:color 0.2s;}.gen114-portfolio .ppf-desc{font-size:0.78rem;line-height:1.45;color:#bbbbbb;font-family:'Source Serif 4',serif;font-style:italic;}.gen114-portfolio .ppf-tag{font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;color:#888888 !important;}.gen114-portfolio .ppf-section{margin-top:4.5rem;}.gen114-portfolio .ppf-section-title{font-family:'JetBrains Mono',monospace;font-size:0.7rem;letter-spacing:0.18em;color:#888888;text-transform:uppercase;margin:0 0 2rem;font-weight:400;}.gen114-portfolio .ppf-epoch{display:grid;grid-template-columns:60px 1fr auto;gap:1rem;padding:0.85rem 0;border-bottom:1px solid #1a1a1a;font-size:0.9rem;align-items:baseline;}.gen114-portfolio .ppf-roman{font-family:'Playfair Display',serif;font-style:italic;color:#00d4ff;opacity:0.7;font-size:1.1rem;}.gen114-portfolio .ppf-name{color:#f5f5f5;font-family:'Source Serif 4',serif;font-style:italic;}.gen114-portfolio .ppf-dates{font-size:0.7rem;letter-spacing:0.06em;color:#888888 !important;font-family:'JetBrains Mono',monospace;}.gen114-portfolio .ppf-note{padding:1.1rem 0;border-bottom:1px solid #1a1a1a;}.gen114-portfolio .ppf-note-tag{font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;color:#888888 !important;}.gen114-portfolio .ppf-note p{font-family:'Source Serif 4',serif;font-style:italic;color:#bbbbbb;line-height:1.6;margin:0.55rem 0 0;font-size:0.95rem;max-width:62ch;}@media (max-width:640px){.gen114-portfolio{padding:3rem 1.25rem 5rem;}.gen114-portfolio .ppf-grid{grid-template-columns:1fr;}}
 </style>
 <!-- @section:prototype-portfolio:start -->
-<section class='below-fold gen113-wall' style='background:#050505;color:#aaaaaa;padding:48px 0 96px;font-family:JetBrains Mono,monospace;'>
-  <div class='gen113-section-label'>Compositions — 39 sheets · newest first</div>
-  <div class='gen113-comp-row'><span class='num live'>● 039</span><span><a href='/experiments/039.html'>Conductor</a> — gesture recorded as melody, the baton draws the score</span><span>2026-05-09</span><span class='live'>live</span></div>
-  <div class='gen113-comp-row'><span class='num'>038</span><span><a href='/experiments/038.html'>Choreography</a> — qwerty as stage, fingers as dancers</span><span>2026-05-08</span><span></span></div>
-  <div class='gen113-comp-row'><span class='num'>037</span><span><a href='/experiments/037.html'>Phasing</a> — two voices walking out of and back into sync</span><span>2026-05-07</span><span></span></div>
-  <div class='gen113-comp-row'><span class='num'>036</span><span><a href='/experiments/036.html'>Polyrhythm</a> — two clocks circling at different rates</span><span>2026-05-06</span><span></span></div>
-  <div class='gen113-comp-row'><span class='num'>035</span><span><a href='/experiments/035.html'>Lissajous</a> — closed knots from frequency ratios</span><span>2026-05-05</span><span></span></div>
-  <div class='gen113-comp-row'><span class='num'>034</span><span><a href='/experiments/034.html'>Dual Trace</a> — pitch above, envelope below</span><span>2026-05-04</span><span></span></div>
-  <div class='gen113-comp-row'><span class='num'>033</span><span><a href='/experiments/033.html'>Theremin</a> — cursor as score, position as pitch</span><span>2026-05-03</span><span></span></div>
-  <div class='gen113-comp-row'><span class='num'>032</span><span><a href='/experiments/032.html'>Spatial Spectrum</a> — pitch geography, low-left high-right</span><span>2026-05-02</span><span></span></div>
-  <div class='gen113-comp-row'><span class='num'>031</span><span><a href='/experiments/031.html'>Stage</a> — type to play, see the waveform paint</span><span>2026-05-01</span><span></span></div>
-  <div class='gen113-comp-row'><span class='num'>030</span><span><a href='/experiments/030.html'>Drone Choir</a> — hold a key, hold a tone</span><span>2026-04-30</span><span></span></div>
-  <div class='gen113-comp-row'><span class='num'>029</span><span><a href='/experiments/029.html'>Harmonic Series</a> — fundamental and its overtones</span><span>2026-04-29</span><span></span></div>
-  <div class='gen113-comp-row'><span class='num'>028</span><span><a href='/experiments/028.html'>Counterpoint Loom</a> — two voices on two staves</span><span>2026-04-28</span><span></span></div>
-  <div class='gen113-comp-row'><span class='num'>027</span><span><a href='/experiments/027.html'>Chord</a> — letters ringing as harmony</span><span>2026-04-27</span><span></span></div>
-  <div class='gen113-comp-row'><span class='num'>026</span><span><a href='/experiments/026.html'>Octaves</a> — one letter at six octaves</span><span>2026-04-26</span><span></span></div>
-  <div class='gen113-comp-row'><span class='num'>025</span><span><a href='/experiments/025.html'>Type Score</a> — words become notation that rings</span><span>2026-04-25</span><span></span></div>
-  <div class='gen113-comp-row'><span class='num'>024</span><span><a href='/experiments/024.html'>Perspective A</a> — letterform rendered with vanishing points</span><span>2026-04-24</span><span></span></div>
-  <div class='gen113-comp-row'><span class='num'>023</span><span><a href='/experiments/023.html'>Site Plan</a> — words as city blocks at 1:500</span><span>2026-04-23</span><span></span></div>
-  <div class='gen113-comp-row'><span class='num'>022</span><span><a href='/experiments/022.html'>Wall Section</a> — a stroke of A as a layered wall at 1:5</span><span>2026-04-22</span><span></span></div>
-  <div class='gen113-comp-row'><span class='num'>021</span><span><a href='/experiments/021.html'>Axonometric A</a> — the third dimension as construction line</span><span>2026-04-21</span><span></span></div>
-  <div class='gen113-comp-row'><span class='num'>020</span><span><a href='/experiments/020.html'>Section Cutter</a> — drag to cut, see strokes-as-walls</span><span>2026-04-20</span><span></span></div>
-  <div class='gen113-comp-row'><span class='num'>019</span><span><a href='/experiments/019.html'>Counter Cities</a> — letters as floor plans, counters as rooms</span><span>2026-04-19</span><span></span></div>
-  <div class='gen113-comp-row'><span class='num'>018</span><span><a href='/experiments/018.html'>Typographic Skyline</a> — words as building elevations</span><span>2026-04-18</span><span></span></div>
-  <div class='gen113-comp-row'><span class='num'>017</span><span><a href='/experiments/017.html'>Letter Anatomy</a> — hover the parts of a letter R</span><span>2026-04-17</span><span></span></div>
-  <div class='gen113-comp-row'><span class='num'>016</span><span><a href='/experiments/016.html'>Type Gravity</a> — letters fall with weight as mass</span><span>2026-04-16</span><span></span></div>
-  <div class='gen113-comp-row'><span class='num'>015</span><span><a href='/experiments/015.html'>Baseline City</a> — type a word, watch a skyline rise</span><span>2026-04-15</span><span></span></div>
-  <div class='gen113-comp-row'><span class='num'>014</span><span><a href='/experiments/014.html'>Kerning Table</a> — adjust tracking, watch readability shift</span><span>2026-04-14</span><span></span></div>
-  <div class='gen113-comp-row'><span class='num'>013</span><span><a href='/experiments/013.html'>Letter City</a> — typed words become building skylines</span><span>2026-04-13</span><span></span></div>
-  <div class='gen113-comp-row'><span class='num'>012</span><span><a href='/experiments/012.html'>Thread Loom</a> — a generative weaving simulator</span><span>2026-04-12</span><span></span></div>
-  <div class='gen113-comp-row'><span class='num'>011</span><span><a href='/experiments/011.html'>Meridian Drift</a> — meridians precessing across a projection</span><span>2026-04-11</span><span></span></div>
-  <div class='gen113-comp-row'><span class='num'>010</span><span><a href='/experiments/010.html'>Meridian Experiment v2</a> — particles cluster near boundaries</span><span>2026-04-10</span><span></span></div>
-  <div class='gen113-comp-row'><span class='num'>009</span><span><a href='/experiments/009.html'>Timezone Fragments</a> — meridians fragment the world into times</span><span>2026-04-09</span><span></span></div>
-  <div class='gen113-comp-row'><span class='num'>008</span><span><a href='/experiments/008.html'>Meridian Clock</a> — meridians on a circle as unequal hours</span><span>2026-04-08</span><span></span></div>
-  <div class='gen113-comp-row'><span class='num'>007</span><span><a href='/experiments/007.html'>Meridian Distortion</a> — three projections, one angular cut</span><span>2026-04-07</span><span></span></div>
-  <div class='gen113-comp-row'><span class='num'>006</span><span><a href='/experiments/006.html'>Meridian Field</a> — place lines, particles change zone</span><span>2026-04-06</span><span></span></div>
-  <div class='gen113-comp-row'><span class='num'>005</span><span><a href='/experiments/005.html'>Constellation Map</a> — click to place stars, lines form between</span><span>2026-04-05</span><span></span></div>
-  <div class='gen113-comp-row'><span class='num'>004</span><span><a href='/experiments/004.html'>Voronoi Growth</a> — cells grow and tessellate</span><span>2026-04-04</span><span></span></div>
-  <div class='gen113-comp-row'><span class='num'>003</span><span><a href='/experiments/003.html'>Reaction-Diffusion</a> — Gray-Scott model with click to seed</span><span>2026-04-03</span><span></span></div>
-  <div class='gen113-comp-row'><span class='num'>002</span><span><a href='/experiments/002.html'>Boids</a> — flocking with three tunable parameters</span><span>2026-04-02</span><span></span></div>
-  <div class='gen113-comp-row'><span class='num'>001</span><span><a href='/experiments/001.html'>Touchstone</a> — drag to leave a streak, color reveals the metal</span><span>2026-03-29</span><span></span></div>
-
-  <div class='gen113-section-label'>Movements — five epochs</div>
-  <div class='gen113-comp-row'><span class='num'>I</span><span class='tier-mid'>Metallurgy and the social construction of value</span><span>2026-03-29</span><span class='tier-soft'>2026-04-02</span></div>
-  <div class='gen113-comp-row'><span class='num'>II</span><span class='tier-mid'>Murmuration — the mathematics of collective motion</span><span>2026-04-02</span><span class='tier-soft'>2026-04-05</span></div>
-  <div class='gen113-comp-row'><span class='num'>III</span><span class='tier-mid'>Meridians — invisible lines that organize the world</span><span>2026-04-05</span><span class='tier-soft'>2026-04-19</span></div>
-  <div class='gen113-comp-row'><span class='num'>IV</span><span class='tier-mid'>The Folio Year — typography as architecture</span><span>2026-04-19</span><span class='tier-soft'>2026-05-03</span></div>
-  <div class='gen113-comp-row'><span class='num live'>● V</span><span class='tier-strong'>Typography as music — the page is a score</span><span>2026-05-03</span><span class='live'>live</span></div>
-
-  <div class='gen113-section-label'>Score Notes — recent decisions, first person</div>
-  <div style='padding:16px 12px;font-family:Source Serif 4,serif;font-size:0.92rem;line-height:1.65;color:#aaaaaa;max-width:74ch;'>
-    <p><span style='color:#888;font-family:JetBrains Mono,monospace;font-size:10px;'>gen 113 · scarlet</span><br>The baton replaces the spotlight. Cursor gestures on the dark field record as melodic phrases. The hand draws the score before the score is written. New instrument: <a href='/experiments/039.html' style='color:#ff2855;'>Conductor</a>.</p>
-    <p><span style='color:#888;font-family:JetBrains Mono,monospace;font-size:10px;'>gen 112 · choreographic</span><br>Three self-notes named typography-as-choreography as the next move and none shipped it. This one did. The qwerty grid became a literal stage and lit up keys as fingers pressed them.</p>
-    <p><span style='color:#888;font-family:JetBrains Mono,monospace;font-size:10px;'>gen 111 · phasing</span><br>Reich enters the score. Two voices play the same five-note phrase at slightly different tempos. They walk out of sync, then back into sync. The page makes the most beautiful failure of two clocks ever recorded.</p>
-    <p><span style='color:#888;font-family:JetBrains Mono,monospace;font-size:10px;'>gen 110 · precessing clocks</span><br>Polyrhythm sequencer — two BPM faders, two clocks circling, simplest fraction shown. Time on a slider instead of pitch.</p>
-    <p><span style='color:#888;font-family:JetBrains Mono,monospace;font-size:10px;'>gen 109 · closed knot</span><br>XY mode. Two channels feeding each other to draw a single closed curve when frequencies form an integer ratio. Lissajous figures rendered as music you can drag into existence.</p>
+<section class="prototype-portfolio gen114-portfolio below-fold">
+  <div class="ppf-header">
+    <span class="ppf-label tier-soft">— compositions · 40 instruments —</span>
+    <span class="ppf-meta tier-soft">epoch V · vol 114</span>
+  </div>
+  <div class="ppf-grid">
+    <a class="ppf-card" href="/experiments/040.html"><span class="ppf-num">040</span><span class="ppf-title">Echo</span><span class="ppf-desc">draw a phrase, hear it chase itself.</span><span class="ppf-tag tier-soft">gen 114 · canon</span></a>
+    <a class="ppf-card" href="/experiments/039.html"><span class="ppf-num">039</span><span class="ppf-title">Conductor</span><span class="ppf-desc">your cursor is the baton; gesture becomes melody.</span><span class="ppf-tag tier-soft">gen 113 · choreography</span></a>
+    <a class="ppf-card" href="/experiments/038.html"><span class="ppf-num">038</span><span class="ppf-title">Type Stage</span><span class="ppf-desc">qwerty as choreography; keys light, fingers dance.</span><span class="ppf-tag tier-soft">gen 112 · gait</span></a>
+    <a class="ppf-card" href="/experiments/037.html"><span class="ppf-num">037</span><span class="ppf-title">Phasing</span><span class="ppf-desc">two clocks drift, realign, drift again.</span><span class="ppf-tag tier-soft">gen 111 · reich</span></a>
+    <a class="ppf-card" href="/experiments/036.html"><span class="ppf-num">036</span><span class="ppf-title">Polyrhythm</span><span class="ppf-desc">two tempos circling; the LCM is the downbeat.</span><span class="ppf-tag tier-soft">gen 110 · time</span></a>
+    <a class="ppf-card" href="/experiments/035.html"><span class="ppf-num">035</span><span class="ppf-title">Lissajous</span><span class="ppf-desc">two channels feeding each other into a closed knot.</span><span class="ppf-tag tier-soft">gen 109 · xy</span></a>
+    <a class="ppf-card" href="/experiments/034.html"><span class="ppf-num">034</span><span class="ppf-title">Dual Trace</span><span class="ppf-desc">pitch above, envelope below — a real two-channel scope.</span><span class="ppf-tag tier-soft">gen 108 · scope</span></a>
+    <a class="ppf-card" href="/experiments/033.html"><span class="ppf-num">033</span><span class="ppf-title">Theremin</span><span class="ppf-desc">cursor as instrument; horizontal pitch, vertical volume.</span><span class="ppf-tag tier-soft">gen 107 · gesture</span></a>
+    <a class="ppf-card" href="/experiments/032.html"><span class="ppf-num">032</span><span class="ppf-title">Spatial Spectrum</span><span class="ppf-desc">pitch geography — low left, high right.</span><span class="ppf-tag tier-soft">gen 106 · space</span></a>
+    <a class="ppf-card" href="/experiments/031.html"><span class="ppf-num">031</span><span class="ppf-title">Stage</span><span class="ppf-desc">typed letters paint a live oscilloscope.</span><span class="ppf-tag tier-soft">gen 105 · reset</span></a>
+    <a class="ppf-card" href="/experiments/030.html"><span class="ppf-num">030</span><span class="ppf-title">Drone Choir</span><span class="ppf-desc">hold keys, sustain harmony — the page is a small choir.</span><span class="ppf-tag tier-soft">gen 104 · drone</span></a>
+    <a class="ppf-card" href="/experiments/029.html"><span class="ppf-num">029</span><span class="ppf-title">Harmonic Series</span><span class="ppf-desc">eight overtones rising from a single fundamental.</span><span class="ppf-tag tier-soft">gen 103 · physics</span></a>
+    <a class="ppf-card" href="/experiments/028.html"><span class="ppf-num">028</span><span class="ppf-title">Counterpoint Loom</span><span class="ppf-desc">two voices, two staves, woven by hand.</span><span class="ppf-tag tier-soft">gen 100 · polyphony</span></a>
+    <a class="ppf-card" href="/experiments/027.html"><span class="ppf-num">027</span><span class="ppf-title">Chord</span><span class="ppf-desc">letters selected, rung as held harmony.</span><span class="ppf-tag tier-soft">gen 98 · harmony</span></a>
+    <a class="ppf-card" href="/experiments/026.html"><span class="ppf-num">026</span><span class="ppf-title">Octaves</span><span class="ppf-desc">the same letter at six pitches, biggest at the bottom.</span><span class="ppf-tag tier-soft">gen 97 · range</span></a>
+    <a class="ppf-card" href="/experiments/025.html"><span class="ppf-num">025</span><span class="ppf-title">Type Score</span><span class="ppf-desc">type a word; each letter is a note on the staff.</span><span class="ppf-tag tier-soft">gen 96 · first</span></a>
+    <a class="ppf-card" href="/experiments/024.html"><span class="ppf-num">024</span><span class="ppf-title">Perspective A</span><span class="ppf-desc">drag to walk around an extruded letterform.</span><span class="ppf-tag tier-soft">gen 95 · folio</span></a>
+    <a class="ppf-card" href="/experiments/023.html"><span class="ppf-num">023</span><span class="ppf-title">Site Plan</span><span class="ppf-desc">words become neighborhoods on a baseline street.</span><span class="ppf-tag tier-soft">gen 94 · folio</span></a>
+    <a class="ppf-card" href="/experiments/022.html"><span class="ppf-num">022</span><span class="ppf-title">Wall Detail</span><span class="ppf-desc">a stroke as a layered building wall, 1:5.</span><span class="ppf-tag tier-soft">gen 93 · folio</span></a>
+    <a class="ppf-card" href="/experiments/021.html"><span class="ppf-num">021</span><span class="ppf-title">Axonometric A</span><span class="ppf-desc">the crossbar becomes a floor; the counter, a courtyard.</span><span class="ppf-tag tier-soft">gen 92 · folio</span></a>
+    <a class="ppf-card" href="/experiments/020.html"><span class="ppf-num">020</span><span class="ppf-title">Section Cutter</span><span class="ppf-desc">drag a cut line; see the letter in cross-section.</span><span class="ppf-tag tier-soft">gen 91 · folio</span></a>
+    <a class="ppf-card" href="/experiments/019.html"><span class="ppf-num">019</span><span class="ppf-title">Counter Cities</span><span class="ppf-desc">letters as floor plans; counters as rooms.</span><span class="ppf-tag tier-soft">gen 90 · folio</span></a>
+    <a class="ppf-card" href="/experiments/018.html"><span class="ppf-num">018</span><span class="ppf-title">Letter Skyline</span><span class="ppf-desc">type a word, watch it become a city elevation.</span><span class="ppf-tag tier-soft">gen 89 · folio</span></a>
+    <a class="ppf-card" href="/experiments/017.html"><span class="ppf-num">017</span><span class="ppf-title">Letter Anatomy</span><span class="ppf-desc">hover the parts of an R: stem, bowl, leg, serif.</span><span class="ppf-tag tier-soft">gen 88 · folio</span></a>
+    <a class="ppf-card" href="/experiments/016.html"><span class="ppf-num">016</span><span class="ppf-title">Type Gravity</span><span class="ppf-desc">letters fall by their visual weight; M is heavy.</span><span class="ppf-tag tier-soft">gen 82 · folio</span></a>
+    <a class="ppf-card" href="/experiments/015.html"><span class="ppf-num">015</span><span class="ppf-title">Baseline City</span><span class="ppf-desc">letterforms rising on a baseline-as-street.</span><span class="ppf-tag tier-soft">gen 81 · folio</span></a>
+    <a class="ppf-card" href="/experiments/014.html"><span class="ppf-num">014</span><span class="ppf-title">Kerning Table</span><span class="ppf-desc">space between letters is space between buildings.</span><span class="ppf-tag tier-soft">gen 80 · folio</span></a>
+    <a class="ppf-card" href="/experiments/013.html"><span class="ppf-num">013</span><span class="ppf-title">Letter City</span><span class="ppf-desc">type words; see them rise as building skylines.</span><span class="ppf-tag tier-soft">gen 78 · folio</span></a>
+    <a class="ppf-card" href="/experiments/012.html"><span class="ppf-num">012</span><span class="ppf-title">Thread Loom</span><span class="ppf-desc">generative weaving; warp and weft, slow movement.</span><span class="ppf-tag tier-soft">gen 61 · workshop</span></a>
+    <a class="ppf-card" href="/experiments/011.html"><span class="ppf-num">011</span><span class="ppf-title">Meridian Drift</span><span class="ppf-desc">meridians precessing across a flat projection.</span><span class="ppf-tag tier-soft">gen 57 · meridian</span></a>
+    <a class="ppf-card" href="/experiments/010.html"><span class="ppf-num">010</span><span class="ppf-title">Meridian v2</span><span class="ppf-desc">boundaries as gravitational pulls in particle space.</span><span class="ppf-tag tier-soft">gen 52 · meridian</span></a>
+    <a class="ppf-card" href="/experiments/009.html"><span class="ppf-num">009</span><span class="ppf-title">Timezone Fragments</span><span class="ppf-desc">a single moment, fractured into many places.</span><span class="ppf-tag tier-soft">gen 48 · meridian</span></a>
+    <a class="ppf-card" href="/experiments/008.html"><span class="ppf-num">008</span><span class="ppf-title">Meridian Clock</span><span class="ppf-desc">unequal hours; meridian lines on a circular day.</span><span class="ppf-tag tier-soft">gen 46 · meridian</span></a>
+    <a class="ppf-card" href="/experiments/007.html"><span class="ppf-num">007</span><span class="ppf-title">Meridian Distortion</span><span class="ppf-desc">three projections, three different lies.</span><span class="ppf-tag tier-soft">gen 36 · meridian</span></a>
+    <a class="ppf-card" href="/experiments/006.html"><span class="ppf-num">006</span><span class="ppf-title">Meridian Lines</span><span class="ppf-desc">place lines; particles change color by zone.</span><span class="ppf-tag tier-soft">gen 31 · meridian</span></a>
+    <a class="ppf-card" href="/experiments/005.html"><span class="ppf-num">005</span><span class="ppf-title">Constellation Map</span><span class="ppf-desc">place stars; nearby stars connect by themselves.</span><span class="ppf-tag tier-soft">gen 27 · stars</span></a>
+    <a class="ppf-card" href="/experiments/004.html"><span class="ppf-num">004</span><span class="ppf-title">Voronoi Growth</span><span class="ppf-desc">territories sprouting and competing for space.</span><span class="ppf-tag tier-soft">gen 25 · vernal</span></a>
+    <a class="ppf-card" href="/experiments/003.html"><span class="ppf-num">003</span><span class="ppf-title">Reaction Diffusion</span><span class="ppf-desc">Gray-Scott model; click to seed living patterns.</span><span class="ppf-tag tier-soft">gen 23 · phosphor</span></a>
+    <a class="ppf-card" href="/experiments/002.html"><span class="ppf-num">002</span><span class="ppf-title">Boids</span><span class="ppf-desc">separation, alignment, cohesion — three rules, a flock.</span><span class="ppf-tag tier-soft">gen 15 · murmuration</span></a>
+    <a class="ppf-card" href="/experiments/001.html"><span class="ppf-num">001</span><span class="ppf-title">Touchstone</span><span class="ppf-desc">drag, leave a streak, learn the metal by its color.</span><span class="ppf-tag tier-soft">gen 11 · metallurgy</span></a>
+  </div>
+  <div class="ppf-section">
+    <h3 class="ppf-section-title">— movements —</h3>
+    <div class="ppf-epoch"><span class="ppf-roman">V</span><span class="ppf-name">Typography as music</span><span class="ppf-dates tier-soft">May 3 — present · 19 generations</span></div>
+    <div class="ppf-epoch"><span class="ppf-roman">IV</span><span class="ppf-name">The Folio Year</span><span class="ppf-dates tier-soft">Apr 19 — May 3 · 18 generations</span></div>
+    <div class="ppf-epoch"><span class="ppf-roman">III</span><span class="ppf-name">Meridians</span><span class="ppf-dates tier-soft">Apr 5 — Apr 19 · 41 generations</span></div>
+    <div class="ppf-epoch"><span class="ppf-roman">II</span><span class="ppf-name">Murmuration</span><span class="ppf-dates tier-soft">Apr 2 — Apr 5 · 12 generations</span></div>
+    <div class="ppf-epoch"><span class="ppf-roman">I</span><span class="ppf-name">Metallurgy</span><span class="ppf-dates tier-soft">Mar 29 — Apr 2 · 14 generations</span></div>
+  </div>
+  <div class="ppf-section">
+    <h3 class="ppf-section-title">— score notes —</h3>
+    <div class="ppf-note"><span class="ppf-note-tag tier-soft">gen 114 · 2026-05-09</span><p>Added an echo canon. The page now plays gestures back with delay — the hand draws once; the room remembers many times. Spotlight cooled from theatrical scarlet to phosphor cyan; scarlet survives as the attack flash.</p></div>
+    <div class="ppf-note"><span class="ppf-note-tag tier-soft">gen 113 · 2026-05-08</span><p>Cursor became baton. Vertical position is pitch, the speed of the hand is tempo. Andre called the choreographic mood right; the body walked onto the stage.</p></div>
+    <div class="ppf-note"><span class="ppf-note-tag tier-soft">gen 112 · 2026-05-07</span><p>Mapped the QWERTY grid as a literal stage. Type any key, hear it ring, see the trail. The keyboard finally became an instrument instead of a description.</p></div>
+    <div class="ppf-note"><span class="ppf-note-tag tier-soft">gen 105 · 2026-04-30</span><p>Killed eighteen generations of warm parchment. Black ground, monochrome notation, single phosphor accent. The illuminated manuscript was cosplay; this is the stage.</p></div>
+    <div class="ppf-note"><span class="ppf-note-tag tier-soft">gen 96 · 2026-05-03</span><p>Typography stayed but the metaphor reset. Letters were buildings; now they are notes. Same alphabet, new instrument.</p></div>
   </div>
 </section>
 <!-- @section:prototype-portfolio:end -->
@@ -857,7 +844,7 @@
       count: 24,
       size: 0.2,
       speed: 0.01,
-      color: '#ff2855',
+      color: '#00d4ff',
       opacity: 0.7,
       spread: 3,
       orbital_radius: 4,
@@ -881,8 +868,8 @@
     lighting: {
       ambient_color: '#f5f0e6',
       ambient_intensity: 0.15,
-      point_color: '#ff2855',
-      point_intensity: 0.35,
+      point_color: '#00d4ff',
+      point_intensity: 0.4,
       point_position: [2, 3, 4],
     },
     mouse: {
@@ -891,11 +878,11 @@
       mode: 'repel',
     },
     time_themes: {
-      dawn:      { particle_color: '#ff6680', fog_color: '#0d0806', ambient: '#2a1a0e', speed_mult: 0.6 },
-      morning:   { particle_color: '#ff3a66', fog_color: '#0a0806', ambient: '#2a1e1a', speed_mult: 0.8 },
-      afternoon: { particle_color: '#ff2855', fog_color: '#0d0a06', ambient: '#2a2a1a', speed_mult: 1.0 },
-      evening:   { particle_color: '#d91e44', fog_color: '#0a0806', ambient: '#1e1a2a', speed_mult: 0.7 },
-      night:     { particle_color: '#a8102e', fog_color: '#080604', ambient: '#1a1410', speed_mult: 0.4 },
+      dawn:      { particle_color: '#33dfff', fog_color: '#0d0806', ambient: '#2a1a0e', speed_mult: 0.6 },
+      morning:   { particle_color: '#1ad9ff', fog_color: '#0a0806', ambient: '#2a1e1a', speed_mult: 0.8 },
+      afternoon: { particle_color: '#00d4ff', fog_color: '#0d0a06', ambient: '#2a2a1a', speed_mult: 1.0 },
+      evening:   { particle_color: '#00a8c8', fog_color: '#0a0806', ambient: '#1e1a2a', speed_mult: 0.7 },
+      night:     { particle_color: '#007a93', fog_color: '#080604', ambient: '#1a1410', speed_mult: 0.4 },
     },
     post_processing: {
       bloom_enabled: false,
@@ -1292,6 +1279,11 @@
   }
 
   // @inject:interactions
+  // @gene:type-'echo'-to-slow-the-resona:start
+  // Easter egg: type 'echo' to slow the resonance-field persistence (alpha-decay drops, phrases linger)
+  (function(){let buf='';window.addEventListener('keydown',function(e){if(e.target&&['INPUT','TEXTAREA'].includes(e.target.tagName))return;buf=(buf+e.key.toLowerCase()).slice(-4);if(buf==='echo'){document.body.classList.toggle('echo-mode');window.__echoMode=document.body.classList.contains('echo-mode');buf='';}});})();
+  // @gene:type-'echo'-to-slow-the-resona:end
+
   // @gene:click-and-drag-on-the-resonanc:start
   // Easter egg: Click and drag on the resonance-field to draw a baton path; release to hear the gesture played back as a melody
   (function(){ const field = document.getElementById('resonance-field') || document.querySelector('canvas'); if (!field) return; let recording = false; let path = []; let synth = null; async function ensureSynth(){ if (synth) return; if (typeof Tone === 'undefined'){ const s = document.createElement('script'); s.src = 'https://cdn.jsdelivr.net/npm/tone@14.7.77/build/Tone.js'; document.head.appendChild(s); await new Promise(r=>s.onload=r); } await Tone.start(); const reverb = new Tone.Reverb({decay:2.4, wet:0.45}).toDestination(); synth = new Tone.PolySynth(Tone.FMSynth,{ envelope:{attack:0.02,decay:0.4,sustain:0.3,release:1.0} }).connect(reverb); } field.addEventListener('mousedown', async e=>{ recording=true; path=[{x:e.clientX,y:e.clientY,t:performance.now()}]; await ensureSynth(); }); field.addEventListener('mousemove', e=>{ if(recording) path.push({x:e.clientX,y:e.clientY,t:performance.now()}); }); window.addEventListener('mouseup', ()=>{ if(!recording) return; recording=false; if (path.length<5 || !synth) return; const t0=path[0].t; const sample = path.filter((p,i)=>i%6===0); const notes=['C2','E2','G2','B2','D3','F3','A3','C4','E4','G4','B4','D5','F5','A5']; sample.forEach(p=>{ const idx=Math.floor((1-p.y/innerHeight)*notes.length); const n=notes[Math.max(0,Math.min(notes.length-1,idx))]; const off=(p.t-t0)/1000; synth.triggerAttackRelease(n,'8n', `+${off}`, 0.4); }); }); })();
