@@ -332,3 +332,6 @@
 
 ## 2026-05-08T08:05:29Z
 **Daily pulse.** refreshed thought pools; added new secret; visual strategy: phosphor amber CRT — the warm fifth phosphor completing the scope tube kit (lime; accent palette: #ffaa00; CSS updated: --accent, --fg, --fg-dim, --bg; added new CSS rules; replaced section: resonance-field; replaced section: prototype-portfolio; new page: experiments/037.html; scene: particles.color, lighting.point_color, fog.color; killed CSS rule: gen109-css; killed secret[20]; fitness: 6.3; contrast-gate: scoped fg clamped. Tokens: 123321.
+
+## 2026-05-09T00:04:58Z
+**Daily pulse.** refreshed thought pools; added new secret; mood shifted to choreographic; visual strategy: Phosphor amethyst CRT with persistence trails — the scope gains real screen-burn; accent palette: #d966ff; CSS updated: --accent, --bg, --fg; added new CSS rules; new interaction: type 'gait' to navigate to the choreography experiment; replaced section: resonance-field; replaced section: overlay-center; replaced section: prototype-portfolio; new page: experiments/038.html; scene: particles.color, particles.count, fog.color, lighting.point_color, time_themes.dawn.particle_color; overlay: mood; killed CSS rule: gen110-css; killed secret[0]; fitness: 6.5; contrast-gate: scoped fg clamped. Tokens: 119606.

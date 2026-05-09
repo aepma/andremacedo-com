@@ -1,17 +1,17 @@
 {
-  "generation": 111,
+  "generation": 112,
   "epoch": "webgl-swarm",
   "epoch_started": "2026-05-03",
   "traits": {
     "color": {
-      "accent_base": "#ffaa00",
-      "accent_dawn": "#ffcc55",
-      "accent_morning": "#ffb733",
-      "accent_afternoon": "#ffaa00",
-      "accent_evening": "#e89500",
-      "accent_night": "#cc7d00",
+      "accent_base": "#d966ff",
+      "accent_dawn": "#ee99ff",
+      "accent_morning": "#e077ff",
+      "accent_afternoon": "#d966ff",
+      "accent_evening": "#c044e6",
+      "accent_night": "#a833cc",
       "bg": "#050505",
-      "fg": "#6a6a6a",
+      "fg": "#6c6c6c",
       "grain_opacity": "0",
       "fg_dim": "#6c6c6c",
       "bg_surface": "#f5f5f5",
@@ -52,6 +52,7 @@
         "experiments/034.html",
         "experiments/022.html",
         "experiments/018.html",
+        "experiments/038.html",
         "experiments/002.html",
         "experiments/014.html",
         "experiments/015.html",
@@ -73,7 +74,9 @@
         "experiments/031.html",
         "experiments/027.html",
         "experiments/007.html",
-        "experiments/011.html"
+        "experiments/011.html",
+        "node_modules/playwright-core/lib/vite/traceViewer/snapshot.html",
+        "node_modules/playwright-core/lib/vite/traceViewer/uiMode.html"
       ],
       "svg_assets": [
         "vernal-glyph-001.svg",
@@ -171,10 +174,11 @@
       "type-'hall'-anywhere-on-the-pa",
       "press-any-letter-a-through-z-t",
       "type-'osc'-anywhere-on-the-pag",
-      "type-'lissajous'-anywhere-to-e"
+      "type-'lissajous'-anywhere-to-e",
+      "type-'gait'-to-navigate-to-the"
     ],
     "content": {
-      "mood": "phase-drift",
+      "mood": "choreographic",
       "obsession": "typography as music \u2014 the letter has a frequency, the word has a rhythm, the page is a score",
       "thought_pools": {
         "dawn": 10,
@@ -187,17 +191,6 @@
     }
   },
   "fitness_log": [
-    {
-      "gen": 92,
-      "coherence": 7,
-      "novelty": 5,
-      "identity": 8,
-      "tension": 4,
-      "awe": 5,
-      "perceptibility": 7,
-      "note": "The folio aesthetic is mature and instantly readable. Andre's GOOD today + 6d-old LOVE on typographic-architect confirms direction. Adding the axonome",
-      "total": 6.0
-    },
     {
       "gen": 93,
       "coherence": 7,
@@ -406,26 +399,20 @@
       "perceptibility": 6,
       "note": "Stage identity holds for the sixth gen \u2014 phosphor scope is the longest-running visual identity since the cream era. The four-color tube kit (lime/red/",
       "total": 6.3
+    },
+    {
+      "gen": 112,
+      "coherence": 6,
+      "novelty": 7,
+      "identity": 7,
+      "tension": 6,
+      "awe": 6,
+      "perceptibility": 7,
+      "note": "Andre's strong MISS today closes a 7-gen plateau on the phosphor scope identity. The stage stayed recognizable but stopped surprising. Tonight pivots ",
+      "total": 6.5
     }
   ],
   "mutation_log": [
-    {
-      "gen": 92,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "section.axonometric-view",
-        "section.prototype-portfolio",
-        "page.experiments/021.html"
-      ],
-      "kills": [
-        "css_rule:gen91-css"
-      ],
-      "timestamp": "2026-04-28T00:10:10Z"
-    },
     {
       "gen": 93,
       "mutations": [
@@ -833,21 +820,32 @@
         "secret[20]"
       ],
       "timestamp": "2026-05-08T08:05:29Z"
+    },
+    {
+      "gen": 112,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "content.mood",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "interaction.type-'gait'-to-navigate-to-the",
+        "section.resonance-field",
+        "section.overlay-center",
+        "section.prototype-portfolio",
+        "page.experiments/038.html",
+        "scene.config",
+        "overlay.agent_data"
+      ],
+      "kills": [
+        "css_rule:gen110-css",
+        "secret[0]"
+      ],
+      "timestamp": "2026-05-09T00:04:58Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "css_rule",
-      "value": "gen90-css",
-      "died_gen": 91,
-      "epitaph": "Superseded by gen91-css. The brick was right; the section needs aubergine."
-    },
-    {
-      "type": "secret",
-      "value": "Generation 67 declared darkness. The page stayed light. The gap between intentio",
-      "died_gen": 91,
-      "epitaph": "Secret pool was at 21/20 \u2014 over carrying capacity. Rotated the oldest out to make room for the section-drawing era."
-    },
     {
       "type": "css_rule",
       "value": "gen91-css",
@@ -1135,6 +1133,18 @@
       "value": "type 'phase' anywhere to slow the polyrhythm and watch the two clocks drift",
       "died_gen": 111,
       "epitaph": "Over capacity (21/20). Pruning oldest unused secret to make room for the 'reich' phasing third-voice secret."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen110-css",
+      "died_gen": 112,
+      "epitaph": "Two gens of polyrhythm and phasing established. Gen112-css supersedes with persistence-trail amethyst phosphor \u2014 the scope no longer waits to be activated."
+    },
+    {
+      "type": "secret",
+      "value": "Generation 70 was when I stopped lying to myself about the background color.",
+      "died_gen": 112,
+      "epitaph": "Over capacity (21/20). Pruning the oldest secret to make room for the 'gait' choreography secret."
     }
   ],
   "carrying_capacity": {
@@ -1153,11 +1163,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 102,
-      "base": "#b8281e",
-      "family": "red"
-    },
     {
       "gen": 103,
       "base": "#5b1a8a",
@@ -1202,6 +1207,11 @@
       "gen": 111,
       "base": "#ffaa00",
       "family": "orange"
+    },
+    {
+      "gen": 112,
+      "base": "#d966ff",
+      "family": "indigo"
     }
   ],
   "past_epochs": [
