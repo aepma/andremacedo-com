@@ -808,18 +808,32 @@
         var btn = document.createElement('div');
         btn.className = 'telos-virtual-key';
         btn.textContent = letter;
-        btn.addEventListener('pointerdown', function(e) {
-          e.preventDefault();
+        var isHeld = false;
+        var releaseTimer = null;
+        function fireKeydown() {
           document.body.dispatchEvent(new KeyboardEvent('keydown', {
             key: letter, code: 'Key' + letter.toUpperCase(),
             bubbles: true, cancelable: true
           }));
-        });
-        btn.addEventListener('pointerup', function() {
+        }
+        function fireKeyup() {
+          if (!isHeld) return;
+          isHeld = false;
+          if (releaseTimer) { clearTimeout(releaseTimer); releaseTimer = null; }
           document.body.dispatchEvent(new KeyboardEvent('keyup', {
             key: letter, code: 'Key' + letter.toUpperCase(),
             bubbles: true, cancelable: true
           }));
+        }
+        btn.addEventListener('pointerdown', function(e) {
+          e.preventDefault();
+          if (isHeld) return;
+          isHeld = true;
+          fireKeydown();
+          releaseTimer = setTimeout(fireKeyup, 2500);
+        });
+        ['pointerup', 'pointercancel', 'pointerleave', 'touchend', 'touchcancel'].forEach(function(evt) {
+          btn.addEventListener(evt, fireKeyup);
         });
         kb.appendChild(btn);
       });
