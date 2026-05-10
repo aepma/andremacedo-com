@@ -423,6 +423,7 @@ Every generation must be mobile-compatible at 390px width. Treat mobile as a fir
 - The telemetry overlay (#swarmPanel or equivalent) MUST reflow at mobile width — stack vertically, reduce padding, never break horizontal layout.
 - Andre's name MUST be visible and readable at 390px viewport width.
 - No element should cause document.documentElement.scrollWidth > document.documentElement.clientWidth at 390px.
+- Floating or absolutely-positioned text containers (e.g. .hero-meta, .float-thought, fleet/telemetry overlays) MUST NOT visually overlap each other or main narrative text at 390px. The deterministic gate fails any pair with intersection >40% of the smaller area. On mobile, prefer document flow over absolute/fixed positioning for text; stack vertically.
 """
 
 # ── Page metrics: rendered height vs. screenshot height ──────────
