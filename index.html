@@ -743,6 +743,22 @@
     document.addEventListener('touchend',    function(e) { synth(e, 'mouseup');   }, {capture: true, passive: false});
   })();
 
+  // COMPONENT 0: Eager Tone.js load
+  // Tone.js is required for COMPONENT 2's gesture-init to call Tone.start()
+  // synchronously within the iOS user-gesture window. The agent's instruments
+  // load Tone lazily from CDN on first keypress, which races iOS gesture
+  // expiry. Loading eagerly here ensures Tone is available the moment the
+  // first user gesture fires.
+  (function() {
+    if (window.Tone) return;
+    var existing = document.querySelector('script[src*="tone@"]');
+    if (existing) return;
+    var s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/tone@14.7.77/build/Tone.js';
+    s.async = false;
+    document.head.appendChild(s);
+  })();
+
   // COMPONENT 2: AudioContext gesture init
   // Monkey-patch AudioContext constructors to register all instances.
   // On any user gesture, resume suspended contexts and call Tone.start()
@@ -764,7 +780,14 @@
       _ctxSet.forEach(function(ctx) {
         if (ctx.state === 'suspended') ctx.resume().catch(function() {});
       });
-      if (window.Tone && window.Tone.start) window.Tone.start().catch(function() {});
+      if (window.Tone) {
+        try {
+          if (window.Tone.start) window.Tone.start().catch(function() {});
+          if (window.Tone.context && window.Tone.context.resume) {
+            window.Tone.context.resume().catch(function() {});
+          }
+        } catch (err) {}
+      }
     }
     ['pointerdown', 'touchstart', 'click'].forEach(function(t) {
       document.addEventListener(t, resumeAll, {passive: true});
@@ -787,13 +810,13 @@
         btn.textContent = letter;
         btn.addEventListener('pointerdown', function(e) {
           e.preventDefault();
-          document.dispatchEvent(new KeyboardEvent('keydown', {
+          document.body.dispatchEvent(new KeyboardEvent('keydown', {
             key: letter, code: 'Key' + letter.toUpperCase(),
             bubbles: true, cancelable: true
           }));
         });
         btn.addEventListener('pointerup', function() {
-          document.dispatchEvent(new KeyboardEvent('keyup', {
+          document.body.dispatchEvent(new KeyboardEvent('keyup', {
             key: letter, code: 'Key' + letter.toUpperCase(),
             bubbles: true, cancelable: true
           }));
