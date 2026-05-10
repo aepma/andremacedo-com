@@ -641,6 +641,38 @@
     max-height: 5000px;
     overflow: hidden;
   }
+
+  /* Reposition the fixed compass widget into document flow on mobile so it
+     no longer overlaps content when scrolled to bottom. Desktop fixed-overlay
+     behavior preserved via the @media boundary. */
+  #overlay-bottom {
+    position: static;
+    right: auto;
+    bottom: auto;
+    width: auto;
+    text-align: left;
+    margin: 1.25rem 1rem 2rem 1rem;
+    opacity: 1;
+  }
+  #overlay-bottom .compass-line {
+    justify-content: flex-start;
+  }
+  #overlay-bottom .c-key,
+  #overlay-bottom .c-val {
+    text-align: left;
+  }
+  #overlay-bottom .c-val {
+    min-width: 0;
+  }
+
+  /* Hide the scroll cue on mobile. The cue auto-hides on scroll and on
+     mobile scrolling is the dominant affordance, so the cue is redundant
+     and was producing a fixed-bottom-overlay overlap with the gen-status
+     meta line in document flow. Selector chosen in audit phase based on
+     stable DOM identifier. */
+  div:has(> #scroll-hint-count) {
+    display: none !important;
+  }
 }
 </style>
 <!-- END MOBILE SCAFFOLD -->
