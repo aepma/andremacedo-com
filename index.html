@@ -634,6 +634,13 @@
   .comp-grid {
     grid-template-columns: repeat(2, 1fr);
   }
+
+  /* Clamp the consciousness stream feed — long AI-generated fragments wrap 2x more
+     lines at 326px mobile vs 656px desktop, creating ~21k px of scroll. Cap it. */
+  #thought-stream-feed {
+    max-height: 5000px;
+    overflow: hidden;
+  }
 }
 </style>
 <!-- END MOBILE SCAFFOLD -->
