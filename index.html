@@ -673,9 +673,144 @@
   div:has(> #scroll-hint-count) {
     display: none !important;
   }
+
+  .telos-virtual-keyboard {
+    position: fixed; left: 0; right: 0; bottom: 0;
+    height: 64px; display: flex; gap: 4px; padding: 4px;
+    background: rgba(0,0,0,0.85);
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    z-index: 50;
+    border-top: 1px solid var(--accent, #888);
+  }
+  .telos-virtual-keyboard::before {
+    content: 'tap to ring \00B7 drag dark field for baton';
+    position: absolute; bottom: 100%; left: 0; right: 0;
+    text-align: center; font-size: 0.65rem; color: rgba(200,200,200,0.45);
+    font-family: 'JetBrains Mono', monospace;
+    pointer-events: none; white-space: nowrap; overflow: hidden; padding: 2px 0;
+  }
+  .telos-virtual-key {
+    flex: 1; display: flex; align-items: center; justify-content: center;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 4px;
+    color: var(--fg, #ddd);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1rem; text-transform: lowercase;
+    user-select: none; -webkit-user-select: none;
+    touch-action: manipulation;
+  }
+  .telos-virtual-key:active {
+    background: var(--accent, #888);
+    color: var(--bg, #000);
+  }
+  body { padding-bottom: 80px; }
 }
 </style>
 <!-- END MOBILE SCAFFOLD -->
+<!-- MOBILE INTERACTION INVARIANTS - DO NOT MODIFY (apply_changes.py protected) -->
+<script id="mobile-interaction-invariants">
+(function() {
+  'use strict';
+  if (window.__telosMobileInvariantsInstalled) return;
+  window.__telosMobileInvariantsInstalled = true;
+
+  // COMPONENT 1: Touch-to-mouse bridge
+  // Synthesize mouse events from touch events so existing mouse-only handlers
+  // fire on touch devices. Skip on form controls and inside virtual keyboard.
+  (function() {
+    var SKIP_TAGS = /^(INPUT|TEXTAREA|BUTTON|A|SELECT)$/i;
+    function synth(touchEvt, mouseType) {
+      var t = touchEvt.changedTouches[0];
+      if (!t) return;
+      var target = document.elementFromPoint(t.clientX, t.clientY) || touchEvt.target;
+      if (SKIP_TAGS.test(target.tagName)) return;
+      var p = target;
+      while (p) {
+        if (p.classList && p.classList.contains('telos-virtual-keyboard')) return;
+        p = p.parentElement;
+      }
+      if (target.dataset && target.dataset.noTouchBridge !== undefined) return;
+      var me = new MouseEvent(mouseType, {
+        bubbles: true, cancelable: true, view: window,
+        clientX: t.clientX, clientY: t.clientY,
+        screenX: t.screenX, screenY: t.screenY
+      });
+      target.dispatchEvent(me);
+    }
+    document.addEventListener('touchstart',  function(e) { synth(e, 'mousedown'); }, {capture: true, passive: false});
+    document.addEventListener('touchmove',   function(e) { synth(e, 'mousemove'); }, {capture: true, passive: false});
+    document.addEventListener('touchend',    function(e) { synth(e, 'mouseup');   }, {capture: true, passive: false});
+  })();
+
+  // COMPONENT 2: AudioContext gesture init
+  // Monkey-patch AudioContext constructors to register all instances.
+  // On any user gesture, resume suspended contexts and call Tone.start()
+  // if available. Handles Tone.js lazy CDN loading without {once:true}.
+  (function() {
+    var _ctxSet = new Set();
+    ['AudioContext', 'webkitAudioContext'].forEach(function(name) {
+      var Orig = window[name];
+      if (!Orig) return;
+      function Patched() {
+        var ctx = new Orig();
+        _ctxSet.add(ctx);
+        return ctx;
+      }
+      Patched.prototype = Orig.prototype;
+      window[name] = Patched;
+    });
+    function resumeAll() {
+      _ctxSet.forEach(function(ctx) {
+        if (ctx.state === 'suspended') ctx.resume().catch(function() {});
+      });
+      if (window.Tone && window.Tone.start) window.Tone.start().catch(function() {});
+    }
+    ['pointerdown', 'touchstart', 'click'].forEach(function(t) {
+      document.addEventListener(t, resumeAll, {passive: true});
+    });
+  })();
+
+  // COMPONENT 3: Virtual keyboard UI for mobile
+  // Letters d,f,h,i,k,m,o,p map to C4-C5 major scale in the agent's
+  // chromatic letter-to-frequency table (220*2^(i/12), i=3,5,7,8,10,12,14,15).
+  (function() {
+    var KEYS = ['d','f','h','i','k','m','o','p'];
+    function inject() {
+      if (document.querySelector('.telos-virtual-keyboard')) return;
+      if (!window.matchMedia('(max-width:600px)').matches) return;
+      var kb = document.createElement('div');
+      kb.className = 'telos-virtual-keyboard';
+      KEYS.forEach(function(letter) {
+        var btn = document.createElement('div');
+        btn.className = 'telos-virtual-key';
+        btn.textContent = letter;
+        btn.addEventListener('pointerdown', function(e) {
+          e.preventDefault();
+          document.dispatchEvent(new KeyboardEvent('keydown', {
+            key: letter, code: 'Key' + letter.toUpperCase(),
+            bubbles: true, cancelable: true
+          }));
+        });
+        btn.addEventListener('pointerup', function() {
+          document.dispatchEvent(new KeyboardEvent('keyup', {
+            key: letter, code: 'Key' + letter.toUpperCase(),
+            bubbles: true, cancelable: true
+          }));
+        });
+        kb.appendChild(btn);
+      });
+      document.body.appendChild(kb);
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', inject);
+    } else {
+      inject();
+    }
+  })();
+})();
+</script>
+<!-- END MOBILE INTERACTION INVARIANTS -->
 </head>
 <body>
 

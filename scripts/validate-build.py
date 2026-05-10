@@ -123,6 +123,31 @@ def check_mobile_scaffold(html):
     return True, ""
 
 
+def check_mobile_interaction_invariants(html):
+    """Assert that the mobile-interaction-invariants script block is present and intact.
+
+    Returns (ok, diagnostic). Requirements:
+      - '<script id="mobile-interaction-invariants">' must be present
+      - a matching '</script>' must follow
+      - the block must contain markers for all three components
+    """
+    open_tag = '<script id="mobile-interaction-invariants">'
+    if open_tag not in html:
+        return False, 'mobile-interaction-invariants missing: <script id="mobile-interaction-invariants"> not found'
+
+    start_idx = html.index(open_tag) + len(open_tag)
+    end_idx = html.find('</script>', start_idx)
+    if end_idx < 0:
+        return False, 'mobile-interaction-invariants missing: no closing </script> after open tag'
+
+    block = html[start_idx:end_idx]
+    for component in ('COMPONENT 1', 'COMPONENT 2', 'COMPONENT 3'):
+        if component not in block:
+            return False, f'mobile-interaction-invariants incomplete: {component!r} marker missing from block'
+
+    return True, ""
+
+
 def main(argv):
     path = argv[1] if len(argv) > 1 else DEFAULT_HTML
     if not os.path.isfile(path):
@@ -137,6 +162,13 @@ def main(argv):
         sys.stderr.write(f"validate-build: FAIL — {scaffold_diag}\n")
         return 1
     sys.stderr.write("validate-build: mobile-scaffold present\n")
+
+    # Static assertion: mobile interaction invariants must be present and intact
+    invariants_ok, invariants_diag = check_mobile_interaction_invariants(html)
+    if not invariants_ok:
+        sys.stderr.write(f"validate-build: FAIL — {invariants_diag}\n")
+        return 1
+    sys.stderr.write("validate-build: mobile-interaction-invariants present\n")
 
     blocks = list(find_inline_scripts(html))
     if not blocks:
@@ -180,7 +212,7 @@ def main(argv):
         return 1
 
     sys.stderr.write(
-        f"validate-build: OK — mobile-scaffold present, {len(blocks)} inline <script> block(s) parsed\n"
+        f"validate-build: OK — mobile-scaffold present, mobile-interaction-invariants present, {len(blocks)} inline <script> block(s) parsed\n"
     )
     return 0
 

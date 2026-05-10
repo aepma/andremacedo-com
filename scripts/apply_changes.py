@@ -34,6 +34,17 @@ from datetime import datetime, timezone
 SCAFFOLD_START_MARKER = "<!-- MOBILE SCAFFOLD - DO NOT MODIFY (apply_changes.py protected) -->"
 SCAFFOLD_END_MARKER = "<!-- END MOBILE SCAFFOLD -->"
 
+# ══════════════════════════════════════════════════════════════════
+# MOBILE INTERACTION INVARIANTS PROTECTION
+# Contract: the mobile-interaction-invariants script block (touch-to-mouse
+# bridge, AudioContext gesture init, virtual keyboard) is invariant infra
+# owned by Track C, not the LLM agent. Same pattern as scaffold protection:
+# capture verbatim pre-mutation, restore post-mutation if missing.
+# validate-build.py independently asserts presence as a hard gate.
+# ══════════════════════════════════════════════════════════════════
+INVARIANTS_START_MARKER = "<!-- MOBILE INTERACTION INVARIANTS - DO NOT MODIFY (apply_changes.py protected) -->"
+INVARIANTS_END_MARKER = "<!-- END MOBILE INTERACTION INVARIANTS -->"
+
 
 # ══════════════════════════════════════════════════════════════════
 # CONTRAST GATE — WCAG 2.1 AA mechanical enforcement
@@ -369,13 +380,20 @@ with open(thoughts_path) as f: thoughts = json.load(f)
 with open(secrets_path) as f: secrets = json.load(f)
 with open(genome_path) as f: genome = json.load(f)
 
-# -- Capture mobile scaffold before any mutation --
+# -- Capture mobile scaffold and interaction invariants before any mutation --
 with open(index_path) as f: _html_preflight = f.read()
 _si = _html_preflight.find(SCAFFOLD_START_MARKER)
 _ei = _html_preflight.find(SCAFFOLD_END_MARKER, _si) if _si >= 0 else -1
 _scaffold_block = (
     _html_preflight[_si: _ei + len(SCAFFOLD_END_MARKER)]
     if _si >= 0 and _ei >= 0
+    else None
+)
+_ii = _html_preflight.find(INVARIANTS_START_MARKER)
+_ij = _html_preflight.find(INVARIANTS_END_MARKER, _ii) if _ii >= 0 else -1
+_invariants_block = (
+    _html_preflight[_ii: _ij + len(INVARIANTS_END_MARKER)]
+    if _ii >= 0 and _ij >= 0
     else None
 )
 del _html_preflight
@@ -1330,6 +1348,25 @@ if _scaffold_block:
             _html_final = _html_final + '\n' + _scaffold_block
         with open(index_path, "w") as f: f.write(_html_final)
         print("  [scaffold-protect] mobile scaffold restored (was missing after mutations)")
+    del _html_final
+
+# ── Restore mobile interaction invariants if any mutation removed them ──
+if _invariants_block:
+    with open(index_path) as f: _html_final = f.read()
+    if INVARIANTS_START_MARKER not in _html_final:
+        # Insert before </head>; if scaffold end marker present, insert after it
+        scaffold_end_pos = _html_final.find(SCAFFOLD_END_MARKER)
+        if scaffold_end_pos >= 0:
+            insert_at = scaffold_end_pos + len(SCAFFOLD_END_MARKER)
+            _html_final = _html_final[:insert_at] + '\n' + _invariants_block + _html_final[insert_at:]
+        else:
+            head_end = _html_final.find('</head>')
+            if head_end >= 0:
+                _html_final = _html_final[:head_end] + '\n' + _invariants_block + '\n' + _html_final[head_end:]
+            else:
+                _html_final = _html_final + '\n' + _invariants_block
+        with open(index_path, "w") as f: f.write(_html_final)
+        print("  [invariants-protect] mobile interaction invariants restored (was missing after mutations)")
     del _html_final
 
 # ── Save everything ───────────────────────────────────────────────

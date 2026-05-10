@@ -271,6 +271,69 @@ async function runGate() {
       details: mastheadDetails,
     });
 
+    // CHECK 5 - MOBILE_INTERACTIVITY
+    const interactivityResult = await page.evaluate(() => {
+      const results = {};
+
+      // 5a: __telosMobileInvariantsInstalled flag
+      results.invariantsFlagSet = window.__telosMobileInvariantsInstalled === true;
+
+      // 5b: virtual keyboard present and visible with ≥5 keys
+      const kb = document.querySelector('.telos-virtual-keyboard');
+      results.kbExists = !!kb;
+      if (kb) {
+        const s = window.getComputedStyle(kb);
+        results.kbVisible = (
+          kb.offsetWidth > 0 && kb.offsetHeight > 0 &&
+          s.display !== 'none' && s.visibility !== 'hidden' &&
+          parseFloat(s.opacity || '1') > 0.05
+        );
+        results.kbKeyCount = kb.querySelectorAll('.telos-virtual-key').length;
+        results.kbHasEnoughKeys = results.kbKeyCount >= 5;
+      } else {
+        results.kbVisible = false;
+        results.kbKeyCount = 0;
+        results.kbHasEnoughKeys = false;
+      }
+
+      // 5c: touch-to-mouse bridge — synthesize touchstart and verify mousedown fires
+      let bridgeMousedownFired = false;
+      const listener = () => { bridgeMousedownFired = true; };
+      document.addEventListener('mousedown', listener, {once: true, capture: true});
+      try {
+        const touch = new Touch({
+          identifier: 1, target: document.body,
+          clientX: 195, clientY: 400, screenX: 195, screenY: 400,
+          pageX: 195, pageY: 400, radiusX: 5, radiusY: 5, rotationAngle: 0, force: 1
+        });
+        const touchEvt = new TouchEvent('touchstart', {
+          bubbles: true, cancelable: true, view: window,
+          touches: [touch], targetTouches: [touch], changedTouches: [touch]
+        });
+        document.body.dispatchEvent(touchEvt);
+      } catch (_) {}
+      document.removeEventListener('mousedown', listener, {capture: true});
+      results.bridgeWorks = bridgeMousedownFired;
+
+      return results;
+    });
+
+    const int = interactivityResult;
+    const subFails = [];
+    if (!int.invariantsFlagSet)  subFails.push('__telosMobileInvariantsInstalled not true');
+    if (!int.kbExists)            subFails.push('.telos-virtual-keyboard not found');
+    else if (!int.kbVisible)      subFails.push('.telos-virtual-keyboard not visible');
+    else if (!int.kbHasEnoughKeys) subFails.push(`.telos-virtual-keyboard has only ${int.kbKeyCount} keys (need ≥5)`);
+    if (!int.bridgeWorks)         subFails.push('touch-to-mouse bridge did not fire mousedown');
+
+    checks.push({
+      name: 'MOBILE_INTERACTIVITY',
+      passed: subFails.length === 0,
+      details: subFails.length === 0
+        ? `invariants installed, keyboard visible (${int.kbKeyCount} keys), touch bridge works`
+        : subFails.join('; '),
+    });
+
     await browser.close();
     return checks;
   } catch (err) {
