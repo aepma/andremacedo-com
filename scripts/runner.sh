@@ -503,6 +503,31 @@ print(f'Portfolio: {len(portfolio[\"epochs\"])} epochs')
 " "$SITE_DIR" 2>&1 | tee -a "$LOG_FILE" \
   || log_error "portfolio rebuild failed (non-fatal, deploy continues)"
 
+# ── Mobile DOM gate — runs BEFORE commit/deploy ───────────────────
+# Belt-and-suspenders: LLM gate in build_prompt.py catches obvious cases;
+# this deterministic Playwright gate enforces hard structural invariants.
+# On FAIL (exit 1): revert index.html, skip deploy, exit 0.
+# Exit 0 (not 1) because gate firing is expected behavior, not a script error.
+# DEPLOY_SUCCEEDED=1 disarms the EXIT trap so the failure counter does NOT
+# trip on healthy gate firings — the agent retries with a fresh mutation next cycle.
+GATE_OUT="$SITE_DIR/state/mobile-gate-latest.json"
+set +e
+node "$SCRIPT_DIR/mobile-gate.js" "$SITE_DIR/index.html" > "$GATE_OUT" 2>>"$ERROR_LOG"
+GATE_EXIT=$?
+set -e
+
+if [ "$GATE_EXIT" = "1" ]; then
+    log "Mobile gate FAIL - reverting index.html, skipping deploy this cycle"
+    echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] [gen $GENERATION] mobile-gate-fail: $(cat "$GATE_OUT" | head -1)" >> "$CHANGELOG"
+    cat "$GATE_OUT" >> "$ERROR_LOG"
+    cd "$SITE_DIR" && git checkout HEAD -- index.html
+    DEPLOY_SUCCEEDED=1
+    exit 0
+elif [ "$GATE_EXIT" = "2" ]; then
+    log "Mobile gate ERROR (script issue, non-fatal) - proceeding with deploy"
+    cat "$GATE_OUT" >> "$ERROR_LOG"
+fi
+
 # ── Git commit (for history) ──────────────────────────────────────
 git add -A
 git commit -m "agent: ${SUMMARY} | mood: ${CURRENT_MOOD} | pulse: ${PULSE_TYPE}" || log "Nothing to commit"
