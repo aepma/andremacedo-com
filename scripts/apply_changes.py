@@ -24,6 +24,18 @@ from datetime import datetime, timezone
 
 
 # ══════════════════════════════════════════════════════════════════
+# MOBILE SCAFFOLD PROTECTION
+# Contract: the mobile scaffold block (between main <style> and </head>)
+# is invariant — owned by Track A infra, not the LLM agent. We capture
+# the block verbatim before any mutation and restore it at the very end
+# if any mutation inadvertently removed or altered it. validate-build.py
+# independently asserts the scaffold's presence as a hard gate.
+# ══════════════════════════════════════════════════════════════════
+SCAFFOLD_START_MARKER = "<!-- MOBILE SCAFFOLD - DO NOT MODIFY (apply_changes.py protected) -->"
+SCAFFOLD_END_MARKER = "<!-- END MOBILE SCAFFOLD -->"
+
+
+# ══════════════════════════════════════════════════════════════════
 # CONTRAST GATE — WCAG 2.1 AA mechanical enforcement
 # ══════════════════════════════════════════════════════════════════
 
@@ -356,6 +368,17 @@ with open(state_path) as f: state = json.load(f)
 with open(thoughts_path) as f: thoughts = json.load(f)
 with open(secrets_path) as f: secrets = json.load(f)
 with open(genome_path) as f: genome = json.load(f)
+
+# -- Capture mobile scaffold before any mutation --
+with open(index_path) as f: _html_preflight = f.read()
+_si = _html_preflight.find(SCAFFOLD_START_MARKER)
+_ei = _html_preflight.find(SCAFFOLD_END_MARKER, _si) if _si >= 0 else -1
+_scaffold_block = (
+    _html_preflight[_si: _ei + len(SCAFFOLD_END_MARKER)]
+    if _si >= 0 and _ei >= 0
+    else None
+)
+del _html_preflight
 
 parts = []
 mutations_detected = []
@@ -1295,6 +1318,19 @@ if audit_messages:
         "timestamp": now,
     })
     genome["contrast_warnings"] = genome["contrast_warnings"][-10:]
+
+# ── Restore mobile scaffold if any mutation removed it ───────────
+if _scaffold_block:
+    with open(index_path) as f: _html_final = f.read()
+    if SCAFFOLD_START_MARKER not in _html_final:
+        head_end = _html_final.find('</head>')
+        if head_end >= 0:
+            _html_final = _html_final[:head_end] + '\n' + _scaffold_block + '\n' + _html_final[head_end:]
+        else:
+            _html_final = _html_final + '\n' + _scaffold_block
+        with open(index_path, "w") as f: f.write(_html_final)
+        print("  [scaffold-protect] mobile scaffold restored (was missing after mutations)")
+    del _html_final
 
 # ── Save everything ───────────────────────────────────────────────
 with open(thoughts_path, "w") as f: json.dump(thoughts, f, indent=2)

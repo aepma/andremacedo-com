@@ -91,6 +91,38 @@ def check_block(body):
             pass
 
 
+def check_mobile_scaffold(html):
+    """Assert that the mobile scaffold style block is present and well-formed.
+
+    Returns (ok, diagnostic). ok=True if the scaffold is intact.
+    Requirements:
+      - '<style id="mobile-scaffold">' must be present
+      - a matching '</style>' must follow
+      - the block must contain at least one @media rule with max-width <= 600
+    """
+    start_tag = '<style id="mobile-scaffold">'
+    if start_tag not in html:
+        return False, "mobile-scaffold missing or malformed: <style id=\"mobile-scaffold\"> not found"
+
+    start_idx = html.index(start_tag) + len(start_tag)
+    end_idx = html.find('</style>', start_idx)
+    if end_idx < 0:
+        return False, "mobile-scaffold missing or malformed: no closing </style> after scaffold open tag"
+
+    block = html[start_idx:end_idx]
+
+    # Must contain @media with max-width and a value <= 600
+    media_match = re.search(r'@media[^{]*max-width\s*:\s*(\d+)', block)
+    if not media_match:
+        return False, "mobile-scaffold missing or malformed: no @media max-width rule found in scaffold block"
+
+    width_val = int(media_match.group(1))
+    if width_val > 600:
+        return False, f"mobile-scaffold missing or malformed: @media max-width is {width_val}px (must be <= 600)"
+
+    return True, ""
+
+
 def main(argv):
     path = argv[1] if len(argv) > 1 else DEFAULT_HTML
     if not os.path.isfile(path):
@@ -98,6 +130,13 @@ def main(argv):
         return 2
     with open(path, encoding="utf-8") as f:
         html = f.read()
+
+    # Static assertion: mobile scaffold must be present and well-formed
+    scaffold_ok, scaffold_diag = check_mobile_scaffold(html)
+    if not scaffold_ok:
+        sys.stderr.write(f"validate-build: FAIL — {scaffold_diag}\n")
+        return 1
+    sys.stderr.write("validate-build: mobile-scaffold present\n")
 
     blocks = list(find_inline_scripts(html))
     if not blocks:
@@ -141,7 +180,7 @@ def main(argv):
         return 1
 
     sys.stderr.write(
-        f"validate-build: OK — {len(blocks)} inline <script> block(s) parsed\n"
+        f"validate-build: OK — mobile-scaffold present, {len(blocks)} inline <script> block(s) parsed\n"
     )
     return 0
 
