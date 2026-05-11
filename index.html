@@ -665,6 +665,17 @@
     min-width: 0;
   }
 
+  /* Pull the fixed swarm panel into document flow on mobile so it
+     no longer overlaps the bottom narrative paragraph (gen 113 hotfix). */
+  .swarm-panel {
+    position: static;
+    bottom: auto;
+    left: auto;
+    margin: 1.25rem 1rem 2rem 1rem;
+    opacity: 0.85;
+    font-size: 0.6rem;
+  }
+
   /* Hide the scroll cue on mobile. The cue auto-hides on scroll and on
      mobile scrolling is the dominant affordance, so the cue is redundant
      and was producing a fixed-bottom-overlay overlap with the gen-status
