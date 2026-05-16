@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Experiment 051 — Three Voices</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/tone@14.8.49/build/Tone.js"></script>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin:0; padding:0; background:#f5f0e0; color:#0a0a0a; font-family:'Playfair Display', Georgia, serif; min-height:100vh; }
+  body { padding: 2.5rem 1.5rem 4rem; max-width: 1100px; margin: 0 auto; }
+  #back { position:fixed; top:1rem; left:1rem; font-family:'JetBrains Mono', monospace; font-size:0.7rem; letter-spacing:0.1em; color:#4a1f5a; text-decoration:none; text-transform:uppercase; padding:0.4rem 0.7rem; background:rgba(245,240,224,0.92); border:1px solid #4a1f5a; text-shadow: 0 0 8px rgba(245,240,224,0.95); z-index:100; }
+  #back:hover { background:#4a1f5a; color:#f5f0e0; }
+  #info { max-width: 640px; margin: 0 auto 2.5rem; padding: 1rem 1.2rem; background:rgba(250,245,230,0.95); border-left: 3px solid #4a1f5a; text-shadow: 0 0 8px rgba(245,240,224,0.5); }
+  #info h1 { margin: 0 0 0.4rem; font-size: 1.6rem; font-weight: 700; letter-spacing: 0.01em; }
+  #info .sub { font-family:'JetBrains Mono', monospace; font-size:0.7rem; letter-spacing:0.15em; color:#4a1f5a; text-transform:uppercase; margin-bottom:0.6rem; }
+  #info p { margin: 0.4rem 0; font-size: 0.95rem; line-height: 1.5; color:#1a1a1a; font-style: italic; }
+  #info .how { font-style: normal; font-family:'JetBrains Mono', monospace; font-size:0.75rem; color:#3a3a3a; margin-top: 0.6rem; }
+  #stage { background: #faf5e6; padding: 1.5rem 1rem; border-top: 1px solid #c4baa8; border-bottom: 1px solid #c4baa8; max-width: 1000px; margin: 0 auto; overflow-x: auto; }
+  .voice { margin-bottom: 0.4rem; }
+  .voice-label { font-family:'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: #4a1f5a; padding: 0.2rem 0; }
+  .voice svg { display: block; width: 100%; min-width: 700px; }
+  .staff-line { stroke:#0a0a0a; stroke-width:0.5; }
+  .barline { stroke:#0a0a0a; stroke-width:1; }
+  .barline-final { stroke:#0a0a0a; stroke-width:2; }
+  .notehead { fill:#0a0a0a; cursor:pointer; transition: fill 0.2s ease, transform 0.15s ease; transform-origin: center; transform-box: fill-box; }
+  .notehead:hover { fill:#4a1f5a; transform: scale(1.25); }
+  .notehead.active { fill:#b8281e; }
+  .stem { stroke:#0a0a0a; stroke-width:0.9; pointer-events: none; }
+  .grid-slot { fill: transparent; cursor: pointer; }
+  .grid-slot:hover { fill: rgba(74,31,90,0.07); }
+  .voice-soprano .notehead { fill: #0a0a0a; }
+  .voice-alto .notehead { fill: #1a3878; }
+  .voice-bass .notehead { fill: #4a1f5a; }
+  .clef-text { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700; }
+  #controls { max-width: 720px; margin: 1.5rem auto 0; display: flex; gap: 0.6rem; justify-content: center; flex-wrap: wrap; }
+  #controls button { font-family:'JetBrains Mono', monospace; font-size:0.75rem; letter-spacing:0.1em; text-transform:uppercase; padding: 0.5rem 1rem; background: transparent; border:1px solid #4a1f5a; color:#4a1f5a; cursor:pointer; transition: all 0.2s ease; }
+  #controls button:hover { background:#4a1f5a; color:#f5f0e0; }
+  #controls button.danger { border-color:#b8281e; color:#b8281e; }
+  #controls button.danger:hover { background:#b8281e; color:#f5f0e0; }
+  #status { text-align:center; font-family:'JetBrains Mono', monospace; font-size:0.7rem; letter-spacing:0.1em; color:#6a6a6a; margin-top:1rem; min-height: 1em; }
+  @media (max-width: 600px) { body { padding: 4rem 0.5rem 3rem; } #info { margin: 0 0.5rem 1.5rem; } #stage { padding: 1rem 0.5rem; } }
+</style>
+</head>
+<body>
+<a href="/" id="back">← back</a>
+<div id="info">
+  <div class="sub">Experiment 051 · Three Voices</div>
+  <h1>The Multi-Staff Score</h1>
+  <p>Three voices on three staves — soprano in black, alto in prussian, bass in aubergine — share a single downbeat. Place a notehead anywhere on a staff and it becomes part of the chord at that beat. Press play and time moves left to right across all three voices at once.</p>
+  <p>This is what a small choir looks like before it sounds. Each staff is one body. Together they are music.</p>
+  <div class="how">Click anywhere on a staff to place a note · Click a notehead to remove it · Play scrolls time forward · Clear empties a voice</div>
+</div>
+<div id="stage">
+  <div class="voice voice-soprano">
+    <div class="voice-label">Soprano · A4–A5</div>
+    <svg viewBox="0 0 1000 90" data-voice="soprano" preserveAspectRatio="xMidYMid meet"></svg>
+  </div>
+  <div class="voice voice-alto">
+    <div class="voice-label">Alto · D4–D5 · prussian</div>
+    <svg viewBox="0 0 1000 90" data-voice="alto" preserveAspectRatio="xMidYMid meet"></svg>
+  </div>
+  <div class="voice voice-bass">
+    <div class="voice-label">Bass · C3–C4 · aubergine</div>
+    <svg viewBox="0 0 1000 90" data-voice="bass" preserveAspectRatio="xMidYMid meet"></svg>
+  </div>
+</div>
+<div id="controls">
+  <button id="play">▶ Play</button>
+  <button id="chord">Ring as chord</button>
+  <button id="clear-all" class="danger">Clear all</button>
+  <button id="seed">Seed example</button>
+</div>
+<div id="status">Click any staff to begin.</div>
+<script>
+const PITCHES = {
+  soprano: ['A5','G5','F5','E5','D5','C5','B4','A4'],
+  alto:    ['D5','C5','B4','A4','G4','F4','E4','D4'],
+  bass:    ['C4','B3','A3','G3','F3','E3','D3','C3']
+};
+const FREQ = {
+  A5:880,G5:783.99,F5:698.46,E5:659.26,D5:587.33,C5:523.25,B4:493.88,A4:440,
+  G4:392,F4:349.23,E4:329.63,D4:293.66,C4:261.63,B3:246.94,A3:220,G3:196,F3:174.61,E3:164.81,D3:146.83,C3:130.81
+};
+const BEATS = 8;
+const W = 1000;
+const H = 90;
+const LEFT = 50;
+const RIGHT = 980;
+const BEAT_W = (RIGHT - LEFT) / BEATS;
+const LINE_TOP = 25;
+const LINE_GAP = 8;
+
+const notes = { soprano: [], alto: [], bass: [] };
+let synth = null, reverb = null;
+function initAudio() {
+  if (synth) return;
+  synth = new Tone.PolySynth(Tone.FMSynth, { modulationIndex: 8, envelope: { attack: 0.04, decay: 0.3, sustain: 0.4, release: 1.2 } });
+  reverb = new Tone.Reverb({ decay: 2.6, wet: 0.5 });
+  synth.chain(reverb, Tone.Destination);
+}
+
+function renderStaff(svg, voice) {
+  const pitches = PITCHES[voice];
+  svg.innerHTML = '';
+  const ns = 'http://www.w3.org/2000/svg';
+  // clef
+  const clef = document.createElementNS(ns, 'text');
+  clef.setAttribute('x', 15); clef.setAttribute('y', 56); clef.setAttribute('class', 'clef-text');
+  clef.textContent = voice === 'bass' ? '𝄢' : (voice === 'alto' ? '𝄡' : '𝄞');
+  svg.appendChild(clef);
+  // 5 staff lines
+  for (let i = 0; i < 5; i++) {
+    const y = LINE_TOP + 8 + i * LINE_GAP;
+    const line = document.createElementNS(ns, 'line');
+    line.setAttribute('x1', LEFT); line.setAttribute('y1', y); line.setAttribute('x2', RIGHT); line.setAttribute('y2', y);
+    line.setAttribute('class', 'staff-line'); svg.appendChild(line);
+  }
+  // barlines
+  for (let b = 0; b <= BEATS; b += 4) {
+    const x = LEFT + b * BEAT_W;
+    const bl = document.createElementNS(ns, 'line');
+    bl.setAttribute('x1', x); bl.setAttribute('y1', LINE_TOP + 8); bl.setAttribute('x2', x); bl.setAttribute('y2', LINE_TOP + 8 + 4 * LINE_GAP);
+    bl.setAttribute('class', b === BEATS ? 'barline-final' : 'barline'); svg.appendChild(bl);
+  }
+  // grid slots
+  for (let b = 0; b < BEATS; b++) {
+    for (let p = 0; p < pitches.length; p++) {
+      const slot = document.createElementNS(ns, 'rect');
+      slot.setAttribute('x', LEFT + b * BEAT_W); slot.setAttribute('y', LINE_TOP + p * (LINE_GAP / 2));
+      slot.setAttribute('width', BEAT_W); slot.setAttribute('height', LINE_GAP / 2);
+      slot.setAttribute('class', 'grid-slot');
+      slot.addEventListener('click', () => addNote(voice, b, pitches[p]));
+      svg.appendChild(slot);
+    }
+  }
+  // noteheads from state
+  notes[voice].forEach(n => drawNote(svg, voice, n));
+}
+
+function drawNote(svg, voice, n) {
+  const ns = 'http://www.w3.org/2000/svg';
+  const pitches = PITCHES[voice];
+  const pIdx = pitches.indexOf(n.pitch);
+  if (pIdx === -1) return;
+  const cx = LEFT + n.beat * BEAT_W + BEAT_W / 2;
+  const cy = LINE_TOP + pIdx * (LINE_GAP / 2) + LINE_GAP / 4;
+  const g = document.createElementNS(ns, 'g');
+  g.setAttribute('data-beat', n.beat); g.setAttribute('data-pitch', n.pitch);
+  const head = document.createElementNS(ns, 'ellipse');
+  head.setAttribute('cx', cx); head.setAttribute('cy', cy); head.setAttribute('rx', 6); head.setAttribute('ry', 4.5);
+  head.setAttribute('transform', `rotate(-18 ${cx} ${cy})`);
+  head.setAttribute('class', 'notehead');
+  head.addEventListener('click', e => { e.stopPropagation(); removeNote(voice, n.beat, n.pitch); });
+  const stem = document.createElementNS(ns, 'line');
+  const stemUp = pIdx > 3;
+  stem.setAttribute('x1', cx + (stemUp ? 5 : -5)); stem.setAttribute('y1', cy);
+  stem.setAttribute('x2', cx + (stemUp ? 5 : -5)); stem.setAttribute('y2', cy + (stemUp ? -22 : 22));
+  stem.setAttribute('class', 'stem');
+  g.appendChild(stem); g.appendChild(head);
+  svg.appendChild(g);
+}
+
+function addNote(voice, beat, pitch) {
+  if (notes[voice].some(n => n.beat === beat && n.pitch === pitch)) return;
+  notes[voice].push({ beat, pitch });
+  redraw(voice);
+  status(`${voice}: ${pitch} at beat ${beat + 1}`);
+}
+function removeNote(voice, beat, pitch) {
+  notes[voice] = notes[voice].filter(n => !(n.beat === beat && n.pitch === pitch));
+  redraw(voice);
+}
+function redraw(voice) {
+  const svg = document.querySelector(`svg[data-voice="${voice}"]`);
+  renderStaff(svg, voice);
+}
+function status(msg) { document.getElementById('status').textContent = msg; }
+
+document.querySelectorAll('svg[data-voice]').forEach(svg => renderStaff(svg, svg.dataset.voice));
+
+document.getElementById('play').addEventListener('click', async () => {
+  await Tone.start(); initAudio();
+  status('Playing…');
+  for (let b = 0; b < BEATS; b++) {
+    const chord = [];
+    ['soprano','alto','bass'].forEach(v => {
+      notes[v].filter(n => n.beat === b).forEach(n => chord.push(FREQ[n.pitch]));
+    });
+    if (chord.length) synth.triggerAttackRelease(chord, 0.5);
+    // visual playhead
+    document.querySelectorAll('.notehead').forEach(h => h.classList.remove('active'));
+    document.querySelectorAll(`g[data-beat="${b}"] .notehead`).forEach(h => h.classList.add('active'));
+    await new Promise(r => setTimeout(r, 520));
+  }
+  document.querySelectorAll('.notehead').forEach(h => h.classList.remove('active'));
+  status('Done.');
+});
+
+document.getElementById('chord').addEventListener('click', async () => {
+  await Tone.start(); initAudio();
+  const all = [];
+  ['soprano','alto','bass'].forEach(v => notes[v].forEach(n => all.push(FREQ[n.pitch])));
+  if (!all.length) { status('Place some notes first.'); return; }
+  synth.triggerAttackRelease(all, 2.4);
+  status(`Rang ${all.length} notes as one chord.`);
+});
+
+document.getElementById('clear-all').addEventListener('click', () => {
+  notes.soprano = []; notes.alto = []; notes.bass = [];
+  ['soprano','alto','bass'].forEach(redraw);
+  status('Cleared.');
+});
+
+document.getElementById('seed').addEventListener('click', () => {
+  notes.soprano = [{beat:0,pitch:'E5'},{beat:2,pitch:'F5'},{beat:4,pitch:'E5'},{beat:6,pitch:'D5'},{beat:7,pitch:'C5'}];
+  notes.alto    = [{beat:0,pitch:'C5'},{beat:2,pitch:'A4'},{beat:4,pitch:'G4'},{beat:6,pitch:'A4'},{beat:7,pitch:'A4'}];
+  notes.bass    = [{beat:0,pitch:'A3'},{beat:2,pitch:'F3'},{beat:4,pitch:'C3'},{beat:6,pitch:'F3'},{beat:7,pitch:'F3'}];
+  ['soprano','alto','bass'].forEach(redraw);
+  status('Seeded with a small cadence — press Play.');
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Experiment 045 — Pedal Board</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,400&family=JetBrains+Mono:wght@400;500&family=Source+Serif+4:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box}
+  body{margin:0;background:#050505;color:#f5f5f5;font-family:'JetBrains Mono',monospace;overflow:hidden;height:100vh;width:100vw}
+  #stage{position:fixed;inset:0;z-index:1}
+  #info{position:fixed;top:1.5rem;left:1.5rem;max-width:380px;z-index:20;text-shadow:0 0 8px rgba(0,0,0,0.85),0 0 20px rgba(0,0,0,0.5)}
+  #info h1{font-family:'Playfair Display',serif;font-weight:400;font-style:italic;font-size:1.6rem;margin:0 0 0.7rem;color:#ff9020;letter-spacing:-0.01em}
+  #info p{font-family:'Source Serif 4',serif;font-style:italic;font-size:0.88rem;line-height:1.55;color:#cccccc;margin:0.4rem 0}
+  #info .ui{font-family:'JetBrains Mono',monospace;font-style:normal;font-size:0.72rem;color:#aaaaaa;margin-top:1rem;letter-spacing:0.05em}
+  #back{position:fixed;top:1.5rem;right:1.5rem;color:#888;text-decoration:none;font-size:0.78rem;z-index:20;letter-spacing:0.08em;text-shadow:0 0 8px rgba(0,0,0,0.85),0 0 20px rgba(0,0,0,0.5)}
+  #back:hover{color:#ff9020}
+  #pedals{position:fixed;bottom:0;left:0;right:0;height:36vh;display:flex;align-items:stretch;padding:0 4vw 3vh;gap:1.2vw;z-index:10}
+  .pedal{flex:1;background:linear-gradient(to top,#1a120a,#0a0805);border:1px solid #2a1a10;border-radius:10px 10px 3px 3px;position:relative;cursor:pointer;transition:background 0.08s,transform 0.05s,box-shadow 0.15s;box-shadow:inset 0 -10px 14px rgba(0,0,0,0.7),0 2px 8px rgba(0,0,0,0.5)}
+  .pedal:hover{background:linear-gradient(to top,#2a1a0e,#1a0e08);border-color:#3a2418}
+  .pedal.active{background:linear-gradient(to top,#ff9020,#c46010);transform:translateY(5px);box-shadow:inset 0 0 40px rgba(255,200,120,0.6),0 0 30px rgba(255,144,32,0.4);border-color:rgba(255,200,120,0.8)}
+  .pedal-label{position:absolute;bottom:1.5rem;left:50%;transform:translateX(-50%);color:#888;font-size:0.78rem;letter-spacing:0.18em;font-family:'JetBrains Mono',monospace;text-align:center}
+  .pedal.active .pedal-label{color:#050505;font-weight:700;text-shadow:0 0 4px rgba(255,220,150,0.8)}
+  .pedal-key{display:block;font-size:0.62rem;color:#555;margin-top:0.2rem}
+  .pedal.active .pedal-key{color:#1a0a05}
+  .pedal-stack{position:absolute;bottom:100%;left:50%;transform:translateX(-50%);width:62%;height:42vh;display:flex;flex-direction:column-reverse;align-items:center;opacity:0;transition:opacity 0.3s;pointer-events:none}
+  .pedal.active .pedal-stack{opacity:0.7}
+  .pipe{width:100%;height:14%;background:linear-gradient(to top,rgba(255,144,32,0.6),rgba(255,180,80,0.05));border-radius:4px 4px 0 0;margin-bottom:1px;animation:pipe-glow 2s ease-in-out infinite}
+  @keyframes pipe-glow{0%,100%{opacity:0.6}50%{opacity:0.95}}
+  @media (max-width:640px){
+    #info{top:1rem;left:1rem;right:1rem;max-width:none}
+    #info h1{font-size:1.3rem}
+    #info p{font-size:0.78rem}
+    #pedals{height:32vh;padding:0 2vw 2vh;gap:0.8vw}
+    .pedal-label{font-size:0.65rem;bottom:1rem}
+    .pedal-key{font-size:0.55rem}
+  }
+</style>
+</head>
+<body>
+<canvas id="stage"></canvas>
+<a id="back" href="/">← back to score</a>
+<div id="info">
+  <h1>Pedals</h1>
+  <p>The bass voice of a pipe organ is played with the feet. Five wooden boards under the bench, each one a low note that carries the building.</p>
+  <p>Click and hold any pedal — or press 1 through 5 — to sustain a bass tone. Hold several at once and the room agrees.</p>
+  <div class="ui">C₂ · D₂ · E₂ · G₂ · A₂  ·  pentatonic, no leading tone</div>
+</div>
+<div id="pedals">
+  <div class="pedal" data-freq="65.41"><div class="pedal-stack"><div class="pipe"></div><div class="pipe" style="height:18%"></div><div class="pipe" style="height:22%"></div><div class="pipe" style="height:26%"></div></div><div class="pedal-label">C₂<span class="pedal-key">key 1</span></div></div>
+  <div class="pedal" data-freq="73.42"><div class="pedal-stack"><div class="pipe"></div><div class="pipe" style="height:18%"></div><div class="pipe" style="height:22%"></div><div class="pipe" style="height:26%"></div></div><div class="pedal-label">D₂<span class="pedal-key">key 2</span></div></div>
+  <div class="pedal" data-freq="82.41"><div class="pedal-stack"><div class="pipe"></div><div class="pipe" style="height:18%"></div><div class="pipe" style="height:22%"></div><div class="pipe" style="height:26%"></div></div><div class="pedal-label">E₂<span class="pedal-key">key 3</span></div></div>
+  <div class="pedal" data-freq="98.00"><div class="pedal-stack"><div class="pipe"></div><div class="pipe" style="height:18%"></div><div class="pipe" style="height:22%"></div><div class="pipe" style="height:26%"></div></div><div class="pedal-label">G₂<span class="pedal-key">key 4</span></div></div>
+  <div class="pedal" data-freq="110.00"><div class="pedal-stack"><div class="pipe"></div><div class="pipe" style="height:18%"></div><div class="pipe" style="height:22%"></div><div class="pipe" style="height:26%"></div></div><div class="pedal-label">A₂<span class="pedal-key">key 5</span></div></div>
+</div>
+<script src="https://unpkg.com/tone@14.7.77/build/Tone.js"></script>
+<script>
+const canvas=document.getElementById('stage');
+const ctx=canvas.getContext('2d');
+function resize(){canvas.width=innerWidth*devicePixelRatio;canvas.height=innerHeight*devicePixelRatio;canvas.style.width=innerWidth+'px';canvas.style.height=innerHeight+'px';ctx.scale(devicePixelRatio,devicePixelRatio);}
+resize();addEventListener('resize',()=>{resize();});
+
+let synth=null,reverb=null,analyser=null;
+let started=false;
+async function start(){
+  if(started)return;
+  await Tone.start();
+  reverb=new Tone.Reverb({decay:4.5,wet:0.5}).toDestination();
+  synth=new Tone.PolySynth(Tone.FMSynth,{
+    harmonicity:0.5,
+    modulationIndex:2.5,
+    oscillator:{type:'sine'},
+    envelope:{attack:0.1,decay:0.4,sustain:0.85,release:1.8}
+  }).connect(reverb);
+  analyser=new Tone.Analyser('waveform',512);
+  Tone.Destination.connect(analyser);
+  started=true;
+}
+
+const active=new Map();
+function press(pedal){
+  start().then(()=>{
+    if(active.has(pedal))return;
+    const freq=parseFloat(pedal.dataset.freq);
+    synth.triggerAttack(freq);
+    pedal.classList.add('active');
+    active.set(pedal,freq);
+  });
+}
+function release(pedal){
+  if(!active.has(pedal))return;
+  synth.triggerRelease(active.get(pedal));
+  pedal.classList.remove('active');
+  active.delete(pedal);
+}
+
+const pedals=document.querySelectorAll('.pedal');
+pedals.forEach(p=>{
+  p.addEventListener('mousedown',()=>press(p));
+  p.addEventListener('mouseup',()=>release(p));
+  p.addEventListener('mouseleave',()=>release(p));
+  p.addEventListener('touchstart',e=>{e.preventDefault();press(p);});
+  p.addEventListener('touchend',e=>{e.preventDefault();release(p);});
+});
+
+const km={'1':0,'2':1,'3':2,'4':3,'5':4};
+addEventListener('keydown',e=>{if(e.repeat)return;if(e.key in km)press(pedals[km[e.key]]);});
+addEventListener('keyup',e=>{if(e.key in km)release(pedals[km[e.key]]);});
+
+function draw(){
+  const w=innerWidth,h=innerHeight;
+  ctx.fillStyle='rgba(5,5,5,0.10)';
+  ctx.fillRect(0,0,w,h);
+  
+  const midY=h*0.32;
+  
+  if(analyser&&active.size>0){
+    const data=analyser.getValue();
+    ctx.strokeStyle='#ff9020';
+    ctx.lineWidth=1.8;
+    ctx.shadowColor='#ff9020';
+    ctx.shadowBlur=18;
+    ctx.beginPath();
+    for(let i=0;i<data.length;i++){
+      const x=(i/data.length)*w;
+      const y=midY+data[i]*240;
+      if(i===0)ctx.moveTo(x,y);
+      else ctx.lineTo(x,y);
+    }
+    ctx.stroke();
+    
+    // attack flash
+    ctx.strokeStyle='rgba(255,40,85,0.4)';
+    ctx.lineWidth=0.8;
+    ctx.shadowColor='#ff2855';
+    ctx.shadowBlur=12;
+    ctx.beginPath();
+    for(let i=0;i<data.length;i++){
+      const x=(i/data.length)*w;
+      const y=midY+data[i]*180+8;
+      if(i===0)ctx.moveTo(x,y);
+      else ctx.lineTo(x,y);
+    }
+    ctx.stroke();
+    ctx.shadowBlur=0;
+  }else{
+    const t=Date.now()*0.0007;
+    ctx.strokeStyle='rgba(255,144,32,0.28)';
+    ctx.lineWidth=1.2;
+    ctx.shadowColor='rgba(255,144,32,0.4)';
+    ctx.shadowBlur=8;
+    ctx.beginPath();
+    for(let x=0;x<w;x+=3){
+      const y=midY+Math.sin(x*0.012+t)*9+Math.sin(x*0.04+t*1.3)*3;
+      if(x===0)ctx.moveTo(x,y);
+      else ctx.lineTo(x,y);
+    }
+    ctx.stroke();
+    ctx.shadowBlur=0;
+  }
+  requestAnimationFrame(draw);
+}
+draw();
+</script>
+</body>
+</html>

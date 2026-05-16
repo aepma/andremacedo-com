@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manuscript — Experiment 047</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: #f5f0e0; font-family: 'Source Serif 4', Georgia, serif; color: #0a0a0a; overflow: hidden; height: 100%; }
+  body::before { content: ''; position: fixed; inset: 0; background-image: radial-gradient(circle at 18% 33%, rgba(26,74,58,0.05) 0 1px, transparent 1px), radial-gradient(circle at 71% 62%, rgba(10,10,10,0.04) 0 1px, transparent 1px); background-size: 11px 11px, 17px 17px; pointer-events: none; z-index: 1; opacity: 0.6; }
+  canvas#manuscript { display: block; width: 100vw; height: 100vh; cursor: crosshair; position: fixed; inset: 0; z-index: 2; }
+  #info { position: fixed; top: 24px; left: 24px; max-width: 340px; z-index: 10; color: #0a0a0a; background: rgba(250, 246, 232, 0.94); padding: 14px 18px; border-left: 3px solid #1a4a3a; font-family: 'Playfair Display', Georgia, serif; text-shadow: 0 0 8px rgba(245,240,224,0.8), 0 0 20px rgba(245,240,224,0.5); }
+  #info h1 { margin: 0 0 6px; font-size: 17px; font-style: italic; font-weight: 400; color: #0a0a0a; }
+  #info p { margin: 4px 0; font-size: 13px; line-height: 1.55; color: #2a2a2a; font-family: 'Source Serif 4', Georgia, serif; }
+  #info .meta { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #5a5a5a; margin-top: 8px; letter-spacing: 0.05em; }
+  #info .rubric { color: #c41e2a; font-style: italic; }
+  #ui { position: fixed; top: 24px; right: 24px; z-index: 10; display: flex; gap: 8px; text-shadow: 0 0 8px rgba(245,240,224,0.8), 0 0 20px rgba(245,240,224,0.5); }
+  #ui button { background: rgba(250, 246, 232, 0.94); color: #1a4a3a; border: 1px solid #1a4a3a; padding: 8px 14px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.05em; cursor: pointer; text-transform: uppercase; }
+  #ui button:hover { background: #1a4a3a; color: #f5f0e0; }
+  #back { position: fixed; bottom: 24px; left: 24px; color: #1a4a3a; font-family: 'JetBrains Mono', monospace; font-size: 12px; text-decoration: none; border-bottom: 1px solid #1a4a3a; z-index: 10; padding-bottom: 2px; text-shadow: 0 0 8px rgba(245,240,224,0.8), 0 0 20px rgba(245,240,224,0.5); }
+  #back:hover { color: #c41e2a; border-bottom-color: #c41e2a; }
+  @media (max-width: 600px) { #info { max-width: calc(100vw - 48px); top: 12px; left: 12px; } #ui { top: 12px; right: 12px; } }
+</style>
+</head>
+<body>
+<canvas id="manuscript"></canvas>
+<div id="info">
+  <h1>Manuscript</h1>
+  <p><span class="rubric">an instrument:</span> draw on the staff with the cursor. Each stroke is a notehead at the pitch your hand chose.</p>
+  <p>The page hears what you write. Click <em>play</em> to hear the whole score in sequence.</p>
+  <p class="meta">experiment 047 · weekly deep · gen 122</p>
+</div>
+<div id="ui">
+  <button id="play">play</button>
+  <button id="clear">clear</button>
+</div>
+<a id="back" href="/">↩ return to score</a>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
+<script>
+const canvas = document.getElementById('manuscript');
+const ctx = canvas.getContext('2d');
+let W, H, DPR = Math.min(2, window.devicePixelRatio || 1);
+const STAVES = 4;
+const STAFF_LINES = 5;
+const LINE_SPACING_BASE = 14;
+const PITCH_LADDER = ['F5','E5','D5','C5','B4','A4','G4','F4','E4','D4','C4','B3','A3'];
+
+function resize() {
+  W = canvas.width = window.innerWidth * DPR;
+  H = canvas.height = window.innerHeight * DPR;
+  canvas.style.width = window.innerWidth + 'px';
+  canvas.style.height = window.innerHeight + 'px';
+  drawAll();
+}
+window.addEventListener('resize', resize);
+
+const notes = [];
+let synth = null;
+let reverb = null;
+let audioReady = false;
+
+async function initAudio() {
+  if (audioReady) return;
+  await Tone.start();
+  reverb = new Tone.Reverb({ decay: 2.8, wet: 0.42 }).toDestination();
+  synth = new Tone.PolySynth(Tone.FMSynth, {
+    envelope: { attack: 0.02, decay: 0.2, sustain: 0.4, release: 1.4 },
+    modulationIndex: 6
+  }).connect(reverb);
+  synth.volume.value = -10;
+  audioReady = true;
+}
+
+function staffGeometry(s) {
+  const margin = 80 * DPR;
+  const totalH = H - 2 * margin;
+  const yBase = margin + s * (totalH / STAVES) + 30 * DPR;
+  const lineSpacing = LINE_SPACING_BASE * DPR;
+  return { yBase, lineSpacing, x0: 70 * DPR, x1: W - 70 * DPR };
+}
+
+function drawStaff() {
+  ctx.strokeStyle = '#1a4a3a';
+  ctx.lineWidth = 1 * DPR;
+  for (let s = 0; s < STAVES; s++) {
+    const g = staffGeometry(s);
+    for (let l = 0; l < STAFF_LINES; l++) {
+      const y = g.yBase + l * g.lineSpacing;
+      ctx.beginPath();
+      ctx.moveTo(g.x0, y);
+      ctx.lineTo(g.x1, y);
+      ctx.stroke();
+    }
+    // barlines
+    ctx.lineWidth = 1.4 * DPR;
+    ctx.beginPath();
+    ctx.moveTo(g.x0, g.yBase);
+    ctx.lineTo(g.x0, g.yBase + 4 * g.lineSpacing);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(g.x1, g.yBase);
+    ctx.lineTo(g.x1, g.yBase + 4 * g.lineSpacing);
+    ctx.stroke();
+    ctx.lineWidth = 1 * DPR;
+    // staff number
+    ctx.fillStyle = '#5a5a5a';
+    ctx.font = `italic ${10 * DPR}px 'Playfair Display', Georgia, serif`;
+    ctx.fillText((s + 1).toString(), g.x0 - 30 * DPR, g.yBase + 2.5 * g.lineSpacing);
+  }
+}
+
+function pitchAndPositionFromY(y) {
+  for (let s = 0; s < STAVES; s++) {
+    const g = staffGeometry(s);
+    const top = g.yBase - 3 * g.lineSpacing;
+    const bottom = g.yBase + 7 * g.lineSpacing;
+    if (y >= top && y <= bottom) {
+      const stepIdx = Math.round((y - top) / (g.lineSpacing / 2));
+      const clamped = Math.max(0, Math.min(PITCH_LADDER.length - 1, stepIdx));
+      const snappedY = top + clamped * (g.lineSpacing / 2);
+      return { pitch: PITCH_LADDER[clamped], snappedY, staff: s };
+    }
+  }
+  return null;
+}
+
+function drawNote(note, highlight) {
+  ctx.save();
+  ctx.fillStyle = highlight ? '#c41e2a' : '#0a0a0a';
+  ctx.strokeStyle = highlight ? '#c41e2a' : '#0a0a0a';
+  ctx.lineWidth = 1.5 * DPR;
+  ctx.beginPath();
+  ctx.ellipse(note.x, note.y, 7 * DPR, 5 * DPR, -0.32, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.beginPath();
+  ctx.moveTo(note.x + 6 * DPR, note.y);
+  ctx.lineTo(note.x + 6 * DPR, note.y - 30 * DPR);
+  ctx.stroke();
+  ctx.restore();
+}
+
+function drawAll() {
+  ctx.fillStyle = '#f5f0e0';
+  ctx.fillRect(0, 0, W, H);
+  drawStaff();
+  for (const n of notes) drawNote(n, false);
+}
+
+let drawing = false;
+let lastAddX = -999;
+function handleDown(e) {
+  drawing = true;
+  initAudio();
+  addNote(e);
+}
+function handleMove(e) {
+  if (!drawing) return;
+  if (Math.abs(e.clientX * DPR - lastAddX) > 22 * DPR) addNote(e);
+}
+function handleUp() { drawing = false; }
+
+function addNote(e) {
+  const x = e.clientX * DPR;
+  const y = e.clientY * DPR;
+  const info = pitchAndPositionFromY(y);
+  if (!info) return;
+  const note = { x, y: info.snappedY, pitch: info.pitch, staff: info.staff };
+  notes.push(note);
+  lastAddX = x;
+  drawNote(note, true);
+  setTimeout(() => { drawAll(); }, 180);
+  if (synth) synth.triggerAttackRelease(info.pitch, '8n');
+}
+
+canvas.addEventListener('pointerdown', handleDown);
+canvas.addEventListener('pointermove', handleMove);
+canvas.addEventListener('pointerup', handleUp);
+canvas.addEventListener('pointerleave', handleUp);
+
+async function playAll() {
+  await initAudio();
+  if (!notes.length) return;
+  const sorted = [...notes].sort((a,b) => (a.staff*W + a.x) - (b.staff*W + b.x));
+  for (let i = 0; i < sorted.length; i++) {
+    const n = sorted[i];
+    drawAll();
+    for (const m of sorted) drawNote(m, m === n);
+    synth.triggerAttackRelease(n.pitch, '8n');
+    await new Promise(r => setTimeout(r, 240));
+  }
+  drawAll();
+}
+
+document.getElementById('play').addEventListener('click', playAll);
+document.getElementById('clear').addEventListener('click', () => { notes.length = 0; drawAll(); });
+
+resize();
+</script>
+</body>
+</html>

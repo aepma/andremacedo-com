@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='UTF-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<title>050 / Score Reader</title>
+<link href='https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,400&family=Source+Serif+4:ital@0;1&family=JetBrains+Mono&display=swap' rel='stylesheet'>
+<style>
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; height: 100%; overflow: hidden; }
+body { background: #f5f0e0; font-family: 'Source Serif 4', Georgia, serif; color: #0a0a0a; }
+#info { position: fixed; top: 24px; left: 24px; max-width: 360px; padding: 20px 24px; background: rgba(245, 240, 224, 0.94); border-left: 3px solid #1a3878; font-size: 14px; line-height: 1.55; z-index: 10; text-shadow: 0 0 6px rgba(245, 240, 224, 0.9); }
+#info h1 { margin: 0 0 10px 0; font-family: 'Playfair Display', Georgia, serif; font-weight: 400; font-style: italic; font-size: 24px; color: #0a0a0a; }
+#info p { margin: 0 0 8px 0; color: #2a2a2a; }
+#info em { color: #1a3878; font-style: italic; }
+#info .accent { color: #b8281e; }
+#back { position: fixed; top: 24px; right: 24px; color: #1a3878; text-decoration: none; font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 1px; z-index: 10; text-shadow: 0 0 6px rgba(245, 240, 224, 0.9); border-bottom: 1px solid #1a3878; padding-bottom: 2px; }
+#back:hover { color: #b8281e; border-bottom-color: #b8281e; }
+#controls { position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%); display: flex; gap: 16px; z-index: 10; }
+button { padding: 12px 22px; background: #0a0a0a; color: #f5f0e0; border: none; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 1.5px; cursor: pointer; text-transform: uppercase; transition: background 200ms; }
+button:hover { background: #1a3878; }
+button.warn:hover { background: #b8281e; }
+#scroller { position: absolute; top: 50%; left: 0; transform: translateY(-50%); width: 100%; height: 70vh; overflow-x: auto; overflow-y: hidden; cursor: crosshair; }
+#scroller::-webkit-scrollbar { height: 8px; }
+#scroller::-webkit-scrollbar-track { background: #e8e0c8; }
+#scroller::-webkit-scrollbar-thumb { background: #1a3878; }
+canvas { display: block; }
+#timecursor { position: absolute; top: 50%; left: 0; transform: translateY(-50%); width: 2px; height: 70vh; background: #b8281e; z-index: 5; pointer-events: none; opacity: 0; transition: opacity 200ms; }
+@media (max-width: 600px) { #info { max-width: calc(100% - 48px); font-size: 13px; padding: 14px 16px; } #info h1 { font-size: 20px; } #controls { gap: 8px; } button { padding: 10px 14px; font-size: 10px; } }
+</style>
+</head>
+<body>
+<div id='info'>
+<h1>Score Reader</h1>
+<p>A staff is a small map of time. <em>Left is now, right is later.</em> The cursor is the conductor's baton — wherever it touches the staff, a note appears at that pitch and that moment.</p>
+<p><span class='accent'>Click</span> anywhere on the staff to place a note. <span class='accent'>Drag</span> the staff horizontally to scroll through time. <span class='accent'>Play</span> to hear the page read itself, left to right.</p>
+</div>
+<a href='/' id='back'>← back to the folio</a>
+<div id='scroller'><canvas id='c'></canvas></div>
+<div id='timecursor'></div>
+<div id='controls'>
+<button id='play'>▶ Play</button>
+<button id='clear' class='warn'>Clear</button>
+</div>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js'></script>
+<script>
+const c = document.getElementById('c');
+const ctx = c.getContext('2d');
+const scroller = document.getElementById('scroller');
+const timecursor = document.getElementById('timecursor');
+const W = 4000;
+const H = Math.round(window.innerHeight * 0.7);
+c.width = W;
+c.height = H;
+const STAFF_CENTER = H / 2;
+const STAFF_STEP = 14;
+const STAFF_LINES_Y = [-2, -1, 0, 1, 2].map(i => STAFF_CENTER + i * STAFF_STEP * 2);
+const PITCHES = ['C5','B4','A4','G4','F4','E4','D4','C4','B3','A3','G3','F3','E3','D3','C3'];
+const PITCH_Y_TOP = STAFF_CENTER - 7 * STAFF_STEP;
+const notes = [];
+let synth = null;
+let reverb = null;
+let playing = false;
+
+function draw() {
+  ctx.fillStyle = '#f5f0e0';
+  ctx.fillRect(0, 0, W, H);
+  ctx.strokeStyle = '#0a0a0a';
+  ctx.lineWidth = 1.1;
+  STAFF_LINES_Y.forEach(y => { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke(); });
+  ctx.lineWidth = 1.5;
+  for (let x = 280; x < W; x += 280) {
+    ctx.beginPath(); ctx.moveTo(x, STAFF_LINES_Y[0]); ctx.lineTo(x, STAFF_LINES_Y[4]); ctx.stroke();
+  }
+  ctx.fillStyle = '#1a3878';
+  ctx.font = 'italic 18px "Playfair Display", serif';
+  ctx.fillText('𝄞', 20, STAFF_LINES_Y[3] + 6);
+  ctx.font = 'italic 11px "JetBrains Mono", monospace';
+  ctx.fillStyle = '#5a5a5a';
+  for (let x = 280, m = 1; x < W; x += 280, m++) {
+    ctx.fillText(m, x + 4, STAFF_LINES_Y[0] - 8);
+  }
+  notes.forEach(n => {
+    ctx.fillStyle = '#0a0a0a';
+    ctx.beginPath();
+    ctx.ellipse(n.x, n.y, 7.5, 5.5, -0.3, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.strokeStyle = '#0a0a0a';
+    ctx.lineWidth = 1.3;
+    ctx.beginPath();
+    ctx.moveTo(n.x + 6.8, n.y - 1);
+    ctx.lineTo(n.x + 6.8, n.y - 32);
+    ctx.stroke();
+    // ledger lines if needed
+    if (n.y < STAFF_LINES_Y[0] - 4) {
+      let y = STAFF_LINES_Y[0] - STAFF_STEP * 2;
+      while (y > n.y - 4) {
+        ctx.beginPath(); ctx.moveTo(n.x - 10, y); ctx.lineTo(n.x + 10, y); ctx.stroke();
+        y -= STAFF_STEP * 2;
+      }
+    }
+    if (n.y > STAFF_LINES_Y[4] + 4) {
+      let y = STAFF_LINES_Y[4] + STAFF_STEP * 2;
+      while (y < n.y + 4) {
+        ctx.beginPath(); ctx.moveTo(n.x - 10, y); ctx.lineTo(n.x + 10, y); ctx.stroke();
+        y += STAFF_STEP * 2;
+      }
+    }
+  });
+}
+
+function quantizePitch(y) {
+  let best = 0, bestD = 9999;
+  PITCHES.forEach((p, i) => {
+    const py = PITCH_Y_TOP + i * STAFF_STEP;
+    const d = Math.abs(py - y);
+    if (d < bestD) { bestD = d; best = i; }
+  });
+  return { y: PITCH_Y_TOP + best * STAFF_STEP, pitch: PITCHES[best] };
+}
+
+c.addEventListener('click', e => {
+  const rect = c.getBoundingClientRect();
+  const x = (e.clientX - rect.left) * (W / rect.width);
+  const y = (e.clientY - rect.top) * (H / rect.height);
+  if (x < 60) return;
+  const q = quantizePitch(y);
+  notes.push({ x, y: q.y, pitch: q.pitch });
+  notes.sort((a, b) => a.x - b.x);
+  draw();
+});
+
+document.getElementById('clear').addEventListener('click', () => {
+  notes.length = 0; draw();
+});
+
+document.getElementById('play').addEventListener('click', async () => {
+  if (playing || notes.length === 0) return;
+  playing = true;
+  await Tone.start();
+  if (!synth) {
+    reverb = new Tone.Reverb({ decay: 3.0, wet: 0.45 }).toDestination();
+    synth = new Tone.FMSynth({
+      harmonicity: 1.5,
+      modulationIndex: 2.5,
+      envelope: { attack: 0.02, decay: 0.4, sustain: 0.2, release: 1.2 }
+    }).connect(reverb);
+  }
+  const now = Tone.now();
+  const startX = notes[0].x;
+  const pxPerSec = 280; // 1 measure = 280px ≈ 1 second
+  timecursor.style.opacity = '1';
+  notes.forEach((n) => {
+    const t = (n.x - startX) / pxPerSec;
+    synth.triggerAttackRelease(n.pitch, '4n', now + t);
+    setTimeout(() => {
+      const rect = c.getBoundingClientRect();
+      const screenX = rect.left + (n.x / W) * rect.width;
+      timecursor.style.left = screenX + 'px';
+    }, t * 1000);
+  });
+  const totalMs = ((notes[notes.length - 1].x - startX) / pxPerSec + 1.5) * 1000;
+  setTimeout(() => { playing = false; timecursor.style.opacity = '0'; }, totalMs);
+});
+
+// seed: a small phrase that spells what the page is about
+const seed = [
+  { measure: 1, beat: 0, pitch: 'C4' },
+  { measure: 1, beat: 1, pitch: 'E4' },
+  { measure: 1, beat: 2, pitch: 'G4' },
+  { measure: 1, beat: 3, pitch: 'E4' },
+  { measure: 2, beat: 0, pitch: 'A4' },
+  { measure: 2, beat: 1.5, pitch: 'G4' },
+  { measure: 2, beat: 2.5, pitch: 'F4' },
+  { measure: 3, beat: 0, pitch: 'E4' },
+  { measure: 3, beat: 1, pitch: 'D4' },
+  { measure: 3, beat: 2, pitch: 'E4' },
+  { measure: 3, beat: 3, pitch: 'F4' },
+  { measure: 4, beat: 0, pitch: 'G4' },
+  { measure: 4, beat: 2, pitch: 'C4' }
+];
+seed.forEach(s => {
+  const x = 60 + s.measure * 280 + s.beat * 60;
+  const idx = PITCHES.indexOf(s.pitch);
+  if (idx >= 0) notes.push({ x, y: PITCH_Y_TOP + idx * STAFF_STEP, pitch: s.pitch });
+});
+draw();
+scroller.scrollLeft = 0;
+</script>
+</body>
+</html>

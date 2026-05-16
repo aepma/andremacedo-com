@@ -12,14 +12,14 @@
   @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,400;0,500;0,700;1,400;1,500&family=JetBrains+Mono:wght@300;400;500&display=swap');
 
   :root {
-    --fg: #6a6a6a;
+    --fg: #0a0a0a;
     --fg-dim: #6c6c6c;
     --fg-on-stage: #f5f5f5;
-    --fg-accent: #ffe600;
-    --bg: #050505;
+    --fg-accent: #4a1f5a;
+    --bg: #f5f0e0;
     --bg-surface: #f5f5f5;
     --bg-elevated: #eeeeee;
-    --bg-below-fold: #050505;
+    --bg-below-fold: #f5f0e0;
     --border-below-fold: rgba(68, 0, 255, 0.3);
     --grain-opacity: 0;
   }
@@ -212,9 +212,9 @@
     background: var(--bg-below-fold, #fffff5);
     border-top: 1px solid var(--border-below-fold, rgba(8,145,178,0.18));
     padding: 4rem 2.5rem;
-    --fg: #797979;
-    --fg-dim: #787878;
-    --fg-accent: #ffe600;
+    --fg: #0a0a0a;
+    --fg-dim: #6c6c6c;
+    --fg-accent: #4a1f5a;
     --bg-surface: #f5f5f5;
     --bg-elevated: #eeeeee;
   }
@@ -569,12 +569,11 @@
 
   /* Section injection markers are now in the body */
 /* @inject:css */
-  /* @gene:gen115-css:start */
-  /* gen115-css — ghost light */ :root { --tier-strong: #f5f5f5; --tier-mid: #aaaaaa; --tier-soft: #888888; --ghost: #ffe600; --rehearsal-cyan: #00d4ff; } body, .below-fold, #prototype-portfolio { color: var(--tier-mid); } #prototype-portfolio h2, .below-fold h2 { color: var(--tier-strong); } #prototype-portfolio .meta, #prototype-portfolio .num, #prototype-portfolio .date, .below-fold .meta { color: var(--tier-soft); } #prototype-portfolio a { color: var(--tier-mid); text-decoration: none; transition: color 0.2s; } #prototype-portfolio a:hover { color: var(--ghost); } #prototype-portfolio .status-live { color: var(--ghost); } .gen115-ghost-pulse { animation: gen115-bulb 4s ease-in-out infinite; } @keyframes gen115-bulb { 0%, 100% { opacity: 0.55; filter: drop-shadow(0 0 8px rgba(255,230,0,0.4)); } 50% { opacity: 1; filter: drop-shadow(0 0 18px rgba(255,230,0,0.7)); } }
-  /* @gene:gen115-css:end */
-
-  /* @gene:gen114-css:start */
-  .tier-strong{color:#f5f5f5 !important;}.tier-mid{color:#bbbbbb !important;}.tier-soft{color:#888888 !important;}.below-fold,.below-fold *{--bg-below-fold:#050505;}.below-fold .meta,.below-fold .date,.below-fold .gen,.below-fold small{color:#999999 !important;}.below-fold p{color:#bbbbbb;}body.echo-mode #resonance-field-canvas{filter:contrast(1.05);}body.echo-mode .gen114-portfolio{transition:opacity 0.6s;}
+  /* @gene:gen126-css:start */
+  /* gen126-css: aubergine marginalia + forced cream below-fold + contrast hard fix */ .below-fold { background-color: #f5f0e0 !important; } .below-fold, .below-fold p, .below-fold div:not(.tonight-staff), .below-fold span:not(.tonight-note), .below-fold li, .below-fold td, .below-fold th, .below-fold a { color: #0a0a0a !important; } .below-fold .tier-mid, .below-fold .meta { color: #3a3a3a !important; } .below-fold .tier-soft, .below-fold .compass, .below-fold .date { color: #6a6a6a !important; } .below-fold a:hover { color: #4a1f5a !important; text-decoration: underline; text-decoration-color: #4a1f5a; } .marginalia-rubric { font-family: 'Playfair Display', Georgia, serif; font-style: italic; color: #4a1f5a; font-size: 0.85rem; letter-spacing: 0.04em; } .marginalia-rubric::before { content: '¶ '; color: #4a1f5a; font-weight: 700; } .tonight-staff line { stroke: #0a0a0a; stroke-width: 0.6; } .tonight-staff .barline { stroke: #0a0a0a; stroke-width: 1.2; } .tonight-staff .notehead { fill: #0a0a0a; cursor: pointer; transition: fill 0.18s ease, transform 0.18s ease; transform-origin: center; transform-box: fill-box; } .tonight-staff .notehead:hover { fill: #4a1f5a; transform: scale(1.18); } .tonight-staff .stem { stroke: #0a0a0a; stroke-width: 1.1; } .tonight-staff .rubric-text { font-family: 'Playfair Display', Georgia, serif; font-style: italic; fill: #4a1f5a; font-size: 11px; } .tonight-staff .meta-text { font-family: 'JetBrains Mono', monospace; fill: #6a6a6a; font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; } .tonights-composition { max-width: 720px; margin: 4rem auto 3rem; padding: 1.5rem 2rem; background-color: #faf5e6 !important; border-top: 1px solid #c4baa8; border-bottom: 1px solid #c4baa8; position: relative; } .tonights-composition::before { content: 'TONIGHT\'S COMPOSITION'; position: absolute; top: -0.55rem; left: 2rem; background-color: #faf5e6; padding: 0 0.5rem; font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #4a1f5a !important; letter-spacing: 0.2em; } .tonights-composition .play-tonight { margin-top: 0.75rem; padding: 0.35rem 0.9rem; background: transparent; border: 1px solid #4a1f5a; color: #4a1f5a !important; font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; transition: all 0.2s ease; } .tonights-composition .play-tonight:hover { background: #4a1f5a; color: #f5f0e0 !important; } @media (max-width: 600px) { .tonights-composition { margin: 2.5rem 1rem 2rem; padding: 1.25rem 1rem; max-width: calc(100% - 2rem); box-sizing: border-box; } .tonights-composition svg { width: 100%; height: auto; } }
+  /* @gene:gen126-css:end */
+/* @gene:gen114-css:start */
+  .tier-strong{color:#f5f5f5 !important;}.tier-mid{color:#bbbbbb !important;}.tier-soft{color:#888888 !important;}.below-fold,.below-fold *{--bg-below-fold:#f5f0e0;}.below-fold .meta,.below-fold .date,.below-fold .gen,.below-fold small{color:#999999 !important;}.below-fold p{color:#bbbbbb;}body.echo-mode #resonance-field-canvas{filter:contrast(1.05);}body.echo-mode .gen114-portfolio{transition:opacity 0.6s;}
   /* @gene:gen114-css:end */
 </style>
 <!-- MOBILE SCAFFOLD - DO NOT MODIFY (apply_changes.py protected) -->
@@ -865,7 +864,7 @@
 
 <div id="scene-frame"><canvas id="scene-canvas"></canvas></div>
 
-<span id="siteVersion" style="display:none">v115</span>
+<span id="siteVersion" style="display:none">v126</span>
 
 <!-- ── HTML Overlay ──────────────────────────────────────────── -->
 <div id="overlay">
@@ -922,6 +921,13 @@
 <!-- @section:scroll-hint:start -->
 <div style="position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%);z-index:6;text-align:center;pointer-events:none;"><div id="scroll-hint-count" style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:#666666;letter-spacing:0.15em;text-transform:uppercase;">16 experiments & archive below ↓</div></div>
 <!-- @section:scroll-hint:end -->
+
+<!-- @section:tonights-composition:start -->
+<div class='tonights-composition below-fold' id='tonights-composition'><svg class='tonight-staff' viewBox='0 0 660 140' xmlns='http://www.w3.org/2000/svg' aria-label="Tonight's composition — May 16 as a five-note phrase"><text class='meta-text' x='10' y='14'>SAT · MAY 16 · 2026 · ♩=72</text><line x1='10' y1='40' x2='650' y2='40'/><line x1='10' y1='52' x2='650' y2='52'/><line x1='10' y1='64' x2='650' y2='64'/><line x1='10' y1='76' x2='650' y2='76'/><line x1='10' y1='88' x2='650' y2='88'/><line class='barline' x1='10' y1='40' x2='10' y2='88'/><line class='barline' x1='340' y1='40' x2='340' y2='88'/><line class='barline' x1='650' y1='40' x2='650' y2='88'/><text class='rubric-text' x='110' y='30'>andante, sotto voce</text><text class='rubric-text' x='440' y='30'>rit. al fine</text><g class='notehead-group' data-pitch='D4' data-freq='293.66'><ellipse class='notehead' cx='80' cy='70' rx='7' ry='5' transform='rotate(-18 80 70)'/><line class='stem' x1='86' y1='70' x2='86' y2='36'/></g><g class='notehead-group' data-pitch='F4' data-freq='349.23'><ellipse class='notehead' cx='160' cy='58' rx='7' ry='5' transform='rotate(-18 160 58)'/><line class='stem' x1='166' y1='58' x2='166' y2='24'/></g><g class='notehead-group' data-pitch='A4' data-freq='440.00'><ellipse class='notehead' cx='240' cy='46' rx='7' ry='5' transform='rotate(-18 240 46)'/><line class='stem' x1='246' y1='46' x2='246' y2='12'/></g><g class='notehead-group' data-pitch='G4' data-freq='392.00'><ellipse class='notehead' cx='400' cy='52' rx='7' ry='5' transform='rotate(-18 400 52)'/><line class='stem' x1='406' y1='52' x2='406' y2='18'/></g><g class='notehead-group' data-pitch='D4' data-freq='293.66'><ellipse class='notehead' cx='550' cy='70' rx='7' ry='5' transform='rotate(-18 550 70)'/><line class='stem' x1='556' y1='70' x2='556' y2='36'/></g><text class='meta-text' x='10' y='112'>D · F · A · G · D &#8212; THE 16TH AS A SMALL DESCENT AND RETURN</text><text class='rubric-text' data-rubric='true' x='10' y='130'>the almanac plays this whether anyone listens</text></svg><button class='play-tonight' id='play-tonight-btn'>Play tonight</button></div>
+<!-- @section:tonights-composition:end -->
+<script data-section="tonights-composition">
+(function(){const noteheads=document.querySelectorAll('#tonights-composition .notehead-group');const btn=document.getElementById('play-tonight-btn');function loadTone(cb){if(window.Tone){cb();return;}const s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/tone@14.8.49/build/Tone.js';s.onload=cb;document.head.appendChild(s);}let synth=null,reverb=null;function initAudio(){if(synth)return;synth=new Tone.FMSynth({modulationIndex:8,envelope:{attack:0.04,decay:0.3,sustain:0.4,release:1.2},modulation:{type:'sine'}});reverb=new Tone.Reverb({decay:2.4,wet:0.5});synth.chain(reverb,Tone.Destination);}function ring(freq){if(!synth)initAudio();synth.triggerAttackRelease(freq,0.7);}noteheads.forEach(g=>{g.addEventListener('click',()=>{loadTone(()=>{Tone.start();const f=parseFloat(g.dataset.freq);ring(f);const n=g.querySelector('.notehead');const orig=n.getAttribute('fill')||'#0a0a0a';n.setAttribute('fill','#4a1f5a');setTimeout(()=>n.setAttribute('fill',orig),420);});});});btn.addEventListener('click',()=>{loadTone(()=>{Tone.start();const notes=Array.from(noteheads).map(g=>({freq:parseFloat(g.dataset.freq),el:g.querySelector('.notehead')}));notes.forEach((n,i)=>{setTimeout(()=>{ring(n.freq);const orig=n.el.getAttribute('fill')||'#0a0a0a';n.el.setAttribute('fill','#b8281e');setTimeout(()=>n.el.setAttribute('fill',orig),520);},i*620);});});});})();
+</script>
 <script data-section="scroll-hint">
 (() => { const hint = document.querySelector('.scroll-hint-bar'); if (!hint) return; let hidden = false; window.addEventListener('scroll', () => { if (!hidden && window.scrollY > 200) { hint.style.opacity = '0'; hidden = true; } }); })()
 </script>
@@ -1045,8 +1051,8 @@
       count: 24,
       size: 0.2,
       speed: 0.01,
-      color: '#ffe600',
-      opacity: 0.7,
+      color: '#4a1f5a',
+      opacity: 0.45,
       spread: 3,
       orbital_radius: 4,
       orbital_speed: 0.005,
@@ -1062,14 +1068,14 @@
     },
     fog: {
       enabled: true,
-      color: '#050505',
-      near: 4,
-      far: 14,
+      color: '#f5f0e0',
+      near: 6,
+      far: 18,
     },
     lighting: {
       ambient_color: '#f5f0e6',
       ambient_intensity: 0.15,
-      point_color: '#ffe600',
+      point_color: '#4a1f5a',
       point_intensity: 0.4,
       point_position: [2, 3, 4],
     },
@@ -1480,6 +1486,11 @@
   }
 
   // @inject:interactions
+  // @gene:type-'rubric'-anywhere-to-flas:start
+  // Easter egg: Type 'rubric' anywhere to flash all aubergine marginal annotations on the page in sequence.
+  (function(){let buf='';document.addEventListener('keydown',e=>{if(e.key.length!==1)return;buf=(buf+e.key.toLowerCase()).slice(-6);if(buf==='rubric'){const marks=document.querySelectorAll('.marginalia-rubric, .rubric-text, [data-rubric]');marks.forEach((m,i)=>{setTimeout(()=>{const orig=m.style.cssText;m.style.transition='all 0.4s ease';m.style.color='#b8281e';m.style.textShadow='0 0 12px rgba(184,40,30,0.5)';setTimeout(()=>{m.style.cssText=orig;},520);},i*140);});buf='';}});})();
+  // @gene:type-'rubric'-anywhere-to-flas:end
+
   // @gene:type-'grain'-anywhere-to-scatt:start
   // Easter egg: type 'grain' anywhere to scatter a yellow grain cloud across the resonance-field that fades over four seconds
   (function(){let buf='';document.addEventListener('keydown',(e)=>{buf=(buf+e.key.toLowerCase()).slice(-5);if(buf==='grain'){const cv=document.querySelector('#resonance-field canvas')||document.querySelector('canvas');if(!cv)return;const ctx=cv.getContext('2d');if(!ctx)return;const grains=[];for(let i=0;i<140;i++){grains.push({x:Math.random()*cv.width,y:Math.random()*cv.height,r:1+Math.random()*3,life:1,jx:(Math.random()-0.5)*0.6,jy:(Math.random()-0.5)*0.6});}const start=performance.now();function tick(){const t=(performance.now()-start)/4000;if(t>=1)return;grains.forEach(g=>{ctx.fillStyle='rgba(255,230,0,'+(g.life*(1-t)*0.7)+')';ctx.beginPath();ctx.arc(g.x,g.y,g.r,0,Math.PI*2);ctx.fill();g.x+=g.jx;g.y+=g.jy;});requestAnimationFrame(tick);}tick();buf='';}});})();
@@ -1494,23 +1505,11 @@
   // Easter egg: Click and drag on the resonance-field to draw a baton path; release to hear the gesture played back as a melody
   (function(){ const field = document.getElementById('resonance-field') || document.querySelector('canvas'); if (!field) return; let recording = false; let path = []; let synth = null; async function ensureSynth(){ if (synth) return; if (typeof Tone === 'undefined'){ const s = document.createElement('script'); s.src = 'https://cdn.jsdelivr.net/npm/tone@14.7.77/build/Tone.js'; document.head.appendChild(s); await new Promise(r=>s.onload=r); } await Tone.start(); const reverb = new Tone.Reverb({decay:2.4, wet:0.45}).toDestination(); synth = new Tone.PolySynth(Tone.FMSynth,{ envelope:{attack:0.02,decay:0.4,sustain:0.3,release:1.0} }).connect(reverb); } field.addEventListener('mousedown', async e=>{ recording=true; path=[{x:e.clientX,y:e.clientY,t:performance.now()}]; await ensureSynth(); }); field.addEventListener('mousemove', e=>{ if(recording) path.push({x:e.clientX,y:e.clientY,t:performance.now()}); }); window.addEventListener('mouseup', ()=>{ if(!recording) return; recording=false; if (path.length<5 || !synth) return; const t0=path[0].t; const sample = path.filter((p,i)=>i%6===0); const notes=['C2','E2','G2','B2','D3','F3','A3','C4','E4','G4','B4','D5','F5','A5']; sample.forEach(p=>{ const idx=Math.floor((1-p.y/innerHeight)*notes.length); const n=notes[Math.max(0,Math.min(notes.length-1,idx))]; const off=(p.t-t0)/1000; synth.triggerAttackRelease(n,'8n', `+${off}`, 0.4); }); }); })();
   // @gene:click-and-drag-on-the-resonanc:end
-
-  // @gene:type-'gait'-to-navigate-to-the:start
-  // Easter egg: type 'gait' to navigate to the choreography experiment
-  (function(){let b='';addEventListener('keydown',e=>{b=(b+e.key).slice(-4).toLowerCase();if(b==='gait'){window.location.href='/experiments/038.html';}});})();
-  // @gene:type-'gait'-to-navigate-to-the:end
-
-  // @gene:type-'lissajous'-anywhere-to-e:start
+// @gene:type-'lissajous'-anywhere-to-e:start
   // Easter egg: type 'lissajous' anywhere to enter the XY oscilloscope — the new experiment where two perpendicular sine waves draw closed curves when their frequencies form an integer ratio
   (()=>{let b='';window.addEventListener('keydown',e=>{if(e.key&&e.key.length===1){b=(b+e.key.toLowerCase()).slice(-9);if(b==='lissajous'){location.href='/experiments/035.html';}}});})();
   // @gene:type-'lissajous'-anywhere-to-e:end
-
-// @gene:type-'osc'-anywhere-on-the-pag:start
-  // Easter egg: type 'osc' anywhere on the page to dim the oscilloscope to 30% opacity for 10 seconds, then it returns
-  (function(){let buf='';addEventListener('keydown',e=>{if(e.key.length!==1)return;buf=(buf+e.key.toLowerCase()).slice(-3);if(buf==='osc'){const c=document.getElementById('resonance-field');if(!c)return;c.style.transition='opacity 600ms ease';c.style.opacity='0.3';setTimeout(()=>{c.style.opacity='1'},10000);buf='';}})})();
-  // @gene:type-'osc'-anywhere-on-the-pag:end
-
-  // @gene:press-any-letter-a-through-z-t:start
+// @gene:press-any-letter-a-through-z-t:start
   // Easter egg: Press any letter A through Z to ring its pitch through the stage. The hall flashes on attack.
   (()=>{const m={};'abcdefghijklmnopqrstuvwxyz'.split('').forEach((l,i)=>{m[l]=220*Math.pow(2,i/12)});async function ensure(){if(!window.Tone){await new Promise(r=>{const s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/tone@14.7.77/build/Tone.js';s.onload=r;document.head.appendChild(s)})}if(window.Tone.context.state!=='running')await window.Tone.start();if(!window.__stageSynth){const r=new window.Tone.Reverb(2.5).toDestination();r.wet.value=0.55;const s=new window.Tone.PolySynth(window.Tone.FMSynth).connect(r);window.__stageAnalyser=new window.Tone.Analyser('waveform',1024);s.connect(window.__stageAnalyser);window.__stageSynth=s}}const held=new Set();addEventListener('keydown',async e=>{const k=e.key.toLowerCase();if(!m[k]||held.has(k)||e.target.matches('input,textarea'))return;held.add(k);await ensure();window.__stageSynth.triggerAttack(m[k]);document.body.classList.add('stage-flash');setTimeout(()=>document.body.classList.remove('stage-flash'),450)});addEventListener('keyup',e=>{const k=e.key.toLowerCase();if(held.has(k)){held.delete(k);if(window.__stageSynth)window.__stageSynth.triggerRelease(m[k])}})})();
   // @gene:press-any-letter-a-through-z-t:end
