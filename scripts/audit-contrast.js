@@ -5,6 +5,7 @@
 // Each entry: {selector, color, bg_sample, ratio, pass}
 
 const { chromium } = require('playwright');
+const path = require('path');
 
 const SELECTORS = [
   'h1',
@@ -19,6 +20,12 @@ const SELECTORS = [
 
 const WCAG_THRESHOLD = 4.5;
 const SETTLE_MS = 2000;
+
+// ── CRITICAL vs AMBIENT split (2026-05-19 decision) ──
+// CRITICAL: legibility is non-negotiable; failure blocks deploy when gate is enabled
+// AMBIENT: intentionally faint by design; failure still penalizes fitness but never blocks
+const CRITICAL_SELECTORS = ['h1', 'h2', '.hook', '.meta', '.program-masthead span'];
+const AMBIENT_SELECTORS = ['.compass-line .c-val', '.float-thought', '.stage-hero .note'];
 
 function hexToRgb(hex) {
   const clean = hex.replace('#', '');
@@ -153,19 +160,53 @@ async function auditUrl(url) {
   return results;
 }
 
-const url = process.argv[2];
-if (!url) {
+const args = process.argv.slice(2);
+let target;
+let isLocal = false;
+if (args[0] === 'local' && args[1]) {
+  isLocal = true;
+  target = 'file://' + path.resolve(args[1]);
+} else if (args[0]) {
+  target = args[0];
+} else {
   console.error('Usage: node audit-contrast.js <url>');
+  console.error('       node audit-contrast.js local <path/to/index.html>');
   process.exit(0);
 }
 
-auditUrl(url)
+auditUrl(target)
   .then((results) => {
-    console.log(JSON.stringify(results, null, 2));
-    process.exit(0);
+    const failures = results.filter(r => r && typeof r.ratio === 'number' && r.ratio < WCAG_THRESHOLD && !r.error);
+    const critical_failures = failures.filter(r => CRITICAL_SELECTORS.includes(r.selector));
+    const ambient_failures = failures.filter(r => AMBIENT_SELECTORS.includes(r.selector));
+    const summary = {
+      timestamp: new Date().toISOString(),
+      mode: isLocal ? 'local' : 'live',
+      target,
+      total_measured: results.length,
+      critical_failures,
+      ambient_failures,
+      blocking_pass: critical_failures.length === 0,
+    };
+    console.log(JSON.stringify({ results, summary }, null, 2));
+    if (isLocal) {
+      process.exit(critical_failures.length === 0 ? 0 : 1);
+    } else {
+      process.exit(0);
+    }
   })
   .catch((err) => {
     // reporter never exits non-zero on errors — just emit empty array with error note
-    console.log(JSON.stringify([{ error: String(err), selector: '_script_error' }]));
+    const results = [{ error: String(err), selector: '_script_error' }];
+    const summary = {
+      timestamp: new Date().toISOString(),
+      mode: isLocal ? 'local' : 'live',
+      target,
+      total_measured: 0,
+      critical_failures: [],
+      ambient_failures: [],
+      blocking_pass: true,
+    };
+    console.log(JSON.stringify({ results, summary }, null, 2));
     process.exit(0);
   });

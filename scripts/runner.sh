@@ -528,6 +528,31 @@ elif [ "$GATE_EXIT" = "2" ]; then
     cat "$GATE_OUT" >> "$ERROR_LOG"
 fi
 
+# ── Pre-deploy contrast gate (2026-05-19, gated by CONTRAST_GATE_ENABLED) ──
+# When enabled, runs audit-contrast.js in local mode against the working-tree
+# index.html. On CRITICAL failure: revert index.html, skip deploy this cycle,
+# mirror mobile-gate pattern.
+if [ "${CONTRAST_GATE_ENABLED:-0}" = "1" ]; then
+    CONTRAST_GATE_OUT="$SITE_DIR/state/contrast-gate-latest.json"
+    set +e
+    timeout 30 node "$SCRIPT_DIR/audit-contrast.js" local "$SITE_DIR/index.html" > "$CONTRAST_GATE_OUT" 2>>"$ERROR_LOG"
+    GATE_EXIT=$?
+    set -e
+    if [ "$GATE_EXIT" = "1" ]; then
+        log "Contrast gate FAIL (CRITICAL) - reverting index.html, skipping deploy this cycle"
+        echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] [gen $GENERATION] contrast-gate-fail: $(jq -c '.summary.critical_failures' "$CONTRAST_GATE_OUT" 2>/dev/null || echo 'parse-error')" >> "$CHANGELOG"
+        cat "$CONTRAST_GATE_OUT" >> "$ERROR_LOG"
+        cd "$SITE_DIR" && git checkout HEAD -- index.html
+        telegram "andremacedo.com $PULSE_TYPE: contrast gate CRITICAL failure on $(jq -r '.summary.critical_failures | length' "$CONTRAST_GATE_OUT" 2>/dev/null) elements — deploy skipped, working tree reverted."
+        DEPLOY_SUCCEEDED=1
+        exit 0
+    elif [ "$GATE_EXIT" = "124" ]; then
+        log "Contrast gate timed out (non-fatal, proceeding with deploy)"
+    elif [ "$GATE_EXIT" != "0" ]; then
+        log "Contrast gate ERROR (script issue, non-fatal, exit=$GATE_EXIT) - proceeding with deploy"
+    fi
+fi
+
 # ── Git commit (for history) ──────────────────────────────────────
 git add -A
 git commit -m "agent: ${SUMMARY} | mood: ${CURRENT_MOOD} | pulse: ${PULSE_TYPE}" || log "Nothing to commit"
@@ -619,7 +644,8 @@ else
 import json, sys
 try:
     data = json.load(open(sys.argv[1]))
-    print(sum(1 for r in data if isinstance(r, dict) and r.get('ratio', 99) < 4.5 and 'error' not in r))
+    results = data.get('results') if isinstance(data, dict) else data
+    print(sum(1 for r in results if isinstance(r, dict) and r.get('ratio', 99) < 4.5 and 'error' not in r))
 except Exception:
     print(0)
 PYEOF
@@ -630,7 +656,8 @@ PYEOF
     python3 - "$CONTRAST_AUDIT_OUTPUT" "$SITE_DIR/state/contrast-fail-gen-${GENERATION}.json" "$GENERATION" <<'PYEOF'
 import json, sys
 data = json.load(open(sys.argv[1]))
-fails = [r for r in data if isinstance(r, dict) and r.get('ratio', 99) < 4.5 and 'error' not in r]
+results = data.get('results') if isinstance(data, dict) else data
+fails = [r for r in results if isinstance(r, dict) and r.get('ratio', 99) < 4.5 and 'error' not in r]
 with open(sys.argv[2], 'w') as f:
     json.dump({'gen': int(sys.argv[3]), 'failures': fails}, f, indent=2)
 PYEOF
