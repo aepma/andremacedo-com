@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>063 · The Halls</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #f5f0e0; color: #0a0a0a; font-family: 'Source Serif 4', Georgia, serif; min-height: 100vh; padding: 2rem 1.5rem; overflow-x: hidden; }
+  #back { position: fixed; top: 1rem; left: 1rem; font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; color: #b8232a; text-decoration: none; background: rgba(248,243,227,0.95); padding: 0.4rem 0.7rem; border: 1px solid #b8232a; text-shadow: 0 0 8px rgba(245,240,224,0.8), 0 0 20px rgba(245,240,224,0.5); z-index: 100; }
+  #back:hover { background: #b8232a; color: #f8f3e3; }
+  #info { position: fixed; top: 1rem; right: 1rem; max-width: 320px; background: rgba(248,243,227,0.95); border: 1px solid #1a1a1a; padding: 1rem 1.2rem; font-size: 0.85rem; line-height: 1.5; z-index: 100; text-shadow: none; }
+  #info h1 { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.15rem; margin-bottom: 0.5rem; color: #b8232a; font-weight: 700; }
+  #info p { color: #2a2a2a; margin-bottom: 0.45rem; }
+  #info em { color: #b8232a; font-style: italic; }
+  .container { max-width: 1000px; margin: 5rem auto 2rem; text-align: center; }
+  h1.title { font-family: 'Playfair Display', serif; font-style: italic; font-size: 2.6rem; margin-bottom: 0.5rem; color: #0a0a0a; font-weight: 700; }
+  p.subtitle { font-style: italic; color: #555; margin-bottom: 3rem; font-size: 1.05rem; }
+  .halls-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
+  .hall-card { background: #f8f3e3; border: 1px solid #1a1a1a; padding: 2rem 1.5rem; cursor: pointer; transition: transform 0.3s ease, background 0.3s ease, color 0.3s ease; text-align: left; user-select: none; }
+  .hall-card:hover { background: #fffbef; transform: translateY(-3px); }
+  .hall-card.playing { background: #b8232a; color: #f8f3e3; transform: translateY(-3px); }
+  .hall-card.playing .hall-decay, .hall-card.playing .hall-desc { color: #f5e6d0; }
+  .hall-name { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.4rem; margin-bottom: 0.5rem; font-weight: 700; }
+  .hall-decay { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: #888; margin-bottom: 1rem; letter-spacing: 0.05em; }
+  .hall-desc { font-size: 0.92rem; line-height: 1.55; color: #2a2a2a; font-style: italic; }
+  .controls { margin: 2rem 0; display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+  button.action { background: #b8232a; color: #f8f3e3; border: none; padding: 0.85rem 1.9rem; font-family: 'Playfair Display', serif; font-style: italic; font-size: 1rem; cursor: pointer; letter-spacing: 0.05em; }
+  button.action:hover { background: #0a0a0a; }
+  button.action.secondary { background: transparent; color: #b8232a; border: 1px solid #b8232a; }
+  button.action.secondary:hover { background: #b8232a; color: #f8f3e3; }
+  .now-playing { font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; color: #555; margin-top: 1.2rem; min-height: 1.4em; letter-spacing: 0.05em; }
+  .melody-display { font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: #888; margin-top: 0.5rem; letter-spacing: 0.1em; }
+  .colophon-line { max-width: 540px; margin: 3rem auto 0; padding-top: 2rem; border-top: 1px solid #888; font-family: 'Source Serif 4', serif; font-style: italic; font-size: 0.88rem; line-height: 1.55; color: #555; }
+  @media (max-width: 600px) {
+    body { padding: 1rem 1rem; }
+    #info { max-width: 240px; font-size: 0.72rem; padding: 0.7rem 0.85rem; top: 4rem; right: 0.5rem; }
+    #back { font-size: 0.72rem; padding: 0.3rem 0.55rem; top: 0.7rem; left: 0.7rem; }
+    .container { margin-top: 8rem; }
+    h1.title { font-size: 1.8rem; }
+    .halls-grid { grid-template-columns: 1fr; gap: 1rem; }
+    .hall-card { padding: 1.4rem 1.2rem; }
+    .hall-name { font-size: 1.15rem; }
+  }
+</style>
+</head>
+<body>
+<a id="back" href="/">← back</a>
+<div id="info">
+  <h1>The Halls</h1>
+  <p>The same eight notes, played in four rooms. The melody is fixed. The <em>room</em> is the instrument.</p>
+  <p>A cathedral and an anechoic chamber are not playing the same music even when they play the same score.</p>
+  <p>Click any hall to hear. Or walk through all four.</p>
+</div>
+<div class="container">
+  <h1 class="title">The Halls</h1>
+  <p class="subtitle">One melody, four rooms.</p>
+  <div class="halls-grid">
+    <div class="hall-card" data-hall="anechoic">
+      <div class="hall-name">Anechoic Chamber</div>
+      <div class="hall-decay">decay 0.0s &middot; dry 100%</div>
+      <div class="hall-desc">A room that swallows sound. Foam wedges on every surface absorb every wavelength. Each note begins and ends in the same instant.</div>
+    </div>
+    <div class="hall-card" data-hall="chapel">
+      <div class="hall-name">Stone Chapel</div>
+      <div class="hall-decay">decay 1.8s &middot; wet 40%</div>
+      <div class="hall-desc">A small room of cut limestone. The walls reply quickly, the floor catches the bass. Suited to a single voice and a single candle.</div>
+    </div>
+    <div class="hall-card" data-hall="recital">
+      <div class="hall-name">Recital Hall</div>
+      <div class="hall-decay">decay 3.2s &middot; wet 50%</div>
+      <div class="hall-desc">Wood panels, velvet curtains, three hundred seats. Engineered to make a piano sound exactly as the piano wanted to sound.</div>
+    </div>
+    <div class="hall-card" data-hall="cathedral">
+      <div class="hall-name">Gothic Cathedral</div>
+      <div class="hall-decay">decay 8.5s &middot; wet 70%</div>
+      <div class="hall-desc">Stone vault, a hundred feet to the ridge. Notes hang in the nave for eight seconds before they admit they are dying.</div>
+    </div>
+  </div>
+  <div class="controls">
+    <button class="action" id="walkthrough">Walk through all four</button>
+    <button class="action secondary" id="stop">Stop</button>
+  </div>
+  <div class="now-playing" id="status">click a hall to begin</div>
+  <div class="melody-display">C · E · G · A · G · E · D · C</div>
+  <p class="colophon-line">A room is itself an instrument. The same notes change depending on what they bounce off. The recital you sat through last night was, in part, a duet between the soloist and the architecture.</p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/tone@14.7.77/build/Tone.js"></script>
+<script>
+const halls = {
+  anechoic: { decay: 0.01, wet: 0.0, label: 'Anechoic Chamber' },
+  chapel:   { decay: 1.8,  wet: 0.4, label: 'Stone Chapel' },
+  recital:  { decay: 3.2,  wet: 0.5, label: 'Recital Hall' },
+  cathedral:{ decay: 8.5,  wet: 0.7, label: 'Gothic Cathedral' }
+};
+const melody = ['C4','E4','G4','A4','G4','E4','D4','C4'];
+let synth, reverb, currentTimeout, currentCard = null, walking = false;
+async function ensureAudio(){
+  if(!synth){
+    await Tone.start();
+    reverb = new Tone.Reverb({ decay: 1.8, wet: 0.5 }).toDestination();
+    await reverb.generate();
+    synth = new Tone.FMSynth({
+      harmonicity: 1.5, modulationIndex: 2,
+      envelope: { attack: 0.02, decay: 0.2, sustain: 0.4, release: 0.6 }
+    }).connect(reverb);
+  }
+}
+function setStatus(t){ document.getElementById('status').textContent = t; }
+async function playHall(key){
+  await ensureAudio();
+  const h = halls[key];
+  reverb.decay = Math.max(0.001, h.decay);
+  reverb.wet.value = h.wet;
+  try { await reverb.generate(); } catch(e){}
+  if(currentCard) currentCard.classList.remove('playing');
+  const card = document.querySelector('[data-hall="'+key+'"]');
+  card.classList.add('playing');
+  currentCard = card;
+  setStatus('now playing — ' + h.label.toLowerCase());
+  const now = Tone.now() + 0.05;
+  melody.forEach((n,i)=>{ synth.triggerAttackRelease(n, 0.4, now + i*0.45); });
+  clearTimeout(currentTimeout);
+  const totalMs = (melody.length * 0.45 + h.decay + 0.5) * 1000;
+  currentTimeout = setTimeout(()=>{
+    if(currentCard === card){ card.classList.remove('playing'); currentCard = null; if(!walking) setStatus('click a hall to begin'); }
+  }, totalMs);
+  return totalMs;
+}
+async function walkthrough(){
+  if(walking) return; walking = true;
+  const order = ['anechoic','chapel','recital','cathedral'];
+  for(const k of order){
+    if(!walking) break;
+    const ms = await playHall(k);
+    await new Promise(r=>setTimeout(r, ms + 400));
+  }
+  walking = false;
+  if(!currentCard) setStatus('click a hall to begin');
+}
+function stopAll(){
+  walking = false;
+  clearTimeout(currentTimeout);
+  if(currentCard){ currentCard.classList.remove('playing'); currentCard = null; }
+  setStatus('click a hall to begin');
+}
+document.querySelectorAll('.hall-card').forEach(c=>{ c.addEventListener('click', ()=>{ walking = false; playHall(c.dataset.hall); }); });
+document.getElementById('walkthrough').addEventListener('click', walkthrough);
+document.getElementById('stop').addEventListener('click', stopAll);
+</script>
+</body>
+</html>

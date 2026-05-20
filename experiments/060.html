@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Encore · Experiment 060</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #f5f0e0;
+    color: #0a0a0a;
+    font-family: 'Source Serif 4', Georgia, serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  canvas { display: block; position: fixed; inset: 0; z-index: 1; cursor: pointer; }
+  #info {
+    position: fixed; top: 1.5rem; left: 1.5rem; max-width: 380px; z-index: 10;
+    background: rgba(245, 240, 224, 0.92); padding: 1.2rem 1.4rem;
+    border-left: 3px solid #8a2a6a;
+    text-shadow: 0 0 8px rgba(245, 240, 224, 0.8);
+  }
+  #info h1 { font-family: 'Playfair Display', Georgia, serif; font-size: 1.5rem; color: #0a0a0a; margin-bottom: 0.5rem; font-weight: 900; }
+  #info p { font-size: 0.92rem; line-height: 1.55; color: #4a4a4a; margin-bottom: 0.4rem; }
+  #info .label { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: #c4791a; text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 0.3rem; }
+  #counter {
+    position: fixed; top: 1.5rem; right: 1.5rem; z-index: 10;
+    font-family: 'JetBrains Mono', monospace; font-size: 0.85rem;
+    color: #8a2a6a; background: rgba(245, 240, 224, 0.92);
+    padding: 0.8rem 1.1rem; border: 1px solid rgba(138, 42, 106, 0.3);
+    text-shadow: 0 0 8px rgba(245, 240, 224, 0.8);
+  }
+  #counter .big { font-size: 1.6rem; font-weight: 700; color: #0a0a0a; display: block; }
+  #status {
+    position: fixed; bottom: 1.5rem; left: 50%; transform: translateX(-50%);
+    font-family: 'Playfair Display', Georgia, serif; font-style: italic;
+    font-size: 1.1rem; color: #4a1f8a; z-index: 10;
+    text-align: center; text-shadow: 0 0 8px rgba(245, 240, 224, 0.95);
+    transition: opacity 0.4s ease;
+    background: rgba(245, 240, 224, 0.7);
+    padding: 0.6rem 1.4rem;
+  }
+  #back {
+    position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 10;
+    font-family: 'Source Serif 4', Georgia, serif; font-size: 0.85rem;
+    color: #8a2a6a; text-decoration: none;
+    border-bottom: 1px dotted #8a2a6a;
+    text-shadow: 0 0 8px rgba(245, 240, 224, 0.95);
+  }
+  #back:hover { color: #b8281e; border-bottom-color: #b8281e; }
+  @media (max-width: 600px) {
+    #info { top: 0.8rem; left: 0.8rem; right: 0.8rem; max-width: none; padding: 0.9rem 1rem; }
+    #info h1 { font-size: 1.2rem; }
+    #info p { font-size: 0.85rem; }
+    #counter { top: auto; bottom: 5rem; right: 0.8rem; }
+    #status { font-size: 0.95rem; bottom: 0.6rem; }
+    #back { bottom: 0.6rem; }
+  }
+</style>
+</head>
+<body>
+<canvas id="applause-canvas"></canvas>
+<div id="info">
+  <div class="label">Experiment 060 · Encore</div>
+  <h1>The audience earns an encore.</h1>
+  <p>The recital is over. The performer's hands have lowered. The audience must now decide whether to clap, and how hard. Eight claps summons the encore phrase — fewer is courtesy, more is ovation.</p>
+  <p><strong>Click anywhere to clap.</strong> Each clap fades. Eight within ten seconds rings the encore.</p>
+</div>
+<div id="counter"><span class="big" id="clap-count">0</span><span style="font-size:0.7rem;">claps</span></div>
+<div id="status">the hall is still</div>
+<a id="back" href="/">← back to the recital</a>
+<script>
+  const canvas = document.getElementById('applause-canvas');
+  const ctx = canvas.getContext('2d');
+  let W, H;
+  function resize() { W = canvas.width = innerWidth; H = canvas.height = innerHeight; }
+  resize(); addEventListener('resize', resize);
+
+  let audio = null;
+  function ensureAudio() {
+    if (!audio) audio = new (window.AudioContext || window.webkitAudioContext)();
+    if (audio.state === 'suspended') audio.resume();
+    return audio;
+  }
+
+  function clap(x, y) {
+    const ac = ensureAudio();
+    const noise = ac.createBufferSource();
+    const buf = ac.createBuffer(1, ac.sampleRate * 0.18, ac.sampleRate);
+    const data = buf.getChannelData(0);
+    for (let i = 0; i < data.length; i++) {
+      data[i] = (Math.random() * 2 - 1) * Math.exp(-i / (ac.sampleRate * 0.04));
+    }
+    noise.buffer = buf;
+    const filt = ac.createBiquadFilter();
+    filt.type = 'bandpass'; filt.frequency.value = 1800 + Math.random() * 400; filt.Q.value = 1.5;
+    const gain = ac.createGain();
+    gain.gain.setValueAtTime(0.25, ac.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ac.currentTime + 0.2);
+    noise.connect(filt); filt.connect(gain); gain.connect(ac.destination);
+    noise.start();
+  }
+
+  function ringEncore() {
+    const ac = ensureAudio();
+    // Encore phrase: 8 notes — a small descending and resolving figure
+    const phrase = [659.25, 587.33, 523.25, 493.88, 440, 493.88, 523.25, 587.33];
+    phrase.forEach((freq, i) => {
+      setTimeout(() => {
+        const osc = ac.createOscillator();
+        osc.type = 'sine';
+        osc.frequency.value = freq;
+        const g = ac.createGain();
+        g.gain.setValueAtTime(0, ac.currentTime);
+        g.gain.linearRampToValueAtTime(0.18, ac.currentTime + 0.02);
+        g.gain.exponentialRampToValueAtTime(0.001, ac.currentTime + 0.9);
+        // Reverb-ish via delay
+        const delay = ac.createDelay(); delay.delayTime.value = 0.18;
+        const fb = ac.createGain(); fb.gain.value = 0.35;
+        osc.connect(g); g.connect(ac.destination); g.connect(delay); delay.connect(fb); fb.connect(delay); delay.connect(ac.destination);
+        osc.start(); osc.stop(ac.currentTime + 1.0);
+      }, i * 280);
+    });
+  }
+
+  const claps = []; // {x, y, t, r}
+  let clapCount = 0;
+  let lastClapTime = 0;
+  let encoreFired = false;
+  const statusEl = document.getElementById('status');
+  const counterEl = document.getElementById('clap-count');
+
+  function updateStatus() {
+    if (encoreFired) { statusEl.textContent = 'the encore is ringing'; return; }
+    if (clapCount === 0) statusEl.textContent = 'the hall is still';
+    else if (clapCount < 3) statusEl.textContent = 'a few hands begin';
+    else if (clapCount < 5) statusEl.textContent = 'polite applause';
+    else if (clapCount < 7) statusEl.textContent = 'the audience warms';
+    else if (clapCount < 8) statusEl.textContent = 'one more would summon it';
+    else statusEl.textContent = 'the encore is yours';
+  }
+
+  function onClap(e) {
+    const x = e.touches ? e.touches[0].clientX : e.clientX;
+    const y = e.touches ? e.touches[0].clientY : e.clientY;
+    const now = performance.now();
+    if (now - lastClapTime > 10000) clapCount = 0;
+    lastClapTime = now;
+    clapCount++;
+    counterEl.textContent = clapCount;
+    claps.push({ x, y, t: now, r: 0 });
+    clap(x, y);
+    updateStatus();
+    if (clapCount === 8 && !encoreFired) {
+      encoreFired = true;
+      setTimeout(() => { ringEncore(); updateStatus(); }, 400);
+      setTimeout(() => { encoreFired = false; clapCount = 0; counterEl.textContent = 0; updateStatus(); }, 14000);
+    }
+  }
+  canvas.addEventListener('click', onClap);
+  canvas.addEventListener('touchstart', (e) => { e.preventDefault(); onClap(e); }, { passive: false });
+
+  function draw() {
+    ctx.fillStyle = 'rgba(245, 240, 224, 0.18)';
+    ctx.fillRect(0, 0, W, H);
+    const now = performance.now();
+    for (let i = claps.length - 1; i >= 0; i--) {
+      const c = claps[i];
+      const age = (now - c.t) / 1000;
+      if (age > 2.4) { claps.splice(i, 1); continue; }
+      c.r = age * 90;
+      const alpha = Math.max(0, 1 - age / 2.4);
+      ctx.strokeStyle = `rgba(138, 42, 106, ${alpha * 0.7})`;
+      ctx.lineWidth = 1.2;
+      ctx.beginPath(); ctx.arc(c.x, c.y, c.r, 0, Math.PI * 2); ctx.stroke();
+      ctx.strokeStyle = `rgba(184, 40, 30, ${alpha * 0.4})`;
+      ctx.beginPath(); ctx.arc(c.x, c.y, c.r * 0.7, 0, Math.PI * 2); ctx.stroke();
+    }
+    if (encoreFired) {
+      const t = (now / 1000) % 4;
+      ctx.fillStyle = `rgba(196, 121, 26, ${0.04 + Math.sin(t * Math.PI) * 0.03})`;
+      ctx.fillRect(0, 0, W, H);
+    }
+    requestAnimationFrame(draw);
+  }
+  draw();
+</script>
+</body>
+</html>

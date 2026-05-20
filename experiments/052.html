@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>052 · Tactus</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,400&family=Source+Serif+4:ital,wght@0,400;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/tone@14.8.49/build/Tone.js"></script>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; height: 100%; overflow: hidden; }
+  body { background: #f5f0e0; color: #0a0a0a; font-family: 'Source Serif 4', Georgia, serif; cursor: none; }
+  canvas { position: fixed; inset: 0; width: 100%; height: 100%; display: block; }
+  #info { position: fixed; top: 32px; left: 32px; max-width: 360px; z-index: 10; text-shadow: 0 0 8px rgba(245,240,224,0.95), 0 0 18px rgba(245,240,224,0.7); cursor: default; }
+  #info .num { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 0.15em; color: #4a4a4a; display: block; margin-bottom: 0.3rem; }
+  #info h1 { font-family: 'Playfair Display', serif; font-style: italic; font-weight: 400; font-size: 1.7rem; margin: 0 0 0.7rem 0; color: #1a5a3e; line-height: 1.15; }
+  #info p { margin: 0 0 0.65rem 0; font-size: 0.92rem; line-height: 1.55; color: #1a1a1a; }
+  #info p em { color: #1a5a3e; font-style: italic; }
+  #info .how { color: #4a4a4a; font-style: italic; font-size: 0.85rem; }
+  #readout { position: fixed; top: 32px; right: 32px; z-index: 10; font-family: 'JetBrains Mono', monospace; color: #1a5a3e; text-align: right; text-shadow: 0 0 8px rgba(245,240,224,0.95); cursor: default; }
+  #readout .bpm { font-size: 1.8rem; display: block; line-height: 1; font-weight: 500; }
+  #readout .bpm-label { font-size: 0.65rem; color: #6a6a6a; letter-spacing: 0.15em; }
+  #readout .dyn { font-size: 1.2rem; font-style: italic; font-family: 'Playfair Display', serif; color: #b8281e; display: block; margin-top: 0.4rem; }
+  #controls { position: fixed; bottom: 32px; left: 32px; right: 32px; z-index: 10; display: flex; justify-content: space-between; align-items: center; cursor: default; text-shadow: 0 0 8px rgba(245,240,224,0.95); }
+  #back { font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; text-decoration: none; color: #4a4a4a; letter-spacing: 0.06em; cursor: pointer; }
+  #back:hover { color: #1a5a3e; }
+  #play { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; background: transparent; border: 1px solid #1a5a3e; color: #1a5a3e; padding: 0.55rem 1.4rem; cursor: pointer; letter-spacing: 0.1em; text-transform: uppercase; }
+  #play:hover { background: #1a5a3e; color: #f5f0e0; }
+  #play.playing { background: #b8281e; border-color: #b8281e; color: #f5f0e0; }
+  @media (max-width: 600px) { body { cursor: auto; } #info { top: 16px; left: 16px; right: 16px; max-width: none; padding-right: 90px; } #info h1 { font-size: 1.3rem; } #info p { font-size: 0.84rem; } #readout { top: 16px; right: 16px; } #readout .bpm { font-size: 1.3rem; } #controls { bottom: 16px; left: 16px; right: 16px; } #play { padding: 0.45rem 1rem; font-size: 0.78rem; } }
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div id="info">
+  <span class="num">052 · tactus</span>
+  <h1>The beat begins in the hand.</h1>
+  <p>The score is fixed. The tempo is yours. <em>Tactus</em> is the medieval term for the conductor's pulse — the gesture that says <em>when</em>, not <em>what</em>.</p>
+  <p class="how">Move: left for largo, right for presto. Up for forte, down for piano. Press play and conduct.</p>
+</div>
+<div id="readout">
+  <span class="bpm">76</span>
+  <span class="bpm-label">BPM</span>
+  <span class="dyn">mf</span>
+</div>
+<div id="controls">
+  <a id="back" href="/">← back to the score</a>
+  <button id="play">play</button>
+</div>
+<script>
+(() => {
+  const canvas = document.getElementById('c');
+  const ctx = canvas.getContext('2d');
+  let DPR, W, H;
+  function resize() {
+    DPR = Math.min(window.devicePixelRatio || 1, 2);
+    W = canvas.width = innerWidth * DPR;
+    H = canvas.height = innerHeight * DPR;
+    canvas.style.width = innerWidth + 'px';
+    canvas.style.height = innerHeight + 'px';
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+  }
+  resize();
+  addEventListener('resize', resize);
+
+  let bpm = 76, targetBpm = 76;
+  let dyn = 0.55, targetDyn = 0.55;
+  let mx = innerWidth / 2, my = innerHeight / 2;
+  const trail = [];
+
+  function onMove(e) {
+    const x = e.clientX !== undefined ? e.clientX : (e.touches && e.touches[0].clientX);
+    const y = e.clientY !== undefined ? e.clientY : (e.touches && e.touches[0].clientY);
+    if (x === undefined || y === undefined) return;
+    mx = x; my = y;
+    targetBpm = Math.round(40 + (mx / innerWidth) * 160);
+    targetDyn = Math.max(0, Math.min(1, 1 - my / innerHeight));
+    trail.push({ x: mx, y: my, t: performance.now() });
+    if (trail.length > 60) trail.shift();
+  }
+  addEventListener('pointermove', onMove);
+  addEventListener('touchmove', onMove, { passive: true });
+
+  function dynLabel(d) {
+    if (d < 0.12) return 'pp';
+    if (d < 0.3) return 'p';
+    if (d < 0.5) return 'mp';
+    if (d < 0.7) return 'mf';
+    if (d < 0.88) return 'f';
+    return 'ff';
+  }
+
+  const melody = ['C4','E4','G4','C5','B4','G4','E4','D4','C4','G3','E3','C3'];
+  let synth = null, reverb = null;
+  let playing = false;
+  let beatIdx = 0, lastBeatTime = 0;
+
+  document.getElementById('play').addEventListener('click', async () => {
+    await Tone.start();
+    if (!synth) {
+      reverb = new Tone.Reverb({ decay: 2.6, wet: 0.42 }).toDestination();
+      synth = new Tone.FMSynth({
+        harmonicity: 2.5,
+        modulationIndex: 7,
+        envelope: { attack: 0.02, decay: 0.18, sustain: 0.28, release: 0.85 }
+      }).connect(reverb);
+    }
+    const btn = document.getElementById('play');
+    if (playing) {
+      Tone.Transport.stop();
+      Tone.Transport.cancel();
+      btn.textContent = 'play';
+      btn.classList.remove('playing');
+      playing = false;
+      return;
+    }
+    Tone.Transport.bpm.value = bpm;
+    beatIdx = 0;
+    Tone.Transport.scheduleRepeat((time) => {
+      const note = melody[beatIdx % melody.length];
+      const vel = 0.15 + dyn * 0.7;
+      synth.triggerAttackRelease(note, '8n', time, vel);
+      beatIdx++;
+      lastBeatTime = performance.now();
+    }, '4n');
+    Tone.Transport.start();
+    btn.textContent = 'stop';
+    btn.classList.add('playing');
+    playing = true;
+  });
+
+  const bpmEl = document.querySelector('#readout .bpm');
+  const dynEl = document.querySelector('#readout .dyn');
+
+  function draw() {
+    bpm += (targetBpm - bpm) * 0.08;
+    dyn += (targetDyn - dyn) * 0.1;
+    if (playing && Tone.Transport.state === 'started') {
+      Tone.Transport.bpm.rampTo(bpm, 0.15);
+    }
+
+    ctx.fillStyle = '#f5f0e0';
+    ctx.fillRect(0, 0, innerWidth, innerHeight);
+
+    const beatPx = (60 / bpm) * 180;
+    const now = performance.now();
+    const offset = playing ? ((now - lastBeatTime) / (60000 / bpm)) * beatPx : 0;
+
+    ctx.strokeStyle = 'rgba(26, 90, 62, 0.13)';
+    ctx.lineWidth = 1;
+    for (let x = -offset % beatPx; x < innerWidth; x += beatPx) {
+      ctx.beginPath();
+      ctx.moveTo(x, 0);
+      ctx.lineTo(x, innerHeight);
+      ctx.stroke();
+    }
+    ctx.strokeStyle = 'rgba(26, 90, 62, 0.32)';
+    ctx.lineWidth = 1.5;
+    for (let x = -offset % (beatPx * 4); x < innerWidth; x += beatPx * 4) {
+      ctx.beginPath();
+      ctx.moveTo(x, 0);
+      ctx.lineTo(x, innerHeight);
+      ctx.stroke();
+    }
+
+    const bands = 6;
+    for (let i = 0; i < bands; i++) {
+      const y = (i / bands) * innerHeight;
+      ctx.fillStyle = `rgba(184, 40, 30, ${0.014 * (bands - i)})`;
+      ctx.fillRect(0, y, innerWidth, innerHeight / bands);
+    }
+
+    const staffY = innerHeight / 2;
+    const staffGap = 15;
+    ctx.strokeStyle = 'rgba(10, 10, 10, 0.45)';
+    ctx.lineWidth = 1;
+    for (let i = -2; i <= 2; i++) {
+      ctx.beginPath();
+      ctx.moveTo(0, staffY + i * staffGap);
+      ctx.lineTo(innerWidth, staffY + i * staffGap);
+      ctx.stroke();
+    }
+
+    for (let i = 1; i < trail.length; i++) {
+      const a = trail[i-1], b = trail[i];
+      const age = (now - b.t) / 1000;
+      if (age > 1.2) continue;
+      ctx.strokeStyle = `rgba(184, 40, 30, ${0.55 * (1 - age / 1.2)})`;
+      ctx.lineWidth = 2.5 * (1 - age / 1.2);
+      ctx.beginPath();
+      ctx.moveTo(a.x, a.y);
+      ctx.lineTo(b.x, b.y);
+      ctx.stroke();
+    }
+
+    const pulse = playing ? (1 + 0.4 * Math.sin(now * bpm / 60000 * Math.PI * 2)) : 1;
+    ctx.fillStyle = 'rgba(26, 90, 62, 0.18)';
+    ctx.beginPath();
+    ctx.arc(mx, my, 22 * pulse, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(26, 90, 62, 0.55)';
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.moveTo(mx - 32, my + 20);
+    ctx.lineTo(mx, my);
+    ctx.stroke();
+    ctx.fillStyle = '#1a5a3e';
+    ctx.beginPath();
+    ctx.arc(mx, my, 6, 0, Math.PI * 2);
+    ctx.fill();
+
+    bpmEl.textContent = Math.round(bpm);
+    dynEl.textContent = dynLabel(dyn);
+
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+</script>
+</body>
+</html>
