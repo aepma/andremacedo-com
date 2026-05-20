@@ -23,6 +23,39 @@ FAILURE_COUNTER="$SITE_DIR/state/build-failures.count"
 FAILURE_THRESHOLD=3
 mkdir -p "$SITE_LOG_DIR"
 
+# Portable timeout shim — macOS lacks GNU `timeout` by default.
+# Mirrors pattern from ~/.openclaw/scripts/claude-auth-heartbeat.sh.
+# Returns 124 on timeout to match GNU timeout exit-code convention used by callers.
+if command -v gtimeout >/dev/null 2>&1; then
+  _TMO_BIN="gtimeout"
+elif command -v timeout >/dev/null 2>&1; then
+  _TMO_BIN="timeout"
+elif [ -x /opt/homebrew/bin/gtimeout ]; then
+  _TMO_BIN="/opt/homebrew/bin/gtimeout"
+else
+  _TMO_BIN=""
+fi
+tmo() {
+  local secs="$1"; shift
+  if [ -n "$_TMO_BIN" ]; then
+    "$_TMO_BIN" "$secs" "$@"
+    return $?
+  fi
+  # Pure-bash fallback: background command + sleep watcher. SIGTERM on overrun.
+  "$@" &
+  local cmd_pid=$!
+  ( sleep "$secs"; kill -TERM "$cmd_pid" 2>/dev/null ) &
+  local watcher_pid=$!
+  wait "$cmd_pid" 2>/dev/null
+  local exit_code=$?
+  kill -TERM "$watcher_pid" 2>/dev/null
+  wait "$watcher_pid" 2>/dev/null
+  # SIGTERM produces exit 143; report as 124 to match GNU timeout convention.
+  if [ "$exit_code" -eq 143 ]; then return 124; fi
+  return $exit_code
+}
+
+
 # launchd runs zsh -l -c which is non-interactive, so .zshrc is NOT sourced.
 # Source it explicitly if ANTHROPIC_API_KEY is missing.
 if [ -z "${ANTHROPIC_API_KEY:-}" ] && [ -f "$HOME/.zshrc" ]; then
@@ -536,7 +569,7 @@ fi
 if [ "${CONTRAST_GATE_ENABLED:-0}" = "1" ]; then
     CONTRAST_GATE_OUT="$SITE_DIR/state/contrast-gate-latest.json"
     set +e
-    timeout 30 node "$SCRIPT_DIR/audit-contrast.js" local "$SITE_DIR/index.html" > "$CONTRAST_GATE_OUT" 2>>"$ERROR_LOG"
+    tmo 30 node "$SCRIPT_DIR/audit-contrast.js" local "$SITE_DIR/index.html" > "$CONTRAST_GATE_OUT" 2>>"$ERROR_LOG"
     GATE_EXIT=$?
     set -e
     if [ "$GATE_EXIT" = "1" ]; then
@@ -629,7 +662,7 @@ bash "$SCRIPT_DIR/contrast-check.sh" "$SITE_DIR" 2>/dev/null || echo "Contrast c
 # ── Rendered-pixel contrast audit (new, soft gate) ────────────────
 CONTRAST_AUDIT_OUTPUT="$SITE_DIR/state/contrast-audit-latest.json"
 set +e
-timeout 30 node "$SCRIPT_DIR/audit-contrast.js" "https://andremacedo.com" \
+tmo 30 node "$SCRIPT_DIR/audit-contrast.js" "https://andremacedo.com" \
   > "$CONTRAST_AUDIT_OUTPUT" 2>>"$ERROR_LOG"
 AUDIT_EXIT=$?
 set -e
