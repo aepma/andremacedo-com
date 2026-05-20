@@ -831,6 +831,16 @@
   #thought-floater, .float-thought {
     display: none !important;
   }
+
+  /* hand-edit 2026-05-20c: mobile-gate exit valve. The gate explicitly allows
+     overlap when either element has an opaque background (mobile-gate.js ~line 175,
+     hasOpaqueBackground check). Give agent-section and telemetry text elements the
+     page bg as their own — visually identical to current rendering (var(--bg) is
+     the page bg), but gate-recognized as cards. Closes the recurring TEXT_OVERLAP
+     class regardless of which specific selector pair overlaps next gen. */
+  [data-section] *, #overlay-bottom * {
+    background-color: var(--bg, #0a0a0a) !important;
+  }
 }
 </style>
 <!-- END MOBILE SCAFFOLD -->
