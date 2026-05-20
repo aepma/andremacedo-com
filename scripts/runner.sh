@@ -520,6 +520,7 @@ if [ "$GATE_EXIT" = "1" ]; then
     log "Mobile gate FAIL - reverting index.html, skipping deploy this cycle"
     echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] [gen $GENERATION] mobile-gate-fail: $(cat "$GATE_OUT" | head -1)" >> "$CHANGELOG"
     cat "$GATE_OUT" >> "$ERROR_LOG"
+    cp "$SITE_DIR/index.html" "/tmp/last-failed-mobile-gate-$(date -u +%Y%m%dT%H%M%SZ).html" 2>/dev/null || true
     cd "$SITE_DIR" && git checkout HEAD -- index.html
     DEPLOY_SUCCEEDED=1
     exit 0
