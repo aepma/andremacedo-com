@@ -768,7 +768,7 @@ if section_ops and isinstance(section_ops, list):
                         re.DOTALL
                     )
                     if js_pattern.search(html):
-                        html = js_pattern.sub(js_tag, html)
+                        html = js_pattern.sub(lambda _m: js_tag, html)
                     else:
                         html = html.replace(
                             f'<!-- @section:{section_id}:end -->',
