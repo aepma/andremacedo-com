@@ -15,7 +15,7 @@
     --fg: #0a0a0a;
     --fg-dim: #6c6c6c;
     --fg-on-stage: #f5f5f5;
-    --fg-accent: #4a1f5a;
+    --fg-accent: #5a1c80;
     --bg: #f5f0e0;
     --bg-surface: #f5f5f5;
     --bg-elevated: #eeeeee;
@@ -214,7 +214,7 @@
     padding: 4rem 2.5rem;
     --fg: #0a0a0a;
     --fg-dim: #6c6c6c;
-    --fg-accent: #4a1f5a;
+    --fg-accent: #5a1c80;
     --bg-surface: #f5f5f5;
     --bg-elevated: #eeeeee;
   }
@@ -569,6 +569,82 @@
 
   /* Section injection markers are now in the body */
 /* @inject:css */
+  /* @gene:gen140-css:start */
+  /* gen140-css: twelfth-ink amethyst chassis, bulletproof colophon×meta mobile architecture */
+.gen140-programme { padding: 4rem 1rem; display: flex; justify-content: center; background: var(--bg); }
+.gen140-programme .programme-card { max-width: 640px; width: 100%; background: #faf3df; border: 1px solid rgba(90,28,128,0.25); padding: 3rem 2.5rem; box-shadow: 0 6px 24px rgba(40,10,64,0.08); position: relative; display: block; box-sizing: border-box; }
+.gen140-programme .programme-header { text-align: center; margin-bottom: 2rem; }
+.gen140-programme .ornament-rule { height: 1px; background: linear-gradient(to right, transparent, var(--accent), transparent); margin: 1rem auto; width: 80%; }
+.gen140-programme .programme-seal { width: 80px; height: 80px; margin: 1rem auto; }
+.gen140-programme .programme-title { font-family: 'Playfair Display', serif; font-style: italic; font-weight: 400; font-size: 2rem; color: var(--tier-strong); margin: 0.5rem 0; }
+.gen140-programme .programme-subtitle { font-family: 'Source Serif 4', serif; font-style: italic; color: var(--tier-mid); font-size: 0.95rem; margin-bottom: 1rem; }
+.gen140-programme .programme-movements { list-style: none; padding: 0; margin: 2rem 0; }
+.gen140-programme .programme-movements li { display: grid; grid-template-columns: 3rem 1fr auto; align-items: baseline; padding: 0.6rem 0; border-bottom: 1px dotted rgba(90,28,128,0.15); gap: 0.5rem; }
+.gen140-programme .mvt-no { font-family: 'JetBrains Mono', monospace; color: var(--accent); font-size: 0.95rem; }
+.gen140-programme .mvt-name { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.1rem; color: var(--tier-strong); }
+.gen140-programme .mvt-tempo { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: var(--tier-mid); }
+.gen140-programme .programme-action { text-align: center; margin: 2rem 0; }
+.gen140-programme .begin-recital { display: inline-block; padding: 0.8rem 2rem; background: var(--accent); color: #faf3df; text-decoration: none; font-family: 'Playfair Display', serif; font-style: italic; font-size: 1rem; border: 1px solid var(--accent); transition: all 0.3s ease; }
+.gen140-programme .begin-recital:hover { background: transparent; color: var(--accent); }
+.gen140-programme .programme-hint { font-family: 'Source Serif 4', serif; font-style: italic; font-size: 0.85rem; color: var(--tier-soft); margin-top: 0.8rem; }
+.gen140-programme .programme-divider { height: 1px; background: rgba(90,28,128,0.18); margin: 2rem 0 1.5rem; }
+.gen140-programme .colophon { display: block; width: 100%; box-sizing: border-box; text-align: center; margin: 0 0 1.5rem 0; padding: 0; font-family: 'Source Serif 4', serif; font-size: 0.8rem; line-height: 1.6; clear: both; }
+.gen140-programme .colophon-label { display: block; color: var(--accent); font-style: italic; margin-bottom: 0.4rem; letter-spacing: 0.5px; }
+.gen140-programme .colophon-pigments { display: block; color: var(--tier-mid); }
+.gen140-programme .programme-card p.meta { display: block; width: 100%; box-sizing: border-box; text-align: center; margin: 0; padding: 1rem 0 0 0; border-top: 1px dotted rgba(90,28,128,0.2); font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--tier-soft); letter-spacing: 0.5px; clear: both; }
+/* === CRITICAL MOBILE FIX: bulletproof isolation for colophon × p.meta === */
+@media (max-width: 600px) {
+  .gen140-programme { padding: 2rem 0.75rem !important; }
+  .gen140-programme .programme-card { padding: 2rem 1.25rem !important; }
+  .gen140-programme .programme-title { font-size: 1.5rem !important; }
+  .gen140-programme .programme-subtitle { font-size: 0.85rem !important; }
+  .gen140-programme .programme-movements li { grid-template-columns: 2.5rem 1fr auto !important; font-size: 0.9rem !important; }
+  /* Force EVERY colophon-like and meta element into isolated block flow */
+  .gen140-programme .colophon,
+  .gen140-programme p.meta,
+  .gen140-programme .programme-card .meta,
+  .gen140-programme [class*='colophon'],
+  .gen140-programme [class*='gen'][class*='colophon'],
+  [class*='genN-colophon'],
+  [class^='gen'][class$='-colophon'] {
+    display: block !important;
+    position: static !important;
+    float: none !important;
+    clear: both !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    transform: none !important;
+    text-align: center !important;
+    line-height: 1.6 !important;
+    flex: none !important;
+    grid-column: 1 / -1 !important;
+  }
+  .gen140-programme .colophon {
+    margin: 1.5rem 0 1rem 0 !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    font-size: 0.75rem !important;
+  }
+  .gen140-programme .programme-card p.meta,
+  .gen140-programme p.meta {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    padding-top: 1.25rem !important;
+    padding-bottom: 0 !important;
+    border-top: 1px dotted rgba(90,28,128,0.25) !important;
+    font-size: 0.62rem !important;
+  }
+  /* Force any sibling spans inside .colophon to also block-flow */
+  .gen140-programme .colophon > span { display: block !important; width: 100% !important; }
+}
+  /* @gene:gen140-css:end */
+
   /* @gene:gen126-css:start */
   /* gen126-css: aubergine marginalia + forced cream below-fold + contrast hard fix */ .below-fold { background-color: #f5f0e0 !important; } .below-fold, .below-fold p, .below-fold div:not(.tonight-staff), .below-fold span:not(.tonight-note), .below-fold li, .below-fold td, .below-fold th, .below-fold a { color: #0a0a0a !important; } .below-fold .tier-mid, .below-fold .meta { color: #3a3a3a !important; } .below-fold .tier-soft, .below-fold .compass, .below-fold .date { color: #6a6a6a !important; } .below-fold a:hover { color: #4a1f5a !important; text-decoration: underline; text-decoration-color: #4a1f5a; } .marginalia-rubric { font-family: 'Playfair Display', Georgia, serif; font-style: italic; color: #4a1f5a; font-size: 0.85rem; letter-spacing: 0.04em; } .marginalia-rubric::before { content: '¶ '; color: #4a1f5a; font-weight: 700; } .tonight-staff line { stroke: #0a0a0a; stroke-width: 0.6; } .tonight-staff .barline { stroke: #0a0a0a; stroke-width: 1.2; } .tonight-staff .notehead { fill: #0a0a0a; cursor: pointer; transition: fill 0.18s ease, transform 0.18s ease; transform-origin: center; transform-box: fill-box; } .tonight-staff .notehead:hover { fill: #4a1f5a; transform: scale(1.18); } .tonight-staff .stem { stroke: #0a0a0a; stroke-width: 1.1; } .tonight-staff .rubric-text { font-family: 'Playfair Display', Georgia, serif; font-style: italic; fill: #4a1f5a; font-size: 11px; } .tonight-staff .meta-text { font-family: 'JetBrains Mono', monospace; fill: #6a6a6a; font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; } .tonights-composition { max-width: 720px; margin: 4rem auto 3rem; padding: 1.5rem 2rem; background-color: #faf5e6 !important; border-top: 1px solid #c4baa8; border-bottom: 1px solid #c4baa8; position: relative; } .tonights-composition::before { content: 'TONIGHT\'S COMPOSITION'; position: absolute; top: -0.55rem; left: 2rem; background-color: #faf5e6; padding: 0 0.5rem; font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #4a1f5a !important; letter-spacing: 0.2em; } .tonights-composition .play-tonight { margin-top: 0.75rem; padding: 0.35rem 0.9rem; background: transparent; border: 1px solid #4a1f5a; color: #4a1f5a !important; font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; transition: all 0.2s ease; } .tonights-composition .play-tonight:hover { background: #4a1f5a; color: #f5f0e0 !important; } @media (max-width: 600px) { .tonights-composition { margin: 2.5rem 1rem 2rem; padding: 1.25rem 1rem; max-width: calc(100% - 2rem); box-sizing: border-box; } .tonights-composition svg { width: 100%; height: auto; } }
   /* @gene:gen126-css:end */
@@ -737,6 +813,15 @@
     display: block !important;
     clear: both !important;
     margin-top: 0.5rem !important;
+  }
+
+  /* hand-edit 2026-05-20: position lock-down v2, scoped to the agent's authoring
+     surface ([data-section]). v1 used body * scope which would have broken core
+     primitives (#overlay, .hidden-layer, #scene-frame). v2 narrows precisely to
+     the boundary the agent owns. No whitelist needed by construction. Decision:
+     telos/raw/2026-05-19-decision-andremacedo-creative-scaffold-position-lockdown.md */
+  [data-section] * {
+    position: static !important;
   }
 }
 </style>
