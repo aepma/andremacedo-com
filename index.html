@@ -823,6 +823,14 @@
   [data-section] * {
     position: static !important;
   }
+
+  /* hand-edit 2026-05-20b: hide ambient floating thoughts on mobile.
+     Same precedent as .swarm-panel hand-edit 2026-05-14. On a 390px viewport,
+     decorative position:absolute thought floats inevitably collide with agent
+     content. Keep them on desktop, hide on mobile. */
+  #thought-floater, .float-thought {
+    display: none !important;
+  }
 }
 </style>
 <!-- END MOBILE SCAFFOLD -->
