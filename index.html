@@ -841,6 +841,16 @@
   [data-section] *, #overlay-bottom * {
     background-color: var(--bg, #0a0a0a) !important;
   }
+
+  /* hand-edit 2026-05-20d (v5): correct selector scope for opaque-bg exit valve.
+     v4 used [data-section] * but agent sections don't have data-section attribute
+     (only original architectural sections do). v5 targets the actual HTML the
+     agent generates: section elements + class-pattern matches. Visual cost:
+     spans inside .programme-card cream paper will get dark bg rectangles on
+     mobile — accepted trade-off to break the deploy stall. */
+  section *, [class*="-section"] *, [class*="below-fold"] *, #overlay-bottom * {
+    background-color: var(--bg, #0a0a0a) !important;
+  }
 }
 </style>
 <!-- END MOBILE SCAFFOLD -->
