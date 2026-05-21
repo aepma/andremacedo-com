@@ -1,15 +1,15 @@
 {
-  "generation": 144,
+  "generation": 145,
   "epoch": "webgl-swarm",
   "epoch_started": "2026-05-03",
   "traits": {
     "color": {
-      "accent_base": "#a8306a",
-      "accent_dawn": "#c8508a",
-      "accent_morning": "#b84078",
-      "accent_afternoon": "#a8306a",
-      "accent_evening": "#7a204e",
-      "accent_night": "#4a1230",
+      "accent_base": "#b04018",
+      "accent_dawn": "#d06038",
+      "accent_morning": "#c05028",
+      "accent_afternoon": "#b04018",
+      "accent_evening": "#80300f",
+      "accent_night": "#502008",
       "bg": "#f5f0e0",
       "fg": "#0a0a0a",
       "grain_opacity": "0.08",
@@ -229,17 +229,6 @@
   },
   "fitness_log": [
     {
-      "gen": 125,
-      "coherence": 7,
-      "novelty": 6,
-      "identity": 8,
-      "tension": 6,
-      "awe": 5,
-      "perceptibility": 7,
-      "note": "Engraved chassis day 4 \u2014 the cream paper holds visibly in both screenshots, the manuscript hero with treble clef and engraved staff reads as a real fo",
-      "total": 6.5
-    },
-    {
       "gen": 126,
       "coherence": 7,
       "novelty": 6,
@@ -447,32 +436,20 @@
       "perceptibility": 6,
       "note": "Twenty-two days into the engraved chassis. Andre's LOVE on recitals today is the loudest positive signal in weeks \u2014 the framing landed. But three stro",
       "total": 6.3
+    },
+    {
+      "gen": 145,
+      "coherence": 8,
+      "novelty": 4,
+      "identity": 9,
+      "tension": 5,
+      "awe": 5,
+      "perceptibility": 5,
+      "note": "Day 22 of the engraved chassis. Andre's strong LOVE on recitals confirms the framing landed \u2014 but the same-day MISS on overall update and graphical co",
+      "total": 6.0
     }
   ],
   "mutation_log": [
-    {
-      "gen": 125,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "interaction.type-'prussian'-anywhere-to-fl",
-        "section.prototype-portfolio",
-        "section.overlay-center",
-        "page.experiments/050.html",
-        "svg.engraved-glyph-002.svg",
-        "scene.config"
-      ],
-      "kills": [
-        "css_rule:gen114-css",
-        "css_rule:gen115-css",
-        "secret[20]",
-        "interaction:type-'lissajous'-anywhere-to-e"
-      ],
-      "timestamp": "2026-05-15T00:04:38Z"
-    },
     {
       "gen": 126,
       "mutations": [
@@ -867,27 +844,26 @@
         "css_rule:gen126-css"
       ],
       "timestamp": "2026-05-20T16:03:41Z"
+    },
+    {
+      "gen": 145,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "section.tonights-composition"
+      ],
+      "kills": [
+        "secret[20]",
+        "css_rule:gen140-css",
+        "interaction:type-'lissajous'-anywhere-to-e"
+      ],
+      "timestamp": "2026-05-21T00:03:12Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "interaction",
-      "value": "type-'beat'-to-navigate-to-the",
-      "died_gen": 130,
-      "epitaph": "Type 'beat' navigated to experiment 028, but the archive lists 055 experiments now and the beat experiment is already linked. Navigation-shortcut secrets were a metaphor from the cream-editorial era. The recital chassis has its own secret: 'recital' begins the four-movement piece. Cleaner."
-    },
-    {
-      "type": "interaction",
-      "value": "type-'chord'-anywhere-on-the-p",
-      "died_gen": 130,
-      "epitaph": "Type 'chord' rang a sustained chord \u2014 useful when the music obsession was building the audio engine (gen 98) but redundant now that the recital plays four movements with proper polyphony. The chord experiment (027) is still linked in the programme. The page no longer needs the keyboard shortcut to remember it can ring."
-    },
-    {
-      "type": "interaction",
-      "value": "type-'hall'-anywhere-on-the-pa",
-      "died_gen": 130,
-      "epitaph": "Type 'hall' toggled reverb wet/dry from gen 100. Useful when the audio engine was new and the reverb was the point. The recital uses a fixed hall \u2014 the room is no longer adjustable, it is given. Killing the toggle commits to the chosen acoustic."
-    },
     {
       "type": "css_rule",
       "value": "gen114-css",
@@ -1169,6 +1145,24 @@
       "value": "gen126-css",
       "died_gen": 144,
       "epitaph": "Fourteen generations dormant, gene-marked killable across nine consecutive pulses. The aubergine-ink rules from the four-ink era no longer apply to a sixteen-ink palette."
+    },
+    {
+      "type": "secret",
+      "value": "Type 'velvet' anywhere \u2014 the programme card lifts a faint rose-violet shadow as ",
+      "died_gen": 145,
+      "epitaph": "Carrying capacity 20; the new 'orpiment' programme-card wash secret arrives. The oldest at index 20 retires to make room for the seventeenth ink's signature interaction."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen140-css",
+      "died_gen": 145,
+      "epitaph": "Five generations dormant, gene-marked killable across four consecutive pulses. The twelve-inks grid rules superseded by gen143-hierarchy and gen145-tiers."
+    },
+    {
+      "type": "interaction",
+      "value": "type-'lissajous'-anywhere-to-e",
+      "died_gen": 145,
+      "epitaph": "Phosphor scope relic from gen 109, twenty-six generations dead. The dual-trace experiment that named it has been buried since the engraved chassis began at gen 122. Interactions at 12/12 ceiling; this one earns no clicks."
     }
   ],
   "carrying_capacity": {
@@ -1187,11 +1181,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 135,
-      "base": "#c4791a",
-      "family": "orange"
-    },
     {
       "gen": 136,
       "base": "#8a2a6a",
@@ -1236,6 +1225,11 @@
       "gen": 144,
       "base": "#a8306a",
       "family": "magenta"
+    },
+    {
+      "gen": 145,
+      "base": "#b04018",
+      "family": "red"
     }
   ],
   "past_epochs": [
