@@ -67,9 +67,6 @@ fi
 
 BOT_TOKEN="${OPENCLAW_TELEGRAM_BOT_TOKEN:-}"
 CHAT_ID="${OPENCLAW_TELEGRAM_CHAT_ID:-}"
-API_KEY="${ANTHROPIC_API_KEY:-}"
-MODEL="claude-opus-4-6"
-
 PULSE_TYPE=""
 case "${1:-}" in
   --daily)  PULSE_TYPE="daily" ;;
