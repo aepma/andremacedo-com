@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Tasting — Twenty Baroque Dances</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;1,8..60,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #f5f0e0; color: #0a0a0a; font-family: 'Source Serif 4', serif; min-height: 100vh; padding: 3rem 1.5rem 4rem; overflow-x: hidden; }
+#info { position: fixed; top: 1.5rem; left: 1.5rem; max-width: 320px; background: rgba(245,240,224,0.92); padding: 1rem 1.25rem; border-left: 2px solid #4a6a4a; font-size: 0.85rem; line-height: 1.55; z-index: 100; text-shadow: 0 0 8px rgba(245,240,224,0.8); }
+#info h1 { font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500; font-size: 1.15rem; margin-bottom: 0.45rem; color: #0a0a0a; }
+#info p { color: #4a4a4a; margin-bottom: 0.4rem; }
+#info .hint { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: #888888; letter-spacing: 0.06em; }
+#back { position: fixed; top: 1.5rem; right: 1.5rem; font-family: 'Playfair Display', serif; font-style: italic; font-size: 0.9rem; color: #4a6a4a; text-decoration: none; padding: 0.4rem 0.8rem; background: rgba(245,240,224,0.92); text-shadow: 0 0 8px rgba(245,240,224,0.8); z-index: 100; transition: letter-spacing 0.3s ease; }
+#back:hover { letter-spacing: 0.06em; }
+.title-bar { max-width: 1100px; margin: 0 auto 3rem; padding-top: 5rem; text-align: center; }
+.title-bar h1 { font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500; font-size: clamp(2rem, 5vw, 3.4rem); color: #0a0a0a; margin-bottom: 0.5rem; line-height: 1.1; }
+.title-bar .subtitle { font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; color: #4a4a4a; letter-spacing: 0.16em; text-transform: uppercase; }
+.tasting-grid { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.25rem; }
+.dance-card { background: #faf6ea; border: 1px solid rgba(10,10,10,0.14); padding: 1.4rem 1.25rem 1.25rem; cursor: pointer; transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease; position: relative; min-height: 180px; display: flex; flex-direction: column; justify-content: space-between; }
+.dance-card:hover { transform: translateY(-3px); box-shadow: 0 16px 32px -16px rgba(74,106,74,0.32); border-color: #4a6a4a; }
+.dance-card.playing { border-color: #b8232a; background: linear-gradient(180deg, #faf6ea 0%, #f5ede0 100%); }
+.dance-num { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: #b8232a; letter-spacing: 0.14em; margin-bottom: 0.5rem; }
+.dance-name { font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500; font-size: 1.55rem; color: #0a0a0a; margin-bottom: 0.45rem; line-height: 1.1; }
+.dance-meta { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: #4a4a4a; letter-spacing: 0.06em; margin-bottom: 0.5rem; }
+.dance-character { font-family: 'Source Serif 4', serif; font-style: italic; font-size: 0.88rem; color: #4a4a4a; margin-bottom: 0.75rem; line-height: 1.45; }
+.dance-origin { font-family: 'Source Serif 4', serif; font-size: 0.78rem; color: #888888; line-height: 1.5; margin-top: auto; }
+.dance-bar { height: 2px; background: linear-gradient(90deg, transparent, #4a6a4a, transparent); margin: 0.75rem 0; opacity: 0; transition: opacity 0.3s ease; }
+.dance-card.playing .dance-bar { opacity: 1; animation: bar-sweep 1.2s linear infinite; }
+@keyframes bar-sweep { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+.footer { max-width: 760px; margin: 4rem auto 0; padding-top: 2rem; border-top: 1px solid rgba(10,10,10,0.12); text-align: center; font-family: 'Source Serif 4', serif; font-style: italic; font-size: 0.85rem; color: #888888; line-height: 1.6; }
+@media (max-width: 600px) {
+  body { padding: 2rem 1rem 3rem; }
+  #info { position: relative; top: 0; left: 0; max-width: 100%; margin-bottom: 2rem; }
+  #back { position: relative; top: 0; right: 0; display: inline-block; margin-bottom: 1rem; }
+  .title-bar { padding-top: 0; margin-bottom: 2rem; }
+  .tasting-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<div id="info">
+  <h1>The Tasting</h1>
+  <p>Twenty baroque dances laid out as a tasting card. Each card carries a tempo, a character, and a place the dance came from before it became a piece of paper.</p>
+  <p class="hint">HOVER to hear the opening four bars. CLICK to play sixteen bars in full.</p>
+</div>
+<a href="/" id="back">← back</a>
+<div class="title-bar">
+  <h1>The Tasting</h1>
+  <div class="subtitle">Twenty Baroque Dances · Experiment 070</div>
+</div>
+<div class="tasting-grid" id="grid"></div>
+<div class="footer">
+  Tonight's printed programme draws four of these twenty by date seed. There are 116,280 possible suites, and the room plays only one of them per day.
+</div>
+<script>
+const dances = [
+  { name: 'Allemande', tempo: 92, char: 'grave, ceremonial', origin: 'German, 16th c. — the slow opening of every suite, a four-square pavane in disguise.', freqs: [293.66, 349.23, 440, 587.33] },
+  { name: 'Courante', tempo: 132, char: 'leggiero, flowing', origin: 'French, late 16th c. — running notes, hemiola at every cadence.', freqs: [659.25, 523.25, 392, 329.63] },
+  { name: 'Sarabande', tempo: 54, char: 'dolce, sustained', origin: 'Spanish, via the New World — slow triple, accent on the second beat.', freqs: [440, 523.25, 659.25, 880] },
+  { name: 'Gigue', tempo: 144, char: 'brillante, lifted', origin: 'English jig, French refinement — the rollicking final movement.', freqs: [392, 493.88, 587.33, 783.99] },
+  { name: 'Prelude', tempo: 88, char: 'libero, improvisatory', origin: 'Any nationality — the warm-up that became a fixed form.', freqs: [349.23, 440, 523.25, 698.46] },
+  { name: 'Bourrée', tempo: 120, char: 'vivace, stamped', origin: 'Auvergne, 16th c. — peasant duple, courtly polish.', freqs: [523.25, 659.25, 587.33, 440] },
+  { name: 'Gavotte', tempo: 104, char: 'gracioso, half-bar', origin: 'Provençal, 16th c. — duple meter, half-bar upbeat.', freqs: [440, 523.25, 587.33, 659.25] },
+  { name: 'Menuet', tempo: 108, char: 'galante, courtly', origin: 'Poitou, 17th c. — Louis XIV took it to Versailles.', freqs: [392, 493.88, 587.33, 392] },
+  { name: 'Passepied', tempo: 152, char: 'leggero, quick triple', origin: 'Brittany — sailors\' dance, fastest triple in the suite.', freqs: [523.25, 659.25, 783.99, 659.25] },
+  { name: 'Loure', tempo: 72, char: 'pesante, dotted', origin: 'Normandy — slow gigue, named for the bagpipe that played it.', freqs: [349.23, 440, 523.25, 440] },
+  { name: 'Air', tempo: 66, char: 'cantabile, song-like', origin: 'Any nationality — the lyrical interlude, breath between dances.', freqs: [440, 523.25, 587.33, 659.25] },
+  { name: 'Forlane', tempo: 124, char: 'rustico, Venetian', origin: 'Friuli, 16th c. — gondoliers\' dance, 6/8 with grace notes.', freqs: [493.88, 587.33, 659.25, 587.33] },
+  { name: 'Tambourin', tempo: 140, char: 'percussive, drone bass', origin: 'Provençal — drum-and-pipe pastoral, constant bass note.', freqs: [392, 392, 587.33, 392] },
+  { name: 'Polonaise', tempo: 80, char: 'maestoso, processional', origin: 'Polish court, 17th c. — triple meter, dotted rhythms.', freqs: [440, 523.25, 587.33, 440] },
+  { name: 'Anglaise', tempo: 136, char: 'brillante, country', origin: 'English country dance — quick duple, square phrases.', freqs: [523.25, 659.25, 783.99, 659.25] },
+  { name: 'Rigaudon', tempo: 128, char: 'rustico, leaping', origin: 'Provençal — duple sailor\'s dance, leaping figures.', freqs: [440, 523.25, 659.25, 880] },
+  { name: 'Chaconne', tempo: 68, char: 'solenne, ostinato', origin: 'New Spain, via Cádiz — ground bass, variations over four bars.', freqs: [220, 261.63, 329.63, 440] },
+  { name: 'Passacaglia', tempo: 60, char: 'grave, descending', origin: 'Spanish, 17th c. — bass that descends, repeats, sustains a key.', freqs: [440, 392, 349.23, 329.63] },
+  { name: 'Pavane', tempo: 52, char: 'solenne, slow procession', origin: 'Padua, 16th c. — slowest duple, the dance courtiers walked.', freqs: [349.23, 440, 523.25, 659.25] },
+  { name: 'Galliard', tempo: 148, char: 'brioso, leaping triple', origin: 'Italy, 16th c. — five-step leaping triple, Elizabeth I\'s favorite.', freqs: [523.25, 659.25, 783.99, 1046.5] }
+];
+const grid = document.getElementById('grid');
+let activeCtx = null;
+function playPhrase(card, freqs, bpm, bars) {
+  if (activeCtx) { try { activeCtx.close(); } catch(e){} activeCtx = null; }
+  document.querySelectorAll('.dance-card.playing').forEach(c => c.classList.remove('playing'));
+  card.classList.add('playing');
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    activeCtx = ctx;
+    const beat = 60 / bpm;
+    for (let bar = 0; bar < bars; bar++) {
+      freqs.forEach((f, k) => {
+        const t = (bar * freqs.length + k) * beat;
+        const osc = ctx.createOscillator();
+        const g = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.value = f * (1 + (bar % 2) * 0.001);
+        g.gain.setValueAtTime(0.0001, ctx.currentTime + t);
+        g.gain.exponentialRampToValueAtTime(0.1, ctx.currentTime + t + 0.02);
+        g.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + t + beat * 0.95);
+        osc.connect(g);
+        g.connect(ctx.destination);
+        osc.start(ctx.currentTime + t);
+        osc.stop(ctx.currentTime + t + beat);
+      });
+    }
+    const total = bars * freqs.length * beat + 0.5;
+    setTimeout(() => {
+      card.classList.remove('playing');
+      try { ctx.close(); } catch(e){}
+      if (activeCtx === ctx) activeCtx = null;
+    }, total * 1000);
+  } catch (e) {}
+}
+dances.forEach((d, i) => {
+  const card = document.createElement('div');
+  card.className = 'dance-card';
+  card.innerHTML = `
+    <div>
+      <div class="dance-num">${String(i+1).padStart(2,'0')} / 20</div>
+      <div class="dance-name">${d.name}</div>
+      <div class="dance-meta">♩=${d.tempo} · ${d.char}</div>
+      <div class="dance-bar"></div>
+    </div>
+    <div class="dance-origin">${d.origin}</div>
+  `;
+  let hoverCtx = null;
+  card.addEventListener('mouseenter', () => {
+    if (card.classList.contains('playing')) return;
+    try {
+      const ctx = new (window.AudioContext || window.webkitAudioContext)();
+      hoverCtx = ctx;
+      const beat = 60 / d.tempo;
+      d.freqs.forEach((f, k) => {
+        const osc = ctx.createOscillator();
+        const g = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.value = f;
+        g.gain.setValueAtTime(0.0001, ctx.currentTime + k * beat);
+        g.gain.exponentialRampToValueAtTime(0.09, ctx.currentTime + k * beat + 0.02);
+        g.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + k * beat + beat * 0.95);
+        osc.connect(g);
+        g.connect(ctx.destination);
+        osc.start(ctx.currentTime + k * beat);
+        osc.stop(ctx.currentTime + k * beat + beat);
+      });
+      setTimeout(() => { try { ctx.close(); } catch(e){} if (hoverCtx === ctx) hoverCtx = null; }, (d.freqs.length * beat + 0.5) * 1000);
+    } catch(e) {}
+  });
+  card.addEventListener('click', () => playPhrase(card, d.freqs, d.tempo, 4));
+  grid.appendChild(card);
+});
+</script>
+</body>
+</html>

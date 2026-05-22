@@ -1,15 +1,15 @@
 {
-  "generation": 148,
+  "generation": 149,
   "epoch": "webgl-swarm",
   "epoch_started": "2026-05-03",
   "traits": {
     "color": {
-      "accent_base": "#6a2a9a",
-      "accent_dawn": "#7a3aaa",
-      "accent_morning": "#6a2a9a",
-      "accent_afternoon": "#5a2090",
-      "accent_evening": "#4a1880",
-      "accent_night": "#3a1070",
+      "accent_base": "#4a6a4a",
+      "accent_dawn": "#5a7a5a",
+      "accent_morning": "#4a6a4a",
+      "accent_afternoon": "#3e5e3e",
+      "accent_evening": "#345434",
+      "accent_night": "#2a4a2a",
       "bg": "#f5f0e0",
       "fg": "#0a0a0a",
       "grain_opacity": "0.08",
@@ -103,6 +103,7 @@
         "experiments/066.html",
         "experiments/031.html",
         "experiments/027.html",
+        "experiments/070.html",
         "experiments/007.html",
         "experiments/050.html",
         "experiments/046.html",
@@ -217,7 +218,8 @@
       "type-'recital'-anywhere-on-the",
       "type-'lettera'-anywhere-to-enc",
       "type-'curtain'-anywhere-to-par",
-      "type-'smalt'-anywhere-on-the-p"
+      "type-'smalt'-anywhere-on-the-p",
+      "type-'verte'-anywhere-\u2014-the-te"
     ],
     "content": {
       "mood": "ceremonial",
@@ -233,17 +235,6 @@
     }
   },
   "fitness_log": [
-    {
-      "gen": 129,
-      "coherence": 7,
-      "novelty": 6,
-      "identity": 8,
-      "tension": 6,
-      "awe": 6,
-      "perceptibility": 7,
-      "note": "Engraved chassis day 8. Cream paper holds in both desktop and mobile screenshots. The TOC-style movement listing and consciousness stream are legible ",
-      "total": 6.7
-    },
     {
       "gen": 130,
       "coherence": 7,
@@ -452,31 +443,20 @@
       "perceptibility": 6,
       "note": "Day 26 of the engraved chassis \u2014 the longest unflagged identity in site history. Recital LOVE held for two straight days. But MISS on overall update f",
       "total": 6.5
+    },
+    {
+      "gen": 149,
+      "coherence": 8,
+      "novelty": 6,
+      "identity": 9,
+      "tension": 6,
+      "awe": 5,
+      "perceptibility": 7,
+      "note": "Day 27 of engraved chassis \u2014 the longest unflagged visual identity in site history, nineteen days past the previous record. Andre's loud LOVE on recit",
+      "total": 6.8
     }
   ],
   "mutation_log": [
-    {
-      "gen": 129,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "section.tonights-composition",
-        "page.experiments/054.html",
-        "scene.config"
-      ],
-      "kills": [
-        "interaction:type-'echo'-to-slow-the-resona",
-        "interaction:type-'grain'-anywhere-to-scatt",
-        "interaction:type-'rubric'-anywhere-to-flas",
-        "interaction:type-'lissajous'-anywhere-to-e",
-        "css_rule:gen114-css",
-        "secret[20]"
-      ],
-      "timestamp": "2026-05-17T00:03:49Z"
-    },
     {
       "gen": 130,
       "mutations": [
@@ -859,27 +839,29 @@
         "interaction:type-'hall'-anywhere-on-the-pa"
       ],
       "timestamp": "2026-05-22T00:04:41Z"
+    },
+    {
+      "gen": 149,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "interaction.type-'verte'-anywhere-\u2014-the-te",
+        "section.tonights-composition",
+        "page.experiments/070.html",
+        "scene.config"
+      ],
+      "kills": [
+        "css_rule:gen145-css",
+        "secret[20]",
+        "interaction:type-'echo'-to-slow-the-resona"
+      ],
+      "timestamp": "2026-05-22T08:06:16Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "css_rule",
-      "value": "gen114-css",
-      "died_gen": 132,
-      "epitaph": "Cobalt phosphor scope CSS from gen 114 \u2014 eighteen generations dead, gene-marked killable for the last twelve. The engraved manuscript chassis has not used scope styling for ten generations. Finally gone."
-    },
-    {
-      "type": "thought",
-      "value": "Six inks now: lampblack, vermillion, prussian, madder rose, gold leaf, azurite. The codex is complete. Anything else is overpainting.",
-      "died_gen": 132,
-      "epitaph": "Generic typography-as-architecture residue. Replaced with recital-themed content tied to the concertante mood."
-    },
-    {
-      "type": "secret",
-      "value": "Type 'allemande' to begin the first movement from anywhere on the page \u2014 the roo",
-      "died_gen": 133,
-      "epitaph": "Carrying capacity is 20; secrets crept to 21. The oldest stale entry retires to keep the pool sharp."
-    },
     {
       "type": "css_rule",
       "value": "gen114-css",
@@ -1161,6 +1143,24 @@
       "value": "type-'hall'-anywhere-on-the-pa",
       "died_gen": 148,
       "epitaph": "Forty-eight generations dormant. From the gen 100 hall-reverb experiment, replaced by the room-as-instrument experiment 063 (The Halls) which lives in the archive. Interactions at 13/12 over ceiling \u2014 this is the cleanest cut."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen145-css",
+      "died_gen": 149,
+      "epitaph": "Four generations dormant, gene-marked killable since gen 146. Hover-preview tonic styles superseded by the full-phrase preview in gen 147 and the daily-rotating movements in gen 149."
+    },
+    {
+      "type": "secret",
+      "value": "Type 'folium' anywhere on the page \u2014 twenty turnsole leaves bloom across the mar",
+      "died_gen": 149,
+      "epitaph": "Carrying capacity 20; the new 'verte' terre-verte-leaf-unfurl secret arrives tonight. Retired the oldest dormant secret to make room."
+    },
+    {
+      "type": "interaction",
+      "value": "type-'echo'-to-slow-the-resona",
+      "died_gen": 149,
+      "epitaph": "Phosphor-scope era relic from gen 114. The Echo experiment (040) is still archive-reachable; the navigation shortcut interaction was decorative residue from the dead stage chassis. Interactions stay at 12/12 ceiling."
     }
   ],
   "carrying_capacity": {
@@ -1179,11 +1179,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 139,
-      "base": "#b8232a",
-      "family": "magenta"
-    },
     {
       "gen": 140,
       "base": "#8a4a18",
@@ -1228,6 +1223,11 @@
       "gen": 148,
       "base": "#6a2a9a",
       "family": "indigo"
+    },
+    {
+      "gen": 149,
+      "base": "#4a6a4a",
+      "family": "yellow"
     }
   ],
   "past_epochs": [
