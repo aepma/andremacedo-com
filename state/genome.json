@@ -1,15 +1,15 @@
 {
-  "generation": 150,
+  "generation": 151,
   "epoch": "webgl-swarm",
   "epoch_started": "2026-05-03",
   "traits": {
     "color": {
-      "accent_base": "#d6334a",
-      "accent_dawn": "#e8556a",
-      "accent_morning": "#d6334a",
-      "accent_afternoon": "#c42a3e",
-      "accent_evening": "#a82132",
-      "accent_night": "#881a26",
+      "accent_base": "#2a8ad6",
+      "accent_dawn": "#5aa8e8",
+      "accent_morning": "#2a8ad6",
+      "accent_afternoon": "#1f6fb0",
+      "accent_evening": "#175588",
+      "accent_night": "#0f3a5e",
       "bg": "#0e1a22",
       "fg": "#6e6a61",
       "grain_opacity": "0.08",
@@ -51,6 +51,7 @@
         "experiments/049.html",
         "experiments/048.html",
         "experiments/009.html",
+        "experiments/072.html",
         "experiments/025.html",
         "experiments/033.html",
         "experiments/064.html",
@@ -211,7 +212,6 @@
       "triple-click-secret",
       "idle-boredom",
       "when-a-visitor-clicks-and-drag",
-      "click-any-note-in-the-hero-sta",
       "press-any-letter-a-through-z-t",
       "click-and-drag-on-the-resonanc",
       "type-'choir'-anywhere-to-ring-",
@@ -220,13 +220,14 @@
       "type-'recital'-anywhere-on-the",
       "type-'lettera'-anywhere-to-enc",
       "type-'curtain'-anywhere-to-par",
-      "type-'smalt'-anywhere-on-the-p"
+      "type-'smalt'-anywhere-on-the-p",
+      "type-'thunder'-anywhere-on-the"
     ],
     "content": {
-      "mood": "barometric",
+      "mood": "electric",
       "obsession": "typography as music \u2014 the letter has a frequency, the word has a rhythm, the page is a score",
       "thought_pools": {
-        "dawn": 10,
+        "dawn": 11,
         "morning": 10,
         "afternoon": 10,
         "evening": 10,
@@ -236,17 +237,6 @@
     }
   },
   "fitness_log": [
-    {
-      "gen": 131,
-      "coherence": 7,
-      "novelty": 6,
-      "identity": 8,
-      "tension": 6,
-      "awe": 6,
-      "perceptibility": 7,
-      "note": "Engraved chassis day 9. Cream paper holds both viewports. Five inks present (black, vermillion, prussian, madder, gold). Manuscript hero with staff re",
-      "total": 6.7
-    },
     {
       "gen": 132,
       "coherence": 8,
@@ -455,30 +445,20 @@
       "perceptibility": 9,
       "note": "Three RESETs in one day is unprecedented \u2014 the engraved cream chassis is dead despite its 27-day record. Tonight is metamorphosis: typography-as-weath",
       "total": 6.7
+    },
+    {
+      "gen": 151,
+      "coherence": 6,
+      "novelty": 9,
+      "identity": 4,
+      "tension": 8,
+      "awe": 6,
+      "perceptibility": 8,
+      "note": "Gen 150 burned 27 days of engraved-manuscript identity in one cut on three same-day RESETs from Andre. The storm chart is genuinely novel (isobars, na",
+      "total": 6.8
     }
   ],
   "mutation_log": [
-    {
-      "gen": 131,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "interaction.type-'lettera'-anywhere-to-enc",
-        "section.tonights-composition",
-        "page.experiments/055.html",
-        "svg.azurite-ink-001.svg",
-        "scene.config"
-      ],
-      "kills": [
-        "secret[20]",
-        "css_rule:gen114-css",
-        "interaction:type-'beat'-to-navigate-to-the"
-      ],
-      "timestamp": "2026-05-18T00:03:58Z"
-    },
     {
       "gen": 132,
       "mutations": [
@@ -857,27 +837,32 @@
         "css_rule:gen144-css"
       ],
       "timestamp": "2026-05-22T14:04:34Z"
+    },
+    {
+      "gen": 151,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "content.mood",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "interaction.type-'thunder'-anywhere-on-the",
+        "section.resonance-field",
+        "section.prototype-portfolio",
+        "page.experiments/072.html",
+        "scene.config",
+        "overlay.agent_data"
+      ],
+      "kills": [
+        "css_rule:gen148-css",
+        "secret[20]",
+        "interaction:click-any-note-in-the-hero-sta"
+      ],
+      "timestamp": "2026-05-22T22:03:31Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "interaction",
-      "value": "type-'rubric'-anywhere-to-flas",
-      "died_gen": 135,
-      "epitaph": "Rubric secret belonged to the gilded illumination era (gen 102-104). The page is now a printed programme, not an illuminated codex \u2014 red rubrics are still on the staff but the secret no longer fires anything new. Six gens dormant, gene-marked killable for the last four pulses."
-    },
-    {
-      "type": "interaction",
-      "value": "type-'echo'-to-slow-the-resona",
-      "died_gen": 135,
-      "epitaph": "Echo secret was a phosphor-scope-era ornament. The scope died at gen 122. Twelve generations dead. Time to retire."
-    },
-    {
-      "type": "css_rule",
-      "value": "gen126-css",
-      "died_gen": 135,
-      "epitaph": "Aubergine ink rules from gen 126 \u2014 preserved through the metamorphosis but the cascade is now owned by gen135-css with explicit tier vars. Nine generations dead, gene-marked killable."
-    },
     {
       "type": "secret",
       "value": "Type 'curtain' anywhere to part the velvet \u2014 the programme card slides up for tw",
@@ -1159,6 +1144,24 @@
       "value": "gen144-css",
       "died_gen": 150,
       "epitaph": "Six generations dormant. The velvet-rose programme-card styling from the recital era \u2014 preserved through five gens of deepening but obsolete after tonight's chassis pivot. Removed cleanly with gen148-css; gen149-css stays as the bridge."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen148-css",
+      "died_gen": 151,
+      "epitaph": "Folium-violet manuscript styling. Three generations dormant, six since the engraved chassis was killed at gen 150. The pigment palette belongs to a dead obsession."
+    },
+    {
+      "type": "secret",
+      "value": "Type 'storm' anywhere on the page \u2014 a single isobar sweeps across the viewport a",
+      "died_gen": 151,
+      "epitaph": "Carrying capacity 21/20 over. The new 'thunder' secret arrives tonight and earns its slot. The dropped secret was a manuscript-era relic that referenced ink that no longer exists in the chassis."
+    },
+    {
+      "type": "interaction",
+      "value": "click-any-note-in-the-hero-sta",
+      "died_gen": 151,
+      "epitaph": "The hero is no longer a music staff with clickable letterform-notes. It's a pressure system chart. The interaction has no target geometry on the new chassis. Killed cleanly."
     }
   ],
   "carrying_capacity": {
@@ -1177,11 +1180,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 141,
-      "base": "#3a6a18",
-      "family": "yellow"
-    },
     {
       "gen": 142,
       "base": "#2a1f7a",
@@ -1226,6 +1224,11 @@
       "gen": 150,
       "base": "#d6334a",
       "family": "magenta"
+    },
+    {
+      "gen": 151,
+      "base": "#2a8ad6",
+      "family": "teal"
     }
   ],
   "past_epochs": [
@@ -1260,13 +1263,6 @@
   ],
   "epoch_number": 5,
   "contrast_warnings": [
-    {
-      "gen": 99,
-      "messages": [
-        "  CONTRAST GATE: hierarchy collapse detected \u2014 all text tiers within luminance range [0.010, 0.113] (span 0.103, min 0.15)"
-      ],
-      "timestamp": "2026-05-05T00:06:49Z"
-    },
     {
       "gen": 106,
       "messages": [
@@ -1345,6 +1341,14 @@
         "  CONTRAST GATE: hierarchy collapse detected \u2014 all text tiers within luminance range [0.003, 0.118] (span 0.115, min 0.15)"
       ],
       "timestamp": "2026-05-19T08:03:36Z"
+    },
+    {
+      "gen": 151,
+      "messages": [
+        "  [contrast-gate below-fold] effective bg = #f5f0e0 from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
+        "    FAIL  #f5f1e8  ratio=1.01:1  (< 4.5)"
+      ],
+      "timestamp": "2026-05-22T22:03:31Z"
     }
   ]
 }
