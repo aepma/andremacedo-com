@@ -26,6 +26,144 @@
   #back:hover{color:#00d4ff;}
   #status{position:fixed;top:1.5rem;left:50%;transform:translateX(-50%);z-index:10;color:#888;font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;text-shadow:0 0 8px rgba(0,0,0,0.85);}
 </style>
+<script id="mobile-interaction-invariants">
+(function() {
+  'use strict';
+  if (window.__telosMobileInvariantsInstalled) return;
+  window.__telosMobileInvariantsInstalled = true;
+
+  // COMPONENT 1: Touch-to-mouse bridge
+  // Synthesize mouse events from touch events so existing mouse-only handlers
+  // fire on touch devices. Skip on form controls and inside virtual keyboard.
+  (function() {
+    var SKIP_TAGS = /^(INPUT|TEXTAREA|BUTTON|A|SELECT)$/i;
+    function synth(touchEvt, mouseType) {
+      var t = touchEvt.changedTouches[0];
+      if (!t) return;
+      var target = document.elementFromPoint(t.clientX, t.clientY) || touchEvt.target;
+      if (SKIP_TAGS.test(target.tagName)) return;
+      var p = target;
+      while (p) {
+        if (p.classList && p.classList.contains('telos-virtual-keyboard')) return;
+        p = p.parentElement;
+      }
+      if (target.dataset && target.dataset.noTouchBridge !== undefined) return;
+      var me = new MouseEvent(mouseType, {
+        bubbles: true, cancelable: true, view: window,
+        clientX: t.clientX, clientY: t.clientY,
+        screenX: t.screenX, screenY: t.screenY
+      });
+      target.dispatchEvent(me);
+    }
+    document.addEventListener('touchstart',  function(e) { synth(e, 'mousedown'); }, {capture: true, passive: false});
+    document.addEventListener('touchmove',   function(e) { synth(e, 'mousemove'); }, {capture: true, passive: false});
+    document.addEventListener('touchend',    function(e) { synth(e, 'mouseup');   }, {capture: true, passive: false});
+  })();
+
+  // COMPONENT 0: Eager Tone.js load
+  // Tone.js is required for COMPONENT 2's gesture-init to call Tone.start()
+  // synchronously within the iOS user-gesture window. The agent's instruments
+  // load Tone lazily from CDN on first keypress, which races iOS gesture
+  // expiry. Loading eagerly here ensures Tone is available the moment the
+  // first user gesture fires.
+  (function() {
+    if (window.Tone) return;
+    var existing = document.querySelector('script[src*="tone@"]');
+    if (existing) return;
+    var s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/tone@14.7.77/build/Tone.js';
+    s.async = false;
+    document.head.appendChild(s);
+  })();
+
+  // COMPONENT 2: AudioContext gesture init
+  // Monkey-patch AudioContext constructors to register all instances.
+  // On any user gesture, resume suspended contexts and call Tone.start()
+  // if available. Handles Tone.js lazy CDN loading without {once:true}.
+  (function() {
+    var _ctxSet = new Set();
+    ['AudioContext', 'webkitAudioContext'].forEach(function(name) {
+      var Orig = window[name];
+      if (!Orig) return;
+      function Patched() {
+        var ctx = new Orig();
+        _ctxSet.add(ctx);
+        return ctx;
+      }
+      Patched.prototype = Orig.prototype;
+      window[name] = Patched;
+    });
+    function resumeAll() {
+      _ctxSet.forEach(function(ctx) {
+        if (ctx.state === 'suspended') ctx.resume().catch(function() {});
+      });
+      if (window.Tone) {
+        try {
+          if (window.Tone.start) window.Tone.start().catch(function() {});
+          if (window.Tone.context && window.Tone.context.resume) {
+            window.Tone.context.resume().catch(function() {});
+          }
+        } catch (err) {}
+      }
+    }
+    ['pointerdown', 'touchstart', 'click'].forEach(function(t) {
+      document.addEventListener(t, resumeAll, {passive: true});
+    });
+  })();
+
+  // COMPONENT 3: Virtual keyboard UI for mobile
+  // Letters d,f,h,i,k,m,o,p map to C4-C5 major scale in the agent's
+  // chromatic letter-to-frequency table (220*2^(i/12), i=3,5,7,8,10,12,14,15).
+  (function() {
+    var KEYS = ['d','f','h','i','k','m','o','p'];
+    function inject() {
+      if (document.querySelector('.telos-virtual-keyboard')) return;
+      if (!window.matchMedia('(max-width:600px)').matches) return;
+      var kb = document.createElement('div');
+      kb.className = 'telos-virtual-keyboard';
+      KEYS.forEach(function(letter) {
+        var btn = document.createElement('div');
+        btn.className = 'telos-virtual-key';
+        btn.textContent = letter;
+        var isHeld = false;
+        var releaseTimer = null;
+        function fireKeydown() {
+          document.body.dispatchEvent(new KeyboardEvent('keydown', {
+            key: letter, code: 'Key' + letter.toUpperCase(),
+            bubbles: true, cancelable: true
+          }));
+        }
+        function fireKeyup() {
+          if (!isHeld) return;
+          isHeld = false;
+          if (releaseTimer) { clearTimeout(releaseTimer); releaseTimer = null; }
+          document.body.dispatchEvent(new KeyboardEvent('keyup', {
+            key: letter, code: 'Key' + letter.toUpperCase(),
+            bubbles: true, cancelable: true
+          }));
+        }
+        btn.addEventListener('pointerdown', function(e) {
+          e.preventDefault();
+          if (isHeld) return;
+          isHeld = true;
+          fireKeydown();
+          releaseTimer = setTimeout(fireKeyup, 2500);
+        });
+        ['pointerup', 'pointercancel', 'pointerleave', 'touchend', 'touchcancel'].forEach(function(evt) {
+          btn.addEventListener(evt, fireKeyup);
+        });
+        kb.appendChild(btn);
+      });
+      document.body.appendChild(kb);
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', inject);
+    } else {
+      inject();
+    }
+  })();
+})();
+</script>
 </head>
 <body>
 <div id="info">

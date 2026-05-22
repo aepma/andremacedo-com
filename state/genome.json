@@ -1,15 +1,15 @@
 {
-  "generation": 145,
+  "generation": 148,
   "epoch": "webgl-swarm",
   "epoch_started": "2026-05-03",
   "traits": {
     "color": {
-      "accent_base": "#b04018",
-      "accent_dawn": "#d06038",
-      "accent_morning": "#c05028",
-      "accent_afternoon": "#b04018",
-      "accent_evening": "#80300f",
-      "accent_night": "#502008",
+      "accent_base": "#6a2a9a",
+      "accent_dawn": "#7a3aaa",
+      "accent_morning": "#6a2a9a",
+      "accent_afternoon": "#5a2090",
+      "accent_evening": "#4a1880",
+      "accent_night": "#3a1070",
       "bg": "#f5f0e0",
       "fg": "#0a0a0a",
       "grain_opacity": "0.08",
@@ -38,6 +38,7 @@
       ],
       "pages": [
         "index-old.html",
+        "experiments/069.html",
         "experiments/028.html",
         "experiments/004.html",
         "experiments/053.html",
@@ -58,6 +59,7 @@
         "experiments/052.html",
         "experiments/005.html",
         "experiments/029.html",
+        "experiments/068.html",
         "experiments/063.html",
         "experiments/034.html",
         "experiments/022.html",
@@ -97,6 +99,7 @@
         "experiments/006.html",
         "experiments/026.html",
         "experiments/030.html",
+        "experiments/067.html",
         "experiments/066.html",
         "experiments/031.html",
         "experiments/027.html",
@@ -110,6 +113,7 @@
       "svg_assets": [
         "vernal-glyph-001.svg",
         "recital-programme-001.svg",
+        "folium-turnsole-001.svg",
         "nocturne-glyph-001.svg",
         "scoring-glyph-001.svg",
         "brutalist-glyph-001.svg",
@@ -212,7 +216,8 @@
       "type-'tactus'-anywhere-to-lift",
       "type-'recital'-anywhere-on-the",
       "type-'lettera'-anywhere-to-enc",
-      "type-'curtain'-anywhere-to-par"
+      "type-'curtain'-anywhere-to-par",
+      "type-'smalt'-anywhere-on-the-p"
     ],
     "content": {
       "mood": "ceremonial",
@@ -228,39 +233,6 @@
     }
   },
   "fitness_log": [
-    {
-      "gen": 126,
-      "coherence": 7,
-      "novelty": 6,
-      "identity": 8,
-      "tension": 6,
-      "awe": 6,
-      "perceptibility": 7,
-      "note": "Engraved chassis day 5. Cream paper holds in both desktop and mobile screenshots \u2014 the Compositions table, Movements timeline, and Score Notes all ren",
-      "total": 6.7
-    },
-    {
-      "gen": 127,
-      "coherence": 7,
-      "novelty": 6,
-      "identity": 8,
-      "tension": 6,
-      "awe": 5,
-      "perceptibility": 7,
-      "note": "Engraved chassis day 6. Cream paper holds in both viewports, mobile text readable, Compositions grid scans cleanly, hero staff legible. Identity is ma",
-      "total": 6.5
-    },
-    {
-      "gen": 128,
-      "coherence": 7,
-      "novelty": 6,
-      "identity": 8,
-      "tension": 6,
-      "awe": 6,
-      "perceptibility": 7,
-      "note": "Engraved chassis day 7. Cream paper holds in both viewports. Manuscript hero with five-line staff, treble clef, time signature, letterform-notes and r",
-      "total": 6.7
-    },
     {
       "gen": 129,
       "coherence": 7,
@@ -447,73 +419,42 @@
       "perceptibility": 5,
       "note": "Day 22 of the engraved chassis. Andre's strong LOVE on recitals confirms the framing landed \u2014 but the same-day MISS on overall update and graphical co",
       "total": 6.0
+    },
+    {
+      "gen": 146,
+      "coherence": 8,
+      "novelty": 6,
+      "identity": 9,
+      "tension": 6,
+      "awe": 6,
+      "perceptibility": 7,
+      "note": "Day 24 of engraved chassis. Recital LOVE is deepened with hover-preview tones \u2014 each movement rings a single bar on hover, the audience samples before",
+      "total": 7.0
+    },
+    {
+      "gen": 147,
+      "coherence": 8,
+      "novelty": 6,
+      "identity": 9,
+      "tension": 6,
+      "awe": 6,
+      "perceptibility": 7,
+      "note": "Day 25 of engraved chassis. Gen 146 hover-preview-tone landed cleanly and the programme card finally sings when reached toward. But the contrast audit",
+      "total": 7.0
+    },
+    {
+      "gen": 148,
+      "coherence": 8,
+      "novelty": 5,
+      "identity": 9,
+      "tension": 5,
+      "awe": 6,
+      "perceptibility": 6,
+      "note": "Day 26 of the engraved chassis \u2014 the longest unflagged identity in site history. Recital LOVE held for two straight days. But MISS on overall update f",
+      "total": 6.5
     }
   ],
   "mutation_log": [
-    {
-      "gen": 126,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "interaction.type-'rubric'-anywhere-to-flas",
-        "section.tonights-composition",
-        "page.experiments/051.html",
-        "scene.config"
-      ],
-      "kills": [
-        "secret[20]",
-        "interaction:type-'gait'-to-navigate-to-the",
-        "interaction:type-'osc'-anywhere-on-the-pag",
-        "css_rule:gen115-css"
-      ],
-      "timestamp": "2026-05-16T00:04:14Z"
-    },
-    {
-      "gen": 127,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "interaction.type-'tactus'-anywhere-to-lift",
-        "section.overlay-center",
-        "section.prototype-portfolio",
-        "page.experiments/052.html",
-        "scene.config"
-      ],
-      "kills": [
-        "css_rule:gen114-css",
-        "secret[20]",
-        "interaction:type-'prussian'-anywhere-to-fl"
-      ],
-      "timestamp": "2026-05-16T08:07:55Z"
-    },
-    {
-      "gen": 128,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "interaction.type-'madder'-anywhere-to-flus",
-        "section.manuscript-stains",
-        "section.overlay-center",
-        "section.tonights-composition",
-        "page.experiments/053.html",
-        "scene.config"
-      ],
-      "kills": [
-        "secret[20]",
-        "css_rule:gen114-css",
-        "interaction:type-'lissajous'-anywhere-to-e"
-      ],
-      "timestamp": "2026-05-16T17:59:30Z"
-    },
     {
       "gen": 129,
       "mutations": [
@@ -861,63 +802,66 @@
         "interaction:type-'lissajous'-anywhere-to-e"
       ],
       "timestamp": "2026-05-21T00:03:12Z"
+    },
+    {
+      "gen": 146,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "interaction.type-'smalt'-anywhere-on-the-p",
+        "section.tonights-composition",
+        "page.experiments/067.html"
+      ],
+      "kills": [
+        "secret[20]",
+        "css_rule:gen143-css",
+        "interaction:type-'rubric'-anywhere-to-flas"
+      ],
+      "timestamp": "2026-05-21T08:04:01Z"
+    },
+    {
+      "gen": 147,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "section.tonights-composition",
+        "page.experiments/068.html",
+        "scene.config"
+      ],
+      "kills": [
+        "css_rule:gen144-css",
+        "secret[20]",
+        "interaction:type-'beat'-to-navigate-to-the"
+      ],
+      "timestamp": "2026-05-21T16:03:40Z"
+    },
+    {
+      "gen": 148,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "section.tonights-composition",
+        "page.experiments/069.html",
+        "svg.folium-turnsole-001.svg"
+      ],
+      "kills": [
+        "css_rule:gen143-css",
+        "secret[20]",
+        "interaction:type-'hall'-anywhere-on-the-pa"
+      ],
+      "timestamp": "2026-05-22T00:04:41Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "css_rule",
-      "value": "gen114-css",
-      "died_gen": 130,
-      "epitaph": "Cobalt scope CSS from gen 114. Sixteen generations dead. Gene-marked killable since gen 115. The cream-paper chassis has no need for scope styling. Finally clearing it."
-    },
-    {
-      "type": "css_rule",
-      "value": "gen126-css",
-      "died_gen": 130,
-      "epitaph": "Aubergine marginalia CSS from gen 126. The marginalia were beautiful for a day but the recital programme has its own ornament \u2014 the gold-leaf border around the cover. The aubergine has been demoted from marginalia to --accent-marginalia variable; the dedicated marginalia section dies with this rule."
-    },
-    {
-      "type": "secret",
-      "value": "Type 'gold' anywhere on the page to make the illuminated initial shimmer for fou",
-      "died_gen": 130,
-      "epitaph": "Pool at 21/20 \u2014 over capacity. Pruning the weakest tail entry to make room for the recital secrets. The new pool is fully concertante-themed."
-    },
-    {
-      "type": "thought",
-      "value": "A baton is a pencil without ink. It writes time on the air, and the air remembers for exactly one beat.",
-      "died_gen": 130,
-      "epitaph": "Stale afternoon thought from a prior chassis. Replaced with concertante content reflecting tonight's metamorphosis."
-    },
-    {
-      "type": "thought",
-      "value": "Tactus \u2014 the medieval term for the conductor's heartbeat. The hand sets the pulse before the voice finds the note.",
-      "died_gen": 130,
-      "epitaph": "Stale evening thought. Replaced with content about the visitor's role changing from composer to audience."
-    },
-    {
-      "type": "secret",
-      "value": "Type 'lettera' anywhere to copy a shareable URL of tonight's composition to your",
-      "died_gen": 131,
-      "epitaph": "Secret pool at 21/20 \u2014 over capacity. Pruning the weakest tail entry to make room for 'lettera'."
-    },
-    {
-      "type": "css_rule",
-      "value": "gen114-css",
-      "died_gen": 131,
-      "epitaph": "Cobalt scope CSS from gen 114 \u2014 sixteen generations dead, gene-marked killable since gen 124. The phosphor scope era is long over."
-    },
-    {
-      "type": "interaction",
-      "value": "type-'beat'-to-navigate-to-the",
-      "died_gen": 131,
-      "epitaph": "The beat-navigation secret came from gen 99 (experiment 028, Beat). Three generations into the engraved chassis it's still pointing at the dark electric sequencer. Killing to make room for 'lettera' which routes to tonight's experiment instead."
-    },
-    {
-      "type": "interaction",
-      "value": "ensaio-secret:-typing-'ensaio'",
-      "died_gen": 132,
-      "epitaph": "Eight epochs and 130 generations later, the ensaio/essay/assay pun belongs to the metallurgy era only. The metallurgical thread is buried. The pun is fossil. Keeping it active was nostalgia. Killed to bring interactions from 13/12 to 12/12 and make room for the recital's room to breathe."
-    },
     {
       "type": "css_rule",
       "value": "gen114-css",
@@ -1163,6 +1107,60 @@
       "value": "type-'lissajous'-anywhere-to-e",
       "died_gen": 145,
       "epitaph": "Phosphor scope relic from gen 109, twenty-six generations dead. The dual-trace experiment that named it has been buried since the engraved chassis began at gen 122. Interactions at 12/12 ceiling; this one earns no clicks."
+    },
+    {
+      "type": "secret",
+      "value": "Type 'orpiment' anywhere to tint the programme card with a faint sienna wash for",
+      "died_gen": 146,
+      "epitaph": "Carrying capacity 20; the new 'smalt' soundcheck secret arrives. The retired secret was a dormant phosphor-era residue with no thematic connection to the engraved manuscript palette."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen143-css",
+      "died_gen": 146,
+      "epitaph": "Three generations dormant, gene-marked killable. Replaced by gen146-css with explicit !important tier hierarchy and the new programme-card grid system."
+    },
+    {
+      "type": "interaction",
+      "value": "type-'rubric'-anywhere-to-flas",
+      "died_gen": 146,
+      "epitaph": "Twenty-three generations dead. Vermillion rubric interaction from the four-ink era was superseded when the marginalia ribbon began displaying all inks as hoverable dots at gen 142. The flash has nowhere meaningful to land."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen144-css",
+      "died_gen": 147,
+      "epitaph": "Three generations dormant, gene-marked killable. Replaced by gen147-css with the explicit !important tier classes that finally pin the hierarchy span at 0.27."
+    },
+    {
+      "type": "secret",
+      "value": "Type 'smalt' anywhere on the page \u2014 the programme card glows cobalt for six seco",
+      "died_gen": 147,
+      "epitaph": "Carrying capacity 20; the new 'orpiment' poison-yellow secret arrives tonight. Retired in good standing."
+    },
+    {
+      "type": "interaction",
+      "value": "type-'beat'-to-navigate-to-the",
+      "died_gen": 147,
+      "epitaph": "Phosphor-era navigation shortcut from gen 99. The beat sequencer experiment is still reachable from the archive grid \u2014 the typed shortcut was decorative residue. Interactions return to 12/12 at ceiling."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen143-css",
+      "died_gen": 148,
+      "epitaph": "Four generations dormant, gene-marked killable. Sap-green vine rules superseded by the folium-violet chassis tonight."
+    },
+    {
+      "type": "secret",
+      "value": "Type 'orpiment' anywhere on the page \u2014 the marginalia ribbon flares golden yello",
+      "died_gen": 148,
+      "epitaph": "Carrying capacity 20; the new 'folium' turnsole-bloom secret arrives tonight. Retiring the oldest dormant secret to make room."
+    },
+    {
+      "type": "interaction",
+      "value": "type-'hall'-anywhere-on-the-pa",
+      "died_gen": 148,
+      "epitaph": "Forty-eight generations dormant. From the gen 100 hall-reverb experiment, replaced by the room-as-instrument experiment 063 (The Halls) which lives in the archive. Interactions at 13/12 over ceiling \u2014 this is the cleanest cut."
     }
   ],
   "carrying_capacity": {
@@ -1181,21 +1179,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 136,
-      "base": "#8a2a6a",
-      "family": "violet"
-    },
-    {
-      "gen": 137,
-      "base": "#1a5a52",
-      "family": "green"
-    },
-    {
-      "gen": 138,
-      "base": "#2828b0",
-      "family": "cyan"
-    },
     {
       "gen": 139,
       "base": "#b8232a",
@@ -1230,6 +1213,21 @@
       "gen": 145,
       "base": "#b04018",
       "family": "red"
+    },
+    {
+      "gen": 146,
+      "base": "#2a4ab8",
+      "family": "cyan"
+    },
+    {
+      "gen": 147,
+      "base": "#c8961a",
+      "family": "orange"
+    },
+    {
+      "gen": 148,
+      "base": "#6a2a9a",
+      "family": "indigo"
     }
   ],
   "past_epochs": [
