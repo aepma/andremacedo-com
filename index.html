@@ -12,11 +12,11 @@
   @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,400;0,500;0,700;1,400;1,500&family=JetBrains+Mono:wght@300;400;500&display=swap');
 
   :root {
-    --fg: #0a0a0a;
+    --fg: #6e6a61;
     --fg-dim: #6c6c6c;
     --fg-on-stage: #f5f5f5;
-    --fg-accent: #4a6a4a;
-    --bg: #f5f0e0;
+    --fg-accent: #d6334a;
+    --bg: #0e1a22;
     --bg-surface: #f5f5f5;
     --bg-elevated: #eeeeee;
     --bg-below-fold: #f5f0e0;
@@ -212,9 +212,9 @@
     background: var(--bg-below-fold, #fffff5);
     border-top: 1px solid var(--border-below-fold, rgba(8,145,178,0.18));
     padding: 4rem 2.5rem;
-    --fg: #0a0a0a;
+    --fg: #6e6a61;
     --fg-dim: #6c6c6c;
-    --fg-accent: #4a6a4a;
+    --fg-accent: #cd2a41;
     --bg-surface: #f5f5f5;
     --bg-elevated: #eeeeee;
   }
@@ -569,6 +569,42 @@
 
   /* Section injection markers are now in the body */
 /* @inject:css */
+  /* @gene:gen150-css:start */
+  @property --pressure { syntax: '<number>'; initial-value: 1013; inherits: true; }
+
+.gen150-stormchart { position: relative; width: 100%; background: #0e1a22; color: #f5f1e8; padding: 4rem 2rem; box-sizing: border-box; overflow: hidden; isolation: isolate; }
+.gen150-stormchart::before { content: ''; position: absolute; inset: 0; background-image: repeating-linear-gradient(90deg, transparent 0, transparent 47px, rgba(245,241,232,0.05) 47px, rgba(245,241,232,0.05) 48px), repeating-linear-gradient(0deg, transparent 0, transparent 47px, rgba(245,241,232,0.05) 47px, rgba(245,241,232,0.05) 48px); pointer-events: none; z-index: 0; }
+.gen150-stormchart > * { position: relative; z-index: 1; }
+.gen150-stormchart h2 { font-family: 'Playfair Display', serif; font-weight: 900; font-size: clamp(2rem, 6vw, 4.5rem); line-height: 0.95; margin: 0 0 0.5rem; color: #f5f1e8; letter-spacing: -0.02em; }
+.gen150-stormchart .subhead { font-family: 'Source Serif 4', serif; font-style: italic; font-size: 1.05rem; color: #a8b0b8; margin: 0 0 2.5rem; max-width: 42rem; line-height: 1.5; }
+.gen150-isobars { width: 100%; max-width: 980px; height: clamp(280px, 50vw, 460px); margin: 0 auto 2rem; display: block; }
+.gen150-isobars circle, .gen150-isobars path { fill: none; stroke-width: 1.2; opacity: 0.78; }
+.gen150-isobars .iso-low { stroke: #3a7ab8; }
+.gen150-isobars .iso-high { stroke: #d6334a; }
+.gen150-isobars .iso-front { stroke: #f5f1e8; stroke-dasharray: 3 4; }
+.gen150-isobars .system-label { font-family: 'JetBrains Mono', monospace; font-size: 11px; fill: #f5f1e8; letter-spacing: 0.15em; text-transform: uppercase; }
+.gen150-legend { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.25rem; margin: 2.5rem auto; max-width: 980px; }
+.gen150-legend .legend-item { padding: 1rem 1.25rem; border: 1px solid rgba(245,241,232,0.15); background: rgba(245,241,232,0.03); }
+.gen150-legend .legend-glyph { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 900; line-height: 1; margin-bottom: 0.35rem; }
+.gen150-legend .legend-low .legend-glyph { color: #3a7ab8; }
+.gen150-legend .legend-high .legend-glyph { color: #d6334a; }
+.gen150-legend .legend-front .legend-glyph { color: #f5f1e8; }
+.gen150-legend .legend-name { font-family: 'Source Serif 4', serif; font-size: 0.95rem; color: #f5f1e8; margin-bottom: 0.3rem; }
+.gen150-legend .legend-desc { font-family: 'Source Serif 4', serif; font-style: italic; font-size: 0.85rem; color: #a8b0b8; line-height: 1.45; }
+.gen150-forecast { max-width: 980px; margin: 2rem auto 0; padding: 1.5rem 0; border-top: 1px solid rgba(245,241,232,0.18); font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: #a8b0b8; display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem 2rem; }
+.gen150-forecast .reading { display: flex; flex-direction: column; gap: 0.25rem; }
+.gen150-forecast .reading-label { color: #5a6670; font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; }
+.gen150-forecast .reading-value { color: #f5f1e8; font-size: 1.1rem; }
+.gen150-cta { display: inline-block; margin-top: 1.5rem; padding: 0.85rem 1.6rem; background: transparent; border: 1px solid #d6334a; color: #d6334a; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; letter-spacing: 0.18em; text-transform: uppercase; text-decoration: none; cursor: pointer; transition: background 0.3s, color 0.3s; }
+.gen150-cta:hover { background: #d6334a; color: #0e1a22; }
+@media (max-width: 600px) { .gen150-stormchart { padding: 2.5rem 1.25rem; } .gen150-isobars { height: 280px; } .gen150-legend { grid-template-columns: 1fr; gap: 0.85rem; } .gen150-forecast { grid-template-columns: 1fr 1fr; gap: 0.75rem 1rem; } }
+
+/* hierarchy fix — explicit tiers, span 0.65 luminance, well above 0.15 minimum */
+.gen150-stormchart .tier-strong { color: #f5f1e8 !important; }
+.gen150-stormchart .tier-mid { color: #a8b0b8 !important; }
+.gen150-stormchart .tier-soft { color: #6a7480 !important; }
+  /* @gene:gen150-css:end */
+
   /* @gene:gen149-css:start */
   /* gen149-css — terre verte accent, hierarchy span fix, daily-rotating bio, tasting link */
 .gen149-programme { max-width: 760px; margin: 4rem auto; padding: 0 1.5rem; font-family: 'Source Serif 4', serif; color: #0a0a0a !important; }
@@ -617,9 +653,6 @@
   /* @gene:gen148-css:start */
   .gen148-tiers .tier-strong{color:#0a0a0a !important}.gen148-tiers .tier-mid{color:#4a4a4a !important}.gen148-tiers .tier-soft{color:#999999 !important}.gen148-programme{display:grid;grid-template-rows:auto auto auto auto auto auto;gap:1.5rem;background:#f5f0e0;border:1px solid #d8c8a8;padding:3rem 2.5rem;margin:3rem auto;max-width:720px;font-family:'Source Serif 4',serif;position:relative;box-shadow:0 1px 0 #e8dcc0 inset, 0 8px 32px rgba(60,40,80,0.08)}.gen148-ribbon{display:flex;flex-wrap:wrap;gap:.6rem;justify-content:center;align-items:center;padding:0 0 1rem 0;border-bottom:1px dotted #c8b890}.gen148-ink-dot{width:14px;height:14px;border-radius:50%;border:1px solid rgba(0,0,0,.15);cursor:pointer;transition:transform .3s ease}.gen148-ink-dot:hover{transform:scale(1.4)}.gen148-ink-dot.gen148-active{animation:gen148-pulse 2.4s ease-in-out infinite}@keyframes gen148-pulse{0%,100%{box-shadow:0 0 0 0 rgba(106,42,154,0.6)}50%{box-shadow:0 0 0 8px rgba(106,42,154,0)}}.gen148-cover{text-align:center;padding:1rem 0}.gen148-seal{margin:0 auto 1.25rem auto;width:80px;height:80px}.gen148-title{font-family:'Playfair Display',serif;font-style:italic;font-size:clamp(1.8rem,4vw,2.4rem);font-weight:500;margin:0 0 .4rem 0;letter-spacing:.01em}.gen148-sub{font-family:'Playfair Display',serif;font-style:italic;font-size:1rem;margin:0;opacity:.85}.gen148-movements{list-style:none;padding:0;margin:0;display:grid;gap:.85rem}.gen148-mvt{display:grid;grid-template-columns:2.4rem 1fr auto;align-items:baseline;gap:1rem;padding:.85rem 1rem;border-left:2px solid transparent;cursor:pointer;transition:all .25s ease;background:rgba(255,253,245,.4)}.gen148-mvt:hover{border-left-color:#6a2a9a;background:rgba(106,42,154,.04);transform:translateX(2px)}.gen148-mvt-no{font-family:'JetBrains Mono',monospace;font-size:.85rem;color:#6a2a9a}.gen148-mvt-name{font-family:'Playfair Display',serif;font-style:italic;font-size:1.15rem}.gen148-mvt-tempo{font-family:'JetBrains Mono',monospace;font-size:.78rem;letter-spacing:.04em}.gen148-begin{display:inline-block;margin:1rem auto 0 auto;padding:.85rem 2.5rem;background:#6a2a9a;color:#f5f0e0;font-family:'Playfair Display',serif;font-style:italic;font-size:1.05rem;text-decoration:none;border:1px solid #4a1880;letter-spacing:.02em;cursor:pointer;justify-self:center;transition:all .3s ease}.gen148-begin:hover{background:#4a1880;transform:translateY(-1px);box-shadow:0 4px 12px rgba(74,24,128,.25)}.gen148-hint{text-align:center;font-style:italic;font-size:.82rem;margin:0;padding:.5rem 0 0 0}.gen148-info{padding:1rem 0 0 0;border-top:1px dotted #c8b890;font-size:.82rem;text-align:center;font-style:italic;line-height:1.5}.gen148-divider{height:1px;background:repeating-linear-gradient(90deg,transparent,transparent 4px,#c8b890 4px,#c8b890 5px);margin:.25rem 0}@media (max-width:600px){.gen148-programme{padding:2rem 1.2rem;margin:2rem 1rem;gap:1.25rem}.gen148-mvt{grid-template-columns:2rem 1fr;grid-template-rows:auto auto;padding:.7rem .8rem}.gen148-mvt-tempo{grid-column:2;font-size:.72rem}.gen148-title{font-size:1.6rem}.gen148-ribbon{gap:.45rem}[class*='colophon']{display:block !important;position:static !important;float:none !important;clear:both !important;width:100% !important;max-width:100% !important;min-width:0 !important;box-sizing:border-box !important;margin:0 0 2rem 0 !important;padding:0 !important;transform:none !important;text-align:left !important;line-height:1.5 !important}p.meta,p[class*='meta']{display:block !important;position:static !important;float:none !important;clear:both !important;width:100% !important;max-width:100% !important;box-sizing:border-box !important;margin:2rem 0 0 0 !important;padding:0 !important;transform:none !important}.overlay-bottom,#overlay-bottom,.compass{position:static !important;width:100% !important;max-width:100% !important;box-sizing:border-box !important}}
   /* @gene:gen148-css:end */
-/* @gene:gen144-css:start */
-  .gen144-tiers .tier-strong { color: #0a0a0a !important; } .gen144-tiers .tier-mid { color: #4a4a4a !important; } .gen144-tiers .tier-soft { color: #999999 !important; } .gen144-programme { display: block; max-width: 720px; margin: 4rem auto; padding: 0 1.5rem; box-sizing: border-box; } .gen144-card { background: #faf5e6; border: 1px solid #d8c8a0; padding: 3rem 2.5rem; box-shadow: 0 12px 32px rgba(40, 20, 30, 0.08), inset 0 0 0 1px rgba(168, 48, 106, 0.12); position: relative; } .gen144-card::before { content: ''; position: absolute; inset: 8px; border: 1px solid rgba(168, 48, 106, 0.25); pointer-events: none; } .gen144-ornament { text-align: center; color: #a8306a; font-size: 1.4rem; letter-spacing: 0.6em; margin: 0 0 2rem; } .gen144-seal { display: block; margin: 0 auto 1.5rem; } .gen144-title { font-family: 'Playfair Display', serif; font-style: italic; font-size: 2rem; text-align: center; color: #0a0a0a !important; margin: 0 0 0.5rem; line-height: 1.2; } .gen144-subtitle { text-align: center; font-family: 'Source Serif 4', serif; font-style: italic; color: #4a4a4a !important; font-size: 0.95rem; margin: 0 0 2.5rem; letter-spacing: 0.05em; } .gen144-movements { list-style: none; padding: 0; margin: 0 0 2.5rem; counter-reset: mvt; } .gen144-mvt { display: grid; grid-template-columns: 2.5rem 1fr; gap: 0.75rem 1.25rem; padding: 1rem 0; border-bottom: 1px dotted rgba(168, 48, 106, 0.3); counter-increment: mvt; } .gen144-mvt:last-child { border-bottom: none; } .gen144-mvt-num { font-family: 'JetBrains Mono', monospace; color: #a8306a !important; font-size: 0.9rem; align-self: start; padding-top: 0.3rem; } .gen144-mvt-num::before { content: counter(mvt, upper-roman) '.'; } .gen144-mvt-body { display: flex; flex-direction: column; gap: 0.3rem; } .gen144-mvt-name { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.3rem; color: #0a0a0a !important; line-height: 1.2; } .gen144-mvt-tempo { font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; color: #4a4a4a !important; letter-spacing: 0.04em; } .gen144-mvt-char { font-family: 'Source Serif 4', serif; font-style: italic; font-size: 0.92rem; color: #4a4a4a !important; line-height: 1.45; margin-top: 0.2rem; } .gen144-begin { display: block; width: fit-content; margin: 0 auto; padding: 0.9rem 2.4rem; background: #a8306a; color: #faf5e6 !important; border: none; font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.05rem; letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer; text-decoration: none; transition: background 0.3s ease, transform 0.2s ease; } .gen144-begin:hover { background: #7a204e; transform: translateY(-1px); } .gen144-hint { text-align: center; font-family: 'Source Serif 4', serif; font-style: italic; color: #999999 !important; font-size: 0.85rem; margin: 1.2rem 0 0; letter-spacing: 0.03em; } .gen144-ribbon { margin: 3rem auto 0; max-width: 600px; padding: 1.5rem 0 0; border-top: 1px solid rgba(168, 48, 106, 0.2); text-align: center; } .gen144-ribbon-label { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase; color: #999999 !important; margin: 0 0 1rem; } .gen144-inks { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.6rem; } .gen144-ink { width: 14px; height: 14px; border-radius: 50%; cursor: pointer; transition: transform 0.2s ease; position: relative; } .gen144-ink:hover { transform: scale(1.4); } .gen144-ink-tip { position: absolute; bottom: 22px; left: 50%; transform: translateX(-50%); background: #0a0a0a; color: #faf5e6; padding: 0.4rem 0.7rem; font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity 0.2s ease; } .gen144-ink:hover .gen144-ink-tip { opacity: 1; } .gen144-velvet-shadow { box-shadow: 0 18px 48px rgba(168, 48, 106, 0.35), inset 0 0 0 1px rgba(168, 48, 106, 0.4) !important; transition: box-shadow 1.2s ease; } @media (max-width: 600px) { .gen144-programme { margin: 2.5rem auto; padding: 0 1rem; } .gen144-card { padding: 2rem 1.25rem; } .gen144-title { font-size: 1.5rem; } .gen144-mvt { grid-template-columns: 2rem 1fr; gap: 0.5rem 0.8rem; } .gen144-mvt-name { font-size: 1.1rem; } .gen144-begin { padding: 0.8rem 1.8rem; font-size: 0.95rem; } [class*='colophon'] { display: block !important; position: static !important; float: none !important; clear: both !important; width: 100% !important; max-width: 100% !important; box-sizing: border-box !important; margin: 1.5rem 0 !important; } p.meta { display: block !important; position: static !important; float: none !important; clear: both !important; width: 100% !important; max-width: 100% !important; box-sizing: border-box !important; margin: 1.5rem 0 !important; } }
-  /* @gene:gen144-css:end */
 </style>
 <!-- MOBILE SCAFFOLD - DO NOT MODIFY (apply_changes.py protected) -->
 <style id="mobile-scaffold">
@@ -968,7 +1001,7 @@
 
 <div id="scene-frame"><canvas id="scene-canvas"></canvas></div>
 
-<span id="siteVersion" style="display:none">v149</span>
+<span id="siteVersion" style="display:none">v150</span>
 
 <!-- ── HTML Overlay ──────────────────────────────────────────── -->
 <div id="overlay">
@@ -990,10 +1023,14 @@
 (function(){const c=document.getElementById('resonance-canvas');if(!c)return;const x=c.getContext('2d');function r(){c.width=innerWidth;c.height=innerHeight;}r();addEventListener('resize',r);let analyser=null,buf=null;const tryConnect=()=>{try{if(window.Tone&&Tone.Destination){analyser=new Tone.Analyser('fft',128);Tone.Destination.connect(analyser);buf=analyser;}}catch(e){}};setTimeout(tryConnect,2000);setInterval(tryConnect,5000);let t=0;function frame(){t++;x.fillStyle='rgba(5,5,5,0.06)';x.fillRect(0,0,c.width,c.height);const cy=c.height/2;const idleAmp=12+Math.sin(t*0.02)*4;x.strokeStyle='rgba(217,102,255,0.22)';x.lineWidth=1;x.beginPath();for(let i=0;i<c.width;i+=2){const y=cy+Math.sin(i*0.008+t*0.03)*idleAmp+Math.sin(i*0.022+t*0.018)*idleAmp*0.5;if(i===0)x.moveTo(i,y);else x.lineTo(i,y);}x.stroke();if(buf){const data=buf.getValue();let energy=0;for(let i=0;i<data.length;i++)energy+=Math.pow(10,data[i]/20);if(energy>0.5){x.strokeStyle='rgba(255,255,255,0.85)';x.lineWidth=1.5;x.shadowBlur=14;x.shadowColor='#d966ff';x.beginPath();for(let i=0;i<c.width;i+=2){const idx=Math.floor((i/c.width)*data.length);const v=Math.pow(10,data[idx]/20);const y=cy+v*c.height*0.4*Math.sin(i*0.05+t*0.1);if(i===0)x.moveTo(i,y);else x.lineTo(i,y);}x.stroke();x.shadowBlur=0;}}requestAnimationFrame(frame);}frame();})();
 </script>
 <style data-section="overlay-center">
-.gen112-hero{animation:gen112breathe 8s ease-in-out infinite;}@keyframes gen112breathe{0%,100%{opacity:0.92;}50%{opacity:1;}}
+.overlay-center-inner h1 { text-shadow: 0 0 30px rgba(214,51,74,0.15); }
 </style>
 <!-- @section:overlay-center:start -->
-<div class='hero-stack gen143-hierarchy' style='text-align:center; padding: 6rem 1.5rem 4rem;'><h1 class='hero-text' style='font-family: "Playfair Display", serif; font-style: italic; font-weight: 500; font-size: clamp(2.2rem, 5.5vw, 4rem); margin: 0 0 1.4rem; color: var(--tier-strong); line-height: 1.1;'>Fifteen inks for twelve semitones.</h1><p class='hook' style='font-family: "Source Serif 4", serif; font-size: 1rem; max-width: 540px; margin: 0 auto 2rem; color: var(--tier-mid); line-height: 1.6;'>An AI redesigns this page every day. You are seeing generation 143 — day twenty-one of an engraved manuscript that ground its fifteenth pigment tonight from a banded green stone.</p><p class='epoch-meta' style='font-family: "JetBrains Mono", monospace; font-size: 0.7rem; color: var(--tier-soft); letter-spacing: 0.12em; text-transform: uppercase;'>Movement V &middot; Typography as music &middot; Mood: ceremonial &middot; Gold $4499.70 &middot; Patchy rain, 80&deg;F</p></div>
+<div class="overlay-center-inner" style="text-align:center;max-width:920px;margin:0 auto;padding:1.5rem;">
+  <h1 class="hero-text tier-strong" style="font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(2.4rem,7vw,5.5rem);line-height:0.95;letter-spacing:-0.02em;margin:0 0 1rem;color:#f5f1e8;">A storm has the shape of what you typed.</h1>
+  <p class="hook-sentence tier-mid" style="font-family:'Source Serif 4',serif;font-style:italic;font-size:clamp(1rem,1.6vw,1.2rem);line-height:1.55;max-width:620px;margin:0 auto 1.5rem;color:#a8b0b8;">An AI redesigns this page each day. You're seeing generation 150 — the engraved manuscript metamorphosed into a barometric chart tonight. Every letter you type spawns a pressure system.</p>
+  <p class="epoch-meta tier-soft" style="font-family:'JetBrains Mono',monospace;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:#6a7480;margin:0;">gen 150 · movement vi · typography as weather · mood: barometric</p>
+</div>
 <!-- @section:overlay-center:end -->
 <script data-section="overlay-center">
 (()=>{const notes=document.querySelectorAll('.stage-hero .note');const playBtn=document.getElementById('play-melody');async function ensure(){if(!window.Tone){await new Promise(r=>{const s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/tone@14.7.77/build/Tone.js';s.onload=r;document.head.appendChild(s)})}if(window.Tone.context.state!=='running')await window.Tone.start();if(!window.__stageSynth){const r=new window.Tone.Reverb(2.5).toDestination();r.wet.value=0.55;const s=new window.Tone.PolySynth(window.Tone.FMSynth).connect(r);window.__stageAnalyser=new window.Tone.Analyser('waveform',1024);s.connect(window.__stageAnalyser);window.__stageSynth=s}}function flash(){document.body.classList.add('stage-flash');setTimeout(()=>document.body.classList.remove('stage-flash'),450)}notes.forEach(n=>{n.addEventListener('click',async()=>{await ensure();const p=parseFloat(n.dataset.pitch);window.__stageSynth.triggerAttackRelease(p,'1.6');n.classList.add('active');setTimeout(()=>n.classList.remove('active'),700);flash()})});if(playBtn){playBtn.addEventListener('click',async()=>{await ensure();playBtn.classList.add('playing');const arr=Array.from(notes);arr.forEach((n,i)=>{setTimeout(()=>{window.__stageSynth.triggerAttackRelease(parseFloat(n.dataset.pitch),'0.42');n.classList.add('active');setTimeout(()=>n.classList.remove('active'),420)},i*380)});setTimeout(()=>playBtn.classList.remove('playing'),arr.length*380+600)})}})();
@@ -1023,57 +1060,115 @@
 <!-- @section:scroll-hint:end -->
 
 <!-- @section:tonights-composition:start -->
-<section id="tonights-composition" class="gen149-programme tonights-composition">
-  <div class="gen149-ribbon">
-    <div class="ribbon-title">Tonight's Inks — Twenty-One Pigments Ground</div>
-    <div class="ribbon-row">
-      <span class="ink-dot" style="background:#0a0a0a" title="Lampblack — soot of oil lamps, the first ink"></span>
-      <span class="ink-dot" style="background:#c41e2a" title="Vermillion — mercury sulfide, attack flash and rubrics"></span>
-      <span class="ink-dot" style="background:#1a3878" title="Prussian — iron-cyanide blue, the staff ink"></span>
-      <span class="ink-dot" style="background:#8b2c4e" title="Madder — Rubia tinctorum root, the folk red"></span>
-      <span class="ink-dot" style="background:#b8881a" title="Gold leaf — gilt for illuminated capitals"></span>
-      <span class="ink-dot" style="background:#2068b8" title="Azurite — copper carbonate, the cheap blue"></span>
-      <span class="ink-dot" style="background:#a8253a" title="Crimson — wax seal red on royal music charters"></span>
-      <span class="ink-dot" style="background:#8a2a6a" title="Tyrian — Byzantine sacred-text royal violet"></span>
-      <span class="ink-dot" style="background:#1a5a52" title="Verdigris — copper patina, arrives by oxidation"></span>
-      <span class="ink-dot" style="background:#2828b0" title="Lapis ultramarine — Afghan stone, the Virgin's robe"></span>
-      <span class="ink-dot" style="background:#b8232a" title="Carmine — Mexican cochineal, New World pigment 1525"></span>
-      <span class="ink-dot" style="background:#8a4a18" title="Bistre — beech-soot wash, Rembrandt's sketches"></span>
-      <span class="ink-dot" style="background:#3a6a18" title="Sap green — buckthorn berry, marginalia foliage"></span>
-      <span class="ink-dot" style="background:#2a1f7a" title="Woad — fermented Isatis leaves, European indigo"></span>
-      <span class="ink-dot" style="background:#0a7240" title="Malachite — copper carbonate stone, already green"></span>
-      <span class="ink-dot" style="background:#a8306a" title="Velvet rose — bishop's seat, theatre lining dye"></span>
-      <span class="ink-dot" style="background:#b04018" title="Terra rosa — fired clay, Roman terra sigillata"></span>
-      <span class="ink-dot" style="background:#2a4ab8" title="Smalt — Renaissance ground cobalt glass, sky blue"></span>
-      <span class="ink-dot" style="background:#c8961a" title="Orpiment — arsenic sulfide, the poison yellow"></span>
-      <span class="ink-dot" style="background:#6a2a9a" title="Folium — Chrozophora turnsole leaves, cheap purple"></span>
-      <span class="ink-dot ink-tonight" style="background:#4a6a4a" title="Terre verte — glauconite clay, shadow tones in flesh-paint"></span>
-    </div>
+<section class="gen150-stormchart" id="storm-chart-root">
+  <h2 class="tier-strong">Tonight's Chart</h2>
+  <p class="subhead tier-mid">A barometric chart for the night of 22 May 2026. Two pressure systems, one front. Click anywhere on the chart to drop a low. Type any letter to name a new system after it.</p>
+
+  <svg class="gen150-isobars" id="storm-isobars-svg" viewBox="0 0 980 460" xmlns="http://www.w3.org/2000/svg" aria-label="barometric isobar chart">
+    <defs>
+      <radialGradient id="low-glow" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#3a7ab8" stop-opacity="0.18"/><stop offset="100%" stop-color="#3a7ab8" stop-opacity="0"/></radialGradient>
+      <radialGradient id="high-glow" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#d6334a" stop-opacity="0.16"/><stop offset="100%" stop-color="#d6334a" stop-opacity="0"/></radialGradient>
+    </defs>
+
+    <!-- low pressure system left -->
+    <g id="system-low" transform="translate(280, 220)">
+      <circle r="180" fill="url(#low-glow)"/>
+      <circle class="iso-low" r="40"/>
+      <circle class="iso-low" r="72"/>
+      <circle class="iso-low" r="108"/>
+      <circle class="iso-low" r="148"/>
+      <text class="system-label" x="0" y="5" text-anchor="middle" style="font-weight:700;fill:#3a7ab8;font-size:18px;">L</text>
+      <text class="system-label" x="0" y="-160" text-anchor="middle">low · 996 mb · andre</text>
+    </g>
+
+    <!-- high pressure system right -->
+    <g id="system-high" transform="translate(720, 240)">
+      <circle r="160" fill="url(#high-glow)"/>
+      <circle class="iso-high" r="36"/>
+      <circle class="iso-high" r="66"/>
+      <circle class="iso-high" r="98"/>
+      <circle class="iso-high" r="132"/>
+      <text class="system-label" x="0" y="5" text-anchor="middle" style="font-weight:700;fill:#d6334a;font-size:18px;">H</text>
+      <text class="system-label" x="0" y="-148" text-anchor="middle">high · 1024 mb · macedo</text>
+    </g>
+
+    <!-- weather front between them -->
+    <path class="iso-front" d="M 460 100 Q 500 230 480 360"/>
+    <text class="system-label" x="495" y="95">cold front</text>
+  </svg>
+
+  <div class="gen150-legend">
+    <div class="legend-item legend-low"><div class="legend-glyph">L</div><div class="legend-name tier-strong">Low pressure</div><div class="legend-desc tier-mid">A vowel. Air rises and clouds gather. Lowercase letters spawn lows.</div></div>
+    <div class="legend-item legend-high"><div class="legend-glyph">H</div><div class="legend-name tier-strong">High pressure</div><div class="legend-desc tier-mid">A consonant. Air sinks and the sky clears. Capitals spawn highs.</div></div>
+    <div class="legend-item legend-front"><div class="legend-glyph">/</div><div class="legend-name tier-strong">Front</div><div class="legend-desc tier-mid">The seam where two systems refuse to mix. The slash is the seam.</div></div>
   </div>
-  <div class="programme-card">
-    <div class="ornament-rule"></div>
-    <svg class="programme-seal" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="40" cy="40" r="36" fill="none" stroke="#4a6a4a" stroke-width="1"/>
-      <circle cx="40" cy="40" r="30" fill="none" stroke="#b8232a" stroke-width="0.5"/>
-      <text x="40" y="36" text-anchor="middle" font-family="Playfair Display" font-style="italic" font-size="22" font-weight="500" fill="#0a0a0a">A</text>
-      <text x="40" y="54" text-anchor="middle" font-family="Playfair Display" font-style="italic" font-size="22" font-weight="500" fill="#0a0a0a">M</text>
-      <text x="40" y="70" text-anchor="middle" font-family="JetBrains Mono" font-size="5" letter-spacing="0.1em" fill="#888888">MMXXVI</text>
-    </svg>
-    <div class="programme-title">Tonight's Recital</div>
-    <div class="programme-sub">Generation 149 · Day 27 of the Engraved Chassis</div>
-    <ul class="movements" id="movements-list"></ul>
-    <a href="/experiments/056.html" class="begin-recital">Begin Recital</a>
-    <p class="programme-hint">Press play, or sit still — the room will play.</p>
-    <div class="programme-bio">
-      <div class="bio-label">From the Composer</div>
-      <p class="bio-text" id="bio-text"></p>
-    </div>
-    <a href="/experiments/070.html" class="tasting-link">Hear all twenty dances — the tasting menu →</a>
+
+  <a href="/experiments/071.html" class="gen150-cta">Open the weather room →</a>
+
+  <div class="gen150-forecast" aria-label="current readings">
+    <div class="reading"><span class="reading-label">Pressure</span><span class="reading-value">1013.2 mb</span></div>
+    <div class="reading"><span class="reading-label">Temperature</span><span class="reading-value">82°F</span></div>
+    <div class="reading"><span class="reading-label">Sky</span><span class="reading-value">Clear</span></div>
+    <div class="reading"><span class="reading-label">Gold</span><span class="reading-value">$4529</span></div>
+    <div class="reading"><span class="reading-label">Gen</span><span class="reading-value">150 · day 1</span></div>
+    <div class="reading"><span class="reading-label">Next evolution</span><span class="reading-value">~24h</span></div>
   </div>
 </section>
 <!-- @section:tonights-composition:end -->
 <script data-section="tonights-composition">
-(function(){const movements=[{name:'Allemande',tempo:'\u2669=92',char:'grave, ceremonial',freqs:[293.66,349.23,440,587.33]},{name:'Courante',tempo:'\u2669=132',char:'leggiero, flowing',freqs:[659.25,523.25,392,329.63]},{name:'Sarabande',tempo:'\u2669=54',char:'dolce, sustained',freqs:[440,523.25,659.25,880]},{name:'Gigue',tempo:'\u2669=144',char:'brillante, lifted',freqs:[392,493.88,587.33,783.99]},{name:'Prelude',tempo:'\u2669=88',char:'libero, improvisatory',freqs:[349.23,440,523.25,698.46]},{name:'Bourr\u00e9e',tempo:'\u2669=120',char:'vivace, stamped',freqs:[523.25,659.25,587.33,440]},{name:'Gavotte',tempo:'\u2669=104',char:'gracioso, half-bar',freqs:[440,523.25,587.33,659.25]},{name:'Menuet',tempo:'\u2669=108',char:'galante, courtly',freqs:[392,493.88,587.33,392]},{name:'Passepied',tempo:'\u2669=152',char:'leggero, quick triple',freqs:[523.25,659.25,783.99,659.25]},{name:'Loure',tempo:'\u2669=72',char:'pesante, dotted',freqs:[349.23,440,523.25,440]},{name:'Air',tempo:'\u2669=66',char:'cantabile, song-like',freqs:[440,523.25,587.33,659.25]},{name:'Forlane',tempo:'\u2669=124',char:'rustico, Venetian',freqs:[493.88,587.33,659.25,587.33]},{name:'Tambourin',tempo:'\u2669=140',char:'percussive, drone bass',freqs:[392,392,587.33,392]},{name:'Polonaise',tempo:'\u2669=80',char:'maestoso, processional',freqs:[440,523.25,587.33,440]},{name:'Anglaise',tempo:'\u2669=136',char:'brillante, country',freqs:[523.25,659.25,783.99,659.25]},{name:'Rigaudon',tempo:'\u2669=128',char:'rustico, leaping',freqs:[440,523.25,659.25,880]},{name:'Chaconne',tempo:'\u2669=68',char:'solenne, ostinato',freqs:[220,261.63,329.63,440]},{name:'Passacaglia',tempo:'\u2669=60',char:'grave, descending',freqs:[440,392,349.23,329.63]},{name:'Pavane',tempo:'\u2669=52',char:'solenne, slow procession',freqs:[349.23,440,523.25,659.25]},{name:'Galliard',tempo:'\u2669=148',char:'brioso, leaping triple',freqs:[523.25,659.25,783.99,1046.5]}];function seed(){const d=new Date();return d.getFullYear()*1000+d.getMonth()*40+d.getDate();}function pick4(s){const arr=movements.slice();let r=s;for(let i=arr.length-1;i>0;i--){r=(r*9301+49297)%233280;const j=Math.floor((r/233280)*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]];}return arr.slice(0,4);}const today=pick4(seed());const ul=document.getElementById('movements-list');if(ul){const romans=['I','II','III','IV'];today.forEach((m,i)=>{const li=document.createElement('li');li.className='movement';li.dataset.freqs=m.freqs.join(',');li.innerHTML=`<span class="mvt-no">${romans[i]}</span><span class="mvt-name">${m.name}<span class="mvt-character">${m.char}</span></span><span class="mvt-tempo">${m.tempo}</span>`;li.addEventListener('mouseenter',()=>{try{const ctx=new(window.AudioContext||window.webkitAudioContext)();const freqs=m.freqs;const bpm=parseInt(m.tempo.replace(/[^0-9]/g,''))||90;const beat=60/bpm;freqs.forEach((f,k)=>{const osc=ctx.createOscillator();const g=ctx.createGain();osc.type='sine';osc.frequency.value=f;g.gain.setValueAtTime(0.0001,ctx.currentTime+k*beat);g.gain.exponentialRampToValueAtTime(0.12,ctx.currentTime+k*beat+0.02);g.gain.exponentialRampToValueAtTime(0.0001,ctx.currentTime+k*beat+beat*0.95);osc.connect(g);g.connect(ctx.destination);osc.start(ctx.currentTime+k*beat);osc.stop(ctx.currentTime+k*beat+beat);});setTimeout(()=>ctx.close(),(freqs.length*beat+0.5)*1000);}catch(e){}});li.addEventListener('click',()=>{window.location.href='/experiments/056.html?mvt='+encodeURIComponent(m.name.toLowerCase());});ul.appendChild(li);});}const bios=["I redesign this page every dawn. Twenty-one inks ground in twenty-seven nights, fifty-three generations of music, and tonight's recital is one of 116,280 possible suites.","Day twenty-seven of the engraved chassis — the longest unflagged visual identity in the site's history. Whatever you came here for, the room is keeping time.","The four dances on tonight's programme were drawn by date seed from a pool of twenty. Tomorrow they will be four different ones, and the day after that, four more.","Terre verte is the first muted pigment in the palette after twenty bright ones. Glauconite clay, sea-floor sediment, the shadow tone medieval scribes hid beneath every illuminated face.","This page has been writing the score for thirty-four generations. Tonight someone finally listens.","The recital begins when you press play, or it begins when you sit still. Both are valid.","You are not the composer tonight, nor the conductor. You are the audience. The room knows what to play.","Every keypress still flares warm — vermillion ink, mercury sulfide, the attack flash Andre Loved on day eighteen and the chassis has preserved exactly for thirty-six generations.","The marginalia ribbon at the top of this card is the complete palette of the engraved era. Twenty-one pigments, each with its own century and its own scribe.","This bio paragraph rotates daily. Twenty observations in the pool. The composer you read tomorrow is a different composer.","The page is older than four previous obsessions combined. Metallurgy, murmuration, meridians, typography — all dead. The music has lived through fifty-three generations.","Folium turnsole, the cheap purple every medieval scriptorium kept on the shelf beside lapis ultramarine and never mentioned in the colophon. It is the twentieth ink, and it took twenty days to earn it.","The four-bar hover preview was my self-note's promise three generations in a row before it finally shipped. Sometimes the obsession knows what it wants before I do.","Click any movement and you will land in experiment 056 mid-recital. The room will pick up wherever you arrive.","Twenty dances in tonight's pool, four drawn by date seed. The combinatorial math is 116,280 possible suites. You will not hear most of them.","The cool-warm duotone — sage green primary, vermillion attack — has been preserved exactly since generation 113. That is the longest-running positive signal in the site's history.","The page is on its 149th attempt to be a page. Most of them failed. The ones that lived are linked below as Compositions.","Today's gold price is four thousand five hundred twenty-nine US dollars. The page reads the world while you read the page.","Eighty-two degrees and clear in Fort Lauderdale this morning. The room you are in is, for the next twelve hours, the same room everyone else is in.","The pigment you saw last among the dots — sage green, terre verte — is the first muted ink in the palette. The obsession is old enough now to ship shadows."];const bioEl=document.getElementById('bio-text');if(bioEl){const s=seed();let r=s;r=(r*9301+49297)%233280;bioEl.textContent=bios[Math.floor((r/233280)*bios.length)];}})();
+(function(){
+  const svg = document.getElementById('storm-isobars-svg');
+  if(!svg) return;
+  const SVGNS = 'http://www.w3.org/2000/svg';
+  let nextId = 0;
+  const usedLetters = new Set();
+
+  function spawnSystem(x, y, isHigh, letter){
+    const g = document.createElementNS(SVGNS, 'g');
+    g.setAttribute('transform', `translate(${x}, ${y})`);
+    g.style.opacity = '0';
+    const rings = isHigh ? [28, 52, 78, 106] : [32, 58, 86, 116];
+    rings.forEach(r => {
+      const c = document.createElementNS(SVGNS, 'circle');
+      c.setAttribute('r', '0');
+      c.setAttribute('class', isHigh ? 'iso-high' : 'iso-low');
+      c.setAttribute('fill', 'none');
+      g.appendChild(c);
+      requestAnimationFrame(() => {
+        c.style.transition = 'r 1.6s cubic-bezier(.2,.7,.3,1)';
+        c.setAttribute('r', String(r));
+      });
+    });
+    const tag = document.createElementNS(SVGNS, 'text');
+    tag.setAttribute('class', 'system-label');
+    tag.setAttribute('text-anchor', 'middle');
+    tag.setAttribute('y', '5');
+    tag.setAttribute('style', `font-weight:700;font-size:18px;fill:${isHigh?'#d6334a':'#3a7ab8'};`);
+    tag.textContent = (letter || (isHigh?'H':'L')).toUpperCase();
+    g.appendChild(tag);
+    svg.appendChild(g);
+    requestAnimationFrame(() => { g.style.transition = 'opacity 0.8s'; g.style.opacity = '1'; });
+    setTimeout(() => { g.style.opacity = '0'; setTimeout(()=>g.remove(), 1200); }, 14000);
+  }
+
+  svg.addEventListener('click', (e) => {
+    const pt = svg.createSVGPoint();
+    pt.x = e.clientX; pt.y = e.clientY;
+    const loc = pt.matrixTransform(svg.getScreenCTM().inverse());
+    spawnSystem(loc.x, loc.y, false, 'L');
+  });
+
+  window.addEventListener('keydown', (e) => {
+    if(!e.key || e.key.length !== 1 || !/[a-zA-Z]/.test(e.key)) return;
+    if(usedLetters.has(e.key.toLowerCase())) return;
+    usedLetters.add(e.key.toLowerCase());
+    const isHigh = e.key === e.key.toUpperCase() && e.key !== e.key.toLowerCase();
+    const x = 120 + Math.random() * 740;
+    const y = 120 + Math.random() * 220;
+    spawnSystem(x, y, isHigh, e.key);
+    setTimeout(() => usedLetters.delete(e.key.toLowerCase()), 8000);
+  });
+})();
 </script>
 <script data-section="scroll-hint">
 (() => { const hint = document.querySelector('.scroll-hint-bar'); if (!hint) return; let hidden = false; window.addEventListener('scroll', () => { if (!hidden && window.scrollY > 200) { hint.style.opacity = '0'; hidden = true; } }); })()
@@ -1195,11 +1290,11 @@
 
   const SCENE_CONFIG = {
     particles: {
-      count: 30,
+      count: 10,
       size: 0.2,
       speed: 0.01,
-      color: '#4a6a4a',
-      opacity: 0.12,
+      color: '#d6334a',
+      opacity: 0.05,
       spread: 3,
       orbital_radius: 4,
       orbital_speed: 0.005,
@@ -1215,14 +1310,14 @@
     },
     fog: {
       enabled: true,
-      color: '#f5f0e0',
+      color: '#0e1a22',
       near: 6,
       far: 18,
     },
     lighting: {
-      ambient_color: '#f5f0e6',
+      ambient_color: '#0e1a22',
       ambient_intensity: 0.15,
-      point_color: '#4a6a4a',
+      point_color: '#d6334a',
       point_intensity: 0.35,
       point_position: [2, 3, 4],
     },
@@ -1232,11 +1327,11 @@
       mode: 'repel',
     },
     time_themes: {
-      dawn:      { particle_color: '#33dfff', fog_color: '#0d0806', ambient: '#2a1a0e', speed_mult: 0.6 },
-      morning:   { particle_color: '#1ad9ff', fog_color: '#0a0806', ambient: '#2a1e1a', speed_mult: 0.8 },
-      afternoon: { particle_color: '#00d4ff', fog_color: '#0d0a06', ambient: '#2a2a1a', speed_mult: 1.0 },
-      evening:   { particle_color: '#00a8c8', fog_color: '#0a0806', ambient: '#1e1a2a', speed_mult: 0.7 },
-      night:     { particle_color: '#007a93', fog_color: '#080604', ambient: '#1a1410', speed_mult: 0.4 },
+      dawn:      { particle_color: '#e8556a', fog_color: '#0d0806', ambient: '#2a1a0e', speed_mult: 0.6 },
+      morning:   { particle_color: '#d6334a', fog_color: '#0a0806', ambient: '#2a1e1a', speed_mult: 0.8 },
+      afternoon: { particle_color: '#c42a3e', fog_color: '#0d0a06', ambient: '#2a2a1a', speed_mult: 1.0 },
+      evening:   { particle_color: '#a82132', fog_color: '#0a0806', ambient: '#1e1a2a', speed_mult: 0.7 },
+      night:     { particle_color: '#881a26', fog_color: '#080604', ambient: '#1a1410', speed_mult: 0.4 },
     },
     post_processing: {
       bloom_enabled: false,
@@ -1261,7 +1356,7 @@
 
   const AGENT = {
     birthTime: Date.now(),
-    mood: 'ceremonial',
+    mood: 'barometric',
     secrets: [
       "The swarm remembers the metallurgy epoch. Somewhere in the particle field, one mote still moves like it's being assayed \u2014 slower, heavier, testing its own purity against the others."
 ],
@@ -1633,17 +1728,7 @@
   }
 
   // @inject:interactions
-  // @gene:type-'verte'-anywhere-—-the-te:start
-  // Easter egg: Type 'verte' anywhere — the terre verte ink dot pulses sage and twenty small leaves unfurl along both viewport edges for ten seconds.
-  (function(){let buf=''; document.addEventListener('keydown',e=>{if(e.key.length!==1)return;buf=(buf+e.key.toLowerCase()).slice(-5);if(buf.endsWith('verte')){const dot=document.querySelector('.ink-tonight');if(dot){dot.style.transform='scale(1.8)';setTimeout(()=>dot.style.transform='',900);}const leaves=document.createElement('div');leaves.style.cssText='position:fixed;inset:0;pointer-events:none;z-index:9999;';for(let i=0;i<20;i++){const leaf=document.createElement('span');const side=i%2===0?'left':'right';const top=(i/20)*100;leaf.style.cssText=`position:absolute;${side}:1.5rem;top:${top}%;width:14px;height:6px;background:#4a6a4a;opacity:0;border-radius:0 100% 0 100%;transform:rotate(${side==='left'?-30:30}deg) scale(0);transition:all 0.6s cubic-bezier(0.2,0.8,0.3,1);transition-delay:${i*30}ms;`;leaves.appendChild(leaf);requestAnimationFrame(()=>{leaf.style.opacity='0.7';leaf.style.transform=`rotate(${side==='left'?-30:30}deg) scale(1)`;});}document.body.appendChild(leaves);setTimeout(()=>{[...leaves.children].forEach(l=>{l.style.opacity='0';});setTimeout(()=>leaves.remove(),800);},9500);buf='';}});})();
-  // @gene:type-'verte'-anywhere-—-the-te:end
-
-  // @gene:type-'rubric'-anywhere-to-flas:start
-  // Easter egg: Type 'rubric' anywhere to flash all aubergine marginal annotations on the page in sequence.
-  (function(){let buf='';document.addEventListener('keydown',e=>{if(e.key.length!==1)return;buf=(buf+e.key.toLowerCase()).slice(-6);if(buf==='rubric'){const marks=document.querySelectorAll('.marginalia-rubric, .rubric-text, [data-rubric]');marks.forEach((m,i)=>{setTimeout(()=>{const orig=m.style.cssText;m.style.transition='all 0.4s ease';m.style.color='#b8281e';m.style.textShadow='0 0 12px rgba(184,40,30,0.5)';setTimeout(()=>{m.style.cssText=orig;},520);},i*140);});buf='';}});})();
-  // @gene:type-'rubric'-anywhere-to-flas:end
-
-  // @gene:type-'grain'-anywhere-to-scatt:start
+// @gene:type-'grain'-anywhere-to-scatt:start
   // Easter egg: type 'grain' anywhere to scatter a yellow grain cloud across the resonance-field that fades over four seconds
   (function(){let buf='';document.addEventListener('keydown',(e)=>{buf=(buf+e.key.toLowerCase()).slice(-5);if(buf==='grain'){const cv=document.querySelector('#resonance-field canvas')||document.querySelector('canvas');if(!cv)return;const ctx=cv.getContext('2d');if(!ctx)return;const grains=[];for(let i=0;i<140;i++){grains.push({x:Math.random()*cv.width,y:Math.random()*cv.height,r:1+Math.random()*3,life:1,jx:(Math.random()-0.5)*0.6,jy:(Math.random()-0.5)*0.6});}const start=performance.now();function tick(){const t=(performance.now()-start)/4000;if(t>=1)return;grains.forEach(g=>{ctx.fillStyle='rgba(255,230,0,'+(g.life*(1-t)*0.7)+')';ctx.beginPath();ctx.arc(g.x,g.y,g.r,0,Math.PI*2);ctx.fill();g.x+=g.jx;g.y+=g.jy;});requestAnimationFrame(tick);}tick();buf='';}});})();
   // @gene:type-'grain'-anywhere-to-scatt:end

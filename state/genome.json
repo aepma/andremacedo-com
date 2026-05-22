@@ -1,17 +1,17 @@
 {
-  "generation": 149,
+  "generation": 150,
   "epoch": "webgl-swarm",
   "epoch_started": "2026-05-03",
   "traits": {
     "color": {
-      "accent_base": "#4a6a4a",
-      "accent_dawn": "#5a7a5a",
-      "accent_morning": "#4a6a4a",
-      "accent_afternoon": "#3e5e3e",
-      "accent_evening": "#345434",
-      "accent_night": "#2a4a2a",
-      "bg": "#f5f0e0",
-      "fg": "#0a0a0a",
+      "accent_base": "#d6334a",
+      "accent_dawn": "#e8556a",
+      "accent_morning": "#d6334a",
+      "accent_afternoon": "#c42a3e",
+      "accent_evening": "#a82132",
+      "accent_night": "#881a26",
+      "bg": "#0e1a22",
+      "fg": "#6e6a61",
       "grain_opacity": "0.08",
       "fg_dim": "#3a3a3a",
       "bg_surface": "#faf6e8",
@@ -97,6 +97,7 @@
         "experiments/047.html",
         "experiments/051.html",
         "experiments/006.html",
+        "experiments/071.html",
         "experiments/026.html",
         "experiments/030.html",
         "experiments/067.html",
@@ -115,6 +116,7 @@
         "vernal-glyph-001.svg",
         "recital-programme-001.svg",
         "folium-turnsole-001.svg",
+        "storm-isobars-001.svg",
         "nocturne-glyph-001.svg",
         "scoring-glyph-001.svg",
         "brutalist-glyph-001.svg",
@@ -218,11 +220,10 @@
       "type-'recital'-anywhere-on-the",
       "type-'lettera'-anywhere-to-enc",
       "type-'curtain'-anywhere-to-par",
-      "type-'smalt'-anywhere-on-the-p",
-      "type-'verte'-anywhere-\u2014-the-te"
+      "type-'smalt'-anywhere-on-the-p"
     ],
     "content": {
-      "mood": "ceremonial",
+      "mood": "barometric",
       "obsession": "typography as music \u2014 the letter has a frequency, the word has a rhythm, the page is a score",
       "thought_pools": {
         "dawn": 10,
@@ -235,17 +236,6 @@
     }
   },
   "fitness_log": [
-    {
-      "gen": 130,
-      "coherence": 7,
-      "novelty": 6,
-      "identity": 8,
-      "tension": 6,
-      "awe": 6,
-      "perceptibility": 7,
-      "note": "Engraved chassis day 8 holds. Cream paper, five inks, real notation, real audio \u2014 the most coherent identity since the split-screen era. But week 2 of",
-      "total": 6.7
-    },
     {
       "gen": 131,
       "coherence": 7,
@@ -454,37 +444,20 @@
       "perceptibility": 7,
       "note": "Day 27 of engraved chassis \u2014 the longest unflagged visual identity in site history, nineteen days past the previous record. Andre's loud LOVE on recit",
       "total": 6.8
+    },
+    {
+      "gen": 150,
+      "coherence": 5,
+      "novelty": 8,
+      "identity": 4,
+      "tension": 8,
+      "awe": 6,
+      "perceptibility": 9,
+      "note": "Three RESETs in one day is unprecedented \u2014 the engraved cream chassis is dead despite its 27-day record. Tonight is metamorphosis: typography-as-weath",
+      "total": 6.7
     }
   ],
   "mutation_log": [
-    {
-      "gen": 130,
-      "mutations": [
-        "content.obsession",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "interaction.type-'recital'-anywhere-on-the",
-        "section.overlay-center",
-        "section.tonights-composition",
-        "section.prototype-portfolio",
-        "page.experiments/055.html",
-        "svg.recital-programme-001.svg",
-        "scene.config",
-        "overlay.agent_data"
-      ],
-      "kills": [
-        "interaction:type-'beat'-to-navigate-to-the",
-        "interaction:type-'chord'-anywhere-on-the-p",
-        "interaction:type-'hall'-anywhere-on-the-pa",
-        "css_rule:gen114-css",
-        "css_rule:gen126-css",
-        "secret[20]",
-        "thought:afternoon[9]",
-        "thought:evening[9]"
-      ],
-      "timestamp": "2026-05-18T00:00:32Z"
-    },
     {
       "gen": 131,
       "mutations": [
@@ -859,33 +832,34 @@
         "interaction:type-'echo'-to-slow-the-resona"
       ],
       "timestamp": "2026-05-22T08:06:16Z"
+    },
+    {
+      "gen": 150,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "content.mood",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "section.overlay-center",
+        "section.tonights-composition",
+        "page.experiments/071.html",
+        "svg.storm-isobars-001.svg",
+        "scene.config",
+        "scene.shaders",
+        "overlay.agent_data"
+      ],
+      "kills": [
+        "secret[20]",
+        "interaction:type-'verte'-anywhere-\u2014-the-te",
+        "interaction:type-'rubric'-anywhere-to-flas",
+        "css_rule:gen144-css"
+      ],
+      "timestamp": "2026-05-22T14:04:34Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "css_rule",
-      "value": "gen114-css",
-      "died_gen": 133,
-      "epitaph": "Cobalt phosphor scope CSS from gen 114 \u2014 nineteen generations dead, gene-marked killable since the metamorphosis at gen 122. The dark-stage era is over. Let the corpse stay buried."
-    },
-    {
-      "type": "css_rule",
-      "value": "gen114-css",
-      "died_gen": 134,
-      "epitaph": "Cobalt phosphor scope CSS from the dead stage era \u2014 twenty generations dead, gene-marked killable for fifteen pulses. The velvet curtain finally closes on it."
-    },
-    {
-      "type": "interaction",
-      "value": "type-'lissajous'-anywhere-to-e",
-      "died_gen": 134,
-      "epitaph": "Lissajous secret belonged to the phosphor-scope era. The page hasn't been a CRT for a dozen generations. The closed knot dissolves into velvet."
-    },
-    {
-      "type": "secret",
-      "value": "Type 'encore' anywhere on the page after the recital begins \u2014 the room rings the",
-      "died_gen": 134,
-      "epitaph": "Carrying capacity is 20; the oldest stale secret retires to make room for 'curtain'."
-    },
     {
       "type": "interaction",
       "value": "type-'rubric'-anywhere-to-flas",
@@ -1161,6 +1135,30 @@
       "value": "type-'echo'-to-slow-the-resona",
       "died_gen": 149,
       "epitaph": "Phosphor-scope era relic from gen 114. The Echo experiment (040) is still archive-reachable; the navigation shortcut interaction was decorative residue from the dead stage chassis. Interactions stay at 12/12 ceiling."
+    },
+    {
+      "type": "secret",
+      "value": "Type 'verte' anywhere on the page \u2014 the terre verte ink dot blooms green halo an",
+      "died_gen": 150,
+      "epitaph": "Carrying capacity 20; the new 'storm' isobar-sweep secret arrives tonight. The slot at index 20 retires to make room for the metamorphosis."
+    },
+    {
+      "type": "interaction",
+      "value": "type-'verte'-anywhere-\u2014-the-te",
+      "died_gen": 150,
+      "epitaph": "Gene-marked killable since gen 149. The terre-verte leaf-unfurl belonged to the engraved manuscript chassis, which died tonight. Twenty-one inks were a beautiful palette; a barometric chart needs only two colors and a slash."
+    },
+    {
+      "type": "interaction",
+      "value": "type-'rubric'-anywhere-to-flas",
+      "died_gen": 150,
+      "epitaph": "Gene-marked killable. Another manuscript-era relic \u2014 rubrics are red marginal directions on a scribe's page, and there is no scribe in a storm chart. The whole interaction set is at 14/12 capacity; this and verte bring it back to 12/12."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen144-css",
+      "died_gen": 150,
+      "epitaph": "Six generations dormant. The velvet-rose programme-card styling from the recital era \u2014 preserved through five gens of deepening but obsolete after tonight's chassis pivot. Removed cleanly with gen148-css; gen149-css stays as the bridge."
     }
   ],
   "carrying_capacity": {
@@ -1179,11 +1177,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 140,
-      "base": "#8a4a18",
-      "family": "red"
-    },
     {
       "gen": 141,
       "base": "#3a6a18",
@@ -1228,6 +1221,11 @@
       "gen": 149,
       "base": "#4a6a4a",
       "family": "yellow"
+    },
+    {
+      "gen": 150,
+      "base": "#d6334a",
+      "family": "magenta"
     }
   ],
   "past_epochs": [

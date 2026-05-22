@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>071 · Pressure Systems</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0e1a22; color: #f5f1e8; font-family: 'Source Serif 4', Georgia, serif; overflow: hidden; height: 100vh; }
+  canvas { position: fixed; inset: 0; display: block; }
+  #info { position: fixed; top: 1.5rem; left: 1.5rem; max-width: 28rem; z-index: 10; pointer-events: none; text-shadow: 0 0 8px rgba(0,0,0,0.9), 0 0 20px rgba(0,0,0,0.6); }
+  #info h1 { font-family: 'Playfair Display', serif; font-weight: 900; font-size: 1.6rem; margin-bottom: 0.5rem; color: #f5f1e8; letter-spacing: -0.01em; }
+  #info p { font-style: italic; font-size: 0.95rem; line-height: 1.5; color: #c0c8d0; margin-bottom: 0.6rem; }
+  #info .how { font-family: monospace; font-style: normal; font-size: 0.8rem; color: #a8b0b8; letter-spacing: 0.05em; }
+  #back { position: fixed; bottom: 1.5rem; left: 1.5rem; color: #d6334a; text-decoration: none; font-family: monospace; font-size: 0.85rem; letter-spacing: 0.18em; text-transform: uppercase; z-index: 10; text-shadow: 0 0 8px rgba(0,0,0,0.9); border-bottom: 1px solid #d6334a; padding-bottom: 2px; }
+  #back:hover { color: #f5f1e8; border-color: #f5f1e8; }
+  #readout { position: fixed; bottom: 1.5rem; right: 1.5rem; font-family: monospace; font-size: 0.75rem; color: #a8b0b8; letter-spacing: 0.15em; text-transform: uppercase; z-index: 10; text-shadow: 0 0 8px rgba(0,0,0,0.9); text-align: right; line-height: 1.6; }
+  #readout span { color: #f5f1e8; }
+</style>
+</head>
+<body>
+<canvas id="sky"></canvas>
+<div id="info">
+  <h1>071 · Pressure Systems</h1>
+  <p>Every letter you type becomes a pressure system. Vowels spawn lows (cyclones — air rises, clouds gather). Consonants spawn highs (anticyclones — air sinks, sky clears). Systems drift, deflect each other, and eventually dissipate.</p>
+  <p>A barometric chart is a sentence. Try typing your name.</p>
+  <p class="how">TYPE letters · CLICK to drop a low</p>
+</div>
+<a href="/" id="back">← back</a>
+<div id="readout">systems: <span id="count">0</span><br>pressure: <span id="avg">1013</span> mb</div>
+<script>
+(function(){
+  const canvas = document.getElementById('sky');
+  const ctx = canvas.getContext('2d');
+  const countEl = document.getElementById('count');
+  const avgEl = document.getElementById('avg');
+  let W, H;
+  function resize(){ W = canvas.width = innerWidth; H = canvas.height = innerHeight; }
+  resize(); addEventListener('resize', resize);
+
+  const VOWELS = 'aeiouy';
+  const systems = [];
+  const recentKeys = new Map();
+
+  function spawn(x, y, letter){
+    const isLow = !letter || VOWELS.includes(letter.toLowerCase());
+    systems.push({
+      x, y,
+      vx: (Math.random() - 0.5) * 0.4,
+      vy: (Math.random() - 0.5) * 0.4,
+      r: 20,
+      maxR: isLow ? 180 + Math.random()*80 : 140 + Math.random()*70,
+      age: 0,
+      maxAge: 800 + Math.random()*400,
+      isLow,
+      letter: (letter || (isLow?'L':'H')).toUpperCase(),
+      pressure: isLow ? 988 + Math.random()*12 : 1020 + Math.random()*12
+    });
+  }
+
+  addEventListener('click', e => spawn(e.clientX, e.clientY, null));
+  addEventListener('keydown', e => {
+    if(!e.key || e.key.length !== 1 || !/[a-zA-Z]/.test(e.key)) return;
+    const now = Date.now();
+    if(recentKeys.has(e.key) && now - recentKeys.get(e.key) < 300) return;
+    recentKeys.set(e.key, now);
+    spawn(W*0.2 + Math.random()*W*0.6, H*0.2 + Math.random()*H*0.6, e.key);
+  });
+
+  // seed
+  spawn(W*0.3, H*0.5, 'a');
+  spawn(W*0.7, H*0.5, 'M');
+
+  function draw(){
+    ctx.fillStyle = 'rgba(14, 26, 34, 0.12)';
+    ctx.fillRect(0, 0, W, H);
+
+    // grid
+    ctx.strokeStyle = 'rgba(245, 241, 232, 0.04)';
+    ctx.lineWidth = 1;
+    for(let x=0; x<W; x+=48){ ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,H); ctx.stroke(); }
+    for(let y=0; y<H; y+=48){ ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(W,y); ctx.stroke(); }
+
+    let totalP = 0;
+    for(let i = systems.length - 1; i >= 0; i--){
+      const s = systems[i];
+      s.age++;
+      const lifeT = s.age / s.maxAge;
+      const alpha = lifeT < 0.15 ? lifeT/0.15 : (1 - lifeT);
+
+      // drift, deflect from other systems
+      for(const o of systems){
+        if(o === s) continue;
+        const dx = s.x - o.x, dy = s.y - o.y;
+        const d = Math.hypot(dx, dy) || 1;
+        if(d < 220){
+          const force = (o.isLow === s.isLow ? -0.04 : 0.06) / d;
+          s.vx += dx * force;
+          s.vy += dy * force;
+        }
+      }
+      s.vx *= 0.96; s.vy *= 0.96;
+      s.x += s.vx; s.y += s.vy;
+      if(s.x < 40 || s.x > W-40) s.vx *= -0.7;
+      if(s.y < 40 || s.y > H-40) s.vy *= -0.7;
+      s.r = s.maxR * Math.min(1, s.age/80);
+
+      const color = s.isLow ? '58, 122, 184' : '214, 51, 74';
+      // isobars
+      for(let k=1; k<=4; k++){
+        const ringR = s.r * (k/4);
+        if(ringR < 6) continue;
+        ctx.strokeStyle = `rgba(${color}, ${alpha * 0.7})`;
+        ctx.lineWidth = 1.2;
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, ringR, 0, Math.PI*2);
+        ctx.stroke();
+      }
+      // glow
+      const g = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, s.r);
+      g.addColorStop(0, `rgba(${color}, ${alpha*0.18})`);
+      g.addColorStop(1, `rgba(${color}, 0)`);
+      ctx.fillStyle = g;
+      ctx.fillRect(s.x - s.r, s.y - s.r, s.r*2, s.r*2);
+      // letter
+      ctx.fillStyle = `rgba(${color}, ${alpha})`;
+      ctx.font = 'bold 22px Playfair Display, serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(s.letter, s.x, s.y);
+      // pressure label
+      ctx.fillStyle = `rgba(245, 241, 232, ${alpha*0.5})`;
+      ctx.font = '10px monospace';
+      ctx.fillText(Math.round(s.pressure) + ' mb', s.x, s.y + s.r + 14);
+
+      totalP += s.pressure;
+
+      if(s.age > s.maxAge) systems.splice(i, 1);
+    }
+
+    countEl.textContent = systems.length;
+    avgEl.textContent = systems.length ? Math.round(totalP / systems.length) : 1013;
+
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+</script>
+</body>
+</html>
