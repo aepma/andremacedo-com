@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Experiment 073 · Beaufort</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,400;1,700&family=Source+Serif+4&family=JetBrains+Mono&display=swap">
+<style>
+html,body{margin:0;padding:0;background:#0e1a22;color:#f5f1e8;font-family:'Source Serif 4',Georgia,serif;overflow:hidden;height:100%}
+canvas{display:block;position:fixed;inset:0;z-index:1}
+#info{position:fixed;top:1.5rem;left:1.5rem;max-width:380px;z-index:10;text-shadow:0 0 8px rgba(0,0,0,0.85),0 0 20px rgba(0,0,0,0.6)}
+#info h1{font-family:'Playfair Display',serif;font-style:italic;font-weight:700;font-size:1.9rem;margin:0 0 0.5rem;color:#e8821a}
+#info p{font-size:0.92rem;line-height:1.55;opacity:0.9;margin:0.4rem 0}
+#readout{position:fixed;bottom:5.5rem;left:50%;transform:translateX(-50%);font-family:'JetBrains Mono',monospace;font-size:0.95rem;text-align:center;z-index:10;text-shadow:0 0 8px rgba(0,0,0,0.85);max-width:90vw}
+#readout .force-num{font-family:'Playfair Display',serif;font-style:italic;font-size:2.2rem;color:#e8821a;display:block;margin-bottom:0.2rem}
+#readout .name{font-size:1.05rem;color:#f5f1e8;letter-spacing:0.04em}
+#readout .mph{font-size:0.75rem;color:#a8b0b8;margin-top:0.3rem}
+#readout .desc{font-style:italic;color:#a8b0b8;font-family:'Source Serif 4',serif;font-size:0.85rem;margin-top:0.3rem;max-width:340px;margin-left:auto;margin-right:auto}
+#scale{position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%);display:flex;gap:0.35rem;z-index:10;text-shadow:0 0 8px rgba(0,0,0,0.8)}
+.step{width:34px;height:34px;border:1px solid #6a7480;background:rgba(14,26,34,0.7);display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:0.85rem;cursor:pointer;transition:all 0.25s;color:#a8b0b8;user-select:none}
+.step.active{background:#e8821a;color:#0e1a22;border-color:#e8821a;font-weight:bold}
+.step:hover{border-color:#e8821a;color:#f5f1e8}
+#back{position:fixed;top:1.5rem;right:1.5rem;color:#f5f1e8;opacity:0.55;text-decoration:none;font-family:'JetBrains Mono',monospace;font-size:0.78rem;letter-spacing:0.12em;z-index:10;text-shadow:0 0 8px rgba(0,0,0,0.85)}
+#back:hover{opacity:1;color:#e8821a}
+#audio-hint{position:fixed;top:1.5rem;left:50%;transform:translateX(-50%);font-family:'JetBrains Mono',monospace;font-size:0.7rem;letter-spacing:0.18em;text-transform:uppercase;color:#e8821a;opacity:0;transition:opacity 0.5s;z-index:10;text-shadow:0 0 8px rgba(0,0,0,0.85);pointer-events:none}
+#audio-hint.show{opacity:0.7}
+@media(max-width:600px){#info{max-width:calc(100% - 3rem);font-size:0.85rem;top:1rem;left:1rem;right:1rem}.step{width:26px;height:26px;font-size:0.7rem;gap:0.2rem}#scale{gap:0.2rem;bottom:1rem}#readout{bottom:4rem}#readout .force-num{font-size:1.6rem}}
+</style>
+</head>
+<body>
+<a id="back" href="/">← back to chart</a>
+<div id="info">
+<h1>Beaufort</h1>
+<p>In 1805 Francis Beaufort numbered the wind so two captains a hundred miles apart could speak about the same weather. Twelve forces. Calm to hurricane.</p>
+<p>Each step changes the page: particles drift, the audio rumbles, the air rearranges itself. Click a number. The room becomes the wind.</p>
+</div>
+<canvas id="c"></canvas>
+<div id="readout">
+<span class="force-num">3</span>
+<span class="name">gentle breeze</span>
+<div class="mph">12 mph · 19 km/h</div>
+<div class="desc">leaves rustle, light flags extend</div>
+</div>
+<div id="scale"></div>
+<div id="audio-hint">click any number to hear the wind</div>
+<script src="https://cdn.jsdelivr.net/npm/tone@14.8.49/build/Tone.js"></script>
+<script>
+const c=document.getElementById('c');
+const ctx=c.getContext('2d');
+const scaleEl=document.getElementById('scale');
+const readoutEl=document.getElementById('readout');
+const hint=document.getElementById('audio-hint');
+let W,H;
+function resize(){W=c.width=innerWidth;H=c.height=innerHeight;}
+resize();addEventListener('resize',resize);
+
+const beaufort=[
+{f:0,name:'calm',mph:0,kmh:0,desc:'smoke rises vertically; water mirror-still'},
+{f:1,name:'light air',mph:2,kmh:3,desc:'smoke drifts; ripples on water'},
+{f:2,name:'light breeze',mph:5,kmh:8,desc:'leaves stir; wind felt on face'},
+{f:3,name:'gentle breeze',mph:12,kmh:19,desc:'leaves rustle, light flags extend'},
+{f:4,name:'moderate breeze',mph:15,kmh:24,desc:'small branches move; dust raised'},
+{f:5,name:'fresh breeze',mph:21,kmh:34,desc:'small trees sway; whitecaps form'},
+{f:6,name:'strong breeze',mph:28,kmh:45,desc:'large branches move; umbrellas hard to use'},
+{f:7,name:'near gale',mph:35,kmh:56,desc:'whole trees in motion; walking against wind hard'},
+{f:8,name:'gale',mph:42,kmh:68,desc:'twigs break; progress impeded'},
+{f:9,name:'strong gale',mph:50,kmh:81,desc:'branches break; structural damage begins'},
+{f:10,name:'storm',mph:59,kmh:95,desc:'trees uprooted; considerable damage'},
+{f:11,name:'violent storm',mph:69,kmh:111,desc:'widespread damage; rarely experienced inland'},
+{f:12,name:'hurricane',mph:75,kmh:120,desc:'devastation'}
+];
+
+let force=3;
+const N=700;
+const particles=[];
+for(let i=0;i<N;i++){
+particles.push({x:Math.random()*W,y:Math.random()*H,vx:0,vy:0,size:0.6+Math.random()*1.4,age:Math.random()*200});
+}
+
+beaufort.forEach((b,i)=>{
+const s=document.createElement('div');
+s.className='step'+(i===force?' active':'');
+s.textContent=b.f;
+s.title=b.name+' · '+b.mph+' mph';
+s.onclick=()=>setForce(i);
+scaleEl.appendChild(s);
+});
+
+let noise,filter,gain,started=false;
+async function startAudio(){
+if(started)return;
+try{await Tone.start();
+noise=new Tone.Noise('pink').start();
+filter=new Tone.Filter(200,'lowpass');
+gain=new Tone.Gain(0).toDestination();
+noise.connect(filter);filter.connect(gain);
+started=true;
+updateAudio();
+}catch(e){console.warn('audio failed',e);}
+}
+function updateAudio(){
+if(!started)return;
+const i=force/12;
+gain.gain.rampTo(i*i*0.18,1.4);
+filter.frequency.rampTo(180+i*2400,1.4);
+}
+
+function setForce(idx){
+force=idx;
+document.querySelectorAll('.step').forEach((s,i)=>s.classList.toggle('active',i===idx));
+const b=beaufort[idx];
+readoutEl.innerHTML='<span class="force-num">'+b.f+'</span><span class="name">'+b.name+'</span><div class="mph">'+b.mph+' mph · '+b.kmh+' km/h</div><div class="desc">'+b.desc+'</div>';
+if(!started){startAudio();}else{updateAudio();}
+}
+
+hint.classList.add('show');
+setTimeout(()=>hint.classList.remove('show'),4500);
+
+function draw(){
+const fadeAlpha=0.04+force*0.008;
+ctx.fillStyle='rgba(14,26,34,'+fadeAlpha+')';
+ctx.fillRect(0,0,W,H);
+
+const windBase=force*force*0.045;
+const turbulence=force*0.18;
+const gustPhase=Date.now()*0.001;
+const gust=force>4?Math.sin(gustPhase)*force*0.3:0;
+
+for(const p of particles){
+const wind=windBase+gust+(Math.random()-0.5)*turbulence;
+const vert=(Math.random()-0.5)*turbulence*0.6;
+p.vx=p.vx*0.85+wind*0.15;
+p.vy=p.vy*0.85+vert*0.15;
+const px=p.x,py=p.y;
+p.x+=p.vx;p.y+=p.vy;
+p.age++;
+if(p.x>W){p.x=0;p.y=Math.random()*H;}
+if(p.x<0){p.x=W;p.y=Math.random()*H;}
+if(p.y>H){p.y=0;}
+if(p.y<0){p.y=H;}
+const speed=Math.hypot(p.vx,p.vy);
+const alpha=Math.min(0.85,0.12+speed*0.04);
+const hue=force<6?'232,130,26':force<9?'214,90,40':'214,51,74';
+ctx.strokeStyle='rgba('+hue+','+alpha+')';
+ctx.lineWidth=p.size;
+ctx.beginPath();
+ctx.moveTo(px,py);
+ctx.lineTo(p.x,p.y);
+ctx.stroke();
+}
+
+// horizon line and force indicator
+if(force>=10){
+ctx.fillStyle='rgba(214,51,74,'+(0.04+(force-10)*0.03)+')';
+ctx.fillRect(0,0,W,H);
+}
+
+requestAnimationFrame(draw);
+}
+
+setForce(3);
+draw();
+</script>
+</body>
+</html>
