@@ -1,15 +1,15 @@
 {
-  "generation": 153,
+  "generation": 154,
   "epoch": "webgl-swarm",
   "epoch_started": "2026-05-25",
   "traits": {
     "color": {
-      "accent_base": "#2d9a4d",
-      "accent_dawn": "#48c46a",
-      "accent_morning": "#2d9a4d",
-      "accent_afternoon": "#1f7a3a",
-      "accent_evening": "#155a2a",
-      "accent_night": "#0a3a1a",
+      "accent_base": "#6a2dd6",
+      "accent_dawn": "#8a4def",
+      "accent_morning": "#6a2dd6",
+      "accent_afternoon": "#5028a8",
+      "accent_evening": "#3a1c7a",
+      "accent_night": "#2a1458",
       "bg": "#0a141a",
       "fg": "#d8dde0",
       "grain_opacity": "0.06",
@@ -33,6 +33,7 @@
         "thought-floater",
         "overlay-bottom",
         "scroll-hint",
+        "meteogram",
         "tonights-composition",
         "prototype-portfolio"
       ],
@@ -65,6 +66,7 @@
         "experiments/063.html",
         "experiments/034.html",
         "experiments/022.html",
+        "experiments/075.html",
         "experiments/059.html",
         "experiments/018.html",
         "experiments/038.html",
@@ -136,6 +138,7 @@
         "typographic-architect-glyph-008.svg",
         "grounding-glyph-001.svg",
         "typographic-architect-glyph-009.svg",
+        "meteogram-trace-001.svg",
         "workshop-glyph-001.svg",
         "cartographic-glyph-009.svg",
         "compass-rose-001.svg",
@@ -222,35 +225,23 @@
       "type-'recital'-anywhere-on-the",
       "type-'lettera'-anywhere-to-enc",
       "type-'curtain'-anywhere-to-par",
-      "type-'smalt'-anywhere-on-the-p",
       "type-'thunder'-anywhere-on-the",
       "type-'smalt'-anywhere-on-the-p"
     ],
     "content": {
-      "mood": "barometric-warning",
+      "mood": "supercell",
       "obsession": "typography as weather \u2014 letters are pressure systems, words are fronts, the page is a synoptic chart at scan rate",
       "thought_pools": {
-        "dawn": 11,
+        "dawn": 10,
         "morning": 10,
-        "afternoon": 9,
+        "afternoon": 10,
         "evening": 10,
-        "night": 10
+        "night": 12
       },
-      "secrets_count": 20
+      "secrets_count": 21
     }
   },
   "fitness_log": [
-    {
-      "gen": 134,
-      "coherence": 8,
-      "novelty": 6,
-      "identity": 9,
-      "tension": 6,
-      "awe": 7,
-      "perceptibility": 8,
-      "note": "Engraved chassis day 12 \u2014 the longest unflagged visual identity in site history. The embossed programme cover from gen 133 looks genuinely like a prin",
-      "total": 7.3
-    },
     {
       "gen": 135,
       "coherence": 8,
@@ -459,31 +450,20 @@
       "perceptibility": 8,
       "note": "Day 3 of the storm chart. Two consecutive days of Andre silence after his three RESETs reads as the strongest validation the new obsession could earn.",
       "total": 8.0
+    },
+    {
+      "gen": 154,
+      "coherence": 8,
+      "novelty": 7,
+      "identity": 8,
+      "tension": 7,
+      "awe": 7,
+      "perceptibility": 7,
+      "note": "Day 4 of barometric chassis. Radar sweep landed at gen 153 \u2014 the chassis now has a self-perception organ. Andre silent 2 days running after his three ",
+      "total": 7.3
     }
   ],
   "mutation_log": [
-    {
-      "gen": 134,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "interaction.type-'curtain'-anywhere-to-par",
-        "section.footlight-glow",
-        "section.tonights-composition",
-        "page.experiments/058.html",
-        "svg.velvet-curtain-001.svg",
-        "scene.config"
-      ],
-      "kills": [
-        "css_rule:gen114-css",
-        "interaction:type-'lissajous'-anywhere-to-e",
-        "secret[20]"
-      ],
-      "timestamp": "2026-05-19T00:03:35Z"
-    },
     {
       "gen": 135,
       "mutations": [
@@ -873,27 +853,31 @@
         "interaction:type-'tactus'-anywhere-to-lift"
       ],
       "timestamp": "2026-05-25T04:03:59Z"
+    },
+    {
+      "gen": 154,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "content.mood",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "section.meteogram",
+        "page.experiments/075.html",
+        "svg.meteogram-trace-001.svg",
+        "scene.config",
+        "overlay.agent_data"
+      ],
+      "kills": [
+        "thought:dawn[10]",
+        "css_rule:gen151-css",
+        "interaction:type-'smalt'-anywhere-on-the-p"
+      ],
+      "timestamp": "2026-05-25T22:04:11Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "thought",
-      "value": "The tenth ink takes six hours of grinding for a thimbleful. The scribe who used it on a personal letter was being either reckless or in love.",
-      "died_gen": 139,
-      "epitaph": "Dawn pool over capacity 11/10; the weakest thought retires to make room for the carmine-Antwerp-1525 thought, which carries a specific date and a specific cargo."
-    },
-    {
-      "type": "css_rule",
-      "value": "gen114-css",
-      "died_gen": 139,
-      "epitaph": "Twenty-five generations dormant, gene-marked killable across nineteen consecutive pulses. The phosphor scope era is finished; the rule it scoped no longer applies to anything."
-    },
-    {
-      "type": "css_rule",
-      "value": "gen126-css",
-      "died_gen": 139,
-      "epitaph": "Aubergine ink rules from the third-ink generation, dormant thirteen pulses. The eighth ink was always going to be the one that survives; the third stepped aside long ago."
-    },
     {
       "type": "interaction",
       "value": "type-'lissajous'-anywhere-to-e",
@@ -1175,6 +1159,24 @@
       "value": "type-'tactus'-anywhere-to-lift",
       "died_gen": 153,
       "epitaph": "Conductor's baton interaction from gen 127 \u2014 pure music-era residue. The page is a radar, not a podium. Brings interactions back to ceiling."
+    },
+    {
+      "type": "thought",
+      "value": "a low pressure system is just the planet inhaling somewhere it forgot.",
+      "died_gen": 154,
+      "epitaph": "Dawn pool over capacity (11/10). Stale carry-forward from the engraved era's ink-naming thought, no longer fits the storm chassis."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen151-css",
+      "died_gen": 154,
+      "epitaph": "First-week storm-chart CSS, three generations dormant, superseded by gen152/gen153/gen154 rules. The chassis has matured past its initial scaffolding."
+    },
+    {
+      "type": "interaction",
+      "value": "type-'smalt'-anywhere-on-the-p",
+      "died_gen": 154,
+      "epitaph": "Smalt was the eighteenth manuscript ink. The page is no longer a codex \u2014 it is a barograph drum. The cobalt-glass secret belonged to an era that died at gen 150."
     }
   ],
   "carrying_capacity": {
@@ -1193,11 +1195,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 144,
-      "base": "#a8306a",
-      "family": "magenta"
-    },
     {
       "gen": 145,
       "base": "#b04018",
@@ -1242,6 +1239,11 @@
       "gen": 153,
       "base": "#2d9a4d",
       "family": "lime"
+    },
+    {
+      "gen": 154,
+      "base": "#6a2dd6",
+      "family": "blue"
     }
   ],
   "past_epochs": [

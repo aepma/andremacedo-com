@@ -15,7 +15,7 @@
     --fg: #d8dde0;
     --fg-dim: #8a949c;
     --fg-on-stage: #f5f5f5;
-    --fg-accent: #2d9a4d;
+    --fg-accent: #6a2dd6;
     --bg: #0a141a;
     --bg-surface: #0e1a22;
     --bg-elevated: #142028;
@@ -214,7 +214,7 @@
     padding: 4rem 2.5rem;
     --fg: #d8dde0;
     --fg-dim: #8a949c;
-    --fg-accent: #2d9a4d;
+    --fg-accent: #975aff;
     --bg-surface: #0e1a22;
     --bg-elevated: #142028;
   }
@@ -569,6 +569,20 @@
 
   /* Section injection markers are now in the body */
 /* @inject:css */
+  /* @gene:gen154-css:start */
+  :root { --bg-below-fold: #0a141a !important; --accent-storm: #6a2dd6 !important; }
+.below-fold, [class*='below-fold'] { background-color: #0a141a !important; color: #d8dde0 !important; }
+.below-fold *:not(a):not(button):not(svg):not(svg *):not(input) { color: inherit; }
+.gen154-meteogram { position: relative; margin: 3rem auto; max-width: 920px; padding: 1.25rem 1.5rem; background: rgba(20,30,40,0.55); border: 1px solid rgba(106,45,214,0.32); border-radius: 2px; box-sizing: border-box; }
+.gen154-meteogram .meteogram-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.65rem; font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: #a8b0b8; }
+.gen154-meteogram .meteo-label { color: #8a4def; }
+.gen154-meteogram .meteo-readout { font-variant-numeric: tabular-nums; color: #d8dde0; }
+.gen154-meteogram .meteo-canvas { display: block; width: 100%; height: 120px; background: #0a141a; border-top: 1px solid rgba(216,221,224,0.08); border-bottom: 1px solid rgba(216,221,224,0.08); cursor: crosshair; }
+.gen154-meteogram .meteogram-footer { display: flex; justify-content: space-between; margin-top: 0.55rem; font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: #5a6670; }
+.gen154-meteogram .meteo-hint { color: #a8b0b8; font-style: italic; }
+@media (max-width: 600px) { .gen154-meteogram { margin: 2rem 0.75rem; padding: 0.85rem 1rem; } .gen154-meteogram .meteo-canvas { height: 80px; } .gen154-meteogram .meteogram-header, .gen154-meteogram .meteogram-footer { font-size: 0.6rem; flex-wrap: wrap; gap: 0.4rem; } }
+  /* @gene:gen154-css:end */
+
   /* @gene:gen153-css:start */
   /* gen153-css: doppler chassis */
 .gen153-radar-host { position: fixed; inset: 0; z-index: 1; pointer-events: auto; background: radial-gradient(ellipse at center, #0e1a22 0%, #050a0e 100%); }
@@ -615,10 +629,6 @@
   /* @gene:gen152-css:start */
   .gen152-stormchart{background:#0e1a22;color:#f5f1e8;padding:4rem 1.5rem 6rem;font-family:'Source Serif 4',Georgia,serif}.gen152-stormchart .storm-masthead{max-width:1100px;margin:0 auto 3rem;border-top:1px solid #6a7480;border-bottom:1px solid #6a7480;padding:1rem 0;display:flex;justify-content:space-between;align-items:center;font-family:'JetBrains Mono',monospace;font-size:0.72rem;letter-spacing:0.18em;text-transform:uppercase;color:#a8b0b8}.gen152-stormchart .storm-masthead .warn{color:#e8821a}.gen152-stormchart .section-heading{font-family:'Playfair Display',serif;font-style:italic;font-size:2rem;color:#f5f1e8;margin:2.5rem auto 1.5rem;max-width:1100px;border-left:3px solid #e8821a;padding-left:1rem}.gen152-stormchart .experiments-grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1rem}.gen152-stormchart .experiment-card{background:#152530;border:1px solid #2a3a48;border-top:2px solid #e8821a;padding:1.25rem;transition:all 0.3s;text-decoration:none;color:inherit;display:block}.gen152-stormchart .experiment-card:hover{border-color:#e8821a;transform:translateY(-2px);box-shadow:0 4px 20px rgba(232,130,26,0.15)}.gen152-stormchart .experiment-card.live{border-top-color:#d6334a;background:#1a2838}.gen152-stormchart .experiment-card .num{font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:#e8821a;letter-spacing:0.15em}.gen152-stormchart .experiment-card .title{font-family:'Playfair Display',serif;font-style:italic;font-size:1.1rem;color:#f5f1e8;margin:0.3rem 0}.gen152-stormchart .experiment-card .desc{font-size:0.78rem;color:#a8b0b8;line-height:1.4;margin-top:0.4rem}.gen152-stormchart .experiment-card .date{font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:#6a7480;margin-top:0.6rem;letter-spacing:0.1em}.gen152-stormchart .systems-timeline{max-width:1100px;margin:2rem auto;border-left:1px solid #6a7480;padding-left:1.5rem}.gen152-stormchart .system-entry{margin-bottom:1.5rem;font-size:0.88rem;color:#a8b0b8;line-height:1.5}.gen152-stormchart .system-entry .label{display:block;font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:#e8821a;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:0.3rem}.gen152-stormchart .system-entry.active .label{color:#d6334a}.gen152-stormchart .system-entry .name{color:#f5f1e8;font-family:'Playfair Display',serif;font-style:italic;font-size:1.2rem}.gen152-stormchart .decisions{max-width:900px;margin:2rem auto;color:#a8b0b8;font-size:0.92rem;line-height:1.7}.gen152-stormchart .decisions p{margin-bottom:1rem;border-left:2px solid #2a3a48;padding-left:1rem}.gen152-stormchart .decisions .date-tag{display:block;font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:#6a7480;letter-spacing:0.1em}@media(max-width:600px){.gen152-stormchart{padding:2rem 1rem 4rem}.gen152-stormchart .storm-masthead{flex-direction:column;gap:0.3rem;text-align:center}.gen152-stormchart .section-heading{font-size:1.5rem;padding-left:0.75rem}.gen152-stormchart .experiments-grid{grid-template-columns:1fr}.gen152-stormchart .experiment-card{padding:1rem}}
   /* @gene:gen152-css:end */
-
-  /* @gene:gen151-css:start */
-  @keyframes gen151-isobar-drift{0%{transform:translateX(-100%) translateY(0)}100%{transform:translateX(100%) translateY(-8px)}}@keyframes gen151-lightning-flash{0%,90%,100%{opacity:0}92%{opacity:0.9}94%{opacity:0.2}96%{opacity:0.7}}@keyframes gen151-pressure-pulse{0%,100%{transform:scale(1);opacity:0.6}50%{transform:scale(1.08);opacity:1}}.gen151-tier-strong{color:#f5f1e8 !important;font-weight:500}.gen151-tier-mid{color:#a8b0b8 !important}.gen151-tier-soft{color:#6a7480 !important;font-family:'JetBrains Mono',monospace;font-size:0.75rem;letter-spacing:0.05em}.gen151-storm-card{background:rgba(14,26,34,0.85);border:1px solid rgba(42,138,214,0.35);border-radius:0;padding:1.5rem;position:relative;overflow:hidden}.gen151-storm-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,#2a8ad6,transparent);animation:gen151-isobar-drift 12s linear infinite}.gen151-storm-card:hover{border-color:#d6334a}.gen151-pressure-badge{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:0.7rem;letter-spacing:0.15em;color:#2a8ad6;padding:0.25rem 0.5rem;border:1px solid rgba(42,138,214,0.4);text-transform:uppercase}.gen151-front-line{height:1px;background:linear-gradient(90deg,transparent,#d6334a 20%,#d6334a 80%,transparent);margin:2rem 0;position:relative}.gen151-front-line::after{content:'▲ ▲ ▲ ▲ ▲';position:absolute;top:-0.6rem;left:50%;transform:translateX(-50%);color:#d6334a;font-size:0.7rem;letter-spacing:0.5rem;background:#0e1a22;padding:0 0.5rem}@media (max-width:600px){.gen151-storm-card{padding:1rem}.gen151-pressure-badge{font-size:0.65rem}}
-  /* @gene:gen151-css:end */
 </style>
 <!-- MOBILE SCAFFOLD - DO NOT MODIFY (apply_changes.py protected) -->
 <style id="mobile-scaffold">
@@ -967,7 +977,7 @@
 
 <div id="scene-frame"><canvas id="scene-canvas"></canvas></div>
 
-<span id="siteVersion" style="display:none">v153</span>
+<span id="siteVersion" style="display:none">v154</span>
 
 <!-- ── HTML Overlay ──────────────────────────────────────────── -->
 <div id="overlay">
@@ -1020,6 +1030,13 @@
 <!-- @section:scroll-hint:start -->
 <div style="position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%);z-index:6;text-align:center;pointer-events:none;"><div id="scroll-hint-count" style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:#666666;letter-spacing:0.15em;text-transform:uppercase;">16 experiments & archive below ↓</div></div>
 <!-- @section:scroll-hint:end -->
+
+<!-- @section:meteogram:start -->
+<section class="gen154-meteogram" aria-label="Session meteogram"><div class="meteogram-header"><span class="meteo-label">SESSION METEOGRAM · BAROGRAPH DRUM</span><span class="meteo-readout" id="meteo-readout">1013.2 mb · steady</span></div><canvas id="meteogram-canvas" class="meteo-canvas" height="120"></canvas><div class="meteogram-footer"><span>← thirty seconds ago · now</span><span class="meteo-hint">Click to drop pressure. Type to add variance. The chart is recording.</span></div></section>
+<!-- @section:meteogram:end -->
+<script data-section="meteogram">
+(function(){var c=document.getElementById('meteogram-canvas');if(!c)return;var ctx=c.getContext('2d');function fit(){c.width=c.clientWidth||c.offsetWidth||800;c.height=c.clientHeight||120;ctx.fillStyle='#0a141a';ctx.fillRect(0,0,c.width,c.height);}fit();window.addEventListener('resize',fit);var pressure=1013.2,target=1013.2,variance=0,t=0,boost=0;c.addEventListener('click',function(){target-=Math.random()*9+3;variance=Math.min(variance+2,14);});document.addEventListener('keydown',function(e){if(e.key&&e.key.length===1)variance=Math.min(variance+1.4,12);if(e.key==='b'){}});window.AGENT_BAROGRAPH_BOOST=function(){boost=15;};function frame(){requestAnimationFrame(frame);t++;target+=(1013.2-target)*0.0025;pressure+=(target-pressure)*0.045;variance*=0.97;if(boost>0)boost-=0.016;var amp=boost>0?2:1;var p=pressure+Math.sin(t*0.04)*0.55*amp+(Math.random()-0.5)*variance*0.35*amp;var w=c.width,h=c.height;ctx.drawImage(c,-1,0);ctx.fillStyle='rgba(10,20,26,0.018)';ctx.fillRect(0,0,w,h);var y=h-((p-995)/40)*h;y=Math.max(2,Math.min(h-2,y));ctx.fillStyle=boost>0?'#b88aff':'#8a4def';ctx.fillRect(w-2,y-1,2,2);if(t%4===0){var refY=h-((1013.2-995)/40)*h;ctx.fillStyle='rgba(216,221,224,0.05)';ctx.fillRect(w-1,refY,1,1);}var ro=document.getElementById('meteo-readout');if(ro&&t%8===0){var trend=target<1010.5?'falling':target>1015.5?'rising':'steady';var glyph=trend==='falling'?'↓':trend==='rising'?'↑':'·';ro.textContent=p.toFixed(1)+' mb '+glyph+' '+trend;}}frame();var typed='';document.addEventListener('keydown',function(e){if(!e.key||e.key.length!==1)return;typed=(typed+e.key.toLowerCase()).slice(-9);if(typed.indexOf('barograph')>=0){typed='';if(window.AGENT_BAROGRAPH_BOOST)window.AGENT_BAROGRAPH_BOOST();}});})();
+</script>
 
 <!-- @section:tonights-composition:start -->
 <section class="gen150-stormchart" id="storm-chart-root">
@@ -1255,7 +1272,7 @@
       count: 10,
       size: 0.2,
       speed: 0.01,
-      color: '#d6334a',
+      color: '#6a2dd6',
       opacity: 0.05,
       spread: 3,
       orbital_radius: 4,
@@ -1279,7 +1296,7 @@
     lighting: {
       ambient_color: '#0e1a22',
       ambient_intensity: 0.15,
-      point_color: '#2d9a4d',
+      point_color: '#8a4def',
       point_intensity: 0.2,
       point_position: [2, 3, 4],
     },
@@ -1318,7 +1335,7 @@
 
   const AGENT = {
     birthTime: Date.now(),
-    mood: 'severe-watch',
+    mood: 'supercell',
     secrets: [
       "The swarm remembers the metallurgy epoch. Somewhere in the particle field, one mote still moves like it's being assayed \u2014 slower, heavier, testing its own purity against the others."
 ],
@@ -1690,12 +1707,7 @@
   }
 
   // @inject:interactions
-  // @gene:type-'smalt'-anywhere-on-the-p:start
-  // Easter egg: Type 'smalt' anywhere on the page — the radar sweep brightens to deep cobalt for ten seconds and a single high-pressure cell appears at the center with isobars spreading outward. (Replaces dead manuscript-era interaction.)
-  let smaltBuf=''; window.addEventListener('keydown',(e)=>{ if(e.key.length===1){ smaltBuf=(smaltBuf+e.key.toLowerCase()).slice(-12); if(smaltBuf.endsWith('smalt')){ const c=document.querySelector('#radar-canvas'); if(c){ c.classList.add('smalt-flash'); setTimeout(()=>c.classList.remove('smalt-flash'),10000);} window.AGENT_RADAR_HIGH&&window.AGENT_RADAR_HIGH();} }});
-  // @gene:type-'smalt'-anywhere-on-the-p:end
-
-  // @gene:type-'thunder'-anywhere-on-the:start
+// @gene:type-'thunder'-anywhere-on-the:start
   // Easter egg: Type 'thunder' anywhere on the page — lightning flashes the entire viewport white for 120ms while a low 55Hz rumble decays over 3 seconds through the audio engine.
   (function(){let buf='';let ctx=null;window.addEventListener('keydown',function(e){if(!/^[a-z]$/i.test(e.key))return;buf=(buf+e.key.toLowerCase()).slice(-7);if(buf.endsWith('thunder')){buf='';try{ctx=ctx||new(window.AudioContext||window.webkitAudioContext)();const o=ctx.createOscillator();const g=ctx.createGain();const f=ctx.createBiquadFilter();o.type='sawtooth';o.frequency.value=55;f.type='lowpass';f.frequency.value=180;g.gain.setValueAtTime(0.0001,ctx.currentTime);g.gain.exponentialRampToValueAtTime(0.5,ctx.currentTime+0.05);g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+3);o.connect(f);f.connect(g);g.connect(ctx.destination);o.start();o.stop(ctx.currentTime+3);}catch(_){}const flash=document.createElement('div');flash.style.cssText='position:fixed;inset:0;background:#f5f1e8;opacity:0;z-index:9999;pointer-events:none;animation:gen151-lightning-flash 0.5s ease-out';document.body.appendChild(flash);setTimeout(()=>flash.remove(),600);}});})();
   // @gene:type-'thunder'-anywhere-on-the:end
