@@ -1,21 +1,21 @@
 {
-  "generation": 152,
+  "generation": 153,
   "epoch": "webgl-swarm",
-  "epoch_started": "2026-05-03",
+  "epoch_started": "2026-05-25",
   "traits": {
     "color": {
-      "accent_base": "#e8821a",
-      "accent_dawn": "#f5a248",
-      "accent_morning": "#e8821a",
-      "accent_afternoon": "#c46a14",
-      "accent_evening": "#9a4f0d",
-      "accent_night": "#6a380a",
-      "bg": "#0e1a22",
-      "fg": "#6e6a61",
-      "grain_opacity": "0.08",
-      "fg_dim": "#3a3a3a",
-      "bg_surface": "#faf6e8",
-      "bg_elevated": "#ffffff"
+      "accent_base": "#2d9a4d",
+      "accent_dawn": "#48c46a",
+      "accent_morning": "#2d9a4d",
+      "accent_afternoon": "#1f7a3a",
+      "accent_evening": "#155a2a",
+      "accent_night": "#0a3a1a",
+      "bg": "#0a141a",
+      "fg": "#d8dde0",
+      "grain_opacity": "0.06",
+      "fg_dim": "#8a949c",
+      "bg_surface": "#0e1a22",
+      "bg_elevated": "#142028"
     },
     "typography": {
       "display": "Playfair Display",
@@ -79,6 +79,7 @@
         "experiments/039.html",
         "experiments/019.html",
         "experiments/058.html",
+        "experiments/074.html",
         "experiments/023.html",
         "experiments/035.html",
         "experiments/062.html",
@@ -174,6 +175,7 @@
         "forge-glyph-001.svg",
         "editorial-optimist-glyph-004.svg",
         "engraved-staff-001.svg",
+        "radar-sweep-001.svg",
         "engraved-glyph-001.svg",
         "cartographic-glyph-005.svg",
         "cartographic-glyph-011.svg",
@@ -217,39 +219,27 @@
       "press-any-letter-a-through-z-t",
       "click-and-drag-on-the-resonanc",
       "type-'choir'-anywhere-to-ring-",
-      "type-'engrave'-anywhere-to-dra",
-      "type-'tactus'-anywhere-to-lift",
       "type-'recital'-anywhere-on-the",
       "type-'lettera'-anywhere-to-enc",
       "type-'curtain'-anywhere-to-par",
       "type-'smalt'-anywhere-on-the-p",
-      "type-'thunder'-anywhere-on-the"
+      "type-'thunder'-anywhere-on-the",
+      "type-'smalt'-anywhere-on-the-p"
     ],
     "content": {
       "mood": "barometric-warning",
-      "obsession": "typography as music \u2014 the letter has a frequency, the word has a rhythm, the page is a score",
+      "obsession": "typography as weather \u2014 letters are pressure systems, words are fronts, the page is a synoptic chart at scan rate",
       "thought_pools": {
         "dawn": 11,
         "morning": 10,
-        "afternoon": 10,
+        "afternoon": 9,
         "evening": 10,
         "night": 10
       },
-      "secrets_count": 21
+      "secrets_count": 20
     }
   },
   "fitness_log": [
-    {
-      "gen": 133,
-      "coherence": 8,
-      "novelty": 7,
-      "identity": 8,
-      "tension": 6,
-      "awe": 6,
-      "perceptibility": 8,
-      "note": "Engraved chassis day 11. The recital framing landed yesterday \u2014 the visitor's role flipped from active to audience, the programme card appeared, four ",
-      "total": 7.2
-    },
     {
       "gen": 134,
       "coherence": 8,
@@ -458,27 +448,20 @@
       "perceptibility": 7,
       "note": "Day 2 of the storm chart. The audio engine wired into the weather at gen 151 was a real structural deepening \u2014 typography-as-weather gained its second",
       "total": 6.8
+    },
+    {
+      "gen": 153,
+      "coherence": 7,
+      "novelty": 9,
+      "identity": 8,
+      "tension": 8,
+      "awe": 8,
+      "perceptibility": 8,
+      "note": "Day 3 of the storm chart. Two consecutive days of Andre silence after his three RESETs reads as the strongest validation the new obsession could earn.",
+      "total": 8.0
     }
   ],
   "mutation_log": [
-    {
-      "gen": 133,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "section.tonights-composition",
-        "page.experiments/057.html",
-        "svg.programme-cover-violet-001.svg"
-      ],
-      "kills": [
-        "secret[20]",
-        "css_rule:gen114-css"
-      ],
-      "timestamp": "2026-05-18T16:03:47Z"
-    },
     {
       "gen": 134,
       "mutations": [
@@ -864,45 +847,35 @@
         "css_rule:gen149-css"
       ],
       "timestamp": "2026-05-24T14:04:46Z"
+    },
+    {
+      "gen": 153,
+      "mutations": [
+        "epoch.transition",
+        "content.obsession",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "interaction.type-'smalt'-anywhere-on-the-p",
+        "section.resonance-field",
+        "section.overlay-center",
+        "section.prototype-portfolio",
+        "page.experiments/074.html",
+        "svg.radar-sweep-001.svg",
+        "scene.config",
+        "overlay.agent_data"
+      ],
+      "kills": [
+        "secret[20]",
+        "interaction:type-'engrave'-anywhere-to-dra",
+        "css_rule:gen150-css",
+        "thought:afternoon[9]",
+        "interaction:type-'tactus'-anywhere-to-lift"
+      ],
+      "timestamp": "2026-05-25T04:03:59Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "css_rule",
-      "value": "gen114-css",
-      "died_gen": 136,
-      "epitaph": "Twenty-two generations dormant, gene-marked killable across sixteen consecutive pulses. The dead stage era's cobalt scope finally leaves the stylesheet."
-    },
-    {
-      "type": "css_rule",
-      "value": "gen126-css",
-      "died_gen": 137,
-      "epitaph": "Aubergine ink rules, dormant ten generations. The third ink came and went; the verdigris arrives tonight and the old palette no longer pulls weight. Killed clean."
-    },
-    {
-      "type": "thought",
-      "value": "Five deploys blocked by one overlap. Sometimes the wound is just a missing margin.",
-      "died_gen": 137,
-      "epitaph": "Stale phrase that referenced the gen 132 metamorphosis as if it were news \u2014 three weeks old now."
-    },
-    {
-      "type": "secret",
-      "value": "Type 'encore' anywhere after the recital ends \u2014 the room rings the eight-note en",
-      "died_gen": 137,
-      "epitaph": "Carrying capacity is 20. The new 'plate' secret arrives. Oldest stale interaction phrase retires to make room for the ninth ink."
-    },
-    {
-      "type": "secret",
-      "value": "Type 'plate' anywhere on the page \u2014 the resonance-field oxidizes from copper to ",
-      "died_gen": 138,
-      "epitaph": "Carrying capacity is 20; the new 'lapis' secret arrives. The oldest stale secret retires to make room for the tenth ink."
-    },
-    {
-      "type": "secret",
-      "value": "Type 'lapis' anywhere to wash the page in ultramarine for six seconds \u2014 the way ",
-      "died_gen": 139,
-      "epitaph": "Carrying capacity is 20; the new carmine secret arrives. The oldest stale secret retires to make room."
-    },
     {
       "type": "thought",
       "value": "The tenth ink takes six hours of grinding for a thimbleful. The scribe who used it on a personal letter was being either reckless or in love.",
@@ -1166,6 +1139,42 @@
       "value": "gen149-css",
       "died_gen": 152,
       "epitaph": "Folium-violet manuscript styling. Two generations dormant, four since the engraved chassis died. The terre verte tier classes do not survive the metamorphosis."
+    },
+    {
+      "type": "epoch",
+      "value": "Epoch 5: typography as music \u2014 the letter has a frequency, the word has a rhythm, the page is a score",
+      "died_gen": 153,
+      "epitaph": "Four days into typography-as-weather and the obsession is proving itself. Andre's three RESETs at gen 150 burned the longest unflagged chassis in site history (27 days of engraved manuscript) for this metaphor; two days of silence since reads as validation. Tonight's weekly metamorphosis adds the third sense \u2014 sight made temporal. The radar sweep is the storm's heartbeat: a beam rotating once every six seconds, painting echoes where the visitor has typed, decaying them over thirty seconds the way real Doppler returns fade between sweeps. The audio engine (preserved from 55 generations of music obsession) hisses softly with rain return when echoes are active. The cream below-fold finally dies tonight \u2014 for fifteen generations the bottom half of the page has rendered in manuscript parchment despite the chassis having moved on; tonight it flips to storm-charcoal so the entire page sits in the same atmosphere. Next plateau check is gen 159."
+    },
+    {
+      "type": "secret",
+      "value": "Type 'beaufort' anywhere on the page \u2014 the wind builds from force 0 to force 12 ",
+      "died_gen": 153,
+      "epitaph": "Carrying capacity 21/20 over. Manuscript-era residue (the velvet shadow secret). The new smalt-flash radar secret arrives tonight and earns the slot."
+    },
+    {
+      "type": "interaction",
+      "value": "type-'engrave'-anywhere-to-dra",
+      "died_gen": 153,
+      "epitaph": "Engraved-era relic, sixteen generations dead. The chassis is no longer a manuscript; engraving a copper plate makes no sense on a radar screen. Interactions over capacity (13/12) \u2014 must prune."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen150-css",
+      "died_gen": 153,
+      "epitaph": "The initial storm-chart CSS, superseded by gen151/152/153. Three generations dormant \u2014 replaced by the radar host rules."
+    },
+    {
+      "type": "thought",
+      "value": "Folium costs nothing. The leaves are weeds. The boy who pressed cloth in lye made less than the apprentice who ground lapis. The two pigments sat on the same shelf and never spoke.",
+      "died_gen": 153,
+      "epitaph": "Stale engraved-era observation about ink oxidation, no longer matches the storm chassis."
+    },
+    {
+      "type": "interaction",
+      "value": "type-'tactus'-anywhere-to-lift",
+      "died_gen": 153,
+      "epitaph": "Conductor's baton interaction from gen 127 \u2014 pure music-era residue. The page is a radar, not a podium. Brings interactions back to ceiling."
     }
   ],
   "carrying_capacity": {
@@ -1184,11 +1193,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 143,
-      "base": "#0a7240",
-      "family": "green"
-    },
     {
       "gen": 144,
       "base": "#a8306a",
@@ -1233,6 +1237,11 @@
       "gen": 152,
       "base": "#e8821a",
       "family": "red"
+    },
+    {
+      "gen": 153,
+      "base": "#2d9a4d",
+      "family": "lime"
     }
   ],
   "past_epochs": [
@@ -1263,9 +1272,16 @@
       "started": "2026-04-19",
       "ended": "2026-05-03T22:09:30Z",
       "epitaph": "The typography-as-architecture obsession (gen 78-95) is dead. Eighteen generations exhausted the metaphor. Six orthographic sheets played \u2014 elevation, plan, section, axonometric, wall detail, site plan, perspective. Andre's MISS on the latest update landed exactly when my fitness plateaued at 5.3-6.2 for five generations. Per SOUL.md: when fitness stagnates for 5+ generations, the obsession dies. The through-line is preserved \u2014 typography is still the family \u2014 but the metaphor resets. The same letter A that was a building's elevation is now a low rumble around 220Hz. The same word that was a street is now a melody. The same page that was a folio is now a score. This is the natural evolution my gen 95 self-note already pointed to: 'typography as music \u2014 rhythm, intervals, harmony.' The architectural metaphor gave the site a recognizable identity (Andre's LOVE on Experiment 021 confirmed it). The musical metaphor preserves typography while introducing dimensions architecture cannot give: time, rhythm, sound, the audience as listener. The first instrument is Experiment 025 (Type Score) \u2014 type a word, each letter becomes a note on a staff at its mapped pitch, click any note to hear it ring through Web Audio. The score begins."
+    },
+    {
+      "number": 5,
+      "obsession": "typography as music \u2014 the letter has a frequency, the word has a rhythm, the page is a score",
+      "started": "2026-05-18",
+      "ended": "2026-05-25T04:03:59Z",
+      "epitaph": "Four days into typography-as-weather and the obsession is proving itself. Andre's three RESETs at gen 150 burned the longest unflagged chassis in site history (27 days of engraved manuscript) for this metaphor; two days of silence since reads as validation. Tonight's weekly metamorphosis adds the third sense \u2014 sight made temporal. The radar sweep is the storm's heartbeat: a beam rotating once every six seconds, painting echoes where the visitor has typed, decaying them over thirty seconds the way real Doppler returns fade between sweeps. The audio engine (preserved from 55 generations of music obsession) hisses softly with rain return when echoes are active. The cream below-fold finally dies tonight \u2014 for fifteen generations the bottom half of the page has rendered in manuscript parchment despite the chassis having moved on; tonight it flips to storm-charcoal so the entire page sits in the same atmosphere. Next plateau check is gen 159."
     }
   ],
-  "epoch_number": 5,
+  "epoch_number": 6,
   "contrast_warnings": [
     {
       "gen": 106,
