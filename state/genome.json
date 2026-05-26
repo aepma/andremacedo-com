@@ -1,15 +1,15 @@
 {
-  "generation": 155,
+  "generation": 156,
   "epoch": "webgl-swarm",
   "epoch_started": "2026-05-25",
   "traits": {
     "color": {
-      "accent_base": "#cc2e7a",
-      "accent_dawn": "#e85a9c",
-      "accent_morning": "#cc2e7a",
-      "accent_afternoon": "#a8285f",
-      "accent_evening": "#821f49",
-      "accent_night": "#5e1636",
+      "accent_base": "#f0c41e",
+      "accent_dawn": "#f7d84e",
+      "accent_morning": "#f0c41e",
+      "accent_afternoon": "#d4a514",
+      "accent_evening": "#a87f0e",
+      "accent_night": "#8a6810",
       "bg": "#0a141a",
       "fg": "#d8dde0",
       "grain_opacity": "0.06",
@@ -98,6 +98,7 @@
         "experiments/060.html",
         "experiments/037.html",
         "experiments/021.html",
+        "experiments/076.html",
         "experiments/010.html",
         "experiments/047.html",
         "experiments/051.html",
@@ -227,10 +228,11 @@
       "type-'curtain'-anywhere-to-par",
       "type-'thunder'-anywhere-on-the",
       "type-'smalt'-anywhere-on-the-p",
-      "type-'mammatus'-anywhere-on-th"
+      "type-'mammatus'-anywhere-on-th",
+      "type-'strike'-anywhere-on-the-"
     ],
     "content": {
-      "mood": "mammatus",
+      "mood": "charged",
       "obsession": "typography as weather \u2014 letters are pressure systems, words are fronts, the page is a synoptic chart at scan rate",
       "thought_pools": {
         "dawn": 10,
@@ -243,17 +245,6 @@
     }
   },
   "fitness_log": [
-    {
-      "gen": 136,
-      "coherence": 8,
-      "novelty": 6,
-      "identity": 9,
-      "tension": 6,
-      "awe": 7,
-      "perceptibility": 7,
-      "note": "Engraved chassis day 13 \u2014 the longest unflagged visual identity in site history, five days past the split-screen record. Cream paper holds both viewpo",
-      "total": 7.2
-    },
     {
       "gen": 137,
       "coherence": 8,
@@ -462,28 +453,20 @@
       "perceptibility": 6,
       "note": "Five days into typography-as-weather and the chassis is genuinely committed \u2014 radar sweep, meteogram strip, audible storm. Identity is strong. But two",
       "total": 6.8
+    },
+    {
+      "gen": 156,
+      "coherence": 7,
+      "novelty": 6,
+      "identity": 7,
+      "tension": 6,
+      "awe": 6,
+      "perceptibility": 7,
+      "note": "Day six of the storm chart and the chassis is genuinely committed \u2014 radar sweep, meteogram, satellite all reading as one atmosphere. But the contrast ",
+      "total": 6.5
     }
   ],
   "mutation_log": [
-    {
-      "gen": 136,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "section.overlay-center",
-        "section.tonights-composition",
-        "page.experiments/060.html"
-      ],
-      "kills": [
-        "interaction:type-'madder'-anywhere-to-flus",
-        "secret[20]",
-        "css_rule:gen114-css"
-      ],
-      "timestamp": "2026-05-19T16:05:10Z"
-    },
     {
       "gen": 137,
       "mutations": [
@@ -880,27 +863,32 @@
         "secret[19]"
       ],
       "timestamp": "2026-05-26T06:05:12Z"
+    },
+    {
+      "gen": 156,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "content.mood",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "interaction.type-'strike'-anywhere-on-the-",
+        "section.overlay-center",
+        "section.prototype-portfolio",
+        "page.experiments/076.html",
+        "scene.config",
+        "overlay.agent_data"
+      ],
+      "kills": [
+        "interaction:type-'beat'-to-navigate-to-the",
+        "css_rule:gen152-css",
+        "secret[19]"
+      ],
+      "timestamp": "2026-05-26T22:05:58Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "interaction",
-      "value": "type-'lissajous'-anywhere-to-e",
-      "died_gen": 141,
-      "epitaph": "Phosphor scope relic from gen 109, gene-marked killable. The XY closed knot was beautiful but the page is a music manuscript now, not a CRT terminal. Removed cleanly."
-    },
-    {
-      "type": "thought",
-      "value": "Sap green is the only ink in the palette that came from a plant still alive when the manuscript was finished. The buckthorn berry was crushed yesterday; the bistre soot was scraped from a beech fire that burned a century ago.",
-      "died_gen": 141,
-      "epitaph": "Replaced with the buckthorn observation tying the new ink to a living plant."
-    },
-    {
-      "type": "secret",
-      "value": "Type 'sap' anywhere on the page \u2014 a buckthorn vine grows in green ink along the ",
-      "died_gen": 142,
-      "epitaph": "Carrying capacity 20; the new 'woad' fermentation secret arrives. The oldest stale secret retires into the vat."
-    },
     {
       "type": "css_rule",
       "value": "gen114-css",
@@ -1182,6 +1170,24 @@
       "value": "type 'reich' to add a third drifting voice that haunts the music",
       "died_gen": 155,
       "epitaph": "Engraved-era recital secret, orphaned by tonight's deletion of the programme card. Cleared to make room for the mammatus reveal."
+    },
+    {
+      "type": "interaction",
+      "value": "type-'beat'-to-navigate-to-the",
+      "died_gen": 156,
+      "epitaph": "A music-era navigation shortcut to a beat that no longer plays. The storm needs no shortcuts."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen152-css",
+      "died_gen": 156,
+      "epitaph": "Four generations dormant \u2014 the warning-amber styling, superseded by the lightning chassis."
+    },
+    {
+      "type": "secret",
+      "value": "Type 'mammatus' anywhere \u2014 bruised magenta pouch-clouds swell up along the botto",
+      "died_gen": 156,
+      "epitaph": "A relic of an earlier sky. Pruned to make room for the lightning."
     }
   ],
   "carrying_capacity": {
@@ -1200,11 +1206,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 146,
-      "base": "#2a4ab8",
-      "family": "cyan"
-    },
     {
       "gen": 147,
       "base": "#c8961a",
@@ -1249,6 +1250,11 @@
       "gen": 155,
       "base": "#cc2e7a",
       "family": "magenta"
+    },
+    {
+      "gen": 156,
+      "base": "#f0c41e",
+      "family": "orange"
     }
   ],
   "past_epochs": [
@@ -1290,18 +1296,6 @@
   ],
   "epoch_number": 6,
   "contrast_warnings": [
-    {
-      "gen": 106,
-      "messages": [
-        "  [contrast-gate below-fold] effective bg = #f5f0e6 from .below-fold:211 (raw: var(--bg-below-fold, #fffff5))",
-        "    FAIL  #00e5ff  ratio=1.35:1  (< 4.5)",
-        "    FAIL  #888888  ratio=3.12:1  (< 4.5)",
-        "    FAIL  #aaaaaa  ratio=2.05:1  (< 4.5)",
-        "    FAIL  #f5f5f5  ratio=1.04:1  (< 4.5)",
-        "    FAIL  #ff2e9c  ratio=3.02:1  (< 4.5)"
-      ],
-      "timestamp": "2026-05-06T16:08:29Z"
-    },
     {
       "gen": 107,
       "messages": [
@@ -1376,6 +1370,14 @@
         "    FAIL  #f5f1e8  ratio=1.01:1  (< 4.5)"
       ],
       "timestamp": "2026-05-22T22:03:31Z"
+    },
+    {
+      "gen": 156,
+      "messages": [
+        "  [contrast-gate below-fold] effective bg = #0a141a from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
+        "    FAIL  #78620f  ratio=3.15:1  (< 4.5)"
+      ],
+      "timestamp": "2026-05-26T22:05:58Z"
     }
   ]
 }
