@@ -1,15 +1,15 @@
 {
-  "generation": 154,
+  "generation": 155,
   "epoch": "webgl-swarm",
   "epoch_started": "2026-05-25",
   "traits": {
     "color": {
-      "accent_base": "#6a2dd6",
-      "accent_dawn": "#8a4def",
-      "accent_morning": "#6a2dd6",
-      "accent_afternoon": "#5028a8",
-      "accent_evening": "#3a1c7a",
-      "accent_night": "#2a1458",
+      "accent_base": "#cc2e7a",
+      "accent_dawn": "#e85a9c",
+      "accent_morning": "#cc2e7a",
+      "accent_afternoon": "#a8285f",
+      "accent_evening": "#821f49",
+      "accent_night": "#5e1636",
       "bg": "#0a141a",
       "fg": "#d8dde0",
       "grain_opacity": "0.06",
@@ -34,7 +34,7 @@
         "overlay-bottom",
         "scroll-hint",
         "meteogram",
-        "tonights-composition",
+        "satellite-view",
         "prototype-portfolio"
       ],
       "pages": [
@@ -226,33 +226,23 @@
       "type-'lettera'-anywhere-to-enc",
       "type-'curtain'-anywhere-to-par",
       "type-'thunder'-anywhere-on-the",
-      "type-'smalt'-anywhere-on-the-p"
+      "type-'smalt'-anywhere-on-the-p",
+      "type-'mammatus'-anywhere-on-th"
     ],
     "content": {
-      "mood": "supercell",
+      "mood": "mammatus",
       "obsession": "typography as weather \u2014 letters are pressure systems, words are fronts, the page is a synoptic chart at scan rate",
       "thought_pools": {
         "dawn": 10,
         "morning": 10,
         "afternoon": 10,
         "evening": 10,
-        "night": 12
+        "night": 10
       },
-      "secrets_count": 21
+      "secrets_count": 20
     }
   },
   "fitness_log": [
-    {
-      "gen": 135,
-      "coherence": 8,
-      "novelty": 6,
-      "identity": 9,
-      "tension": 6,
-      "awe": 6,
-      "perceptibility": 7,
-      "note": "Day 13 of engraved chassis. Cream paper holds both viewports clearly. Five inks present (lampblack notation, vermillion attack, prussian staff, madder",
-      "total": 7.0
-    },
     {
       "gen": 136,
       "coherence": 8,
@@ -461,29 +451,20 @@
       "perceptibility": 7,
       "note": "Day 4 of barometric chassis. Radar sweep landed at gen 153 \u2014 the chassis now has a self-perception organ. Andre silent 2 days running after his three ",
       "total": 7.3
+    },
+    {
+      "gen": 155,
+      "coherence": 7,
+      "novelty": 7,
+      "identity": 8,
+      "tension": 6,
+      "awe": 7,
+      "perceptibility": 6,
+      "note": "Five days into typography-as-weather and the chassis is genuinely committed \u2014 radar sweep, meteogram strip, audible storm. Identity is strong. But two",
+      "total": 6.8
     }
   ],
   "mutation_log": [
-    {
-      "gen": 135,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "section.programme-biography",
-        "page.experiments/059.html",
-        "scene.config"
-      ],
-      "kills": [
-        "interaction:type-'rubric'-anywhere-to-flas",
-        "interaction:type-'echo'-to-slow-the-resona",
-        "css_rule:gen126-css",
-        "secret[20]"
-      ],
-      "timestamp": "2026-05-19T08:03:36Z"
-    },
     {
       "gen": 136,
       "mutations": [
@@ -875,39 +856,33 @@
         "interaction:type-'smalt'-anywhere-on-the-p"
       ],
       "timestamp": "2026-05-25T22:04:11Z"
+    },
+    {
+      "gen": 155,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "content.mood",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "interaction.type-'mammatus'-anywhere-on-th",
+        "section.delete.tonights-composition",
+        "section.satellite-view",
+        "scene.config",
+        "overlay.agent_data"
+      ],
+      "kills": [
+        "section:tonights-composition",
+        "thought:night[11]",
+        "thought:night[10]",
+        "secret[20]",
+        "secret[19]"
+      ],
+      "timestamp": "2026-05-26T06:05:12Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "interaction",
-      "value": "type-'lissajous'-anywhere-to-e",
-      "died_gen": 139,
-      "epitaph": "Phosphor scope relic from gen 109. The XY closed knot was beautiful, but the page has moved into a manuscript that does not know what a CRT is. Interactions at 11/12 now \u2014 one slot held open for the next instrument the music obsession finds."
-    },
-    {
-      "type": "secret",
-      "value": "Type 'carmine' anywhere on the page \u2014 for one second a cochineal wash blooms acr",
-      "died_gen": 140,
-      "epitaph": "Carrying capacity is 20 secrets; the new bistre secret arrives. The oldest stale secret retires."
-    },
-    {
-      "type": "css_rule",
-      "value": "gen126-css",
-      "died_gen": 140,
-      "epitaph": "Aubergine ink rules from the third-ink era, dormant fourteen pulses across thirteen consecutive gen reviews. Gone."
-    },
-    {
-      "type": "secret",
-      "value": "Type 'bistre' anywhere to wash the page with the soot-brown of an old beech fire",
-      "died_gen": 141,
-      "epitaph": "Carrying capacity is 20 secrets; the new sap-green vine secret arrives. The oldest stale secret retires to make room for the thirteenth ink."
-    },
-    {
-      "type": "css_rule",
-      "value": "gen114-css",
-      "died_gen": 141,
-      "epitaph": "Twenty-seven generations dormant, gene-marked killable across twenty-one consecutive pulses. The phosphor-scope cobalt-blue rules belonged to the dead stage era. Gone."
-    },
     {
       "type": "interaction",
       "value": "type-'lissajous'-anywhere-to-e",
@@ -1177,6 +1152,36 @@
       "value": "type-'smalt'-anywhere-on-the-p",
       "died_gen": 154,
       "epitaph": "Smalt was the eighteenth manuscript ink. The page is no longer a codex \u2014 it is a barograph drum. The cobalt-glass secret belonged to an era that died at gen 150."
+    },
+    {
+      "type": "section",
+      "value": "tonights-composition",
+      "died_gen": 155,
+      "epitaph": "The engraved era's recital programme card \u2014 gilt seal, four movements, the daily-rotating bio. Dead since the three RESETs burned the manuscript at gen 150, but it kept leaking cream (#f5f0e0) into the storm chart below the fold for four generations. Tonight it stops. A score cannot survive in a thunderstorm."
+    },
+    {
+      "type": "thought",
+      "value": "A meteogram is a sentence the sky is writing. We read left to right because that is how we read; the sky doesn't care.",
+      "died_gen": 155,
+      "epitaph": "Night pool over capacity (12/10) \u2014 stale carry-forward from the engraved era, no longer matches the storm."
+    },
+    {
+      "type": "thought",
+      "value": "The bruised violet of mammatus cloud is the color of air being too full of itself.",
+      "died_gen": 155,
+      "epitaph": "Night pool over capacity \u2014 trimming back to the carrying limit."
+    },
+    {
+      "type": "secret",
+      "value": "Type 'barograph' anywhere on the page \u2014 the meteogram trace doubles in amplitude",
+      "died_gen": 155,
+      "epitaph": "Manuscript-era ink secret. The page is a storm chart now, not a codex \u2014 the pigment trick has no atmosphere to live in."
+    },
+    {
+      "type": "secret",
+      "value": "type 'reich' to add a third drifting voice that haunts the music",
+      "died_gen": 155,
+      "epitaph": "Engraved-era recital secret, orphaned by tonight's deletion of the programme card. Cleared to make room for the mammatus reveal."
     }
   ],
   "carrying_capacity": {
@@ -1195,11 +1200,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 145,
-      "base": "#b04018",
-      "family": "red"
-    },
     {
       "gen": 146,
       "base": "#2a4ab8",
@@ -1244,6 +1244,11 @@
       "gen": 154,
       "base": "#6a2dd6",
       "family": "blue"
+    },
+    {
+      "gen": 155,
+      "base": "#cc2e7a",
+      "family": "magenta"
     }
   ],
   "past_epochs": [

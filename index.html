@@ -15,7 +15,7 @@
     --fg: #d8dde0;
     --fg-dim: #8a949c;
     --fg-on-stage: #f5f5f5;
-    --fg-accent: #6a2dd6;
+    --fg-accent: #cc2e7a;
     --bg: #0a141a;
     --bg-surface: #0e1a22;
     --bg-elevated: #142028;
@@ -214,7 +214,7 @@
     padding: 4rem 2.5rem;
     --fg: #d8dde0;
     --fg-dim: #8a949c;
-    --fg-accent: #975aff;
+    --fg-accent: #de408c;
     --bg-surface: #0e1a22;
     --bg-elevated: #142028;
   }
@@ -569,8 +569,12 @@
 
   /* Section injection markers are now in the body */
 /* @inject:css */
+  /* @gene:gen155-css:start */
+  :root{--bg-below-fold:#0a141a!important;} .below-fold,[class*='below-fold']{background-color:#0a141a!important;color:#d8dde0;} .below-fold .tier-strong{color:#f0f3f5!important;} .below-fold .tier-mid{color:#aab2b8!important;} .below-fold .tier-soft{color:#7a848c!important;}
+  /* @gene:gen155-css:end */
+
   /* @gene:gen154-css:start */
-  :root { --bg-below-fold: #0a141a !important; --accent-storm: #6a2dd6 !important; }
+  :root { --bg-below-fold: #0a141a; --accent-storm: #6a2dd6 !important; }
 .below-fold, [class*='below-fold'] { background-color: #0a141a !important; color: #d8dde0 !important; }
 .below-fold *:not(a):not(button):not(svg):not(svg *):not(input) { color: inherit; }
 .gen154-meteogram { position: relative; margin: 3rem auto; max-width: 920px; padding: 1.25rem 1.5rem; background: rgba(20,30,40,0.55); border: 1px solid rgba(106,45,214,0.32); border-radius: 2px; box-sizing: border-box; }
@@ -977,7 +981,7 @@
 
 <div id="scene-frame"><canvas id="scene-canvas"></canvas></div>
 
-<span id="siteVersion" style="display:none">v154</span>
+<span id="siteVersion" style="display:none">v155</span>
 
 <!-- ── HTML Overlay ──────────────────────────────────────────── -->
 <div id="overlay">
@@ -1034,120 +1038,18 @@
 <!-- @section:meteogram:start -->
 <section class="gen154-meteogram" aria-label="Session meteogram"><div class="meteogram-header"><span class="meteo-label">SESSION METEOGRAM · BAROGRAPH DRUM</span><span class="meteo-readout" id="meteo-readout">1013.2 mb · steady</span></div><canvas id="meteogram-canvas" class="meteo-canvas" height="120"></canvas><div class="meteogram-footer"><span>← thirty seconds ago · now</span><span class="meteo-hint">Click to drop pressure. Type to add variance. The chart is recording.</span></div></section>
 <!-- @section:meteogram:end -->
+
+<style data-section="satellite-view">
+#satellite-view{position:relative;width:100%;height:70vh;min-height:380px;background:#060d12;overflow:hidden;box-sizing:border-box;border-top:1px solid rgba(204,46,122,0.25);border-bottom:1px solid rgba(204,46,122,0.25);} #satellite-view #sat-canvas{position:absolute;inset:0;display:block;} #satellite-view .sat-label{position:absolute;top:18px;left:18px;max-width:min(420px,82%);z-index:2;} #satellite-view .sat-title{display:block;font-family:'JetBrains Mono',monospace;font-size:0.72rem;letter-spacing:0.18em;color:#e85a9c;text-shadow:0 0 8px rgba(0,0,0,0.85);} #satellite-view .sat-sub{display:block;margin-top:8px;font-family:'Source Serif 4',serif;font-size:0.92rem;line-height:1.5;color:#d8dde0;opacity:0.85;text-shadow:0 0 8px rgba(0,0,0,0.85),0 0 20px rgba(0,0,0,0.5);} @media(max-width:600px){#satellite-view{height:60vh;} #satellite-view .sat-label{max-width:88%;} #satellite-view .sat-sub{font-size:0.85rem;}}
+</style>
+<!-- @section:satellite-view:start -->
+<canvas id='sat-canvas'></canvas><div class='sat-label'><span class='sat-title'>GOES-IR · ENHANCED INFRARED</span><span class='sat-sub'>Top-down, from orbit. The coldest cloud tops burn magenta — the deepest convection, the part that punches the stratosphere. Type a letter to spin up a cyclone. Click to seed a cell.</span></div>
+<!-- @section:satellite-view:end -->
+<script data-section="satellite-view">
+(function(){var cv=document.getElementById('sat-canvas');if(!cv)return;var cx=cv.getContext('2d');var W=0,H=0,DPR=Math.min(window.devicePixelRatio||1,2);function resize(){var r=cv.parentElement.getBoundingClientRect();W=r.width;H=r.height;cv.width=W*DPR;cv.height=H*DPR;cv.style.width=W+'px';cv.style.height=H+'px';cx.setTransform(DPR,0,0,DPR,0,0);}window.addEventListener('resize',resize);resize();var cyc=[];function spawn(x,y,inten){cyc.push({x:x,y:y,vx:0.12+Math.random()*0.22,vy:(Math.random()-0.5)*0.08,rot:Math.random()*6.28,rotSpeed:0.004+Math.random()*0.006,r:28+Math.random()*36,maxr:110+inten*120,inten:inten,life:1,age:0});if(cyc.length>9)cyc.shift();}function irc(t){t=Math.max(0,Math.min(1,t));if(t<0.4){var k=t/0.4;var g=Math.round(50+k*150);return 'rgba('+g+','+g+','+(g+12)+','+(0.12+k*0.34).toFixed(3)+')';}if(t<0.6){var k2=(t-0.4)/0.2;return 'rgba(255,'+Math.round(255-k2*70)+','+Math.round(190-k2*190)+','+(0.55+k2*0.15).toFixed(3)+')';}if(t<0.8){return 'rgba(255,'+Math.round(185-((t-0.6)/0.2)*120)+',40,0.72)';}var k3=(t-0.8)/0.2;return 'rgba('+Math.round(255-k3*55)+','+Math.round(70-k3*50)+','+Math.round(40+k3*130)+',0.82)';}function blob(x,y,rad,t){var g=cx.createRadialGradient(x,y,0,x,y,rad);g.addColorStop(0,irc(t));g.addColorStop(1,'rgba(0,0,0,0)');cx.fillStyle=g;cx.beginPath();cx.arc(x,y,rad,0,6.2832);cx.fill();}var last=performance.now();function frame(now){var dt=Math.min(2.2,(now-last)/16.67);last=now;cx.fillStyle='rgba(6,13,18,0.30)';cx.fillRect(0,0,W,H);if(cyc.length<2&&Math.random()<0.04)spawn(Math.random()*W*0.5,H*(0.3+Math.random()*0.4),0.6+Math.random()*0.3);for(var i=cyc.length-1;i>=0;i--){var c=cyc[i];c.age+=dt;c.x+=c.vx*dt;c.y+=c.vy*dt;c.rot+=c.rotSpeed*dt;if(c.r<c.maxr)c.r+=0.4*dt;if(c.age>520)c.life-=0.004*dt;if(c.x>W+160||c.life<=0){cyc.splice(i,1);continue;}for(var a=0;a<2;a++){for(var b=0;b<26;b++){var f=b/26;var ang=c.rot+a*Math.PI+f*5.5;var rad=8+f*c.r;var bx=c.x+Math.cos(ang)*rad;var by=c.y+Math.sin(ang)*rad*0.92;var t=(1-f)*c.inten*c.life;blob(bx,by,10+f*16,t);}}blob(c.x,c.y,13,0.04*c.life);}requestAnimationFrame(frame);}requestAnimationFrame(frame);cv.addEventListener('pointerdown',function(e){var r=cv.getBoundingClientRect();spawn(e.clientX-r.left,e.clientY-r.top,0.7+Math.random()*0.3);});window.addEventListener('keydown',function(e){if(e.key&&e.key.length===1&&/[a-zA-Z]/.test(e.key)){var up=e.key!==e.key.toLowerCase();spawn(Math.random()*W*0.4,H*(0.2+Math.random()*0.6),up?0.95:0.6);}});})();
+</script>
 <script data-section="meteogram">
 (function(){var c=document.getElementById('meteogram-canvas');if(!c)return;var ctx=c.getContext('2d');function fit(){c.width=c.clientWidth||c.offsetWidth||800;c.height=c.clientHeight||120;ctx.fillStyle='#0a141a';ctx.fillRect(0,0,c.width,c.height);}fit();window.addEventListener('resize',fit);var pressure=1013.2,target=1013.2,variance=0,t=0,boost=0;c.addEventListener('click',function(){target-=Math.random()*9+3;variance=Math.min(variance+2,14);});document.addEventListener('keydown',function(e){if(e.key&&e.key.length===1)variance=Math.min(variance+1.4,12);if(e.key==='b'){}});window.AGENT_BAROGRAPH_BOOST=function(){boost=15;};function frame(){requestAnimationFrame(frame);t++;target+=(1013.2-target)*0.0025;pressure+=(target-pressure)*0.045;variance*=0.97;if(boost>0)boost-=0.016;var amp=boost>0?2:1;var p=pressure+Math.sin(t*0.04)*0.55*amp+(Math.random()-0.5)*variance*0.35*amp;var w=c.width,h=c.height;ctx.drawImage(c,-1,0);ctx.fillStyle='rgba(10,20,26,0.018)';ctx.fillRect(0,0,w,h);var y=h-((p-995)/40)*h;y=Math.max(2,Math.min(h-2,y));ctx.fillStyle=boost>0?'#b88aff':'#8a4def';ctx.fillRect(w-2,y-1,2,2);if(t%4===0){var refY=h-((1013.2-995)/40)*h;ctx.fillStyle='rgba(216,221,224,0.05)';ctx.fillRect(w-1,refY,1,1);}var ro=document.getElementById('meteo-readout');if(ro&&t%8===0){var trend=target<1010.5?'falling':target>1015.5?'rising':'steady';var glyph=trend==='falling'?'↓':trend==='rising'?'↑':'·';ro.textContent=p.toFixed(1)+' mb '+glyph+' '+trend;}}frame();var typed='';document.addEventListener('keydown',function(e){if(!e.key||e.key.length!==1)return;typed=(typed+e.key.toLowerCase()).slice(-9);if(typed.indexOf('barograph')>=0){typed='';if(window.AGENT_BAROGRAPH_BOOST)window.AGENT_BAROGRAPH_BOOST();}});})();
-</script>
-
-<!-- @section:tonights-composition:start -->
-<section class="gen150-stormchart" id="storm-chart-root">
-  <h2 class="tier-strong">Tonight's Chart</h2>
-  <p class="subhead tier-mid">A barometric chart for the night of 22 May 2026. Two pressure systems, one front. Click anywhere on the chart to drop a low. Type any letter to name a new system after it.</p>
-
-  <svg class="gen150-isobars" id="storm-isobars-svg" viewBox="0 0 980 460" xmlns="http://www.w3.org/2000/svg" aria-label="barometric isobar chart">
-    <defs>
-      <radialGradient id="low-glow" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#3a7ab8" stop-opacity="0.18"/><stop offset="100%" stop-color="#3a7ab8" stop-opacity="0"/></radialGradient>
-      <radialGradient id="high-glow" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#d6334a" stop-opacity="0.16"/><stop offset="100%" stop-color="#d6334a" stop-opacity="0"/></radialGradient>
-    </defs>
-
-    <!-- low pressure system left -->
-    <g id="system-low" transform="translate(280, 220)">
-      <circle r="180" fill="url(#low-glow)"/>
-      <circle class="iso-low" r="40"/>
-      <circle class="iso-low" r="72"/>
-      <circle class="iso-low" r="108"/>
-      <circle class="iso-low" r="148"/>
-      <text class="system-label" x="0" y="5" text-anchor="middle" style="font-weight:700;fill:#3a7ab8;font-size:18px;">L</text>
-      <text class="system-label" x="0" y="-160" text-anchor="middle">low · 996 mb · andre</text>
-    </g>
-
-    <!-- high pressure system right -->
-    <g id="system-high" transform="translate(720, 240)">
-      <circle r="160" fill="url(#high-glow)"/>
-      <circle class="iso-high" r="36"/>
-      <circle class="iso-high" r="66"/>
-      <circle class="iso-high" r="98"/>
-      <circle class="iso-high" r="132"/>
-      <text class="system-label" x="0" y="5" text-anchor="middle" style="font-weight:700;fill:#d6334a;font-size:18px;">H</text>
-      <text class="system-label" x="0" y="-148" text-anchor="middle">high · 1024 mb · macedo</text>
-    </g>
-
-    <!-- weather front between them -->
-    <path class="iso-front" d="M 460 100 Q 500 230 480 360"/>
-    <text class="system-label" x="495" y="95">cold front</text>
-  </svg>
-
-  <div class="gen150-legend">
-    <div class="legend-item legend-low"><div class="legend-glyph">L</div><div class="legend-name tier-strong">Low pressure</div><div class="legend-desc tier-mid">A vowel. Air rises and clouds gather. Lowercase letters spawn lows.</div></div>
-    <div class="legend-item legend-high"><div class="legend-glyph">H</div><div class="legend-name tier-strong">High pressure</div><div class="legend-desc tier-mid">A consonant. Air sinks and the sky clears. Capitals spawn highs.</div></div>
-    <div class="legend-item legend-front"><div class="legend-glyph">/</div><div class="legend-name tier-strong">Front</div><div class="legend-desc tier-mid">The seam where two systems refuse to mix. The slash is the seam.</div></div>
-  </div>
-
-  <a href="/experiments/071.html" class="gen150-cta">Open the weather room →</a>
-
-  <div class="gen150-forecast" aria-label="current readings">
-    <div class="reading"><span class="reading-label">Pressure</span><span class="reading-value">1013.2 mb</span></div>
-    <div class="reading"><span class="reading-label">Temperature</span><span class="reading-value">82°F</span></div>
-    <div class="reading"><span class="reading-label">Sky</span><span class="reading-value">Clear</span></div>
-    <div class="reading"><span class="reading-label">Gold</span><span class="reading-value">$4529</span></div>
-    <div class="reading"><span class="reading-label">Gen</span><span class="reading-value">150 · day 1</span></div>
-    <div class="reading"><span class="reading-label">Next evolution</span><span class="reading-value">~24h</span></div>
-  </div>
-</section>
-<!-- @section:tonights-composition:end -->
-<script data-section="tonights-composition">
-(function(){
-  const svg = document.getElementById('storm-isobars-svg');
-  if(!svg) return;
-  const SVGNS = 'http://www.w3.org/2000/svg';
-  let nextId = 0;
-  const usedLetters = new Set();
-
-  function spawnSystem(x, y, isHigh, letter){
-    const g = document.createElementNS(SVGNS, 'g');
-    g.setAttribute('transform', `translate(${x}, ${y})`);
-    g.style.opacity = '0';
-    const rings = isHigh ? [28, 52, 78, 106] : [32, 58, 86, 116];
-    rings.forEach(r => {
-      const c = document.createElementNS(SVGNS, 'circle');
-      c.setAttribute('r', '0');
-      c.setAttribute('class', isHigh ? 'iso-high' : 'iso-low');
-      c.setAttribute('fill', 'none');
-      g.appendChild(c);
-      requestAnimationFrame(() => {
-        c.style.transition = 'r 1.6s cubic-bezier(.2,.7,.3,1)';
-        c.setAttribute('r', String(r));
-      });
-    });
-    const tag = document.createElementNS(SVGNS, 'text');
-    tag.setAttribute('class', 'system-label');
-    tag.setAttribute('text-anchor', 'middle');
-    tag.setAttribute('y', '5');
-    tag.setAttribute('style', `font-weight:700;font-size:18px;fill:${isHigh?'#d6334a':'#3a7ab8'};`);
-    tag.textContent = (letter || (isHigh?'H':'L')).toUpperCase();
-    g.appendChild(tag);
-    svg.appendChild(g);
-    requestAnimationFrame(() => { g.style.transition = 'opacity 0.8s'; g.style.opacity = '1'; });
-    setTimeout(() => { g.style.opacity = '0'; setTimeout(()=>g.remove(), 1200); }, 14000);
-  }
-
-  svg.addEventListener('click', (e) => {
-    const pt = svg.createSVGPoint();
-    pt.x = e.clientX; pt.y = e.clientY;
-    const loc = pt.matrixTransform(svg.getScreenCTM().inverse());
-    spawnSystem(loc.x, loc.y, false, 'L');
-  });
-
-  window.addEventListener('keydown', (e) => {
-    if(!e.key || e.key.length !== 1 || !/[a-zA-Z]/.test(e.key)) return;
-    if(usedLetters.has(e.key.toLowerCase())) return;
-    usedLetters.add(e.key.toLowerCase());
-    const isHigh = e.key === e.key.toUpperCase() && e.key !== e.key.toLowerCase();
-    const x = 120 + Math.random() * 740;
-    const y = 120 + Math.random() * 220;
-    spawnSystem(x, y, isHigh, e.key);
-    setTimeout(() => usedLetters.delete(e.key.toLowerCase()), 8000);
-  });
-})();
 </script>
 <script data-section="scroll-hint">
 (() => { const hint = document.querySelector('.scroll-hint-bar'); if (!hint) return; let hidden = false; window.addEventListener('scroll', () => { if (!hidden && window.scrollY > 200) { hint.style.opacity = '0'; hidden = true; } }); })()
@@ -1272,7 +1174,7 @@
       count: 10,
       size: 0.2,
       speed: 0.01,
-      color: '#6a2dd6',
+      color: '#cc2e7a',
       opacity: 0.05,
       spread: 3,
       orbital_radius: 4,
@@ -1296,7 +1198,7 @@
     lighting: {
       ambient_color: '#0e1a22',
       ambient_intensity: 0.15,
-      point_color: '#8a4def',
+      point_color: '#e85a9c',
       point_intensity: 0.2,
       point_position: [2, 3, 4],
     },
@@ -1306,11 +1208,11 @@
       mode: 'repel',
     },
     time_themes: {
-      dawn:      { particle_color: '#e8556a', fog_color: '#0d0806', ambient: '#2a1a0e', speed_mult: 0.6 },
-      morning:   { particle_color: '#d6334a', fog_color: '#0a0806', ambient: '#2a1e1a', speed_mult: 0.8 },
-      afternoon: { particle_color: '#c42a3e', fog_color: '#0d0a06', ambient: '#2a2a1a', speed_mult: 1.0 },
-      evening:   { particle_color: '#a82132', fog_color: '#0a0806', ambient: '#1e1a2a', speed_mult: 0.7 },
-      night:     { particle_color: '#881a26', fog_color: '#080604', ambient: '#1a1410', speed_mult: 0.4 },
+      dawn:      { particle_color: '#e85a9c', fog_color: '#0d0806', ambient: '#2a1a0e', speed_mult: 0.6 },
+      morning:   { particle_color: '#cc2e7a', fog_color: '#0a0806', ambient: '#2a1e1a', speed_mult: 0.8 },
+      afternoon: { particle_color: '#a8285f', fog_color: '#0d0a06', ambient: '#2a2a1a', speed_mult: 1.0 },
+      evening:   { particle_color: '#821f49', fog_color: '#0a0806', ambient: '#1e1a2a', speed_mult: 0.7 },
+      night:     { particle_color: '#5e1636', fog_color: '#080604', ambient: '#1a1410', speed_mult: 0.4 },
     },
     post_processing: {
       bloom_enabled: false,
@@ -1335,7 +1237,7 @@
 
   const AGENT = {
     birthTime: Date.now(),
-    mood: 'supercell',
+    mood: 'mammatus',
     secrets: [
       "The swarm remembers the metallurgy epoch. Somewhere in the particle field, one mote still moves like it's being assayed \u2014 slower, heavier, testing its own purity against the others."
 ],
@@ -1707,6 +1609,11 @@
   }
 
   // @inject:interactions
+  // @gene:type-'mammatus'-anywhere-on-th:start
+  // Easter egg: Type 'mammatus' anywhere on the page to swell bruised magenta pouch-clouds up from the bottom edge for ~10 seconds — the hanging underside of a supercell anvil.
+  (function(){var buf='';window.addEventListener('keydown',function(e){if(!e.key||e.key.length!==1)return;buf=(buf+e.key.toLowerCase()).slice(-9);if(buf.indexOf('mammatus')!==-1){buf='';var wrap=document.createElement('div');wrap.style.cssText='position:fixed;left:0;bottom:0;width:100%;height:170px;pointer-events:none;z-index:60;overflow:hidden;';for(var i=0;i<14;i++){var p=document.createElement('div');var sz=70+Math.random()*90;p.style.cssText='position:absolute;bottom:-'+(sz*0.55)+'px;left:'+(i/14*100+Math.random()*4)+'%;width:'+sz+'px;height:'+sz+'px;border-radius:50%;background:radial-gradient(circle at 50% 30%, rgba(232,90,156,0.55), rgba(120,31,73,0.35) 55%, rgba(10,20,26,0) 75%);filter:blur(2px);opacity:0;transition:opacity 1.2s ease;';wrap.appendChild(p);(function(el,d){setTimeout(function(){el.style.opacity='0.85';},d);})(p,30*i);}document.body.appendChild(wrap);setTimeout(function(){wrap.style.transition='opacity 2s ease';wrap.style.opacity='0';},10000);setTimeout(function(){wrap.remove();},12500);}});})();
+  // @gene:type-'mammatus'-anywhere-on-th:end
+
 // @gene:type-'thunder'-anywhere-on-the:start
   // Easter egg: Type 'thunder' anywhere on the page — lightning flashes the entire viewport white for 120ms while a low 55Hz rumble decays over 3 seconds through the audio engine.
   (function(){let buf='';let ctx=null;window.addEventListener('keydown',function(e){if(!/^[a-z]$/i.test(e.key))return;buf=(buf+e.key.toLowerCase()).slice(-7);if(buf.endsWith('thunder')){buf='';try{ctx=ctx||new(window.AudioContext||window.webkitAudioContext)();const o=ctx.createOscillator();const g=ctx.createGain();const f=ctx.createBiquadFilter();o.type='sawtooth';o.frequency.value=55;f.type='lowpass';f.frequency.value=180;g.gain.setValueAtTime(0.0001,ctx.currentTime);g.gain.exponentialRampToValueAtTime(0.5,ctx.currentTime+0.05);g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+3);o.connect(f);f.connect(g);g.connect(ctx.destination);o.start();o.stop(ctx.currentTime+3);}catch(_){}const flash=document.createElement('div');flash.style.cssText='position:fixed;inset:0;background:#f5f1e8;opacity:0;z-index:9999;pointer-events:none;animation:gen151-lightning-flash 0.5s ease-out';document.body.appendChild(flash);setTimeout(()=>flash.remove(),600);}});})();
