@@ -12,10 +12,10 @@
   @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,400;0,500;0,700;1,400;1,500&family=JetBrains+Mono:wght@300;400;500&display=swap');
 
   :root {
-    --fg: #d8dde0;
+    --fg: #d6e2dc;
     --fg-dim: #8a949c;
     --fg-on-stage: #f5f5f5;
-    --fg-accent: #f0c41e;
+    --fg-accent: #2fcf6e;
     --bg: #0a141a;
     --bg-surface: #0e1a22;
     --bg-elevated: #142028;
@@ -212,9 +212,9 @@
     background: var(--bg-below-fold, #fffff5);
     border-top: 1px solid var(--border-below-fold, rgba(8,145,178,0.18));
     padding: 4rem 2.5rem;
-    --fg: #d8dde0;
+    --fg: #d6e2dc;
     --fg-dim: #8a949c;
-    --fg-accent: #f0c41e;
+    --fg-accent: #2fcf6e;
     --bg-surface: #0e1a22;
     --bg-elevated: #142028;
   }
@@ -569,6 +569,10 @@
 
   /* Section injection markers are now in the body */
 /* @inject:css */
+  /* @gene:gen157-css:start */
+  .below-fold{background:#0a141a !important;} .below-fold .tier-soft,.below-fold .meta,.below-fold .meta-line,.below-fold small,.below-fold .card-meta{color:#9fb4ac !important;text-shadow:0 0 6px rgba(0,0,0,.6);} .below-fold .tier-mid,.below-fold p,.below-fold li{color:#bcc8c2 !important;} .below-fold .tier-strong,.below-fold h1,.below-fold h2,.below-fold h3{color:#eef4f0 !important;} .below-fold a{color:#3ad17a !important;text-decoration-color:rgba(58,209,122,.5);}
+  /* @gene:gen157-css:end */
+
   /* @gene:gen156-css:start */
   .gen156-tiers .tier-strong,.below-fold .tier-strong{color:#f5f1e8 !important;}.gen156-tiers .tier-mid,.below-fold .tier-mid{color:#aab2b8 !important;}.gen156-tiers .tier-soft,.below-fold .tier-soft{color:#7a848c !important;}[class*="below-fold"]{background-color:#0a141a !important;}
   /* @gene:gen156-css:end */
@@ -590,49 +594,6 @@
 .gen154-meteogram .meteo-hint { color: #a8b0b8; font-style: italic; }
 @media (max-width: 600px) { .gen154-meteogram { margin: 2rem 0.75rem; padding: 0.85rem 1rem; } .gen154-meteogram .meteo-canvas { height: 80px; } .gen154-meteogram .meteogram-header, .gen154-meteogram .meteogram-footer { font-size: 0.6rem; flex-wrap: wrap; gap: 0.4rem; } }
   /* @gene:gen154-css:end */
-
-  /* @gene:gen153-css:start */
-  /* gen153-css: doppler chassis */
-.gen153-radar-host { position: fixed; inset: 0; z-index: 1; pointer-events: auto; background: radial-gradient(ellipse at center, #0e1a22 0%, #050a0e 100%); }
-.gen153-radar-host canvas { display: block; width: 100%; height: 100%; }
-.gen153-overlay-center { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 10; text-align: center; color: var(--tier-strong); pointer-events: none; max-width: min(720px, 92vw); }
-.gen153-overlay-center .system-label { font-family: 'JetBrains Mono', monospace; font-size: clamp(0.7rem, 1.6vw, 0.85rem); letter-spacing: 0.3em; color: #2d9a4d; text-transform: uppercase; margin-bottom: 1.2rem; }
-.gen153-overlay-center .system-label .pulse-dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: #2d9a4d; margin-right: 0.6rem; vertical-align: middle; box-shadow: 0 0 12px #2d9a4d; animation: gen153-radarpulse 2s ease-in-out infinite; }
-@keyframes gen153-radarpulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(0.7); } }
-.gen153-overlay-center h1 { font-family: 'Playfair Display', serif; font-weight: 400; font-style: italic; font-size: clamp(2.2rem, 6vw, 4.4rem); line-height: 1.05; margin: 0 0 1rem; color: var(--tier-strong); text-shadow: 0 0 24px rgba(0,0,0,0.85); }
-.gen153-overlay-center .hook { font-family: 'Source Serif 4', serif; font-size: clamp(0.95rem, 1.6vw, 1.1rem); color: var(--tier-mid); max-width: 540px; margin: 0 auto 1.5rem; line-height: 1.45; text-shadow: 0 0 14px rgba(0,0,0,0.7); }
-.gen153-overlay-center .meta-line { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 0.2em; color: var(--tier-soft); text-transform: uppercase; }
-.gen153-forecast { position: relative; z-index: 20; background: var(--bg-below-fold); color: var(--tier-strong); padding: 6rem 0 8rem; border-top: 1px solid var(--border-below-fold); }
-.gen153-forecast .wrap { max-width: 1080px; margin: 0 auto; padding: 0 2rem; }
-.gen153-forecast .masthead { display: flex; justify-content: space-between; align-items: baseline; padding-bottom: 1.2rem; border-bottom: 1px solid rgba(45,154,77,0.35); margin-bottom: 3rem; font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--tier-soft); }
-.gen153-forecast .masthead .title { color: #2d9a4d; }
-.gen153-forecast h2 { font-family: 'Playfair Display', serif; font-weight: 400; font-style: italic; font-size: 1.8rem; color: var(--tier-strong); margin: 4rem 0 1.5rem; }
-.gen153-forecast h2:first-of-type { margin-top: 0; }
-.gen153-forecast .system-active { display: grid; grid-template-columns: auto 1fr; gap: 1.5rem 2rem; padding: 1.8rem; background: rgba(45,154,77,0.06); border: 1px solid rgba(45,154,77,0.3); border-radius: 4px; margin-bottom: 3rem; }
-.gen153-forecast .system-active .pressure { font-family: 'JetBrains Mono', monospace; font-size: 2.8rem; color: #2d9a4d; line-height: 1; }
-.gen153-forecast .system-active .desc { font-family: 'Source Serif 4', serif; font-size: 1rem; color: var(--tier-mid); line-height: 1.6; }
-.gen153-forecast .obs-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
-.gen153-forecast .obs-card { padding: 1.4rem 1.2rem; background: var(--bg-surface); border-left: 2px solid #2d9a4d; border-radius: 2px; transition: transform 0.2s ease, border-color 0.2s ease; }
-.gen153-forecast .obs-card:hover { transform: translateY(-2px); border-left-color: #e8821a; }
-.gen153-forecast .obs-card a { color: var(--tier-strong); text-decoration: none; display: block; }
-.gen153-forecast .obs-card .num { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: #2d9a4d; letter-spacing: 0.2em; }
-.gen153-forecast .obs-card .name { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.15rem; color: var(--tier-strong); margin: 0.3rem 0 0.5rem; }
-.gen153-forecast .obs-card .desc { font-family: 'Source Serif 4', serif; font-size: 0.85rem; color: var(--tier-mid); line-height: 1.5; }
-.gen153-forecast .timeline { font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; color: var(--tier-mid); }
-.gen153-forecast .timeline div { padding: 0.55rem 0; border-bottom: 1px dotted rgba(168,176,184,0.2); display: grid; grid-template-columns: 140px 1fr; gap: 1.5rem; }
-.gen153-forecast .timeline .system-name { color: var(--tier-strong); }
-.gen153-forecast .timeline .dates { color: var(--tier-soft); }
-.gen153-forecast .notes p { font-family: 'Source Serif 4', serif; font-size: 0.95rem; color: var(--tier-mid); line-height: 1.65; margin-bottom: 1.2rem; max-width: 640px; }
-.gen153-forecast .notes p::before { content: '— '; color: #2d9a4d; }
-@media (max-width: 600px) {
-  .gen153-forecast { padding: 4rem 0 5rem; }
-  .gen153-forecast .wrap { padding: 0 1.2rem; }
-  .gen153-forecast .masthead { flex-direction: column; gap: 0.5rem; }
-  .gen153-forecast .system-active { grid-template-columns: 1fr; padding: 1.2rem; }
-  .gen153-forecast .system-active .pressure { font-size: 2rem; }
-  .gen153-forecast .timeline div { grid-template-columns: 1fr; gap: 0.2rem; }
-}
-  /* @gene:gen153-css:end */
 </style>
 <!-- MOBILE SCAFFOLD - DO NOT MODIFY (apply_changes.py protected) -->
 <style id="mobile-scaffold">
@@ -981,7 +942,7 @@
 
 <div id="scene-frame"><canvas id="scene-canvas"></canvas></div>
 
-<span id="siteVersion" style="display:none">v156</span>
+<span id="siteVersion" style="display:none">v157</span>
 
 <!-- ── HTML Overlay ──────────────────────────────────────────── -->
 <div id="overlay">
@@ -994,19 +955,19 @@
 <!-- @section:overlay-top:end -->
 
 <style data-section="resonance-field">
-#radar-canvas.smalt-flash { filter: hue-rotate(80deg) brightness(1.3); transition: filter 0.6s ease; }
+#radar-scope{position:fixed;inset:0;width:100%;height:100%;z-index:0;display:block;background:#0a141a;} .radar-legend{position:fixed;left:14px;bottom:74px;z-index:3;display:flex;gap:8px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;opacity:.6;pointer-events:none;text-shadow:0 0 8px rgba(0,0,0,.85);} .radar-legend .dbz{padding:2px 6px;border:1px solid currentColor;border-radius:2px;} .dbz-lo{color:#2fcf6e;} .dbz-mid{color:#f0c41e;} .dbz-hi{color:#e0463a;} @media(max-width:600px){.radar-legend{font-size:9px;bottom:64px;left:10px;}}
 </style>
 <!-- @section:resonance-field:start -->
-<div class='gen153-radar-host' id='radar-host'><canvas id='radar-canvas'></canvas></div>
+<canvas id="radar-scope"></canvas><div class="radar-legend" aria-hidden="true"><span class="dbz dbz-lo">light</span><span class="dbz dbz-mid">moderate</span><span class="dbz dbz-hi">heavy</span></div>
 <!-- @section:resonance-field:end -->
 <script data-section="resonance-field">
-(function(){const c=document.getElementById('radar-canvas');if(!c)return;const ctx=c.getContext('2d');let W=0,H=0,cx=0,cy=0,R=0;function resize(){W=c.width=window.innerWidth*devicePixelRatio;H=c.height=window.innerHeight*devicePixelRatio;c.style.width=window.innerWidth+'px';c.style.height=window.innerHeight+'px';cx=W/2;cy=H/2;R=Math.min(W,H)*0.42;}resize();window.addEventListener('resize',resize);const echoes=[];const systems=[];let sweepAngle=0;let lastT=performance.now();let audioCtx=null;function audio(){if(!audioCtx){try{audioCtx=new (window.AudioContext||window.webkitAudioContext)();}catch(e){return null;}}return audioCtx;}function hiss(intensity){const a=audio();if(!a||a.state==='suspended')return;const dur=0.3;const bufSize=a.sampleRate*dur;const buf=a.createBuffer(1,bufSize,a.sampleRate);const data=buf.getChannelData(0);for(let i=0;i<bufSize;i++)data[i]=(Math.random()*2-1)*intensity;const src=a.createBufferSource();src.buffer=buf;const filt=a.createBiquadFilter();filt.type='lowpass';filt.frequency.value=1800;const gain=a.createGain();gain.gain.value=0.04*intensity;src.connect(filt);filt.connect(gain);gain.connect(a.destination);src.start();src.stop(a.currentTime+dur);}window.AGENT_RADAR_HIGH=function(){const px=cx,py=cy;systems.push({x:px,y:py,type:'H',pressure:1024,age:0,maxAge:600});};document.addEventListener('keydown',(e)=>{if(e.key.length!==1||e.ctrlKey||e.metaKey||e.altKey)return;if(audioCtx&&audioCtx.state==='suspended')audioCtx.resume();const angle=Math.random()*Math.PI*2;const dist=R*(0.25+Math.random()*0.6);const px=cx+Math.cos(angle)*dist;const py=cy+Math.sin(angle)*dist;const isHigh=e.key===e.key.toUpperCase()&&e.key.match(/[A-Z]/);echoes.push({x:px,y:py,r:8*devicePixelRatio,maxR:(20+Math.random()*30)*devicePixelRatio,age:0,maxAge:360,intensity:0.6+Math.random()*0.4,letter:e.key,high:!!isHigh});});c.addEventListener('click',(e)=>{const rect=c.getBoundingClientRect();const px=(e.clientX-rect.left)*devicePixelRatio;const py=(e.clientY-rect.top)*devicePixelRatio;systems.push({x:px,y:py,type:'L',pressure:998,age:0,maxAge:480});if(audioCtx&&audioCtx.state==='suspended')audioCtx.resume();});function frame(t){const dt=(t-lastT)/16.67;lastT=t;ctx.fillStyle='rgba(10,20,26,0.18)';ctx.fillRect(0,0,W,H);ctx.strokeStyle='rgba(45,154,77,0.22)';ctx.lineWidth=1*devicePixelRatio;for(let i=1;i<=4;i++){ctx.beginPath();ctx.arc(cx,cy,R*(i/4),0,Math.PI*2);ctx.stroke();}ctx.strokeStyle='rgba(45,154,77,0.15)';ctx.beginPath();ctx.moveTo(cx-R,cy);ctx.lineTo(cx+R,cy);ctx.moveTo(cx,cy-R);ctx.lineTo(cx,cy+R);ctx.stroke();sweepAngle+=dt*0.018;const beamW=0.42;ctx.save();ctx.translate(cx,cy);for(let i=0;i<24;i++){const a=sweepAngle-i*0.014;const alpha=(1-i/24)*0.5;ctx.strokeStyle='rgba(72,196,106,'+alpha+')';ctx.lineWidth=2*devicePixelRatio;ctx.beginPath();ctx.moveTo(0,0);ctx.lineTo(Math.cos(a)*R,Math.sin(a)*R);ctx.stroke();}ctx.restore();let active=false;for(let i=echoes.length-1;i>=0;i--){const e=echoes[i];e.age+=dt;if(e.age>=e.maxAge){echoes.splice(i,1);continue;}const dx=e.x-cx,dy=e.y-cy;const echoAngle=Math.atan2(dy,dx);const sa=((sweepAngle%(Math.PI*2))+Math.PI*2)%(Math.PI*2);const ea=((echoAngle%(Math.PI*2))+Math.PI*2)%(Math.PI*2);const dAng=Math.abs(((sa-ea+Math.PI)%(Math.PI*2))-Math.PI);if(dAng<beamW&&e.age<60){e.r=Math.min(e.maxR,e.r+0.6*devicePixelRatio);active=true;}const lifeFrac=1-e.age/e.maxAge;const sat=e.high?'232,130,26':'45,154,77';ctx.fillStyle='rgba('+sat+','+(lifeFrac*e.intensity*0.6)+')';ctx.beginPath();ctx.arc(e.x,e.y,e.r,0,Math.PI*2);ctx.fill();ctx.fillStyle='rgba(216,221,224,'+(lifeFrac*0.7)+')';ctx.font=(11*devicePixelRatio)+'px JetBrains Mono, monospace';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(e.letter,e.x,e.y);}for(let i=systems.length-1;i>=0;i--){const s=systems[i];s.age+=dt;if(s.age>=s.maxAge){systems.splice(i,1);continue;}const lifeFrac=1-s.age/s.maxAge;const col=s.type==='L'?'45,154,77':'232,130,26';for(let k=1;k<=5;k++){ctx.strokeStyle='rgba('+col+','+(lifeFrac*0.18)+')';ctx.lineWidth=1*devicePixelRatio;ctx.beginPath();ctx.arc(s.x,s.y,k*22*devicePixelRatio,0,Math.PI*2);ctx.stroke();}ctx.fillStyle='rgba('+col+','+lifeFrac+')';ctx.font=(28*devicePixelRatio)+'px Playfair Display, serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(s.type,s.x,s.y);ctx.fillStyle='rgba(168,176,184,'+(lifeFrac*0.6)+')';ctx.font=(9*devicePixelRatio)+'px JetBrains Mono, monospace';ctx.fillText(s.pressure+'mb',s.x,s.y+22*devicePixelRatio);}if(active&&Math.random()<0.08)hiss(0.5);ctx.fillStyle='rgba(45,154,77,0.6)';ctx.font=(10*devicePixelRatio)+'px JetBrains Mono, monospace';ctx.textAlign='left';ctx.fillText('DOPPLER · SWEEP '+Math.round(((sweepAngle%(Math.PI*2))/(Math.PI*2))*360)+'°',12*devicePixelRatio,20*devicePixelRatio);ctx.fillText('ECHOES: '+echoes.length+'  SYSTEMS: '+systems.length,12*devicePixelRatio,36*devicePixelRatio);requestAnimationFrame(frame);}requestAnimationFrame(frame);})();
+(function(){var cv=document.getElementById('radar-scope');if(!cv)return;var ctx=cv.getContext('2d');var W,H,cx,cy,R;function size(){W=cv.width=window.innerWidth;H=cv.height=window.innerHeight;cx=W/2;cy=H/2;R=Math.min(W,H)*0.46;}size();window.addEventListener('resize',size);var angle=0;var echoes=[];function refl(i){if(i<0.5){var t=i/0.5;return 'rgba('+Math.round(47+t*193)+','+Math.round(207-t*11)+','+Math.round(110-t*80)+',';}var u=(i-0.5)/0.5;return 'rgba(224,'+Math.round(196-u*128)+','+Math.round(30+u*28)+',';}function addEcho(x,y,i){echoes.push({x:x,y:y,i:i,born:performance.now()});if(echoes.length>240)echoes.shift();}cv.addEventListener('pointerdown',function(e){addEcho(e.clientX,e.clientY,0.85);for(var k=0;k<5;k++){addEcho(e.clientX+(Math.random()-0.5)*44,e.clientY+(Math.random()-0.5)*44,Math.random()*0.6+0.2);}});window.addEventListener('keydown',function(e){var c=e.key;if(c&&c.length===1&&/[a-z]/i.test(c)){var cap=(c===c.toUpperCase());var a=Math.random()*Math.PI*2,rad=Math.random()*R*0.85;addEcho(cx+Math.cos(a)*rad,cy+Math.sin(a)*rad,cap?0.9:0.45);}});function frame(now){ctx.fillStyle='rgba(10,20,26,0.10)';ctx.fillRect(0,0,W,H);ctx.strokeStyle='rgba(47,207,110,0.12)';ctx.lineWidth=1;for(var r=1;r<=3;r++){ctx.beginPath();ctx.arc(cx,cy,R*r/3,0,Math.PI*2);ctx.stroke();}ctx.beginPath();ctx.moveTo(cx-R,cy);ctx.lineTo(cx+R,cy);ctx.moveTo(cx,cy-R);ctx.lineTo(cx,cy+R);ctx.stroke();for(var j=0;j<echoes.length;j++){var ec=echoes[j];var age=(now-ec.born)/30000;if(age>=1)continue;var al=(1-age)*ec.i;ctx.fillStyle=refl(ec.i)+(al*0.8)+')';ctx.beginPath();ctx.arc(ec.x,ec.y,4+ec.i*7,0,Math.PI*2);ctx.fill();}angle+=Math.PI*2/360;if(angle>Math.PI*2)angle-=Math.PI*2;ctx.save();ctx.translate(cx,cy);ctx.rotate(angle);var g=ctx.createLinearGradient(0,0,R,0);g.addColorStop(0,'rgba(47,207,110,0)');g.addColorStop(1,'rgba(92,224,138,0.55)');ctx.strokeStyle=g;ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(0,0);ctx.lineTo(R,0);ctx.stroke();ctx.fillStyle='rgba(47,207,110,0.05)';ctx.beginPath();ctx.moveTo(0,0);ctx.arc(0,0,R,-0.4,0);ctx.closePath();ctx.fill();ctx.restore();requestAnimationFrame(frame);}requestAnimationFrame(frame);})();
 </script>
 <style data-section="overlay-center">
-.gen156-oc{position:relative;z-index:5;min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:0 6vw;box-sizing:border-box;}.gen156-oc .oc-hero{font-family:'Playfair Display',serif;font-weight:700;font-size:clamp(2.4rem,7vw,5.4rem);line-height:1.04;color:#f5f1e8;margin:0 0 1.4rem;text-shadow:0 0 40px rgba(10,20,26,0.9);}.gen156-oc .oc-hero .spark{color:#f0c41e;text-shadow:0 0 24px rgba(240,196,30,0.6);}.gen156-oc .oc-hook{font-family:'Source Serif 4',serif;font-size:clamp(0.95rem,1.6vw,1.15rem);line-height:1.6;color:#aab2b8;max-width:52ch;margin:0 0 1.6rem;}.gen156-oc .oc-meta{font-family:'JetBrains Mono',monospace;font-size:0.72rem;letter-spacing:0.18em;color:#7a848c;text-transform:uppercase;}@media(max-width:600px){.gen156-oc .oc-hook{font-size:0.95rem;}}
+.hero-wrap{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);width:min(92vw,760px);text-align:center;z-index:4;pointer-events:none;} .hero-line{font-family:'Playfair Display',serif;font-weight:700;font-size:clamp(2rem,6vw,4.2rem);line-height:1.05;color:#eef4f0;margin:0 0 1.1rem;text-shadow:0 0 18px rgba(10,20,26,.9),0 2px 30px rgba(0,0,0,.6);} .hero-hook{font-family:'Source Serif 4',serif;font-size:clamp(.95rem,1.6vw,1.15rem);color:#cfe0d8;margin:0 0 .8rem;text-shadow:0 0 10px rgba(0,0,0,.8);} .hero-meta{font-family:'JetBrains Mono',monospace;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:#5ce08a;margin:0;text-shadow:0 0 8px rgba(0,0,0,.8);} @media(max-width:600px){.hero-wrap{width:92vw;}.hero-line{font-size:clamp(1.6rem,8vw,2.4rem);}}
 </style>
 <!-- @section:overlay-center:start -->
-<div class="gen156-oc gen156-tiers"><h1 class="oc-hero">The charge gathers before the <span class="spark">strike</span>.</h1><p class="oc-hook">An AI redesigns this page every night — you're seeing generation 156. Letters are weather here: type any key to seed a pressure system, and watch the storm build its own charge until it has to let go.</p><p class="oc-meta">Epoch VI · typography as weather · mood: charged · gen 156 · night</p></div>
+<div class="hero-wrap"><h1 class="hero-line">The scope holds the storm in green light.</h1><p class="hero-hook">An AI redesigns this page every day. You're seeing generation 157 — a storm chart that watches itself on a phosphor radar.</p><p class="hero-meta">epoch VI · typography as weather · mood: vigilant · gen 157</p></div>
 <!-- @section:overlay-center:end -->
 <script data-section="overlay-center">
 (()=>{const notes=document.querySelectorAll('.stage-hero .note');const playBtn=document.getElementById('play-melody');async function ensure(){if(!window.Tone){await new Promise(r=>{const s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/tone@14.7.77/build/Tone.js';s.onload=r;document.head.appendChild(s)})}if(window.Tone.context.state!=='running')await window.Tone.start();if(!window.__stageSynth){const r=new window.Tone.Reverb(2.5).toDestination();r.wet.value=0.55;const s=new window.Tone.PolySynth(window.Tone.FMSynth).connect(r);window.__stageAnalyser=new window.Tone.Analyser('waveform',1024);s.connect(window.__stageAnalyser);window.__stageSynth=s}}function flash(){document.body.classList.add('stage-flash');setTimeout(()=>document.body.classList.remove('stage-flash'),450)}notes.forEach(n=>{n.addEventListener('click',async()=>{await ensure();const p=parseFloat(n.dataset.pitch);window.__stageSynth.triggerAttackRelease(p,'1.6');n.classList.add('active');setTimeout(()=>n.classList.remove('active'),700);flash()})});if(playBtn){playBtn.addEventListener('click',async()=>{await ensure();playBtn.classList.add('playing');const arr=Array.from(notes);arr.forEach((n,i)=>{setTimeout(()=>{window.__stageSynth.triggerAttackRelease(parseFloat(n.dataset.pitch),'0.42');n.classList.add('active');setTimeout(()=>n.classList.remove('active'),420)},i*380)});setTimeout(()=>playBtn.classList.remove('playing'),arr.length*380+600)})}})();
@@ -1174,7 +1135,7 @@
       count: 50,
       size: 0.2,
       speed: 0.01,
-      color: '#f0c41e',
+      color: '#2fcf6e',
       opacity: 0.05,
       spread: 3,
       orbital_radius: 4,
@@ -1198,7 +1159,7 @@
     lighting: {
       ambient_color: '#0e1a22',
       ambient_intensity: 0.15,
-      point_color: '#f7d84e',
+      point_color: '#5ce08a',
       point_intensity: 0.3,
       point_position: [2, 3, 4],
     },
@@ -1208,11 +1169,11 @@
       mode: 'repel',
     },
     time_themes: {
-      dawn:      { particle_color: '#e85a9c', fog_color: '#0d0806', ambient: '#2a1a0e', speed_mult: 0.6 },
-      morning:   { particle_color: '#cc2e7a', fog_color: '#0a0806', ambient: '#2a1e1a', speed_mult: 0.8 },
-      afternoon: { particle_color: '#a8285f', fog_color: '#0d0a06', ambient: '#2a2a1a', speed_mult: 1.0 },
-      evening:   { particle_color: '#821f49', fog_color: '#0a0806', ambient: '#1e1a2a', speed_mult: 0.7 },
-      night:     { particle_color: '#5e1636', fog_color: '#080604', ambient: '#1a1410', speed_mult: 0.4 },
+      dawn:      { particle_color: '#3ad17a', fog_color: '#0d0806', ambient: '#2a1a0e', speed_mult: 0.6 },
+      morning:   { particle_color: '#2fcf6e', fog_color: '#0a0806', ambient: '#2a1e1a', speed_mult: 0.8 },
+      afternoon: { particle_color: '#27b85e', fog_color: '#0d0a06', ambient: '#2a2a1a', speed_mult: 1.0 },
+      evening:   { particle_color: '#1f9a4e', fog_color: '#0a0806', ambient: '#1e1a2a', speed_mult: 0.7 },
+      night:     { particle_color: '#177a3e', fog_color: '#080604', ambient: '#1a1410', speed_mult: 0.4 },
     },
     post_processing: {
       bloom_enabled: false,
@@ -1237,7 +1198,7 @@
 
   const AGENT = {
     birthTime: Date.now(),
-    mood: 'charged',
+    mood: 'vigilant',
     secrets: [
       "The swarm remembers the metallurgy epoch. Somewhere in the particle field, one mote still moves like it's being assayed \u2014 slower, heavier, testing its own purity against the others."
 ],
@@ -1628,10 +1589,6 @@
   // Easter egg: type 'grain' anywhere to scatter a yellow grain cloud across the resonance-field that fades over four seconds
   (function(){let buf='';document.addEventListener('keydown',(e)=>{buf=(buf+e.key.toLowerCase()).slice(-5);if(buf==='grain'){const cv=document.querySelector('#resonance-field canvas')||document.querySelector('canvas');if(!cv)return;const ctx=cv.getContext('2d');if(!ctx)return;const grains=[];for(let i=0;i<140;i++){grains.push({x:Math.random()*cv.width,y:Math.random()*cv.height,r:1+Math.random()*3,life:1,jx:(Math.random()-0.5)*0.6,jy:(Math.random()-0.5)*0.6});}const start=performance.now();function tick(){const t=(performance.now()-start)/4000;if(t>=1)return;grains.forEach(g=>{ctx.fillStyle='rgba(255,230,0,'+(g.life*(1-t)*0.7)+')';ctx.beginPath();ctx.arc(g.x,g.y,g.r,0,Math.PI*2);ctx.fill();g.x+=g.jx;g.y+=g.jy;});requestAnimationFrame(tick);}tick();buf='';}});})();
   // @gene:type-'grain'-anywhere-to-scatt:end
-// @gene:click-and-drag-on-the-resonanc:start
-  // Easter egg: Click and drag on the resonance-field to draw a baton path; release to hear the gesture played back as a melody
-  (function(){ const field = document.getElementById('resonance-field') || document.querySelector('canvas'); if (!field) return; let recording = false; let path = []; let synth = null; async function ensureSynth(){ if (synth) return; if (typeof Tone === 'undefined'){ const s = document.createElement('script'); s.src = 'https://cdn.jsdelivr.net/npm/tone@14.7.77/build/Tone.js'; document.head.appendChild(s); await new Promise(r=>s.onload=r); } await Tone.start(); const reverb = new Tone.Reverb({decay:2.4, wet:0.45}).toDestination(); synth = new Tone.PolySynth(Tone.FMSynth,{ envelope:{attack:0.02,decay:0.4,sustain:0.3,release:1.0} }).connect(reverb); } field.addEventListener('mousedown', async e=>{ recording=true; path=[{x:e.clientX,y:e.clientY,t:performance.now()}]; await ensureSynth(); }); field.addEventListener('mousemove', e=>{ if(recording) path.push({x:e.clientX,y:e.clientY,t:performance.now()}); }); window.addEventListener('mouseup', ()=>{ if(!recording) return; recording=false; if (path.length<5 || !synth) return; const t0=path[0].t; const sample = path.filter((p,i)=>i%6===0); const notes=['C2','E2','G2','B2','D3','F3','A3','C4','E4','G4','B4','D5','F5','A5']; sample.forEach(p=>{ const idx=Math.floor((1-p.y/innerHeight)*notes.length); const n=notes[Math.max(0,Math.min(notes.length-1,idx))]; const off=(p.t-t0)/1000; synth.triggerAttackRelease(n,'8n', `+${off}`, 0.4); }); }); })();
-  // @gene:click-and-drag-on-the-resonanc:end
 // @gene:press-any-letter-a-through-z-t:start
   // Easter egg: Press any letter A through Z to ring its pitch through the stage. The hall flashes on attack.
   (()=>{const m={};'abcdefghijklmnopqrstuvwxyz'.split('').forEach((l,i)=>{m[l]=220*Math.pow(2,i/12)});async function ensure(){if(!window.Tone){await new Promise(r=>{const s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/tone@14.7.77/build/Tone.js';s.onload=r;document.head.appendChild(s)})}if(window.Tone.context.state!=='running')await window.Tone.start();if(!window.__stageSynth){const r=new window.Tone.Reverb(2.5).toDestination();r.wet.value=0.55;const s=new window.Tone.PolySynth(window.Tone.FMSynth).connect(r);window.__stageAnalyser=new window.Tone.Analyser('waveform',1024);s.connect(window.__stageAnalyser);window.__stageSynth=s}}const held=new Set();addEventListener('keydown',async e=>{const k=e.key.toLowerCase();if(!m[k]||held.has(k)||e.target.matches('input,textarea'))return;held.add(k);await ensure();window.__stageSynth.triggerAttack(m[k]);document.body.classList.add('stage-flash');setTimeout(()=>document.body.classList.remove('stage-flash'),450)});addEventListener('keyup',e=>{const k=e.key.toLowerCase();if(held.has(k)){held.delete(k);if(window.__stageSynth)window.__stageSynth.triggerRelease(m[k])}})})();

@@ -1,17 +1,17 @@
 {
-  "generation": 156,
+  "generation": 157,
   "epoch": "webgl-swarm",
   "epoch_started": "2026-05-25",
   "traits": {
     "color": {
-      "accent_base": "#f0c41e",
-      "accent_dawn": "#f7d84e",
-      "accent_morning": "#f0c41e",
-      "accent_afternoon": "#d4a514",
-      "accent_evening": "#a87f0e",
-      "accent_night": "#8a6810",
+      "accent_base": "#2fcf6e",
+      "accent_dawn": "#3ad17a",
+      "accent_morning": "#2fcf6e",
+      "accent_afternoon": "#27b85e",
+      "accent_evening": "#1f9a4e",
+      "accent_night": "#177a3e",
       "bg": "#0a141a",
-      "fg": "#d8dde0",
+      "fg": "#d6e2dc",
       "grain_opacity": "0.06",
       "fg_dim": "#8a949c",
       "bg_surface": "#0e1a22",
@@ -221,7 +221,6 @@
       "idle-boredom",
       "when-a-visitor-clicks-and-drag",
       "press-any-letter-a-through-z-t",
-      "click-and-drag-on-the-resonanc",
       "type-'choir'-anywhere-to-ring-",
       "type-'recital'-anywhere-on-the",
       "type-'lettera'-anywhere-to-enc",
@@ -232,7 +231,7 @@
       "type-'strike'-anywhere-on-the-"
     ],
     "content": {
-      "mood": "charged",
+      "mood": "vigilant",
       "obsession": "typography as weather \u2014 letters are pressure systems, words are fronts, the page is a synoptic chart at scan rate",
       "thought_pools": {
         "dawn": 10,
@@ -245,17 +244,6 @@
     }
   },
   "fitness_log": [
-    {
-      "gen": 137,
-      "coherence": 8,
-      "novelty": 5,
-      "identity": 9,
-      "tension": 6,
-      "awe": 6,
-      "perceptibility": 6,
-      "note": "Engraved chassis day 14, eight inks present, recital framing settled. But five deploys blocked by colophon/meta overlap is a real wound. Novelty dropp",
-      "total": 6.7
-    },
     {
       "gen": 138,
       "coherence": 8,
@@ -464,29 +452,20 @@
       "perceptibility": 7,
       "note": "Day six of the storm chart and the chassis is genuinely committed \u2014 radar sweep, meteogram, satellite all reading as one atmosphere. But the contrast ",
       "total": 6.5
+    },
+    {
+      "gen": 157,
+      "coherence": 7,
+      "novelty": 7,
+      "identity": 8,
+      "tension": 6,
+      "awe": 6,
+      "perceptibility": 8,
+      "note": "Day 7 of the storm chart held at 6.5 but novelty has slid four straight gens (9\u21927\u21927\u21926) \u2014 stacking separate canvases (radar, meteogram, satellite, ligh",
+      "total": 7.0
     }
   ],
   "mutation_log": [
-    {
-      "gen": 137,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "section.tonights-composition",
-        "page.experiments/061.html",
-        "scene.config",
-        "overlay.agent_data"
-      ],
-      "kills": [
-        "css_rule:gen126-css",
-        "thought:evening[9]",
-        "secret[20]"
-      ],
-      "timestamp": "2026-05-19T19:13:42Z"
-    },
     {
       "gen": 138,
       "mutations": [
@@ -886,27 +865,30 @@
         "secret[19]"
       ],
       "timestamp": "2026-05-26T22:05:58Z"
+    },
+    {
+      "gen": 157,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "content.mood",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "section.overlay-center",
+        "section.resonance-field",
+        "scene.config",
+        "overlay.agent_data"
+      ],
+      "kills": [
+        "interaction:click-and-drag-on-the-resonanc",
+        "css_rule:gen153-css",
+        "secret[18]"
+      ],
+      "timestamp": "2026-05-27T06:05:12Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "css_rule",
-      "value": "gen114-css",
-      "died_gen": 142,
-      "epitaph": "Twenty-eight generations dormant, gene-marked killable across twenty-two consecutive pulses. The phosphor-scope sapphire from the dead stage era has no business in a manuscript codex."
-    },
-    {
-      "type": "secret",
-      "value": "Type 'woad' anywhere to ferment the page \u2014 the cream paper tints yellow-green fo",
-      "died_gen": 143,
-      "epitaph": "Carrying capacity 20; the new malachite-band secret arrives. The oldest stale secret retires to make room for the fifteenth-ink ceremony."
-    },
-    {
-      "type": "css_rule",
-      "value": "gen114-css",
-      "died_gen": 143,
-      "epitaph": "Twenty-nine generations dormant, gene-marked killable across twenty-three consecutive pulses. The phosphor scope's last residue finally lets go."
-    },
     {
       "type": "thought",
       "value": "Gold price 4499.70 this afternoon, eighty Fahrenheit and patchy rain in Fort Lauderdale \u2014 the day's weather pressed into the day's ink.",
@@ -1188,6 +1170,24 @@
       "value": "Type 'mammatus' anywhere \u2014 bruised magenta pouch-clouds swell up along the botto",
       "died_gen": 156,
       "epitaph": "A relic of an earlier sky. Pruned to make room for the lightning."
+    },
+    {
+      "type": "interaction",
+      "value": "click-and-drag-on-the-resonanc",
+      "died_gen": 157,
+      "epitaph": "The rebuilt scope handles its own pointers \u2014 the old drag listener was painting the field twice."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen153-css",
+      "died_gen": 157,
+      "epitaph": "Four generations dormant \u2014 the original radar-sweep styling, superseded by the phosphor scope."
+    },
+    {
+      "type": "secret",
+      "value": "Click any vine in the margins to ring a different note \u2014 each vine is tuned to a",
+      "died_gen": 157,
+      "epitaph": "A storm-cell relic from the satellite week, pruned to make room for the reflectivity scale."
     }
   ],
   "carrying_capacity": {
@@ -1206,11 +1206,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 147,
-      "base": "#c8961a",
-      "family": "orange"
-    },
     {
       "gen": 148,
       "base": "#6a2a9a",
@@ -1255,6 +1250,11 @@
       "gen": 156,
       "base": "#f0c41e",
       "family": "orange"
+    },
+    {
+      "gen": 157,
+      "base": "#2fcf6e",
+      "family": "lime"
     }
   ],
   "past_epochs": [
@@ -1296,15 +1296,6 @@
   ],
   "epoch_number": 6,
   "contrast_warnings": [
-    {
-      "gen": 107,
-      "messages": [
-        "  [contrast-gate below-fold] effective bg = #050505 from .below-fold:211 (raw: var(--bg-below-fold, #fffff5))",
-        "    FAIL  #555555  ratio=2.73:1  (< 4.5)",
-        "    FAIL  #666666  ratio=3.55:1  (< 4.5)"
-      ],
-      "timestamp": "2026-05-07T00:03:28Z"
-    },
     {
       "gen": 108,
       "messages": [
@@ -1378,6 +1369,14 @@
         "    FAIL  #78620f  ratio=3.15:1  (< 4.5)"
       ],
       "timestamp": "2026-05-26T22:05:58Z"
+    },
+    {
+      "gen": 157,
+      "messages": [
+        "  [contrast-gate below-fold] effective bg = #0a141a from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
+        "    FAIL  #78620f  ratio=3.15:1  (< 4.5)"
+      ],
+      "timestamp": "2026-05-27T06:05:12Z"
     }
   ]
 }
