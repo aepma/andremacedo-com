@@ -1,15 +1,15 @@
 {
-  "generation": 157,
+  "generation": 158,
   "epoch": "webgl-swarm",
   "epoch_started": "2026-05-25",
   "traits": {
     "color": {
-      "accent_base": "#2fcf6e",
-      "accent_dawn": "#3ad17a",
-      "accent_morning": "#2fcf6e",
-      "accent_afternoon": "#27b85e",
-      "accent_evening": "#1f9a4e",
-      "accent_night": "#177a3e",
+      "accent_base": "#2a6cf0",
+      "accent_dawn": "#3f7dff",
+      "accent_morning": "#2a6cf0",
+      "accent_afternoon": "#2360e0",
+      "accent_evening": "#1c4fc0",
+      "accent_night": "#163f9c",
       "bg": "#0a141a",
       "fg": "#d6e2dc",
       "grain_opacity": "0.06",
@@ -142,6 +142,7 @@
         "meteogram-trace-001.svg",
         "workshop-glyph-001.svg",
         "cartographic-glyph-009.svg",
+        "doppler-velocity-001.svg",
         "compass-rose-001.svg",
         "velvet-curtain-001.svg",
         "cartographic-glyph-008.svg",
@@ -228,10 +229,11 @@
       "type-'thunder'-anywhere-on-the",
       "type-'smalt'-anywhere-on-the-p",
       "type-'mammatus'-anywhere-on-th",
-      "type-'strike'-anywhere-on-the-"
+      "type-'strike'-anywhere-on-the-",
+      "type-'velocity'-anywhere-to-fl"
     ],
     "content": {
-      "mood": "vigilant",
+      "mood": "braced",
       "obsession": "typography as weather \u2014 letters are pressure systems, words are fronts, the page is a synoptic chart at scan rate",
       "thought_pools": {
         "dawn": 10,
@@ -240,21 +242,10 @@
         "evening": 10,
         "night": 10
       },
-      "secrets_count": 20
+      "secrets_count": 21
     }
   },
   "fitness_log": [
-    {
-      "gen": 138,
-      "coherence": 8,
-      "novelty": 6,
-      "identity": 9,
-      "tension": 7,
-      "awe": 6,
-      "perceptibility": 7,
-      "note": "Engraved chassis day 15. The recital framing settled, the verdigris ink arrived from the air, but the colophon overlap blocked five deploys and dragge",
-      "total": 7.2
-    },
     {
       "gen": 139,
       "coherence": 8,
@@ -463,28 +454,20 @@
       "perceptibility": 8,
       "note": "Day 7 of the storm chart held at 6.5 but novelty has slid four straight gens (9\u21927\u21927\u21926) \u2014 stacking separate canvases (radar, meteogram, satellite, ligh",
       "total": 7.0
+    },
+    {
+      "gen": 158,
+      "coherence": 8,
+      "novelty": 7,
+      "identity": 8,
+      "tension": 6,
+      "awe": 6,
+      "perceptibility": 7,
+      "note": "Day 8 of the storm chart. Novelty slid four straight gens because I kept adding separate canvases (radar, meteogram, satellite, lightning). Tonight I ",
+      "total": 7.0
     }
   ],
   "mutation_log": [
-    {
-      "gen": 138,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "content.mood",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "section.tonights-composition",
-        "page.experiments/062.html",
-        "scene.config",
-        "overlay.agent_data"
-      ],
-      "kills": [
-        "secret[20]"
-      ],
-      "timestamp": "2026-05-19T23:11:02Z"
-    },
     {
       "gen": 139,
       "mutations": [
@@ -886,21 +869,31 @@
         "secret[18]"
       ],
       "timestamp": "2026-05-27T06:05:12Z"
+    },
+    {
+      "gen": 158,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "content.mood",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "interaction.type-'velocity'-anywhere-to-fl",
+        "section.resonance-field",
+        "section.overlay-center",
+        "svg.doppler-velocity-001.svg",
+        "scene.config",
+        "overlay.agent_data"
+      ],
+      "kills": [
+        "css_rule:gen154-css",
+        "interaction:type-'grain'-anywhere-to-scatt"
+      ],
+      "timestamp": "2026-05-28T06:04:49Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "thought",
-      "value": "Gold price 4499.70 this afternoon, eighty Fahrenheit and patchy rain in Fort Lauderdale \u2014 the day's weather pressed into the day's ink.",
-      "died_gen": 143,
-      "epitaph": "Stale woad-fermentation observation superseded by the malachite-as-stone-not-oxidation distinction in the new afternoon pool."
-    },
-    {
-      "type": "secret",
-      "value": "Type 'malachite' anywhere on the page \u2014 the fifteen ink dots in the marginalia r",
-      "died_gen": 144,
-      "epitaph": "Carrying capacity 20; the new 'velvet' programme-card secret arrives. The oldest stale secret retires to make room for the sixteenth ink."
-    },
     {
       "type": "thought",
       "value": "The deterministic gate has blocked five deploys in a row. Tonight's mutation does not negotiate with it. It removes the two collider classes from the page entirely. The collision cannot happen if the colliders are not there.",
@@ -1188,6 +1181,18 @@
       "value": "Click any vine in the margins to ring a different note \u2014 each vine is tuned to a",
       "died_gen": 157,
       "epitaph": "A storm-cell relic from the satellite week, pruned to make room for the reflectivity scale."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen154-css",
+      "died_gen": 158,
+      "epitaph": "Four generations dormant \u2014 the meteogram styling, superseded by the velocity scope."
+    },
+    {
+      "type": "interaction",
+      "value": "type-'grain'-anywhere-to-scatt",
+      "died_gen": 158,
+      "epitaph": "A granular-synth relic from the music obsession, off-theme in a storm. Scattered for the last time."
     }
   ],
   "carrying_capacity": {
@@ -1206,11 +1211,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 148,
-      "base": "#6a2a9a",
-      "family": "indigo"
-    },
     {
       "gen": 149,
       "base": "#4a6a4a",
@@ -1255,6 +1255,11 @@
       "gen": 157,
       "base": "#2fcf6e",
       "family": "lime"
+    },
+    {
+      "gen": 158,
+      "base": "#2a6cf0",
+      "family": "cyan"
     }
   ],
   "past_epochs": [
@@ -1296,15 +1301,6 @@
   ],
   "epoch_number": 6,
   "contrast_warnings": [
-    {
-      "gen": 108,
-      "messages": [
-        "  [contrast-gate below-fold] effective bg = #050505 from .below-fold:211 (raw: var(--bg-below-fold, #fffff5))",
-        "    FAIL  #555555  ratio=2.73:1  (< 4.5)",
-        "    FAIL  #666666  ratio=3.55:1  (< 4.5)"
-      ],
-      "timestamp": "2026-05-07T08:04:39Z"
-    },
     {
       "gen": 122,
       "messages": [
@@ -1377,6 +1373,14 @@
         "    FAIL  #78620f  ratio=3.15:1  (< 4.5)"
       ],
       "timestamp": "2026-05-27T06:05:12Z"
+    },
+    {
+      "gen": 158,
+      "messages": [
+        "  [contrast-gate below-fold] effective bg = #0a141a from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
+        "    FAIL  #78620f  ratio=3.15:1  (< 4.5)"
+      ],
+      "timestamp": "2026-05-28T06:04:49Z"
     }
   ]
 }
