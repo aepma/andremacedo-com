@@ -12,10 +12,10 @@
   @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,400;0,500;0,700;1,400;1,500&family=JetBrains+Mono:wght@300;400;500&display=swap');
 
   :root {
-    --fg: #d6e2dc;
+    --fg: #e6ddd6;
     --fg-dim: #8a949c;
     --fg-on-stage: #f5f5f5;
-    --fg-accent: #b833e6;
+    --fg-accent: #e0432a;
     --bg: #0a141a;
     --bg-surface: #0e1a22;
     --bg-elevated: #142028;
@@ -212,9 +212,9 @@
     background: var(--bg-below-fold, #fffff5);
     border-top: 1px solid var(--border-below-fold, rgba(8,145,178,0.18));
     padding: 4rem 2.5rem;
-    --fg: #d6e2dc;
+    --fg: #e6ddd6;
     --fg-dim: #8a949c;
-    --fg-accent: #c13cef;
+    --fg-accent: #e3462d;
     --bg-surface: #0e1a22;
     --bg-elevated: #142028;
   }
@@ -569,6 +569,10 @@
 
   /* Section injection markers are now in the body */
 /* @inject:css */
+  /* @gene:gen160-css:start */
+  .below-fold [class*="warn"], .below-fold [class*="watch"], .below-fold .ribbon, .below-fold .badge, .below-fold .accent-warning { color: #e8c66a !important; } #storm-audio-toggle{position:fixed;left:14px;bottom:14px;z-index:60;background:rgba(10,20,26,0.82);color:#d6e2dc;border:1px solid rgba(224,67,42,0.5);border-radius:3px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.04em;padding:6px 10px;cursor:pointer;max-width:60vw;box-sizing:border-box;text-shadow:0 0 8px rgba(0,0,0,0.85);transition:border-color .3s,color .3s,box-shadow .3s;} #storm-audio-toggle.on{color:#f2614a;border-color:#e0432a;box-shadow:0 0 14px rgba(224,67,42,0.35);} #storm-audio-toggle:hover{border-color:#e0432a;} @media(max-width:600px){#storm-audio-toggle{font-size:10px;padding:5px 8px;left:10px;bottom:10px;max-width:50vw;}}
+  /* @gene:gen160-css:end */
+
   /* @gene:gen159-css:start */
   .below-fold{ --accent:#cf9be0; --accent-warning:#e8c66a; } .below-fold a, .below-fold a:visited{ color:#cf9be0 !important; } .below-fold [class*='watch'], .below-fold [class*='warn'], .below-fold [class*='ribbon'], .below-fold [class*='banner']{ color:#e8c66a !important; } .below-fold [class*='badge'], .below-fold [class*='pressure']{ color:#cf9be0 !important; }
   /* @gene:gen159-css:end */
@@ -932,7 +936,7 @@
 
 <div id="scene-frame"><canvas id="scene-canvas"></canvas></div>
 
-<span id="siteVersion" style="display:none">v159</span>
+<span id="siteVersion" style="display:none">v160</span>
 
 <!-- ── HTML Overlay ──────────────────────────────────────────── -->
 <div id="overlay">
@@ -950,6 +954,13 @@
 <!-- @section:resonance-field:start -->
 <canvas id='wx-console'></canvas><div class='wx-toggle' role='group' aria-label='radar product'><button class='wx-btn active' data-mode='rain'>Rain</button><button class='wx-btn' data-mode='wind'>Wind</button><button class='wx-btn' data-mode='press'>Pressure</button></div>
 <!-- @section:resonance-field:end -->
+
+<!-- @section:console-sound:start -->
+<button id="storm-audio-toggle" type="button" aria-label="toggle storm audio">◊ storm audio: off</button>
+<!-- @section:console-sound:end -->
+<script data-section="console-sound">
+(function(){var btn=document.getElementById('storm-audio-toggle');if(!btn)return;var ac=null,master=null,hissGain=null,on=false;function makeNoise(ctx){var b=ctx.createBuffer(1,ctx.sampleRate*2,ctx.sampleRate);var d=b.getChannelData(0);var last=0;for(var i=0;i<d.length;i++){var w=Math.random()*2-1;d[i]=(last+0.02*w)/1.02;last=d[i];d[i]*=3.0;}return b;}function start(){var AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;ac=new AC();master=ac.createGain();master.gain.value=0.0;master.connect(ac.destination);var src=ac.createBufferSource();src.buffer=makeNoise(ac);src.loop=true;var lp=ac.createBiquadFilter();lp.type='lowpass';lp.frequency.value=1100;hissGain=ac.createGain();hissGain.gain.value=0.12;src.connect(lp);lp.connect(hissGain);hissGain.connect(master);src.start();var rumble=ac.createOscillator();rumble.type='sine';rumble.frequency.value=48;var rg=ac.createGain();rg.gain.value=0.18;rumble.connect(rg);rg.connect(master);rumble.start();master.gain.linearRampToValueAtTime(0.32,ac.currentTime+1.2);}btn.addEventListener('click',function(){on=!on;if(on){if(!ac){start();}else{ac.resume();master.gain.linearRampToValueAtTime(0.32,ac.currentTime+0.8);}btn.textContent='\u25ca storm audio: on';btn.classList.add('on');}else{if(master){master.gain.linearRampToValueAtTime(0.0,ac.currentTime+0.8);}btn.textContent='\u25ca storm audio: off';btn.classList.remove('on');}});window.addEventListener('keydown',function(){if(on&&hissGain&&ac){var t=ac.currentTime;hissGain.gain.cancelScheduledValues(t);hissGain.gain.setValueAtTime(hissGain.gain.value,t);hissGain.gain.linearRampToValueAtTime(0.30,t+0.05);hissGain.gain.linearRampToValueAtTime(0.12,t+0.7);}});})();
+</script>
 <script data-section="resonance-field">
 (function(){ var c=document.getElementById('wx-console'); if(!c) return; var ctx=c.getContext('2d'); var W,H,DPR; function resize(){ DPR=Math.min(window.devicePixelRatio||1,2); W=c.width=Math.floor(innerWidth*DPR); H=c.height=Math.floor(innerHeight*DPR); c.style.width=innerWidth+'px'; c.style.height=innerHeight+'px'; } resize(); window.addEventListener('resize',resize); var mode='rain'; var echoes=[]; var sweep=0; var meteo=[]; var pressure=1008; var spin=0; var coupletA=0; var buf=''; var btns=document.querySelectorAll('.wx-btn'); btns.forEach(function(b){ b.addEventListener('click',function(){ mode=b.getAttribute('data-mode'); btns.forEach(function(x){ x.classList.remove('active'); }); b.classList.add('active'); }); }); function addEcho(x,y,heavy){ echoes.push({x:x,y:y,intensity:heavy?(0.78+Math.random()*0.22):(0.32+Math.random()*0.25),age:0,vx:(Math.random()-0.5)*0.35*DPR,vy:(Math.random()-0.5)*0.35*DPR}); if(echoes.length>360) echoes.shift(); } window.addEventListener('keydown',function(e){ if(e.key&&e.key.length===1){ buf=(buf+e.key.toLowerCase()).slice(-6); if(buf.indexOf('spin')>=0){ spin=260; mode='wind'; btns.forEach(function(x){ x.classList.toggle('active', x.getAttribute('data-mode')==='wind'); }); } if(/[a-z]/i.test(e.key)){ var heavy=(e.key!==e.key.toLowerCase()); addEcho(Math.random()*W,Math.random()*H,heavy); pressure-=heavy?2.4:0.9; } } }); c.addEventListener('pointerdown',function(e){ addEcho(e.clientX*DPR,e.clientY*DPR,e.shiftKey); pressure-=3.2; }); setInterval(function(){ pressure+=(1008-pressure)*0.05+(Math.random()-0.5)*0.5; meteo.push(pressure); if(meteo.length>520) meteo.shift(); },110); function reflCol(i){ var r,g,b; if(i<0.5){ var t=i/0.5; r=47+t*190; g=207-t*44; b=110-t*86; } else { var u=(i-0.5)/0.5; r=237; g=163-u*150; b=24; } return [Math.round(r),Math.round(g),Math.round(b)]; } function label(){ ctx.textBaseline='top'; ctx.font=(12*DPR)+'px monospace'; var t = mode==='rain'?'RADAR / REFLECTIVITY': mode==='wind'?'RADAR / VELOCITY':'BAROGRAPH / PRESSURE'; ctx.fillStyle='rgba(10,20,26,0.85)'; ctx.fillText(t,17*DPR,15*DPR); ctx.fillStyle='rgba(200,150,235,0.92)'; ctx.fillText(t,16*DPR,14*DPR); ctx.font=(11*DPR)+'px monospace'; ctx.fillStyle='rgba(150,170,162,0.72)'; ctx.fillText('type a letter / click to drop a cell',16*DPR,32*DPR); } function draw(){ if(spin>0) spin--; if(mode==='press'){ ctx.fillStyle='rgba(10,20,26,0.28)'; ctx.fillRect(0,0,W,H); ctx.strokeStyle='rgba(184,51,230,0.10)'; ctx.lineWidth=1*DPR; for(var gy=0;gy<=4;gy++){ var y=H*0.26+gy*(H*0.48/4); ctx.beginPath(); ctx.moveTo(W*0.06,y); ctx.lineTo(W*0.94,y); ctx.stroke(); } ctx.beginPath(); var n=meteo.length; for(var i=0;i<n;i++){ var x=W*0.06+(i/519)*(W*0.88); var p=meteo[i]; var yy=H*0.5-(p-1008)*(H*0.011); if(i===0) ctx.moveTo(x,yy); else ctx.lineTo(x,yy); } ctx.strokeStyle='rgba(216,140,240,0.92)'; ctx.lineWidth=2*DPR; ctx.stroke(); ctx.fillStyle='rgba(150,170,162,0.7)'; ctx.font=(11*DPR)+'px monospace'; ctx.textBaseline='top'; ctx.fillText(pressure.toFixed(1)+' mb', W*0.06, H*0.5-(pressure-1008)*(H*0.011)-18*DPR); label(); return; } ctx.fillStyle='rgba(10,20,26,0.10)'; ctx.fillRect(0,0,W,H); var cx=W/2, cy=H/2, R=Math.min(W,H)*0.46; ctx.strokeStyle='rgba(184,51,230,0.10)'; ctx.lineWidth=1*DPR; for(var r=1;r<=3;r++){ ctx.beginPath(); ctx.arc(cx,cy,R*r/3,0,Math.PI*2); ctx.stroke(); } sweep+=0.018; if(sweep>Math.PI*2) sweep-=Math.PI*2; var ex=cx+Math.cos(sweep)*R, ey=cy+Math.sin(sweep)*R; var g=ctx.createLinearGradient(cx,cy,ex,ey); g.addColorStop(0,'rgba(184,131,220,0)'); g.addColorStop(1,'rgba(184,131,220,0.38)'); ctx.strokeStyle=g; ctx.lineWidth=2*DPR; ctx.beginPath(); ctx.moveTo(cx,cy); ctx.lineTo(ex,ey); ctx.stroke(); if(mode==='wind'){ coupletA+=0.03; var cr=R*0.16; var amp=spin>0?0.55:0.26; ctx.fillStyle='rgba(42,108,240,'+amp+')'; ctx.beginPath(); ctx.arc(cx-Math.cos(coupletA)*cr,cy-Math.sin(coupletA)*cr,cr*0.9,0,Math.PI*2); ctx.fill(); ctx.fillStyle='rgba(214,51,74,'+amp+')'; ctx.beginPath(); ctx.arc(cx+Math.cos(coupletA)*cr,cy+Math.sin(coupletA)*cr,cr*0.9,0,Math.PI*2); ctx.fill(); } for(var k=echoes.length-1;k>=0;k--){ var e=echoes[k]; e.age+=0.0045; e.x+=e.vx; e.y+=e.vy; if(e.age>=1){ echoes.splice(k,1); continue; } var fade=1-e.age; var sz=(8+e.intensity*22)*DPR*fade+3*DPR; if(mode==='wind'){ var inb=e.x<cx; ctx.fillStyle=(inb?'rgba(42,108,240,':'rgba(214,51,74,')+(fade*0.62)+')'; } else { var col=reflCol(e.intensity); ctx.fillStyle='rgba('+col[0]+','+col[1]+','+col[2]+','+(fade*0.72)+')'; } ctx.beginPath(); ctx.arc(e.x,e.y,sz,0,Math.PI*2); ctx.fill(); } label(); } (function loop(){ draw(); requestAnimationFrame(loop); })(); })();
 </script>
@@ -1108,7 +1119,7 @@
       count: 50,
       size: 0.2,
       speed: 0.01,
-      color: '#9a5ce0',
+      color: '#c4382a',
       opacity: 0.05,
       spread: 3,
       orbital_radius: 4,
@@ -1132,7 +1143,7 @@
     lighting: {
       ambient_color: '#0e1a22',
       ambient_intensity: 0.15,
-      point_color: '#b07ae0',
+      point_color: '#e0432a',
       point_intensity: 0.3,
       point_position: [2, 3, 4],
     },
@@ -1142,11 +1153,11 @@
       mode: 'repel',
     },
     time_themes: {
-      dawn:      { particle_color: '#c07ef0', fog_color: '#0d0806', ambient: '#2a1a0e', speed_mult: 0.6 },
-      morning:   { particle_color: '#a85ce0', fog_color: '#0a0806', ambient: '#2a1e1a', speed_mult: 0.8 },
-      afternoon: { particle_color: '#9a4cd6', fog_color: '#0d0a06', ambient: '#2a2a1a', speed_mult: 1.0 },
-      evening:   { particle_color: '#8536c0', fog_color: '#0a0806', ambient: '#1e1a2a', speed_mult: 0.7 },
-      night:     { particle_color: '#6f229c', fog_color: '#080604', ambient: '#1a1410', speed_mult: 0.4 },
+      dawn:      { particle_color: '#f2614a', fog_color: '#0d0806', ambient: '#2a1a0e', speed_mult: 0.6 },
+      morning:   { particle_color: '#e0432a', fog_color: '#0a0806', ambient: '#2a1e1a', speed_mult: 0.8 },
+      afternoon: { particle_color: '#cc3520', fog_color: '#0d0a06', ambient: '#2a2a1a', speed_mult: 1.0 },
+      evening:   { particle_color: '#b32a18', fog_color: '#0a0806', ambient: '#1e1a2a', speed_mult: 0.7 },
+      night:     { particle_color: '#8f2012', fog_color: '#080604', ambient: '#1a1410', speed_mult: 0.4 },
     },
     post_processing: {
       bloom_enabled: false,
@@ -1171,7 +1182,7 @@
 
   const AGENT = {
     birthTime: Date.now(),
-    mood: 'synoptic',
+    mood: 'squall',
     secrets: [
       "The swarm remembers the metallurgy epoch. Somewhere in the particle field, one mote still moves like it's being assayed \u2014 slower, heavier, testing its own purity against the others."
 ],

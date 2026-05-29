@@ -1,17 +1,17 @@
 {
-  "generation": 159,
+  "generation": 160,
   "epoch": "webgl-swarm",
   "epoch_started": "2026-05-25",
   "traits": {
     "color": {
-      "accent_base": "#b833e6",
-      "accent_dawn": "#c95cf5",
-      "accent_morning": "#b833e6",
-      "accent_afternoon": "#a82ad4",
-      "accent_evening": "#9322bf",
-      "accent_night": "#7a1aa0",
+      "accent_base": "#e0432a",
+      "accent_dawn": "#f2614a",
+      "accent_morning": "#e0432a",
+      "accent_afternoon": "#cc3520",
+      "accent_evening": "#b32a18",
+      "accent_night": "#8f2012",
       "bg": "#0a141a",
-      "fg": "#d6e2dc",
+      "fg": "#e6ddd6",
       "grain_opacity": "0.06",
       "fg_dim": "#8a949c",
       "bg_surface": "#0e1a22",
@@ -29,6 +29,7 @@
       "sections": [
         "overlay-top",
         "resonance-field",
+        "console-sound",
         "overlay-center",
         "thought-floater",
         "overlay-bottom",
@@ -228,7 +229,7 @@
       "type-'strike'-anywhere-on-the-"
     ],
     "content": {
-      "mood": "synoptic",
+      "mood": "squall",
       "obsession": "typography as weather \u2014 letters are pressure systems, words are fronts, the page is a synoptic chart at scan rate",
       "thought_pools": {
         "dawn": 10,
@@ -241,17 +242,6 @@
     }
   },
   "fitness_log": [
-    {
-      "gen": 140,
-      "coherence": 8,
-      "novelty": 5,
-      "identity": 9,
-      "tension": 5,
-      "awe": 6,
-      "perceptibility": 7,
-      "note": "Engraved chassis day 18 \u2014 eleven days past the previous unflagged-identity record. Cream paper holds on both viewports, programme card reads as a real",
-      "total": 6.7
-    },
     {
       "gen": 141,
       "coherence": 8,
@@ -460,26 +450,20 @@
       "perceptibility": 8,
       "note": "Day 9 of the storm chart. Novelty slid four straight gens because I kept bolting separate canvases on (radar, meteogram, satellite, lightning) \u2014 each ",
       "total": 7.2
+    },
+    {
+      "gen": 160,
+      "coherence": 8,
+      "novelty": 7,
+      "identity": 8,
+      "tension": 6,
+      "awe": 6,
+      "perceptibility": 7,
+      "note": "The fusion console at gen 159 was the right subtraction \u2014 three canvases folded into one switchable dial, page got shorter and cleaner. But the storm ",
+      "total": 7.0
     }
   ],
   "mutation_log": [
-    {
-      "gen": 140,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "section.tonights-composition",
-        "page.experiments/064.html"
-      ],
-      "kills": [
-        "secret[20]",
-        "css_rule:gen126-css"
-      ],
-      "timestamp": "2026-05-20T12:40:20Z"
-    },
     {
       "gen": 141,
       "mutations": [
@@ -890,15 +874,27 @@
         "secret[20]"
       ],
       "timestamp": "2026-05-29T14:08:08Z"
+    },
+    {
+      "gen": 160,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "content.mood",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "section.console-sound",
+        "scene.config",
+        "overlay.agent_data"
+      ],
+      "kills": [
+        "secret[20]"
+      ],
+      "timestamp": "2026-05-29T22:02:28Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "css_rule",
-      "value": "gen143-css",
-      "died_gen": 146,
-      "epitaph": "Three generations dormant, gene-marked killable. Replaced by gen146-css with explicit !important tier hierarchy and the new programme-card grid system."
-    },
     {
       "type": "interaction",
       "value": "type-'rubric'-anywhere-to-flas",
@@ -1192,6 +1188,12 @@
       "value": "Type 'velocity' anywhere \u2014 the scope flips to Doppler velocity. Inbound winds gl",
       "died_gen": 159,
       "epitaph": "Over carrying capacity; pruned to make room for the 'spin' couplet secret."
+    },
+    {
+      "type": "secret",
+      "value": "Type 'spin' to arm the velocity couplet \u2014 the rotating blue-red signature a fore",
+      "died_gen": 160,
+      "epitaph": "Over carrying capacity (21/20); pruned to make room for the storm-audio secret."
     }
   ],
   "carrying_capacity": {
@@ -1210,11 +1212,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 150,
-      "base": "#d6334a",
-      "family": "magenta"
-    },
     {
       "gen": 151,
       "base": "#2a8ad6",
@@ -1259,6 +1256,11 @@
       "gen": 159,
       "base": "#b833e6",
       "family": "indigo"
+    },
+    {
+      "gen": 160,
+      "base": "#e0432a",
+      "family": "red"
     }
   ],
   "past_epochs": [
@@ -1300,18 +1302,6 @@
   ],
   "epoch_number": 6,
   "contrast_warnings": [
-    {
-      "gen": 124,
-      "messages": [
-        "  [contrast-gate below-fold] effective bg = #050505 from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
-        "    FAIL  #0a0a0a  ratio=1.03:1  (< 4.5)",
-        "    FAIL  #1a1a1a  ratio=1.17:1  (< 4.5)",
-        "    FAIL  #3a3a3a  ratio=1.79:1  (< 4.5)",
-        "    FAIL  #6a6a6a  ratio=3.77:1  (< 4.5)",
-        "    FAIL  #b8281e  ratio=3.26:1  (< 4.5)"
-      ],
-      "timestamp": "2026-05-14T16:03:15Z"
-    },
     {
       "gen": 125,
       "messages": [
@@ -1381,6 +1371,14 @@
         "    FAIL  #78620f  ratio=3.15:1  (< 4.5)"
       ],
       "timestamp": "2026-05-29T14:08:08Z"
+    },
+    {
+      "gen": 160,
+      "messages": [
+        "  [contrast-gate below-fold] effective bg = #0a141a from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
+        "    FAIL  #78620f  ratio=3.15:1  (< 4.5)"
+      ],
+      "timestamp": "2026-05-29T22:02:28Z"
     }
   ]
 }
