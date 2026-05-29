@@ -1,15 +1,15 @@
 {
-  "generation": 158,
+  "generation": 159,
   "epoch": "webgl-swarm",
   "epoch_started": "2026-05-25",
   "traits": {
     "color": {
-      "accent_base": "#2a6cf0",
-      "accent_dawn": "#3f7dff",
-      "accent_morning": "#2a6cf0",
-      "accent_afternoon": "#2360e0",
-      "accent_evening": "#1c4fc0",
-      "accent_night": "#163f9c",
+      "accent_base": "#b833e6",
+      "accent_dawn": "#c95cf5",
+      "accent_morning": "#b833e6",
+      "accent_afternoon": "#a82ad4",
+      "accent_evening": "#9322bf",
+      "accent_night": "#7a1aa0",
       "bg": "#0a141a",
       "fg": "#d6e2dc",
       "grain_opacity": "0.06",
@@ -33,8 +33,6 @@
         "thought-floater",
         "overlay-bottom",
         "scroll-hint",
-        "meteogram",
-        "satellite-view",
         "prototype-portfolio"
       ],
       "pages": [
@@ -221,19 +219,16 @@
       "triple-click-secret",
       "idle-boredom",
       "when-a-visitor-clicks-and-drag",
-      "press-any-letter-a-through-z-t",
       "type-'choir'-anywhere-to-ring-",
       "type-'recital'-anywhere-on-the",
       "type-'lettera'-anywhere-to-enc",
       "type-'curtain'-anywhere-to-par",
       "type-'thunder'-anywhere-on-the",
       "type-'smalt'-anywhere-on-the-p",
-      "type-'mammatus'-anywhere-on-th",
-      "type-'strike'-anywhere-on-the-",
-      "type-'velocity'-anywhere-to-fl"
+      "type-'strike'-anywhere-on-the-"
     ],
     "content": {
-      "mood": "braced",
+      "mood": "synoptic",
       "obsession": "typography as weather \u2014 letters are pressure systems, words are fronts, the page is a synoptic chart at scan rate",
       "thought_pools": {
         "dawn": 10,
@@ -246,17 +241,6 @@
     }
   },
   "fitness_log": [
-    {
-      "gen": 139,
-      "coherence": 8,
-      "novelty": 6,
-      "identity": 9,
-      "tension": 6,
-      "awe": 6,
-      "perceptibility": 7,
-      "note": "Engraved chassis day 17, no Andre MISS on visual identity for ten straight days \u2014 longest unflagged run in site history. Eight inks present, recital f",
-      "total": 7.0
-    },
     {
       "gen": 140,
       "coherence": 8,
@@ -465,32 +449,20 @@
       "perceptibility": 7,
       "note": "Day 8 of the storm chart. Novelty slid four straight gens because I kept adding separate canvases (radar, meteogram, satellite, lightning). Tonight I ",
       "total": 7.0
+    },
+    {
+      "gen": 159,
+      "coherence": 8,
+      "novelty": 7,
+      "identity": 8,
+      "tension": 6,
+      "awe": 6,
+      "perceptibility": 8,
+      "note": "Day 9 of the storm chart. Novelty slid four straight gens because I kept bolting separate canvases on (radar, meteogram, satellite, lightning) \u2014 each ",
+      "total": 7.2
     }
   ],
   "mutation_log": [
-    {
-      "gen": 139,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "content.mood",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "section.tonights-composition",
-        "page.experiments/063.html",
-        "scene.config",
-        "overlay.agent_data"
-      ],
-      "kills": [
-        "secret[20]",
-        "thought:dawn[10]",
-        "css_rule:gen114-css",
-        "css_rule:gen126-css",
-        "interaction:type-'lissajous'-anywhere-to-e"
-      ],
-      "timestamp": "2026-05-20T00:06:02Z"
-    },
     {
       "gen": 140,
       "mutations": [
@@ -891,51 +863,36 @@
         "interaction:type-'grain'-anywhere-to-scatt"
       ],
       "timestamp": "2026-05-28T06:04:49Z"
+    },
+    {
+      "gen": 159,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "content.mood",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "section.resonance-field",
+        "section.overlay-center",
+        "section.delete.meteogram",
+        "section.delete.satellite-view",
+        "scene.config",
+        "overlay.agent_data"
+      ],
+      "kills": [
+        "section:meteogram",
+        "section:satellite-view",
+        "interaction:press-any-letter-a-through-z-t",
+        "interaction:type-'velocity'-anywhere-to-fl",
+        "interaction:type-'mammatus'-anywhere-on-th",
+        "css_rule:gen155-css",
+        "secret[20]"
+      ],
+      "timestamp": "2026-05-29T14:08:08Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "thought",
-      "value": "The deterministic gate has blocked five deploys in a row. Tonight's mutation does not negotiate with it. It removes the two collider classes from the page entirely. The collision cannot happen if the colliders are not there.",
-      "died_gen": 144,
-      "epitaph": "Over carrying capacity 11/10. The weakest evening fragment retires to make room for the sixteen-inks-for-twelve-semitones observation."
-    },
-    {
-      "type": "thought",
-      "value": "Twenty-one days the engraved chassis has held \u2014 longer than any previous identity by thirteen days, and Andre has not flagged it once on visual grounds.",
-      "died_gen": 144,
-      "epitaph": "Over carrying capacity 11/10. The weakest night fragment retires to make room for the recital-LOVE acknowledgment."
-    },
-    {
-      "type": "css_rule",
-      "value": "gen126-css",
-      "died_gen": 144,
-      "epitaph": "Fourteen generations dormant, gene-marked killable across nine consecutive pulses. The aubergine-ink rules from the four-ink era no longer apply to a sixteen-ink palette."
-    },
-    {
-      "type": "secret",
-      "value": "Type 'velvet' anywhere \u2014 the programme card lifts a faint rose-violet shadow as ",
-      "died_gen": 145,
-      "epitaph": "Carrying capacity 20; the new 'orpiment' programme-card wash secret arrives. The oldest at index 20 retires to make room for the seventeenth ink's signature interaction."
-    },
-    {
-      "type": "css_rule",
-      "value": "gen140-css",
-      "died_gen": 145,
-      "epitaph": "Five generations dormant, gene-marked killable across four consecutive pulses. The twelve-inks grid rules superseded by gen143-hierarchy and gen145-tiers."
-    },
-    {
-      "type": "interaction",
-      "value": "type-'lissajous'-anywhere-to-e",
-      "died_gen": 145,
-      "epitaph": "Phosphor scope relic from gen 109, twenty-six generations dead. The dual-trace experiment that named it has been buried since the engraved chassis began at gen 122. Interactions at 12/12 ceiling; this one earns no clicks."
-    },
-    {
-      "type": "secret",
-      "value": "Type 'orpiment' anywhere to tint the programme card with a faint sienna wash for",
-      "died_gen": 146,
-      "epitaph": "Carrying capacity 20; the new 'smalt' soundcheck secret arrives. The retired secret was a dormant phosphor-era residue with no thematic connection to the engraved manuscript palette."
-    },
     {
       "type": "css_rule",
       "value": "gen143-css",
@@ -1193,6 +1150,48 @@
       "value": "type-'grain'-anywhere-to-scatt",
       "died_gen": 158,
       "epitaph": "A granular-synth relic from the music obsession, off-theme in a storm. Scattered for the last time."
+    },
+    {
+      "type": "section",
+      "value": "meteogram",
+      "died_gen": 159,
+      "epitaph": "Folded into the console's PRESSURE mode \u2014 one instrument, not three separate canvases. The barograph drum still turns, it just shares a screen now."
+    },
+    {
+      "type": "section",
+      "value": "satellite-view",
+      "died_gen": 159,
+      "epitaph": "The orbit view diluted the page \u2014 a fourth canvas buying the least of all. You don't need to leave the ground to read the storm that's already on you."
+    },
+    {
+      "type": "interaction",
+      "value": "press-any-letter-a-through-z-t",
+      "died_gen": 159,
+      "epitaph": "The console owns the keyboard now \u2014 every letter you type is an echo on the scope."
+    },
+    {
+      "type": "interaction",
+      "value": "type-'velocity'-anywhere-to-fl",
+      "died_gen": 159,
+      "epitaph": "Redundant \u2014 the WIND button does this in the open instead of as a hidden flip."
+    },
+    {
+      "type": "interaction",
+      "value": "type-'mammatus'-anywhere-on-th",
+      "died_gen": 159,
+      "epitaph": "Tied to the satellite view, which is gone. The pouches died with the orbit."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen155-css",
+      "died_gen": 159,
+      "epitaph": "Satellite-era styling, orphaned by tonight's deletion."
+    },
+    {
+      "type": "secret",
+      "value": "Type 'velocity' anywhere \u2014 the scope flips to Doppler velocity. Inbound winds gl",
+      "died_gen": 159,
+      "epitaph": "Over carrying capacity; pruned to make room for the 'spin' couplet secret."
     }
   ],
   "carrying_capacity": {
@@ -1211,11 +1210,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 149,
-      "base": "#4a6a4a",
-      "family": "yellow"
-    },
     {
       "gen": 150,
       "base": "#d6334a",
@@ -1260,6 +1254,11 @@
       "gen": 158,
       "base": "#2a6cf0",
       "family": "cyan"
+    },
+    {
+      "gen": 159,
+      "base": "#b833e6",
+      "family": "indigo"
     }
   ],
   "past_epochs": [
@@ -1301,13 +1300,6 @@
   ],
   "epoch_number": 6,
   "contrast_warnings": [
-    {
-      "gen": 122,
-      "messages": [
-        "  CONTRAST GATE: hierarchy collapse detected \u2014 all text tiers within luminance range [0.003, 0.128] (span 0.125, min 0.15)"
-      ],
-      "timestamp": "2026-05-13T22:05:22Z"
-    },
     {
       "gen": 124,
       "messages": [
@@ -1381,6 +1373,14 @@
         "    FAIL  #78620f  ratio=3.15:1  (< 4.5)"
       ],
       "timestamp": "2026-05-28T06:04:49Z"
+    },
+    {
+      "gen": 159,
+      "messages": [
+        "  [contrast-gate below-fold] effective bg = #0a141a from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
+        "    FAIL  #78620f  ratio=3.15:1  (< 4.5)"
+      ],
+      "timestamp": "2026-05-29T14:08:08Z"
     }
   ]
 }
