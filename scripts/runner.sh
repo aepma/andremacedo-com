@@ -209,7 +209,7 @@ else TOD="night"
 fi
 
 # ── Capture screenshot of current site ────────────────────────────
-SCREENSHOT="/tmp/andremacedo-current.png"
+SCREENSHOT="/tmp/andremacedo-current.jpg"
 log "Capturing screenshot..."
 bash "$SCRIPT_DIR/screenshot.sh" >> "$LOG_FILE" 2>&1 || {
   log "WARNING: Screenshot capture failed, continuing without visual context"
@@ -246,12 +246,12 @@ content = []
 if screenshot and os.path.isfile(screenshot):
     with open(screenshot, 'rb') as f:
         b64 = base64.b64encode(f.read()).decode('ascii')
-    content.append({"type": "image", "source": {"type": "base64", "media_type": "image/png", "data": b64}})
-mobile_screenshot = "/tmp/andremacedo-mobile.png"
+    content.append({"type": "image", "source": {"type": "base64", "media_type": "image/jpeg", "data": b64}})
+mobile_screenshot = "/tmp/andremacedo-mobile.jpg"
 if os.path.isfile(mobile_screenshot):
     with open(mobile_screenshot, 'rb') as f:
         b64m = base64.b64encode(f.read()).decode('ascii')
-    content.append({"type": "image", "source": {"type": "base64", "media_type": "image/png", "data": b64m}})
+    content.append({"type": "image", "source": {"type": "base64", "media_type": "image/jpeg", "data": b64m}})
 content.append({"type": "text", "text": prompt_text})
 with open(out_file, 'w') as f:
     f.write(json.dumps({"type": "user", "message": {"role": "user", "content": content}}) + '\n')
@@ -651,7 +651,7 @@ fi
 log "Deployed to andremacedo.com"
 
 # ── Push to GitHub (backup, non-blocking) ─────────────────────────
-git -C "$SITE_DIR" push origin main 2>/dev/null || log "WARN: git push failed (non-fatal)"
+tmo 30 git -C "$SITE_DIR" push origin main 2>/dev/null || log "WARN: git push failed or timed out (non-fatal)"
 
 # Post-deploy contrast verification (CSS-declared, existing)
 bash "$SCRIPT_DIR/contrast-check.sh" "$SITE_DIR" 2>/dev/null || echo "Contrast check failed (non-fatal)"

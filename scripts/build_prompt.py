@@ -164,7 +164,7 @@ for arg in sys.argv[10:]:
         if os.path.isfile(screenshot_path):
             has_screenshot = True
 
-MOBILE_SCREENSHOT_PATH = "/tmp/andremacedo-mobile.png"
+MOBILE_SCREENSHOT_PATH = "/tmp/andremacedo-mobile.jpg"
 has_mobile_screenshot = has_screenshot and os.path.isfile(MOBILE_SCREENSHOT_PATH)
 
 def read_file(path, default=""):

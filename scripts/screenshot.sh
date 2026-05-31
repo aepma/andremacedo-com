@@ -1,13 +1,14 @@
 #!/usr/bin/env bash
 # screenshot.sh — Capture full-page screenshot at the page's actual rendered height.
 # Output:
-#   /tmp/andremacedo-current.png  (1200px wide, full rendered height up to 12000px ceiling)
+#   /tmp/andremacedo-current.jpg  (1200px wide, full rendered height up to 12000px ceiling, JPEG q80)
 #   ~/andremacedo.com/state/page-metrics.json  ({rendered_height_px, screenshot_height_px, timestamp})
 set -euo pipefail
 
 VENV="$HOME/.openclaw/playwright-venv/bin/python3"
-OUT="/tmp/andremacedo-current.png"
+OUT="/tmp/andremacedo-current.jpg"
 RAW="/tmp/andremacedo-raw.png"
+WORK="/tmp/andremacedo-current-work.png"
 METRICS_FILE="$HOME/andremacedo.com/state/page-metrics.json"
 HEIGHT_CEILING=12000
 
@@ -59,21 +60,26 @@ RAW_HEIGHT=$(sips -g pixelHeight "$RAW" 2>/dev/null | tail -1 | awk '{print $2}'
 RAW_WIDTH=$(sips -g pixelWidth "$RAW" 2>/dev/null | tail -1 | awk '{print $2}')
 
 # Step 2: If raw exceeds the safety ceiling, crop the bottom off (otherwise keep full).
+# Crop/resample run on a lossless PNG working file ($WORK); the final image is encoded JPEG q80 below.
 if [ "${RAW_HEIGHT:-0}" -gt "$HEIGHT_CEILING" ]; then
-    sips --cropOffset 0 0 --cropToHeightWidth "$HEIGHT_CEILING" "$RAW_WIDTH" "$RAW" --out "$OUT" >/dev/null 2>&1 || cp "$RAW" "$OUT"
+    sips --cropOffset 0 0 --cropToHeightWidth "$HEIGHT_CEILING" "$RAW_WIDTH" "$RAW" --out "$WORK" >/dev/null 2>&1 || cp "$RAW" "$WORK"
 else
-    cp "$RAW" "$OUT"
+    cp "$RAW" "$WORK"
 fi
 
 # Step 3: Scale width to 1200px (proportional height follows)
-sips --resampleWidth 1200 "$OUT" --out "$OUT" >/dev/null 2>&1 || true
+sips --resampleWidth 1200 "$WORK" --out "$WORK" >/dev/null 2>&1 || true
 
 # Step 3b: API image size cap. Anthropic accepts ≤8000px on any side.
 # If the scaled image exceeds 7500px tall, resample by height and let width shrink.
-CUR_H=$(sips -g pixelHeight "$OUT" 2>/dev/null | tail -1 | awk '{print $2}')
+CUR_H=$(sips -g pixelHeight "$WORK" 2>/dev/null | tail -1 | awk '{print $2}')
 if [ "${CUR_H:-0}" -gt 7500 ]; then
-    sips --resampleHeight 7500 "$OUT" --out "$OUT" >/dev/null 2>&1 || true
+    sips --resampleHeight 7500 "$WORK" --out "$WORK" >/dev/null 2>&1 || true
 fi
+
+# Step 3c: Encode the resampled image as JPEG q80 (was lossless PNG — base64 PNG inflated the
+# multimodal prompt ~8x; JPEG q80 is ample for the model to judge design). Final output is $OUT (.jpg).
+sips -s format jpeg -s formatOptions 80 "$WORK" --out "$OUT" >/dev/null 2>&1 || cp "$WORK" "$OUT"
 
 FINAL_HEIGHT=$(sips -g pixelHeight "$OUT" 2>/dev/null | tail -1 | awk '{print $2}')
 
@@ -93,14 +99,15 @@ with open(METRICS_FILE, "w") as f:
     json.dump(m, f, indent=2)
 PYEOF
 
-rm -f "$RAW" /tmp/andremacedo-rendered-height
+rm -f "$RAW" "$WORK" /tmp/andremacedo-rendered-height
 SIZE=$(stat -f%z "$OUT" 2>/dev/null || stat -c%s "$OUT" 2>/dev/null)
 echo "Screenshot captured: $OUT (${SIZE} bytes)"
 echo "  rendered_height=${RENDERED_HEIGHT}px  screenshot_height=${FINAL_HEIGHT}px  ceiling=${HEIGHT_CEILING}px"
 
 # ── Mobile capture (390x844, 2x device scale) ─────────────────────
-MOBILE_OUT="/tmp/andremacedo-mobile.png"
+MOBILE_OUT="/tmp/andremacedo-mobile.jpg"
 MOBILE_RAW="/tmp/andremacedo-mobile-raw.png"
+MOBILE_WORK="/tmp/andremacedo-mobile-work.png"
 HEIGHT_CEILING_MOBILE=12000
 
 "$VENV" - << PYEOF
@@ -147,20 +154,24 @@ MOBILE_RAW_HEIGHT=$(sips -g pixelHeight "$MOBILE_RAW" 2>/dev/null | tail -1 | aw
 MOBILE_RAW_WIDTH=$(sips -g pixelWidth "$MOBILE_RAW" 2>/dev/null | tail -1 | awk '{print $2}')
 
 # Crop if raw exceeds safety ceiling
+# Crop/resample run on a lossless PNG working file ($MOBILE_WORK); final image is encoded JPEG q80 below.
 if [ "${MOBILE_RAW_HEIGHT:-0}" -gt "$HEIGHT_CEILING_MOBILE" ]; then
-    sips --cropOffset 0 0 --cropToHeightWidth "$HEIGHT_CEILING_MOBILE" "$MOBILE_RAW_WIDTH" "$MOBILE_RAW" --out "$MOBILE_OUT" >/dev/null 2>&1 || cp "$MOBILE_RAW" "$MOBILE_OUT"
+    sips --cropOffset 0 0 --cropToHeightWidth "$HEIGHT_CEILING_MOBILE" "$MOBILE_RAW_WIDTH" "$MOBILE_RAW" --out "$MOBILE_WORK" >/dev/null 2>&1 || cp "$MOBILE_RAW" "$MOBILE_WORK"
 else
-    cp "$MOBILE_RAW" "$MOBILE_OUT"
+    cp "$MOBILE_RAW" "$MOBILE_WORK"
 fi
 
 # Scale width to 1200px (proportional height follows)
-sips --resampleWidth 1200 "$MOBILE_OUT" --out "$MOBILE_OUT" >/dev/null 2>&1 || true
+sips --resampleWidth 1200 "$MOBILE_WORK" --out "$MOBILE_WORK" >/dev/null 2>&1 || true
 
 # Apply 7500px height ceiling
-MOBILE_CUR_H=$(sips -g pixelHeight "$MOBILE_OUT" 2>/dev/null | tail -1 | awk '{print $2}')
+MOBILE_CUR_H=$(sips -g pixelHeight "$MOBILE_WORK" 2>/dev/null | tail -1 | awk '{print $2}')
 if [ "${MOBILE_CUR_H:-0}" -gt 7500 ]; then
-    sips --resampleHeight 7500 "$MOBILE_OUT" --out "$MOBILE_OUT" >/dev/null 2>&1 || true
+    sips --resampleHeight 7500 "$MOBILE_WORK" --out "$MOBILE_WORK" >/dev/null 2>&1 || true
 fi
+
+# Encode the resampled mobile image as JPEG q80 (was lossless PNG — see desktop note above).
+sips -s format jpeg -s formatOptions 80 "$MOBILE_WORK" --out "$MOBILE_OUT" >/dev/null 2>&1 || cp "$MOBILE_WORK" "$MOBILE_OUT"
 
 MOBILE_FINAL_HEIGHT=$(sips -g pixelHeight "$MOBILE_OUT" 2>/dev/null | tail -1 | awk '{print $2}')
 
@@ -179,7 +190,7 @@ with open(METRICS_FILE, "w") as f:
     json.dump(m, f, indent=2)
 PYEOF
 
-rm -f "$MOBILE_RAW" /tmp/andremacedo-mobile-rendered-height
+rm -f "$MOBILE_RAW" "$MOBILE_WORK" /tmp/andremacedo-mobile-rendered-height
 MOBILE_SIZE=$(stat -f%z "$MOBILE_OUT" 2>/dev/null || stat -c%s "$MOBILE_OUT" 2>/dev/null)
 echo "Mobile screenshot captured: $MOBILE_OUT (${MOBILE_SIZE} bytes)"
 echo "  mobile_rendered_height=${MOBILE_RENDERED_HEIGHT}px  mobile_screenshot_height=${MOBILE_FINAL_HEIGHT}px  ceiling=${HEIGHT_CEILING_MOBILE}px"
