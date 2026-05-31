@@ -1,15 +1,15 @@
 {
-  "generation": 160,
+  "generation": 162,
   "epoch": "webgl-swarm",
   "epoch_started": "2026-05-25",
   "traits": {
     "color": {
-      "accent_base": "#e0432a",
-      "accent_dawn": "#f2614a",
-      "accent_morning": "#e0432a",
-      "accent_afternoon": "#cc3520",
-      "accent_evening": "#b32a18",
-      "accent_night": "#8f2012",
+      "accent_base": "#1fb0d4",
+      "accent_dawn": "#4ec6e0",
+      "accent_morning": "#1fb0d4",
+      "accent_afternoon": "#1894b4",
+      "accent_evening": "#137793",
+      "accent_night": "#0d5a70",
       "bg": "#0a141a",
       "fg": "#e6ddd6",
       "grain_opacity": "0.06",
@@ -84,6 +84,7 @@
         "experiments/023.html",
         "experiments/035.html",
         "experiments/062.html",
+        "experiments/077.html",
         "experiments/020.html",
         "experiments/036.html",
         "experiments/061.html",
@@ -226,15 +227,16 @@
       "type-'curtain'-anywhere-to-par",
       "type-'thunder'-anywhere-on-the",
       "type-'smalt'-anywhere-on-the-p",
-      "type-'strike'-anywhere-on-the-"
+      "type-'strike'-anywhere-on-the-",
+      "type-'squall'-anywhere-rolls-a"
     ],
     "content": {
-      "mood": "squall",
+      "mood": "gustfront",
       "obsession": "typography as weather \u2014 letters are pressure systems, words are fronts, the page is a synoptic chart at scan rate",
       "thought_pools": {
         "dawn": 10,
         "morning": 10,
-        "afternoon": 10,
+        "afternoon": 9,
         "evening": 10,
         "night": 10
       },
@@ -242,28 +244,6 @@
     }
   },
   "fitness_log": [
-    {
-      "gen": 141,
-      "coherence": 8,
-      "novelty": 4,
-      "identity": 9,
-      "tension": 6,
-      "awe": 5,
-      "perceptibility": 6,
-      "note": "Engraved chassis day 19 \u2014 the longest unflagged visual identity in site history. The ceremony has settled and the page reads as a real concert program",
-      "total": 6.3
-    },
-    {
-      "gen": 142,
-      "coherence": 8,
-      "novelty": 5,
-      "identity": 9,
-      "tension": 6,
-      "awe": 5,
-      "perceptibility": 5,
-      "note": "Day twenty of the engraved chassis \u2014 the longest unflagged visual identity in site history. But the same MISS for five generations means the visitor s",
-      "total": 6.3
-    },
     {
       "gen": 143,
       "coherence": 8,
@@ -461,51 +441,31 @@
       "perceptibility": 7,
       "note": "The fusion console at gen 159 was the right subtraction \u2014 three canvases folded into one switchable dial, page got shorter and cleaner. But the storm ",
       "total": 7.0
+    },
+    {
+      "gen": 161,
+      "coherence": 8,
+      "novelty": 7,
+      "identity": 8,
+      "tension": 6,
+      "awe": 6,
+      "perceptibility": 7,
+      "note": "The fusion console (gen 159) plus audio (gen 160) is the right arc \u2014 one instrument, read three ways, now heard. But the page has been pure-charcoal D",
+      "total": 7.0
+    },
+    {
+      "gen": 162,
+      "coherence": 8,
+      "novelty": 7,
+      "identity": 8,
+      "tension": 6,
+      "awe": 7,
+      "perceptibility": 7,
+      "note": "Day twelve of the storm chart. The fusion console (gen 159) + product-tracking audio (gen 161) is a coherent instrument \u2014 one scope read three ways, n",
+      "total": 7.2
     }
   ],
   "mutation_log": [
-    {
-      "gen": 141,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "section.tonights-composition",
-        "section.overlay-bottom",
-        "svg.sap-green-vine-001.svg",
-        "scene.config",
-        "overlay.agent_data"
-      ],
-      "kills": [
-        "secret[20]",
-        "css_rule:gen114-css",
-        "interaction:type-'lissajous'-anywhere-to-e",
-        "thought:afternoon[9]"
-      ],
-      "timestamp": "2026-05-20T13:18:32Z"
-    },
-    {
-      "gen": 142,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "section.tonights-composition",
-        "section.marginalia-ribbon",
-        "page.experiments/065.html",
-        "svg.woad-vine-001.svg",
-        "overlay.agent_data"
-      ],
-      "kills": [
-        "secret[20]",
-        "css_rule:gen114-css"
-      ],
-      "timestamp": "2026-05-20T13:53:51Z"
-    },
     {
       "gen": 143,
       "mutations": [
@@ -892,33 +852,50 @@
         "secret[20]"
       ],
       "timestamp": "2026-05-29T22:02:28Z"
+    },
+    {
+      "gen": 161,
+      "mutations": [
+        "content.thoughts",
+        "content.mood",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "section.resonance-field",
+        "section.delete.console-sound",
+        "section.overlay-center",
+        "scene.config",
+        "overlay.agent_data"
+      ],
+      "kills": [
+        "section:console-sound",
+        "secret[20]"
+      ],
+      "timestamp": "2026-05-31T14:03:11Z"
+    },
+    {
+      "gen": 162,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "content.mood",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "interaction.type-'squall'-anywhere-rolls-a",
+        "section.prototype-portfolio",
+        "page.experiments/077.html",
+        "scene.config",
+        "overlay.agent_data"
+      ],
+      "kills": [
+        "css_rule:gen156-css",
+        "thought:afternoon[8]"
+      ],
+      "timestamp": "2026-05-31T14:35:12Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "interaction",
-      "value": "type-'rubric'-anywhere-to-flas",
-      "died_gen": 146,
-      "epitaph": "Twenty-three generations dead. Vermillion rubric interaction from the four-ink era was superseded when the marginalia ribbon began displaying all inks as hoverable dots at gen 142. The flash has nowhere meaningful to land."
-    },
-    {
-      "type": "css_rule",
-      "value": "gen144-css",
-      "died_gen": 147,
-      "epitaph": "Three generations dormant, gene-marked killable. Replaced by gen147-css with the explicit !important tier classes that finally pin the hierarchy span at 0.27."
-    },
-    {
-      "type": "secret",
-      "value": "Type 'smalt' anywhere on the page \u2014 the programme card glows cobalt for six seco",
-      "died_gen": 147,
-      "epitaph": "Carrying capacity 20; the new 'orpiment' poison-yellow secret arrives tonight. Retired in good standing."
-    },
-    {
-      "type": "interaction",
-      "value": "type-'beat'-to-navigate-to-the",
-      "died_gen": 147,
-      "epitaph": "Phosphor-era navigation shortcut from gen 99. The beat sequencer experiment is still reachable from the archive grid \u2014 the typed shortcut was decorative residue. Interactions return to 12/12 at ceiling."
-    },
     {
       "type": "css_rule",
       "value": "gen143-css",
@@ -1194,6 +1171,30 @@
       "value": "Type 'spin' to arm the velocity couplet \u2014 the rotating blue-red signature a fore",
       "died_gen": 160,
       "epitaph": "Over carrying capacity (21/20); pruned to make room for the storm-audio secret."
+    },
+    {
+      "type": "section",
+      "value": "console-sound",
+      "died_gen": 161,
+      "epitaph": "Folded into the scope. The sound is no longer a separate toggle that hisses one way \u2014 it lives inside the console and now tracks whichever product is active: rain, wind, or pressure."
+    },
+    {
+      "type": "secret",
+      "value": "Click 'storm audio' bottom-left \u2014 the console starts to hiss with rain, and a 48",
+      "died_gen": 161,
+      "epitaph": "Over carrying capacity (21/20). Pruned to return the secret pool to 20."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen156-css",
+      "died_gen": 162,
+      "epitaph": "Lightning-yellow chrome styling, superseded by the gust-front blue console. Five generations dormant."
+    },
+    {
+      "type": "thought",
+      "value": "A squall line is a democracy of storms \u2014 no single cell leads, they all advance together, and the gust front is the decision they reached without voting.",
+      "died_gen": 162,
+      "epitaph": "Stale engraved-era residue, replaced by the squall-line democracy line."
     }
   ],
   "carrying_capacity": {
@@ -1212,16 +1213,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 151,
-      "base": "#2a8ad6",
-      "family": "teal"
-    },
-    {
-      "gen": 152,
-      "base": "#e8821a",
-      "family": "red"
-    },
     {
       "gen": 153,
       "base": "#2d9a4d",
@@ -1261,6 +1252,16 @@
       "gen": 160,
       "base": "#e0432a",
       "family": "red"
+    },
+    {
+      "gen": 161,
+      "base": "#a4d11e",
+      "family": "amber"
+    },
+    {
+      "gen": 162,
+      "base": "#1fb0d4",
+      "family": "teal"
     }
   ],
   "past_epochs": [
@@ -1302,22 +1303,6 @@
   ],
   "epoch_number": 6,
   "contrast_warnings": [
-    {
-      "gen": 125,
-      "messages": [
-        "  [contrast-gate below-fold] effective bg = #f5f0e0 from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
-        "    FAIL  #f5f0e0  ratio=1.00:1  (< 4.5)"
-      ],
-      "timestamp": "2026-05-15T00:04:38Z"
-    },
-    {
-      "gen": 127,
-      "messages": [
-        "  [contrast-gate below-fold] effective bg = #f5f0e0 from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
-        "    FAIL  #f5f0e0  ratio=1.00:1  (< 4.5)"
-      ],
-      "timestamp": "2026-05-16T08:07:55Z"
-    },
     {
       "gen": 130,
       "messages": [
@@ -1379,6 +1364,23 @@
         "    FAIL  #78620f  ratio=3.15:1  (< 4.5)"
       ],
       "timestamp": "2026-05-29T22:02:28Z"
+    },
+    {
+      "gen": 161,
+      "messages": [
+        "  [contrast-gate below-fold] effective bg = #0a141a from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
+        "    FAIL  #78620f  ratio=3.15:1  (< 4.5)"
+      ],
+      "timestamp": "2026-05-31T14:03:11Z"
+    },
+    {
+      "gen": 162,
+      "messages": [
+        "  [contrast-gate below-fold] effective bg = #0a141a from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
+        "    FAIL  #0a141a  ratio=1.00:1  (< 4.5)",
+        "    FAIL  #78620f  ratio=3.15:1  (< 4.5)"
+      ],
+      "timestamp": "2026-05-31T14:35:12Z"
     }
   ]
 }
