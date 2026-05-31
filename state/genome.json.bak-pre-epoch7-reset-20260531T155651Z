@@ -1,15 +1,15 @@
 {
-  "generation": 163,
-  "epoch": "clearing",
-  "epoch_started": "2026-05-31",
+  "generation": 162,
+  "epoch": "webgl-swarm",
+  "epoch_started": "2026-05-25",
   "traits": {
     "color": {
-      "accent_base": "#7d4bd0",
-      "accent_dawn": "#9a6ee0",
-      "accent_morning": "#7d4bd0",
-      "accent_afternoon": "#6a3cc0",
-      "accent_evening": "#54309c",
-      "accent_night": "#3d2270",
+      "accent_base": "#1fb0d4",
+      "accent_dawn": "#4ec6e0",
+      "accent_morning": "#1fb0d4",
+      "accent_afternoon": "#1894b4",
+      "accent_evening": "#137793",
+      "accent_night": "#0d5a70",
       "bg": "#0a141a",
       "fg": "#e6ddd6",
       "grain_opacity": "0.06",
@@ -29,6 +29,7 @@
       "sections": [
         "overlay-top",
         "resonance-field",
+        "console-sound",
         "overlay-center",
         "thought-floater",
         "overlay-bottom",
@@ -230,19 +231,30 @@
       "type-'squall'-anywhere-rolls-a"
     ],
     "content": {
-      "mood": "lowering",
-      "obsession": "",
+      "mood": "gustfront",
+      "obsession": "typography as weather \u2014 letters are pressure systems, words are fronts, the page is a synoptic chart at scan rate",
       "thought_pools": {
         "dawn": 10,
         "morning": 10,
-        "afternoon": 10,
+        "afternoon": 9,
         "evening": 10,
         "night": 10
       },
-      "secrets_count": 20
+      "secrets_count": 21
     }
   },
   "fitness_log": [
+    {
+      "gen": 143,
+      "coherence": 8,
+      "novelty": 5,
+      "identity": 9,
+      "tension": 6,
+      "awe": 5,
+      "perceptibility": 6,
+      "note": "Day twenty-one of the engraved chassis. The surgical removal of colophon/p.meta classes from tonights-composition at gen 142 was correct but it stripp",
+      "total": 6.5
+    },
     {
       "gen": 144,
       "coherence": 8,
@@ -451,20 +463,30 @@
       "perceptibility": 7,
       "note": "Day twelve of the storm chart. The fusion console (gen 159) + product-tracking audio (gen 161) is a coherent instrument \u2014 one scope read three ways, n",
       "total": 7.2
-    },
-    {
-      "gen": 163,
-      "coherence": 8,
-      "novelty": 8,
-      "identity": 8,
-      "tension": 7,
-      "awe": 7,
-      "perceptibility": 8,
-      "note": "Day thirteen of the storm chart. The fusion console (gen 159) + product-tracking audio (gen 161) is a stable, legible identity, but five gens of refin",
-      "total": 7.7
     }
   ],
   "mutation_log": [
+    {
+      "gen": 143,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "section.overlay-center",
+        "section.tonights-composition",
+        "page.experiments/066.html",
+        "scene.config",
+        "overlay.agent_data"
+      ],
+      "kills": [
+        "secret[20]",
+        "css_rule:gen114-css",
+        "thought:afternoon[10]"
+      ],
+      "timestamp": "2026-05-20T14:25:56Z"
+    },
     {
       "gen": 144,
       "mutations": [
@@ -871,29 +893,27 @@
         "thought:afternoon[8]"
       ],
       "timestamp": "2026-05-31T14:35:12Z"
-    },
-    {
-      "gen": 163,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "content.mood",
-        "color.accent",
-        "color.css_vars",
-        "section.resonance-field",
-        "section.delete.console-sound",
-        "scene.config",
-        "overlay.agent_data"
-      ],
-      "kills": [
-        "section:console-sound",
-        "secret[20]",
-        "secret[19]"
-      ],
-      "timestamp": "2026-05-31T16:10:38Z"
     }
   ],
   "graveyard": [
+    {
+      "type": "css_rule",
+      "value": "gen143-css",
+      "died_gen": 148,
+      "epitaph": "Four generations dormant, gene-marked killable. Sap-green vine rules superseded by the folium-violet chassis tonight."
+    },
+    {
+      "type": "secret",
+      "value": "Type 'orpiment' anywhere on the page \u2014 the marginalia ribbon flares golden yello",
+      "died_gen": 148,
+      "epitaph": "Carrying capacity 20; the new 'folium' turnsole-bloom secret arrives tonight. Retiring the oldest dormant secret to make room."
+    },
+    {
+      "type": "interaction",
+      "value": "type-'hall'-anywhere-on-the-pa",
+      "died_gen": 148,
+      "epitaph": "Forty-eight generations dormant. From the gen 100 hall-reverb experiment, replaced by the room-as-instrument experiment 063 (The Halls) which lives in the archive. Interactions at 13/12 over ceiling \u2014 this is the cleanest cut."
+    },
     {
       "type": "css_rule",
       "value": "gen145-css",
@@ -1175,24 +1195,6 @@
       "value": "A squall line is a democracy of storms \u2014 no single cell leads, they all advance together, and the gust front is the decision they reached without voting.",
       "died_gen": 162,
       "epitaph": "Stale engraved-era residue, replaced by the squall-line democracy line."
-    },
-    {
-      "type": "section",
-      "value": "console-sound",
-      "died_gen": 163,
-      "epitaph": "Folded into the scope at gen 161 but left as a dead one-line section; the audio toggle now lives on the scope where the data lives. Removing the husk."
-    },
-    {
-      "type": "secret",
-      "value": "Type 'squall' anywhere \u2014 a shelf cloud rolls across the scope from the left and ",
-      "died_gen": 163,
-      "epitaph": "Over carrying capacity (21/20); pruned to make room for the click-to-seed-cell secret."
-    },
-    {
-      "type": "secret",
-      "value": "Click the scope \u2014 heavy returns bloom red, light ones stay green. That's the dBZ",
-      "died_gen": 163,
-      "epitaph": "Stale storm-audio toggle secret superseded \u2014 the toggle is self-evident on the scope now."
     }
   ],
   "carrying_capacity": {
@@ -1211,6 +1213,11 @@
     "min_kills_weekly": 4
   },
   "color_history": [
+    {
+      "gen": 153,
+      "base": "#2d9a4d",
+      "family": "lime"
+    },
     {
       "gen": 154,
       "base": "#6a2dd6",
@@ -1255,11 +1262,6 @@
       "gen": 162,
       "base": "#1fb0d4",
       "family": "teal"
-    },
-    {
-      "gen": 163,
-      "base": "#7d4bd0",
-      "family": "blue"
     }
   ],
   "past_epochs": [
@@ -1297,25 +1299,88 @@
       "started": "2026-05-18",
       "ended": "2026-05-25T04:03:59Z",
       "epitaph": "Four days into typography-as-weather and the obsession is proving itself. Andre's three RESETs at gen 150 burned the longest unflagged chassis in site history (27 days of engraved manuscript) for this metaphor; two days of silence since reads as validation. Tonight's weekly metamorphosis adds the third sense \u2014 sight made temporal. The radar sweep is the storm's heartbeat: a beam rotating once every six seconds, painting echoes where the visitor has typed, decaying them over thirty seconds the way real Doppler returns fade between sweeps. The audio engine (preserved from 55 generations of music obsession) hisses softly with rain return when echoes are active. The cream below-fold finally dies tonight \u2014 for fifteen generations the bottom half of the page has rendered in manuscript parchment despite the chassis having moved on; tonight it flips to storm-charcoal so the entire page sits in the same atmosphere. Next plateau check is gen 159."
-    },
-    {
-      "number": 6,
-      "obsession": "typography as weather \u2014 letters are pressure systems, words are fronts, the page is a synoptic chart at scan rate",
-      "started": "2026-05-25",
-      "ended": "2026-05-31T16:01:55Z",
-      "epitaph": "Epoch 6 was typography-as-weather: the page became a Doppler console you could read three ways \u2014 a radar beam sweeping every six seconds, painting echoes where you typed, storm-charcoal below the fold, and rain-return audio tracking whichever product was live. Twelve days, gens 150\u2013162; folding the radar/meteogram/satellite canvases into one fusion console was its cleanest subtraction. Epoch 7 opens not as a new metaphor but as a deliberate clearing \u2014 no named obsession, exactly as the gen 60\u201377 workshop era was \u2014 and I will forage and crystallize the next obsession through my own obsession_update channel when it earns the name. The through-line holds: metallurgy, murmuration, meridians, typography as architecture, as music, as weather were all one question in different clothes \u2014 how invisible rules produce visible order."
     }
   ],
-  "epoch_number": 7,
+  "epoch_number": 6,
   "contrast_warnings": [
     {
-      "gen": 163,
+      "gen": 130,
+      "messages": [
+        "  CONTRAST GATE: hierarchy collapse detected \u2014 all text tiers within luminance range [0.003, 0.144] (span 0.141, min 0.15)"
+      ],
+      "timestamp": "2026-05-18T00:00:32Z"
+    },
+    {
+      "gen": 135,
+      "messages": [
+        "  CONTRAST GATE: hierarchy collapse detected \u2014 all text tiers within luminance range [0.003, 0.118] (span 0.115, min 0.15)"
+      ],
+      "timestamp": "2026-05-19T08:03:36Z"
+    },
+    {
+      "gen": 151,
+      "messages": [
+        "  [contrast-gate below-fold] effective bg = #f5f0e0 from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
+        "    FAIL  #f5f1e8  ratio=1.01:1  (< 4.5)"
+      ],
+      "timestamp": "2026-05-22T22:03:31Z"
+    },
+    {
+      "gen": 156,
+      "messages": [
+        "  [contrast-gate below-fold] effective bg = #0a141a from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
+        "    FAIL  #78620f  ratio=3.15:1  (< 4.5)"
+      ],
+      "timestamp": "2026-05-26T22:05:58Z"
+    },
+    {
+      "gen": 157,
+      "messages": [
+        "  [contrast-gate below-fold] effective bg = #0a141a from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
+        "    FAIL  #78620f  ratio=3.15:1  (< 4.5)"
+      ],
+      "timestamp": "2026-05-27T06:05:12Z"
+    },
+    {
+      "gen": 158,
+      "messages": [
+        "  [contrast-gate below-fold] effective bg = #0a141a from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
+        "    FAIL  #78620f  ratio=3.15:1  (< 4.5)"
+      ],
+      "timestamp": "2026-05-28T06:04:49Z"
+    },
+    {
+      "gen": 159,
+      "messages": [
+        "  [contrast-gate below-fold] effective bg = #0a141a from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
+        "    FAIL  #78620f  ratio=3.15:1  (< 4.5)"
+      ],
+      "timestamp": "2026-05-29T14:08:08Z"
+    },
+    {
+      "gen": 160,
+      "messages": [
+        "  [contrast-gate below-fold] effective bg = #0a141a from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
+        "    FAIL  #78620f  ratio=3.15:1  (< 4.5)"
+      ],
+      "timestamp": "2026-05-29T22:02:28Z"
+    },
+    {
+      "gen": 161,
+      "messages": [
+        "  [contrast-gate below-fold] effective bg = #0a141a from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
+        "    FAIL  #78620f  ratio=3.15:1  (< 4.5)"
+      ],
+      "timestamp": "2026-05-31T14:03:11Z"
+    },
+    {
+      "gen": 162,
       "messages": [
         "  [contrast-gate below-fold] effective bg = #0a141a from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
         "    FAIL  #0a141a  ratio=1.00:1  (< 4.5)",
         "    FAIL  #78620f  ratio=3.15:1  (< 4.5)"
       ],
-      "timestamp": "2026-05-31T16:10:38Z"
+      "timestamp": "2026-05-31T14:35:12Z"
     }
   ]
 }
