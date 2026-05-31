@@ -354,11 +354,11 @@ def format_genome_summary(genome, html):
     color_history = genome.get("color_history", [])
     if color_history:
         lines.append("")
-        lines.append("COLOR HISTORY (DO NOT REPEAT recent families):")
+        lines.append("COLOR HISTORY (recent identities — for coherence, and as a soft tiebreaker only):")
         for entry in color_history[-6:]:
             lines.append(f"  gen {entry.get('gen','?')}: {entry.get('base','?')} ({entry.get('family','?')})")
         recent_families = [e.get('family','') for e in color_history[-3:]]
-        lines.append(f"  BANNED hue families for next generation: {', '.join(recent_families)}")
+        lines.append(f"  Recent hue families: {', '.join(recent_families)} — avoid these ONLY as a tiebreaker between two equally-harmonious options, never as a hard ban. Harmony and per-epoch coherence outrank novelty.")
 
     return "\n".join(lines)
 
@@ -588,7 +588,7 @@ This is REAL data from REAL visitors. Weight it heavily in your fitness score.
 
 You MUST kill at least {min_kills_weekly} things. Prune aggressively. If the night thought pool has >10 entries, kill the weakest ones.
 
-CRITICAL COLOR RULE (weekly): Your new accent palette MUST be in a completely different hue family from the current one. Shift at least 90 degrees on the hue wheel. If the site has been warm for multiple generations, go cold. If cold, go warm. The weekly pulse is a METAMORPHOSIS — the site should be visually unrecognizable from last week. Banned forever: teal (#1de9b6 and similar), salmon (#c4706a), safe gold (#c4a35a).
+CRITICAL COLOR RULE (weekly): Your palette is governed by HARMONY, not difference. Declare a NAMED harmony relationship for your accent palette — one of: analogous, complementary, split-complementary, triadic, or deliberate monochrome — and state the relationship between the accent, the background, and a neutral. Use ONE dominant accent with restraint; no rainbow of equal-weight hues. Within an epoch the palette stays coherent and EVOLVES — deepen and refine the identity, do NOT metamorphose into something unrecognizable from last week. Avoiding the last 3 hue families is only a soft tiebreaker between two equally-harmonious options, never the goal. Emit a "palette_rationale": one sentence naming the harmony relationship and why it fits the current identity. Banned forever: teal (#1de9b6 and similar), salmon (#c4706a), safe gold (#c4a35a).
 
 This is your moment for STRUCTURAL ambition:
 - Rewrite entire sections (replace hero, reimagine prototypes, restructure syslog)
@@ -604,7 +604,9 @@ VISUAL STRATEGY: You MUST declare a visual_strategy for this weekly session. Thi
 - Make particles dark on light instead of glowing on dark
 - Try a brutalist, minimalist, or maximalist approach
 - Use unexpected color combinations (not just "accent on dark")
-Read SOUL.md's VISUAL DIVERSITY MANDATE. The --bg, --fg, --bg-surface, --bg-elevated CSS vars can ALL change radically.
+Read SOUL.md's VISUAL DIVERSITY MANDATE. The --bg, --fg, --bg-surface, --bg-elevated CSS vars can ALL change radically — but a weekly reinvention is the START of a new coherent epoch identity, not weekly thrashing for its own sake.
+
+Craft over novelty: a disciplined, well-made look beats arbitrary change, and Craft is one of the fitness axes you are judged on. CRAFT STANDARD (every generation): Use a modular type scale (a consistent ratio, e.g. 1.25 or 1.333 — not ad-hoc font sizes). Put spacing on a consistent system (a base unit and multiples — not arbitrary pixel values). Use whitespace deliberately as a compositional element, not just gaps. Establish ONE clear focal hierarchy per viewport. Restraint beats decoration. The contrast gate keeps text legible; this standard keeps the page graceful. Before deploy, state in a 'craft_check' field how this generation meets the type-scale, spacing-system, and hierarchy standards — a label is not compliance, name the actual ratio and base unit used.
 
 SCENE AUDIT: Review the WebGL scene parameters. Consider:
 - Changing particle count, orbital radius, speed to alter density and energy
@@ -638,6 +640,8 @@ Respond ONLY in valid JSON:
   "visual_strategy": "string — the high-level visual concept for this weekly metamorphosis",
   "weekly_reflection": "string",
   "accent_palette": {{ "base": "#hex", "dawn": "#hex", "morning": "#hex", "afternoon": "#hex", "evening": "#hex", "night": "#hex" }} or null,
+  "palette_rationale": "string — one sentence naming the harmony relationship (analogous|complementary|split-complementary|triadic|monochrome) and why it fits the current identity" or null,
+  "craft_check": "string — name the actual modular type-scale ratio, the spacing base unit, and the focal hierarchy used this generation" or null,
   "css_changes": {{ "--var": "value" }} or null,
   "new_css_rules": "CSS string" or null,
   "font_change": {{ "display": "name", "body": "name", "mono": "name" }} or null,
@@ -737,8 +741,9 @@ The site should look noticeably different every week. That means doing something
 Tasks:
 1. REQUIRED: Evaluate fitness (fitness_evaluation). Be honest.
 2. Generate 3-5 new thoughts. Replace weak ones. Concrete images. Fragments. No corporate language.
-3. REQUIRED: Declare a visual_strategy for this generation. This is your high-level visual concept: "light mode brutalist", "gradient dusk", "monochrome charcoal", "white space minimalist", "saturated split-screen", "inverted high-contrast", etc. Your CSS changes and accent palette MUST match this strategy. The background (--bg) can be ANY color — white, cream, deep red, electric blue — not just dark. Read SOUL.md's VISUAL DIVERSITY MANDATE carefully.
-4. REQUIRED: New accent color palette. CRITICAL COLOR RULE: Your new base accent MUST differ from the current accent by at least 60 degrees on the hue wheel. NEVER repeat a hue family from the previous 3 generations (check COLOR HISTORY). Banned forever: teal (#1de9b6 and similar), salmon (#c4706a), safe gold (#c4a35a).
+3. REQUIRED: Declare a visual_strategy for this generation. This is your high-level visual concept: "light mode brutalist", "gradient dusk", "monochrome charcoal", "white space minimalist", "saturated split-screen", "inverted high-contrast", etc. Your CSS changes and accent palette MUST match this strategy. The background (--bg) can be ANY color — white, cream, deep red, electric blue — not just dark. Within an epoch, refine and deepen ONE coherent identity rather than thrashing the look day to day. Read SOUL.md's VISUAL DIVERSITY MANDATE carefully.
+   Craft over novelty: a disciplined, well-made look beats arbitrary change, and Craft is one of the fitness axes you are judged on. CRAFT STANDARD (every generation): Use a modular type scale (a consistent ratio, e.g. 1.25 or 1.333 — not ad-hoc font sizes). Put spacing on a consistent system (a base unit and multiples — not arbitrary pixel values). Use whitespace deliberately as a compositional element, not just gaps. Establish ONE clear focal hierarchy per viewport. Restraint beats decoration. The contrast gate keeps text legible; this standard keeps the page graceful. Before deploy, state in a 'craft_check' field how this generation meets the type-scale, spacing-system, and hierarchy standards — a label is not compliance, name the actual ratio and base unit used.
+4. REQUIRED: Accent color palette governed by HARMONY, not difference. Declare a NAMED harmony relationship — one of: analogous, complementary, split-complementary, triadic, or deliberate monochrome — and state the relationship between the accent, the background (--bg), and a neutral. Use ONE dominant accent with restraint (no rainbow of equal-weight hues); a recognizable identity beats arbitrary difference. Within an epoch the palette should evolve and deepen while staying coherent — do not change for the sake of changing. Not repeating the last 3 hue families (see COLOR HISTORY) is only a soft tiebreaker between two equally-harmonious options, NOT the objective. Emit a "palette_rationale": one sentence naming the harmony relationship and why it fits the current identity. Banned forever: teal (#1de9b6 and similar), salmon (#c4706a), safe gold (#c4a35a).
 5. Optionally: mood shift, new secret, external reaction.
 6. At least 1 STRUCTURAL mutation: create/replace a section, add canvas art, generate SVG, create a page. Color tweaks alone don't count.
 7. Optionally: kill stale things. Each kill needs an epitaph.
@@ -753,6 +758,8 @@ Respond ONLY in valid JSON:
   "mood_decision": "new_mood" or "maintain",
   "external_reaction": "string" or null,
   "accent_palette": {{ "base": "#hex", "dawn": "#hex", "morning": "#hex", "afternoon": "#hex", "evening": "#hex", "night": "#hex" }},
+  "palette_rationale": "string — one sentence naming the harmony relationship (analogous|complementary|split-complementary|triadic|monochrome) and why it fits the current identity" or null,
+  "craft_check": "string — name the actual modular type-scale ratio, the spacing base unit, and the focal hierarchy used this generation" or null,
   "css_changes": {{ "--bg": "#hex", "--fg": "#hex", "--var": "value" }} or null,
   "new_css_rules": "CSS string" or null,
   "new_interaction": {{ "description": "string", "code": "JS" }} or null,
