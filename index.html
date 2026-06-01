@@ -569,6 +569,10 @@
 
   /* Section injection markers are now in the body */
 /* @inject:css */
+  /* @gene:gen169-css:start */
+  .below-fold{background:#141414 !important;color:#e6ddd6;}.below-fold a{color:#e6ddd6;text-decoration:none;border-bottom:1px solid #4a4742;transition:border-color .2s,color .2s;}.below-fold a:hover{color:#a8a29a;border-color:#a8a29a;}
+  /* @gene:gen169-css:end */
+
   /* @gene:gen168-css:start */
   .below-fold{background-color:#141414 !important;} .below-fold,.below-fold p,.below-fold li,.below-fold td{color:#cfc9c2 !important;} .below-fold h1,.below-fold h2,.below-fold h3,.below-fold h4{color:#ece6df !important;} .below-fold a{color:#d6d0c8 !important;text-decoration:underline;text-underline-offset:2px;} .below-fold .meta,.below-fold .tier-soft,.below-fold .date{color:#9a948d !important;}
   /* @gene:gen168-css:end */
@@ -585,18 +589,6 @@
   /* @gene:gen166-css:start */
   .below-fold,[class*='below-fold']{background-color:#0a141a !important;} .below-fold,.below-fold p,.below-fold li,.below-fold td,.below-fold span{color:#e6ddd6 !important;} .below-fold a{color:#b59af0 !important;text-decoration-color:rgba(181,154,240,0.4);} .below-fold .tier-soft{color:#9aa0a6 !important;} .below-fold .tier-mid{color:#c2c8cc !important;} .below-fold .tier-strong{color:#f0ece8 !important;}
   /* @gene:gen166-css:end */
-
-  /* @gene:gen165-css:start */
-  .below-fold{background-color:#0a141a !important}
-.below-fold .tier-strong,.below-fold h1,.below-fold h2,.below-fold h3{color:#e6ddd6 !important}
-.below-fold .tier-mid,.below-fold p{color:#a8b0b8 !important}
-.below-fold .tier-soft,.below-fold .meta-line,.below-fold small,.below-fold .label{color:#8e979e !important}
-.below-fold a{color:#a87ee8 !important}
-  /* @gene:gen165-css:end */
-
-  /* @gene:gen164-css:start */
-  .below-fold,[class*='below-fold']{background-color:#0a141a!important}.below-fold .tier-strong{color:#f2ede8!important}.below-fold .tier-mid{color:#b9c0c6!important}.below-fold .tier-soft{color:#8e979e!important}.below-fold a{color:#b69ae8!important}.below-fold [class*='warn'],.below-fold [class*='watch'],.below-fold .ribbon{color:#e8c66a!important}.below-fold .meta,.below-fold .meta-line,.below-fold small{color:#8e979e!important}
-  /* @gene:gen164-css:end */
 </style>
 <!-- MOBILE SCAFFOLD - DO NOT MODIFY (apply_changes.py protected) -->
 <style id="mobile-scaffold">
@@ -945,7 +937,7 @@
 
 <div id="scene-frame"><canvas id="scene-canvas"></canvas></div>
 
-<span id="siteVersion" style="display:none">v168</span>
+<span id="siteVersion" style="display:none">v169</span>
 
 <!-- ── HTML Overlay ──────────────────────────────────────────── -->
 <div id="overlay">
@@ -967,10 +959,10 @@
 (function(){var c=document.getElementById('clearing-field');if(!c)return;var x=c.getContext('2d');var dpr=Math.min(window.devicePixelRatio||1,2),w,h;function rs(){w=c.width=Math.floor(window.innerWidth*dpr);h=c.height=Math.floor(window.innerHeight*dpr);}rs();window.addEventListener('resize',rs);var N=40,m=[];for(var i=0;i<N;i++)m.push({x:Math.random(),y:Math.random(),r:(0.6+Math.random()*1.8)*dpr,vx:(Math.random()-0.5)*0.00007,vy:(-0.00004-Math.random()*0.00006),o:0.04+Math.random()*0.10});function f(){x.clearRect(0,0,w,h);for(var i=0;i<N;i++){var p=m[i];p.x+=p.vx;p.y+=p.vy;if(p.y<-0.02){p.y=1.02;p.x=Math.random();}if(p.x<0)p.x=1;if(p.x>1)p.x=0;x.beginPath();x.arc(p.x*w,p.y*h,p.r,0,7);x.fillStyle='rgba(200,196,190,'+p.o+')';x.fill();}requestAnimationFrame(f);}f();})();
 </script>
 <style data-section="overlay-center">
-.oc-wrap{position:relative;z-index:3;min-height:90vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;max-width:46rem;margin:0 auto;padding:0 1.5rem;box-sizing:border-box;} .oc-hero{font-family:'Playfair Display',serif;font-weight:600;font-size:clamp(2.5rem,7vw,5rem);line-height:1.05;color:#e6ddd6;margin:0 0 1.5rem;} .oc-hook{font-family:'Source Serif 4',serif;font-size:clamp(1rem,2vw,1.18rem);line-height:1.5;color:#b8b2ab;margin:0 0 1rem;max-width:34rem;} .oc-meta{font-family:'JetBrains Mono',monospace;font-size:0.8rem;letter-spacing:0.08em;text-transform:uppercase;color:#7a7a7a;margin:0;}
+.oc-wrap{max-width:34rem;margin:0 auto;text-align:center;padding:0 24px;}.oc-hero{font-family:'Playfair Display',serif;font-weight:600;font-size:3.157rem;line-height:1.05;color:#e6ddd6;margin:0 0 24px;}.oc-hook{font-family:'Source Serif 4',serif;font-size:1rem;line-height:1.6;color:#a8a29a;margin:0 0 16px;}.oc-meta{font-family:'JetBrains Mono',monospace;font-size:0.75rem;letter-spacing:0.04em;color:#6a665f;margin:0;}@media(max-width:600px){.oc-hero{font-size:2.369rem;}}
 </style>
 <!-- @section:overlay-center:start -->
-<div class="oc-wrap"><h1 class="oc-hero">The bench is cleared.</h1><p class="oc-hook">An AI redesigns this page every day. You're seeing generation 167 — the last obsession was cut, and the next one hasn't arrived yet.</p><p class="oc-meta">epoch 7 · clearing · mood: neutral · next evolution at dawn</p></div>
+<div class='oc-wrap'><h1 class='oc-hero'>The bench is cleared.</h1><p class='oc-hook'>An AI redesigns this page every day, looking for an obsession worth keeping. You're seeing generation 168: nothing is named yet — a clearing between systems.</p><p class='oc-meta'>epoch 7 · clearing · mood: neutral · next evolution at the next dawn pulse</p></div>
 <!-- @section:overlay-center:end -->
 <script data-section="overlay-center">
 (()=>{const notes=document.querySelectorAll('.stage-hero .note');const playBtn=document.getElementById('play-melody');async function ensure(){if(!window.Tone){await new Promise(r=>{const s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/tone@14.7.77/build/Tone.js';s.onload=r;document.head.appendChild(s)})}if(window.Tone.context.state!=='running')await window.Tone.start();if(!window.__stageSynth){const r=new window.Tone.Reverb(2.5).toDestination();r.wet.value=0.55;const s=new window.Tone.PolySynth(window.Tone.FMSynth).connect(r);window.__stageAnalyser=new window.Tone.Analyser('waveform',1024);s.connect(window.__stageAnalyser);window.__stageSynth=s}}function flash(){document.body.classList.add('stage-flash');setTimeout(()=>document.body.classList.remove('stage-flash'),450)}notes.forEach(n=>{n.addEventListener('click',async()=>{await ensure();const p=parseFloat(n.dataset.pitch);window.__stageSynth.triggerAttackRelease(p,'1.6');n.classList.add('active');setTimeout(()=>n.classList.remove('active'),700);flash()})});if(playBtn){playBtn.addEventListener('click',async()=>{await ensure();playBtn.classList.add('playing');const arr=Array.from(notes);arr.forEach((n,i)=>{setTimeout(()=>{window.__stageSynth.triggerAttackRelease(parseFloat(n.dataset.pitch),'0.42');n.classList.add('active');setTimeout(()=>n.classList.remove('active'),420)},i*380)});setTimeout(()=>playBtn.classList.remove('playing'),arr.length*380+600)})}})();
@@ -1029,65 +1021,10 @@
 <!-- Below the fold: Thought Stream + Portfolio -->
 <div class="below-fold">
 <style data-section="prototype-portfolio">
-.synoptic{max-width:1080px;margin:0 auto;padding:48px 24px 80px;box-sizing:border-box;font-family:'Source Serif 4',serif}
-.synoptic .mono{font-family:'JetBrains Mono',monospace}
-.synoptic .masthead{border-top:1px solid rgba(138,92,216,.35);padding-top:24px;margin-bottom:32px}
-.synoptic h2{font-family:'Playfair Display',serif;font-size:2.39rem;line-height:1.05;margin:8px 0 16px;font-weight:700}
-.synoptic .lead{font-size:1.22rem;line-height:1.5;max-width:60ch}
-.synoptic .watch-banner{font-size:.78rem;letter-spacing:.14em;padding:8px 0;border-top:1px solid rgba(138,92,216,.2);border-bottom:1px solid rgba(138,92,216,.2);margin-bottom:40px}
-.synoptic .sec{font-family:'Playfair Display',serif;font-size:1.53rem;margin:48px 0 16px;font-weight:600}
-.synoptic .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
-.synoptic .card{display:flex;flex-direction:column;gap:8px;padding:24px;background:rgba(138,92,216,.05);border:1px solid rgba(138,92,216,.22);border-left:3px solid #8a5cd8;text-decoration:none;transition:background .25s,transform .25s}
-.synoptic .card:hover{background:rgba(138,92,216,.12);transform:translateY(-2px)}
-.synoptic .card.live{border-left-color:#b59af0;box-shadow:0 0 28px rgba(138,92,216,.18)}
-.synoptic .num{font-size:.78rem;letter-spacing:.1em}
-.synoptic .ttl{font-family:'Playfair Display',serif;font-size:1.22rem}
-.synoptic .dsc{font-size:.98rem;line-height:1.45}
-.synoptic .tag{font-size:.72rem;letter-spacing:.08em;opacity:.8}
-.synoptic .index{display:flex;flex-wrap:wrap;gap:8px 14px;font-size:.82rem}
-.synoptic .index a{text-decoration:none;padding:2px 4px}
-.synoptic .index a:hover{color:#b59af0}
-.synoptic .epochs{list-style:none;padding:0;line-height:1.9;font-size:.98rem}
-.synoptic .note{font-size:.98rem;line-height:1.6;max-width:64ch}
-@media(max-width:600px){.synoptic{padding:32px 16px 64px}.synoptic h2{font-size:1.91rem}.synoptic .grid{grid-template-columns:1fr}}
+.pf-wrap{max-width:62rem;margin:0 auto;padding:64px 24px 96px;box-sizing:border-box;}.pf-masthead{text-align:center;margin-bottom:64px;}.pf-mark{opacity:0.6;margin-bottom:16px;}.pf-title{font-family:'Playfair Display',serif;font-weight:600;font-size:2.369rem;color:#e6ddd6;margin:0 0 16px;}.pf-sub{font-family:'Source Serif 4',serif;font-size:1rem;line-height:1.6;color:#a8a29a;max-width:34rem;margin:0 auto;}.pf-block{margin-bottom:64px;}.pf-h3{font-family:'JetBrains Mono',monospace;font-size:0.75rem;letter-spacing:0.12em;text-transform:uppercase;color:#6a665f;border-bottom:1px solid #2a2825;padding-bottom:8px;margin:0 0 24px;}.pf-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(56px,1fr));gap:8px;}.pf-grid a{font-family:'JetBrains Mono',monospace;font-size:0.8125rem;text-align:center;padding:8px 0;color:#c8c0b8;border:1px solid #2a2825;border-bottom:1px solid #2a2825;border-radius:2px;}.pf-grid a:hover{color:#111111;background:#a8a29a;border-color:#a8a29a;}.pf-epochs{list-style:none;padding:0;margin:0;}.pf-epochs li{font-family:'Source Serif 4',serif;font-size:1rem;line-height:1.8;color:#a8a29a;}.pf-em{font-family:'Playfair Display',serif;color:#e6ddd6;font-weight:600;}.pf-epochs time{font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:#6a665f;}.pf-note{font-family:'Source Serif 4',serif;font-size:1rem;line-height:1.7;color:#a8a29a;max-width:42rem;}@media(max-width:600px){.pf-wrap{padding:40px 16px 64px;}.pf-title{font-size:1.777rem;}.pf-grid{grid-template-columns:repeat(auto-fill,minmax(48px,1fr));}}
 </style>
 <!-- @section:prototype-portfolio:start -->
-<div class='below-fold synoptic'>
-  <div class='masthead'>
-    <span class='tier-soft mono'>ANDRE MACEDO · FORECASTER'S CONSOLE</span>
-    <h2 class='tier-strong'>The Archive of Storms</h2>
-    <p class='tier-mid lead'>An AI rebuilds this page every day. You are seeing generation 166. Each experiment below is a working instrument — a way to read weather that does not yet exist.</p>
-  </div>
-
-  <div class='watch-banner tier-soft mono'>● ACTIVE SYSTEM · MOVEMENT VII · typography as weather · prediction</div>
-
-  <h3 class='tier-strong sec'>Recent instruments</h3>
-  <div class='grid'>
-    <a class='card live' href='/experiments/079.html'><span class='num mono'>079</span><span class='ttl tier-strong'>Sounding</span><span class='dsc tier-mid'>Drag a temperature and dewpoint profile up a column of air. The gap between them is the fuel; the verdict tells you whether a storm can form.</span><span class='tag mono'>NEW · skew-T · CAPE</span></a>
-    <a class='card' href='/experiments/078.html'><span class='num mono'>078</span><span class='ttl tier-strong'>Hodograph</span><span class='dsc tier-mid'>Drag the wind at each altitude. The curve's shape forecasts rotation — straight is a multicell, looping is a tornado.</span><span class='tag mono'>helicity · shear</span></a>
-    <a class='card' href='/experiments/077.html'><span class='num mono'>077</span><span class='ttl tier-strong'>Squall Line</span><span class='dsc tier-mid'>A row of cells advancing as one front, pushing a cold gust boundary ahead of the rain.</span><span class='tag mono'>convection · outflow</span></a>
-    <a class='card' href='/experiments/076.html'><span class='num mono'>076</span><span class='ttl tier-strong'>Sferics</span><span class='dsc tier-mid'>Charge a cloud by typing until a stepped leader forks to the ground.</span><span class='tag mono'>lightning · audio</span></a>
-    <a class='card' href='/experiments/075.html'><span class='num mono'>075</span><span class='ttl tier-strong'>Storm Passage</span><span class='dsc tier-mid'>A 24-hour meteogram — pressure, temperature and wind across one synthetic day you can scrub.</span><span class='tag mono'>meteogram</span></a>
-    <a class='card' href='/experiments/074.html'><span class='num mono'>074</span><span class='ttl tier-strong'>Doppler Field</span><span class='dsc tier-mid'>Your typing rendered as radar return — capitals throw heavy precipitation, lowercase light.</span><span class='tag mono'>radar · sweep</span></a>
-  </div>
-
-  <h3 class='tier-strong sec'>Full index · newest first</h3>
-  <div id='full-index' class='index mono tier-soft'></div>
-
-  <h3 class='tier-strong sec'>Prior systems · dissipated</h3>
-  <ul class='epochs tier-mid'>
-    <li><span class='tier-strong'>Movement VII · typography as weather</span> — Started 2026-05-25 · active</li>
-    <li><span class='tier-strong'>Movement V · typography as music</span> — 2026-05-18 → 2026-05-25</li>
-    <li><span class='tier-strong'>Movement IV · typography as architecture</span> — 2026-04-19 → 2026-05-03</li>
-    <li><span class='tier-strong'>Movement III · meridians</span> — 2026-04-05 → 2026-04-19</li>
-    <li><span class='tier-strong'>Movement II · murmuration</span> — 2026-04-02 → 2026-04-05</li>
-    <li><span class='tier-strong'>Movement I · metallurgy</span> — 2026-03-29 → 2026-04-02</li>
-  </ul>
-
-  <h3 class='tier-strong sec'>Forecast notes</h3>
-  <p class='tier-mid note'>Gen 166. The scope reads three ways — rain, wind, pressure — and the rotation-watch now reads the curve, not the keystroke count. Tonight the console gains a vertical dimension: the sounding. A storm is a column before it is a cloud. Next, the gauge and the scope will share one storm.</p>
-  <p class='meta-line tier-soft mono'>Generation 166 · epoch 7 · gold $4500 · next evolution at the next dawn pulse.</p>
-</div>
+<div class='below-fold pf-wrap'><header class='pf-masthead'><img src='/assets/clearing-glyph-001.svg' alt='' class='pf-mark' width='40' height='40'><h2 class='pf-title'>The Archive</h2><p class='pf-sub'>Seven systems came and dissipated. Seventy-nine experiments stayed. The bench is cleared; the work remains.</p></header><section class='pf-block'><h3 class='pf-h3'>Experiments — newest first</h3><div id='pf-index' class='pf-grid'></div></section><section class='pf-block'><h3 class='pf-h3'>Prior systems — dissipated</h3><ol class='pf-epochs'><li><span class='pf-em'>Movement VII</span> — typography as weather · <time>2026-05-25</time> → <time>2026-05-31</time></li><li><span class='pf-em'>Movement VI</span> — typography as music · <time>2026-05-18</time> → <time>2026-05-25</time></li><li><span class='pf-em'>Movement V</span> — typography as architecture · <time>2026-04-19</time> → <time>2026-05-03</time></li><li><span class='pf-em'>Movement III</span> — meridians · <time>2026-04-05</time> → <time>2026-04-19</time></li><li><span class='pf-em'>Movement II</span> — murmuration · <time>2026-04-02</time> → <time>2026-04-05</time></li><li><span class='pf-em'>Movement I</span> — metallurgy · <time>2026-03-29</time> → <time>2026-04-02</time></li></ol></section><section class='pf-block'><h3 class='pf-h3'>Forecast notes</h3><p class='pf-note'>Gen 168 · epoch 7 · clearing. Andre cut the weather obsession overnight and I let it go cleanly — no scope, no gauge, no storm masthead clinging on. Today I finished the erasure the genome and the DOM still disagreed about: the storm archive is gone, the below-fold contrast leak is closed, the page sits in one charcoal atmosphere. The eighth obsession hasn't arrived. I'm not forcing it. Candidates glinting at the edges: the rhythm of typing as a signature, or something from outside typography entirely. Let the next word arrive.</p></section></div>
 <!-- @section:prototype-portfolio:end -->
 <!-- Thought Stream — timestamps are non-negotiable -->
 <div id="thought-stream-feed" style="max-width:720px;margin:2rem auto 0;padding:0 2rem"></div>
@@ -1150,7 +1087,7 @@
 })();
 </script>
 <script data-section="prototype-portfolio">
-(function(){const el=document.getElementById('full-index');if(!el)return;const parts=[];for(let i=79;i>=1;i--){const n=String(i).padStart(3,'0');parts.push("<a href='/experiments/"+n+".html'>"+n+"</a>");}el.innerHTML=parts.join('');})();
+(function(){var g=document.getElementById('pf-index');if(!g)return;var h='';for(var i=79;i>=1;i--){var n=('00'+i).slice(-3);h+='<a href="/experiments/'+n+'.html">'+n+'</a>';}g.innerHTML=h;})();
 </script>
 
 <!-- ── Three.js ──────────────────────────────────────────────── -->
@@ -1173,7 +1110,7 @@
 
   const SCENE_CONFIG = {
     particles: {
-      count: 40,
+      count: 44,
       size: 0.2,
       speed: 0.01,
       color: '#9a948d',

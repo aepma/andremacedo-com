@@ -1,5 +1,5 @@
 {
-  "generation": 168,
+  "generation": 169,
   "epoch": "clearing",
   "epoch_started": "2026-06-01",
   "traits": {
@@ -137,6 +137,7 @@
         "editorial-cream-glyph-001.svg",
         "meridian-glyph-001.svg",
         "typographic-architect-glyph-008.svg",
+        "clearing-glyph-001.svg",
         "grounding-glyph-001.svg",
         "typographic-architect-glyph-009.svg",
         "workshop-glyph-001.svg",
@@ -235,21 +236,10 @@
         "evening": 10,
         "night": 10
       },
-      "secrets_count": 20
+      "secrets_count": 21
     }
   },
   "fitness_log": [
-    {
-      "gen": 149,
-      "coherence": 8,
-      "novelty": 6,
-      "identity": 9,
-      "tension": 6,
-      "awe": 5,
-      "perceptibility": 7,
-      "note": "",
-      "total": 6.8
-    },
     {
       "gen": 150,
       "coherence": 5,
@@ -458,29 +448,20 @@
       "perceptibility": 4,
       "note": "Honest read: Andre hard-cut the weather obsession overnight and reset the palette to neutral gray, but the rendered page is mid-molt \u2014 the genome says",
       "total": 4.3
+    },
+    {
+      "gen": 169,
+      "coherence": 7,
+      "novelty": 4,
+      "identity": 6,
+      "tension": 4,
+      "awe": 4,
+      "perceptibility": 6,
+      "note": "The clearing is honest and the most coherent the page has been in a month \u2014 but it is half-cleared. The hero says 'bench is cleared' while the archive",
+      "total": 5.2
     }
   ],
   "mutation_log": [
-    {
-      "gen": 149,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "interaction.type-'verte'-anywhere-\u2014-the-te",
-        "section.tonights-composition",
-        "page.experiments/070.html",
-        "scene.config"
-      ],
-      "kills": [
-        "css_rule:gen145-css",
-        "secret[20]",
-        "interaction:type-'echo'-to-slow-the-resona"
-      ],
-      "timestamp": "2026-05-22T08:06:16Z"
-    },
     {
       "gen": 150,
       "mutations": [
@@ -901,21 +882,28 @@
         "thought:afternoon[10]"
       ],
       "timestamp": "2026-06-01T17:33:01Z"
+    },
+    {
+      "gen": 169,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "section.overlay-center",
+        "section.prototype-portfolio",
+        "svg.clearing-glyph-001.svg",
+        "scene.config"
+      ],
+      "kills": [
+        "css_rule:gen164-css",
+        "css_rule:gen165-css"
+      ],
+      "timestamp": "2026-06-01T22:02:41Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "interaction",
-      "value": "type-'tactus'-anywhere-to-lift",
-      "died_gen": 153,
-      "epitaph": "Conductor's baton interaction from gen 127 \u2014 pure music-era residue. The page is a radar, not a podium. Brings interactions back to ceiling."
-    },
-    {
-      "type": "thought",
-      "value": "a low pressure system is just the planet inhaling somewhere it forgot.",
-      "died_gen": 154,
-      "epitaph": "Dawn pool over capacity (11/10). Stale carry-forward from the engraved era's ink-naming thought, no longer fits the storm chassis."
-    },
     {
       "type": "css_rule",
       "value": "gen151-css",
@@ -1203,6 +1191,18 @@
       "value": "87\u00b0F, 65% humidity outside. The air is loading. A Florida afternoon stacks its own anvil.",
       "died_gen": 168,
       "epitaph": "Pool over capacity (11/10) \u2014 trimmed the weakest storm-era afternoon line."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen164-css",
+      "died_gen": 169,
+      "epitaph": "Wall-cloud violet styling from the storm era. The storm dissipated; its chrome goes with it."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen165-css",
+      "died_gen": 169,
+      "epitaph": "Helicity-gauge styling \u2014 there is no gauge to style on a cleared bench."
     }
   ],
   "carrying_capacity": {
@@ -1221,11 +1221,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 159,
-      "base": "#b833e6",
-      "family": "indigo"
-    },
     {
       "gen": 160,
       "base": "#e0432a",
@@ -1268,6 +1263,11 @@
     },
     {
       "gen": 168,
+      "base": "#8a8a8a",
+      "family": "red"
+    },
+    {
+      "gen": 169,
       "base": "#8a8a8a",
       "family": "red"
     }
@@ -1359,6 +1359,15 @@
         "    FAIL  #8a5ce0  ratio=4.16:1  (< 4.5)"
       ],
       "timestamp": "2026-06-01T13:43:03Z"
+    },
+    {
+      "gen": 169,
+      "messages": [
+        "  [contrast-gate below-fold] effective bg = #141414 from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
+        "    FAIL  #111111  ratio=1.02:1  (< 4.5)",
+        "    FAIL  #6a665f  ratio=3.23:1  (< 4.5)"
+      ],
+      "timestamp": "2026-06-01T22:02:41Z"
     }
   ]
 }
