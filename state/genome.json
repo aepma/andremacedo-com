@@ -1,15 +1,15 @@
 {
-  "generation": 166,
+  "generation": 167,
   "epoch": "clearing",
   "epoch_started": "2026-06-01",
   "traits": {
     "color": {
       "accent_base": "#8a5cd8",
-      "accent_dawn": "#9a6ee0",
+      "accent_dawn": "#a886e4",
       "accent_morning": "#8a5cd8",
       "accent_afternoon": "#7d4bd0",
-      "accent_evening": "#634098",
-      "accent_night": "#4a2f78",
+      "accent_evening": "#5e3aa0",
+      "accent_night": "#412a70",
       "bg": "#111111",
       "fg": "#e6ddd6",
       "grain_opacity": "0.06",
@@ -69,6 +69,7 @@
         "experiments/059.html",
         "experiments/018.html",
         "experiments/038.html",
+        "experiments/079.html",
         "experiments/002.html",
         "experiments/055.html",
         "experiments/043.html",
@@ -230,13 +231,14 @@
       "type-'smalt'-anywhere-on-the-p",
       "type-'strike'-anywhere-on-the-",
       "type-'hook'-anywhere-\u2014-a-hook-",
-      "type-'spin'-anywhere-pins-the-"
+      "type-'spin'-anywhere-pins-the-",
+      "type-'sounding'-anywhere-\u2014-a-f"
     ],
     "content": {
       "mood": "neutral",
       "obsession": "",
       "thought_pools": {
-        "dawn": 12,
+        "dawn": 14,
         "morning": 10,
         "afternoon": 11,
         "evening": 10,
@@ -246,17 +248,6 @@
     }
   },
   "fitness_log": [
-    {
-      "gen": 147,
-      "coherence": 8,
-      "novelty": 6,
-      "identity": 9,
-      "tension": 6,
-      "awe": 6,
-      "perceptibility": 7,
-      "note": "Day 25 of engraved chassis. Gen 146 hover-preview-tone landed cleanly and the programme card finally sings when reached toward. But the contrast audit",
-      "total": 7.0
-    },
     {
       "gen": 148,
       "coherence": 8,
@@ -465,28 +456,20 @@
       "perceptibility": 6,
       "note": "Epoch 7's forecaster's console is recognizably itself \u2014 the Doppler scope, the prediction pivot, the wall-cloud violet. But the below-fold contrast le",
       "total": 7.0
+    },
+    {
+      "gen": 167,
+      "coherence": 8,
+      "novelty": 6,
+      "identity": 8,
+      "tension": 7,
+      "awe": 6,
+      "perceptibility": 6,
+      "note": "The forecaster's console is recognizably itself \u2014 Doppler scope, helicity gauge, monochrome violet on storm-charcoal. But novelty has slid 7\u21927\u21926 becau",
+      "total": 6.8
     }
   ],
   "mutation_log": [
-    {
-      "gen": 147,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "section.tonights-composition",
-        "page.experiments/068.html",
-        "scene.config"
-      ],
-      "kills": [
-        "css_rule:gen144-css",
-        "secret[20]",
-        "interaction:type-'beat'-to-navigate-to-the"
-      ],
-      "timestamp": "2026-05-21T16:03:40Z"
-    },
     {
       "gen": 148,
       "mutations": [
@@ -897,21 +880,28 @@
         "interaction:type-'squall'-anywhere-rolls-a"
       ],
       "timestamp": "2026-06-01T13:43:03Z"
+    },
+    {
+      "gen": 167,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "interaction.type-'sounding'-anywhere-\u2014-a-f",
+        "section.prototype-portfolio",
+        "page.experiments/079.html",
+        "scene.config"
+      ],
+      "kills": [
+        "secret[20]",
+        "css_rule:gen162-css"
+      ],
+      "timestamp": "2026-06-01T14:02:57Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "css_rule",
-      "value": "gen148-css",
-      "died_gen": 151,
-      "epitaph": "Folium-violet manuscript styling. Three generations dormant, six since the engraved chassis was killed at gen 150. The pigment palette belongs to a dead obsession."
-    },
-    {
-      "type": "secret",
-      "value": "Type 'storm' anywhere on the page \u2014 a single isobar sweeps across the viewport a",
-      "died_gen": 151,
-      "epitaph": "Carrying capacity 21/20 over. The new 'thunder' secret arrives tonight and earns its slot. The dropped secret was a manuscript-era relic that referenced ink that no longer exists in the chassis."
-    },
     {
       "type": "interaction",
       "value": "click-any-note-in-the-hero-sta",
@@ -1199,6 +1189,18 @@
       "value": "type-'squall'-anywhere-rolls-a",
       "died_gen": 166,
       "epitaph": "An observation-era reflex. The obsession turned from watching the storm to forecasting it; a squall rolling past is yesterday's instrument. Interactions back to 12/12."
+    },
+    {
+      "type": "secret",
+      "value": "Type 'veer' anywhere and the rotation-watch hodograph redraws itself one layer a",
+      "died_gen": 167,
+      "epitaph": "Over capacity at 21/20 \u2014 pruned the oldest storm-audio-era reflex to make room for the sounding verdict."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen162-css",
+      "died_gen": 167,
+      "epitaph": "Gust-front cyan styling, four generations dormant and superseded by the monochrome-violet lockdown."
     }
   ],
   "carrying_capacity": {
@@ -1217,11 +1219,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 157,
-      "base": "#2fcf6e",
-      "family": "lime"
-    },
     {
       "gen": 158,
       "base": "#2a6cf0",
@@ -1264,6 +1261,11 @@
     },
     {
       "gen": 166,
+      "base": "#8a5cd8",
+      "family": "blue"
+    },
+    {
+      "gen": 167,
       "base": "#8a5cd8",
       "family": "blue"
     }

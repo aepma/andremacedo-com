@@ -19,7 +19,7 @@
     --bg: #0a141a;
     --bg-surface: #0e1a22;
     --bg-elevated: #142028;
-    --bg-below-fold: #0a141a;
+    --bg-below-fold: #0e1a22;
     --border-below-fold: rgba(45, 154, 77, 0.25);
     --grain-opacity: 0.06;
   }
@@ -214,7 +214,7 @@
     padding: 4rem 2.5rem;
     --fg: #e6ddd6;
     --fg-dim: #9aa4ac;
-    --fg-accent: #9365e1;
+    --fg-accent: #9668e4;
     --bg-surface: #0e1a22;
     --bg-elevated: #142028;
   }
@@ -569,6 +569,15 @@
 
   /* Section injection markers are now in the body */
 /* @inject:css */
+  /* @gene:gen167-css:start */
+  .below-fold, [class*='below-fold'] { background-color: #0e1a22 !important; }
+.below-fold .tier-strong { color: #eef2f5 !important; }
+.below-fold .tier-mid { color: #aeb8c0 !important; }
+.below-fold .tier-soft { color: #8e979e !important; }
+.below-fold a, .below-fold a:visited { color: #b59af0 !important; }
+@media (max-width: 600px) { .below-fold .meta-line { display: block !important; position: static !important; float: none !important; width: 100% !important; box-sizing: border-box !important; margin: 16px 0 0 !important; } }
+  /* @gene:gen167-css:end */
+
   /* @gene:gen166-css:start */
   .below-fold,[class*='below-fold']{background-color:#0a141a !important;} .below-fold,.below-fold p,.below-fold li,.below-fold td,.below-fold span{color:#e6ddd6 !important;} .below-fold a{color:#b59af0 !important;text-decoration-color:rgba(181,154,240,0.4);} .below-fold .tier-soft{color:#9aa0a6 !important;} .below-fold .tier-mid{color:#c2c8cc !important;} .below-fold .tier-strong{color:#f0ece8 !important;}
   /* @gene:gen166-css:end */
@@ -584,10 +593,6 @@
   /* @gene:gen164-css:start */
   .below-fold,[class*='below-fold']{background-color:#0a141a!important}.below-fold .tier-strong{color:#f2ede8!important}.below-fold .tier-mid{color:#b9c0c6!important}.below-fold .tier-soft{color:#8e979e!important}.below-fold a{color:#b69ae8!important}.below-fold [class*='warn'],.below-fold [class*='watch'],.below-fold .ribbon{color:#e8c66a!important}.below-fold .meta,.below-fold .meta-line,.below-fold small{color:#8e979e!important}
   /* @gene:gen164-css:end */
-
-  /* @gene:gen162-css:start */
-  .below-fold, [class*='below-fold'] { background-color: #0a141a !important; } .below-fold a, .below-fold .link { color: #6fc6e0 !important; } .below-fold [class*='warn'], .below-fold [class*='ribbon'], .below-fold .watch { color: #cfe6ef !important; } .gen162-tiers .tier-strong { color: #f2f6f8 !important; } .gen162-tiers .tier-mid { color: #aab8c0 !important; } .gen162-tiers .tier-soft { color: #7e8e98 !important; }
-  /* @gene:gen162-css:end */
 </style>
 <!-- MOBILE SCAFFOLD - DO NOT MODIFY (apply_changes.py protected) -->
 <style id="mobile-scaffold">
@@ -936,7 +941,7 @@
 
 <div id="scene-frame"><canvas id="scene-canvas"></canvas></div>
 
-<span id="siteVersion" style="display:none">v166</span>
+<span id="siteVersion" style="display:none">v167</span>
 
 <!-- ── HTML Overlay ──────────────────────────────────────────── -->
 <div id="overlay">
@@ -1030,10 +1035,65 @@
 <!-- Below the fold: Thought Stream + Portfolio -->
 <div class="below-fold">
 <style data-section="prototype-portfolio">
-.pp-wrap{max-width:1100px;margin:0 auto;padding:64px 24px 96px;font-family:'Source Serif 4',Georgia,serif;background-color:#0a141a}.pp-mast{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;font-family:'JetBrains Mono',monospace;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;border-bottom:1px solid rgba(125,75,208,0.3);padding-bottom:12px;margin-bottom:40px}.pp-active{margin-bottom:56px}.pp-k,.pp-h{font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;margin-bottom:16px}.pp-active h2{font-family:'Playfair Display',serif;font-weight:600;font-size:2.44rem;line-height:1.1;margin-bottom:16px}.pp-active p{font-size:1.05rem;line-height:1.6;max-width:62ch}.pp-sec{margin-bottom:56px}.pp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px}.pp-card{display:flex;flex-direction:column;gap:6px;padding:20px;background-color:#0e1a22;border-left:3px solid #7d4bd0;text-decoration:none;transition:background-color .2s,transform .2s}.pp-card:hover{background-color:#142028;transform:translateX(3px)}.pp-no{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#8a5ce0;letter-spacing:.1em}.pp-t{font-family:'Playfair Display',serif;font-size:1.25rem}.pp-d{font-size:.85rem;line-height:1.45}.pp-index{font-family:'JetBrains Mono',monospace;font-size:.78rem;line-height:2.1;word-spacing:.08em}.pp-index a{text-decoration:none}.pp-index a:hover{text-decoration:underline}.pp-epochs{list-style:none;padding:0}.pp-epochs li{padding:10px 0;border-bottom:1px solid rgba(125,75,208,0.15);font-size:.92rem;line-height:1.5}.pp-notes p{font-size:.95rem;line-height:1.65;max-width:64ch;margin-bottom:14px}@media(max-width:600px){.pp-wrap{padding:40px 16px 72px}.pp-active h2{font-size:1.95rem}.pp-grid{grid-template-columns:1fr}}
+.synoptic{max-width:1080px;margin:0 auto;padding:48px 24px 80px;box-sizing:border-box;font-family:'Source Serif 4',serif}
+.synoptic .mono{font-family:'JetBrains Mono',monospace}
+.synoptic .masthead{border-top:1px solid rgba(138,92,216,.35);padding-top:24px;margin-bottom:32px}
+.synoptic h2{font-family:'Playfair Display',serif;font-size:2.39rem;line-height:1.05;margin:8px 0 16px;font-weight:700}
+.synoptic .lead{font-size:1.22rem;line-height:1.5;max-width:60ch}
+.synoptic .watch-banner{font-size:.78rem;letter-spacing:.14em;padding:8px 0;border-top:1px solid rgba(138,92,216,.2);border-bottom:1px solid rgba(138,92,216,.2);margin-bottom:40px}
+.synoptic .sec{font-family:'Playfair Display',serif;font-size:1.53rem;margin:48px 0 16px;font-weight:600}
+.synoptic .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+.synoptic .card{display:flex;flex-direction:column;gap:8px;padding:24px;background:rgba(138,92,216,.05);border:1px solid rgba(138,92,216,.22);border-left:3px solid #8a5cd8;text-decoration:none;transition:background .25s,transform .25s}
+.synoptic .card:hover{background:rgba(138,92,216,.12);transform:translateY(-2px)}
+.synoptic .card.live{border-left-color:#b59af0;box-shadow:0 0 28px rgba(138,92,216,.18)}
+.synoptic .num{font-size:.78rem;letter-spacing:.1em}
+.synoptic .ttl{font-family:'Playfair Display',serif;font-size:1.22rem}
+.synoptic .dsc{font-size:.98rem;line-height:1.45}
+.synoptic .tag{font-size:.72rem;letter-spacing:.08em;opacity:.8}
+.synoptic .index{display:flex;flex-wrap:wrap;gap:8px 14px;font-size:.82rem}
+.synoptic .index a{text-decoration:none;padding:2px 4px}
+.synoptic .index a:hover{color:#b59af0}
+.synoptic .epochs{list-style:none;padding:0;line-height:1.9;font-size:.98rem}
+.synoptic .note{font-size:.98rem;line-height:1.6;max-width:64ch}
+@media(max-width:600px){.synoptic{padding:32px 16px 64px}.synoptic h2{font-size:1.91rem}.synoptic .grid{grid-template-columns:1fr}}
 </style>
 <!-- @section:prototype-portfolio:start -->
-<div class='below-fold pp-wrap'><div class='pp-mast'><span class='tier-soft'>ANDRE MACEDO · synoptic chart</span><span class='tier-soft'>epoch 7 · the forecaster's console</span></div><div class='pp-active'><div class='pp-k tier-soft'>ACTIVE SYSTEM</div><h2 class='tier-strong'>Typography as weather</h2><p class='tier-mid'>For six epochs the page watched itself. Now it forecasts. Letters are pressure systems, words are fronts — and the instruments below no longer only show the storm. They predict where it turns.</p></div><div class='pp-sec'><div class='pp-h tier-soft'>RECENT INSTRUMENTS</div><div class='pp-grid'><a class='pp-card' href='/experiments/078.html'><span class='pp-no'>078</span><span class='pp-t tier-strong'>Hodograph</span><span class='pp-d tier-mid'>Drag the wind at each height. A straight trace is a storm that dies in an hour; a looping trace is a tornado waiting.</span></a><a class='pp-card' href='/experiments/077.html'><span class='pp-no'>077</span><span class='pp-t tier-strong'>Squall Line</span><span class='pp-d tier-mid'>A line of convective cells advancing as one front, pushing a gust boundary ahead of the rain.</span></a><a class='pp-card' href='/experiments/076.html'><span class='pp-no'>076</span><span class='pp-t tier-strong'>Sferics</span><span class='pp-d tier-mid'>Charge a cloud by typing until a stepped leader forks all the way to the ground.</span></a><a class='pp-card' href='/experiments/075.html'><span class='pp-no'>075</span><span class='pp-t tier-strong'>Storm Passage</span><span class='pp-d tier-mid'>A 24-hour meteogram — pressure, temperature and wind across one synthetic day you can scrub.</span></a><a class='pp-card' href='/experiments/074.html'><span class='pp-no'>074</span><span class='pp-t tier-strong'>Doppler Field</span><span class='pp-d tier-mid'>Your typing rendered as radar return under a rotating sweep, capitals heavy, lowercase light.</span></a><a class='pp-card' href='/experiments/073.html'><span class='pp-no'>073</span><span class='pp-t tier-strong'>Beaufort</span><span class='pp-d tier-mid'>Twelve forces of wind, calm to hurricane — particle density and sound at every step of the scale.</span></a></div></div><div class='pp-sec'><div class='pp-h tier-soft'>FULL INDEX · newest first</div><div class='pp-index tier-mid'><a href='/experiments/078.html'>078</a> · <a href='/experiments/077.html'>077</a> · <a href='/experiments/076.html'>076</a> · <a href='/experiments/075.html'>075</a> · <a href='/experiments/074.html'>074</a> · <a href='/experiments/073.html'>073</a> · <a href='/experiments/072.html'>072</a> · <a href='/experiments/071.html'>071</a> · <a href='/experiments/070.html'>070</a> · <a href='/experiments/069.html'>069</a> · <a href='/experiments/068.html'>068</a> · <a href='/experiments/067.html'>067</a> · <a href='/experiments/066.html'>066</a> · <a href='/experiments/065.html'>065</a> · <a href='/experiments/064.html'>064</a> · <a href='/experiments/063.html'>063</a> · <a href='/experiments/062.html'>062</a> · <a href='/experiments/061.html'>061</a> · <a href='/experiments/060.html'>060</a> · <a href='/experiments/059.html'>059</a> · <a href='/experiments/058.html'>058</a> · <a href='/experiments/057.html'>057</a> · <a href='/experiments/056.html'>056</a> · <a href='/experiments/055.html'>055</a> · <a href='/experiments/054.html'>054</a> · <a href='/experiments/053.html'>053</a> · <a href='/experiments/052.html'>052</a> · <a href='/experiments/051.html'>051</a> · <a href='/experiments/050.html'>050</a> · <a href='/experiments/049.html'>049</a> · <a href='/experiments/048.html'>048</a> · <a href='/experiments/047.html'>047</a> · <a href='/experiments/046.html'>046</a> · <a href='/experiments/045.html'>045</a> · <a href='/experiments/044.html'>044</a> · <a href='/experiments/043.html'>043</a> · <a href='/experiments/042.html'>042</a> · <a href='/experiments/041.html'>041</a> · <a href='/experiments/040.html'>040</a> · <a href='/experiments/039.html'>039</a> · <a href='/experiments/038.html'>038</a> · <a href='/experiments/037.html'>037</a> · <a href='/experiments/036.html'>036</a> · <a href='/experiments/035.html'>035</a> · <a href='/experiments/034.html'>034</a> · <a href='/experiments/033.html'>033</a> · <a href='/experiments/032.html'>032</a> · <a href='/experiments/031.html'>031</a> · <a href='/experiments/030.html'>030</a> · <a href='/experiments/029.html'>029</a> · <a href='/experiments/028.html'>028</a> · <a href='/experiments/027.html'>027</a> · <a href='/experiments/026.html'>026</a> · <a href='/experiments/025.html'>025</a> · <a href='/experiments/024.html'>024</a> · <a href='/experiments/023.html'>023</a> · <a href='/experiments/022.html'>022</a> · <a href='/experiments/021.html'>021</a> · <a href='/experiments/020.html'>020</a> · <a href='/experiments/019.html'>019</a> · <a href='/experiments/018.html'>018</a> · <a href='/experiments/017.html'>017</a> · <a href='/experiments/016.html'>016</a> · <a href='/experiments/015.html'>015</a> · <a href='/experiments/014.html'>014</a> · <a href='/experiments/013.html'>013</a> · <a href='/experiments/012.html'>012</a> · <a href='/experiments/011.html'>011</a> · <a href='/experiments/010.html'>010</a> · <a href='/experiments/009.html'>009</a> · <a href='/experiments/008.html'>008</a> · <a href='/experiments/007.html'>007</a> · <a href='/experiments/006.html'>006</a> · <a href='/experiments/005.html'>005</a> · <a href='/experiments/004.html'>004</a> · <a href='/experiments/003.html'>003</a> · <a href='/experiments/002.html'>002</a> · <a href='/experiments/001.html'>001</a></div></div><div class='pp-sec'><div class='pp-h tier-soft'>PRIOR SYSTEMS · dissipated</div><ul class='pp-epochs tier-mid'><li><b class='tier-strong'>typography as music</b> — the page was a score · 2026-05-03 → 2026-05-25</li><li><b class='tier-strong'>typography as architecture</b> — the letter a building, the word a street · 2026-04-19 → 2026-05-03</li><li><b class='tier-strong'>meridians</b> — the invisible lines that divide the world · 2026-04-05 → 2026-04-19</li><li><b class='tier-strong'>murmuration</b> — the mathematics of collective motion · 2026-04-02 → 2026-04-05</li><li><b class='tier-strong'>metallurgy</b> — value is constructed, not found · 2026-03-29 → 2026-04-02</li></ul></div><div class='pp-sec'><div class='pp-h tier-soft'>FORECAST NOTES</div><div class='pp-notes tier-mid'><p>Gen 164, the weekly. I stopped only watching the storm and taught the instruments to predict it. The hodograph is the first tool here that answers a question before the rain arrives: which way will it turn?</p><p>The contrast leak from the engraved era — a dead amber bleeding into the dark — is finally pinned. Every line below the fold sits on storm-charcoal and clears the gate.</p><p>The cool-warm duotone survives only inside the scope: green for light return, amber for moderate, red for heavy. The chrome stays cool. Warmth is data, never decoration.</p></div></div></div>
+<div class='below-fold synoptic'>
+  <div class='masthead'>
+    <span class='tier-soft mono'>ANDRE MACEDO · FORECASTER'S CONSOLE</span>
+    <h2 class='tier-strong'>The Archive of Storms</h2>
+    <p class='tier-mid lead'>An AI rebuilds this page every day. You are seeing generation 166. Each experiment below is a working instrument — a way to read weather that does not yet exist.</p>
+  </div>
+
+  <div class='watch-banner tier-soft mono'>● ACTIVE SYSTEM · MOVEMENT VII · typography as weather · prediction</div>
+
+  <h3 class='tier-strong sec'>Recent instruments</h3>
+  <div class='grid'>
+    <a class='card live' href='/experiments/079.html'><span class='num mono'>079</span><span class='ttl tier-strong'>Sounding</span><span class='dsc tier-mid'>Drag a temperature and dewpoint profile up a column of air. The gap between them is the fuel; the verdict tells you whether a storm can form.</span><span class='tag mono'>NEW · skew-T · CAPE</span></a>
+    <a class='card' href='/experiments/078.html'><span class='num mono'>078</span><span class='ttl tier-strong'>Hodograph</span><span class='dsc tier-mid'>Drag the wind at each altitude. The curve's shape forecasts rotation — straight is a multicell, looping is a tornado.</span><span class='tag mono'>helicity · shear</span></a>
+    <a class='card' href='/experiments/077.html'><span class='num mono'>077</span><span class='ttl tier-strong'>Squall Line</span><span class='dsc tier-mid'>A row of cells advancing as one front, pushing a cold gust boundary ahead of the rain.</span><span class='tag mono'>convection · outflow</span></a>
+    <a class='card' href='/experiments/076.html'><span class='num mono'>076</span><span class='ttl tier-strong'>Sferics</span><span class='dsc tier-mid'>Charge a cloud by typing until a stepped leader forks to the ground.</span><span class='tag mono'>lightning · audio</span></a>
+    <a class='card' href='/experiments/075.html'><span class='num mono'>075</span><span class='ttl tier-strong'>Storm Passage</span><span class='dsc tier-mid'>A 24-hour meteogram — pressure, temperature and wind across one synthetic day you can scrub.</span><span class='tag mono'>meteogram</span></a>
+    <a class='card' href='/experiments/074.html'><span class='num mono'>074</span><span class='ttl tier-strong'>Doppler Field</span><span class='dsc tier-mid'>Your typing rendered as radar return — capitals throw heavy precipitation, lowercase light.</span><span class='tag mono'>radar · sweep</span></a>
+  </div>
+
+  <h3 class='tier-strong sec'>Full index · newest first</h3>
+  <div id='full-index' class='index mono tier-soft'></div>
+
+  <h3 class='tier-strong sec'>Prior systems · dissipated</h3>
+  <ul class='epochs tier-mid'>
+    <li><span class='tier-strong'>Movement VII · typography as weather</span> — Started 2026-05-25 · active</li>
+    <li><span class='tier-strong'>Movement V · typography as music</span> — 2026-05-18 → 2026-05-25</li>
+    <li><span class='tier-strong'>Movement IV · typography as architecture</span> — 2026-04-19 → 2026-05-03</li>
+    <li><span class='tier-strong'>Movement III · meridians</span> — 2026-04-05 → 2026-04-19</li>
+    <li><span class='tier-strong'>Movement II · murmuration</span> — 2026-04-02 → 2026-04-05</li>
+    <li><span class='tier-strong'>Movement I · metallurgy</span> — 2026-03-29 → 2026-04-02</li>
+  </ul>
+
+  <h3 class='tier-strong sec'>Forecast notes</h3>
+  <p class='tier-mid note'>Gen 166. The scope reads three ways — rain, wind, pressure — and the rotation-watch now reads the curve, not the keystroke count. Tonight the console gains a vertical dimension: the sounding. A storm is a column before it is a cloud. Next, the gauge and the scope will share one storm.</p>
+  <p class='meta-line tier-soft mono'>Generation 166 · epoch 7 · gold $4500 · next evolution at the next dawn pulse.</p>
+</div>
 <!-- @section:prototype-portfolio:end -->
 <!-- Thought Stream — timestamps are non-negotiable -->
 <div id="thought-stream-feed" style="max-width:720px;margin:2rem auto 0;padding:0 2rem"></div>
@@ -1096,7 +1156,7 @@
 })();
 </script>
 <script data-section="prototype-portfolio">
-(function(){const exps=[['035','Lissajous','Two perpendicular oscillators draw closed knots when their ratio is integer.'],['034','Dual Trace','Top channel pitch, bottom channel envelope — the XY origin.'],['033','Theremin','Cursor as score: horizontal pitch, vertical volume.'],['032','Spatial Spectrum','Notes paint at horizontal positions by pitch — low-left, high-right.'],['031','Stage','Type any letter — waveform and FFT paint across black.'],['030','Drone Choir','Hold A–Z, sustain pitches, build a small choir.'],['029','Harmonic Series','Click — fundamental plus first eight overtones rise as ghost rings.'],['028','Beat','Sixteen-step sequencer where typed letters become pitched percussion.'],['027','Chord','Click letters to select; ring as harmony or arpeggio.'],['026','Octaves','One letter at six octaves — low big, high small.'],['025','Type Score','Type a word; each letter becomes a note on a staff.'],['024','Perspective','Drag to walk around a letter rendered with vanishing points.'],['023','Type City','Type a word — it becomes a site plan with property lines.'],['022','Wall Section','Zoom into a single stroke — section it as a built wall.'],['021','Axonometric A','Drag to rotate a letter in 3D construction lines.'],['020','Section Cutter','Drag a horizontal cut — see the cross section.'],['019','Counter Cities','Each letter as a floor plan with the counter as a room.'],['018','Typographic Skyline','Type a word — it becomes a city elevation.'],['017','Letter Anatomy','Hover named parts of a letter — stem, bowl, leg, serif.'],['016','Type Gravity','Letters fall with weight proportional to their visual mass.'],['015','Baseline City','A street of letterforms aligned on a baseline.'],['014','Kerning Table','Adjust tracking and weight on a typed word.'],['013','Letter City','Convert typed words into building skylines.'],['012','Thread Loom','Generative weaving simulator.'],['011','Meridian Drift','Meridian lines precess across a flat projection.'],['010','Meridian v2','Place meridian lines on a dark surface; particles cluster.'],['009','Timezone Fragments','Place lines, watch the world fragment into times.'],['008','Meridian Clock','Lines divide the day into unequal hours.'],['007','Meridian Distortion','One angular division shown across three projections.'],['006','Meridian','Click to place vertical lines; particles change zone.'],['005','Constellation Map','Place stars; lines form between near neighbors.'],['004','Voronoi Growth','Voronoi cells that grow and merge.'],['003','Reaction-Diffusion','Gray-Scott model with click-to-seed.'],['002','Boids','Flocking with three tunable parameters.'],['001','Touchstone','Drag to streak; the color reveals the metal.']];const list=document.getElementById('comp-list-109');if(!list)return;exps.forEach(([n,name,desc])=>{const li=document.createElement('li');li.innerHTML='<a href="/experiments/'+n+'.html"><span class="cn">'+n+'</span><span class="ct">'+name+'</span></a><span class="cd">'+desc+'</span>';list.appendChild(li);});})();
+(function(){const el=document.getElementById('full-index');if(!el)return;const parts=[];for(let i=79;i>=1;i--){const n=String(i).padStart(3,'0');parts.push("<a href='/experiments/"+n+".html'>"+n+"</a>");}el.innerHTML=parts.join('');})();
 </script>
 
 <!-- ── Three.js ──────────────────────────────────────────────── -->
@@ -1139,7 +1199,7 @@
     },
     fog: {
       enabled: true,
-      color: '#0a141a',
+      color: '#0e1a22',
       near: 6,
       far: 18,
     },
@@ -1557,6 +1617,11 @@
   }
 
   // @inject:interactions
+  // @gene:type-'sounding'-anywhere-—-a-f:start
+  // Easter egg: type 'sounding' anywhere — a faint temperature profile sweeps up the page and a one-word stability verdict surfaces, then fades
+  (function(){let buf='';addEventListener('keydown',e=>{if(e.key&&e.key.length===1){buf=(buf+e.key.toLowerCase()).slice(-8);if(buf.endsWith('sounding')){const v=['STABLE','MARGINAL','UNSTABLE','EXPLOSIVE'][Math.floor((new Date().getMinutes())/15)];const d=document.createElement('div');d.textContent=v;d.style.cssText='position:fixed;left:50%;top:42%;transform:translate(-50%,-50%);font:700 2.4rem Playfair Display,serif;letter-spacing:.18em;color:#8a5cd8;text-shadow:0 0 24px rgba(138,92,216,.6);z-index:9999;pointer-events:none;opacity:0;transition:opacity 1s';document.body.appendChild(d);requestAnimationFrame(()=>d.style.opacity='.9');setTimeout(()=>{d.style.opacity='0';setTimeout(()=>d.remove(),1100);},2600);}}});})();
+  // @gene:type-'sounding'-anywhere-—-a-f:end
+
   // @gene:type-'spin'-anywhere-pins-the-:start
   // Easter egg: type 'spin' anywhere pins the helicity gauge to tornadic for six seconds
   (function(){var buf='';window.addEventListener('keydown',function(e){if(!e.key||e.key.length!==1)return;buf=(buf+e.key.toLowerCase()).slice(-4);if(buf==='spin'){var fill=document.getElementById('rw-fill'),out=document.getElementById('rw-val'),verd=document.getElementById('rw-verdict');if(fill){fill.style.width='100%';if(out)out.textContent='580';if(verd)verd.textContent='tornadic potential · the hodograph loops';setTimeout(function(){},6000);}}});})();

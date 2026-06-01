@@ -1,0 +1,32 @@
+<!DOCTYPE html><html lang='en'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>079 · Sounding</title><style>html,body{margin:0;height:100%;background:#0e1a22;overflow:hidden;font-family:'JetBrains Mono',ui-monospace,monospace;color:#e6ddd6}canvas{display:block}#info,#verdict,#back{position:fixed;text-shadow:0 0 8px rgba(0,0,0,.85),0 0 20px rgba(0,0,0,.55)}#info{top:20px;left:20px;max-width:320px;font-size:13px;line-height:1.55;opacity:.92;z-index:5}#info h1{font-family:'Playfair Display',Georgia,serif;font-size:22px;margin:0 0 8px;color:#b59af0}#info p{margin:0 0 8px;color:#c9cfd4}#verdict{top:20px;right:20px;text-align:right;z-index:5}#verdict .v{font-family:'Playfair Display',serif;font-size:30px;letter-spacing:.1em;color:#8a5cd8}#verdict .cape{font-size:12px;color:#aeb8c0;margin-top:4px}#back{bottom:18px;left:20px;font-size:12px;color:#b59af0;text-decoration:none;z-index:5}#back:hover{color:#d4c2ff}</style></head><body><canvas id='c'></canvas><div id='info'><h1>Sounding</h1><p>A storm is a column of air before it is a cloud. This is a vertical slice of the atmosphere: the <span style='color:#e07a6a'>red</span> line is temperature falling with height, the <span style='color:#6aa8e0'>blue</span> line is the dewpoint. Where the two lines stay far apart there is dry air; where they converge the air is saturated and ready.</p><p>The shaded area between the parcel's path and the environment is the fuel — meteorologists call it CAPE. More area, more violent the storm.</p><p><b>Drag</b> any red or blue point to reshape the profile and watch the verdict change.</p></div><div id='verdict'><div class='v' id='vtxt'>—</div><div class='cape' id='ctxt'>CAPE 0 J/kg</div></div><a id='back' href='/'>← back to the console</a><script>
+const c=document.getElementById('c'),x=c.getContext('2d');let W,H;function rs(){W=c.width=innerWidth;H=c.height=innerHeight;}rs();addEventListener('resize',rs);
+const N=8; // levels, surface to top
+// each level: temp & dew in degrees C, plotted right(warm)->left? we draw temp X by value
+let temp=[28,22,16,9,2,-8,-20,-34];
+let dew=[22,17,11,3,-4,-16,-30,-46];
+function levelY(i){const top=70,bot=H-70;return top+(bot-top)*(i/(N-1));}
+function tx(v){// map temp -50..35 to x margin
+const l=120,r=W-60;return l+(r-l)*((v+50)/85);}
+let drag=null;
+function nearest(mx,my){let best=null,bd=900;for(let i=0;i<N;i++){const y=levelY(i);for(const arr of [['t',temp],['d',dew]]){const px=tx(arr[1][i]),d=(px-mx)**2+(y-my)**2;if(d<bd){bd=d;best={kind:arr[0],i};}}}return best;}
+function pos(e){const t=e.touches?e.touches[0]:e;return{x:t.clientX,y:t.clientY};}
+c.addEventListener('mousedown',e=>{const p=pos(e);drag=nearest(p.x,p.y);});
+c.addEventListener('touchstart',e=>{const p=pos(e);drag=nearest(p.x,p.y);},{passive:true});
+function mv(e){if(!drag)return;const p=pos(e);const l=120,r=W-60;let v=((p.x-l)/(r-l))*85-50;v=Math.max(-50,Math.min(35,v));if(drag.kind==='t'){temp[drag.i]=Math.max(v,dew[drag.i]);}else{dew[drag.i]=Math.min(v,temp[drag.i]);}}
+addEventListener('mousemove',mv);addEventListener('touchmove',e=>{mv(e);},{passive:true});
+addEventListener('mouseup',()=>drag=null);addEventListener('touchend',()=>drag=null);
+function cape(){let a=0;for(let i=0;i<N;i++){const gap=temp[i]-dew[i];const warmth=temp[i];a+=Math.max(0,(18-gap))*Math.max(0,(warmth+10))*1.3;}return Math.round(a);}
+function draw(){x.fillStyle='#0e1a22';x.fillRect(0,0,W,H);
+// grid
+x.strokeStyle='rgba(138,92,216,.12)';x.lineWidth=1;for(let v=-40;v<=30;v+=10){const px=tx(v);x.beginPath();x.moveTo(px,60);x.lineTo(px,H-60);x.stroke();x.fillStyle='rgba(174,184,192,.5)';x.font='11px JetBrains Mono,monospace';x.fillText(v+'°',px-8,H-44);}
+const labels=['SFC','950','850','700','500','400','300','200'];for(let i=0;i<N;i++){const y=levelY(i);x.fillStyle='rgba(174,184,192,.45)';x.fillText(labels[i],40,y+4);}
+// CAPE shaded area between dew and temp
+x.beginPath();for(let i=0;i<N;i++){const y=levelY(i);x[i?'lineTo':'moveTo'](tx(temp[i]),y);}for(let i=N-1;i>=0;i--){const y=levelY(i);x.lineTo(tx(dew[i]),y);}x.closePath();const cp=cape();const a=Math.min(.32,cp/9000);x.fillStyle='rgba(138,92,216,'+a+')';x.fill();
+// temp line
+function line(arr,col){x.strokeStyle=col;x.lineWidth=2.5;x.beginPath();for(let i=0;i<N;i++){const y=levelY(i);x[i?'lineTo':'moveTo'](tx(arr[i]),y);}x.stroke();for(let i=0;i<N;i++){const y=levelY(i);x.beginPath();x.arc(tx(arr[i]),y,5,0,7);x.fillStyle=col;x.fill();}}
+line(temp,'#e07a6a');line(dew,'#6aa8e0');
+const cp2=cape();let v='STABLE',vc='#6aa8e0';if(cp2>3500){v='EXPLOSIVE';vc='#e0432a';}else if(cp2>2000){v='UNSTABLE';vc='#8a5cd8';}else if(cp2>800){v='MARGINAL';vc='#b59af0';}
+document.getElementById('vtxt').textContent=v;document.getElementById('vtxt').style.color=vc;document.getElementById('ctxt').textContent='CAPE '+cp2+' J/kg';
+requestAnimationFrame(draw);}
+draw();
+</script></body></html>
