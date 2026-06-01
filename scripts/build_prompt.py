@@ -366,6 +366,19 @@ def format_genome_summary(genome, html):
 # ── Read inputs ──────────────────────────────────────────────────
 state = read_file(state_file, "{}")
 external = read_file(external_file, "{}")
+# Weather cut (epoch-7 clearing): strip the "weather" key from the external feed
+# before injection so the agent forages in a weather-free environment. Keeps
+# gold_usd, site_analytics, date_context flowing. Cut is by absence, not prohibition.
+# Disk file (data/external.json) is left untouched; only the in-prompt copy is stripped.
+try:
+    _external_obj = json.loads(external)
+    if isinstance(_external_obj, dict) and "weather" in _external_obj:
+        del _external_obj["weather"]
+        external = json.dumps(_external_obj, indent=2)
+except (json.JSONDecodeError, ValueError):
+    # On parse failure (e.g. the "{}" default or malformed feed), leave external
+    # untouched — there is nothing to strip.
+    pass
 genome_file = os.path.join(os.path.dirname(state_file), "genome.json")
 genome = read_json(genome_file)
 html = read_file(index_file)
