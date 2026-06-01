@@ -15,7 +15,7 @@
     --fg: #e6ddd6;
     --fg-dim: #9aa4ac;
     --fg-on-stage: #f5f5f5;
-    --fg-accent: #7d4bd0;
+    --fg-accent: #8a5cd8;
     --bg: #0a141a;
     --bg-surface: #0e1a22;
     --bg-elevated: #142028;
@@ -214,7 +214,7 @@
     padding: 4rem 2.5rem;
     --fg: #e6ddd6;
     --fg-dim: #9aa4ac;
-    --fg-accent: #9563e8;
+    --fg-accent: #9365e1;
     --bg-surface: #0e1a22;
     --bg-elevated: #142028;
   }
@@ -569,6 +569,10 @@
 
   /* Section injection markers are now in the body */
 /* @inject:css */
+  /* @gene:gen166-css:start */
+  .below-fold,[class*='below-fold']{background-color:#0a141a !important;} .below-fold,.below-fold p,.below-fold li,.below-fold td,.below-fold span{color:#e6ddd6 !important;} .below-fold a{color:#b59af0 !important;text-decoration-color:rgba(181,154,240,0.4);} .below-fold .tier-soft{color:#9aa0a6 !important;} .below-fold .tier-mid{color:#c2c8cc !important;} .below-fold .tier-strong{color:#f0ece8 !important;}
+  /* @gene:gen166-css:end */
+
   /* @gene:gen165-css:start */
   .below-fold{background-color:#0a141a !important}
 .below-fold .tier-strong,.below-fold h1,.below-fold h2,.below-fold h3{color:#e6ddd6 !important}
@@ -584,10 +588,6 @@
   /* @gene:gen162-css:start */
   .below-fold, [class*='below-fold'] { background-color: #0a141a !important; } .below-fold a, .below-fold .link { color: #6fc6e0 !important; } .below-fold [class*='warn'], .below-fold [class*='ribbon'], .below-fold .watch { color: #cfe6ef !important; } .gen162-tiers .tier-strong { color: #f2f6f8 !important; } .gen162-tiers .tier-mid { color: #aab8c0 !important; } .gen162-tiers .tier-soft { color: #7e8e98 !important; }
   /* @gene:gen162-css:end */
-
-  /* @gene:gen160-css:start */
-  .below-fold [class*="warn"], .below-fold [class*="watch"], .below-fold .ribbon, .below-fold .badge, .below-fold .accent-warning { color: #e8c66a !important; } #storm-audio-toggle{position:fixed;left:14px;bottom:14px;z-index:60;background:rgba(10,20,26,0.82);color:#d6e2dc;border:1px solid rgba(224,67,42,0.5);border-radius:3px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.04em;padding:6px 10px;cursor:pointer;max-width:60vw;box-sizing:border-box;text-shadow:0 0 8px rgba(0,0,0,0.85);transition:border-color .3s,color .3s,box-shadow .3s;} #storm-audio-toggle.on{color:#f2614a;border-color:#e0432a;box-shadow:0 0 14px rgba(224,67,42,0.35);} #storm-audio-toggle:hover{border-color:#e0432a;} @media(max-width:600px){#storm-audio-toggle{font-size:10px;padding:5px 8px;left:10px;bottom:10px;max-width:50vw;}}
-  /* @gene:gen160-css:end */
 </style>
 <!-- MOBILE SCAFFOLD - DO NOT MODIFY (apply_changes.py protected) -->
 <style id="mobile-scaffold">
@@ -936,7 +936,7 @@
 
 <div id="scene-frame"><canvas id="scene-canvas"></canvas></div>
 
-<span id="siteVersion" style="display:none">v165</span>
+<span id="siteVersion" style="display:none">v166</span>
 
 <!-- ── HTML Overlay ──────────────────────────────────────────── -->
 <div id="overlay">
@@ -991,13 +991,13 @@
 <!-- @section:scroll-hint:end -->
 
 <style data-section="rotation-watch">
-.rot-watch{max-width:680px;margin:0 auto;padding:48px 24px 24px;box-sizing:border-box;font-family:'JetBrains Mono',monospace;text-align:center;background-color:#0a141a}.rw-label{font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:#8e979e}.rw-readout{font-family:'Playfair Display',serif;font-size:3.2rem;line-height:1;margin:8px 0 16px;color:#e6ddd6}.rw-readout .rw-unit{font-family:'JetBrains Mono',monospace;font-size:1rem;color:#a87ee8;margin-left:8px;vertical-align:super}.rw-bar{position:relative;height:10px;border-radius:6px;background:#142028;overflow:hidden;border:1px solid #1d2c36}.rw-fill{position:absolute;left:0;top:0;bottom:0;width:18%;background:linear-gradient(90deg,#4a7ad0,#7d4bd0,#d6334a);transition:width .5s ease}.rw-verdict{margin-top:16px;font-size:.86rem;letter-spacing:.04em;color:#a8b0b8}.rw-hint{margin-top:8px;font-size:.72rem;color:#8e979e;opacity:.85;line-height:1.5}@media(max-width:600px){.rw-readout{font-size:2.4rem}.rot-watch{padding:32px 16px 16px}}
+.rot-watch{max-width:760px;margin:0 auto;padding:32px 24px;box-sizing:border-box;background-color:#0a141a;}.rw-head{font-family:'JetBrains Mono',monospace;font-size:0.72rem;letter-spacing:0.18em;color:#9aa0a6;text-transform:uppercase;margin-bottom:24px;}.rw-grid{display:flex;flex-wrap:wrap;gap:32px;align-items:center;justify-content:center;}#rw-hodo{width:320px;max-width:100%;height:auto;display:block;}.rw-readout{flex:1;min-width:220px;}.rw-srh{font-family:'Playfair Display',serif;font-size:1.7rem;color:#f0ece8;line-height:1;display:flex;align-items:baseline;gap:8px;}.rw-unit{font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:#9aa0a6;letter-spacing:0.08em;}.rw-verdict{font-family:'Source Serif 4',serif;font-size:1.28rem;color:#b59af0;margin:16px 0;font-style:italic;}.rw-bar{height:6px;background:rgba(138,92,216,0.14);border-radius:3px;overflow:hidden;margin-bottom:24px;}.rw-fill{height:100%;width:0;background:linear-gradient(90deg,#5a8fd0,#8a5cd8,#e0432a);transition:width 0.5s ease;}.rw-hint{font-family:'Source Serif 4',serif;font-size:0.96rem;color:#c2c8cc;opacity:0.6;line-height:1.5;}@media(max-width:600px){.rw-grid{gap:24px;}.rot-watch{padding:24px 16px;}}
 </style>
 <!-- @section:rotation-watch:start -->
-<div class="rot-watch below-fold"><div class="rw-label label">storm-relative helicity · 0–3 km layer</div><div class="rw-readout"><span id="rw-val">120</span><span class="rw-unit">m²/s²</span></div><div class="rw-bar"><div class="rw-fill" id="rw-fill"></div></div><div class="rw-verdict tier-mid" id="rw-verdict">single-cell · no rotation expected</div><div class="rw-hint tier-soft">Type anywhere — each gust curves the low-level flow. Watch the needle climb toward rotation. This is the console forecasting, not just observing.</div></div>
+<div class="rot-watch"><div class="rw-head">ROTATION WATCH · storm-relative helicity</div><div class="rw-grid"><canvas id="rw-hodo" width="320" height="320" aria-label="storm-relative helicity hodograph"></canvas><div class="rw-readout"><div class="rw-srh"><span id="rw-srh-val">0</span><span class="rw-unit">m²/s²</span></div><div class="rw-verdict" id="rw-verdict">single-cell · no rotation</div><div class="rw-bar"><div class="rw-fill" id="rw-fill"></div></div><div class="rw-hint">Type anywhere — each keystroke veers the wind one layer higher. The curve closes into a hook when the air is ready to turn.</div></div></div></div>
 <!-- @section:rotation-watch:end -->
 <script data-section="rotation-watch">
-(function(){var val=120,target=120;var fill=document.getElementById('rw-fill'),out=document.getElementById('rw-val'),verd=document.getElementById('rw-verdict');if(!fill)return;function classify(v){if(v<150)return'single-cell · no rotation expected';if(v<300)return'multicell · gusty, low spin';if(v<450)return'supercell possible · the flow is curving';return'tornadic potential · the hodograph loops';}window.addEventListener('keydown',function(e){if(e.key&&e.key.length===1){target=Math.min(600,target+28+Math.random()*22);}});setInterval(function(){target=Math.max(90,target-3);},120);function loop(){val+=(target-val)*0.08;var pct=Math.min(100,(val/600)*100);fill.style.width=pct.toFixed(1)+'%';out.textContent=Math.round(val);verd.textContent=classify(val);requestAnimationFrame(loop);}loop();})();
+(function(){var c=document.getElementById('rw-hodo');if(!c)return;var ctx=c.getContext('2d');var layers=[];var srh=0;var cx=160,cy=172,scale=11;var angle=0,mag=2;function recompute(){var s=0;for(var k=0;k<layers.length-1;k++){s+=layers[k].u*layers[k+1].v-layers[k+1].u*layers[k].v;}srh=Math.abs(s)*0.5;}function col(){var sev=Math.min(1,srh/360);return sev>0.66?'#e0432a':sev>0.33?'#9a6ee0':'#5a8fd0';}function draw(){ctx.clearRect(0,0,320,320);ctx.strokeStyle='rgba(138,92,216,0.18)';ctx.lineWidth=1;for(var r=1;r<=4;r++){ctx.beginPath();ctx.arc(cx,cy,r*30,0,Math.PI*2);ctx.stroke();}ctx.strokeStyle='rgba(230,221,214,0.10)';ctx.beginPath();ctx.moveTo(cx-128,cy);ctx.lineTo(cx+128,cy);ctx.moveTo(cx,cy-128);ctx.lineTo(cx,cy+128);ctx.stroke();if(layers.length){var cc=col();ctx.beginPath();ctx.moveTo(cx,cy);for(var i=0;i<layers.length;i++){ctx.lineTo(cx+layers[i].u*scale,cy-layers[i].v*scale);}ctx.strokeStyle=cc;ctx.lineWidth=2.2;ctx.stroke();var last=layers[layers.length-1];ctx.fillStyle=cc;ctx.beginPath();ctx.arc(cx+last.u*scale,cy-last.v*scale,3.6,0,Math.PI*2);ctx.fill();}}function update(){recompute();var val=Math.round(srh);var ve=document.getElementById('rw-srh-val');if(ve)ve.textContent=val;var v;if(val<60){v='single-cell · no rotation';}else if(val<150){v='multicell · weak shear';}else if(val<300){v='supercell possible · veering profile';}else{v='TORNADIC · hook echo likely';}var vd=document.getElementById('rw-verdict');if(vd)vd.textContent=v;var f=document.getElementById('rw-fill');if(f)f.style.width=Math.min(100,val/3.6)+'%';draw();}window.addEventListener('keydown',function(e){if(e.metaKey||e.ctrlKey||e.altKey)return;if(e.key&&e.key.length===1){angle+=0.34;mag+=0.42;layers.push({u:Math.cos(angle)*mag*0.55,v:Math.sin(angle)*mag*0.55});if(layers.length>16)layers.shift();update();}});setInterval(function(){if(layers.length){for(var i=0;i<layers.length;i++){layers[i].u*=0.96;layers[i].v*=0.96;}if(layers.length>1&&Math.random()<0.3)layers.shift();angle*=0.99;mag*=0.97;if(mag<2)mag=2;update();}},900);update();})();
 </script>
 <script data-section="scroll-hint">
 (() => { const hint = document.querySelector('.scroll-hint-bar'); if (!hint) return; let hidden = false; window.addEventListener('scroll', () => { if (!hidden && window.scrollY > 200) { hint.style.opacity = '0'; hidden = true; } }); })()
@@ -1122,7 +1122,7 @@
       count: 50,
       size: 0.2,
       speed: 0.01,
-      color: '#9a6ee0',
+      color: '#8a5cd8',
       opacity: 0.05,
       spread: 3,
       orbital_radius: 4,
@@ -1146,7 +1146,7 @@
     lighting: {
       ambient_color: '#0e1a22',
       ambient_intensity: 0.15,
-      point_color: '#7d4bd0',
+      point_color: '#8a5cd8',
       point_intensity: 0.3,
       point_position: [2, 3, 4],
     },
@@ -1158,7 +1158,7 @@
     time_themes: {
       dawn:      { particle_color: '#9a6ee0', fog_color: '#0d0806', ambient: '#2a1a0e', speed_mult: 0.6 },
       morning:   { particle_color: '#7d4bd0', fog_color: '#0a0806', ambient: '#2a1e1a', speed_mult: 0.8 },
-      afternoon: { particle_color: '#6a3cc0', fog_color: '#0d0a06', ambient: '#2a2a1a', speed_mult: 1.0 },
+      afternoon: { particle_color: '#7d4bd0', fog_color: '#0d0a06', ambient: '#2a2a1a', speed_mult: 1.0 },
       evening:   { particle_color: '#54309c', fog_color: '#0a0806', ambient: '#1e1a2a', speed_mult: 0.7 },
       night:     { particle_color: '#3d2270', fog_color: '#080604', ambient: '#1a1410', speed_mult: 0.4 },
     },
@@ -1566,12 +1566,6 @@
   // Easter egg: Type 'hook' anywhere — a hook echo, the curling radar signature of a tornado, draws itself near the center of the scope in storm-red and fades over ~3.6 seconds.
   (function(){var b='';addEventListener('keydown',function(e){if(!e.key||e.key.length!==1)return;b=(b+e.key.toLowerCase()).slice(-4);if(b==='hook'){var d=document.createElement('div');d.style.cssText='position:fixed;left:50%;top:44%;transform:translate(-50%,-50%);z-index:9;pointer-events:none';d.innerHTML="<svg width='200' height='200' viewBox='0 0 100 100'><path d='M50 14 a36 36 0 1 1 -25 62 q-3 11 11 13' fill='none' stroke='#e0432a' stroke-width='4' stroke-linecap='round'><animate attributeName='opacity' from='0.95' to='0' dur='3.6s' fill='freeze'/></path></svg>";document.body.appendChild(d);setTimeout(function(){d.remove();},3700);}});})();
   // @gene:type-'hook'-anywhere-—-a-hook-:end
-
-  // @gene:type-'squall'-anywhere-rolls-a:start
-  // Easter egg: type-'squall'-anywhere-rolls-a-shelf-cloud-across-the-scope
-  (function(){let buf='';addEventListener('keydown',e=>{if(e.key&&e.key.length===1){buf=(buf+e.key.toLowerCase()).slice(-6);if(buf.endsWith('squall')){const v=document.createElement('div');v.style.cssText='position:fixed;top:0;left:-40%;width:38%;height:100%;z-index:60;pointer-events:none;background:linear-gradient(90deg,transparent,rgba(31,176,212,0.10) 55%,rgba(78,198,224,0.32) 88%,rgba(10,20,26,0.6));filter:blur(2px);transition:left 2.2s cubic-bezier(.3,.7,.4,1)';document.body.appendChild(v);requestAnimationFrame(()=>v.style.left='110%');setTimeout(()=>{document.body.style.transition='filter .12s';document.body.style.filter='brightness(1.25)';setTimeout(()=>document.body.style.filter='',120);},900);setTimeout(()=>v.remove(),2600);buf='';}}});})();
-  // @gene:type-'squall'-anywhere-rolls-a:end
-
 // @gene:type-'strike'-anywhere-on-the-:start
   // Easter egg: Type 'strike' anywhere on the page to throw a bolt of lightning — the viewport flashes white-yellow then fades, and a filtered-noise thunder rumble answers a beat late.
   (function(){let buf='';addEventListener('keydown',function(e){if(e.key&&e.key.length===1){buf=(buf+e.key.toLowerCase()).slice(-6);if(buf.endsWith('strike')){const f=document.createElement('div');f.style.cssText='position:fixed;inset:0;z-index:9998;pointer-events:none;background:rgba(240,196,30,0);transition:background .05s;';document.body.appendChild(f);requestAnimationFrame(function(){f.style.background='rgba(247,232,160,0.5)';});setTimeout(function(){f.style.background='rgba(240,196,30,0.12)';},70);setTimeout(function(){f.style.transition='background .5s';f.style.background='rgba(240,196,30,0)';},150);setTimeout(function(){f.remove();},700);try{const ac=new (window.AudioContext||window.webkitAudioContext)();const n=ac.sampleRate*1.4,b=ac.createBuffer(1,n,ac.sampleRate),d=b.getChannelData(0);for(let i=0;i<n;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/n,2);const s=ac.createBufferSource();s.buffer=b;const lp=ac.createBiquadFilter();lp.type='lowpass';lp.frequency.value=300;const g=ac.createGain();g.gain.value=0.4;s.connect(lp);lp.connect(g);g.connect(ac.destination);setTimeout(function(){s.start();},180);}catch(err){}}}});})();

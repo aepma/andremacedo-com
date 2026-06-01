@@ -1,16 +1,16 @@
 {
-  "generation": 166,
-  "epoch": "clearing",
+  "generation": 165,
+  "epoch": "the forecaster's console",
   "epoch_started": "2026-06-01",
   "traits": {
     "color": {
-      "accent_base": "#8a5cd8",
+      "accent_base": "#7d4bd0",
       "accent_dawn": "#9a6ee0",
-      "accent_morning": "#8a5cd8",
-      "accent_afternoon": "#7d4bd0",
-      "accent_evening": "#634098",
-      "accent_night": "#4a2f78",
-      "bg": "#111111",
+      "accent_morning": "#7d4bd0",
+      "accent_afternoon": "#6a3cc0",
+      "accent_evening": "#54309c",
+      "accent_night": "#3d2270",
+      "bg": "#0a141a",
       "fg": "#e6ddd6",
       "grain_opacity": "0.06",
       "fg_dim": "#9aa4ac",
@@ -229,23 +229,35 @@
       "type-'thunder'-anywhere-on-the",
       "type-'smalt'-anywhere-on-the-p",
       "type-'strike'-anywhere-on-the-",
+      "type-'squall'-anywhere-rolls-a",
       "type-'hook'-anywhere-\u2014-a-hook-",
       "type-'spin'-anywhere-pins-the-"
     ],
     "content": {
-      "mood": "neutral",
-      "obsession": "",
+      "mood": "rotating",
+      "obsession": "typography as weather \u2014 the page is a forecaster's console; the visitor's input is the storm, and the instruments predict where it turns",
       "thought_pools": {
-        "dawn": 12,
+        "dawn": 10,
         "morning": 10,
-        "afternoon": 11,
+        "afternoon": 10,
         "evening": 10,
-        "night": 10
+        "night": 9
       },
-      "secrets_count": 21
+      "secrets_count": 20
     }
   },
   "fitness_log": [
+    {
+      "gen": 146,
+      "coherence": 8,
+      "novelty": 6,
+      "identity": 9,
+      "tension": 6,
+      "awe": 6,
+      "perceptibility": 7,
+      "note": "Day 24 of engraved chassis. Recital LOVE is deepened with hover-preview tones \u2014 each movement rings a single bar on hover, the audience samples before",
+      "total": 7.0
+    },
     {
       "gen": 147,
       "coherence": 8,
@@ -454,20 +466,28 @@
       "perceptibility": 6,
       "note": "The storm console is recognizably itself and the prediction pivot (gen 164, Hodograph) gave the obsession fresh mechanics without breaking the chassis",
       "total": 7.2
-    },
-    {
-      "gen": 166,
-      "coherence": 8,
-      "novelty": 7,
-      "identity": 8,
-      "tension": 7,
-      "awe": 6,
-      "perceptibility": 6,
-      "note": "Epoch 7's forecaster's console is recognizably itself \u2014 the Doppler scope, the prediction pivot, the wall-cloud violet. But the below-fold contrast le",
-      "total": 7.0
     }
   ],
   "mutation_log": [
+    {
+      "gen": 146,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "interaction.type-'smalt'-anywhere-on-the-p",
+        "section.tonights-composition",
+        "page.experiments/067.html"
+      ],
+      "kills": [
+        "secret[20]",
+        "css_rule:gen143-css",
+        "interaction:type-'rubric'-anywhere-to-flas"
+      ],
+      "timestamp": "2026-05-21T08:04:01Z"
+    },
     {
       "gen": 147,
       "mutations": [
@@ -880,26 +900,21 @@
         "css_rule:gen159-css"
       ],
       "timestamp": "2026-06-01T06:02:26Z"
-    },
-    {
-      "gen": 166,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "section.rotation-watch",
-        "scene.config"
-      ],
-      "kills": [
-        "css_rule:gen160-css",
-        "interaction:type-'squall'-anywhere-rolls-a"
-      ],
-      "timestamp": "2026-06-01T13:43:03Z"
     }
   ],
   "graveyard": [
+    {
+      "type": "interaction",
+      "value": "type-'rubric'-anywhere-to-flas",
+      "died_gen": 150,
+      "epitaph": "Gene-marked killable. Another manuscript-era relic \u2014 rubrics are red marginal directions on a scribe's page, and there is no scribe in a storm chart. The whole interaction set is at 14/12 capacity; this and verte bring it back to 12/12."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen144-css",
+      "died_gen": 150,
+      "epitaph": "Six generations dormant. The velvet-rose programme-card styling from the recital era \u2014 preserved through five gens of deepening but obsolete after tonight's chassis pivot. Removed cleanly with gen148-css; gen149-css stays as the bridge."
+    },
     {
       "type": "css_rule",
       "value": "gen148-css",
@@ -1187,18 +1202,6 @@
       "value": "gen159-css",
       "died_gen": 165,
       "epitaph": "Fusion-console styling from the three-screens-into-one move \u2014 its rules are now carried by the live scope and gen162/164 CSS. Five generations dormant, gene-marked killable."
-    },
-    {
-      "type": "css_rule",
-      "value": "gen160-css",
-      "died_gen": 166,
-      "epitaph": "Audio-era console styling. The storm sounds, but this rule has been dormant five generations \u2014 the console reads silent now."
-    },
-    {
-      "type": "interaction",
-      "value": "type-'squall'-anywhere-rolls-a",
-      "died_gen": 166,
-      "epitaph": "An observation-era reflex. The obsession turned from watching the storm to forecasting it; a squall rolling past is yesterday's instrument. Interactions back to 12/12."
     }
   ],
   "carrying_capacity": {
@@ -1217,6 +1220,11 @@
     "min_kills_weekly": 4
   },
   "color_history": [
+    {
+      "gen": 156,
+      "base": "#f0c41e",
+      "family": "orange"
+    },
     {
       "gen": 157,
       "base": "#2fcf6e",
@@ -1260,11 +1268,6 @@
     {
       "gen": 165,
       "base": "#7d4bd0",
-      "family": "blue"
-    },
-    {
-      "gen": 166,
-      "base": "#8a5cd8",
       "family": "blue"
     }
   ],
@@ -1344,17 +1347,6 @@
         "    FAIL  #8a5ce0  ratio=4.16:1  (< 4.5)"
       ],
       "timestamp": "2026-06-01T06:02:26Z"
-    },
-    {
-      "gen": 166,
-      "messages": [
-        "  [contrast-gate below-fold] effective bg = #0a141a from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
-        "    FAIL  #0a141a  ratio=1.00:1  (< 4.5)",
-        "    FAIL  #0e1a22  ratio=1.05:1  (< 4.5)",
-        "    FAIL  #142028  ratio=1.12:1  (< 4.5)",
-        "    FAIL  #8a5ce0  ratio=4.16:1  (< 4.5)"
-      ],
-      "timestamp": "2026-06-01T13:43:03Z"
     }
   ]
 }
