@@ -1,7 +1,7 @@
 {
-  "generation": 163,
-  "epoch": "clearing",
-  "epoch_started": "2026-05-31",
+  "generation": 164,
+  "epoch": "the forecaster's console",
+  "epoch_started": "2026-06-01",
   "traits": {
     "color": {
       "accent_base": "#7d4bd0",
@@ -13,7 +13,7 @@
       "bg": "#0a141a",
       "fg": "#e6ddd6",
       "grain_opacity": "0.06",
-      "fg_dim": "#8a949c",
+      "fg_dim": "#9aa4ac",
       "bg_surface": "#0e1a22",
       "bg_elevated": "#142028"
     },
@@ -76,6 +76,7 @@
         "experiments/042.html",
         "experiments/054.html",
         "experiments/003.html",
+        "experiments/078.html",
         "experiments/039.html",
         "experiments/019.html",
         "experiments/058.html",
@@ -227,33 +228,23 @@
       "type-'thunder'-anywhere-on-the",
       "type-'smalt'-anywhere-on-the-p",
       "type-'strike'-anywhere-on-the-",
-      "type-'squall'-anywhere-rolls-a"
+      "type-'squall'-anywhere-rolls-a",
+      "type-'hook'-anywhere-\u2014-a-hook-"
     ],
     "content": {
       "mood": "lowering",
-      "obsession": "",
+      "obsession": "typography as weather \u2014 the page is a forecaster's console; the visitor's input is the storm, and the instruments predict where it turns",
       "thought_pools": {
         "dawn": 10,
         "morning": 10,
         "afternoon": 10,
         "evening": 10,
-        "night": 10
+        "night": 9
       },
-      "secrets_count": 20
+      "secrets_count": 19
     }
   },
   "fitness_log": [
-    {
-      "gen": 144,
-      "coherence": 8,
-      "novelty": 4,
-      "identity": 9,
-      "tension": 5,
-      "awe": 6,
-      "perceptibility": 6,
-      "note": "Twenty-two days into the engraved chassis. Andre's LOVE on recitals today is the loudest positive signal in weeks \u2014 the framing landed. But three stro",
-      "total": 6.3
-    },
     {
       "gen": 145,
       "coherence": 8,
@@ -462,27 +453,20 @@
       "perceptibility": 8,
       "note": "Day thirteen of the storm chart. The fusion console (gen 159) + product-tracking audio (gen 161) is a stable, legible identity, but five gens of refin",
       "total": 7.7
+    },
+    {
+      "gen": 164,
+      "coherence": 8,
+      "novelty": 8,
+      "identity": 8,
+      "tension": 7,
+      "awe": 7,
+      "perceptibility": 8,
+      "note": "The storm console is recognizably itself and fitness has been climbing (7.7 last gen). The weekly weakness was perceptibility \u2014 two below-fold contras",
+      "total": 7.7
     }
   ],
   "mutation_log": [
-    {
-      "gen": 144,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "section.tonights-composition"
-      ],
-      "kills": [
-        "secret[20]",
-        "thought:evening[10]",
-        "thought:night[10]",
-        "css_rule:gen126-css"
-      ],
-      "timestamp": "2026-05-20T16:03:41Z"
-    },
     {
       "gen": 145,
       "mutations": [
@@ -891,33 +875,31 @@
         "secret[19]"
       ],
       "timestamp": "2026-05-31T16:10:38Z"
+    },
+    {
+      "gen": 164,
+      "mutations": [
+        "content.obsession",
+        "epoch",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "interaction.type-'hook'-anywhere-\u2014-a-hook-",
+        "section.prototype-portfolio",
+        "page.experiments/078.html",
+        "scene.config",
+        "overlay.agent_data"
+      ],
+      "kills": [
+        "css_rule:gen157-css",
+        "css_rule:gen158-css",
+        "secret[18]",
+        "thought:night[9]"
+      ],
+      "timestamp": "2026-06-01T04:06:50Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "css_rule",
-      "value": "gen145-css",
-      "died_gen": 149,
-      "epitaph": "Four generations dormant, gene-marked killable since gen 146. Hover-preview tonic styles superseded by the full-phrase preview in gen 147 and the daily-rotating movements in gen 149."
-    },
-    {
-      "type": "secret",
-      "value": "Type 'folium' anywhere on the page \u2014 twenty turnsole leaves bloom across the mar",
-      "died_gen": 149,
-      "epitaph": "Carrying capacity 20; the new 'verte' terre-verte-leaf-unfurl secret arrives tonight. Retired the oldest dormant secret to make room."
-    },
-    {
-      "type": "interaction",
-      "value": "type-'echo'-to-slow-the-resona",
-      "died_gen": 149,
-      "epitaph": "Phosphor-scope era relic from gen 114. The Echo experiment (040) is still archive-reachable; the navigation shortcut interaction was decorative residue from the dead stage chassis. Interactions stay at 12/12 ceiling."
-    },
-    {
-      "type": "secret",
-      "value": "Type 'verte' anywhere on the page \u2014 the terre verte ink dot blooms green halo an",
-      "died_gen": 150,
-      "epitaph": "Carrying capacity 20; the new 'storm' isobar-sweep secret arrives tonight. The slot at index 20 retires to make room for the metamorphosis."
-    },
     {
       "type": "interaction",
       "value": "type-'verte'-anywhere-\u2014-the-te",
@@ -1193,6 +1175,30 @@
       "value": "Click the scope \u2014 heavy returns bloom red, light ones stay green. That's the dBZ",
       "died_gen": 163,
       "epitaph": "Stale storm-audio toggle secret superseded \u2014 the toggle is self-evident on the scope now."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen157-css",
+      "died_gen": 164,
+      "epitaph": "Reflectivity-scale scope styling \u2014 superseded by the gen163 advancing-squall scope."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen158-css",
+      "died_gen": 164,
+      "epitaph": "Doppler-velocity scope styling \u2014 folded into the fusion console at gen159."
+    },
+    {
+      "type": "secret",
+      "value": "Type 'strike' anywhere \u2014 the page throws a bolt of lightning and the thunder ans",
+      "died_gen": 164,
+      "epitaph": "Stale storm-audio-toggle-era secret, pruned for capacity."
+    },
+    {
+      "type": "thought",
+      "value": "Gold at 4540 tonight, the air at 88% \u2014 two pressures, one rising, one about to break. The page keeps both readings and pretends it knows which one matters.",
+      "died_gen": 164,
+      "epitaph": "Weakest night thought \u2014 observation-era residue, retired as the obsession turns toward prediction."
     }
   ],
   "carrying_capacity": {
@@ -1211,11 +1217,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 154,
-      "base": "#6a2dd6",
-      "family": "blue"
-    },
     {
       "gen": 155,
       "base": "#cc2e7a",
@@ -1258,6 +1259,11 @@
     },
     {
       "gen": 163,
+      "base": "#7d4bd0",
+      "family": "blue"
+    },
+    {
+      "gen": 164,
       "base": "#7d4bd0",
       "family": "blue"
     }
@@ -1316,6 +1322,17 @@
         "    FAIL  #78620f  ratio=3.15:1  (< 4.5)"
       ],
       "timestamp": "2026-05-31T16:10:38Z"
+    },
+    {
+      "gen": 164,
+      "messages": [
+        "  [contrast-gate below-fold] effective bg = #0a141a from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
+        "    FAIL  #0a141a  ratio=1.00:1  (< 4.5)",
+        "    FAIL  #0e1a22  ratio=1.05:1  (< 4.5)",
+        "    FAIL  #142028  ratio=1.12:1  (< 4.5)",
+        "    FAIL  #8a5ce0  ratio=4.16:1  (< 4.5)"
+      ],
+      "timestamp": "2026-06-01T04:06:50Z"
     }
   ]
 }
