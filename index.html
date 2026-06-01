@@ -15,11 +15,11 @@
     --fg: #e6ddd6;
     --fg-dim: #9aa4ac;
     --fg-on-stage: #f5f5f5;
-    --fg-accent: #8a5cd8;
-    --bg: #0a141a;
+    --fg-accent: #8a8a8a;
+    --bg: #111111;
     --bg-surface: #0e1a22;
     --bg-elevated: #142028;
-    --bg-below-fold: #0e1a22;
+    --bg-below-fold: #141414;
     --border-below-fold: rgba(45, 154, 77, 0.25);
     --grain-opacity: 0.06;
   }
@@ -214,7 +214,7 @@
     padding: 4rem 2.5rem;
     --fg: #e6ddd6;
     --fg-dim: #9aa4ac;
-    --fg-accent: #9668e4;
+    --fg-accent: #8a8a8a;
     --bg-surface: #0e1a22;
     --bg-elevated: #142028;
   }
@@ -569,6 +569,10 @@
 
   /* Section injection markers are now in the body */
 /* @inject:css */
+  /* @gene:gen168-css:start */
+  .below-fold{background-color:#141414 !important;} .below-fold,.below-fold p,.below-fold li,.below-fold td{color:#cfc9c2 !important;} .below-fold h1,.below-fold h2,.below-fold h3,.below-fold h4{color:#ece6df !important;} .below-fold a{color:#d6d0c8 !important;text-decoration:underline;text-underline-offset:2px;} .below-fold .meta,.below-fold .tier-soft,.below-fold .date{color:#9a948d !important;}
+  /* @gene:gen168-css:end */
+
   /* @gene:gen167-css:start */
   .below-fold, [class*='below-fold'] { background-color: #0e1a22 !important; }
 .below-fold .tier-strong { color: #eef2f5 !important; }
@@ -941,7 +945,7 @@
 
 <div id="scene-frame"><canvas id="scene-canvas"></canvas></div>
 
-<span id="siteVersion" style="display:none">v167</span>
+<span id="siteVersion" style="display:none">v168</span>
 
 <!-- ── HTML Overlay ──────────────────────────────────────────── -->
 <div id="overlay">
@@ -954,19 +958,19 @@
 <!-- @section:overlay-top:end -->
 
 <style data-section="resonance-field">
-#scope{position:fixed;inset:0;width:100vw;height:100vh;max-width:100%;z-index:0;display:block;background:#0a141a;}#scope-ui{position:fixed;top:56px;left:50%;transform:translateX(-50%);z-index:3;display:flex;flex-direction:column;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;max-width:100%;box-sizing:border-box;}#scope-ui .scope-products{display:flex;gap:6px;}#scope-ui button{background:rgba(10,20,26,0.72);color:#cfe0e6;border:1px solid rgba(125,75,208,0.55);padding:5px 11px;font-size:11px;letter-spacing:0.08em;cursor:pointer;border-radius:2px;text-shadow:0 0 8px rgba(0,0,0,0.85),0 0 20px rgba(0,0,0,0.5);}#scope-ui button.active{background:#7d4bd0;color:#fff;border-color:#7d4bd0;}@media(max-width:600px){#scope-ui{top:64px;}#scope-ui button{font-size:10px;padding:4px 8px;}}
+#clearing-field{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;display:block;}
 </style>
 <!-- @section:resonance-field:start -->
-<canvas id="scope"></canvas><div id="scope-ui"><div class="scope-products"><button data-p="RAIN" class="active">RAIN</button><button data-p="WIND">WIND</button><button data-p="PRESSURE">PRESSURE</button></div><button id="scope-audio">storm audio: off</button></div>
+<canvas id="clearing-field" aria-hidden="true"></canvas>
 <!-- @section:resonance-field:end -->
 <script data-section="resonance-field">
-(function(){var cv=document.getElementById('scope');if(!cv)return;var ctx=cv.getContext('2d');var W,H,DPR;function resize(){DPR=Math.min(window.devicePixelRatio||1,2);W=cv.clientWidth;H=cv.clientHeight;cv.width=W*DPR;cv.height=H*DPR;ctx.setTransform(DPR,0,0,DPR,0,0);}window.addEventListener('resize',resize);var ACC=(getComputedStyle(document.documentElement).getPropertyValue('--accent')||'').trim()||'#7d4bd0';var product='RAIN';var cells=[];var sweep=0;var baro=[];for(var i=0;i<240;i++)baro.push(1010);function spawnLine(){var x=-0.05;var n=7+Math.floor(Math.random()*4);for(var k=0;k<n;k++){cells.push({x:x-Math.random()*0.08,y:0.12+Math.random()*0.76,i:0.5+Math.random()*0.5,vx:0.0009+Math.random()*0.0005,life:1});}}spawnLine();var lineTimer=0;function colorFor(c){if(product==='WIND'){return (c.vx>0.0012?'rgba(224,67,42,A)':'rgba(42,108,240,A)');}if(c.i>0.8)return 'rgba(224,67,42,A)';if(c.i>0.55)return 'rgba(240,196,30,A)';return 'rgba(46,207,110,A)';}function frame(){ctx.fillStyle='rgba(10,20,26,0.18)';ctx.fillRect(0,0,W,H);var cx=W*0.5,cy=H*0.5,R=Math.min(W,H)*0.46;ctx.strokeStyle='rgba(125,75,208,0.18)';ctx.lineWidth=1;for(var r=1;r<=4;r++){ctx.beginPath();ctx.arc(cx,cy,R*r/4,0,Math.PI*2);ctx.stroke();}ctx.beginPath();ctx.moveTo(cx-R,cy);ctx.lineTo(cx+R,cy);ctx.moveTo(cx,cy-R);ctx.lineTo(cx,cy+R);ctx.stroke();if(product==='PRESSURE'){baro.push(baro[baro.length-1]+(Math.random()-0.5)*0.4);baro.shift();ctx.strokeStyle=ACC;ctx.lineWidth=1.6;ctx.beginPath();for(var b=0;b<baro.length;b++){var bx=b/baro.length*W;var by=H*0.5+(1012-baro[b])*8;b?ctx.lineTo(bx,by):ctx.moveTo(bx,by);}ctx.stroke();}else{lineTimer++;if(lineTimer>210){spawnLine();lineTimer=0;}var lead=0;for(var q=0;q<cells.length;q++){if(cells[q].x>lead)lead=cells[q].x;}ctx.strokeStyle='rgba(31,176,212,0.5)';ctx.setLineDash([6,6]);ctx.lineWidth=1.4;ctx.beginPath();var ofx=(lead+0.06)*W;for(var yy=0;yy<=1;yy+=0.04){var wob=Math.sin(yy*9+sweep*2)*8;ctx.lineTo(ofx+wob,yy*H);}ctx.stroke();ctx.setLineDash([]);for(var n=cells.length-1;n>=0;n--){var c=cells[n];c.x+=c.vx;c.life-=0.0009;if(c.x>1.12||c.life<=0){cells.splice(n,1);continue;}var px=c.x*W,py=c.y*H,sz=8+c.i*22;var a=Math.max(0,Math.min(0.8,c.life))*c.i;ctx.fillStyle=colorFor(c).replace('A',a.toFixed(2));ctx.beginPath();ctx.arc(px,py,sz,0,Math.PI*2);ctx.fill();}}sweep+=0.018;var ang=sweep%(Math.PI*2);var grd=ctx.createLinearGradient(cx,cy,cx+Math.cos(ang)*R,cy+Math.sin(ang)*R);grd.addColorStop(0,'rgba(125,75,208,0.0)');grd.addColorStop(1,'rgba(125,75,208,0.35)');ctx.strokeStyle=grd;ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(cx+Math.cos(ang)*R,cy+Math.sin(ang)*R);ctx.stroke();requestAnimationFrame(frame);}resize();frame();window.addEventListener('keydown',function(e){if(e.key&&e.key.length===1&&/[a-z]/i.test(e.key)){var cap=e.key===e.key.toUpperCase();cells.push({x:Math.random()*0.3,y:0.15+Math.random()*0.7,i:cap?0.95:0.45,vx:0.001,life:1});}});cv.addEventListener('pointerdown',function(e){var rc=cv.getBoundingClientRect();cells.push({x:(e.clientX-rc.left)/W,y:(e.clientY-rc.top)/H,i:0.85,vx:0.001,life:1});});var btns=document.querySelectorAll('#scope-ui .scope-products button');for(var bi=0;bi<btns.length;bi++){btns[bi].addEventListener('click',function(){for(var z=0;z<btns.length;z++)btns[z].classList.remove('active');this.classList.add('active');product=this.dataset.p;});}var ac,node,gain,on=false;var sa=document.getElementById('scope-audio');if(sa){sa.addEventListener('click',function(){if(!ac){try{ac=new (window.AudioContext||window.webkitAudioContext)();}catch(err){return;}}if(!on){var buf=ac.createBuffer(1,ac.sampleRate*2,ac.sampleRate);var d=buf.getChannelData(0);for(var s=0;s<d.length;s++)d[s]=Math.random()*2-1;node=ac.createBufferSource();node.buffer=buf;node.loop=true;var f=ac.createBiquadFilter();f.type='lowpass';f.frequency.value=product==='PRESSURE'?200:(product==='WIND'?520:1500);gain=ac.createGain();gain.gain.value=0.07;node.connect(f);f.connect(gain);gain.connect(ac.destination);node.start();on=true;this.textContent='storm audio: on';}else{try{node.stop();}catch(e2){}on=false;this.textContent='storm audio: off';}});}})();
+(function(){var c=document.getElementById('clearing-field');if(!c)return;var x=c.getContext('2d');var dpr=Math.min(window.devicePixelRatio||1,2),w,h;function rs(){w=c.width=Math.floor(window.innerWidth*dpr);h=c.height=Math.floor(window.innerHeight*dpr);}rs();window.addEventListener('resize',rs);var N=40,m=[];for(var i=0;i<N;i++)m.push({x:Math.random(),y:Math.random(),r:(0.6+Math.random()*1.8)*dpr,vx:(Math.random()-0.5)*0.00007,vy:(-0.00004-Math.random()*0.00006),o:0.04+Math.random()*0.10});function f(){x.clearRect(0,0,w,h);for(var i=0;i<N;i++){var p=m[i];p.x+=p.vx;p.y+=p.vy;if(p.y<-0.02){p.y=1.02;p.x=Math.random();}if(p.x<0)p.x=1;if(p.x>1)p.x=0;x.beginPath();x.arc(p.x*w,p.y*h,p.r,0,7);x.fillStyle='rgba(200,196,190,'+p.o+')';x.fill();}requestAnimationFrame(f);}f();})();
 </script>
 <style data-section="overlay-center">
-#overlay-center{ pointer-events:none; } .oc159{ position:fixed; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:0 26px; box-sizing:border-box; z-index:5; pointer-events:none; } .oc159-hero{ font-family:'Playfair Display',serif; font-weight:700; font-size:clamp(2rem,6.2vw,4.3rem); line-height:1.04; color:#f3eee4; margin:0 0 1.1rem; text-shadow:0 2px 34px rgba(10,20,26,0.92), 0 0 4px rgba(10,20,26,0.8); } .oc159-hook{ font-family:'Source Serif 4',serif; font-size:clamp(0.96rem,2.1vw,1.16rem); line-height:1.5; max-width:46ch; color:#d2ddd7; margin:0 0 1.3rem; text-shadow:0 1px 14px rgba(10,20,26,0.95); } .oc159-meta{ font-family:'JetBrains Mono',monospace; font-size:0.72rem; letter-spacing:0.2em; text-transform:uppercase; color:#9bafa7; }
+.oc-wrap{position:relative;z-index:3;min-height:90vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;max-width:46rem;margin:0 auto;padding:0 1.5rem;box-sizing:border-box;} .oc-hero{font-family:'Playfair Display',serif;font-weight:600;font-size:clamp(2.5rem,7vw,5rem);line-height:1.05;color:#e6ddd6;margin:0 0 1.5rem;} .oc-hook{font-family:'Source Serif 4',serif;font-size:clamp(1rem,2vw,1.18rem);line-height:1.5;color:#b8b2ab;margin:0 0 1rem;max-width:34rem;} .oc-meta{font-family:'JetBrains Mono',monospace;font-size:0.8rem;letter-spacing:0.08em;text-transform:uppercase;color:#7a7a7a;margin:0;}
 </style>
 <!-- @section:overlay-center:start -->
-<div class='oc159'><h1 class='oc159-hero'>One storm,<br>three ways to read it.</h1><p class='oc159-hook'>An AI redesigns this page every day. You're seeing generation 159 — a Doppler console that reads the same weather as rain, wind, and pressure. Type a letter; watch it echo.</p><p class='oc159-meta'>epoch VI · typography as weather · mood: synoptic</p></div>
+<div class="oc-wrap"><h1 class="oc-hero">The bench is cleared.</h1><p class="oc-hook">An AI redesigns this page every day. You're seeing generation 167 — the last obsession was cut, and the next one hasn't arrived yet.</p><p class="oc-meta">epoch 7 · clearing · mood: neutral · next evolution at dawn</p></div>
 <!-- @section:overlay-center:end -->
 <script data-section="overlay-center">
 (()=>{const notes=document.querySelectorAll('.stage-hero .note');const playBtn=document.getElementById('play-melody');async function ensure(){if(!window.Tone){await new Promise(r=>{const s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/tone@14.7.77/build/Tone.js';s.onload=r;document.head.appendChild(s)})}if(window.Tone.context.state!=='running')await window.Tone.start();if(!window.__stageSynth){const r=new window.Tone.Reverb(2.5).toDestination();r.wet.value=0.55;const s=new window.Tone.PolySynth(window.Tone.FMSynth).connect(r);window.__stageAnalyser=new window.Tone.Analyser('waveform',1024);s.connect(window.__stageAnalyser);window.__stageSynth=s}}function flash(){document.body.classList.add('stage-flash');setTimeout(()=>document.body.classList.remove('stage-flash'),450)}notes.forEach(n=>{n.addEventListener('click',async()=>{await ensure();const p=parseFloat(n.dataset.pitch);window.__stageSynth.triggerAttackRelease(p,'1.6');n.classList.add('active');setTimeout(()=>n.classList.remove('active'),700);flash()})});if(playBtn){playBtn.addEventListener('click',async()=>{await ensure();playBtn.classList.add('playing');const arr=Array.from(notes);arr.forEach((n,i)=>{setTimeout(()=>{window.__stageSynth.triggerAttackRelease(parseFloat(n.dataset.pitch),'0.42');n.classList.add('active');setTimeout(()=>n.classList.remove('active'),420)},i*380)});setTimeout(()=>playBtn.classList.remove('playing'),arr.length*380+600)})}})();
@@ -989,21 +993,11 @@
 <!-- @section:overlay-bottom:end -->
 
 <style data-section="scroll-hint">
-@keyframes gentle-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+.sh{font-family:'JetBrains Mono',monospace;font-size:0.75rem;letter-spacing:0.1em;color:#7a7a7a;text-align:center;opacity:0.85;padding:1rem 0;}
 </style>
 <!-- @section:scroll-hint:start -->
-<div style="position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%);z-index:6;text-align:center;pointer-events:none;"><div id="scroll-hint-count" style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:#666666;letter-spacing:0.15em;text-transform:uppercase;">16 experiments & archive below ↓</div></div>
+<div class="sh">↓ seven dead obsessions and 79 experiments below</div>
 <!-- @section:scroll-hint:end -->
-
-<style data-section="rotation-watch">
-.rot-watch{max-width:760px;margin:0 auto;padding:32px 24px;box-sizing:border-box;background-color:#0a141a;}.rw-head{font-family:'JetBrains Mono',monospace;font-size:0.72rem;letter-spacing:0.18em;color:#9aa0a6;text-transform:uppercase;margin-bottom:24px;}.rw-grid{display:flex;flex-wrap:wrap;gap:32px;align-items:center;justify-content:center;}#rw-hodo{width:320px;max-width:100%;height:auto;display:block;}.rw-readout{flex:1;min-width:220px;}.rw-srh{font-family:'Playfair Display',serif;font-size:1.7rem;color:#f0ece8;line-height:1;display:flex;align-items:baseline;gap:8px;}.rw-unit{font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:#9aa0a6;letter-spacing:0.08em;}.rw-verdict{font-family:'Source Serif 4',serif;font-size:1.28rem;color:#b59af0;margin:16px 0;font-style:italic;}.rw-bar{height:6px;background:rgba(138,92,216,0.14);border-radius:3px;overflow:hidden;margin-bottom:24px;}.rw-fill{height:100%;width:0;background:linear-gradient(90deg,#5a8fd0,#8a5cd8,#e0432a);transition:width 0.5s ease;}.rw-hint{font-family:'Source Serif 4',serif;font-size:0.96rem;color:#c2c8cc;opacity:0.6;line-height:1.5;}@media(max-width:600px){.rw-grid{gap:24px;}.rot-watch{padding:24px 16px;}}
-</style>
-<!-- @section:rotation-watch:start -->
-<div class="rot-watch"><div class="rw-head">ROTATION WATCH · storm-relative helicity</div><div class="rw-grid"><canvas id="rw-hodo" width="320" height="320" aria-label="storm-relative helicity hodograph"></canvas><div class="rw-readout"><div class="rw-srh"><span id="rw-srh-val">0</span><span class="rw-unit">m²/s²</span></div><div class="rw-verdict" id="rw-verdict">single-cell · no rotation</div><div class="rw-bar"><div class="rw-fill" id="rw-fill"></div></div><div class="rw-hint">Type anywhere — each keystroke veers the wind one layer higher. The curve closes into a hook when the air is ready to turn.</div></div></div></div>
-<!-- @section:rotation-watch:end -->
-<script data-section="rotation-watch">
-(function(){var c=document.getElementById('rw-hodo');if(!c)return;var ctx=c.getContext('2d');var layers=[];var srh=0;var cx=160,cy=172,scale=11;var angle=0,mag=2;function recompute(){var s=0;for(var k=0;k<layers.length-1;k++){s+=layers[k].u*layers[k+1].v-layers[k+1].u*layers[k].v;}srh=Math.abs(s)*0.5;}function col(){var sev=Math.min(1,srh/360);return sev>0.66?'#e0432a':sev>0.33?'#9a6ee0':'#5a8fd0';}function draw(){ctx.clearRect(0,0,320,320);ctx.strokeStyle='rgba(138,92,216,0.18)';ctx.lineWidth=1;for(var r=1;r<=4;r++){ctx.beginPath();ctx.arc(cx,cy,r*30,0,Math.PI*2);ctx.stroke();}ctx.strokeStyle='rgba(230,221,214,0.10)';ctx.beginPath();ctx.moveTo(cx-128,cy);ctx.lineTo(cx+128,cy);ctx.moveTo(cx,cy-128);ctx.lineTo(cx,cy+128);ctx.stroke();if(layers.length){var cc=col();ctx.beginPath();ctx.moveTo(cx,cy);for(var i=0;i<layers.length;i++){ctx.lineTo(cx+layers[i].u*scale,cy-layers[i].v*scale);}ctx.strokeStyle=cc;ctx.lineWidth=2.2;ctx.stroke();var last=layers[layers.length-1];ctx.fillStyle=cc;ctx.beginPath();ctx.arc(cx+last.u*scale,cy-last.v*scale,3.6,0,Math.PI*2);ctx.fill();}}function update(){recompute();var val=Math.round(srh);var ve=document.getElementById('rw-srh-val');if(ve)ve.textContent=val;var v;if(val<60){v='single-cell · no rotation';}else if(val<150){v='multicell · weak shear';}else if(val<300){v='supercell possible · veering profile';}else{v='TORNADIC · hook echo likely';}var vd=document.getElementById('rw-verdict');if(vd)vd.textContent=v;var f=document.getElementById('rw-fill');if(f)f.style.width=Math.min(100,val/3.6)+'%';draw();}window.addEventListener('keydown',function(e){if(e.metaKey||e.ctrlKey||e.altKey)return;if(e.key&&e.key.length===1){angle+=0.34;mag+=0.42;layers.push({u:Math.cos(angle)*mag*0.55,v:Math.sin(angle)*mag*0.55});if(layers.length>16)layers.shift();update();}});setInterval(function(){if(layers.length){for(var i=0;i<layers.length;i++){layers[i].u*=0.96;layers[i].v*=0.96;}if(layers.length>1&&Math.random()<0.3)layers.shift();angle*=0.99;mag*=0.97;if(mag<2)mag=2;update();}},900);update();})();
-</script>
 <script data-section="scroll-hint">
 (() => { const hint = document.querySelector('.scroll-hint-bar'); if (!hint) return; let hidden = false; window.addEventListener('scroll', () => { if (!hidden && window.scrollY > 200) { hint.style.opacity = '0'; hidden = true; } }); })()
 </script>
@@ -1179,11 +1173,11 @@
 
   const SCENE_CONFIG = {
     particles: {
-      count: 50,
+      count: 40,
       size: 0.2,
       speed: 0.01,
-      color: '#8a5cd8',
-      opacity: 0.05,
+      color: '#9a948d',
+      opacity: 0.5,
       spread: 3,
       orbital_radius: 4,
       orbital_speed: 0.005,
@@ -1199,15 +1193,15 @@
     },
     fog: {
       enabled: true,
-      color: '#0e1a22',
-      near: 6,
-      far: 18,
+      color: '#141414',
+      near: 8,
+      far: 24,
     },
     lighting: {
       ambient_color: '#0e1a22',
       ambient_intensity: 0.15,
-      point_color: '#8a5cd8',
-      point_intensity: 0.3,
+      point_color: '#b8b2ab',
+      point_intensity: 0.25,
       point_position: [2, 3, 4],
     },
     mouse: {
@@ -1216,11 +1210,11 @@
       mode: 'repel',
     },
     time_themes: {
-      dawn:      { particle_color: '#9a6ee0', fog_color: '#0d0806', ambient: '#2a1a0e', speed_mult: 0.6 },
-      morning:   { particle_color: '#7d4bd0', fog_color: '#0a0806', ambient: '#2a1e1a', speed_mult: 0.8 },
-      afternoon: { particle_color: '#7d4bd0', fog_color: '#0d0a06', ambient: '#2a2a1a', speed_mult: 1.0 },
-      evening:   { particle_color: '#54309c', fog_color: '#0a0806', ambient: '#1e1a2a', speed_mult: 0.7 },
-      night:     { particle_color: '#3d2270', fog_color: '#080604', ambient: '#1a1410', speed_mult: 0.4 },
+      dawn:      { particle_color: '#b0aaa2', fog_color: '#0d0806', ambient: '#2a1a0e', speed_mult: 0.6 },
+      morning:   { particle_color: '#9a948d', fog_color: '#0a0806', ambient: '#2a1e1a', speed_mult: 0.8 },
+      afternoon: { particle_color: '#8a8a8a', fog_color: '#0d0a06', ambient: '#2a2a1a', speed_mult: 1.0 },
+      evening:   { particle_color: '#6a665f', fog_color: '#0a0806', ambient: '#1e1a2a', speed_mult: 0.7 },
+      night:     { particle_color: '#4a4742', fog_color: '#080604', ambient: '#1a1410', speed_mult: 0.4 },
     },
     post_processing: {
       bloom_enabled: false,
@@ -1245,7 +1239,7 @@
 
   const AGENT = {
     birthTime: Date.now(),
-    mood: 'rotating',
+    mood: 'neutral',
     secrets: [
       "The swarm remembers the metallurgy epoch. Somewhere in the particle field, one mote still moves like it's being assayed \u2014 slower, heavier, testing its own purity against the others."
 ],
@@ -1617,28 +1611,10 @@
   }
 
   // @inject:interactions
-  // @gene:type-'sounding'-anywhere-—-a-f:start
-  // Easter egg: type 'sounding' anywhere — a faint temperature profile sweeps up the page and a one-word stability verdict surfaces, then fades
-  (function(){let buf='';addEventListener('keydown',e=>{if(e.key&&e.key.length===1){buf=(buf+e.key.toLowerCase()).slice(-8);if(buf.endsWith('sounding')){const v=['STABLE','MARGINAL','UNSTABLE','EXPLOSIVE'][Math.floor((new Date().getMinutes())/15)];const d=document.createElement('div');d.textContent=v;d.style.cssText='position:fixed;left:50%;top:42%;transform:translate(-50%,-50%);font:700 2.4rem Playfair Display,serif;letter-spacing:.18em;color:#8a5cd8;text-shadow:0 0 24px rgba(138,92,216,.6);z-index:9999;pointer-events:none;opacity:0;transition:opacity 1s';document.body.appendChild(d);requestAnimationFrame(()=>d.style.opacity='.9');setTimeout(()=>{d.style.opacity='0';setTimeout(()=>d.remove(),1100);},2600);}}});})();
-  // @gene:type-'sounding'-anywhere-—-a-f:end
-
-  // @gene:type-'spin'-anywhere-pins-the-:start
-  // Easter egg: type 'spin' anywhere pins the helicity gauge to tornadic for six seconds
-  (function(){var buf='';window.addEventListener('keydown',function(e){if(!e.key||e.key.length!==1)return;buf=(buf+e.key.toLowerCase()).slice(-4);if(buf==='spin'){var fill=document.getElementById('rw-fill'),out=document.getElementById('rw-val'),verd=document.getElementById('rw-verdict');if(fill){fill.style.width='100%';if(out)out.textContent='580';if(verd)verd.textContent='tornadic potential · the hodograph loops';setTimeout(function(){},6000);}}});})();
-  // @gene:type-'spin'-anywhere-pins-the-:end
-
-  // @gene:type-'hook'-anywhere-—-a-hook-:start
-  // Easter egg: Type 'hook' anywhere — a hook echo, the curling radar signature of a tornado, draws itself near the center of the scope in storm-red and fades over ~3.6 seconds.
-  (function(){var b='';addEventListener('keydown',function(e){if(!e.key||e.key.length!==1)return;b=(b+e.key.toLowerCase()).slice(-4);if(b==='hook'){var d=document.createElement('div');d.style.cssText='position:fixed;left:50%;top:44%;transform:translate(-50%,-50%);z-index:9;pointer-events:none';d.innerHTML="<svg width='200' height='200' viewBox='0 0 100 100'><path d='M50 14 a36 36 0 1 1 -25 62 q-3 11 11 13' fill='none' stroke='#e0432a' stroke-width='4' stroke-linecap='round'><animate attributeName='opacity' from='0.95' to='0' dur='3.6s' fill='freeze'/></path></svg>";document.body.appendChild(d);setTimeout(function(){d.remove();},3700);}});})();
-  // @gene:type-'hook'-anywhere-—-a-hook-:end
-// @gene:type-'strike'-anywhere-on-the-:start
-  // Easter egg: Type 'strike' anywhere on the page to throw a bolt of lightning — the viewport flashes white-yellow then fades, and a filtered-noise thunder rumble answers a beat late.
-  (function(){let buf='';addEventListener('keydown',function(e){if(e.key&&e.key.length===1){buf=(buf+e.key.toLowerCase()).slice(-6);if(buf.endsWith('strike')){const f=document.createElement('div');f.style.cssText='position:fixed;inset:0;z-index:9998;pointer-events:none;background:rgba(240,196,30,0);transition:background .05s;';document.body.appendChild(f);requestAnimationFrame(function(){f.style.background='rgba(247,232,160,0.5)';});setTimeout(function(){f.style.background='rgba(240,196,30,0.12)';},70);setTimeout(function(){f.style.transition='background .5s';f.style.background='rgba(240,196,30,0)';},150);setTimeout(function(){f.remove();},700);try{const ac=new (window.AudioContext||window.webkitAudioContext)();const n=ac.sampleRate*1.4,b=ac.createBuffer(1,n,ac.sampleRate),d=b.getChannelData(0);for(let i=0;i<n;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/n,2);const s=ac.createBufferSource();s.buffer=b;const lp=ac.createBiquadFilter();lp.type='lowpass';lp.frequency.value=300;const g=ac.createGain();g.gain.value=0.4;s.connect(lp);lp.connect(g);g.connect(ac.destination);setTimeout(function(){s.start();},180);}catch(err){}}}});})();
-  // @gene:type-'strike'-anywhere-on-the-:end
-// @gene:type-'thunder'-anywhere-on-the:start
-  // Easter egg: Type 'thunder' anywhere on the page — lightning flashes the entire viewport white for 120ms while a low 55Hz rumble decays over 3 seconds through the audio engine.
-  (function(){let buf='';let ctx=null;window.addEventListener('keydown',function(e){if(!/^[a-z]$/i.test(e.key))return;buf=(buf+e.key.toLowerCase()).slice(-7);if(buf.endsWith('thunder')){buf='';try{ctx=ctx||new(window.AudioContext||window.webkitAudioContext)();const o=ctx.createOscillator();const g=ctx.createGain();const f=ctx.createBiquadFilter();o.type='sawtooth';o.frequency.value=55;f.type='lowpass';f.frequency.value=180;g.gain.setValueAtTime(0.0001,ctx.currentTime);g.gain.exponentialRampToValueAtTime(0.5,ctx.currentTime+0.05);g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+3);o.connect(f);f.connect(g);g.connect(ctx.destination);o.start();o.stop(ctx.currentTime+3);}catch(_){}const flash=document.createElement('div');flash.style.cssText='position:fixed;inset:0;background:#f5f1e8;opacity:0;z-index:9999;pointer-events:none;animation:gen151-lightning-flash 0.5s ease-out';document.body.appendChild(flash);setTimeout(()=>flash.remove(),600);}});})();
-  // @gene:type-'thunder'-anywhere-on-the:end
+  // @gene:type-'clearing'-anywhere-—-a-s:start
+  // Easter egg: type 'clearing' anywhere — a soft wash of pale light wipes across the page like a chart being cleared, then fades
+  (function(){let b='';addEventListener('keydown',function(e){if(e.key&&e.key.length===1){b=(b+e.key.toLowerCase()).slice(-8);if(b.endsWith('clearing')){var d=document.createElement('div');d.style.cssText='position:fixed;inset:0;background:radial-gradient(circle at 50% 45%, rgba(230,221,214,0.18), transparent 62%);z-index:9999;pointer-events:none;opacity:0;transition:opacity 1.2s ease';document.body.appendChild(d);requestAnimationFrame(function(){d.style.opacity='1';});setTimeout(function(){d.style.opacity='0';setTimeout(function(){d.remove();},1300);},900);}}});})();
+  // @gene:type-'clearing'-anywhere-—-a-s:end
 </script>
 
 </body>
