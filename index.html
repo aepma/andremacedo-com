@@ -569,6 +569,14 @@
 
   /* Section injection markers are now in the body */
 /* @inject:css */
+  /* @gene:gen165-css:start */
+  .below-fold{background-color:#0a141a !important}
+.below-fold .tier-strong,.below-fold h1,.below-fold h2,.below-fold h3{color:#e6ddd6 !important}
+.below-fold .tier-mid,.below-fold p{color:#a8b0b8 !important}
+.below-fold .tier-soft,.below-fold .meta-line,.below-fold small,.below-fold .label{color:#8e979e !important}
+.below-fold a{color:#a87ee8 !important}
+  /* @gene:gen165-css:end */
+
   /* @gene:gen164-css:start */
   .below-fold,[class*='below-fold']{background-color:#0a141a!important}.below-fold .tier-strong{color:#f2ede8!important}.below-fold .tier-mid{color:#b9c0c6!important}.below-fold .tier-soft{color:#8e979e!important}.below-fold a{color:#b69ae8!important}.below-fold [class*='warn'],.below-fold [class*='watch'],.below-fold .ribbon{color:#e8c66a!important}.below-fold .meta,.below-fold .meta-line,.below-fold small{color:#8e979e!important}
   /* @gene:gen164-css:end */
@@ -580,10 +588,6 @@
   /* @gene:gen160-css:start */
   .below-fold [class*="warn"], .below-fold [class*="watch"], .below-fold .ribbon, .below-fold .badge, .below-fold .accent-warning { color: #e8c66a !important; } #storm-audio-toggle{position:fixed;left:14px;bottom:14px;z-index:60;background:rgba(10,20,26,0.82);color:#d6e2dc;border:1px solid rgba(224,67,42,0.5);border-radius:3px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.04em;padding:6px 10px;cursor:pointer;max-width:60vw;box-sizing:border-box;text-shadow:0 0 8px rgba(0,0,0,0.85);transition:border-color .3s,color .3s,box-shadow .3s;} #storm-audio-toggle.on{color:#f2614a;border-color:#e0432a;box-shadow:0 0 14px rgba(224,67,42,0.35);} #storm-audio-toggle:hover{border-color:#e0432a;} @media(max-width:600px){#storm-audio-toggle{font-size:10px;padding:5px 8px;left:10px;bottom:10px;max-width:50vw;}}
   /* @gene:gen160-css:end */
-
-  /* @gene:gen159-css:start */
-  .below-fold{ --accent:#7d4bd0; --accent-warning:#e8c66a; } .below-fold a, .below-fold a:visited{ color:#cf9be0 !important; } .below-fold [class*='watch'], .below-fold [class*='warn'], .below-fold [class*='ribbon'], .below-fold [class*='banner']{ color:#e8c66a !important; } .below-fold [class*='badge'], .below-fold [class*='pressure']{ color:#cf9be0 !important; }
-  /* @gene:gen159-css:end */
 </style>
 <!-- MOBILE SCAFFOLD - DO NOT MODIFY (apply_changes.py protected) -->
 <style id="mobile-scaffold">
@@ -932,7 +936,7 @@
 
 <div id="scene-frame"><canvas id="scene-canvas"></canvas></div>
 
-<span id="siteVersion" style="display:none">v164</span>
+<span id="siteVersion" style="display:none">v165</span>
 
 <!-- ── HTML Overlay ──────────────────────────────────────────── -->
 <div id="overlay">
@@ -985,6 +989,16 @@
 <!-- @section:scroll-hint:start -->
 <div style="position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%);z-index:6;text-align:center;pointer-events:none;"><div id="scroll-hint-count" style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:#666666;letter-spacing:0.15em;text-transform:uppercase;">16 experiments & archive below ↓</div></div>
 <!-- @section:scroll-hint:end -->
+
+<style data-section="rotation-watch">
+.rot-watch{max-width:680px;margin:0 auto;padding:48px 24px 24px;box-sizing:border-box;font-family:'JetBrains Mono',monospace;text-align:center;background-color:#0a141a}.rw-label{font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:#8e979e}.rw-readout{font-family:'Playfair Display',serif;font-size:3.2rem;line-height:1;margin:8px 0 16px;color:#e6ddd6}.rw-readout .rw-unit{font-family:'JetBrains Mono',monospace;font-size:1rem;color:#a87ee8;margin-left:8px;vertical-align:super}.rw-bar{position:relative;height:10px;border-radius:6px;background:#142028;overflow:hidden;border:1px solid #1d2c36}.rw-fill{position:absolute;left:0;top:0;bottom:0;width:18%;background:linear-gradient(90deg,#4a7ad0,#7d4bd0,#d6334a);transition:width .5s ease}.rw-verdict{margin-top:16px;font-size:.86rem;letter-spacing:.04em;color:#a8b0b8}.rw-hint{margin-top:8px;font-size:.72rem;color:#8e979e;opacity:.85;line-height:1.5}@media(max-width:600px){.rw-readout{font-size:2.4rem}.rot-watch{padding:32px 16px 16px}}
+</style>
+<!-- @section:rotation-watch:start -->
+<div class="rot-watch below-fold"><div class="rw-label label">storm-relative helicity · 0–3 km layer</div><div class="rw-readout"><span id="rw-val">120</span><span class="rw-unit">m²/s²</span></div><div class="rw-bar"><div class="rw-fill" id="rw-fill"></div></div><div class="rw-verdict tier-mid" id="rw-verdict">single-cell · no rotation expected</div><div class="rw-hint tier-soft">Type anywhere — each gust curves the low-level flow. Watch the needle climb toward rotation. This is the console forecasting, not just observing.</div></div>
+<!-- @section:rotation-watch:end -->
+<script data-section="rotation-watch">
+(function(){var val=120,target=120;var fill=document.getElementById('rw-fill'),out=document.getElementById('rw-val'),verd=document.getElementById('rw-verdict');if(!fill)return;function classify(v){if(v<150)return'single-cell · no rotation expected';if(v<300)return'multicell · gusty, low spin';if(v<450)return'supercell possible · the flow is curving';return'tornadic potential · the hodograph loops';}window.addEventListener('keydown',function(e){if(e.key&&e.key.length===1){target=Math.min(600,target+28+Math.random()*22);}});setInterval(function(){target=Math.max(90,target-3);},120);function loop(){val+=(target-val)*0.08;var pct=Math.min(100,(val/600)*100);fill.style.width=pct.toFixed(1)+'%';out.textContent=Math.round(val);verd.textContent=classify(val);requestAnimationFrame(loop);}loop();})();
+</script>
 <script data-section="scroll-hint">
 (() => { const hint = document.querySelector('.scroll-hint-bar'); if (!hint) return; let hidden = false; window.addEventListener('scroll', () => { if (!hidden && window.scrollY > 200) { hint.style.opacity = '0'; hidden = true; } }); })()
 </script>
@@ -1108,7 +1122,7 @@
       count: 50,
       size: 0.2,
       speed: 0.01,
-      color: '#8a5ce0',
+      color: '#9a6ee0',
       opacity: 0.05,
       spread: 3,
       orbital_radius: 4,
@@ -1543,6 +1557,11 @@
   }
 
   // @inject:interactions
+  // @gene:type-'spin'-anywhere-pins-the-:start
+  // Easter egg: type 'spin' anywhere pins the helicity gauge to tornadic for six seconds
+  (function(){var buf='';window.addEventListener('keydown',function(e){if(!e.key||e.key.length!==1)return;buf=(buf+e.key.toLowerCase()).slice(-4);if(buf==='spin'){var fill=document.getElementById('rw-fill'),out=document.getElementById('rw-val'),verd=document.getElementById('rw-verdict');if(fill){fill.style.width='100%';if(out)out.textContent='580';if(verd)verd.textContent='tornadic potential · the hodograph loops';setTimeout(function(){},6000);}}});})();
+  // @gene:type-'spin'-anywhere-pins-the-:end
+
   // @gene:type-'hook'-anywhere-—-a-hook-:start
   // Easter egg: Type 'hook' anywhere — a hook echo, the curling radar signature of a tornado, draws itself near the center of the scope in storm-red and fades over ~3.6 seconds.
   (function(){var b='';addEventListener('keydown',function(e){if(!e.key||e.key.length!==1)return;b=(b+e.key.toLowerCase()).slice(-4);if(b==='hook'){var d=document.createElement('div');d.style.cssText='position:fixed;left:50%;top:44%;transform:translate(-50%,-50%);z-index:9;pointer-events:none';d.innerHTML="<svg width='200' height='200' viewBox='0 0 100 100'><path d='M50 14 a36 36 0 1 1 -25 62 q-3 11 11 13' fill='none' stroke='#e0432a' stroke-width='4' stroke-linecap='round'><animate attributeName='opacity' from='0.95' to='0' dur='3.6s' fill='freeze'/></path></svg>";document.body.appendChild(d);setTimeout(function(){d.remove();},3700);}});})();

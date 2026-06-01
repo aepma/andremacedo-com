@@ -1,5 +1,5 @@
 {
-  "generation": 164,
+  "generation": 165,
   "epoch": "the forecaster's console",
   "epoch_started": "2026-06-01",
   "traits": {
@@ -33,6 +33,7 @@
         "thought-floater",
         "overlay-bottom",
         "scroll-hint",
+        "rotation-watch",
         "prototype-portfolio"
       ],
       "pages": [
@@ -229,10 +230,11 @@
       "type-'smalt'-anywhere-on-the-p",
       "type-'strike'-anywhere-on-the-",
       "type-'squall'-anywhere-rolls-a",
-      "type-'hook'-anywhere-\u2014-a-hook-"
+      "type-'hook'-anywhere-\u2014-a-hook-",
+      "type-'spin'-anywhere-pins-the-"
     ],
     "content": {
-      "mood": "lowering",
+      "mood": "rotating",
       "obsession": "typography as weather \u2014 the page is a forecaster's console; the visitor's input is the storm, and the instruments predict where it turns",
       "thought_pools": {
         "dawn": 10,
@@ -241,21 +243,10 @@
         "evening": 10,
         "night": 9
       },
-      "secrets_count": 19
+      "secrets_count": 20
     }
   },
   "fitness_log": [
-    {
-      "gen": 145,
-      "coherence": 8,
-      "novelty": 4,
-      "identity": 9,
-      "tension": 5,
-      "awe": 5,
-      "perceptibility": 5,
-      "note": "Day 22 of the engraved chassis. Andre's strong LOVE on recitals confirms the framing landed \u2014 but the same-day MISS on overall update and graphical co",
-      "total": 6.0
-    },
     {
       "gen": 146,
       "coherence": 8,
@@ -464,26 +455,20 @@
       "perceptibility": 8,
       "note": "The storm console is recognizably itself and fitness has been climbing (7.7 last gen). The weekly weakness was perceptibility \u2014 two below-fold contras",
       "total": 7.7
+    },
+    {
+      "gen": 165,
+      "coherence": 8,
+      "novelty": 7,
+      "identity": 8,
+      "tension": 7,
+      "awe": 7,
+      "perceptibility": 6,
+      "note": "The storm console is recognizably itself and the prediction pivot (gen 164, Hodograph) gave the obsession fresh mechanics without breaking the chassis",
+      "total": 7.2
     }
   ],
   "mutation_log": [
-    {
-      "gen": 145,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "section.tonights-composition"
-      ],
-      "kills": [
-        "secret[20]",
-        "css_rule:gen140-css",
-        "interaction:type-'lissajous'-anywhere-to-e"
-      ],
-      "timestamp": "2026-05-21T00:03:12Z"
-    },
     {
       "gen": 146,
       "mutations": [
@@ -897,15 +882,27 @@
         "thought:night[9]"
       ],
       "timestamp": "2026-06-01T04:06:50Z"
+    },
+    {
+      "gen": 165,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "content.mood",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "interaction.type-'spin'-anywhere-pins-the-",
+        "section.rotation-watch",
+        "scene.config"
+      ],
+      "kills": [
+        "css_rule:gen159-css"
+      ],
+      "timestamp": "2026-06-01T06:02:26Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "interaction",
-      "value": "type-'verte'-anywhere-\u2014-the-te",
-      "died_gen": 150,
-      "epitaph": "Gene-marked killable since gen 149. The terre-verte leaf-unfurl belonged to the engraved manuscript chassis, which died tonight. Twenty-one inks were a beautiful palette; a barometric chart needs only two colors and a slash."
-    },
     {
       "type": "interaction",
       "value": "type-'rubric'-anywhere-to-flas",
@@ -1199,6 +1196,12 @@
       "value": "Gold at 4540 tonight, the air at 88% \u2014 two pressures, one rising, one about to break. The page keeps both readings and pretends it knows which one matters.",
       "died_gen": 164,
       "epitaph": "Weakest night thought \u2014 observation-era residue, retired as the obsession turns toward prediction."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen159-css",
+      "died_gen": 165,
+      "epitaph": "Fusion-console styling from the three-screens-into-one move \u2014 its rules are now carried by the live scope and gen162/164 CSS. Five generations dormant, gene-marked killable."
     }
   ],
   "carrying_capacity": {
@@ -1217,11 +1220,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 155,
-      "base": "#cc2e7a",
-      "family": "magenta"
-    },
     {
       "gen": 156,
       "base": "#f0c41e",
@@ -1264,6 +1262,11 @@
     },
     {
       "gen": 164,
+      "base": "#7d4bd0",
+      "family": "blue"
+    },
+    {
+      "gen": 165,
       "base": "#7d4bd0",
       "family": "blue"
     }
@@ -1333,6 +1336,17 @@
         "    FAIL  #8a5ce0  ratio=4.16:1  (< 4.5)"
       ],
       "timestamp": "2026-06-01T04:06:50Z"
+    },
+    {
+      "gen": 165,
+      "messages": [
+        "  [contrast-gate below-fold] effective bg = #0a141a from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
+        "    FAIL  #0a141a  ratio=1.00:1  (< 4.5)",
+        "    FAIL  #0e1a22  ratio=1.05:1  (< 4.5)",
+        "    FAIL  #142028  ratio=1.12:1  (< 4.5)",
+        "    FAIL  #8a5ce0  ratio=4.16:1  (< 4.5)"
+      ],
+      "timestamp": "2026-06-01T06:02:26Z"
     }
   ]
 }
