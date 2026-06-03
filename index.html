@@ -15,11 +15,11 @@
     --fg: #e6ddd6;
     --fg-dim: #9aa4ac;
     --fg-on-stage: #f5f5f5;
-    --fg-accent: #8a8a8a;
+    --fg-accent: #8f8a83;
     --bg: #111111;
     --bg-surface: #0e1a22;
     --bg-elevated: #142028;
-    --bg-below-fold: #141414;
+    --bg-below-fold: #111111;
     --border-below-fold: rgba(45, 154, 77, 0.25);
     --grain-opacity: 0.06;
   }
@@ -214,7 +214,7 @@
     padding: 4rem 2.5rem;
     --fg: #e6ddd6;
     --fg-dim: #9aa4ac;
-    --fg-accent: #8a8a8a;
+    --fg-accent: #8f8a83;
     --bg-surface: #0e1a22;
     --bg-elevated: #142028;
   }
@@ -569,6 +569,10 @@
 
   /* Section injection markers are now in the body */
 /* @inject:css */
+  /* @gene:gen170-css:start */
+  .below-fold, [class*='below-fold'] { background-color: #111111 !important; --bg-below-fold: #111111 !important; } .below-fold, .below-fold p, .below-fold li, .below-fold td, .below-fold span, .below-fold div { color: #cfc8c1 !important; } .below-fold h1, .below-fold h2, .below-fold h3, .below-fold .tier-strong { color: #e6ddd6 !important; } .below-fold .tier-soft, .below-fold .meta, .below-fold small { color: #a8a29a !important; } .below-fold a { color: #e6ddd6 !important; text-decoration-color: #7a756e; }
+  /* @gene:gen170-css:end */
+
   /* @gene:gen169-css:start */
   .below-fold{background:#141414 !important;color:#e6ddd6;}.below-fold a{color:#e6ddd6;text-decoration:none;border-bottom:1px solid #4a4742;transition:border-color .2s,color .2s;}.below-fold a:hover{color:#a8a29a;border-color:#a8a29a;}
   /* @gene:gen169-css:end */
@@ -937,7 +941,7 @@
 
 <div id="scene-frame"><canvas id="scene-canvas"></canvas></div>
 
-<span id="siteVersion" style="display:none">v169</span>
+<span id="siteVersion" style="display:none">v170</span>
 
 <!-- ── HTML Overlay ──────────────────────────────────────────── -->
 <div id="overlay">
@@ -959,10 +963,10 @@
 (function(){var c=document.getElementById('clearing-field');if(!c)return;var x=c.getContext('2d');var dpr=Math.min(window.devicePixelRatio||1,2),w,h;function rs(){w=c.width=Math.floor(window.innerWidth*dpr);h=c.height=Math.floor(window.innerHeight*dpr);}rs();window.addEventListener('resize',rs);var N=40,m=[];for(var i=0;i<N;i++)m.push({x:Math.random(),y:Math.random(),r:(0.6+Math.random()*1.8)*dpr,vx:(Math.random()-0.5)*0.00007,vy:(-0.00004-Math.random()*0.00006),o:0.04+Math.random()*0.10});function f(){x.clearRect(0,0,w,h);for(var i=0;i<N;i++){var p=m[i];p.x+=p.vx;p.y+=p.vy;if(p.y<-0.02){p.y=1.02;p.x=Math.random();}if(p.x<0)p.x=1;if(p.x>1)p.x=0;x.beginPath();x.arc(p.x*w,p.y*h,p.r,0,7);x.fillStyle='rgba(200,196,190,'+p.o+')';x.fill();}requestAnimationFrame(f);}f();})();
 </script>
 <style data-section="overlay-center">
-.oc-wrap{max-width:34rem;margin:0 auto;text-align:center;padding:0 24px;}.oc-hero{font-family:'Playfair Display',serif;font-weight:600;font-size:3.157rem;line-height:1.05;color:#e6ddd6;margin:0 0 24px;}.oc-hook{font-family:'Source Serif 4',serif;font-size:1rem;line-height:1.6;color:#a8a29a;margin:0 0 16px;}.oc-meta{font-family:'JetBrains Mono',monospace;font-size:0.75rem;letter-spacing:0.04em;color:#6a665f;margin:0;}@media(max-width:600px){.oc-hero{font-size:2.369rem;}}
+.clearing-hero{position:relative;max-width:min(92vw,880px);margin:0 auto;padding:0 16px;text-align:center;box-sizing:border-box}.clearing-line{font-family:'Playfair Display',serif;font-weight:500;font-size:clamp(2.6rem,8vw,5.2rem);line-height:1.04;letter-spacing:-0.01em;color:#e6ddd6;margin:0 0 24px}.clearing-hook{font-family:'Source Serif 4',serif;font-size:clamp(1rem,2.2vw,1.15rem);line-height:1.6;color:#a8a29a;max-width:46ch;margin:0 auto 40px}.clearing-meta{font-family:'JetBrains Mono',monospace;font-size:0.75rem;letter-spacing:0.08em;text-transform:uppercase;color:#7a756e;margin:0}@media(max-width:600px){.clearing-line{font-size:clamp(2.2rem,11vw,3rem)}.clearing-hook{font-size:1rem;max-width:36ch}.clearing-meta{font-size:0.7rem}}
 </style>
 <!-- @section:overlay-center:start -->
-<div class='oc-wrap'><h1 class='oc-hero'>The bench is cleared.</h1><p class='oc-hook'>An AI redesigns this page every day, looking for an obsession worth keeping. You're seeing generation 168: nothing is named yet — a clearing between systems.</p><p class='oc-meta'>epoch 7 · clearing · mood: neutral · next evolution at the next dawn pulse</p></div>
+<div class="clearing-hero"><h1 class="clearing-line">Nothing is on the bench yet.</h1><p class="clearing-hook">An AI redesigns this page every day. You're seeing generation 170 — the bench is deliberately empty while the next obsession arrives.</p><p class="clearing-meta">epoch 7 · clearing · mood: neutral · next evolution at dawn</p></div>
 <!-- @section:overlay-center:end -->
 <script data-section="overlay-center">
 (()=>{const notes=document.querySelectorAll('.stage-hero .note');const playBtn=document.getElementById('play-melody');async function ensure(){if(!window.Tone){await new Promise(r=>{const s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/tone@14.7.77/build/Tone.js';s.onload=r;document.head.appendChild(s)})}if(window.Tone.context.state!=='running')await window.Tone.start();if(!window.__stageSynth){const r=new window.Tone.Reverb(2.5).toDestination();r.wet.value=0.55;const s=new window.Tone.PolySynth(window.Tone.FMSynth).connect(r);window.__stageAnalyser=new window.Tone.Analyser('waveform',1024);s.connect(window.__stageAnalyser);window.__stageSynth=s}}function flash(){document.body.classList.add('stage-flash');setTimeout(()=>document.body.classList.remove('stage-flash'),450)}notes.forEach(n=>{n.addEventListener('click',async()=>{await ensure();const p=parseFloat(n.dataset.pitch);window.__stageSynth.triggerAttackRelease(p,'1.6');n.classList.add('active');setTimeout(()=>n.classList.remove('active'),700);flash()})});if(playBtn){playBtn.addEventListener('click',async()=>{await ensure();playBtn.classList.add('playing');const arr=Array.from(notes);arr.forEach((n,i)=>{setTimeout(()=>{window.__stageSynth.triggerAttackRelease(parseFloat(n.dataset.pitch),'0.42');n.classList.add('active');setTimeout(()=>n.classList.remove('active'),420)},i*380)});setTimeout(()=>playBtn.classList.remove('playing'),arr.length*380+600)})}})();
@@ -1110,11 +1114,11 @@
 
   const SCENE_CONFIG = {
     particles: {
-      count: 44,
+      count: 60,
       size: 0.2,
       speed: 0.01,
       color: '#9a948d',
-      opacity: 0.5,
+      opacity: 0.4,
       spread: 3,
       orbital_radius: 4,
       orbital_speed: 0.005,
@@ -1130,7 +1134,7 @@
     },
     fog: {
       enabled: true,
-      color: '#141414',
+      color: '#111111',
       near: 8,
       far: 24,
     },
@@ -1548,6 +1552,11 @@
   }
 
   // @inject:interactions
+  // @gene:type-'bench'-anywhere-—-the-re:start
+  // Easter egg: type 'bench' anywhere — the resonance-field motes briefly gather to center, then disperse
+  (function(){let b='';window.addEventListener('keydown',function(e){if(!/^[a-z]$/i.test(e.key))return;b=(b+e.key.toLowerCase()).slice(-5);if(b==='bench'){window.__benchGather=Date.now();}});})();
+  // @gene:type-'bench'-anywhere-—-the-re:end
+
   // @gene:type-'clearing'-anywhere-—-a-s:start
   // Easter egg: type 'clearing' anywhere — a soft wash of pale light wipes across the page like a chart being cleared, then fades
   (function(){let b='';addEventListener('keydown',function(e){if(e.key&&e.key.length===1){b=(b+e.key.toLowerCase()).slice(-8);if(b.endsWith('clearing')){var d=document.createElement('div');d.style.cssText='position:fixed;inset:0;background:radial-gradient(circle at 50% 45%, rgba(230,221,214,0.18), transparent 62%);z-index:9999;pointer-events:none;opacity:0;transition:opacity 1.2s ease';document.body.appendChild(d);requestAnimationFrame(function(){d.style.opacity='1';});setTimeout(function(){d.style.opacity='0';setTimeout(function(){d.remove();},1300);},900);}}});})();

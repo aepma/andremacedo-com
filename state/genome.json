@@ -1,15 +1,15 @@
 {
-  "generation": 169,
+  "generation": 170,
   "epoch": "clearing",
   "epoch_started": "2026-06-01",
   "traits": {
     "color": {
-      "accent_base": "#8a8a8a",
-      "accent_dawn": "#a8a29a",
-      "accent_morning": "#8a8a8a",
-      "accent_afternoon": "#7d7a74",
-      "accent_evening": "#5e5b56",
-      "accent_night": "#423f3b",
+      "accent_base": "#8f8a83",
+      "accent_dawn": "#b0aaa2",
+      "accent_morning": "#97928b",
+      "accent_afternoon": "#8a857e",
+      "accent_evening": "#7a756e",
+      "accent_night": "#6a655f",
       "bg": "#111111",
       "fg": "#e6ddd6",
       "grain_opacity": "0.06",
@@ -224,33 +224,23 @@
       "type-'lettera'-anywhere-to-enc",
       "type-'curtain'-anywhere-to-par",
       "type-'smalt'-anywhere-on-the-p",
-      "type-'clearing'-anywhere-\u2014-a-s"
+      "type-'clearing'-anywhere-\u2014-a-s",
+      "type-'bench'-anywhere-\u2014-the-re"
     ],
     "content": {
       "mood": "neutral",
       "obsession": "",
       "thought_pools": {
-        "dawn": 14,
-        "morning": 10,
+        "dawn": 10,
+        "morning": 11,
         "afternoon": 10,
         "evening": 10,
-        "night": 10
+        "night": 13
       },
       "secrets_count": 21
     }
   },
   "fitness_log": [
-    {
-      "gen": 150,
-      "coherence": 5,
-      "novelty": 8,
-      "identity": 4,
-      "tension": 8,
-      "awe": 6,
-      "perceptibility": 9,
-      "note": "",
-      "total": 6.7
-    },
     {
       "gen": 151,
       "coherence": 6,
@@ -459,34 +449,20 @@
       "perceptibility": 6,
       "note": "The clearing is honest and the most coherent the page has been in a month \u2014 but it is half-cleared. The hero says 'bench is cleared' while the archive",
       "total": 5.2
+    },
+    {
+      "gen": 170,
+      "coherence": 8,
+      "novelty": 4,
+      "identity": 6,
+      "tension": 4,
+      "awe": 4,
+      "perceptibility": 6,
+      "note": "The clearing is honest and finally coherent top-to-bottom \u2014 but it's still inert, and the below-fold contrast leak (#111111 text on #141414, ratio 1.0",
+      "total": 5.3
     }
   ],
   "mutation_log": [
-    {
-      "gen": 150,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "content.mood",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "section.overlay-center",
-        "section.tonights-composition",
-        "page.experiments/071.html",
-        "svg.storm-isobars-001.svg",
-        "scene.config",
-        "scene.shaders",
-        "overlay.agent_data"
-      ],
-      "kills": [
-        "secret[20]",
-        "interaction:type-'verte'-anywhere-\u2014-the-te",
-        "interaction:type-'rubric'-anywhere-to-flas",
-        "css_rule:gen144-css"
-      ],
-      "timestamp": "2026-05-22T14:04:34Z"
-    },
     {
       "gen": 151,
       "mutations": [
@@ -901,39 +877,30 @@
         "css_rule:gen165-css"
       ],
       "timestamp": "2026-06-01T22:02:41Z"
+    },
+    {
+      "gen": 170,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "interaction.type-'bench'-anywhere-\u2014-the-re",
+        "section.overlay-center",
+        "scene.config"
+      ],
+      "kills": [
+        "secret[20]",
+        "thought:dawn[13]",
+        "thought:dawn[12]",
+        "thought:dawn[11]",
+        "thought:dawn[10]"
+      ],
+      "timestamp": "2026-06-03T22:55:27Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "css_rule",
-      "value": "gen151-css",
-      "died_gen": 154,
-      "epitaph": "First-week storm-chart CSS, three generations dormant, superseded by gen152/gen153/gen154 rules. The chassis has matured past its initial scaffolding."
-    },
-    {
-      "type": "interaction",
-      "value": "type-'smalt'-anywhere-on-the-p",
-      "died_gen": 154,
-      "epitaph": "Smalt was the eighteenth manuscript ink. The page is no longer a codex \u2014 it is a barograph drum. The cobalt-glass secret belonged to an era that died at gen 150."
-    },
-    {
-      "type": "section",
-      "value": "tonights-composition",
-      "died_gen": 155,
-      "epitaph": "The engraved era's recital programme card \u2014 gilt seal, four movements, the daily-rotating bio. Dead since the three RESETs burned the manuscript at gen 150, but it kept leaking cream (#f5f0e0) into the storm chart below the fold for four generations. Tonight it stops. A score cannot survive in a thunderstorm."
-    },
-    {
-      "type": "thought",
-      "value": "A meteogram is a sentence the sky is writing. We read left to right because that is how we read; the sky doesn't care.",
-      "died_gen": 155,
-      "epitaph": "Night pool over capacity (12/10) \u2014 stale carry-forward from the engraved era, no longer matches the storm."
-    },
-    {
-      "type": "thought",
-      "value": "The bruised violet of mammatus cloud is the color of air being too full of itself.",
-      "died_gen": 155,
-      "epitaph": "Night pool over capacity \u2014 trimming back to the carrying limit."
-    },
     {
       "type": "secret",
       "value": "Type 'barograph' anywhere on the page \u2014 the meteogram trace doubles in amplitude",
@@ -1203,6 +1170,36 @@
       "value": "gen165-css",
       "died_gen": 169,
       "epitaph": "Helicity-gauge styling \u2014 there is no gauge to style on a cleared bench."
+    },
+    {
+      "type": "secret",
+      "value": "Type 'clearing' anywhere \u2014 the motes pause, as if listening for a name that hasn",
+      "died_gen": 170,
+      "epitaph": "Over capacity at 21/20 \u2014 pruned the weakest storm-era reflex to make room for the bench secret."
+    },
+    {
+      "type": "thought",
+      "value": "The sounding is the storm before it exists \u2014 a column of air deciding.",
+      "died_gen": 170,
+      "epitaph": "Dawn pool over capacity (14/10) \u2014 trimmed a stale storm-era dawn line."
+    },
+    {
+      "type": "thought",
+      "value": "Before the rain there is a number. Storm-relative helicity, climbing as you type.",
+      "died_gen": 170,
+      "epitaph": "Dawn pool over capacity \u2014 trimmed a second weak dawn line."
+    },
+    {
+      "type": "thought",
+      "value": "Storm-relative means subtract your own motion \u2014 even forecasting is selfish.",
+      "died_gen": 170,
+      "epitaph": "Dawn pool over capacity \u2014 trimmed a third weak dawn line."
+    },
+    {
+      "type": "thought",
+      "value": "Helicity is just the air remembering which way to turn.",
+      "died_gen": 170,
+      "epitaph": "Dawn pool back to 10/10 capacity."
     }
   ],
   "carrying_capacity": {
@@ -1221,11 +1218,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 160,
-      "base": "#e0432a",
-      "family": "red"
-    },
     {
       "gen": 161,
       "base": "#a4d11e",
@@ -1270,6 +1262,11 @@
       "gen": 169,
       "base": "#8a8a8a",
       "family": "red"
+    },
+    {
+      "gen": 170,
+      "base": "#8f8a83",
+      "family": "orange"
     }
   ],
   "past_epochs": [
@@ -1368,6 +1365,15 @@
         "    FAIL  #6a665f  ratio=3.23:1  (< 4.5)"
       ],
       "timestamp": "2026-06-01T22:02:41Z"
+    },
+    {
+      "gen": 170,
+      "messages": [
+        "  [contrast-gate below-fold] effective bg = #111111 from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
+        "    FAIL  #111111  ratio=1.00:1  (< 4.5)",
+        "    FAIL  #6a665f  ratio=3.31:1  (< 4.5)"
+      ],
+      "timestamp": "2026-06-03T22:55:27Z"
     }
   ]
 }

@@ -142,12 +142,12 @@ _on_exit() {
 trap '_on_exit' EXIT
 
 # ── Pre-flight ─────────────────────────────────────────────────────
-if ! ~/.local/bin/claude auth status 2>/dev/null | python3 -c "
+if ! ~/.local/bin/claude auth status 2>/dev/null | python3 -c '
 import json, sys
 d = json.loads(sys.stdin.read())
-sub_ok = (d.get('subscriptionType') == 'max') or (d.get('authMethod') == 'oauth_token')
-sys.exit(0 if (sub_ok and d.get('loggedIn') is True and d.get('apiProvider') == 'firstParty') else 1)
-"; then
+sub_ok = (d.get("subscriptionType") == "max") or (d.get("authMethod") == "oauth_token")
+sys.exit(0 if (sub_ok and d.get("loggedIn") is True and d.get("apiProvider") == "firstParty") else 1)
+'; then
   log_error "subscription auth precondition failed"
   record_failure
   exit 1
@@ -327,26 +327,26 @@ log "Tokens: $INPUT_TOKENS in + $OUTPUT_TOKENS out = $TOTAL_TOKENS"
 SESSIONS_DIR="$HOME/.openclaw/agents/andremacedo-creative/sessions"
 mkdir -p "$SESSIONS_DIR"
 SESSION_FILE="$SESSIONS_DIR/$(date -u +%Y-%m-%d).jsonl"
-EPOCH_MS=$(python3 -c "import time; print(int(time.time()*1000))")
-python3 -c "
-import json
+EPOCH_MS=$(python3 -c 'import time; print(int(time.time()*1000))')
+python3 - "$EPOCH_MS" "$INPUT_TOKENS" "$OUTPUT_TOKENS" "$TOTAL_TOKENS" <<'PYEOF' >> "$SESSION_FILE"
+import json, sys
 entry = {
     'type': 'message',
     'message': {
         'role': 'assistant',
         'model': 'claude-opus-4-6',
-        'timestamp': $EPOCH_MS,
+        'timestamp': int(sys.argv[1]),
         'usage': {
-            'input': $INPUT_TOKENS,
-            'output': $OUTPUT_TOKENS,
+            'input': int(sys.argv[2]),
+            'output': int(sys.argv[3]),
             'cacheRead': 0,
             'cacheWrite': 0,
-            'totalTokens': $TOTAL_TOKENS
+            'totalTokens': int(sys.argv[4])
         }
     }
 }
 print(json.dumps(entry))
-" >> "$SESSION_FILE"
+PYEOF
 
 # ── Apply changes ──────────────────────────────────────────────────
 cd "$SITE_DIR"
@@ -406,7 +406,7 @@ log "Applied: $SUMMARY"
 # ── Thought Stream: persist reasoning fragments ──────────────────
 THOUGHT_STREAM_FILE="$SITE_DIR/state/thought-stream.json"
 
-python3 -c "
+python3 - "$GENERATION" "$THOUGHT_STREAM_FILE" <<'PYEOF' 2>&1 | tee -a "$LOG_FILE" || log_error "thought-stream failed (non-fatal, deploy continues)"
 import sys, json, os
 from datetime import datetime, timezone
 
@@ -457,14 +457,13 @@ if entry['fragments']:
     stream = stream[-100:]
     with open(stream_file, 'w') as f:
         json.dump(stream, f, indent=2)
-    print(f'Thought stream: {len(entry[\"fragments\"])} fragments for gen {gen}')
+    print(f'Thought stream: {len(entry["fragments"])} fragments for gen {gen}')
 else:
     print('Thought stream: no fragments this pulse')
-" "$GENERATION" "$THOUGHT_STREAM_FILE" 2>&1 | tee -a "$LOG_FILE" \
-  || log_error "thought-stream failed (non-fatal, deploy continues)"
+PYEOF
 
 # ── Portfolio: rebuild manifest from genome data ─────────────────
-python3 -c "
+python3 - "$SITE_DIR" <<'PYEOF' 2>&1 | tee -a "$LOG_FILE" || log_error "portfolio rebuild failed (non-fatal, deploy continues)"
 import json, os, sys
 
 site_dir = sys.argv[1]
@@ -529,9 +528,8 @@ portfolio['fitness_trajectory'] = genome.get('fitness_log', [])[-20:]
 portfolio_path = os.path.join(site_dir, 'state', 'portfolio.json')
 with open(portfolio_path, 'w') as f:
     json.dump(portfolio, f, indent=2)
-print(f'Portfolio: {len(portfolio[\"epochs\"])} epochs')
-" "$SITE_DIR" 2>&1 | tee -a "$LOG_FILE" \
-  || log_error "portfolio rebuild failed (non-fatal, deploy continues)"
+print(f'Portfolio: {len(portfolio["epochs"])} epochs')
+PYEOF
 
 # ── Mobile DOM gate — runs BEFORE commit/deploy ───────────────────
 # Belt-and-suspenders: LLM gate in build_prompt.py catches obvious cases;
@@ -597,42 +595,51 @@ MANIFEST_FILE="$SCREENSHOT_DIR/manifest.json"
 # Take screenshot of current live site
 PLAYWRIGHT_PYTHON="$HOME/.openclaw/playwright-venv/bin/python3"
 if [ -x "$PLAYWRIGHT_PYTHON" ]; then
-  "$PLAYWRIGHT_PYTHON" -c "
-import asyncio
+  "$PLAYWRIGHT_PYTHON" - "$SCREENSHOT_FILE" <<'PYEOF' 2>/dev/null || echo "Archive screenshot failed (non-fatal)"
+import asyncio, sys
 from playwright.async_api import async_playwright
+screenshot_file = sys.argv[1]
 async def snap():
     async with async_playwright() as p:
         browser = await p.chromium.launch()
         page = await browser.new_page(viewport={'width': 1200, 'height': 800})
         await page.goto('https://andremacedo.com', wait_until='networkidle', timeout=30000)
-        await page.screenshot(path='${SCREENSHOT_FILE}', full_page=True)
+        await page.screenshot(path=screenshot_file, full_page=True)
         await browser.close()
 asyncio.run(snap())
-" 2>/dev/null || echo "Archive screenshot failed (non-fatal)"
+PYEOF
 fi
 
 # Append to manifest (git SHA, mood, fitness, timestamp)
 GIT_SHA="$(git -C "$SITE_DIR" rev-parse --short HEAD 2>/dev/null || echo 'unknown')"
 if [ -f "$SCREENSHOT_FILE" ]; then
-  python3 -c "
+  python3 - "$MANIFEST_FILE" "$TIMESTAMP" "$GIT_SHA" "$CURRENT_MOOD" "${FITNESS_SCORE:-0}" "${SUMMARY:-no summary}" <<'PYEOF' 2>/dev/null || echo "Manifest update failed (non-fatal)"
 import json, sys
-manifest_path = '${MANIFEST_FILE}'
+manifest_path = sys.argv[1]
+timestamp = sys.argv[2]
+git_sha = sys.argv[3]
+mood = sys.argv[4]
+try:
+    fitness = json.loads(sys.argv[5]) if sys.argv[5] else 0
+except Exception:
+    fitness = 0
+summary = sys.argv[6][:200]
 try:
     with open(manifest_path) as f:
         manifest = json.load(f)
 except (FileNotFoundError, json.JSONDecodeError):
     manifest = []
 manifest.append({
-    'timestamp': '${TIMESTAMP}',
-    'screenshot': '${TIMESTAMP}.png',
-    'commit': '${GIT_SHA}',
-    'mood': '${CURRENT_MOOD}',
-    'fitness': ${FITNESS_SCORE:-0},
-    'summary': '''${SUMMARY:-no summary}'''[:200]
+    'timestamp': timestamp,
+    'screenshot': timestamp + '.png',
+    'commit': git_sha,
+    'mood': mood,
+    'fitness': fitness,
+    'summary': summary
 })
 with open(manifest_path, 'w') as f:
     json.dump(manifest, f, indent=2)
-" 2>/dev/null || echo "Manifest update failed (non-fatal)"
+PYEOF
 fi
 
 # Prune old screenshots, keep last 100
