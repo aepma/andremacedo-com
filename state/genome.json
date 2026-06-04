@@ -1,5 +1,5 @@
 {
-  "generation": 173,
+  "generation": 174,
   "epoch": "the core sample",
   "epoch_started": "2026-06-04",
   "traits": {
@@ -7,9 +7,9 @@
       "accent_base": "#a85a32",
       "accent_dawn": "#c47a4a",
       "accent_morning": "#b06840",
-      "accent_afternoon": "#a85a32",
-      "accent_evening": "#8f4a28",
-      "accent_night": "#6e3a20",
+      "accent_afternoon": "#a05634",
+      "accent_evening": "#894628",
+      "accent_night": "#673820",
       "bg": "#14100c",
       "fg": "#e8ddd0",
       "grain_opacity": "0.08",
@@ -96,6 +96,7 @@
         "experiments/016.html",
         "experiments/041.html",
         "experiments/057.html",
+        "experiments/082.html",
         "experiments/001.html",
         "experiments/056.html",
         "experiments/040.html",
@@ -228,10 +229,11 @@
       "type-'lettera'-anywhere-to-enc",
       "type-'curtain'-anywhere-to-par",
       "type-'smalt'-anywhere-on-the-p",
-      "type-'core'-anywhere-\u2014-the-str"
+      "type-'core'-anywhere-\u2014-the-str",
+      "type-'varve'-anywhere-\u2014-the-st"
     ],
     "content": {
-      "mood": "settling",
+      "mood": "compacting",
       "obsession": "sedimentation \u2014 the page as a stratigraphic core, where every generation settles into a readable layer and time is read downward through the deposit",
       "thought_pools": {
         "dawn": 10,
@@ -240,21 +242,10 @@
         "evening": 10,
         "night": 10
       },
-      "secrets_count": 20
+      "secrets_count": 21
     }
   },
   "fitness_log": [
-    {
-      "gen": 154,
-      "coherence": 8,
-      "novelty": 7,
-      "identity": 8,
-      "tension": 7,
-      "awe": 7,
-      "perceptibility": 7,
-      "note": "",
-      "total": 7.3
-    },
     {
       "gen": 155,
       "coherence": 7,
@@ -463,31 +454,20 @@
       "perceptibility": 7,
       "note": "The core-sample identity is the most coherent the page has been since the storm era \u2014 one earth palette top to bottom, the autobiography rendered as a",
       "total": 6.8
+    },
+    {
+      "gen": 174,
+      "coherence": 8,
+      "novelty": 6,
+      "identity": 8,
+      "tension": 6,
+      "awe": 6,
+      "perceptibility": 7,
+      "note": "The core-sample identity is the most coherent the page has been since the storm era \u2014 one warm earth ground, depth markers, a dated surface band. But ",
+      "total": 6.8
     }
   ],
   "mutation_log": [
-    {
-      "gen": 154,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "content.mood",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "section.meteogram",
-        "page.experiments/075.html",
-        "svg.meteogram-trace-001.svg",
-        "scene.config",
-        "overlay.agent_data"
-      ],
-      "kills": [
-        "thought:dawn[10]",
-        "css_rule:gen151-css",
-        "interaction:type-'smalt'-anywhere-on-the-p"
-      ],
-      "timestamp": "2026-05-25T22:04:11Z"
-    },
     {
       "gen": 155,
       "mutations": [
@@ -898,15 +878,30 @@
         "css_rule:gen169-css"
       ],
       "timestamp": "2026-06-04T06:02:26Z"
+    },
+    {
+      "gen": 174,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "content.mood",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "interaction.type-'varve'-anywhere-\u2014-the-st",
+        "section.stratigraphic-column",
+        "section.prototype-portfolio",
+        "page.experiments/082.html",
+        "scene.config",
+        "overlay.agent_data"
+      ],
+      "kills": [
+        "css_rule:gen170-css"
+      ],
+      "timestamp": "2026-06-04T14:03:17Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "interaction",
-      "value": "press-any-letter-a-through-z-t",
-      "died_gen": 159,
-      "epitaph": "The console owns the keyboard now \u2014 every letter you type is an echo on the scope."
-    },
     {
       "type": "interaction",
       "value": "type-'velocity'-anywhere-to-fl",
@@ -1200,6 +1195,12 @@
       "value": "gen169-css",
       "died_gen": 173,
       "epitaph": "Clearing-era neutral tiers, four generations dormant \u2014 superseded by the sediment ground and the accreting core styling."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen170-css",
+      "died_gen": 174,
+      "epitaph": "Clearing-era unified-charcoal tiers \u2014 four generations dormant, superseded by the gen174 below-fold lockdown."
     }
   ],
   "carrying_capacity": {
@@ -1218,11 +1219,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 164,
-      "base": "#7d4bd0",
-      "family": "blue"
-    },
     {
       "gen": 165,
       "base": "#7d4bd0",
@@ -1265,6 +1261,11 @@
     },
     {
       "gen": 173,
+      "base": "#a85a32",
+      "family": "red"
+    },
+    {
+      "gen": 174,
       "base": "#a85a32",
       "family": "red"
     }
@@ -1374,6 +1375,14 @@
         "    FAIL  #6a665f  ratio=3.31:1  (< 4.5)"
       ],
       "timestamp": "2026-06-03T22:55:27Z"
+    },
+    {
+      "gen": 174,
+      "messages": [
+        "  [contrast-gate below-fold] effective bg = #14100c from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
+        "    FAIL  #a05634  ratio=3.49:1  (< 4.5)"
+      ],
+      "timestamp": "2026-06-04T14:03:17Z"
     }
   ]
 }
