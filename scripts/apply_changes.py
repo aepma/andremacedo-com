@@ -451,16 +451,26 @@ if pulse_type in ("daily", "event"):
     if ext_react:
         parts.append("reacted to external: " + str(ext_react)[:80])
 
-# ── Weekly-only: reflection, obsession, epoch transition ─────────
-if pulse_type == "weekly":
-    obsession = changes.get("obsession_update")
-    if obsession and isinstance(obsession, dict):
-        old_obsession = state.get("active_obsession", {})
-        old_topic = old_obsession.get("topic")
-        new_topic = obsession["topic"]
+# ── Obsession: birth from a clearing on any pulse; swaps weekly-only ──
+# The agent authors its own obsession. Emerging from a clearing (no live
+# obsession) is the sanctioned metamorphosis and is allowed on ANY pulse so it
+# need not wait up to a week. Swapping a LIVE obsession for a different one is
+# the within-epoch change the anti-thrash rule guards, so it stays weekly-only.
+obsession = changes.get("obsession_update")
+if obsession and isinstance(obsession, dict) and (obsession.get("topic") or "").strip():
+    old_obsession = state.get("active_obsession", {})
+    old_topic = (old_obsession.get("topic") or "").strip()
+    new_topic = obsession["topic"].strip()
+    is_swap = bool(old_topic) and old_topic != new_topic
 
-        # Epoch transition: when obsession changes, the old epoch dies
-        if old_topic and old_topic != new_topic:
+    if old_topic == new_topic:
+        pass  # restating the current obsession — no-op
+    elif is_swap and pulse_type != "weekly":
+        print(f"  [obsession] Daily pulse proposed a swap ({old_topic!r} -> {new_topic!r}); "
+              f"swaps are weekly-only. Deferred.")
+    else:
+        # Epoch transition: when a live obsession is replaced, the old epoch dies
+        if is_swap:
             epoch_num = genome.get("epoch_number", 1)
             dead_epoch = {
                 "number": epoch_num,
@@ -481,6 +491,11 @@ if pulse_type == "weekly":
             parts.append(f"epoch transition: Epoch {epoch_num} died, Epoch {epoch_num + 1} begins")
             mutations_detected.append("epoch.transition")
             print(f"  [epoch] Transition: Epoch {epoch_num} ({old_topic}) died. Epoch {epoch_num + 1} ({new_topic}) begins.")
+        else:
+            # Birth from a clearing: name the new epoch so the genome leaves "clearing".
+            genome["epoch"] = new_topic
+            genome["epoch_started"] = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+            print(f"  [obsession] Born from clearing: {new_topic!r} ({pulse_type} pulse).")
 
         state["active_obsession"] = {
             "topic": new_topic,
@@ -490,6 +505,8 @@ if pulse_type == "weekly":
         parts.append("new obsession: " + new_topic)
         mutations_detected.append("content.obsession")
 
+# ── Weekly-only: reflection, epoch transition ─────────
+if pulse_type == "weekly":
     # Manual epoch override (rarely used — auto-transition handles most cases)
     epoch_name = changes.get("epoch_name")
     if epoch_name and isinstance(epoch_name, str) and epoch_name != "null":

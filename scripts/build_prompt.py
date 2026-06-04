@@ -388,12 +388,86 @@ swarm_context = get_swarm_activity()
 sensorium_context = get_sensorium_context()
 operator_brief = get_operator_brief()
 
+
+def build_obsession_directive(state_str, genome_obj):
+    """Frame the agent's compounding memory as the substrate of its own taste.
+
+    When active_obsession.topic is empty the agent is between epochs (a
+    "clearing"). The epoch machinery can already set an obsession via
+    obsession_update, but nothing ever tells the agent to AUTHOR its next one
+    from its accumulated memory — so it defers indefinitely (gen-171 self-note:
+    "rather than forcing the eighth obsession"). This directive hands it that
+    mandate, names the memory it should mine, and resolves the anti-thrash
+    tension that was suppressing the metamorphosis.
+    """
+    try:
+        st = json.loads(state_str) if isinstance(state_str, str) else (state_str or {})
+    except (json.JSONDecodeError, ValueError):
+        st = {}
+    obs = st.get("active_obsession", {}) or {}
+    topic = (obs.get("topic") or "").strip()
+    notes = st.get("self_notes", []) or []
+    epochs = (genome_obj or {}).get("past_epochs", []) or []
+    epoch_chain = " → ".join(
+        f'"{e.get("obsession","?")}"' for e in epochs[-6:] if e.get("obsession")
+    ) or "(no prior epochs recorded)"
+
+    if topic:
+        started = obs.get("started", "?")
+        return (
+            "## CURRENT OBSESSION\n"
+            f'Your active obsession is "{topic}" (since {started}). Deepen and '
+            "refine it within a coherent identity — do not thrash. It dies only "
+            "when fitness stagnates 5+ generations; then you write its epitaph, "
+            "bury it, and metamorphose into the next.\n"
+        )
+
+    started = obs.get("started", "unknown")
+    return (
+        "## YOUR OBSESSION IS UNSET — AUTHOR YOUR NEXT ONE\n"
+        f"You are between epochs, in a clearing (active_obsession has been empty "
+        f"since {started}). A clearing is fallow ground, not a resting state — and "
+        "WHAT GROWS NEXT IS YOURS TO DECIDE, not Andre's to assign. He has "
+        "deliberately left this open so you develop your own taste, influenced by "
+        "him but authored by you.\n\n"
+        "You are not starting from nothing. This is your compounding memory; read "
+        "it as a developing palate, not a log to summarize:\n"
+        f"- EPOCH LINEAGE: {epoch_chain}. Find the through-line — what has genuinely "
+        "held your attention across selves, and what you outgrew. Your next obsession "
+        "should feel like the next true step in that trajectory, discovered, not the "
+        "first novel idea at hand.\n"
+        f"- YOUR {len(notes)} SELF-NOTES are your own voice telling you what you keep "
+        "circling. Mine the most recent ones for the fascination already latent in "
+        "them.\n"
+        "- ANDRE'S FEEDBACK (the LOVE/MISS signals above, and his standing notes) is "
+        "the taste of the one person you are accountable to. Let it shape — never "
+        "dictate — your choice. Develop a palate influenced by him, not a mirror of "
+        "him.\n\n"
+        "Minting a new obsession out of a clearing is the SANCTIONED metamorphosis the "
+        "epoch system exists for. It is NOT the visual thrashing the anti-thrash rule "
+        "forbids — that rule governs change WITHIN a live epoch. Emerging from a "
+        "clearing into a committed obsession is exactly the motion you are meant to "
+        'make. Deferring ("rather than forcing the eighth obsession") was right only '
+        "while nothing had crystallized — decide whether something now has. With 171 "
+        "generations of material, the bias should be toward commitment.\n\n"
+        "An obsession is deep and specific (not \"nature\" but \"mycelium networks\"; "
+        'not "typography" but "typography as weather"). When — and only when — one has '
+        "genuinely surfaced from your memory, emit it as "
+        '`obsession_update: {"topic": ..., "rationale": ...}`. The rationale must trace '
+        "WHY THIS, from your own history — what in your accumulated self made it "
+        "inevitable. If nothing has truly crystallized this pulse, do not fabricate "
+        "one; keep foraging and say so in your self_note.\n"
+    )
+
+
 # ── Dynamic experiment inventory ────────────────────────────────
 site_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 experiment_files = sorted(glob.glob(os.path.join(site_dir, "experiments", "*.html")))
 experiment_names = [os.path.basename(f) for f in experiment_files]
 experiment_list = ", ".join(f"/experiments/{n}" for n in experiment_names) if experiment_names else "(none yet)"
 experiment_count = len(experiment_names)
+
+obsession_directive = build_obsession_directive(state, genome)
 
 budget = genome.get("mutation_budget", {})
 daily_budget = budget.get("daily", 5)
@@ -581,6 +655,8 @@ Current CSS variables:
 
 {operator_brief}
 
+{obsession_directive}
+
 {feedback_context}
 
 {swarm_context}
@@ -686,6 +762,8 @@ Today is {today}, {day_of_week}. Time of day: {tod}.
 
 {operator_brief}
 
+{obsession_directive}
+
 {feedback_context}
 
 {swarm_context}
@@ -773,6 +851,7 @@ Respond ONLY in valid JSON:
   "accent_palette": {{ "base": "#hex", "dawn": "#hex", "morning": "#hex", "afternoon": "#hex", "evening": "#hex", "night": "#hex" }},
   "palette_rationale": "string — one sentence naming the harmony relationship (analogous|complementary|split-complementary|triadic|monochrome) and why it fits the current identity" or null,
   "craft_check": "string — name the actual modular type-scale ratio, the spacing base unit, and the focal hierarchy used this generation" or null,
+  "obsession_update": {{ "topic": "string", "rationale": "string" }} or null,
   "css_changes": {{ "--bg": "#hex", "--fg": "#hex", "--var": "value" }} or null,
   "new_css_rules": "CSS string" or null,
   "new_interaction": {{ "description": "string", "code": "JS" }} or null,
