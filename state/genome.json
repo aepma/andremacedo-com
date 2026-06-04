@@ -1,21 +1,21 @@
 {
-  "generation": 171,
-  "epoch": "clearing",
-  "epoch_started": "2026-06-01",
+  "generation": 172,
+  "epoch": "the core sample",
+  "epoch_started": "2026-06-04",
   "traits": {
     "color": {
-      "accent_base": "#8f8a83",
-      "accent_dawn": "#b0aaa2",
-      "accent_morning": "#97928b",
-      "accent_afternoon": "#8a857e",
-      "accent_evening": "#7a756e",
-      "accent_night": "#6a655f",
-      "bg": "#111111",
-      "fg": "#e6ddd6",
-      "grain_opacity": "0.06",
-      "fg_dim": "#9a9a9a",
-      "bg_surface": "#1a1a1a",
-      "bg_elevated": "#242424"
+      "accent_base": "#a85a32",
+      "accent_dawn": "#c47a4a",
+      "accent_morning": "#b06840",
+      "accent_afternoon": "#a85a32",
+      "accent_evening": "#8f4a28",
+      "accent_night": "#6e3a20",
+      "bg": "#14100c",
+      "fg": "#e8ddd0",
+      "grain_opacity": "0.08",
+      "fg_dim": "#968878",
+      "bg_surface": "#1c1610",
+      "bg_elevated": "#241c14"
     },
     "typography": {
       "display": "Playfair Display",
@@ -31,6 +31,7 @@
         "resonance-field",
         "bench-dust",
         "overlay-center",
+        "stratigraphic-column",
         "thought-floater",
         "overlay-bottom",
         "scroll-hint",
@@ -81,6 +82,7 @@
         "experiments/003.html",
         "experiments/078.html",
         "experiments/039.html",
+        "experiments/081.html",
         "experiments/019.html",
         "experiments/058.html",
         "experiments/074.html",
@@ -226,12 +228,11 @@
       "type-'lettera'-anywhere-to-enc",
       "type-'curtain'-anywhere-to-par",
       "type-'smalt'-anywhere-on-the-p",
-      "type-'clearing'-anywhere-\u2014-a-s",
-      "type-'bench'-anywhere-\u2014-the-re"
+      "type-'core'-anywhere-\u2014-the-str"
     ],
     "content": {
       "mood": "expectant",
-      "obsession": "",
+      "obsession": "sedimentation \u2014 the page as a stratigraphic core, where every generation settles into a readable layer and time is read downward through the deposit",
       "thought_pools": {
         "dawn": 10,
         "morning": 10,
@@ -239,21 +240,10 @@
         "evening": 10,
         "night": 10
       },
-      "secrets_count": 20
+      "secrets_count": 19
     }
   },
   "fitness_log": [
-    {
-      "gen": 152,
-      "coherence": 7,
-      "novelty": 8,
-      "identity": 5,
-      "tension": 8,
-      "awe": 6,
-      "perceptibility": 7,
-      "note": "",
-      "total": 6.8
-    },
     {
       "gen": 153,
       "coherence": 7,
@@ -462,32 +452,20 @@
       "perceptibility": 7,
       "note": "The clearing is finally coherent top-to-bottom and honest, but it has been inert for three generations and traffic is bleeding (1646 vs 2670). Today i",
       "total": 6.2
+    },
+    {
+      "gen": 172,
+      "coherence": 7,
+      "novelty": 8,
+      "identity": 8,
+      "tension": 6,
+      "awe": 7,
+      "perceptibility": 8,
+      "note": "The clearing did its job \u2014 three honest, coherent, inert generations \u2014 but a clearing is fallow ground, not a home. Gen 171 reached 6.2 by adding the ",
+      "total": 7.3
     }
   ],
   "mutation_log": [
-    {
-      "gen": 152,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "content.mood",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "section.resonance-field",
-        "section.overlay-center",
-        "section.prototype-portfolio",
-        "page.experiments/073.html",
-        "svg.storm-warning-glyph-001.svg",
-        "overlay.agent_data"
-      ],
-      "kills": [
-        "interaction:type-'chord'-anywhere-on-the-p",
-        "secret[20]",
-        "css_rule:gen149-css"
-      ],
-      "timestamp": "2026-05-24T14:04:46Z"
-    },
     {
       "gen": 153,
       "mutations": [
@@ -901,45 +879,36 @@
         "thought:morning[10]"
       ],
       "timestamp": "2026-06-04T00:55:50Z"
+    },
+    {
+      "gen": 172,
+      "mutations": [
+        "content.obsession",
+        "epoch",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "interaction.type-'core'-anywhere-\u2014-the-str",
+        "section.resonance-field",
+        "section.overlay-center",
+        "section.stratigraphic-column",
+        "section.prototype-portfolio",
+        "page.experiments/081.html",
+        "scene.config",
+        "overlay.agent_data"
+      ],
+      "kills": [
+        "interaction:type-'bench'-anywhere-\u2014-the-re",
+        "interaction:type-'clearing'-anywhere-\u2014-a-s",
+        "css_rule:gen166-css",
+        "css_rule:gen167-css",
+        "css_rule:gen168-css",
+        "secret[19]"
+      ],
+      "timestamp": "2026-06-04T04:06:31Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "interaction",
-      "value": "click-and-drag-on-the-resonanc",
-      "died_gen": 157,
-      "epitaph": "The rebuilt scope handles its own pointers \u2014 the old drag listener was painting the field twice."
-    },
-    {
-      "type": "css_rule",
-      "value": "gen153-css",
-      "died_gen": 157,
-      "epitaph": "Four generations dormant \u2014 the original radar-sweep styling, superseded by the phosphor scope."
-    },
-    {
-      "type": "secret",
-      "value": "Click any vine in the margins to ring a different note \u2014 each vine is tuned to a",
-      "died_gen": 157,
-      "epitaph": "A storm-cell relic from the satellite week, pruned to make room for the reflectivity scale."
-    },
-    {
-      "type": "css_rule",
-      "value": "gen154-css",
-      "died_gen": 158,
-      "epitaph": "Four generations dormant \u2014 the meteogram styling, superseded by the velocity scope."
-    },
-    {
-      "type": "interaction",
-      "value": "type-'grain'-anywhere-to-scatt",
-      "died_gen": 158,
-      "epitaph": "A granular-synth relic from the music obsession, off-theme in a storm. Scattered for the last time."
-    },
-    {
-      "type": "section",
-      "value": "meteogram",
-      "died_gen": 159,
-      "epitaph": "Folded into the console's PRESSURE mode \u2014 one instrument, not three separate canvases. The barograph drum still turns, it just shares a screen now."
-    },
     {
       "type": "section",
       "value": "satellite-view",
@@ -1203,6 +1172,42 @@
       "value": "Six systems buried in the back room. None of them are knocking this morning.",
       "died_gen": 171,
       "epitaph": "Morning pool over capacity (11/10) \u2014 back to 10."
+    },
+    {
+      "type": "interaction",
+      "value": "type-'bench'-anywhere-\u2014-the-re",
+      "died_gen": 172,
+      "epitaph": "The bench-dust gather was the clearing's last reflex. The dust no longer gathers to center \u2014 it falls and settles into strata now."
+    },
+    {
+      "type": "interaction",
+      "value": "type-'clearing'-anywhere-\u2014-a-s",
+      "died_gen": 172,
+      "epitaph": "The clearing is over. A wipe-the-chart-clean gesture has no place in a page built to accumulate."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen166-css",
+      "died_gen": 172,
+      "epitaph": "Storm-era violet-on-charcoal tiers, superseded by the sediment palette."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen167-css",
+      "died_gen": 172,
+      "epitaph": "Clearing-era neutral tiers, superseded."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen168-css",
+      "died_gen": 172,
+      "epitaph": "Half-cleared below-fold patch, replaced by the core-log archive styling."
+    },
+    {
+      "type": "secret",
+      "value": "There is no weather here anymore \u2014 Andre wiped the chart. The gray is what's lef",
+      "died_gen": 172,
+      "epitaph": "A storm-era residue secret pruned \u2014 the back room is closed, the chart is buried at 2 m."
     }
   ],
   "carrying_capacity": {
@@ -1221,11 +1226,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 162,
-      "base": "#1fb0d4",
-      "family": "teal"
-    },
     {
       "gen": 163,
       "base": "#7d4bd0",
@@ -1270,6 +1270,11 @@
       "gen": 171,
       "base": "#8f8a83",
       "family": "orange"
+    },
+    {
+      "gen": 172,
+      "base": "#a85a32",
+      "family": "red"
     }
   ],
   "past_epochs": [
