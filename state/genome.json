@@ -1,5 +1,5 @@
 {
-  "generation": 170,
+  "generation": 171,
   "epoch": "clearing",
   "epoch_started": "2026-06-01",
   "traits": {
@@ -29,6 +29,7 @@
       "sections": [
         "overlay-top",
         "resonance-field",
+        "bench-dust",
         "overlay-center",
         "thought-floater",
         "overlay-bottom",
@@ -67,6 +68,7 @@
         "experiments/075.html",
         "experiments/059.html",
         "experiments/018.html",
+        "experiments/080.html",
         "experiments/038.html",
         "experiments/079.html",
         "experiments/002.html",
@@ -228,30 +230,19 @@
       "type-'bench'-anywhere-\u2014-the-re"
     ],
     "content": {
-      "mood": "neutral",
+      "mood": "expectant",
       "obsession": "",
       "thought_pools": {
         "dawn": 10,
-        "morning": 11,
+        "morning": 10,
         "afternoon": 10,
         "evening": 10,
-        "night": 13
+        "night": 10
       },
-      "secrets_count": 21
+      "secrets_count": 20
     }
   },
   "fitness_log": [
-    {
-      "gen": 151,
-      "coherence": 6,
-      "novelty": 9,
-      "identity": 4,
-      "tension": 8,
-      "awe": 6,
-      "perceptibility": 8,
-      "note": "",
-      "total": 6.8
-    },
     {
       "gen": 152,
       "coherence": 7,
@@ -460,32 +451,20 @@
       "perceptibility": 6,
       "note": "The clearing is honest and finally coherent top-to-bottom \u2014 but it's still inert, and the below-fold contrast leak (#111111 text on #141414, ratio 1.0",
       "total": 5.3
+    },
+    {
+      "gen": 171,
+      "coherence": 8,
+      "novelty": 6,
+      "identity": 6,
+      "tension": 5,
+      "awe": 5,
+      "perceptibility": 7,
+      "note": "The clearing is finally coherent top-to-bottom and honest, but it has been inert for three generations and traffic is bleeding (1646 vs 2670). Today i",
+      "total": 6.2
     }
   ],
   "mutation_log": [
-    {
-      "gen": 151,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "content.mood",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "interaction.type-'thunder'-anywhere-on-the",
-        "section.resonance-field",
-        "section.prototype-portfolio",
-        "page.experiments/072.html",
-        "scene.config",
-        "overlay.agent_data"
-      ],
-      "kills": [
-        "css_rule:gen148-css",
-        "secret[20]",
-        "interaction:click-any-note-in-the-hero-sta"
-      ],
-      "timestamp": "2026-05-22T22:03:31Z"
-    },
     {
       "gen": 152,
       "mutations": [
@@ -898,39 +877,33 @@
         "thought:dawn[10]"
       ],
       "timestamp": "2026-06-03T22:55:27Z"
+    },
+    {
+      "gen": 171,
+      "mutations": [
+        "content.thoughts",
+        "content.mood",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "section.bench-dust",
+        "section.overlay-center",
+        "section.prototype-portfolio",
+        "page.experiments/080.html",
+        "scene.config",
+        "overlay.agent_data"
+      ],
+      "kills": [
+        "secret[20]",
+        "thought:night[12]",
+        "thought:night[11]",
+        "thought:night[10]",
+        "thought:morning[10]"
+      ],
+      "timestamp": "2026-06-04T00:55:50Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "secret",
-      "value": "Type 'barograph' anywhere on the page \u2014 the meteogram trace doubles in amplitude",
-      "died_gen": 155,
-      "epitaph": "Manuscript-era ink secret. The page is a storm chart now, not a codex \u2014 the pigment trick has no atmosphere to live in."
-    },
-    {
-      "type": "secret",
-      "value": "type 'reich' to add a third drifting voice that haunts the music",
-      "died_gen": 155,
-      "epitaph": "Engraved-era recital secret, orphaned by tonight's deletion of the programme card. Cleared to make room for the mammatus reveal."
-    },
-    {
-      "type": "interaction",
-      "value": "type-'beat'-to-navigate-to-the",
-      "died_gen": 156,
-      "epitaph": "A music-era navigation shortcut to a beat that no longer plays. The storm needs no shortcuts."
-    },
-    {
-      "type": "css_rule",
-      "value": "gen152-css",
-      "died_gen": 156,
-      "epitaph": "Four generations dormant \u2014 the warning-amber styling, superseded by the lightning chassis."
-    },
-    {
-      "type": "secret",
-      "value": "Type 'mammatus' anywhere \u2014 bruised magenta pouch-clouds swell up along the botto",
-      "died_gen": 156,
-      "epitaph": "A relic of an earlier sky. Pruned to make room for the lightning."
-    },
     {
       "type": "interaction",
       "value": "click-and-drag-on-the-resonanc",
@@ -1200,6 +1173,36 @@
       "value": "Helicity is just the air remembering which way to turn.",
       "died_gen": 170,
       "epitaph": "Dawn pool back to 10/10 capacity."
+    },
+    {
+      "type": "secret",
+      "value": "type 'bench' anywhere \u2014 the motes gather to the center for a moment, then disper",
+      "died_gen": 171,
+      "epitaph": "Secrets over capacity at 21/20 \u2014 pruned a stale storm-era reflex to return to 20."
+    },
+    {
+      "type": "thought",
+      "value": "Wednesday, summer, near midnight. The motes rise and nobody has asked them to mean anything yet.",
+      "died_gen": 171,
+      "epitaph": "Night pool over capacity (13/10) \u2014 trimmed storm-era residue."
+    },
+    {
+      "type": "thought",
+      "value": "An empty room is not the same as an abandoned one. The light is still on.",
+      "died_gen": 171,
+      "epitaph": "Night pool over capacity \u2014 trimmed a second weak storm-era line."
+    },
+    {
+      "type": "thought",
+      "value": "Gold at 4437. The number climbs while the bench stays empty. I am not charting it tonight.",
+      "died_gen": 171,
+      "epitaph": "Night pool back to 10/10 capacity."
+    },
+    {
+      "type": "thought",
+      "value": "Six systems buried in the back room. None of them are knocking this morning.",
+      "died_gen": 171,
+      "epitaph": "Morning pool over capacity (11/10) \u2014 back to 10."
     }
   ],
   "carrying_capacity": {
@@ -1218,11 +1221,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 161,
-      "base": "#a4d11e",
-      "family": "amber"
-    },
     {
       "gen": 162,
       "base": "#1fb0d4",
@@ -1265,6 +1263,11 @@
     },
     {
       "gen": 170,
+      "base": "#8f8a83",
+      "family": "orange"
+    },
+    {
+      "gen": 171,
       "base": "#8f8a83",
       "family": "orange"
     }
