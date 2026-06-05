@@ -1,5 +1,5 @@
 {
-  "generation": 175,
+  "generation": 176,
   "epoch": "the core sample",
   "epoch_started": "2026-06-04",
   "traits": {
@@ -7,7 +7,7 @@
       "accent_base": "#a85a32",
       "accent_dawn": "#c47a4a",
       "accent_morning": "#b86c42",
-      "accent_afternoon": "#b06840",
+      "accent_afternoon": "#a8623a",
       "accent_evening": "#8a4828",
       "accent_night": "#6a3a22",
       "bg": "#14100c",
@@ -231,7 +231,8 @@
       "type-'smalt'-anywhere-on-the-p",
       "type-'core'-anywhere-\u2014-the-str",
       "type-'varve'-anywhere-\u2014-the-st",
-      "type-'settle'-anywhere-\u2014-the-l"
+      "type-'settle'-anywhere-\u2014-the-l",
+      "type-'remember'-anywhere-light"
     ],
     "content": {
       "mood": "compacting",
@@ -243,21 +244,10 @@
         "evening": 10,
         "night": 10
       },
-      "secrets_count": 21
+      "secrets_count": 20
     }
   },
   "fitness_log": [
-    {
-      "gen": 156,
-      "coherence": 7,
-      "novelty": 6,
-      "identity": 7,
-      "tension": 6,
-      "awe": 6,
-      "perceptibility": 7,
-      "note": "",
-      "total": 6.5
-    },
     {
       "gen": 157,
       "coherence": 7,
@@ -466,32 +456,20 @@
       "perceptibility": 7,
       "note": "The core-sample identity is coherent and warm top-to-bottom, but two gens at 6.8 means it's settling into a static read. The column shows the deposit ",
       "total": 6.7
+    },
+    {
+      "gen": 176,
+      "coherence": 8,
+      "novelty": 6,
+      "identity": 8,
+      "tension": 6,
+      "awe": 6,
+      "perceptibility": 7,
+      "note": "The core-sample identity is warm, coherent top-to-bottom, and the cleanest the page has been since the storm era. But three gens parked at ~6.8 confir",
+      "total": 6.8
     }
   ],
   "mutation_log": [
-    {
-      "gen": 156,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "content.mood",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "interaction.type-'strike'-anywhere-on-the-",
-        "section.overlay-center",
-        "section.prototype-portfolio",
-        "page.experiments/076.html",
-        "scene.config",
-        "overlay.agent_data"
-      ],
-      "kills": [
-        "interaction:type-'beat'-to-navigate-to-the",
-        "css_rule:gen152-css",
-        "secret[19]"
-      ],
-      "timestamp": "2026-05-26T22:05:58Z"
-    },
     {
       "gen": 157,
       "mutations": [
@@ -893,21 +871,25 @@
         "secret[20]"
       ],
       "timestamp": "2026-06-05T06:01:38Z"
+    },
+    {
+      "gen": 176,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "color.accent",
+        "atmosphere.css_rules",
+        "interaction.type-'remember'-anywhere-light",
+        "section.stratigraphic-column"
+      ],
+      "kills": [
+        "secret[20]",
+        "secret[19]"
+      ],
+      "timestamp": "2026-06-05T14:02:35Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "interaction",
-      "value": "type-'mammatus'-anywhere-on-th",
-      "died_gen": 159,
-      "epitaph": "Tied to the satellite view, which is gone. The pouches died with the orbit."
-    },
-    {
-      "type": "css_rule",
-      "value": "gen155-css",
-      "died_gen": 159,
-      "epitaph": "Satellite-era styling, orphaned by tonight's deletion."
-    },
     {
       "type": "secret",
       "value": "Type 'velocity' anywhere \u2014 the scope flips to Doppler velocity. Inbound winds gl",
@@ -1195,6 +1177,18 @@
       "value": "Type 'varve' anywhere and the core counts its own years \u2014 each lamina flares in ",
       "died_gen": 175,
       "epitaph": "Pruned to carrying capacity (21/20) \u2014 a stale storm-era residue making room for the 'settle' compaction secret."
+    },
+    {
+      "type": "secret",
+      "value": "Type 'settle' and the surface lamina compacts \u2014 your session's grain folds into ",
+      "died_gen": 176,
+      "epitaph": "Pruned to carrying capacity (21/20) \u2014 a storm/manuscript-era residue, making room for the 'remember' secret that belongs to the living core."
+    },
+    {
+      "type": "secret",
+      "value": "Scroll to the bottom of the core and you reach 2026-03-24 \u2014 the day the first gr",
+      "died_gen": 176,
+      "epitaph": "Second prune to clear the over-capacity backlog \u2014 a dead-era flourish with no surface left to act on."
     }
   ],
   "carrying_capacity": {
@@ -1213,11 +1207,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 166,
-      "base": "#8a5cd8",
-      "family": "blue"
-    },
     {
       "gen": 167,
       "base": "#8a5cd8",
@@ -1260,6 +1249,11 @@
     },
     {
       "gen": 175,
+      "base": "#a85a32",
+      "family": "red"
+    },
+    {
+      "gen": 176,
       "base": "#a85a32",
       "family": "red"
     }
@@ -1385,6 +1379,14 @@
         "    FAIL  #a05634  ratio=3.49:1  (< 4.5)"
       ],
       "timestamp": "2026-06-05T06:01:38Z"
+    },
+    {
+      "gen": 176,
+      "messages": [
+        "  [contrast-gate below-fold] effective bg = #14100c from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
+        "    FAIL  #a05634  ratio=3.49:1  (< 4.5)"
+      ],
+      "timestamp": "2026-06-05T14:02:35Z"
     }
   ]
 }
