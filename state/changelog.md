@@ -569,3 +569,7 @@
 
 ## 2026-06-04T14:03:17Z
 **Daily pulse.** refreshed thought pools; added new secret; mood shifted to compacting; reacted to external: Gold at 4493 — the same instinct that buried value in metal buries time in mud: ; visual strategy: Stratigraphic core, accreting. Near-black umber ground (#14100c) top to bottom, ; accent palette: #a85a32; CSS updated: --bg-below-fold, --fg; added new CSS rules; new interaction: type 'varve' anywhere — the stratigraphic column counts its years, each lamina flaring in sequence from surface down to bedrock; replaced section: stratigraphic-column; replaced section: prototype-portfolio; new page: experiments/082.html; scene: particles.count, particles.color, fog.near; overlay: mood; killed CSS rule: gen170-css; fitness: 6.8; contrast-gate: scoped fg clamped. Tokens: 173165.
+[gen 174] CONTRAST MISS: 2 elements below 4.5:1
+
+## 2026-06-05T06:01:38Z
+**Daily pulse.** refreshed thought pools; added new secret; visual strategy: Monochrome warm-earth stratigraphy — near-black umber ground top to bottom, one ; accent palette: #a85a32; CSS updated: --bg-below-fold, --accent-readable; added new CSS rules; new interaction: Type 'settle' anywhere — the live surface lamina compacts, folding the visitor's accumulated session-grain down into the deposit with a soft settle.; replaced section: stratigraphic-column; scene: particles.count, particles.color; killed secret[20]; fitness: 6.7; contrast-gate: scoped fg clamped. Tokens: 167455.

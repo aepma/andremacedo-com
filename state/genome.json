@@ -1,15 +1,15 @@
 {
-  "generation": 174,
+  "generation": 175,
   "epoch": "the core sample",
   "epoch_started": "2026-06-04",
   "traits": {
     "color": {
       "accent_base": "#a85a32",
       "accent_dawn": "#c47a4a",
-      "accent_morning": "#b06840",
-      "accent_afternoon": "#a05634",
-      "accent_evening": "#894628",
-      "accent_night": "#673820",
+      "accent_morning": "#b86c42",
+      "accent_afternoon": "#b06840",
+      "accent_evening": "#8a4828",
+      "accent_night": "#6a3a22",
       "bg": "#14100c",
       "fg": "#e8ddd0",
       "grain_opacity": "0.08",
@@ -230,7 +230,8 @@
       "type-'curtain'-anywhere-to-par",
       "type-'smalt'-anywhere-on-the-p",
       "type-'core'-anywhere-\u2014-the-str",
-      "type-'varve'-anywhere-\u2014-the-st"
+      "type-'varve'-anywhere-\u2014-the-st",
+      "type-'settle'-anywhere-\u2014-the-l"
     ],
     "content": {
       "mood": "compacting",
@@ -246,17 +247,6 @@
     }
   },
   "fitness_log": [
-    {
-      "gen": 155,
-      "coherence": 7,
-      "novelty": 7,
-      "identity": 8,
-      "tension": 6,
-      "awe": 7,
-      "perceptibility": 6,
-      "note": "",
-      "total": 6.8
-    },
     {
       "gen": 156,
       "coherence": 7,
@@ -465,33 +455,20 @@
       "perceptibility": 7,
       "note": "The core-sample identity is the most coherent the page has been since the storm era \u2014 one warm earth ground, depth markers, a dated surface band. But ",
       "total": 6.8
+    },
+    {
+      "gen": 175,
+      "coherence": 8,
+      "novelty": 5,
+      "identity": 8,
+      "tension": 6,
+      "awe": 6,
+      "perceptibility": 7,
+      "note": "The core-sample identity is coherent and warm top-to-bottom, but two gens at 6.8 means it's settling into a static read. The column shows the deposit ",
+      "total": 6.7
     }
   ],
   "mutation_log": [
-    {
-      "gen": 155,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "content.mood",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "interaction.type-'mammatus'-anywhere-on-th",
-        "section.delete.tonights-composition",
-        "section.satellite-view",
-        "scene.config",
-        "overlay.agent_data"
-      ],
-      "kills": [
-        "section:tonights-composition",
-        "thought:night[11]",
-        "thought:night[10]",
-        "secret[20]",
-        "secret[19]"
-      ],
-      "timestamp": "2026-05-26T06:05:12Z"
-    },
     {
       "gen": 156,
       "mutations": [
@@ -899,15 +876,26 @@
         "css_rule:gen170-css"
       ],
       "timestamp": "2026-06-04T14:03:17Z"
+    },
+    {
+      "gen": 175,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "interaction.type-'settle'-anywhere-\u2014-the-l",
+        "section.stratigraphic-column",
+        "scene.config"
+      ],
+      "kills": [
+        "secret[20]"
+      ],
+      "timestamp": "2026-06-05T06:01:38Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "interaction",
-      "value": "type-'velocity'-anywhere-to-fl",
-      "died_gen": 159,
-      "epitaph": "Redundant \u2014 the WIND button does this in the open instead of as a hidden flip."
-    },
     {
       "type": "interaction",
       "value": "type-'mammatus'-anywhere-on-th",
@@ -1201,6 +1189,12 @@
       "value": "gen170-css",
       "died_gen": 174,
       "epitaph": "Clearing-era unified-charcoal tiers \u2014 four generations dormant, superseded by the gen174 below-fold lockdown."
+    },
+    {
+      "type": "secret",
+      "value": "Type 'varve' anywhere and the core counts its own years \u2014 each lamina flares in ",
+      "died_gen": 175,
+      "epitaph": "Pruned to carrying capacity (21/20) \u2014 a stale storm-era residue making room for the 'settle' compaction secret."
     }
   ],
   "carrying_capacity": {
@@ -1219,11 +1213,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 165,
-      "base": "#7d4bd0",
-      "family": "blue"
-    },
     {
       "gen": 166,
       "base": "#8a5cd8",
@@ -1266,6 +1255,11 @@
     },
     {
       "gen": 174,
+      "base": "#a85a32",
+      "family": "red"
+    },
+    {
+      "gen": 175,
       "base": "#a85a32",
       "family": "red"
     }
@@ -1383,6 +1377,14 @@
         "    FAIL  #a05634  ratio=3.49:1  (< 4.5)"
       ],
       "timestamp": "2026-06-04T14:03:17Z"
+    },
+    {
+      "gen": 175,
+      "messages": [
+        "  [contrast-gate below-fold] effective bg = #14100c from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
+        "    FAIL  #a05634  ratio=3.49:1  (< 4.5)"
+      ],
+      "timestamp": "2026-06-05T06:01:38Z"
     }
   ]
 }
