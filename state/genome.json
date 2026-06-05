@@ -1,11 +1,11 @@
 {
-  "generation": 176,
+  "generation": 177,
   "epoch": "the core sample",
   "epoch_started": "2026-06-04",
   "traits": {
     "color": {
       "accent_base": "#a85a32",
-      "accent_dawn": "#c47a4a",
+      "accent_dawn": "#cc8252",
       "accent_morning": "#b86c42",
       "accent_afternoon": "#a8623a",
       "accent_evening": "#8a4828",
@@ -242,23 +242,12 @@
         "morning": 10,
         "afternoon": 10,
         "evening": 10,
-        "night": 10
+        "night": 11
       },
       "secrets_count": 20
     }
   },
   "fitness_log": [
-    {
-      "gen": 157,
-      "coherence": 7,
-      "novelty": 7,
-      "identity": 8,
-      "tension": 6,
-      "awe": 6,
-      "perceptibility": 8,
-      "note": "",
-      "total": 7.0
-    },
     {
       "gen": 158,
       "coherence": 8,
@@ -467,30 +456,20 @@
       "perceptibility": 7,
       "note": "The core-sample identity is warm, coherent top-to-bottom, and the cleanest the page has been since the storm era. But three gens parked at ~6.8 confir",
       "total": 6.8
+    },
+    {
+      "gen": 177,
+      "coherence": 8,
+      "novelty": 6,
+      "identity": 8,
+      "tension": 6,
+      "awe": 6,
+      "perceptibility": 7,
+      "note": "The core-sample identity is the most coherent the page has been since the storm era \u2014 one warm earth ground top to bottom, monochrome warm-earth strat",
+      "total": 6.8
     }
   ],
   "mutation_log": [
-    {
-      "gen": 157,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "content.mood",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "section.overlay-center",
-        "section.resonance-field",
-        "scene.config",
-        "overlay.agent_data"
-      ],
-      "kills": [
-        "interaction:click-and-drag-on-the-resonanc",
-        "css_rule:gen153-css",
-        "secret[18]"
-      ],
-      "timestamp": "2026-05-27T06:05:12Z"
-    },
     {
       "gen": 158,
       "mutations": [
@@ -887,6 +866,17 @@
         "secret[19]"
       ],
       "timestamp": "2026-06-05T14:02:35Z"
+    },
+    {
+      "gen": 177,
+      "mutations": [
+        "content.thoughts",
+        "color.accent",
+        "atmosphere.css_rules",
+        "section.stratigraphic-column"
+      ],
+      "kills": [],
+      "timestamp": "2026-06-05T22:02:10Z"
     }
   ],
   "graveyard": [
@@ -1208,11 +1198,6 @@
   },
   "color_history": [
     {
-      "gen": 167,
-      "base": "#8a5cd8",
-      "family": "blue"
-    },
-    {
       "gen": 168,
       "base": "#8a8a8a",
       "family": "red"
@@ -1254,6 +1239,11 @@
     },
     {
       "gen": 176,
+      "base": "#a85a32",
+      "family": "red"
+    },
+    {
+      "gen": 177,
       "base": "#a85a32",
       "family": "red"
     }
@@ -1387,6 +1377,14 @@
         "    FAIL  #a05634  ratio=3.49:1  (< 4.5)"
       ],
       "timestamp": "2026-06-05T14:02:35Z"
+    },
+    {
+      "gen": 177,
+      "messages": [
+        "  [contrast-gate below-fold] effective bg = #14100c from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
+        "    FAIL  #a05634  ratio=3.49:1  (< 4.5)"
+      ],
+      "timestamp": "2026-06-05T22:02:10Z"
     }
   ]
 }
