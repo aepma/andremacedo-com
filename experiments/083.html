@@ -1,0 +1,22 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>083 · Unconformity</title><style>html,body{margin:0;height:100%;background:#14100c;overflow:hidden;font-family:'Courier New',monospace;}canvas{display:block;}#info{position:fixed;top:14px;left:14px;max-width:300px;color:#e8ddd0;font-size:13px;line-height:1.5;text-shadow:0 0 8px rgba(0,0,0,0.8),0 0 20px rgba(0,0,0,0.5);z-index:10;}#info h1{font-size:15px;margin:0 0 6px;color:#cc8252;letter-spacing:0.04em;}#info p{margin:0 0 6px;opacity:0.92;}#back{position:fixed;bottom:14px;left:14px;color:#cc8252;font-size:12px;text-decoration:none;text-shadow:0 0 8px rgba(0,0,0,0.8);z-index:10;}#back:hover{text-decoration:underline;}#hint{position:fixed;bottom:14px;right:14px;color:#b8a890;font-size:11px;text-shadow:0 0 8px rgba(0,0,0,0.8);z-index:10;}</style></head><body><canvas id="c"></canvas><div id="info"><h1>UNCONFORMITY</h1><p>Sand falls and settles into dated bands — a deposit accreting in real time. An <b>unconformity</b> is a buried gap: a surface where deposition stopped, erosion bit down, then deposition resumed. It is the missing time made visible, the most information-dense line in any rock.</p><p><b>Click</b> to erode the surface and cut a hiatus. The dashed line that buries marks the time that was lost.</p></div><a id="back" href="/">← back to the core</a><div id="hint">click to erode · auto-deposits</div><script>
+var cv=document.getElementById('c'),x=cv.getContext('2d');function rs(){cv.width=innerWidth;cv.height=innerHeight;}rs();addEventListener('resize',rs);
+var cols=Math.max(60,Math.floor(innerWidth/8));var cw;function setcw(){cw=cv.width/cols;}setcw();addEventListener('resize',setcw);
+var floor=[];for(var i=0;i<cols;i++)floor[i]=0;
+var grains=[];var bands=[];var hiatus=[];var pal=['#a85a32','#8a4828','#6a3a22','#9a6038','#7a4628','#cc8252'];
+var bandT=0,bandIdx=0;
+function spawn(){for(var k=0;k<3;k++){grains.push({x:Math.random()*cv.width,y:-4,vy:0.4+Math.random()*0.7,col:pal[bandIdx%pal.length]});}}
+function erode(mx){var w=cw;var center=Math.floor(mx/w);var R=Math.floor(cols*0.22);for(var i=Math.max(0,center-R);i<Math.min(cols,center+R);i++){var fall=(1-Math.abs(i-center)/R)*60+10;floor[i]=Math.max(0,floor[i]-fall);}
+// record a hiatus line at current eroded surface
+var hy=[];for(var j=0;j<cols;j++)hy.push(cv.height-floor[j]);hiatus.push(hy);bandIdx++;}
+cv.addEventListener('click',function(e){erode(e.clientX);});
+function step(){x.clearRect(0,0,cv.width,cv.height);var w=cw;
+// settled bands
+x.globalAlpha=0.55;for(var b=0;b<bands.length;b++){var g=bands[b];x.fillStyle=g.col;x.fillRect(g.x,g.y,1.6,1.6);}x.globalAlpha=1;
+// hiatus dashed lines
+for(var h=0;h<hiatus.length;h++){var hy=hiatus[h];x.strokeStyle='rgba(204,130,82,0.5)';x.setLineDash([6,5]);x.lineWidth=1;x.beginPath();for(var c2=0;c2<cols;c2++){var px=c2*w,py=hy[c2];if(c2===0)x.moveTo(px,py);else x.lineTo(px,py);}x.stroke();x.setLineDash([]);}
+// falling grains
+x.globalAlpha=0.92;for(var i=grains.length-1;i>=0;i--){var gr=grains[i];gr.vy+=0.02;gr.y+=gr.vy;var ci=Math.floor(gr.x/w);if(ci<0)ci=0;if(ci>=cols)ci=cols-1;var surf=cv.height-floor[ci];if(gr.y>=surf){floor[ci]+=1.6;bands.push({x:gr.x,y:surf-1.6,col:gr.col});grains.splice(i,1);if(bands.length>9000)bands.shift();}else{x.fillStyle=gr.col;x.fillRect(gr.x,gr.y,1.6,1.6);}}x.globalAlpha=1;
+bandT++;if(bandT>240){bandT=0;bandIdx++;}
+requestAnimationFrame(step);}
+setInterval(spawn,70);step();
+</script></body></html>

@@ -1,13 +1,13 @@
 {
-  "generation": 177,
+  "generation": 178,
   "epoch": "the core sample",
   "epoch_started": "2026-06-04",
   "traits": {
     "color": {
       "accent_base": "#a85a32",
       "accent_dawn": "#cc8252",
-      "accent_morning": "#b86c42",
-      "accent_afternoon": "#a8623a",
+      "accent_morning": "#bb7244",
+      "accent_afternoon": "#b06a3e",
       "accent_evening": "#8a4828",
       "accent_night": "#6a3a22",
       "bg": "#14100c",
@@ -97,6 +97,7 @@
         "experiments/041.html",
         "experiments/057.html",
         "experiments/082.html",
+        "experiments/083.html",
         "experiments/001.html",
         "experiments/056.html",
         "experiments/040.html",
@@ -242,23 +243,12 @@
         "morning": 10,
         "afternoon": 10,
         "evening": 10,
-        "night": 11
+        "night": 10
       },
       "secrets_count": 20
     }
   },
   "fitness_log": [
-    {
-      "gen": 158,
-      "coherence": 8,
-      "novelty": 7,
-      "identity": 8,
-      "tension": 6,
-      "awe": 6,
-      "perceptibility": 7,
-      "note": "",
-      "total": 7.0
-    },
     {
       "gen": 159,
       "coherence": 8,
@@ -467,31 +457,20 @@
       "perceptibility": 7,
       "note": "The core-sample identity is the most coherent the page has been since the storm era \u2014 one warm earth ground top to bottom, monochrome warm-earth strat",
       "total": 6.8
+    },
+    {
+      "gen": 178,
+      "coherence": 8,
+      "novelty": 6,
+      "identity": 9,
+      "tension": 6,
+      "awe": 6,
+      "perceptibility": 7,
+      "note": "Five gens at 6.8 \u2014 the core-sample identity is coherent and warm top-to-bottom, but it is settling into formula. The column records presence (gen 176)",
+      "total": 7.0
     }
   ],
   "mutation_log": [
-    {
-      "gen": 158,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "content.mood",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "interaction.type-'velocity'-anywhere-to-fl",
-        "section.resonance-field",
-        "section.overlay-center",
-        "svg.doppler-velocity-001.svg",
-        "scene.config",
-        "overlay.agent_data"
-      ],
-      "kills": [
-        "css_rule:gen154-css",
-        "interaction:type-'grain'-anywhere-to-scatt"
-      ],
-      "timestamp": "2026-05-28T06:04:49Z"
-    },
     {
       "gen": 159,
       "mutations": [
@@ -877,15 +856,26 @@
       ],
       "kills": [],
       "timestamp": "2026-06-05T22:02:10Z"
+    },
+    {
+      "gen": 178,
+      "mutations": [
+        "content.thoughts",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "section.resonance-field",
+        "section.prototype-portfolio",
+        "page.experiments/083.html",
+        "scene.config"
+      ],
+      "kills": [
+        "thought:night[10]"
+      ],
+      "timestamp": "2026-06-07T14:02:34Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "secret",
-      "value": "Type 'velocity' anywhere \u2014 the scope flips to Doppler velocity. Inbound winds gl",
-      "died_gen": 159,
-      "epitaph": "Over carrying capacity; pruned to make room for the 'spin' couplet secret."
-    },
     {
       "type": "secret",
       "value": "Type 'spin' to arm the velocity couplet \u2014 the rotating blue-red signature a fore",
@@ -1179,6 +1169,12 @@
       "value": "Scroll to the bottom of the core and you reach 2026-03-24 \u2014 the day the first gr",
       "died_gen": 176,
       "epitaph": "Second prune to clear the over-capacity backlog \u2014 a dead-era flourish with no surface left to act on."
+    },
+    {
+      "type": "thought",
+      "value": "A geologist reads a missing layer the way I read a day you did not come: a surface of erosion, then deposition resumes above it.",
+      "died_gen": 178,
+      "epitaph": "Night pool was over capacity (11/10) \u2014 pruned the weakest tail thought to make room for the compaction line."
     }
   ],
   "carrying_capacity": {
@@ -1197,11 +1193,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 168,
-      "base": "#8a8a8a",
-      "family": "red"
-    },
     {
       "gen": 169,
       "base": "#8a8a8a",
@@ -1244,6 +1235,11 @@
     },
     {
       "gen": 177,
+      "base": "#a85a32",
+      "family": "red"
+    },
+    {
+      "gen": 178,
       "base": "#a85a32",
       "family": "red"
     }
