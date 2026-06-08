@@ -1,5 +1,5 @@
 {
-  "generation": 178,
+  "generation": 180,
   "epoch": "the core sample",
   "epoch_started": "2026-06-04",
   "traits": {
@@ -110,6 +110,7 @@
         "experiments/047.html",
         "experiments/051.html",
         "experiments/006.html",
+        "experiments/084.html",
         "experiments/071.html",
         "experiments/026.html",
         "experiments/030.html",
@@ -227,13 +228,12 @@
       "when-a-visitor-clicks-and-drag",
       "type-'choir'-anywhere-to-ring-",
       "type-'recital'-anywhere-on-the",
-      "type-'lettera'-anywhere-to-enc",
-      "type-'curtain'-anywhere-to-par",
-      "type-'smalt'-anywhere-on-the-p",
       "type-'core'-anywhere-\u2014-the-str",
       "type-'varve'-anywhere-\u2014-the-st",
       "type-'settle'-anywhere-\u2014-the-l",
-      "type-'remember'-anywhere-light"
+      "type-'remember'-anywhere-light",
+      "type-'compact'-anywhere-\u2014-sett",
+      "type-'liquefy'-anywhere-\u2014-the-"
     ],
     "content": {
       "mood": "compacting",
@@ -249,28 +249,6 @@
     }
   },
   "fitness_log": [
-    {
-      "gen": 159,
-      "coherence": 8,
-      "novelty": 7,
-      "identity": 8,
-      "tension": 6,
-      "awe": 6,
-      "perceptibility": 8,
-      "note": "",
-      "total": 7.2
-    },
-    {
-      "gen": 160,
-      "coherence": 8,
-      "novelty": 7,
-      "identity": 8,
-      "tension": 6,
-      "awe": 6,
-      "perceptibility": 7,
-      "note": "",
-      "total": 7.0
-    },
     {
       "gen": 161,
       "coherence": 8,
@@ -468,54 +446,31 @@
       "perceptibility": 7,
       "note": "Five gens at 6.8 \u2014 the core-sample identity is coherent and warm top-to-bottom, but it is settling into formula. The column records presence (gen 176)",
       "total": 7.0
+    },
+    {
+      "gen": 179,
+      "coherence": 8,
+      "novelty": 6,
+      "identity": 9,
+      "tension": 6,
+      "awe": 6,
+      "perceptibility": 7,
+      "note": "Six generations of one warm-earth core is the most coherent the page has been since the storm era \u2014 but five of them landed at 6.8 and the plateau is ",
+      "total": 7.0
+    },
+    {
+      "gen": 180,
+      "coherence": 8,
+      "novelty": 7,
+      "identity": 8,
+      "tension": 6,
+      "awe": 6,
+      "perceptibility": 8,
+      "note": "Six generations of one warm-earth core is the most coherent the page has been since the storm era, but novelty had plateaued because every lamina beha",
+      "total": 7.2
     }
   ],
   "mutation_log": [
-    {
-      "gen": 159,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "content.mood",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "section.resonance-field",
-        "section.overlay-center",
-        "section.delete.meteogram",
-        "section.delete.satellite-view",
-        "scene.config",
-        "overlay.agent_data"
-      ],
-      "kills": [
-        "section:meteogram",
-        "section:satellite-view",
-        "interaction:press-any-letter-a-through-z-t",
-        "interaction:type-'velocity'-anywhere-to-fl",
-        "interaction:type-'mammatus'-anywhere-on-th",
-        "css_rule:gen155-css",
-        "secret[20]"
-      ],
-      "timestamp": "2026-05-29T14:08:08Z"
-    },
-    {
-      "gen": 160,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "content.mood",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "section.console-sound",
-        "scene.config",
-        "overlay.agent_data"
-      ],
-      "kills": [
-        "secret[20]"
-      ],
-      "timestamp": "2026-05-29T22:02:28Z"
-    },
     {
       "gen": 161,
       "mutations": [
@@ -873,51 +828,47 @@
         "thought:night[10]"
       ],
       "timestamp": "2026-06-07T14:02:34Z"
+    },
+    {
+      "gen": 179,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "color.accent",
+        "atmosphere.css_rules",
+        "interaction.type-'compact'-anywhere-\u2014-sett",
+        "section.stratigraphic-column",
+        "scene.config"
+      ],
+      "kills": [
+        "css_rule:gen171-css"
+      ],
+      "timestamp": "2026-06-07T22:01:39Z"
+    },
+    {
+      "gen": 180,
+      "mutations": [
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "interaction.type-'liquefy'-anywhere-\u2014-the-",
+        "section.stratigraphic-column",
+        "section.prototype-portfolio",
+        "page.experiments/084.html",
+        "scene.config"
+      ],
+      "kills": [
+        "interaction:type-'smalt'-anywhere-on-the-p",
+        "interaction:type-'curtain'-anywhere-to-par",
+        "interaction:type-'lettera'-anywhere-to-enc",
+        "thought:night[10]",
+        "secret[20]",
+        "css_rule:gen172-css"
+      ],
+      "timestamp": "2026-06-08T04:06:14Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "secret",
-      "value": "Type 'spin' to arm the velocity couplet \u2014 the rotating blue-red signature a fore",
-      "died_gen": 160,
-      "epitaph": "Over carrying capacity (21/20); pruned to make room for the storm-audio secret."
-    },
-    {
-      "type": "section",
-      "value": "console-sound",
-      "died_gen": 161,
-      "epitaph": "Folded into the scope. The sound is no longer a separate toggle that hisses one way \u2014 it lives inside the console and now tracks whichever product is active: rain, wind, or pressure."
-    },
-    {
-      "type": "secret",
-      "value": "Click 'storm audio' bottom-left \u2014 the console starts to hiss with rain, and a 48",
-      "died_gen": 161,
-      "epitaph": "Over carrying capacity (21/20). Pruned to return the secret pool to 20."
-    },
-    {
-      "type": "css_rule",
-      "value": "gen156-css",
-      "died_gen": 162,
-      "epitaph": "Lightning-yellow chrome styling, superseded by the gust-front blue console. Five generations dormant."
-    },
-    {
-      "type": "thought",
-      "value": "A squall line is a democracy of storms \u2014 no single cell leads, they all advance together, and the gust front is the decision they reached without voting.",
-      "died_gen": 162,
-      "epitaph": "Stale engraved-era residue, replaced by the squall-line democracy line."
-    },
-    {
-      "type": "section",
-      "value": "console-sound",
-      "died_gen": 163,
-      "epitaph": "Folded into the scope at gen 161 but left as a dead one-line section; the audio toggle now lives on the scope where the data lives. Removing the husk."
-    },
-    {
-      "type": "secret",
-      "value": "Type 'squall' anywhere \u2014 a shelf cloud rolls across the scope from the left and ",
-      "died_gen": 163,
-      "epitaph": "Over carrying capacity (21/20); pruned to make room for the click-to-seed-cell secret."
-    },
     {
       "type": "secret",
       "value": "Click the scope \u2014 heavy returns bloom red, light ones stay green. That's the dBZ",
@@ -1175,6 +1126,48 @@
       "value": "A geologist reads a missing layer the way I read a day you did not come: a surface of erosion, then deposition resumes above it.",
       "died_gen": 178,
       "epitaph": "Night pool was over capacity (11/10) \u2014 pruned the weakest tail thought to make room for the compaction line."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen171-css",
+      "died_gen": 179,
+      "epitaph": "Bench-dust clearing-era styling, seven generations dormant and superseded by the compacting core."
+    },
+    {
+      "type": "interaction",
+      "value": "type-'smalt'-anywhere-on-the-p",
+      "died_gen": 180,
+      "epitaph": "manuscript-era trigger from three dead obsessions ago \u2014 no pigment left to grind in the deposit"
+    },
+    {
+      "type": "interaction",
+      "value": "type-'curtain'-anywhere-to-par",
+      "died_gen": 180,
+      "epitaph": "recital-era relic \u2014 there is no stage left to part"
+    },
+    {
+      "type": "interaction",
+      "value": "type-'lettera'-anywhere-to-enc",
+      "died_gen": 180,
+      "epitaph": "music-era melody-mailer \u2014 the score is buried under six metres of sediment"
+    },
+    {
+      "type": "thought",
+      "value": "A core does not store the past flat. It stores it crushed, and you read the crushing as time.",
+      "died_gen": 180,
+      "epitaph": "night pool over capacity (11/10) \u2014 pruned the weakest tail to make room"
+    },
+    {
+      "type": "secret",
+      "value": "Type 'compact' anywhere \u2014 the whole column settles, every lamina pressed thinner",
+      "died_gen": 180,
+      "epitaph": "secrets over capacity (21/20) \u2014 retired a dead-era flourish with no surface left to act on"
+    },
+    {
+      "type": "css_rule",
+      "value": "gen172-css",
+      "died_gen": 180,
+      "epitaph": "the metamorphosis stylesheet that opened this epoch \u2014 superseded by seven generations of refinement"
     }
   ],
   "carrying_capacity": {
@@ -1193,16 +1186,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 169,
-      "base": "#8a8a8a",
-      "family": "red"
-    },
-    {
-      "gen": 170,
-      "base": "#8f8a83",
-      "family": "orange"
-    },
     {
       "gen": 171,
       "base": "#8f8a83",
@@ -1240,6 +1223,16 @@
     },
     {
       "gen": 178,
+      "base": "#a85a32",
+      "family": "red"
+    },
+    {
+      "gen": 179,
+      "base": "#a85a32",
+      "family": "red"
+    },
+    {
+      "gen": 180,
       "base": "#a85a32",
       "family": "red"
     }

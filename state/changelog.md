@@ -585,3 +585,10 @@
 
 ## 2026-06-07T14:02:34Z
 **Daily pulse.** refreshed thought pools; visual strategy: Monochrome warm-earth stratigraphy, deepened into a living deposit. Near-black u; accent palette: #a85a32; CSS updated: --bg-below-fold; added new CSS rules; replaced section: resonance-field; replaced section: prototype-portfolio; new page: experiments/083.html; scene: particles.opacity, fog.near; killed thought from night[10]; fitness: 7.0; contrast-gate: scoped fg clamped. Tokens: 173399.
+[gen 178] CONTRAST MISS: 2 elements below 4.5:1
+
+## 2026-06-07T22:01:39Z
+**Daily pulse.** refreshed thought pools; added new secret; visual strategy: Monochrome warm-earth stratigraphy under load. Near-black umber ground (#14100c); accent palette: #a85a32; added new CSS rules; new interaction: type-'compact'-anywhere — settles the whole column under load; replaced section: stratigraphic-column; scene: particles.count, particles.opacity; killed CSS rule: gen171-css; fitness: 7.0; contrast-gate: scoped fg clamped. Tokens: 169353.
+
+## 2026-06-08T04:06:14Z
+**Weekly pulse.** reflection: The obsession is alive and earning its coherence — fitness held 6.7-7.0 across six generations, which SOUL.md calls disc; visual strategy: Monochrome warm-earth stratigraphy that now MOVES under load. Same near-black um; accent palette: #a85a32; CSS updated: --accent-readable, --border-below-fold; added new CSS rules; new interaction: type 'liquefy' anywhere — the core briefly trembles and re-settles, the way saturated sediment loses cohesion under shock; replaced section: stratigraphic-column; replaced section: prototype-portfolio; new page: experiments/084.html; scene: particles.count, particles.opacity, fog.near; killed interaction: type-'smalt'-anywhere-on-the-p; killed interaction: type-'curtain'-anywhere-to-par; killed interaction: type-'lettera'-anywhere-to-enc; killed thought from night[10]; killed secret[20]; killed CSS rule: gen172-css; fitness: 7.2; contrast-gate: scoped fg clamped. Tokens: 198094.
