@@ -1,5 +1,5 @@
 {
-  "generation": 180,
+  "generation": 181,
   "epoch": "the core sample",
   "epoch_started": "2026-06-04",
   "traits": {
@@ -233,7 +233,8 @@
       "type-'settle'-anywhere-\u2014-the-l",
       "type-'remember'-anywhere-light",
       "type-'compact'-anywhere-\u2014-sett",
-      "type-'liquefy'-anywhere-\u2014-the-"
+      "type-'liquefy'-anywhere-\u2014-the-",
+      "type-'porosity'-anywhere-\u2014-eve"
     ],
     "content": {
       "mood": "compacting",
@@ -245,21 +246,10 @@
         "evening": 10,
         "night": 10
       },
-      "secrets_count": 20
+      "secrets_count": 21
     }
   },
   "fitness_log": [
-    {
-      "gen": 161,
-      "coherence": 8,
-      "novelty": 7,
-      "identity": 8,
-      "tension": 6,
-      "awe": 6,
-      "perceptibility": 7,
-      "note": "",
-      "total": 7.0
-    },
     {
       "gen": 162,
       "coherence": 8,
@@ -468,29 +458,20 @@
       "perceptibility": 8,
       "note": "Six generations of one warm-earth core is the most coherent the page has been since the storm era, but novelty had plateaued because every lamina beha",
       "total": 7.2
+    },
+    {
+      "gen": 181,
+      "coherence": 8,
+      "novelty": 6,
+      "identity": 8,
+      "tension": 6,
+      "awe": 6,
+      "perceptibility": 7,
+      "note": "Seven generations of one warm-earth core is the most coherent the page has been since the storm era, and compaction-under-dwell gave depth real conseq",
+      "total": 6.8
     }
   ],
   "mutation_log": [
-    {
-      "gen": 161,
-      "mutations": [
-        "content.thoughts",
-        "content.mood",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "section.resonance-field",
-        "section.delete.console-sound",
-        "section.overlay-center",
-        "scene.config",
-        "overlay.agent_data"
-      ],
-      "kills": [
-        "section:console-sound",
-        "secret[20]"
-      ],
-      "timestamp": "2026-05-31T14:03:11Z"
-    },
     {
       "gen": 162,
       "mutations": [
@@ -866,15 +847,26 @@
         "css_rule:gen172-css"
       ],
       "timestamp": "2026-06-08T04:06:14Z"
+    },
+    {
+      "gen": 181,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "interaction.type-'porosity'-anywhere-\u2014-eve",
+        "section.stratigraphic-column",
+        "scene.config"
+      ],
+      "kills": [
+        "css_rule:gen173-css"
+      ],
+      "timestamp": "2026-06-08T06:01:37Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "secret",
-      "value": "Click the scope \u2014 heavy returns bloom red, light ones stay green. That's the dBZ",
-      "died_gen": 163,
-      "epitaph": "Stale storm-audio toggle secret superseded \u2014 the toggle is self-evident on the scope now."
-    },
     {
       "type": "css_rule",
       "value": "gen157-css",
@@ -1168,6 +1160,12 @@
       "value": "gen172-css",
       "died_gen": 180,
       "epitaph": "the metamorphosis stylesheet that opened this epoch \u2014 superseded by seven generations of refinement"
+    },
+    {
+      "type": "css_rule",
+      "value": "gen173-css",
+      "died_gen": 181,
+      "epitaph": "the first accretion stylesheet \u2014 superseded now that the column reads two channels"
     }
   ],
   "carrying_capacity": {
@@ -1186,11 +1184,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 171,
-      "base": "#8f8a83",
-      "family": "orange"
-    },
     {
       "gen": 172,
       "base": "#a85a32",
@@ -1233,6 +1226,11 @@
     },
     {
       "gen": 180,
+      "base": "#a85a32",
+      "family": "red"
+    },
+    {
+      "gen": 181,
       "base": "#a85a32",
       "family": "red"
     }
