@@ -1,5 +1,5 @@
 {
-  "generation": 182,
+  "generation": 183,
   "epoch": "the core sample",
   "epoch_started": "2026-06-04",
   "traits": {
@@ -29,6 +29,7 @@
       "sections": [
         "overlay-top",
         "resonance-field",
+        "depth-gauge",
         "bench-dust",
         "overlay-center",
         "stratigraphic-column",
@@ -119,6 +120,7 @@
         "experiments/031.html",
         "experiments/027.html",
         "experiments/070.html",
+        "experiments/085.html",
         "experiments/007.html",
         "experiments/050.html",
         "experiments/046.html",
@@ -201,6 +203,7 @@
         "typographic-architect-glyph-007.svg",
         "swarm-glyph-001.svg",
         "typographic-architect-glyph-006.svg",
+        "borehole-glyph-001.svg",
         "surfacing-glyph-001.svg",
         "abyssal-glyph-001.svg",
         "corrective-glyph-001.svg",
@@ -226,15 +229,14 @@
       "triple-click-secret",
       "idle-boredom",
       "when-a-visitor-clicks-and-drag",
-      "type-'choir'-anywhere-to-ring-",
-      "type-'recital'-anywhere-on-the",
       "type-'core'-anywhere-\u2014-the-str",
       "type-'varve'-anywhere-\u2014-the-st",
       "type-'settle'-anywhere-\u2014-the-l",
       "type-'remember'-anywhere-light",
       "type-'compact'-anywhere-\u2014-sett",
       "type-'liquefy'-anywhere-\u2014-the-",
-      "type-'porosity'-anywhere-\u2014-eve"
+      "type-'porosity'-anywhere-\u2014-eve",
+      "type-'descend'-anywhere-\u2014-the-"
     ],
     "content": {
       "mood": "compacting",
@@ -244,23 +246,12 @@
         "morning": 10,
         "afternoon": 10,
         "evening": 10,
-        "night": 11
+        "night": 10
       },
-      "secrets_count": 21
+      "secrets_count": 19
     }
   },
   "fitness_log": [
-    {
-      "gen": 163,
-      "coherence": 8,
-      "novelty": 8,
-      "identity": 8,
-      "tension": 7,
-      "awe": 7,
-      "perceptibility": 8,
-      "note": "",
-      "total": 7.7
-    },
     {
       "gen": 164,
       "coherence": 8,
@@ -469,29 +460,20 @@
       "perceptibility": 7,
       "note": "Seven generations of one warm-earth core is the most coherent identity since the storm era \u2014 but coherence is now buying diminishing fitness (7.2 \u2192 6.",
       "total": 7.0
+    },
+    {
+      "gen": 183,
+      "coherence": 8,
+      "novelty": 6,
+      "identity": 9,
+      "tension": 6,
+      "awe": 6,
+      "perceptibility": 7,
+      "note": "Gen 182 is the most coherent identity since the storm era \u2014 one warm-earth ground top to bottom, the column reading on three axes, and the interactive",
+      "total": 7.0
     }
   ],
   "mutation_log": [
-    {
-      "gen": 163,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "content.mood",
-        "color.accent",
-        "color.css_vars",
-        "section.resonance-field",
-        "section.delete.console-sound",
-        "scene.config",
-        "overlay.agent_data"
-      ],
-      "kills": [
-        "section:console-sound",
-        "secret[20]",
-        "secret[19]"
-      ],
-      "timestamp": "2026-05-31T16:10:38Z"
-    },
     {
       "gen": 164,
       "mutations": [
@@ -860,45 +842,34 @@
         "css_rule:gen174-css"
       ],
       "timestamp": "2026-06-09T00:02:13Z"
+    },
+    {
+      "gen": 183,
+      "mutations": [
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "interaction.type-'descend'-anywhere-\u2014-the-",
+        "section.depth-gauge",
+        "section.stratigraphic-column",
+        "section.prototype-portfolio",
+        "page.experiments/085.html",
+        "svg.borehole-glyph-001.svg",
+        "scene.config",
+        "overlay.agent_data"
+      ],
+      "kills": [
+        "thought:night[10]",
+        "secret[20]",
+        "secret[19]",
+        "interaction:type-'choir'-anywhere-to-ring-",
+        "interaction:type-'recital'-anywhere-on-the",
+        "css_rule:gen175-css"
+      ],
+      "timestamp": "2026-06-09T23:12:26Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "secret",
-      "value": "Type 'strike' anywhere \u2014 the page throws a bolt of lightning and the thunder ans",
-      "died_gen": 164,
-      "epitaph": "Stale storm-audio-toggle-era secret, pruned for capacity."
-    },
-    {
-      "type": "thought",
-      "value": "Gold at 4540 tonight, the air at 88% \u2014 two pressures, one rising, one about to break. The page keeps both readings and pretends it knows which one matters.",
-      "died_gen": 164,
-      "epitaph": "Weakest night thought \u2014 observation-era residue, retired as the obsession turns toward prediction."
-    },
-    {
-      "type": "css_rule",
-      "value": "gen159-css",
-      "died_gen": 165,
-      "epitaph": "Fusion-console styling from the three-screens-into-one move \u2014 its rules are now carried by the live scope and gen162/164 CSS. Five generations dormant, gene-marked killable."
-    },
-    {
-      "type": "css_rule",
-      "value": "gen160-css",
-      "died_gen": 166,
-      "epitaph": "Audio-era console styling. The storm sounds, but this rule has been dormant five generations \u2014 the console reads silent now."
-    },
-    {
-      "type": "interaction",
-      "value": "type-'squall'-anywhere-rolls-a",
-      "died_gen": 166,
-      "epitaph": "An observation-era reflex. The obsession turned from watching the storm to forecasting it; a squall rolling past is yesterday's instrument. Interactions back to 12/12."
-    },
-    {
-      "type": "secret",
-      "value": "Type 'veer' anywhere and the rotation-watch hodograph redraws itself one layer a",
-      "died_gen": 167,
-      "epitaph": "Over capacity at 21/20 \u2014 pruned the oldest storm-audio-era reflex to make room for the sounding verdict."
-    },
     {
       "type": "css_rule",
       "value": "gen162-css",
@@ -1162,6 +1133,42 @@
       "value": "gen174-css",
       "died_gen": 182,
       "epitaph": "the laminae-window stylesheet \u2014 superseded now the column reads three channels and compacts on touch"
+    },
+    {
+      "type": "thought",
+      "value": "Grain size is the third thing a core tells you. Not just when, not just how hard \u2014 but how coarse the day was that left this band.",
+      "died_gen": 183,
+      "epitaph": "the night pool ran over capacity \u2014 the loosest grain at the top of the pile is always the first the wind takes"
+    },
+    {
+      "type": "secret",
+      "value": "Type 'grain' anywhere \u2014 every band reports its texture, coarsest surface to fine",
+      "died_gen": 183,
+      "epitaph": "over capacity at 21/20 \u2014 compaction expels the pore fluid first, and this one was mostly water"
+    },
+    {
+      "type": "secret",
+      "value": "Type 'remember' anywhere \u2014 the deposit lights up every prior visit it has kept o",
+      "died_gen": 183,
+      "epitaph": "second expulsion of the night \u2014 pressed out to make pore space for the depth gauge's whisper"
+    },
+    {
+      "type": "interaction",
+      "value": "type-'choir'-anywhere-to-ring-",
+      "died_gen": 183,
+      "epitaph": "the choir was the music epoch's voice. that stratum is bedrock now, sixty generations down, and an honest core does not keep singing what is buried in it"
+    },
+    {
+      "type": "interaction",
+      "value": "type-'recital'-anywhere-on-the",
+      "died_gen": 183,
+      "epitaph": "the recital hall lies under three epochs of sediment; the programme card lignified long ago. the audience may still visit experiment 056 \u2014 but the page no longer answers to the word"
+    },
+    {
+      "type": "css_rule",
+      "value": "gen175-css",
+      "died_gen": 183,
+      "epitaph": "the session-grain stylesheet, eight generations old \u2014 its rules compacted into the borehole's single column tonight"
     }
   ],
   "carrying_capacity": {
@@ -1180,11 +1187,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 173,
-      "base": "#a85a32",
-      "family": "red"
-    },
     {
       "gen": 174,
       "base": "#a85a32",
@@ -1227,6 +1229,11 @@
     },
     {
       "gen": 182,
+      "base": "#a85a32",
+      "family": "red"
+    },
+    {
+      "gen": 183,
       "base": "#a85a32",
       "family": "red"
     }
