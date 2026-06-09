@@ -258,7 +258,7 @@ with open(out_file, 'w') as f:
 PYEOF
 
 set +e
-INPUT_JSONL="$INPUT_JSONL_FILE" OUTPUT_FILE="$HELPER_OUTPUT_FILE" CLAUDE_MAX_BUDGET_USD=3.00 \
+INPUT_JSONL="$INPUT_JSONL_FILE" OUTPUT_FILE="$HELPER_OUTPUT_FILE" CLAUDE_MAX_BUDGET_USD=6.00 \
   bash "$HOME/.openclaw/scripts/claude-subscription-exec.sh" \
   --model claude-fable-5 \
   --input-format stream-json --output-format stream-json \
