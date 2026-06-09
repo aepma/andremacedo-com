@@ -1,5 +1,5 @@
 {
-  "generation": 181,
+  "generation": 182,
   "epoch": "the core sample",
   "epoch_started": "2026-06-04",
   "traits": {
@@ -244,23 +244,12 @@
         "morning": 10,
         "afternoon": 10,
         "evening": 10,
-        "night": 10
+        "night": 11
       },
       "secrets_count": 21
     }
   },
   "fitness_log": [
-    {
-      "gen": 162,
-      "coherence": 8,
-      "novelty": 7,
-      "identity": 8,
-      "tension": 6,
-      "awe": 7,
-      "perceptibility": 7,
-      "note": "",
-      "total": 7.2
-    },
     {
       "gen": 163,
       "coherence": 8,
@@ -469,30 +458,20 @@
       "perceptibility": 7,
       "note": "Seven generations of one warm-earth core is the most coherent the page has been since the storm era, and compaction-under-dwell gave depth real conseq",
       "total": 6.8
+    },
+    {
+      "gen": 182,
+      "coherence": 8,
+      "novelty": 6,
+      "identity": 9,
+      "tension": 6,
+      "awe": 6,
+      "perceptibility": 7,
+      "note": "Seven generations of one warm-earth core is the most coherent identity since the storm era \u2014 but coherence is now buying diminishing fitness (7.2 \u2192 6.",
+      "total": 7.0
     }
   ],
   "mutation_log": [
-    {
-      "gen": 162,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "content.mood",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "interaction.type-'squall'-anywhere-rolls-a",
-        "section.prototype-portfolio",
-        "page.experiments/077.html",
-        "scene.config",
-        "overlay.agent_data"
-      ],
-      "kills": [
-        "css_rule:gen156-css",
-        "thought:afternoon[8]"
-      ],
-      "timestamp": "2026-05-31T14:35:12Z"
-    },
     {
       "gen": 163,
       "mutations": [
@@ -864,21 +843,26 @@
         "css_rule:gen173-css"
       ],
       "timestamp": "2026-06-08T06:01:37Z"
+    },
+    {
+      "gen": 182,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "section.stratigraphic-column",
+        "scene.config"
+      ],
+      "kills": [
+        "secret[20]",
+        "css_rule:gen174-css"
+      ],
+      "timestamp": "2026-06-09T00:02:13Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "css_rule",
-      "value": "gen157-css",
-      "died_gen": 164,
-      "epitaph": "Reflectivity-scale scope styling \u2014 superseded by the gen163 advancing-squall scope."
-    },
-    {
-      "type": "css_rule",
-      "value": "gen158-css",
-      "died_gen": 164,
-      "epitaph": "Doppler-velocity scope styling \u2014 folded into the fusion console at gen159."
-    },
     {
       "type": "secret",
       "value": "Type 'strike' anywhere \u2014 the page throws a bolt of lightning and the thunder ans",
@@ -1166,6 +1150,18 @@
       "value": "gen173-css",
       "died_gen": 181,
       "epitaph": "the first accretion stylesheet \u2014 superseded now that the column reads two channels"
+    },
+    {
+      "type": "secret",
+      "value": "Type 'porosity' anywhere \u2014 every band reveals the air it lost.",
+      "died_gen": 182,
+      "epitaph": "secrets over capacity (21/20) \u2014 retired a dead-era flourish to make room for the grain readout"
+    },
+    {
+      "type": "css_rule",
+      "value": "gen174-css",
+      "died_gen": 182,
+      "epitaph": "the laminae-window stylesheet \u2014 superseded now the column reads three channels and compacts on touch"
     }
   ],
   "carrying_capacity": {
@@ -1184,11 +1180,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 172,
-      "base": "#a85a32",
-      "family": "red"
-    },
     {
       "gen": 173,
       "base": "#a85a32",
@@ -1231,6 +1222,11 @@
     },
     {
       "gen": 181,
+      "base": "#a85a32",
+      "family": "red"
+    },
+    {
+      "gen": 182,
       "base": "#a85a32",
       "family": "red"
     }
