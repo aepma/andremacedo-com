@@ -760,7 +760,8 @@ if section_ops and isinstance(section_ops, list):
                 re.DOTALL
             )
             if pattern.search(html):
-                html = pattern.sub(block, html)
+                # lambda: model content is literal text, not a re template ("\u" in generated JS crashes parse_template)
+                html = pattern.sub(lambda _m: block, html)
 
                 # Handle inline CSS: replace existing or add new
                 if css:
@@ -770,7 +771,7 @@ if section_ops and isinstance(section_ops, list):
                         re.DOTALL
                     )
                     if css_pattern.search(html):
-                        html = css_pattern.sub(css_tag, html)
+                        html = css_pattern.sub(lambda _m: css_tag, html)
                     else:
                         html = html.replace(
                             f'<!-- @section:{section_id}:start -->',
