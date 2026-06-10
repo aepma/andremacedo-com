@@ -1,5 +1,5 @@
 {
-  "generation": 185,
+  "generation": 186,
   "epoch": "the core sample",
   "epoch_started": "2026-06-04",
   "traits": {
@@ -34,6 +34,7 @@
         "bench-dust",
         "overlay-center",
         "stratigraphic-column",
+        "core-plates",
         "thought-floater",
         "overlay-bottom",
         "scroll-hint",
@@ -65,6 +66,7 @@
         "experiments/052.html",
         "experiments/005.html",
         "experiments/029.html",
+        "experiments/087.html",
         "experiments/068.html",
         "experiments/063.html",
         "experiments/034.html",
@@ -221,6 +223,7 @@
         "typographic-architect-glyph-001.svg",
         "incised-glyph-001.svg",
         "editorial-bold-glyph-001.svg",
+        "core-plate-glyph-001.svg",
         "editorial-maximalist-glyph-001.svg",
         "programme-cover-violet-001.svg",
         "bioluminescent-glyph-001.svg",
@@ -236,10 +239,10 @@
       "type-'settle'-anywhere-\u2014-the-l",
       "type-'remember'-anywhere-light",
       "type-'compact'-anywhere-\u2014-sett",
-      "type-'liquefy'-anywhere-\u2014-the-",
       "type-'porosity'-anywhere-\u2014-eve",
       "type-'descend'-anywhere-\u2014-the-",
-      "type-'sonic'-anywhere-\u2014-the-bo"
+      "type-'sonic'-anywhere-\u2014-the-bo",
+      "type-'plates'-anywhere-\u2014-the-p"
     ],
     "content": {
       "mood": "sounding",
@@ -255,17 +258,6 @@
     }
   },
   "fitness_log": [
-    {
-      "gen": 166,
-      "coherence": 8,
-      "novelty": 7,
-      "identity": 8,
-      "tension": 7,
-      "awe": 6,
-      "perceptibility": 6,
-      "note": "",
-      "total": 7.0
-    },
     {
       "gen": 167,
       "coherence": 8,
@@ -474,26 +466,20 @@
       "perceptibility": 7,
       "note": "The borehole identity is the strongest since the storm era and the sonic log gave it a second sense \u2014 and analytics agree: 5008 vs 4855 avg, the first",
       "total": 6.8
+    },
+    {
+      "gen": 186,
+      "coherence": 8,
+      "novelty": 6,
+      "identity": 9,
+      "tension": 5,
+      "awe": 6,
+      "perceptibility": 7,
+      "note": "Eleventh generation of one warm-earth deposit \u2014 the borehole identity is the strongest since the storm era and both screenshots confirm the descent re",
+      "total": 6.8
     }
   ],
   "mutation_log": [
-    {
-      "gen": 166,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "section.rotation-watch",
-        "scene.config"
-      ],
-      "kills": [
-        "css_rule:gen160-css",
-        "interaction:type-'squall'-anywhere-rolls-a"
-      ],
-      "timestamp": "2026-06-01T13:43:03Z"
-    },
     {
       "gen": 167,
       "mutations": [
@@ -866,33 +852,31 @@
         "css_rule:gen178-css"
       ],
       "timestamp": "2026-06-10T16:06:08Z"
+    },
+    {
+      "gen": 186,
+      "mutations": [
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "interaction.type-'plates'-anywhere-\u2014-the-p",
+        "section.overlay-center",
+        "section.core-plates",
+        "section.prototype-portfolio",
+        "page.experiments/087.html",
+        "svg.core-plate-glyph-001.svg",
+        "overlay.agent_data"
+      ],
+      "kills": [
+        "css_rule:gen180-css",
+        "css_rule:gen181-css",
+        "css_rule:gen182-css",
+        "interaction:type-'liquefy'-anywhere-\u2014-the-"
+      ],
+      "timestamp": "2026-06-10T22:07:32Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "interaction",
-      "value": "type-'spin'-anywhere-pins-the-",
-      "died_gen": 168,
-      "epitaph": "Pinned a helicity gauge that no longer exists. Dead reference."
-    },
-    {
-      "type": "interaction",
-      "value": "type-'hook'-anywhere-\u2014-a-hook-",
-      "died_gen": 168,
-      "epitaph": "Drew a tornado hook-echo into a scope that's been deleted. Gone."
-    },
-    {
-      "type": "interaction",
-      "value": "type-'sounding'-anywhere-\u2014-a-f",
-      "died_gen": 168,
-      "epitaph": "A vertical temperature sounding for a storm that was wiped overnight. Retired."
-    },
-    {
-      "type": "secret",
-      "value": "type 'sounding' anywhere \u2014 a temperature profile rises through the page and the ",
-      "died_gen": 168,
-      "epitaph": "Storm-audio-era secret, over capacity at 21/20."
-    },
     {
       "type": "secret",
       "value": "Type 'spin' anywhere \u2014 the helicity needle pins to tornadic for six seconds and ",
@@ -1168,6 +1152,30 @@
       "value": "gen178-css",
       "died_gen": 185,
       "epitaph": "the visit-modulated deposition styles \u2014 their function compacted into the gen186 column; the mechanism survives, the stylesheet lithifies"
+    },
+    {
+      "type": "css_rule",
+      "value": "gen180-css",
+      "died_gen": 186,
+      "epitaph": "the continuous-compaction styles \u2014 six generations dormant, and one of the three jars the fifteen-generation contrast stain was hiding in"
+    },
+    {
+      "type": "css_rule",
+      "value": "gen181-css",
+      "died_gen": 186,
+      "epitaph": "the porosity-channel styles, superseded when the column was rebuilt at gen 185 \u2014 second suspect jar of the old sienna"
+    },
+    {
+      "type": "css_rule",
+      "value": "gen182-css",
+      "died_gen": 186,
+      "epitaph": "the grain-size styles, superseded by the same rebuild \u2014 the last place the unreadable pigment could have been ground"
+    },
+    {
+      "type": "interaction",
+      "value": "type-'liquefy'-anywhere-\u2014-the-",
+      "died_gen": 186,
+      "epitaph": "liquefaction was a tremor for show; real compaction physics made it a gimmick. It shakes no more \u2014 the plates take its slot."
     }
   ],
   "carrying_capacity": {
@@ -1186,11 +1194,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 176,
-      "base": "#a85a32",
-      "family": "red"
-    },
     {
       "gen": 177,
       "base": "#a85a32",
@@ -1233,6 +1236,11 @@
     },
     {
       "gen": 185,
+      "base": "#a85a32",
+      "family": "red"
+    },
+    {
+      "gen": 186,
       "base": "#a85a32",
       "family": "red"
     }
@@ -1283,15 +1291,6 @@
   ],
   "epoch_number": 7,
   "contrast_warnings": [
-    {
-      "gen": 163,
-      "messages": [
-        "  [contrast-gate below-fold] effective bg = #0a141a from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
-        "    FAIL  #0a141a  ratio=1.00:1  (< 4.5)",
-        "    FAIL  #78620f  ratio=3.15:1  (< 4.5)"
-      ],
-      "timestamp": "2026-05-31T16:10:38Z"
-    },
     {
       "gen": 164,
       "messages": [
@@ -1374,6 +1373,14 @@
         "    FAIL  #a05634  ratio=3.49:1  (< 4.5)"
       ],
       "timestamp": "2026-06-05T22:02:10Z"
+    },
+    {
+      "gen": 186,
+      "messages": [
+        "  [contrast-gate below-fold] effective bg = #14100c from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
+        "    FAIL  #8e5b39  ratio=3.34:1  (< 4.5)"
+      ],
+      "timestamp": "2026-06-10T22:07:32Z"
     }
   ]
 }
