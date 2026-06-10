@@ -1,5 +1,5 @@
 {
-  "generation": 184,
+  "generation": 185,
   "epoch": "the core sample",
   "epoch_started": "2026-06-04",
   "traits": {
@@ -41,6 +41,7 @@
       ],
       "pages": [
         "index-old.html",
+        "experiments/086.html",
         "experiments/069.html",
         "experiments/028.html",
         "experiments/004.html",
@@ -255,17 +256,6 @@
   },
   "fitness_log": [
     {
-      "gen": 165,
-      "coherence": 8,
-      "novelty": 7,
-      "identity": 8,
-      "tension": 7,
-      "awe": 7,
-      "perceptibility": 6,
-      "note": "",
-      "total": 7.2
-    },
-    {
       "gen": 166,
       "coherence": 8,
       "novelty": 7,
@@ -473,27 +463,20 @@
       "perceptibility": 7,
       "note": "The borehole landed: the desktop screenshot shows the depth rail, the darkening descent, and the column as one continuous instrument \u2014 the most archit",
       "total": 7.0
+    },
+    {
+      "gen": 185,
+      "coherence": 8,
+      "novelty": 6,
+      "identity": 9,
+      "tension": 5,
+      "awe": 6,
+      "perceptibility": 7,
+      "note": "The borehole identity is the strongest since the storm era and the sonic log gave it a second sense \u2014 and analytics agree: 5008 vs 4855 avg, the first",
+      "total": 6.8
     }
   ],
   "mutation_log": [
-    {
-      "gen": 165,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "content.mood",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "interaction.type-'spin'-anywhere-pins-the-",
-        "section.rotation-watch",
-        "scene.config"
-      ],
-      "kills": [
-        "css_rule:gen159-css"
-      ],
-      "timestamp": "2026-06-01T06:02:26Z"
-    },
     {
       "gen": 166,
       "mutations": [
@@ -867,21 +850,25 @@
         "css_rule:gen176-css"
       ],
       "timestamp": "2026-06-10T00:03:43Z"
+    },
+    {
+      "gen": 185,
+      "mutations": [
+        "content.thoughts",
+        "color.accent",
+        "atmosphere.css_rules",
+        "section.stratigraphic-column",
+        "section.prototype-portfolio",
+        "page.experiments/086.html"
+      ],
+      "kills": [
+        "css_rule:gen177-css",
+        "css_rule:gen178-css"
+      ],
+      "timestamp": "2026-06-10T16:06:08Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "interaction",
-      "value": "type-'thunder'-anywhere-on-the",
-      "died_gen": 168,
-      "epitaph": "Storm-era reflex. No thunder where there's no weather."
-    },
-    {
-      "type": "interaction",
-      "value": "type-'strike'-anywhere-on-the-",
-      "died_gen": 168,
-      "epitaph": "Lightning strike with no sky to fall from. Cut with the weather."
-    },
     {
       "type": "interaction",
       "value": "type-'spin'-anywhere-pins-the-",
@@ -1169,6 +1156,18 @@
       "value": "gen176-css",
       "died_gen": 184,
       "epitaph": "the remember-laminae styles, eight generations old \u2014 their function compacted into the gen184 lockdown; what a stratum keeps, the stylesheet no longer needs to say"
+    },
+    {
+      "type": "css_rule",
+      "value": "gen177-css",
+      "died_gen": 185,
+      "epitaph": "the hiatus-band styles, eight generations old \u2014 the absence they drew is now drawn deeper down, in the rebuilt column"
+    },
+    {
+      "type": "css_rule",
+      "value": "gen178-css",
+      "died_gen": 185,
+      "epitaph": "the visit-modulated deposition styles \u2014 their function compacted into the gen186 column; the mechanism survives, the stylesheet lithifies"
     }
   ],
   "carrying_capacity": {
@@ -1187,11 +1186,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 175,
-      "base": "#a85a32",
-      "family": "red"
-    },
     {
       "gen": 176,
       "base": "#a85a32",
@@ -1234,6 +1228,11 @@
     },
     {
       "gen": 184,
+      "base": "#a85a32",
+      "family": "red"
+    },
+    {
+      "gen": 185,
       "base": "#a85a32",
       "family": "red"
     }
