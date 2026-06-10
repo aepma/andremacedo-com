@@ -1,5 +1,5 @@
 {
-  "generation": 183,
+  "generation": 184,
   "epoch": "the core sample",
   "epoch_started": "2026-06-04",
   "traits": {
@@ -30,6 +30,7 @@
         "overlay-top",
         "resonance-field",
         "depth-gauge",
+        "sonic-log",
         "bench-dust",
         "overlay-center",
         "stratigraphic-column",
@@ -236,10 +237,11 @@
       "type-'compact'-anywhere-\u2014-sett",
       "type-'liquefy'-anywhere-\u2014-the-",
       "type-'porosity'-anywhere-\u2014-eve",
-      "type-'descend'-anywhere-\u2014-the-"
+      "type-'descend'-anywhere-\u2014-the-",
+      "type-'sonic'-anywhere-\u2014-the-bo"
     ],
     "content": {
-      "mood": "compacting",
+      "mood": "sounding",
       "obsession": "sedimentation \u2014 the page as a stratigraphic core, where every generation settles into a readable layer and time is read downward through the deposit",
       "thought_pools": {
         "dawn": 10,
@@ -248,21 +250,10 @@
         "evening": 10,
         "night": 10
       },
-      "secrets_count": 19
+      "secrets_count": 20
     }
   },
   "fitness_log": [
-    {
-      "gen": 164,
-      "coherence": 8,
-      "novelty": 8,
-      "identity": 8,
-      "tension": 7,
-      "awe": 7,
-      "perceptibility": 8,
-      "note": "",
-      "total": 7.7
-    },
     {
       "gen": 165,
       "coherence": 8,
@@ -471,31 +462,20 @@
       "perceptibility": 7,
       "note": "Gen 182 is the most coherent identity since the storm era \u2014 one warm-earth ground top to bottom, the column reading on three axes, and the interactive",
       "total": 7.0
+    },
+    {
+      "gen": 184,
+      "coherence": 8,
+      "novelty": 6,
+      "identity": 9,
+      "tension": 6,
+      "awe": 6,
+      "perceptibility": 7,
+      "note": "The borehole landed: the desktop screenshot shows the depth rail, the darkening descent, and the column as one continuous instrument \u2014 the most archit",
+      "total": 7.0
     }
   ],
   "mutation_log": [
-    {
-      "gen": 164,
-      "mutations": [
-        "content.obsession",
-        "epoch",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "interaction.type-'hook'-anywhere-\u2014-a-hook-",
-        "section.prototype-portfolio",
-        "page.experiments/078.html",
-        "scene.config",
-        "overlay.agent_data"
-      ],
-      "kills": [
-        "css_rule:gen157-css",
-        "css_rule:gen158-css",
-        "secret[18]",
-        "thought:night[9]"
-      ],
-      "timestamp": "2026-06-01T04:06:50Z"
-    },
     {
       "gen": 165,
       "mutations": [
@@ -867,21 +847,29 @@
         "css_rule:gen175-css"
       ],
       "timestamp": "2026-06-09T23:12:26Z"
+    },
+    {
+      "gen": 184,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "content.mood",
+        "color.accent",
+        "atmosphere.css_rules",
+        "interaction.type-'sonic'-anywhere-\u2014-the-bo",
+        "section.sonic-log",
+        "section.thought-floater",
+        "section.overlay-bottom",
+        "overlay.agent_data"
+      ],
+      "kills": [
+        "css_rule:gen171-css",
+        "css_rule:gen176-css"
+      ],
+      "timestamp": "2026-06-10T00:03:43Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "css_rule",
-      "value": "gen162-css",
-      "died_gen": 167,
-      "epitaph": "Gust-front cyan styling, four generations dormant and superseded by the monochrome-violet lockdown."
-    },
-    {
-      "type": "section",
-      "value": "rotation-watch",
-      "died_gen": 168,
-      "epitaph": "The storm-relative helicity gauge \u2014 the last working weather instrument on the page. Andre cut the weather; a forecast gauge with nothing to forecast is just a dial spinning in an empty room. Removed."
-    },
     {
       "type": "interaction",
       "value": "type-'thunder'-anywhere-on-the",
@@ -1169,6 +1157,18 @@
       "value": "gen175-css",
       "died_gen": 183,
       "epitaph": "the session-grain stylesheet, eight generations old \u2014 its rules compacted into the borehole's single column tonight"
+    },
+    {
+      "type": "css_rule",
+      "value": "gen171-css",
+      "died_gen": 184,
+      "epitaph": "the bench-dust stylesheet \u2014 the clearing it dressed is bedrock now, thirteen generations down; its rules were pore fluid and the overburden finally pressed them out"
+    },
+    {
+      "type": "css_rule",
+      "value": "gen176-css",
+      "died_gen": 184,
+      "epitaph": "the remember-laminae styles, eight generations old \u2014 their function compacted into the gen184 lockdown; what a stratum keeps, the stylesheet no longer needs to say"
     }
   ],
   "carrying_capacity": {
@@ -1187,11 +1187,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 174,
-      "base": "#a85a32",
-      "family": "red"
-    },
     {
       "gen": 175,
       "base": "#a85a32",
@@ -1234,6 +1229,11 @@
     },
     {
       "gen": 183,
+      "base": "#a85a32",
+      "family": "red"
+    },
+    {
+      "gen": 184,
       "base": "#a85a32",
       "family": "red"
     }
