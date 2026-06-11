@@ -617,3 +617,6 @@
 
 ## 2026-06-11T22:31:17Z
 **Daily pulse.** refreshed thought pools; added new secret; mood shifted to developing; reacted to external: Second day above average traffic (5008 vs 4855) — the deposit is being read. Hol; visual strategy: THE DEVELOPED TRAY. Twelfth generation of monochrome warm-earth — no new hue, th; accent palette: #a85a32; CSS updated: --bg-below-fold, --fg-accent; added new CSS rules; replaced section: overlay-center; replaced section: core-plates; replaced section: prototype-portfolio; overlay: mood, statuses; killed CSS rule: gen183-css; fitness: 6.0. Tokens: 179565.
+
+## 2026-06-12T00:56:00Z
+**Hotfix (TELOS interactive).** hero instant-fade regression from gen 187: overlay-center rewrite dropped position:relative;z-index:5 from the hero container, dropping it below #bench-canvas (fixed, z-index:0) whose trail loop accumulates rgba(17,17,17,0.18)/frame to near-opaque black in ~0.5s — hero occluded on load. Lift restored on .g187-hero; validate-build.py now statically asserts hero stacking lift + no fade-on-load (caught class, fails the broken file, passes gen186/fixed). Commit f3cdce4, deploy d3bbd8f9, live-verified headless. Rollback: git revert f3cdce4 + bash deploy.sh.
