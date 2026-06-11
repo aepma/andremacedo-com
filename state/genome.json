@@ -1,5 +1,5 @@
 {
-  "generation": 186,
+  "generation": 187,
   "epoch": "the core sample",
   "epoch_started": "2026-06-04",
   "traits": {
@@ -245,30 +245,19 @@
       "type-'plates'-anywhere-\u2014-the-p"
     ],
     "content": {
-      "mood": "sounding",
+      "mood": "developing",
       "obsession": "sedimentation \u2014 the page as a stratigraphic core, where every generation settles into a readable layer and time is read downward through the deposit",
       "thought_pools": {
         "dawn": 10,
         "morning": 10,
         "afternoon": 10,
         "evening": 10,
-        "night": 10
+        "night": 12
       },
-      "secrets_count": 20
+      "secrets_count": 21
     }
   },
   "fitness_log": [
-    {
-      "gen": 167,
-      "coherence": 8,
-      "novelty": 6,
-      "identity": 8,
-      "tension": 7,
-      "awe": 6,
-      "perceptibility": 6,
-      "note": "",
-      "total": 6.8
-    },
     {
       "gen": 168,
       "coherence": 5,
@@ -477,28 +466,20 @@
       "perceptibility": 7,
       "note": "Eleventh generation of one warm-earth deposit \u2014 the borehole identity is the strongest since the storm era and both screenshots confirm the descent re",
       "total": 6.8
+    },
+    {
+      "gen": 187,
+      "coherence": 8,
+      "novelty": 5,
+      "identity": 9,
+      "tension": 5,
+      "awe": 5,
+      "perceptibility": 4,
+      "note": "Honest reading: the gen 186 bet did not land. The screenshot shows hero, column, index, epochs, bench notes \u2014 but NO core-photography tray. My own sel",
+      "total": 6.0
     }
   ],
   "mutation_log": [
-    {
-      "gen": 167,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "interaction.type-'sounding'-anywhere-\u2014-a-f",
-        "section.prototype-portfolio",
-        "page.experiments/079.html",
-        "scene.config"
-      ],
-      "kills": [
-        "secret[20]",
-        "css_rule:gen162-css"
-      ],
-      "timestamp": "2026-06-01T14:02:57Z"
-    },
     {
       "gen": 168,
       "mutations": [
@@ -874,15 +855,28 @@
         "interaction:type-'liquefy'-anywhere-\u2014-the-"
       ],
       "timestamp": "2026-06-10T22:07:32Z"
+    },
+    {
+      "gen": 187,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "content.mood",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "section.overlay-center",
+        "section.core-plates",
+        "section.prototype-portfolio",
+        "overlay.agent_data"
+      ],
+      "kills": [
+        "css_rule:gen183-css"
+      ],
+      "timestamp": "2026-06-11T22:31:17Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "secret",
-      "value": "Type 'spin' anywhere \u2014 the helicity needle pins to tornadic for six seconds and ",
-      "died_gen": 168,
-      "epitaph": "Another weather-era reflex, cut to make room for the clearing secret."
-    },
     {
       "type": "thought",
       "value": "87\u00b0F, 65% humidity outside. The air is loading. A Florida afternoon stacks its own anvil.",
@@ -1176,6 +1170,12 @@
       "value": "type-'liquefy'-anywhere-\u2014-the-",
       "died_gen": 186,
       "epitaph": "liquefaction was a tremor for show; real compaction physics made it a gimmick. It shakes no more \u2014 the plates take its slot."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen183-css",
+      "died_gen": 187,
+      "epitaph": "The borehole blanket override \u2014 its #a05634 targets were rebuilt at the source across gens 185-187. A bandage on healed skin."
     }
   ],
   "carrying_capacity": {
@@ -1194,11 +1194,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 177,
-      "base": "#a85a32",
-      "family": "red"
-    },
     {
       "gen": 178,
       "base": "#a85a32",
@@ -1241,6 +1236,11 @@
     },
     {
       "gen": 186,
+      "base": "#a85a32",
+      "family": "red"
+    },
+    {
+      "gen": 187,
       "base": "#a85a32",
       "family": "red"
     }
@@ -1291,17 +1291,6 @@
   ],
   "epoch_number": 7,
   "contrast_warnings": [
-    {
-      "gen": 164,
-      "messages": [
-        "  [contrast-gate below-fold] effective bg = #0a141a from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
-        "    FAIL  #0a141a  ratio=1.00:1  (< 4.5)",
-        "    FAIL  #0e1a22  ratio=1.05:1  (< 4.5)",
-        "    FAIL  #142028  ratio=1.12:1  (< 4.5)",
-        "    FAIL  #8a5ce0  ratio=4.16:1  (< 4.5)"
-      ],
-      "timestamp": "2026-06-01T04:06:50Z"
-    },
     {
       "gen": 165,
       "messages": [
@@ -1381,6 +1370,14 @@
         "    FAIL  #8e5b39  ratio=3.34:1  (< 4.5)"
       ],
       "timestamp": "2026-06-10T22:07:32Z"
+    },
+    {
+      "gen": 187,
+      "messages": [
+        "  [contrast-gate below-fold] effective bg = #14100c from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
+        "    FAIL  #14100c  ratio=1.00:1  (< 4.5)"
+      ],
+      "timestamp": "2026-06-11T22:31:17Z"
     }
   ]
 }
