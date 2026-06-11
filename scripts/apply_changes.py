@@ -225,7 +225,7 @@ def apply_scoped_fg_fixes(html, fixes):
             + re.escape(old_val) + r'(\s*;)',
             re.DOTALL,
         )
-        new_html, n = rule_re.subn(r'\1' + new_val + r'\2', html, count=1)
+        new_html, n = rule_re.subn(lambda m, _v=new_val: m.group(1) + _v + m.group(2), html, count=1)
         if n:
             html = new_html
             print(f"  [contrast-gate scoped] {selector} {var_name}: {old_val} -> {new_val} (against bg {bg})")
@@ -539,12 +539,12 @@ accent_palette = changes.get("accent_palette")
 if accent_palette and isinstance(accent_palette, dict) and accent_palette.get("base"):
     base = accent_palette["base"]
     with open(index_path) as f: html = f.read()
-    html = re.sub(r"(--fg-accent:\s*)([^;]+)(;)", r"\g<1>" + base + r"\3", html)
+    html = re.sub(r"(--fg-accent:\s*)([^;]+)(;)", lambda m: m.group(1) + base + m.group(3), html)
     for tod_key in ("dawn", "morning", "afternoon", "evening", "night"):
         color = accent_palette.get(tod_key, base)
         html = re.sub(
             r"(" + tod_key + r":\s*\{[^}]*accent:\s*')[^']+(')",
-            r"\g<1>" + color + r"\2",
+            lambda m, _c=color: m.group(1) + _c + m.group(2),
             html
         )
     with open(index_path, "w") as f: f.write(html)
@@ -587,7 +587,7 @@ if css_changes and isinstance(css_changes, dict):
 
     for var_name, var_value in css_changes.items():
         pattern = re.compile(r"(" + re.escape(var_name) + r":\s*)([^;]+)(;)")
-        html = pattern.sub(r"\g<1>" + var_value + r"\3", html)
+        html = pattern.sub(lambda m, _v=var_value: m.group(1) + _v + m.group(3), html)
     with open(index_path, "w") as f: f.write(html)
     parts.append("CSS updated: " + ", ".join(css_changes.keys()))
     mutations_detected.append("color.css_vars")
@@ -631,10 +631,10 @@ if font_change and isinstance(font_change, dict):
         else:
             font_params.append(f"family={encoded}:ital,wght@0,400;0,500;0,700;1,400;1,500")
     new_import = "https://fonts.googleapis.com/css2?" + "&".join(font_params) + "&display=swap"
-    html = re.sub(r"@import url\('[^']+'\);", f"@import url('{new_import}');", html, count=1)
+    html = re.sub(r"@import url\('[^']+'\);", lambda m: f"@import url('{new_import}');", html, count=1)
     html = re.sub(
         r"font-family:\s*'[^']+',\s*Georgia,\s*serif;(\s*/\*\s*display\s*\*/)?",
-        f"font-family: '{display}', Georgia, serif;",
+        lambda m: f"font-family: '{display}', Georgia, serif;",
         html, count=1
     )
     with open(index_path, "w") as f: f.write(html)

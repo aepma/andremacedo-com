@@ -25,7 +25,9 @@ async def capture():
     async with async_playwright() as p:
         browser = await p.chromium.launch()
         page = await browser.new_page(viewport={"width": 1440, "height": 900})
-        await page.goto("https://andremacedo.com", wait_until="networkidle")
+        # 'load', not 'networkidle': the live site animates/polls continuously,
+        # so networkidle never settles and timed out 30s on every run.
+        await page.goto("https://andremacedo.com", wait_until="load", timeout=30000)
         await page.wait_for_timeout(3000)
         # Measure actual rendered page height BEFORE screenshot
         rendered_height = await page.evaluate("document.documentElement.scrollHeight")
@@ -47,7 +49,13 @@ async def capture():
         with open(METRICS_FILE, "w") as f:
             json.dump(existing, f, indent=2)
 
-asyncio.run(capture())
+try:
+    asyncio.run(capture())
+except Exception as e:
+    # One-line failure record; non-fatal upstream (runner continues without visual context).
+    import sys
+    print(f"screenshot capture failed: {type(e).__name__}: {str(e).splitlines()[0] if str(e) else e}", file=sys.stderr)
+    sys.exit(1)
 PYEOF
 
 if [ ! -f "$RAW" ]; then
@@ -124,7 +132,7 @@ async def capture():
             viewport={"width": 390, "height": 844},
             device_scale_factor=2,
         )
-        await page.goto("https://andremacedo.com", wait_until="networkidle")
+        await page.goto("https://andremacedo.com", wait_until="load", timeout=30000)
         await page.wait_for_timeout(3000)
         mobile_rendered_height = await page.evaluate("document.documentElement.scrollHeight")
         await page.screenshot(path=MOBILE_RAW, full_page=True)
@@ -141,7 +149,13 @@ async def capture():
         with open(METRICS_FILE, "w") as f:
             json.dump(existing, f, indent=2)
 
-asyncio.run(capture())
+try:
+    asyncio.run(capture())
+except Exception as e:
+    # One-line failure record; non-fatal upstream (runner continues without visual context).
+    import sys
+    print(f"screenshot capture failed: {type(e).__name__}: {str(e).splitlines()[0] if str(e) else e}", file=sys.stderr)
+    sys.exit(1)
 PYEOF
 
 if [ ! -f "$MOBILE_RAW" ]; then

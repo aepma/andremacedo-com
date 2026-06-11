@@ -263,6 +263,7 @@ INPUT_JSONL="$INPUT_JSONL_FILE" OUTPUT_FILE="$HELPER_OUTPUT_FILE" CLAUDE_MAX_BUD
   --model claude-fable-5 \
   --input-format stream-json --output-format stream-json \
   --max-turns 1 --verbose \
+  --tools "" \
   --strict-mcp-config --mcp-config "$HOME/.openclaw/andremacedo-runner-mcp.json" \
   --no-session-persistence
 HELPER_EXIT=$?
@@ -271,7 +272,39 @@ set -e
 if [ "$HELPER_EXIT" != "0" ]; then
   {
     echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] [$PULSE_TYPE] helper exit=$HELPER_EXIT"
+    # The result/error event lives at the TAIL of the stream-json output; the
+    # head is init boilerplate that fully consumes a fixed-size head snippet
+    # (2026-06-11 blind-failure class). Extract the result event first, then
+    # keep head+tail snippets for raw context.
+    echo "--- result event (parsed) ---"
+    python3 - "$HELPER_OUTPUT_FILE" <<'PYEOF' 2>&1 || true
+import json, sys
+last = None
+for line in open(sys.argv[1], errors='replace'):
+    line = line.strip()
+    if not line:
+        continue
+    try:
+        o = json.loads(line)
+    except Exception:
+        continue
+    if isinstance(o, dict) and o.get('type') == 'result':
+        last = o
+if last is None:
+    print('NO_RESULT_EVENT in helper output')
+else:
+    keys = ('subtype', 'is_error', 'num_turns', 'stop_reason', 'terminal_reason',
+            'errors', 'total_cost_usd', 'duration_ms')
+    print(json.dumps({k: last.get(k) for k in keys if k in last}))
+    txt = (last.get('result') or '')
+    if txt:
+        print('result_text_head:', txt[:500])
+PYEOF
+    echo "--- head 2KB ---"
     head -c 2048 "$HELPER_OUTPUT_FILE" 2>/dev/null || true
+    echo ""
+    echo "--- tail 2KB ---"
+    tail -c 2048 "$HELPER_OUTPUT_FILE" 2>/dev/null || true
     echo ""
   } >> "$ERROR_LOG"
   log "ERROR: helper exit=$HELPER_EXIT (details in $ERROR_LOG)"
@@ -603,7 +636,10 @@ async def snap():
     async with async_playwright() as p:
         browser = await p.chromium.launch()
         page = await browser.new_page(viewport={'width': 1200, 'height': 800})
-        await page.goto('https://andremacedo.com', wait_until='networkidle', timeout=30000)
+        # 'load', not 'networkidle': the live site animates/polls continuously,
+        # so networkidle never settles and timed out 30s on every run.
+        await page.goto('https://andremacedo.com', wait_until='load', timeout=30000)
+        await page.wait_for_timeout(3000)
         await page.screenshot(path=screenshot_file, full_page=True)
         await browser.close()
 asyncio.run(snap())
