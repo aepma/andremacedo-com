@@ -148,6 +148,93 @@ def check_mobile_interaction_invariants(html):
     return True, ""
 
 
+def check_hero_visibility(html):
+    """Assert the overlay-center hero is visible at parse time.
+
+    Returns (ok, diagnostic). Two failure classes, both static (no browser):
+
+    1. Stacking lift (the gen-187 lesson, 2026-06-12): #overlay hosts
+       fixed-position canvases at z-index:0 (bench-canvas, sed-fall) that
+       paint ABOVE static siblings; bench-canvas accumulates rgba black per
+       frame and blacks out anything under it within ~0.5s. The hero
+       container therefore MUST carry position:relative|absolute|sticky and
+       z-index >= 1. Gen 187 dropped exactly this and the hero "faded out
+       instantly" behind the canvas.
+
+    2. Opacity at parse time (regression class, never yet observed): the
+       hero rule, the hero inline style, or the #overlay base rule must not
+       set opacity < 1, and must not reference an @keyframes animation whose
+       body touches opacity. Initial visibility belongs to CSS; only the
+       scroll handler may fade the overlay at runtime.
+    """
+    sec = re.search(
+        r"<!--\s*@section:overlay-center:start\s*-->(.*?)<!--\s*@section:overlay-center:end\s*-->",
+        html, re.S)
+    if not sec:
+        return False, "hero-visibility: overlay-center section markers not found"
+    markup = sec.group(1)
+
+    el = re.search(r"<(\w+)\b([^>]*)>", markup)
+    if not el:
+        return False, "hero-visibility: no element found inside overlay-center section"
+    attrs = el.group(2)
+
+    style_attr = re.search(r"style\s*=\s*['\"]([^'\"]*)['\"]", attrs)
+    if style_attr and re.search(r"opacity\s*:\s*0(?:\.\d+)?(?![\d.])", style_attr.group(1)):
+        return False, ("hero-visibility: hero element inline style sets opacity < 1 "
+                       f"({style_attr.group(1)!r}); hero must be fully visible at parse time")
+
+    cls = re.search(r"class\s*=\s*['\"]([^'\"]+)['\"]", attrs)
+    if not cls:
+        return False, "hero-visibility: overlay-center first element has no class; cannot locate its CSS rule"
+    hero_classes = cls.group(1).split()
+
+    rule_body = None
+    rule_class = None
+    for c in hero_classes:
+        m = re.search(r"\." + re.escape(c) + r"\s*{([^}]*)}", html)
+        if m:
+            rule_body, rule_class = m.group(1), c
+            break
+    if rule_body is None:
+        return False, ("hero-visibility: no CSS rule found for hero classes "
+                       f"{hero_classes}; the hero container must declare "
+                       "position:relative and z-index >= 1")
+
+    pos = re.search(r"position\s*:\s*(relative|absolute|sticky|fixed)", rule_body)
+    z = re.search(r"z-index\s*:\s*(-?\d+)", rule_body)
+    if not pos or not z or int(z.group(1)) < 1:
+        return False, (f"hero-visibility: .{rule_class} must carry position:relative "
+                       "(or absolute/sticky) AND z-index >= 1 so the hero paints above "
+                       "the fixed z-index:0 canvases inside #overlay (bench-canvas "
+                       "accumulates black and occludes static siblings — gen-187 "
+                       f"instant-fade regression). Current rule: {rule_body.strip()!r}")
+
+    op = re.search(r"opacity\s*:\s*(0(?:\.\d+)?)(?![\d.])", rule_body)
+    if op:
+        return False, (f"hero-visibility: .{rule_class} sets initial opacity {op.group(1)}; "
+                       "hero must be fully visible at parse time")
+
+    overlay_rules = re.findall(r"#overlay\s*{([^}]*)}", html)
+    for body in overlay_rules:
+        if re.search(r"opacity\s*:\s*0(?:\.\d+)?(?![\d.])", body):
+            return False, "hero-visibility: #overlay base rule sets initial opacity < 1"
+
+    anim_sources = [("hero rule .%s" % rule_class, rule_body)] + [
+        ("#overlay rule", b) for b in overlay_rules]
+    for label, body in anim_sources:
+        anim = re.search(r"animation(?:-name)?\s*:\s*([^;}]+)", body)
+        if not anim:
+            continue
+        for token in re.split(r"[\s,]+", anim.group(1).strip()):
+            kf = re.search(r"@keyframes\s+" + re.escape(token) + r"\s*{(.*?)}\s*}", html, re.S)
+            if kf and "opacity" in kf.group(1):
+                return False, (f"hero-visibility: {label} runs animation {token!r} whose "
+                               "@keyframes touch opacity; the hero/overlay must not fade on load")
+
+    return True, ""
+
+
 def main(argv):
     path = argv[1] if len(argv) > 1 else DEFAULT_HTML
     if not os.path.isfile(path):
@@ -169,6 +256,14 @@ def main(argv):
         sys.stderr.write(f"validate-build: FAIL — {invariants_diag}\n")
         return 1
     sys.stderr.write("validate-build: mobile-interaction-invariants present\n")
+
+    # Static assertion: overlay-center hero must be visible at parse time
+    # (stacking lift above fixed z0 canvases + no opacity/fade-on-load)
+    hero_ok, hero_diag = check_hero_visibility(html)
+    if not hero_ok:
+        sys.stderr.write(f"validate-build: FAIL — {hero_diag}\n")
+        return 1
+    sys.stderr.write("validate-build: hero-visibility OK\n")
 
     blocks = list(find_inline_scripts(html))
     if not blocks:
