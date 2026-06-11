@@ -6,6 +6,10 @@
 set -euo pipefail
 
 VENV="$HOME/.openclaw/playwright-venv/bin/python3"
+
+# Remove stale outputs first: a failed capture must not leave yesterday's
+# images behind for the runner to embed as today's visual context.
+rm -f /tmp/andremacedo-current.jpg /tmp/andremacedo-mobile.jpg
 OUT="/tmp/andremacedo-current.jpg"
 RAW="/tmp/andremacedo-raw.png"
 WORK="/tmp/andremacedo-current-work.png"
@@ -25,9 +29,11 @@ async def capture():
     async with async_playwright() as p:
         browser = await p.chromium.launch()
         page = await browser.new_page(viewport={"width": 1440, "height": 900})
-        # 'load', not 'networkidle': the live site animates/polls continuously,
-        # so networkidle never settles and timed out 30s on every run.
-        await page.goto("https://andremacedo.com", wait_until="load", timeout=30000)
+        # 'domcontentloaded', not 'networkidle'/'load': the live site animates,
+        # polls, and holds streaming resources open, so neither settles within
+        # 30s (timed out every run). DCL fires in ~4s; the 3s settle below
+        # gives JS time to paint.
+        await page.goto("https://andremacedo.com", wait_until="domcontentloaded", timeout=30000)
         await page.wait_for_timeout(3000)
         # Measure actual rendered page height BEFORE screenshot
         rendered_height = await page.evaluate("document.documentElement.scrollHeight")
@@ -132,7 +138,7 @@ async def capture():
             viewport={"width": 390, "height": 844},
             device_scale_factor=2,
         )
-        await page.goto("https://andremacedo.com", wait_until="load", timeout=30000)
+        await page.goto("https://andremacedo.com", wait_until="domcontentloaded", timeout=30000)
         await page.wait_for_timeout(3000)
         mobile_rendered_height = await page.evaluate("document.documentElement.scrollHeight")
         await page.screenshot(path=MOBILE_RAW, full_page=True)

@@ -636,9 +636,9 @@ async def snap():
     async with async_playwright() as p:
         browser = await p.chromium.launch()
         page = await browser.new_page(viewport={'width': 1200, 'height': 800})
-        # 'load', not 'networkidle': the live site animates/polls continuously,
-        # so networkidle never settles and timed out 30s on every run.
-        await page.goto('https://andremacedo.com', wait_until='load', timeout=30000)
+        # 'domcontentloaded': networkidle/load never settle on the live site
+        # (continuous animation + streaming resources); DCL fires in ~4s.
+        await page.goto('https://andremacedo.com', wait_until='domcontentloaded', timeout=30000)
         await page.wait_for_timeout(3000)
         await page.screenshot(path=screenshot_file, full_page=True)
         await browser.close()
