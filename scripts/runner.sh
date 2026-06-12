@@ -82,6 +82,16 @@ log() {
   echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] $*" | tee -a "$LOG_FILE"
 }
 
+# Agentic verification loop (2026-06-12): daily and weekly pulses run as a
+# bounded multi-turn session that applies, validates, screenshots and inspects
+# its own mutation before the runner deploys (SOUL.md perceptibility gate made
+# honorable — the single-turn path could never see its own render). Event
+# pulses keep the single-turn blind-shot path (f328732).
+AGENTIC=0
+case "$PULSE_TYPE" in
+  daily|weekly) AGENTIC=1 ;;
+esac
+
 telegram() {
   if [ -z "$BOT_TOKEN" ] || [ -z "$CHAT_ID" ]; then return 0; fi
   curl -s -X POST "https://api.telegram.org/bot${BOT_TOKEN}/sendMessage" \
@@ -225,6 +235,73 @@ SCREENSHOT_ARG=""
 
 python3 "$SCRIPT_DIR/build_prompt.py" "$PULSE_TYPE" "$STATE_FILE" "$EXTERNAL_FILE" "$INDEX_FILE" "$SOUL_FILE" "$CHANGELOG" "$TODAY" "$DAY_OF_WEEK" "$TOD" $SCREENSHOT_ARG > "$PROMPT_FILE"
 
+# ── Agentic session protocol (appended last so it supersedes the
+#    "Respond ONLY in valid JSON" reply contract above it) ─────────
+if [ "$AGENTIC" = "1" ]; then
+  # Stale artifacts from a previous run must never satisfy this run's gates.
+  rm -f "$SITE_DIR/state/pending-mutation.json" "$SITE_DIR/state/apply-output.log"
+  cat >> "$PROMPT_FILE" <<PROTOEOF
+
+
+## AGENTIC SESSION PROTOCOL (supersedes "Respond ONLY in valid JSON" above)
+
+You are running as a bounded agentic session (max 12 turns) with exactly these
+tools: Bash, Read, Write, Edit. The site repo is $SITE_DIR
+(absolute path — always use it; your working directory is already there).
+You still compose the SAME mutation JSON specified above, but instead of
+replying with it you now apply it and VERIFY your own work before it ships.
+A generation that cannot verify itself does not ship.
+
+MANDATED SEQUENCE — every step is an assertion gate; do not skip or reorder:
+
+1. MOBILE SUB-GATE first, on the attached live screenshots (rules above). If
+   it fails, do not mutate anything; end your final message with exactly:
+   GENERATION_VERDICT: SKIP — mobile_gate_fail: <issue>
+2. Write your complete mutation JSON (the exact schema above, raw JSON, no
+   code fences) to $SITE_DIR/state/pending-mutation.json with the Write tool.
+3. Apply + validate + render in ONE Bash call so each gate halts the chain:
+   bash $SITE_DIR/scripts/agent-apply.sh $PULSE_TYPE && python3 $SITE_DIR/scripts/validate-build.py $SITE_DIR/index.html && bash $SITE_DIR/scripts/screenshot-local.sh
+   ALL THREE must succeed. agent-apply.sh applies your JSON through the
+   protected-block machinery; validate-build.py enforces INVARIANTS.md
+   statically; screenshot-local.sh serves your MUTATED working tree locally
+   and writes /tmp/andremacedo-self-desktop.jpg and /tmp/andremacedo-self-mobile.jpg.
+4. LOOK at both screenshots with the Read tool (you can read both in one
+   turn). Apply the SOUL perceptibility gate and INVARIANTS to what you SEE,
+   not what you believe the code produces:
+   - Hero + first-person self-introduction fully visible above the fold and
+     legible (INV-1, INV-2). If the top of the desktop screenshot is a dark
+     void with no readable way in, that is a FAIL.
+   - All communicative text readable against its actual rendered background
+     (INV-9). Decorative text may dissolve; communicative text must communicate.
+   - Mobile: no horizontal overflow, no clipped content, nothing occluding
+     the viewport (INV-5 spirit).
+5. If any gate in steps 3-4 fails: you get AT MOST 2 fix iterations. A fix is
+   a targeted Edit to $SITE_DIR/index.html (or to a page/asset you created
+   this session) — do NOT re-run agent-apply.sh for a fix unless your JSON
+   itself was rejected in step 3. After EVERY fix, re-run the validate +
+   screenshot chain from step 3 and re-inspect per step 4. Stale screenshots
+   prove nothing.
+6. Final message: report concrete visual evidence (what you saw in each
+   screenshot — the hero text content, where it sits, your contrast judgment,
+   any fix iterations used), then end with the verdict as the LAST line:
+   - every gate passed:                GENERATION_VERDICT: OK
+   - still failing after 2 fixes:      GENERATION_VERDICT: FAILED — <gate, what you saw>
+   On FAILED the runner keeps the previous deployment live and reverts your
+   working-tree changes. Never report OK without fresh passing screenshots.
+
+HARD RULES (violating any of these makes the generation FAILED):
+- FOREGROUND ONLY. Never background anything: no trailing &, no nohup, no
+  long sleeps, no servers — screenshot-local.sh owns its own server lifecycle.
+  Before your final message nothing you started may still be running.
+- Do NOT deploy (no wrangler, no deploy.sh) and do NOT run git commit/push.
+  The runner deploys only after your OK verdict and its own gates.
+- Do NOT modify: SOUL.md, INVARIANTS.md, HEARTBEAT.md, MISSION.md, TOOLS.md,
+  anything under scripts/ or launchd/, deploy.sh, or any file outside
+  $SITE_DIR. Site mutations go through agent-apply.sh; fix iterations may
+  Edit index.html and files under experiments/, assets/, data/ only.
+PROTOEOF
+fi
+
 if [ "$PULSE_TYPE" = "weekly" ]; then MAX_TOKENS=16000
 elif [ "$PULSE_TYPE" = "daily" ]; then MAX_TOKENS=16000
 else MAX_TOKENS=10000
@@ -232,6 +309,9 @@ fi
 
 # ── Call Claude via subscription helper ───────────────────────────
 log "Starting $PULSE_TYPE pulse..."
+
+# The agentic session's cwd is inherited from this process — make it the repo.
+cd "$SITE_DIR"
 
 INPUT_JSONL_FILE="$(mktemp)"
 HELPER_OUTPUT_FILE="$(mktemp)"
@@ -257,17 +337,51 @@ with open(out_file, 'w') as f:
     f.write(json.dumps({"type": "user", "message": {"role": "user", "content": content}}) + '\n')
 PYEOF
 
+# ANDREMACEDO_HELPER is a test seam (forced-failure dry runs); production
+# default is the canonical subscription helper.
+HELPER_SCRIPT="${ANDREMACEDO_HELPER:-$HOME/.openclaw/scripts/claude-subscription-exec.sh}"
+# Hard wall on the whole claude session. No outer bounded-exec wraps this
+# launchd job, so the runner owns the ceiling itself; tmo returns 124 on
+# overrun, which lands in the helper-failure branch below (fail-closed).
+SESSION_WALL_CEILING=2400
+
 set +e
-INPUT_JSONL="$INPUT_JSONL_FILE" OUTPUT_FILE="$HELPER_OUTPUT_FILE" CLAUDE_MAX_BUDGET_USD=6.00 \
-  bash "$HOME/.openclaw/scripts/claude-subscription-exec.sh" \
-  --model claude-fable-5 \
-  --input-format stream-json --output-format stream-json \
-  --max-turns 1 --verbose \
-  --tools "" \
-  --strict-mcp-config --mcp-config "$HOME/.openclaw/andremacedo-runner-mcp.json" \
-  --no-session-persistence
+if [ "$AGENTIC" = "1" ]; then
+  # Bounded agentic session: tool allowlist is exactly file read/write/edit +
+  # shell; 12-turn cap; stream-json + tail-aware failure logging kept (f328732).
+  # Budget 10.00: the 2026-06-12 smoke run completed all 12 turns and reached
+  # GENERATION_VERDICT: OK but crossed the single-turn-era 6.00 cap at $6.24 on
+  # the final turn (error_max_budget_usd) — a verified-good generation killed
+  # by 4% of budget. 10.00 = observed need + fix-iteration headroom. Event
+  # pulses keep 6.00 below.
+  INPUT_JSONL="$INPUT_JSONL_FILE" OUTPUT_FILE="$HELPER_OUTPUT_FILE" CLAUDE_MAX_BUDGET_USD=10.00 \
+    tmo "$SESSION_WALL_CEILING" bash "$HELPER_SCRIPT" \
+    --model claude-fable-5 \
+    --input-format stream-json --output-format stream-json \
+    --max-turns 12 --verbose \
+    --tools "Bash,Read,Write,Edit" \
+    --permission-mode bypassPermissions \
+    --strict-mcp-config --mcp-config "$HOME/.openclaw/andremacedo-runner-mcp.json" \
+    --no-session-persistence
+else
+  # Event pulse keeps the single-turn blind-shot path (f328732).
+  INPUT_JSONL="$INPUT_JSONL_FILE" OUTPUT_FILE="$HELPER_OUTPUT_FILE" CLAUDE_MAX_BUDGET_USD=6.00 \
+    tmo "$SESSION_WALL_CEILING" bash "$HELPER_SCRIPT" \
+    --model claude-fable-5 \
+    --input-format stream-json --output-format stream-json \
+    --max-turns 1 --verbose \
+    --tools "" \
+    --strict-mcp-config --mcp-config "$HOME/.openclaw/andremacedo-runner-mcp.json" \
+    --no-session-persistence
+fi
 HELPER_EXIT=$?
 set -e
+
+# Persist the full stream-json transcript (perceptibility self-check evidence
+# lives here); keep the last 14 so logs/ stays bounded.
+SESSION_TRANSCRIPT="$SITE_LOG_DIR/session-$(date -u +%Y%m%dT%H%M%SZ)-$PULSE_TYPE.jsonl"
+cp "$HELPER_OUTPUT_FILE" "$SESSION_TRANSCRIPT" 2>/dev/null || true
+ls -t "$SITE_LOG_DIR"/session-*.jsonl 2>/dev/null | tail -n +15 | xargs rm -f 2>/dev/null || true
 
 if [ "$HELPER_EXIT" != "0" ]; then
   {
@@ -308,6 +422,13 @@ PYEOF
     echo ""
   } >> "$ERROR_LOG"
   log "ERROR: helper exit=$HELPER_EXIT (details in $ERROR_LOG)"
+  if [ "$AGENTIC" = "1" ]; then
+    # The session died mid-flight (budget/turns/wall ceiling): the working
+    # tree may hold a half-verified mutation that never reached the verdict
+    # gate. Fail-closed — return index.html to the deployed state so the next
+    # pulse starts clean (same policy as the verdict gate's FAILED branch).
+    git -C "$SITE_DIR" checkout -- "$INDEX_FILE" 2>/dev/null || true
+  fi
   record_failure
   exit 1
 fi
@@ -331,16 +452,28 @@ assert not last.get('is_error'), f"IS_ERROR: {last}"
 text = (last.get('result') or '').strip()
 assert text, "EMPTY_RESULT"
 u = last.get('usage') or {}
+# Verdict is derived ONLY from the result event's .result field — never from
+# the raw capture, which echoes the prompt (the 2026-06-10 verdict
+# false-match lesson). Scan from the end; protocol puts it on the last line.
+verdict = ''
+for line in reversed([l.strip() for l in text.splitlines() if l.strip()]):
+    if line.startswith('GENERATION_VERDICT:'):
+        verdict = line
+        break
 with open(result_path, 'w') as f:
-    json.dump({'text': text, 'usage': u}, f)
+    json.dump({'text': text, 'usage': u, 'verdict': verdict}, f)
 PYEOF
 
 export CONTENT
-CONTENT="$(python3 - "$PARSE_RESULT_FILE" <<'PYEOF'
+if [ "$AGENTIC" = "1" ]; then
+  CONTENT=""  # sourced from state/pending-mutation.json after the verdict gate below
+else
+  CONTENT="$(python3 - "$PARSE_RESULT_FILE" <<'PYEOF'
 import json, sys
 print(json.load(open(sys.argv[1]))['text'])
 PYEOF
 )"
+fi
 INPUT_TOKENS="$(python3 - "$PARSE_RESULT_FILE" <<'PYEOF'
 import json, sys
 u = json.load(open(sys.argv[1]))['usage']
@@ -381,6 +514,68 @@ entry = {
 print(json.dumps(entry))
 PYEOF
 
+# ── Verdict gate (agentic pulses) ─────────────────────────────────
+# Token accounting above runs regardless of verdict — the session spent them.
+if [ "$AGENTIC" = "1" ]; then
+  # apply_changes.py ran inside the session with TOTAL_TOKENS=0, so the
+  # monthly-ceiling accounting happens here with the real session usage.
+  python3 - "$STATE_FILE" "$TOTAL_TOKENS" <<'PYEOF'
+import json, sys
+sf, tok = sys.argv[1], int(sys.argv[2])
+with open(sf) as f:
+    s = json.load(f)
+s['monthly_tokens_used'] = s.get('monthly_tokens_used', 0) + tok
+with open(sf, 'w') as f:
+    json.dump(s, f, indent=2, ensure_ascii=False)
+PYEOF
+
+  VERDICT="$(python3 - "$PARSE_RESULT_FILE" <<'PYEOF'
+import json, sys
+print(json.load(open(sys.argv[1])).get('verdict', ''))
+PYEOF
+)"
+  case "$VERDICT" in
+    "GENERATION_VERDICT: OK"*)
+      log "Session verdict: OK (self-verified against own render)"
+      ;;
+    "GENERATION_VERDICT: SKIP"*)
+      # Healthy skip (e.g. mobile sub-gate on the live screenshots): no
+      # mutation this cycle, previous deployment stays live, counter untouched.
+      log "Session verdict: SKIP — $VERDICT"
+      echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] [$PULSE_TYPE] session skip: $VERDICT" >> "$ERROR_LOG"
+      git -C "$SITE_DIR" checkout -- "$INDEX_FILE" 2>/dev/null || true
+      DEPLOY_SUCCEEDED=1
+      exit 0
+      ;;
+    *)
+      # FAILED or missing verdict: fail-closed. A generation that cannot
+      # verify itself does not ship — previous deployment stays live.
+      log_error "session verdict FAILED or missing ('${VERDICT:-<none>}') — no deploy, reverting working tree"
+      {
+        echo "--- session final message (first 3000 chars) ---"
+        python3 - "$PARSE_RESULT_FILE" <<'PYEOF' 2>&1 || true
+import json, sys
+print(json.load(open(sys.argv[1])).get('text', '')[:3000])
+PYEOF
+        echo "--- transcript: $SESSION_TRANSCRIPT ---"
+      } >> "$ERROR_LOG"
+      git -C "$SITE_DIR" checkout -- "$INDEX_FILE" 2>/dev/null || true
+      record_failure
+      exit 1
+      ;;
+  esac
+
+  # OK verdict requires this run's mutation artifact (removed pre-session, so
+  # a stale file cannot satisfy this). Fail-closed if the session lied.
+  if [ ! -s "$SITE_DIR/state/pending-mutation.json" ]; then
+    log_error "verdict OK but state/pending-mutation.json missing — fail-closed, no deploy"
+    git -C "$SITE_DIR" checkout -- "$INDEX_FILE" 2>/dev/null || true
+    record_failure
+    exit 1
+  fi
+  CONTENT="$(cat "$SITE_DIR/state/pending-mutation.json")"
+fi
+
 # ── Apply changes ──────────────────────────────────────────────────
 cd "$SITE_DIR"
 export SITE_DIR PULSE_TYPE
@@ -388,7 +583,13 @@ export SITE_DIR PULSE_TYPE
 # Capture apply_changes.py output: full text goes to $BUILD_LOG, stderr to $ERROR_LOG,
 # and $SUMMARY is the final line only (the short description apply_changes.py prints last).
 APPLY_STDOUT="$(mktemp)"
-if ! python3 "$APPLY_SCRIPT" >"$APPLY_STDOUT" 2>>"$ERROR_LOG"; then
+if [ "$AGENTIC" = "1" ]; then
+  # The session already applied the mutation via agent-apply.sh; its captured
+  # output feeds the summary/counters below. validate-build.py still re-runs
+  # as a runner-side backstop assertion right after this block.
+  cp "$SITE_DIR/state/apply-output.log" "$APPLY_STDOUT" 2>/dev/null \
+    || echo "(no apply output captured by session)" > "$APPLY_STDOUT"
+elif ! python3 "$APPLY_SCRIPT" >"$APPLY_STDOUT" 2>>"$ERROR_LOG"; then
   log_error "Failed to apply changes"
   cat "$APPLY_STDOUT" >> "$ERROR_LOG"
   rm -f "$APPLY_STDOUT"
