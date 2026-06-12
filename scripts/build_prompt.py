@@ -865,4 +865,14 @@ Respond ONLY in valid JSON:
   "self_note": "string"
 }}"""
 
+# ── INVARIANTS contract — included verbatim in every pulse type ──
+# SOUL.md is the law; INVARIANTS.md (repo root, next to SOUL.md) is the
+# building code. validate-build.py enforces the static checks; the agent
+# must also honor the prompt-level ones.
+invariants_contract = read_file(
+    os.path.join(os.path.dirname(os.path.abspath(soul_file)), "INVARIANTS.md")
+).strip()
+if invariants_contract:
+    prompt += "\n\n" + invariants_contract
+
 print(prompt)
