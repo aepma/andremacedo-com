@@ -245,9 +245,15 @@ if [ "$AGENTIC" = "1" ]; then
 
 ## AGENTIC SESSION PROTOCOL (supersedes "Respond ONLY in valid JSON" above)
 
-You are running as a bounded agentic session (max 12 turns) with exactly these
+You are running as a bounded agentic session (max 20 turns) with exactly these
 tools: Bash, Read, Write, Edit. The site repo is $SITE_DIR
 (absolute path — always use it; your working directory is already there).
+TURN DISCIPLINE: the full current index.html and state are already in this
+prompt — spend AT MOST 3 turns on additional exploration before writing your
+mutation, batch shell commands into single calls, and reserve at least 6 turns
+for the verify/fix/verdict phase. Running out of turns mid-verification is a
+FAILED generation (it has happened; the 2026-06-12 smoke run died at the cap
+with unread screenshots).
 You still compose the SAME mutation JSON specified above, but instead of
 replying with it you now apply it and VERIFY your own work before it ships.
 A generation that cannot verify itself does not ship.
@@ -348,17 +354,20 @@ SESSION_WALL_CEILING=2400
 set +e
 if [ "$AGENTIC" = "1" ]; then
   # Bounded agentic session: tool allowlist is exactly file read/write/edit +
-  # shell; 12-turn cap; stream-json + tail-aware failure logging kept (f328732).
-  # Budget 10.00: the 2026-06-12 smoke run completed all 12 turns and reached
-  # GENERATION_VERDICT: OK but crossed the single-turn-era 6.00 cap at $6.24 on
-  # the final turn (error_max_budget_usd) — a verified-good generation killed
-  # by 4% of budget. 10.00 = observed need + fix-iteration headroom. Event
-  # pulses keep 6.00 below.
-  INPUT_JSONL="$INPUT_JSONL_FILE" OUTPUT_FILE="$HELPER_OUTPUT_FILE" CLAUDE_MAX_BUDGET_USD=10.00 \
+  # shell; stream-json + tail-aware failure logging kept (f328732).
+  # Caps calibrated from the two 2026-06-12 smoke runs (both verified-good
+  # work killed by single-turn-era caps): run 1 finished all gates + verdict
+  # OK in 12 turns but died at $6.24 vs the $6 budget (error_max_budget_usd);
+  # run 2 (budget 10) died at the 12-turn cap mid-fix-iteration at $8.43
+  # (error_max_turns), ~$0.65/turn observed. 20 turns ≈ exploration + apply +
+  # 2 fix iterations + verdict; 15.00 covers 20 turns with margin. The
+  # SESSION_WALL_CEILING (2400s) stays as the outer runaway guard. Event
+  # pulses keep the single-turn 6.00 path below.
+  INPUT_JSONL="$INPUT_JSONL_FILE" OUTPUT_FILE="$HELPER_OUTPUT_FILE" CLAUDE_MAX_BUDGET_USD=15.00 \
     tmo "$SESSION_WALL_CEILING" bash "$HELPER_SCRIPT" \
     --model claude-fable-5 \
     --input-format stream-json --output-format stream-json \
-    --max-turns 12 --verbose \
+    --max-turns 20 --verbose \
     --tools "Bash,Read,Write,Edit" \
     --permission-mode bypassPermissions \
     --strict-mcp-config --mcp-config "$HOME/.openclaw/andremacedo-runner-mcp.json" \
