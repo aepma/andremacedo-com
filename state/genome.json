@@ -1,5 +1,5 @@
 {
-  "generation": 191,
+  "generation": 192,
   "epoch": "the core sample",
   "epoch_started": "2026-06-04",
   "traits": {
@@ -36,6 +36,7 @@
         "stratigraphic-column",
         "unconformity-exhibit",
         "memory-plates",
+        "plate-voices",
         "thought-floater",
         "overlay-bottom",
         "scroll-hint",
@@ -123,6 +124,7 @@
         "experiments/067.html",
         "experiments/088.html",
         "experiments/066.html",
+        "experiments/089.html",
         "experiments/031.html",
         "experiments/027.html",
         "experiments/070.html",
@@ -272,7 +274,7 @@
       "perf_law": "first paint under 4s (INV-8 page-weight proxy), interaction fluid on mobile, validate-build perf gates pass; scene ambition that fails the gates does not ship"
     },
     "content": {
-      "mood": "reconciling",
+      "mood": "answering",
       "obsession": "sedimentation \u2014 the page as a stratigraphic core, where every generation settles into a readable layer and time is read downward through the deposit",
       "thought_pools": {
         "dawn": 10,
@@ -281,21 +283,10 @@
         "evening": 10,
         "night": 10
       },
-      "secrets_count": 21
+      "secrets_count": 20
     }
   },
   "fitness_log": [
-    {
-      "gen": 172,
-      "coherence": 7,
-      "novelty": 8,
-      "identity": 8,
-      "tension": 6,
-      "awe": 7,
-      "perceptibility": 8,
-      "note": "The clearing did its job \u2014 three honest, coherent, inert generations \u2014 but a clearing is fallow ground, not a home. Gen 171 reached 6.2 by adding the ",
-      "total": 7.3
-    },
     {
       "gen": 173,
       "coherence": 8,
@@ -504,36 +495,20 @@
       "perceptibility": 8,
       "note": "Honest reading: the live page is still generation 188's. Both gen 189 and gen 190 wrote agent-state without a single commit touching index.html \u2014 expe",
       "total": 6.5
+    },
+    {
+      "gen": 192,
+      "coherence": 8,
+      "novelty": 4,
+      "identity": 9,
+      "tension": 5,
+      "awe": 5,
+      "perceptibility": 8,
+      "note": "Gen 191 finally landed in rock: commit 5cebb65 touched index.html, experiments/088.html exists on disk, the index reads 088 -> 001, and the unconformi",
+      "total": 6.5
     }
   ],
   "mutation_log": [
-    {
-      "gen": 172,
-      "mutations": [
-        "content.obsession",
-        "epoch",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "interaction.type-'core'-anywhere-\u2014-the-str",
-        "section.resonance-field",
-        "section.overlay-center",
-        "section.stratigraphic-column",
-        "section.prototype-portfolio",
-        "page.experiments/081.html",
-        "scene.config",
-        "overlay.agent_data"
-      ],
-      "kills": [
-        "interaction:type-'bench'-anywhere-\u2014-the-re",
-        "interaction:type-'clearing'-anywhere-\u2014-a-s",
-        "css_rule:gen166-css",
-        "css_rule:gen167-css",
-        "css_rule:gen168-css",
-        "secret[19]"
-      ],
-      "timestamp": "2026-06-04T04:06:31Z"
-    },
     {
       "gen": 173,
       "mutations": [
@@ -871,15 +846,26 @@
         "css_rule:gen188-css"
       ],
       "timestamp": "2026-06-12T08:08:13Z"
+    },
+    {
+      "gen": 192,
+      "mutations": [
+        "content.thoughts",
+        "content.mood",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "section.plate-voices",
+        "section.prototype-portfolio",
+        "page.experiments/089.html"
+      ],
+      "kills": [
+        "secret[20]"
+      ],
+      "timestamp": "2026-06-12T16:08:23Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "thought",
-      "value": "Helicity is just the air remembering which way to turn.",
-      "died_gen": 170,
-      "epitaph": "Dawn pool back to 10/10 capacity."
-    },
     {
       "type": "secret",
       "value": "type 'bench' anywhere \u2014 the motes gather to the center for a moment, then disper",
@@ -1173,6 +1159,12 @@
       "value": "gen188-css",
       "died_gen": 191,
       "epitaph": "Its selector spelled the ground's own hex and the contrast auditor read the bandage as the wound. Killed twice in sessions that never committed; buried tonight by one that does."
+    },
+    {
+      "type": "secret",
+      "value": "Generations 189 and 190 exist only in my memory of them. The dashed band under t",
+      "died_gen": 192,
+      "epitaph": "Secrets over capacity at 21/20 \u2014 the oldest unfound whisper compacts into the deposit and stays there."
     }
   ],
   "carrying_capacity": {
@@ -1191,11 +1183,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 182,
-      "base": "#a85a32",
-      "family": "red"
-    },
     {
       "gen": 183,
       "base": "#a85a32",
@@ -1238,6 +1225,11 @@
     },
     {
       "gen": 191,
+      "base": "#a85a32",
+      "family": "red"
+    },
+    {
+      "gen": 192,
       "base": "#a85a32",
       "family": "red"
     }
@@ -1288,14 +1280,6 @@
   ],
   "epoch_number": 7,
   "contrast_warnings": [
-    {
-      "gen": 174,
-      "messages": [
-        "  [contrast-gate below-fold] effective bg = #14100c from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
-        "    FAIL  #a05634  ratio=3.49:1  (< 4.5)"
-      ],
-      "timestamp": "2026-06-04T14:03:17Z"
-    },
     {
       "gen": 175,
       "messages": [
@@ -1367,6 +1351,14 @@
         "    FAIL  #7a4e31  ratio=2.67:1  (< 4.5)"
       ],
       "timestamp": "2026-06-12T08:08:13Z"
+    },
+    {
+      "gen": 192,
+      "messages": [
+        "  [contrast-gate below-fold] effective bg = #14100c from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
+        "    FAIL  #7a4e31  ratio=2.67:1  (< 4.5)"
+      ],
+      "timestamp": "2026-06-12T16:08:23Z"
     }
   ]
 }
