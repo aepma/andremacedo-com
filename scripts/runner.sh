@@ -20,7 +20,10 @@ SITE_LOG_DIR="$SITE_DIR/logs"
 ERROR_LOG="$SITE_LOG_DIR/build-errors.log"
 BUILD_LOG="$SITE_LOG_DIR/build-$(date -u +%Y-%m-%d).log"
 FAILURE_COUNTER="$SITE_DIR/state/build-failures.count"
-FAILURE_THRESHOLD=3
+# Threshold is cadence-coupled: the counter only advances once per scheduled
+# run, so at the 1x/day daily cadence a threshold of 3 means three silent
+# calendar days before the Telegram alert. 2 caps that at two days.
+FAILURE_THRESHOLD=2
 mkdir -p "$SITE_LOG_DIR"
 
 # Portable timeout shim — macOS lacks GNU `timeout` by default.

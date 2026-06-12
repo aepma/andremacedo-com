@@ -2,7 +2,7 @@
 
 ## Schedule
 
-### Daily Creative Pulse (3x/day: 02:00, 10:00, 18:00 UTC)
+### Daily Creative Pulse (1x/day, 10:00 local)
 **Purpose:** Refresh the site's living content
 **Token budget:** 1,500 input + 800 output = ~2,300 tokens max
 **LLM:** Claude Opus 4.6

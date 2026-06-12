@@ -788,7 +788,7 @@ Kills are optional daily but encouraged — especially if things are bloated.
 ## VISITOR JOURNEY (preserve these elements)
 The overlay-center MUST always contain:
 1. Your creative hero text (the poetic/mood line — this is yours to evolve freely)
-2. A one-sentence "This page is alive" hook that tells a first-time visitor what they're looking at (e.g. "An AI redesigns this page three times a day. You're seeing generation N.")
+2. A one-sentence "This page is alive" hook that tells a first-time visitor what they're looking at (e.g. "An AI redesigns this page every day. You're seeing generation N.")
 3. The epoch/mood metadata
 When you replace overlay-center, preserve this 3-layer structure. The hook sentence is what makes the site LEGIBLE to a stranger. Without it, the site is just a dark screen with particles.
 

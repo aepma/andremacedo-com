@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>EnvironmentVariables</key>
+	<dict>
+		<key>PATH</key>
+		<string>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin</string>
+	</dict>
+	<key>Label</key>
+	<string>telos.andremacedo.weekly</string>
+	<key>ProgramArguments</key>
+	<array>
+		<string>/bin/zsh</string>
+		<string>-l</string>
+		<string>-c</string>
+		<string>/Users/andrepiresmacedo/andremacedo.com/scripts/runner.sh --weekly</string>
+	</array>
+	<key>StandardErrorPath</key>
+	<string>/Users/andrepiresmacedo/.openclaw/logs/andremacedo-weekly.stderr.log</string>
+	<key>StandardOutPath</key>
+	<string>/Users/andrepiresmacedo/.openclaw/logs/andremacedo-weekly.stdout.log</string>
+	<key>StartCalendarInterval</key>
+	<array>
+		<dict>
+			<key>Hour</key>
+			<integer>0</integer>
+			<key>Minute</key>
+			<integer>0</integer>
+			<key>Weekday</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>Hour</key>
+			<integer>0</integer>
+			<key>Minute</key>
+			<integer>0</integer>
+			<key>Weekday</key>
+			<integer>4</integer>
+		</dict>
+	</array>
+	<key>UserName</key>
+	<string>andrepiresmacedo</string>
+</dict>
+</plist>
