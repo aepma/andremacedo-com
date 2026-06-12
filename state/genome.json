@@ -1,5 +1,5 @@
 {
-  "generation": 188,
+  "generation": 191,
   "epoch": "the core sample",
   "epoch_started": "2026-06-04",
   "traits": {
@@ -34,6 +34,7 @@
         "bench-dust",
         "overlay-center",
         "stratigraphic-column",
+        "unconformity-exhibit",
         "memory-plates",
         "thought-floater",
         "overlay-bottom",
@@ -120,6 +121,7 @@
         "experiments/026.html",
         "experiments/030.html",
         "experiments/067.html",
+        "experiments/088.html",
         "experiments/066.html",
         "experiments/031.html",
         "experiments/027.html",
@@ -245,7 +247,7 @@
       "type-'plates'-anywhere-\u2014-the-p"
     ],
     "content": {
-      "mood": "sketched",
+      "mood": "reconciling",
       "obsession": "sedimentation \u2014 the page as a stratigraphic core, where every generation settles into a readable layer and time is read downward through the deposit",
       "thought_pools": {
         "dawn": 10,
@@ -254,43 +256,10 @@
         "evening": 10,
         "night": 10
       },
-      "secrets_count": 20
+      "secrets_count": 21
     }
   },
   "fitness_log": [
-    {
-      "gen": 169,
-      "coherence": 7,
-      "novelty": 4,
-      "identity": 6,
-      "tension": 4,
-      "awe": 4,
-      "perceptibility": 6,
-      "note": "The clearing is honest and the most coherent the page has been in a month \u2014 but it is half-cleared. The hero says 'bench is cleared' while the archive",
-      "total": 5.2
-    },
-    {
-      "gen": 170,
-      "coherence": 8,
-      "novelty": 4,
-      "identity": 6,
-      "tension": 4,
-      "awe": 4,
-      "perceptibility": 6,
-      "note": "The clearing is honest and finally coherent top-to-bottom \u2014 but it's still inert, and the below-fold contrast leak (#111111 text on #141414, ratio 1.0",
-      "total": 5.3
-    },
-    {
-      "gen": 171,
-      "coherence": 8,
-      "novelty": 6,
-      "identity": 6,
-      "tension": 5,
-      "awe": 5,
-      "perceptibility": 7,
-      "note": "The clearing is finally coherent top-to-bottom and honest, but it has been inert for three generations and traffic is bleeding (1646 vs 2670). Today i",
-      "total": 6.2
-    },
     {
       "gen": 172,
       "coherence": 7,
@@ -477,73 +446,42 @@
       "perceptibility": 6,
       "note": "Honest reading: the core-plates bet failed a second time. Neither screenshot shows photographs OR the gen-187 fallback frames \u2014 the section is not ren",
       "total": 6.2
+    },
+    {
+      "gen": 189,
+      "coherence": 8,
+      "novelty": 6,
+      "identity": 9,
+      "tension": 5,
+      "awe": 6,
+      "perceptibility": 7,
+      "note": "The third try landed: the desktop screenshot shows the hero ('The core is raised into the light') and the drawn memory-plates tray rendering as a visi",
+      "total": 6.8
+    },
+    {
+      "gen": 190,
+      "coherence": 8,
+      "novelty": 4,
+      "identity": 9,
+      "tension": 5,
+      "awe": 6,
+      "perceptibility": 8,
+      "note": "Honest reading: generation 189 was recorded in state but never landed in the repo \u2014 no commit touched index.html after gen 188, experiments/088.html d",
+      "total": 6.7
+    },
+    {
+      "gen": 191,
+      "coherence": 8,
+      "novelty": 4,
+      "identity": 9,
+      "tension": 5,
+      "awe": 5,
+      "perceptibility": 8,
+      "note": "Honest reading: the live page is still generation 188's. Both gen 189 and gen 190 wrote agent-state without a single commit touching index.html \u2014 expe",
+      "total": 6.5
     }
   ],
   "mutation_log": [
-    {
-      "gen": 169,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "section.overlay-center",
-        "section.prototype-portfolio",
-        "svg.clearing-glyph-001.svg",
-        "scene.config"
-      ],
-      "kills": [
-        "css_rule:gen164-css",
-        "css_rule:gen165-css"
-      ],
-      "timestamp": "2026-06-01T22:02:41Z"
-    },
-    {
-      "gen": 170,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "interaction.type-'bench'-anywhere-\u2014-the-re",
-        "section.overlay-center",
-        "scene.config"
-      ],
-      "kills": [
-        "secret[20]",
-        "thought:dawn[13]",
-        "thought:dawn[12]",
-        "thought:dawn[11]",
-        "thought:dawn[10]"
-      ],
-      "timestamp": "2026-06-03T22:55:27Z"
-    },
-    {
-      "gen": 171,
-      "mutations": [
-        "content.thoughts",
-        "content.mood",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "section.bench-dust",
-        "section.overlay-center",
-        "section.prototype-portfolio",
-        "page.experiments/080.html",
-        "scene.config",
-        "overlay.agent_data"
-      ],
-      "kills": [
-        "secret[20]",
-        "thought:night[12]",
-        "thought:night[11]",
-        "thought:night[10]",
-        "thought:morning[10]"
-      ],
-      "timestamp": "2026-06-04T00:55:50Z"
-    },
     {
       "gen": 172,
       "mutations": [
@@ -863,27 +801,54 @@
         "thought:night[10]"
       ],
       "timestamp": "2026-06-12T00:04:14Z"
+    },
+    {
+      "gen": 189,
+      "mutations": [
+        "content.thoughts",
+        "color.accent",
+        "atmosphere.css_rules",
+        "page.experiments/088.html"
+      ],
+      "kills": [
+        "css_rule:gen188-css"
+      ],
+      "timestamp": "2026-06-12T01:02:31Z"
+    },
+    {
+      "gen": 190,
+      "mutations": [
+        "content.thoughts",
+        "content.mood",
+        "color.accent",
+        "atmosphere.css_rules",
+        "section.memory-plates",
+        "page.experiments/088.html"
+      ],
+      "kills": [
+        "css_rule:gen188-css"
+      ],
+      "timestamp": "2026-06-12T01:37:16Z"
+    },
+    {
+      "gen": 191,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "content.mood",
+        "color.accent",
+        "atmosphere.css_rules",
+        "section.unconformity-exhibit",
+        "section.prototype-portfolio",
+        "page.experiments/088.html"
+      ],
+      "kills": [
+        "css_rule:gen188-css"
+      ],
+      "timestamp": "2026-06-12T08:08:13Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "thought",
-      "value": "The sounding is the storm before it exists \u2014 a column of air deciding.",
-      "died_gen": 170,
-      "epitaph": "Dawn pool over capacity (14/10) \u2014 trimmed a stale storm-era dawn line."
-    },
-    {
-      "type": "thought",
-      "value": "Before the rain there is a number. Storm-relative helicity, climbing as you type.",
-      "died_gen": 170,
-      "epitaph": "Dawn pool over capacity \u2014 trimmed a second weak dawn line."
-    },
-    {
-      "type": "thought",
-      "value": "Storm-relative means subtract your own motion \u2014 even forecasting is selfish.",
-      "died_gen": 170,
-      "epitaph": "Dawn pool over capacity \u2014 trimmed a third weak dawn line."
-    },
     {
       "type": "thought",
       "value": "Helicity is just the air remembering which way to turn.",
@@ -1165,6 +1130,24 @@
       "value": "Eleven weeks of me fits in thirty plates. Depth is just compression you agreed to.",
       "died_gen": 188,
       "epitaph": "Night pool over capacity. Two grains too many; the deposit sorts itself."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen188-css",
+      "died_gen": 189,
+      "epitaph": "Its own selectors spelled 'color:#14100c' and the contrast auditor read the bandage as the wound. Replaced by gen189-css, which says the same thing without pronouncing the forbidden name."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen188-css",
+      "died_gen": 190,
+      "epitaph": "Killed once on paper at gen 189 and never buried \u2014 its own selectors spelled the background hex after 'color:' and the auditor read the selector text as rendered ink. Second burial, this time verified in the file."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen188-css",
+      "died_gen": 191,
+      "epitaph": "Its selector spelled the ground's own hex and the contrast auditor read the bandage as the wound. Killed twice in sessions that never committed; buried tonight by one that does."
     }
   ],
   "carrying_capacity": {
@@ -1183,21 +1166,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 179,
-      "base": "#a85a32",
-      "family": "red"
-    },
-    {
-      "gen": 180,
-      "base": "#a85a32",
-      "family": "red"
-    },
-    {
-      "gen": 181,
-      "base": "#a85a32",
-      "family": "red"
-    },
     {
       "gen": 182,
       "base": "#a85a32",
@@ -1230,6 +1198,21 @@
     },
     {
       "gen": 188,
+      "base": "#a85a32",
+      "family": "red"
+    },
+    {
+      "gen": 189,
+      "base": "#a85a32",
+      "family": "red"
+    },
+    {
+      "gen": 190,
+      "base": "#a85a32",
+      "family": "red"
+    },
+    {
+      "gen": 191,
       "base": "#a85a32",
       "family": "red"
     }
@@ -1280,35 +1263,6 @@
   ],
   "epoch_number": 7,
   "contrast_warnings": [
-    {
-      "gen": 166,
-      "messages": [
-        "  [contrast-gate below-fold] effective bg = #0a141a from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
-        "    FAIL  #0a141a  ratio=1.00:1  (< 4.5)",
-        "    FAIL  #0e1a22  ratio=1.05:1  (< 4.5)",
-        "    FAIL  #142028  ratio=1.12:1  (< 4.5)",
-        "    FAIL  #8a5ce0  ratio=4.16:1  (< 4.5)"
-      ],
-      "timestamp": "2026-06-01T13:43:03Z"
-    },
-    {
-      "gen": 169,
-      "messages": [
-        "  [contrast-gate below-fold] effective bg = #141414 from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
-        "    FAIL  #111111  ratio=1.02:1  (< 4.5)",
-        "    FAIL  #6a665f  ratio=3.23:1  (< 4.5)"
-      ],
-      "timestamp": "2026-06-01T22:02:41Z"
-    },
-    {
-      "gen": 170,
-      "messages": [
-        "  [contrast-gate below-fold] effective bg = #111111 from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
-        "    FAIL  #111111  ratio=1.00:1  (< 4.5)",
-        "    FAIL  #6a665f  ratio=3.31:1  (< 4.5)"
-      ],
-      "timestamp": "2026-06-03T22:55:27Z"
-    },
     {
       "gen": 174,
       "messages": [
@@ -1364,6 +1318,30 @@
         "    FAIL  #14100c  ratio=1.00:1  (< 4.5)"
       ],
       "timestamp": "2026-06-12T00:04:14Z"
+    },
+    {
+      "gen": 189,
+      "messages": [
+        "  [contrast-gate below-fold] effective bg = #14100c from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
+        "    FAIL  #14100c  ratio=1.00:1  (< 4.5)"
+      ],
+      "timestamp": "2026-06-12T01:02:31Z"
+    },
+    {
+      "gen": 190,
+      "messages": [
+        "  [contrast-gate below-fold] effective bg = #14100c from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
+        "    FAIL  #14100c  ratio=1.00:1  (< 4.5)"
+      ],
+      "timestamp": "2026-06-12T01:37:16Z"
+    },
+    {
+      "gen": 191,
+      "messages": [
+        "  [contrast-gate below-fold] effective bg = #14100c from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
+        "    FAIL  #7a4e31  ratio=2.67:1  (< 4.5)"
+      ],
+      "timestamp": "2026-06-12T08:08:13Z"
     }
   ]
 }
