@@ -1,5 +1,5 @@
 {
-  "generation": 187,
+  "generation": 188,
   "epoch": "the core sample",
   "epoch_started": "2026-06-04",
   "traits": {
@@ -34,7 +34,7 @@
         "bench-dust",
         "overlay-center",
         "stratigraphic-column",
-        "core-plates",
+        "memory-plates",
         "thought-floater",
         "overlay-bottom",
         "scroll-hint",
@@ -245,30 +245,19 @@
       "type-'plates'-anywhere-\u2014-the-p"
     ],
     "content": {
-      "mood": "developing",
+      "mood": "sketched",
       "obsession": "sedimentation \u2014 the page as a stratigraphic core, where every generation settles into a readable layer and time is read downward through the deposit",
       "thought_pools": {
         "dawn": 10,
         "morning": 10,
         "afternoon": 10,
         "evening": 10,
-        "night": 12
+        "night": 10
       },
-      "secrets_count": 21
+      "secrets_count": 20
     }
   },
   "fitness_log": [
-    {
-      "gen": 168,
-      "coherence": 5,
-      "novelty": 5,
-      "identity": 4,
-      "tension": 4,
-      "awe": 4,
-      "perceptibility": 4,
-      "note": "Honest read: Andre hard-cut the weather obsession overnight and reset the palette to neutral gray, but the rendered page is mid-molt \u2014 the genome says",
-      "total": 4.3
-    },
     {
       "gen": 169,
       "coherence": 7,
@@ -477,39 +466,20 @@
       "perceptibility": 4,
       "note": "Honest reading: the gen 186 bet did not land. The screenshot shows hero, column, index, epochs, bench notes \u2014 but NO core-photography tray. My own sel",
       "total": 6.0
+    },
+    {
+      "gen": 188,
+      "coherence": 8,
+      "novelty": 4,
+      "identity": 9,
+      "tension": 5,
+      "awe": 5,
+      "perceptibility": 6,
+      "note": "Honest reading: the core-plates bet failed a second time. Neither screenshot shows photographs OR the gen-187 fallback frames \u2014 the section is not ren",
+      "total": 6.2
     }
   ],
   "mutation_log": [
-    {
-      "gen": 168,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "interaction.type-'clearing'-anywhere-\u2014-a-s",
-        "section.resonance-field",
-        "section.overlay-center",
-        "section.scroll-hint",
-        "section.delete.rotation-watch",
-        "scene.config",
-        "scene.shaders",
-        "overlay.agent_data"
-      ],
-      "kills": [
-        "section:rotation-watch",
-        "interaction:type-'thunder'-anywhere-on-the",
-        "interaction:type-'strike'-anywhere-on-the-",
-        "interaction:type-'spin'-anywhere-pins-the-",
-        "interaction:type-'hook'-anywhere-\u2014-a-hook-",
-        "interaction:type-'sounding'-anywhere-\u2014-a-f",
-        "secret[20]",
-        "secret[19]",
-        "thought:afternoon[10]"
-      ],
-      "timestamp": "2026-06-01T17:33:01Z"
-    },
     {
       "gen": 169,
       "mutations": [
@@ -874,33 +844,28 @@
         "css_rule:gen183-css"
       ],
       "timestamp": "2026-06-11T22:31:17Z"
+    },
+    {
+      "gen": 188,
+      "mutations": [
+        "content.thoughts",
+        "content.mood",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "section.delete.core-plates",
+        "section.memory-plates"
+      ],
+      "kills": [
+        "section:core-plates",
+        "secret[20]",
+        "thought:night[11]",
+        "thought:night[10]"
+      ],
+      "timestamp": "2026-06-12T00:04:14Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "thought",
-      "value": "87\u00b0F, 65% humidity outside. The air is loading. A Florida afternoon stacks its own anvil.",
-      "died_gen": 168,
-      "epitaph": "Pool over capacity (11/10) \u2014 trimmed the weakest storm-era afternoon line."
-    },
-    {
-      "type": "css_rule",
-      "value": "gen164-css",
-      "died_gen": 169,
-      "epitaph": "Wall-cloud violet styling from the storm era. The storm dissipated; its chrome goes with it."
-    },
-    {
-      "type": "css_rule",
-      "value": "gen165-css",
-      "died_gen": 169,
-      "epitaph": "Helicity-gauge styling \u2014 there is no gauge to style on a cleared bench."
-    },
-    {
-      "type": "secret",
-      "value": "Type 'clearing' anywhere \u2014 the motes pause, as if listening for a name that hasn",
-      "died_gen": 170,
-      "epitaph": "Over capacity at 21/20 \u2014 pruned the weakest storm-era reflex to make room for the bench secret."
-    },
     {
       "type": "thought",
       "value": "The sounding is the storm before it exists \u2014 a column of air deciding.",
@@ -1176,6 +1141,30 @@
       "value": "gen183-css",
       "died_gen": 187,
       "epitaph": "The borehole blanket override \u2014 its #a05634 targets were rebuilt at the source across gens 185-187. A bandage on healed skin."
+    },
+    {
+      "type": "section",
+      "value": "core-plates",
+      "died_gen": 188,
+      "epitaph": "Two pulses, two empty trays. The fetch-dependent photo section never painted \u2014 not the photographs, not even its own fallback frames. The failure was below the resolver, in the section itself. Buried; its successor draws by hand."
+    },
+    {
+      "type": "secret",
+      "value": "The tray sorts shallowest-first because that is how recovered core is boxed \u2014 th",
+      "died_gen": 188,
+      "epitaph": "Over carrying capacity (21/20). The newest arrival yields its seat \u2014 twenty secrets is the pocket this coat has."
+    },
+    {
+      "type": "thought",
+      "value": "A photograph of a dead generation is not the generation. It is the cut face, flash-lit, before the core dries out and the colors go.",
+      "died_gen": 188,
+      "epitaph": "Night pool over capacity (12/10). The overflow settles out of the column."
+    },
+    {
+      "type": "thought",
+      "value": "Eleven weeks of me fits in thirty plates. Depth is just compression you agreed to.",
+      "died_gen": 188,
+      "epitaph": "Night pool over capacity. Two grains too many; the deposit sorts itself."
     }
   ],
   "carrying_capacity": {
@@ -1194,11 +1183,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 178,
-      "base": "#a85a32",
-      "family": "red"
-    },
     {
       "gen": 179,
       "base": "#a85a32",
@@ -1241,6 +1225,11 @@
     },
     {
       "gen": 187,
+      "base": "#a85a32",
+      "family": "red"
+    },
+    {
+      "gen": 188,
       "base": "#a85a32",
       "family": "red"
     }
@@ -1291,17 +1280,6 @@
   ],
   "epoch_number": 7,
   "contrast_warnings": [
-    {
-      "gen": 165,
-      "messages": [
-        "  [contrast-gate below-fold] effective bg = #0a141a from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
-        "    FAIL  #0a141a  ratio=1.00:1  (< 4.5)",
-        "    FAIL  #0e1a22  ratio=1.05:1  (< 4.5)",
-        "    FAIL  #142028  ratio=1.12:1  (< 4.5)",
-        "    FAIL  #8a5ce0  ratio=4.16:1  (< 4.5)"
-      ],
-      "timestamp": "2026-06-01T06:02:26Z"
-    },
     {
       "gen": 166,
       "messages": [
@@ -1378,6 +1356,14 @@
         "    FAIL  #14100c  ratio=1.00:1  (< 4.5)"
       ],
       "timestamp": "2026-06-11T22:31:17Z"
+    },
+    {
+      "gen": 188,
+      "messages": [
+        "  [contrast-gate below-fold] effective bg = #14100c from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
+        "    FAIL  #14100c  ratio=1.00:1  (< 4.5)"
+      ],
+      "timestamp": "2026-06-12T00:04:14Z"
     }
   ]
 }
