@@ -246,6 +246,31 @@
       "type-'sonic'-anywhere-\u2014-the-bo",
       "type-'plates'-anywhere-\u2014-the-p"
     ],
+    "sound": {
+      "roles": [
+        "ambient bed",
+        "interaction voice",
+        "sonification of live data"
+      ],
+      "caps": {
+        "max_concurrent_beds": 1,
+        "audio_js_budget_bytes": 80000
+      },
+      "law": "persistent organ per SOUL.md: opt-in behind a visitor gesture, never autoplay, silent by default, always stoppable; audio code lazy-loads on first gesture"
+    },
+    "scene": {
+      "mutation_surface": [
+        "geometry",
+        "materials",
+        "shaders",
+        "lighting",
+        "post_processing",
+        "particles",
+        "camera",
+        "fog"
+      ],
+      "perf_law": "first paint under 4s (INV-8 page-weight proxy), interaction fluid on mobile, validate-build perf gates pass; scene ambition that fails the gates does not ship"
+    },
     "content": {
       "mood": "reconciling",
       "obsession": "sedimentation \u2014 the page as a stratigraphic core, where every generation settles into a readable layer and time is read downward through the deposit",

@@ -32,6 +32,14 @@ SRC_ATTR_RE = re.compile(r"\bsrc\s*=", re.IGNORECASE)
 
 PAGE_WEIGHT_BUDGET_BYTES = 900_000  # INV-8: ~4s first paint at ~1.6 Mbps ≈ 800 KB
 
+AUTOPLAY_ATTR_RE = re.compile(r"<(?:audio|video)\b[^>]*\bautoplay\b", re.IGNORECASE)
+AUTOPLAY_JS_RE = re.compile(r"\.autoplay\s*=\s*true")
+AUDIO_CONSTRUCT_RE = re.compile(
+    r"new\s*\(?\s*(?:window\.)?(?:webkit)?AudioContext|new\s+Audio\s*\(")
+GESTURE_LISTENER_RE = re.compile(
+    r"addEventListener\s*\(\s*['\"](?:click|dblclick|pointerdown|pointerup|"
+    r"touchstart|touchend|mousedown|mouseup|keydown|keyup|keypress)['\"]")
+
 TRACKER_MARKERS = (
     "googletagmanager.com",
     "google-analytics.com",
@@ -421,10 +429,55 @@ def check_no_commercial_surface(html, path):
     return True, ""
 
 
+# ── INV-12: sound is opt-in — never autoplay, audio behind gesture ─
+
+
+def check_no_autoplay(html, path):
+    """INV-12a: no autoplay. Neither an `autoplay` attribute on <audio>/<video>
+    nor a script assignment `.autoplay = true` may appear. SOUL.md (2026-06-12
+    sound-organ amendment): sound is always opt-in — a visitor gesture starts
+    it, never autoplay — always stoppable, and silent by default."""
+    m = AUTOPLAY_ATTR_RE.search(html)
+    if m:
+        line = html.count("\n", 0, m.start()) + 1
+        return False, (f"no-autoplay: autoplay attribute found at {path}:{line}; "
+                       "sound is opt-in behind a visitor gesture, never autoplay")
+    for start_line, body in find_inline_scripts(html):
+        am = AUTOPLAY_JS_RE.search(body)
+        if am:
+            line = start_line + body.count("\n", 0, am.start())
+            return False, (f"no-autoplay: script sets .autoplay = true near {path}:{line}; "
+                           "sound is opt-in behind a visitor gesture, never autoplay")
+    return True, ""
+
+
+def check_audio_behind_gesture(html, path):
+    """INV-12b: every inline <script> block that constructs an audio source
+    (AudioContext / webkitAudioContext / new Audio) must also wire at least one
+    visitor-gesture listener (click/pointer/touch/key). Static proxy for
+    "audio starts only on gesture": a block that builds audio with no gesture
+    wiring at all has no opt-in path. The protected
+    mobile-interaction-invariants block (INV-5, COMPONENT 2) provides the
+    fleet-wide gesture-resume substrate; creative audio must still carry its
+    own gesture gate."""
+    offenders = []
+    for start_line, body in find_inline_scripts(html):
+        if AUDIO_CONSTRUCT_RE.search(body) and not GESTURE_LISTENER_RE.search(body):
+            offenders.append(start_line)
+    if offenders:
+        where = ", ".join(f"{path}:{n}" for n in offenders)
+        return False, ("audio-behind-gesture: inline script block(s) starting at "
+                       f"{where} construct audio but register no visitor-gesture "
+                       "listener; audio must start behind a gesture, lazy-loaded "
+                       "on first gesture")
+    return True, ""
+
+
 # ── The contract registry: INVARIANTS.md ←→ enforcement ───────────
-# One row per statically checkable invariant. INV-2 (self-intro wording) and
-# INV-9 (legibility in context) are prompt-level / runtime-gated — see
-# INVARIANTS.md for their enforcement story.
+# One row per statically checkable invariant. INV-2 (self-intro wording),
+# INV-9 (legibility in context), and INV-13 (scene as full instrument within
+# the perf law — aliveness via INV-6, budget via INV-8) are prompt-level /
+# runtime-gated — see INVARIANTS.md for their enforcement story.
 CHECKS = [
     ("INV-1", "hero-visibility", check_hero_visibility),
     ("INV-3", "name-visible", check_name_visible),
@@ -436,6 +489,8 @@ CHECKS = [
     ("INV-8", "page-weight", check_page_weight),
     ("INV-10", "deploy-branch", check_deploy_branch),
     ("INV-11", "no-commercial-surface", check_no_commercial_surface),
+    ("INV-12", "no-autoplay", check_no_autoplay),
+    ("INV-12", "audio-behind-gesture", check_audio_behind_gesture),
 ]
 
 

@@ -169,6 +169,44 @@ forms. No data collection." The organism is art, not a funnel.
 **Checked by:** `check_no_commercial_surface` (static; "no commercial content"
 in prose is prompt-level).
 
+## INV-12 — Sound capability present and opt-in
+
+**Rule:** Sound is a persistent organ: the capability survives epoch death and
+no generation may remove it. It is always opt-in — a visitor gesture starts it,
+never autoplay — always stoppable, and silent by default; audio code lazy-loads
+only on first gesture. Statically: no `autoplay` attribute on `<audio>`/`<video>`
+and no script assignment `.autoplay = true`; every inline script block that
+constructs an audio source (AudioContext / `new Audio`) also wires at least one
+visitor-gesture listener.
+
+**Why:** SOUL.md sound-organ amendment (2026-06-12, Andre-approved): sound has
+died twice with its epochs (typography-as-music; the choir/recital interactions
+killed through June). It is now a standing instrument like the swarm panel —
+but a page that makes noise uninvited is hostile, so opt-in is law, not taste.
+
+**Checked by:** `check_no_autoplay` and `check_audio_behind_gesture` (static
+proxies). The gesture-resume substrate is the protected
+mobile-interaction-invariants block (INV-5, COMPONENT 2). "Capability present"
+and composing in the register of the living obsession are prompt-level.
+
+## INV-13 — The three.js scene is a full instrument, within the perf law
+
+**Rule:** The scene is a full instrument, not a particle dial: geometry,
+materials, shaders, lighting, and post-processing are all mutable (surface
+enumerated in genome `traits.scene`). The perf law binds every mutation: first
+paint under 4 seconds, interaction stays fluid on mobile, and validate-build's
+perf gates pass. Scene ambition that fails the gates does not ship.
+
+**Why:** SOUL.md three.js-surface amendment (2026-06-12, Andre-approved):
+Fable 5's three.js strength is wasted on SCENE_CONFIG parameter nudges; the
+widened surface is granted only behind the gates because wider WebGL freedom
+without limits silently destroys first paint and mobile fluidity.
+
+**Checked by:** Panel aliveness by INV-6 (`check_swarm_panel`); the perf
+ceiling by INV-8 (`check_page_weight`); shader/JS integrity by INV-7
+(`check_inline_scripts`). Judgment of fluidity and scene ambition is
+prompt-level (agentic self-verification loop).
+
 ---
 
 ## Amendment process
