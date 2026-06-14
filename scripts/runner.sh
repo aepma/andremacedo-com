@@ -248,7 +248,7 @@ if [ "$AGENTIC" = "1" ]; then
 
 ## AGENTIC SESSION PROTOCOL (supersedes "Respond ONLY in valid JSON" above)
 
-You are running as a bounded agentic session (max 20 turns) with exactly these
+You are running as a bounded agentic session (max 30 turns) with exactly these
 tools: Bash, Read, Write, Edit. The site repo is $SITE_DIR
 (absolute path — always use it; your working directory is already there).
 TURN DISCIPLINE: the full current index.html and state are already in this
@@ -352,25 +352,31 @@ HELPER_SCRIPT="${ANDREMACEDO_HELPER:-$HOME/.openclaw/scripts/claude-subscription
 # Hard wall on the whole claude session. No outer bounded-exec wraps this
 # launchd job, so the runner owns the ceiling itself; tmo returns 124 on
 # overrun, which lands in the helper-failure branch below (fail-closed).
-SESSION_WALL_CEILING=2400
+SESSION_WALL_CEILING=3600
 
 set +e
 if [ "$AGENTIC" = "1" ]; then
   # Bounded agentic session: tool allowlist is exactly file read/write/edit +
   # shell; stream-json + tail-aware failure logging kept (f328732).
-  # Caps calibrated from the two 2026-06-12 smoke runs (both verified-good
-  # work killed by single-turn-era caps): run 1 finished all gates + verdict
-  # OK in 12 turns but died at $6.24 vs the $6 budget (error_max_budget_usd);
-  # run 2 (budget 10) died at the 12-turn cap mid-fix-iteration at $8.43
-  # (error_max_turns), ~$0.65/turn observed. 20 turns ≈ exploration + apply +
-  # 2 fix iterations + verdict; 15.00 covers 20 turns with margin. The
-  # SESSION_WALL_CEILING (2400s) stays as the outer runaway guard. Event
-  # pulses keep the single-turn 6.00 path below.
-  INPUT_JSONL="$INPUT_JSONL_FILE" OUTPUT_FILE="$HELPER_OUTPUT_FILE" CLAUDE_MAX_BUDGET_USD=15.00 \
+  # Caps RAISED 2026-06-15 (prior values: --max-turns 20, CLAUDE_MAX_BUDGET_USD
+  # 15.00, SESSION_WALL_CEILING 2400 — see git revert body). The 20-turn cap
+  # was demonstrably too low: the 2026-06-13 00:24 daily run hit error_max_turns
+  # at num_turns 21 ("Reached maximum number of turns (20)"), 1404s, $13.36 —
+  # killed before its verdict, so deploy never ran ("unexpected exit without
+  # deploy"). claude-opus-4-8 is a reasoning model (more tool turns, slower per
+  # turn than Fable 5), so it hits the ceiling harder. A clean run completes in
+  # ~12-13 turns (~$8-13); 30 turns ≈ exploration + apply + 2 fix iterations +
+  # verdict with reasoning-model headroom above the observed 21. Budget raised
+  # to 30.00 so the turn cap — not the dollar cap — is the binding limit (else a
+  # turn-only raise would just shift the same deploy-skipping death to
+  # error_max_budget_usd at ~turn 20). SESSION_WALL_CEILING raised to 3600s to
+  # cover 30 opus turns without the wall becoming the new killer. Event pulses
+  # keep the single-turn 6.00 path below.
+  INPUT_JSONL="$INPUT_JSONL_FILE" OUTPUT_FILE="$HELPER_OUTPUT_FILE" CLAUDE_MAX_BUDGET_USD=30.00 \
     tmo "$SESSION_WALL_CEILING" bash "$HELPER_SCRIPT" \
     --model claude-opus-4-8 \
     --input-format stream-json --output-format stream-json \
-    --max-turns 20 --verbose \
+    --max-turns 30 --verbose \
     --tools "Bash,Read,Write,Edit" \
     --permission-mode bypassPermissions \
     --strict-mcp-config --mcp-config "$HOME/.openclaw/andremacedo-runner-mcp.json" \
