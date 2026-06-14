@@ -368,7 +368,7 @@ if [ "$AGENTIC" = "1" ]; then
   # pulses keep the single-turn 6.00 path below.
   INPUT_JSONL="$INPUT_JSONL_FILE" OUTPUT_FILE="$HELPER_OUTPUT_FILE" CLAUDE_MAX_BUDGET_USD=15.00 \
     tmo "$SESSION_WALL_CEILING" bash "$HELPER_SCRIPT" \
-    --model claude-fable-5 \
+    --model claude-opus-4-8 \
     --input-format stream-json --output-format stream-json \
     --max-turns 20 --verbose \
     --tools "Bash,Read,Write,Edit" \
@@ -379,7 +379,7 @@ else
   # Event pulse keeps the single-turn blind-shot path (f328732).
   INPUT_JSONL="$INPUT_JSONL_FILE" OUTPUT_FILE="$HELPER_OUTPUT_FILE" CLAUDE_MAX_BUDGET_USD=6.00 \
     tmo "$SESSION_WALL_CEILING" bash "$HELPER_SCRIPT" \
-    --model claude-fable-5 \
+    --model claude-opus-4-8 \
     --input-format stream-json --output-format stream-json \
     --max-turns 1 --verbose \
     --tools "" \
@@ -512,7 +512,7 @@ entry = {
     'type': 'message',
     'message': {
         'role': 'assistant',
-        'model': 'claude-fable-5',
+        'model': 'claude-opus-4-8',
         'timestamp': int(sys.argv[1]),
         'usage': {
             'input': int(sys.argv[2]),
