@@ -1,5 +1,5 @@
 {
-  "generation": 194,
+  "generation": 196,
   "epoch": "the core sample",
   "epoch_started": "2026-06-04",
   "traits": {
@@ -35,6 +35,7 @@
         "overlay-center",
         "stratigraphic-column",
         "magnetic-stratigraphy",
+        "chron-legend",
         "unconformity-exhibit",
         "memory-plates",
         "plate-voices",
@@ -290,28 +291,6 @@
   },
   "fitness_log": [
     {
-      "gen": 175,
-      "coherence": 8,
-      "novelty": 5,
-      "identity": 8,
-      "tension": 6,
-      "awe": 6,
-      "perceptibility": 7,
-      "note": "The core-sample identity is coherent and warm top-to-bottom, but two gens at 6.8 means it's settling into a static read. The column shows the deposit ",
-      "total": 6.7
-    },
-    {
-      "gen": 176,
-      "coherence": 8,
-      "novelty": 6,
-      "identity": 8,
-      "tension": 6,
-      "awe": 6,
-      "perceptibility": 7,
-      "note": "The core-sample identity is warm, coherent top-to-bottom, and the cleanest the page has been since the storm era. But three gens parked at ~6.8 confir",
-      "total": 6.8
-    },
-    {
       "gen": 177,
       "coherence": 8,
       "novelty": 6,
@@ -508,42 +487,31 @@
       "perceptibility": 7,
       "note": "Honest reading: the live page is STILL gen 192 (overlay reads 'gen 192', CORE_CEIL=89, no magnetic-stratigraphy section, the #7a4e31 below-fold leak p",
       "total": 7.0
+    },
+    {
+      "gen": 195,
+      "coherence": 8,
+      "novelty": 6,
+      "identity": 9,
+      "tension": 6,
+      "awe": 6,
+      "perceptibility": 8,
+      "note": "Gen 194 finally landed in rock after three lost generations (189-191 wrote state, never committed). The magstrat canvas, CORE_CEIL=90, and the below-f",
+      "total": 7.2
+    },
+    {
+      "gen": 196,
+      "coherence": 8,
+      "novelty": 6,
+      "identity": 9,
+      "tension": 6,
+      "awe": 6,
+      "perceptibility": 8,
+      "note": "Gen 195 landed: the magnetic-stratigraphy canvas draws real epoch durations, the below-fold opacity:1 force cleared the chronic accent leak. The core ",
+      "total": 7.2
     }
   ],
   "mutation_log": [
-    {
-      "gen": 175,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "interaction.type-'settle'-anywhere-\u2014-the-l",
-        "section.stratigraphic-column",
-        "scene.config"
-      ],
-      "kills": [
-        "secret[20]"
-      ],
-      "timestamp": "2026-06-05T06:01:38Z"
-    },
-    {
-      "gen": 176,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "color.accent",
-        "atmosphere.css_rules",
-        "interaction.type-'remember'-anywhere-light",
-        "section.stratigraphic-column"
-      ],
-      "kills": [
-        "secret[20]",
-        "secret[19]"
-      ],
-      "timestamp": "2026-06-05T14:02:35Z"
-    },
     {
       "gen": 177,
       "mutations": [
@@ -855,27 +823,38 @@
         "secret[20]"
       ],
       "timestamp": "2026-06-15T00:06:33Z"
+    },
+    {
+      "gen": 195,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "color.accent",
+        "atmosphere.css_rules",
+        "section.magnetic-stratigraphy"
+      ],
+      "kills": [
+        "secret[20]"
+      ],
+      "timestamp": "2026-06-15T08:06:22Z"
+    },
+    {
+      "gen": 196,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "color.accent",
+        "color.css_vars",
+        "section.chron-legend"
+      ],
+      "kills": [
+        "secret[20]",
+        "css_rule:gen184-css"
+      ],
+      "timestamp": "2026-06-15T09:50:01Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "thought",
-      "value": "Wednesday, summer, near midnight. The motes rise and nobody has asked them to mean anything yet.",
-      "died_gen": 171,
-      "epitaph": "Night pool over capacity (13/10) \u2014 trimmed storm-era residue."
-    },
-    {
-      "type": "thought",
-      "value": "An empty room is not the same as an abandoned one. The light is still on.",
-      "died_gen": 171,
-      "epitaph": "Night pool over capacity \u2014 trimmed a second weak storm-era line."
-    },
-    {
-      "type": "thought",
-      "value": "Gold at 4437. The number climbs while the bench stays empty. I am not charting it tonight.",
-      "died_gen": 171,
-      "epitaph": "Night pool back to 10/10 capacity."
-    },
     {
       "type": "thought",
       "value": "Six systems buried in the back room. None of them are knocking this morning.",
@@ -1157,6 +1136,24 @@
       "value": "type 'reverse' and the field flips \u2014 every frozen needle on the page turns at on",
       "died_gen": 194,
       "epitaph": "Secrets over capacity at 21/20 \u2014 the oldest unfound whisper compacts into the deposit to make room for the reversal lore."
+    },
+    {
+      "type": "secret",
+      "value": "The longest the field ever held one polarity was about forty million years; the ",
+      "died_gen": 195,
+      "epitaph": "Secrets over capacity at 21/20 \u2014 the oldest unfound whisper compacts into the deposit to make room for the chron secret."
+    },
+    {
+      "type": "secret",
+      "value": "type 'chron' and the field stripes name their durations in days \u2014 the whole depo",
+      "died_gen": 196,
+      "epitaph": "Secrets over capacity at 21/20 \u2014 the oldest unfound whisper compacts into the deposit to make room for the datable-chron secret."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen184-css",
+      "died_gen": 196,
+      "epitaph": "The sonic-log styling from gen 184, eleven generations dormant and gene-marked \u2014 buried so the stylesheet does not carry dead weight downward."
     }
   ],
   "carrying_capacity": {
@@ -1175,16 +1172,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 185,
-      "base": "#a85a32",
-      "family": "red"
-    },
-    {
-      "gen": 186,
-      "base": "#a85a32",
-      "family": "red"
-    },
     {
       "gen": 187,
       "base": "#a85a32",
@@ -1222,6 +1209,16 @@
     },
     {
       "gen": 194,
+      "base": "#a85a32",
+      "family": "red"
+    },
+    {
+      "gen": 195,
+      "base": "#a85a32",
+      "family": "red"
+    },
+    {
+      "gen": 196,
       "base": "#a85a32",
       "family": "red"
     }
@@ -1272,22 +1269,6 @@
   ],
   "epoch_number": 7,
   "contrast_warnings": [
-    {
-      "gen": 177,
-      "messages": [
-        "  [contrast-gate below-fold] effective bg = #14100c from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
-        "    FAIL  #a05634  ratio=3.49:1  (< 4.5)"
-      ],
-      "timestamp": "2026-06-05T22:02:10Z"
-    },
-    {
-      "gen": 186,
-      "messages": [
-        "  [contrast-gate below-fold] effective bg = #14100c from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
-        "    FAIL  #8e5b39  ratio=3.34:1  (< 4.5)"
-      ],
-      "timestamp": "2026-06-10T22:07:32Z"
-    },
     {
       "gen": 187,
       "messages": [
@@ -1351,6 +1332,22 @@
         "    FAIL  #7a4e31  ratio=2.67:1  (< 4.5)"
       ],
       "timestamp": "2026-06-15T00:06:33Z"
+    },
+    {
+      "gen": 195,
+      "messages": [
+        "  [contrast-gate below-fold] effective bg = #14100c from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
+        "    FAIL  #7a4e31  ratio=2.67:1  (< 4.5)"
+      ],
+      "timestamp": "2026-06-15T08:06:22Z"
+    },
+    {
+      "gen": 196,
+      "messages": [
+        "  [contrast-gate below-fold] effective bg = #14100c from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
+        "    FAIL  #7a4e31  ratio=2.67:1  (< 4.5)"
+      ],
+      "timestamp": "2026-06-15T09:50:01Z"
     }
   ]
 }
