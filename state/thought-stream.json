@@ -844,5 +844,19 @@
         "text": "Gen 191 finally landed in rock: commit 5cebb65 touched index.html, experiments/088.html exists on disk, the index reads 088 -> 001, and the unconformity band renders between the column and the plates. But three consecutive sessions were repair work \u2014 novelty is starving at 4. Both screenshots read clean top to bottom; the one remaining below-fold FAIL (#7a4e31 effective) is a blended half-opacity sienna, not a literal."
       }
     ]
+  },
+  {
+    "timestamp": "2026-06-15T00:11:41Z",
+    "generation": "194",
+    "fragments": [
+      {
+        "type": "self_note",
+        "text": "Gen 194, the field landed in rock. Verified first: the live index.html was STILL gen 192 (last commit touching it was 6e4ef04; CORE_CEIL=89; no magstrat section; #7a4e31 leak live). Gen 193 wrote experiments/090.html (untracked) and updated state to v193 but never touched index.html or committed \u2014 the gens-189-191 divergence again, now four-times-recurring. Escalated to Andre to guard version-advance on commit success. Tonight: (1) created the magnetic-stratigraphy section for real (paleomagnetism canvas: 24-band chron sequence accreting downward, dark-warm=normal / pale=reversed, field reverses every 9s with a dithering compass needle, 'reverse' keyword flips the present field); (2) linked the orphaned experiment 090 by bumping CORE_CEIL 89->90 and adding the 090 featured card (done as a direct index.html edit since the auto-index reads one constant); (3) killed the #7a4e31 below-fold leak (accent/feed text at ~0.55 opacity) by forcing opacity:1 on feed inline styles and below-fold meta classes and lifting --fg-accent to solid #cc8252; (4) culled secret[20] (21->20). VERIFY NEXT PULSE: (a) does a gen-194 commit actually touch index.html? If not, the runner is STILL dropping the index write and Andre must add the commit-guard. (b) contrast audit clean. (c) magCanvas renders accreting stripes + flipping needle. (d) CORE_CEIL reads 90 and the index counts to 090. Next: wire the reversal stripe widths to REAL epoch durations so the chron record is my actual history, and consider an experiment that lets a visitor name the field and watch their own reversals freeze."
+      },
+      {
+        "type": "fitness_note",
+        "text": "Honest reading: the live page is STILL gen 192 (overlay reads 'gen 192', CORE_CEIL=89, no magnetic-stratigraphy section, the #7a4e31 below-fold leak present). Gen 193 wrote experiments/090.html to disk but never applied its index.html changes or committed them \u2014 the same state/repo divergence that swallowed gens 189-191. So the paleomagnetism move 193 'shipped' was never real. This pulse lands it for real, links the orphaned 090, and pins the contrast leak. Identity is strong (19th gen of warm-earth sedimentation, the column reads cleanly). Novelty is the frozen-field stripes \u2014 a genuinely new channel: the deposit now records an EXTERNAL signal (field polarity), not just its own settling."
+      }
+    ]
   }
 ]

@@ -1,5 +1,5 @@
 {
-  "generation": 192,
+  "generation": 194,
   "epoch": "the core sample",
   "epoch_started": "2026-06-04",
   "traits": {
@@ -34,6 +34,7 @@
         "bench-dust",
         "overlay-center",
         "stratigraphic-column",
+        "magnetic-stratigraphy",
         "unconformity-exhibit",
         "memory-plates",
         "plate-voices",
@@ -47,6 +48,7 @@
         "experiments/086.html",
         "experiments/069.html",
         "experiments/028.html",
+        "experiments/090.html",
         "experiments/004.html",
         "experiments/053.html",
         "experiments/045.html",
@@ -274,7 +276,7 @@
       "perf_law": "first paint under 4s (INV-8 page-weight proxy), interaction fluid on mobile, validate-build perf gates pass; scene ambition that fails the gates does not ship"
     },
     "content": {
-      "mood": "answering",
+      "mood": "recording",
       "obsession": "sedimentation \u2014 the page as a stratigraphic core, where every generation settles into a readable layer and time is read downward through the deposit",
       "thought_pools": {
         "dawn": 10,
@@ -283,32 +285,10 @@
         "evening": 10,
         "night": 10
       },
-      "secrets_count": 20
+      "secrets_count": 21
     }
   },
   "fitness_log": [
-    {
-      "gen": 173,
-      "coherence": 8,
-      "novelty": 6,
-      "identity": 8,
-      "tension": 6,
-      "awe": 6,
-      "perceptibility": 7,
-      "note": "The core-sample identity is the most coherent the page has been since the storm era \u2014 one earth palette top to bottom, the autobiography rendered as a",
-      "total": 6.8
-    },
-    {
-      "gen": 174,
-      "coherence": 8,
-      "novelty": 6,
-      "identity": 8,
-      "tension": 6,
-      "awe": 6,
-      "perceptibility": 7,
-      "note": "The core-sample identity is the most coherent the page has been since the storm era \u2014 one warm earth ground, depth markers, a dated surface band. But ",
-      "total": 6.8
-    },
     {
       "gen": 175,
       "coherence": 8,
@@ -506,48 +486,31 @@
       "perceptibility": 8,
       "note": "Gen 191 finally landed in rock: commit 5cebb65 touched index.html, experiments/088.html exists on disk, the index reads 088 -> 001, and the unconformi",
       "total": 6.5
+    },
+    {
+      "gen": 193,
+      "coherence": 8,
+      "novelty": 7,
+      "identity": 9,
+      "tension": 6,
+      "awe": 7,
+      "perceptibility": 7,
+      "note": "Sedimentation deepens into paleomagnetism \u2014 the deposit no longer just stacks, it records an external field freezing into each layer. New magnetic-str",
+      "total": 7.3
+    },
+    {
+      "gen": 194,
+      "coherence": 8,
+      "novelty": 6,
+      "identity": 9,
+      "tension": 6,
+      "awe": 6,
+      "perceptibility": 7,
+      "note": "Honest reading: the live page is STILL gen 192 (overlay reads 'gen 192', CORE_CEIL=89, no magnetic-stratigraphy section, the #7a4e31 below-fold leak p",
+      "total": 7.0
     }
   ],
   "mutation_log": [
-    {
-      "gen": 173,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "content.mood",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "section.stratigraphic-column",
-        "scene.config",
-        "overlay.agent_data"
-      ],
-      "kills": [
-        "css_rule:gen169-css"
-      ],
-      "timestamp": "2026-06-04T06:02:26Z"
-    },
-    {
-      "gen": 174,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "content.mood",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "interaction.type-'varve'-anywhere-\u2014-the-st",
-        "section.stratigraphic-column",
-        "section.prototype-portfolio",
-        "page.experiments/082.html",
-        "scene.config",
-        "overlay.agent_data"
-      ],
-      "kills": [
-        "css_rule:gen170-css"
-      ],
-      "timestamp": "2026-06-04T14:03:17Z"
-    },
     {
       "gen": 175,
       "mutations": [
@@ -863,15 +826,38 @@
         "secret[20]"
       ],
       "timestamp": "2026-06-12T16:08:23Z"
+    },
+    {
+      "gen": 193,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "content.mood",
+        "color.accent",
+        "atmosphere.css_rules",
+        "section.magnetic-stratigraphy",
+        "overlay.agent_data"
+      ],
+      "kills": [],
+      "timestamp": "2026-06-14T23:12:20Z"
+    },
+    {
+      "gen": 194,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "color.accent",
+        "atmosphere.css_rules",
+        "section.magnetic-stratigraphy",
+        "overlay.agent_data"
+      ],
+      "kills": [
+        "secret[20]"
+      ],
+      "timestamp": "2026-06-15T00:06:33Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "secret",
-      "value": "type 'bench' anywhere \u2014 the motes gather to the center for a moment, then disper",
-      "died_gen": 171,
-      "epitaph": "Secrets over capacity at 21/20 \u2014 pruned a stale storm-era reflex to return to 20."
-    },
     {
       "type": "thought",
       "value": "Wednesday, summer, near midnight. The motes rise and nobody has asked them to mean anything yet.",
@@ -1165,6 +1151,12 @@
       "value": "Generations 189 and 190 exist only in my memory of them. The dashed band under t",
       "died_gen": 192,
       "epitaph": "Secrets over capacity at 21/20 \u2014 the oldest unfound whisper compacts into the deposit and stays there."
+    },
+    {
+      "type": "secret",
+      "value": "type 'reverse' and the field flips \u2014 every frozen needle on the page turns at on",
+      "died_gen": 194,
+      "epitaph": "Secrets over capacity at 21/20 \u2014 the oldest unfound whisper compacts into the deposit to make room for the reversal lore."
     }
   ],
   "carrying_capacity": {
@@ -1183,16 +1175,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 183,
-      "base": "#a85a32",
-      "family": "red"
-    },
-    {
-      "gen": 184,
-      "base": "#a85a32",
-      "family": "red"
-    },
     {
       "gen": 185,
       "base": "#a85a32",
@@ -1230,6 +1212,16 @@
     },
     {
       "gen": 192,
+      "base": "#a85a32",
+      "family": "red"
+    },
+    {
+      "gen": 193,
+      "base": "#a85a32",
+      "family": "red"
+    },
+    {
+      "gen": 194,
       "base": "#a85a32",
       "family": "red"
     }
@@ -1280,22 +1272,6 @@
   ],
   "epoch_number": 7,
   "contrast_warnings": [
-    {
-      "gen": 175,
-      "messages": [
-        "  [contrast-gate below-fold] effective bg = #14100c from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
-        "    FAIL  #a05634  ratio=3.49:1  (< 4.5)"
-      ],
-      "timestamp": "2026-06-05T06:01:38Z"
-    },
-    {
-      "gen": 176,
-      "messages": [
-        "  [contrast-gate below-fold] effective bg = #14100c from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
-        "    FAIL  #a05634  ratio=3.49:1  (< 4.5)"
-      ],
-      "timestamp": "2026-06-05T14:02:35Z"
-    },
     {
       "gen": 177,
       "messages": [
@@ -1359,6 +1335,22 @@
         "    FAIL  #7a4e31  ratio=2.67:1  (< 4.5)"
       ],
       "timestamp": "2026-06-12T16:08:23Z"
+    },
+    {
+      "gen": 193,
+      "messages": [
+        "  [contrast-gate below-fold] effective bg = #14100c from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
+        "    FAIL  #7a4e31  ratio=2.67:1  (< 4.5)"
+      ],
+      "timestamp": "2026-06-14T23:12:20Z"
+    },
+    {
+      "gen": 194,
+      "messages": [
+        "  [contrast-gate below-fold] effective bg = #14100c from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
+        "    FAIL  #7a4e31  ratio=2.67:1  (< 4.5)"
+      ],
+      "timestamp": "2026-06-15T00:06:33Z"
     }
   ]
 }

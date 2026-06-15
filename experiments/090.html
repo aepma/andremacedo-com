@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>090 — Reversals</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400&family=Playfair+Display:wght@700&family=Source+Serif+4&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#14100c;--fg:#e8ddd0;--accent:#cc8252;--dim:#b8a890}
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;background:var(--bg);color:var(--fg);font-family:'Source Serif 4',serif;overflow:hidden}
+  #c{position:fixed;inset:0;display:block}
+  #info{position:fixed;top:1rem;left:1rem;max-width:min(340px,82vw);z-index:3;
+    text-shadow:0 0 8px rgba(0,0,0,0.85),0 0 20px rgba(0,0,0,0.55)}
+  #info h1{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;margin:0 0 .5rem;color:var(--fg)}
+  #info p{font-size:.86rem;line-height:1.5;margin:0 0 .6rem;color:var(--dim)}
+  #info .k{font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);margin:0 0 .6rem}
+  #readout{position:fixed;bottom:1rem;left:1rem;z-index:3;font-family:'JetBrains Mono',monospace;font-size:.72rem;letter-spacing:.06em;color:var(--accent);
+    text-shadow:0 0 8px rgba(0,0,0,0.85),0 0 20px rgba(0,0,0,0.55)}
+  #back{position:fixed;bottom:1rem;right:1rem;z-index:3;font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--dim);text-decoration:none;border-bottom:1px solid rgba(204,130,82,.4);
+    text-shadow:0 0 8px rgba(0,0,0,0.85),0 0 20px rgba(0,0,0,0.55)}
+  #hint{position:fixed;top:1rem;right:1rem;z-index:3;font-family:'JetBrains Mono',monospace;font-size:.66rem;color:var(--dim);
+    text-shadow:0 0 8px rgba(0,0,0,0.85),0 0 20px rgba(0,0,0,0.55)}
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div id="info">
+  <p class="k">paleomagnetism · 090</p>
+  <h1>Reversals</h1>
+  <p>New crust is born at the ridge in the center and spreads outward both ways. Each strip freezes the direction of Earth's magnetic field at the instant it forms — and the field flips every so often.</p>
+  <p>The record comes out symmetric: a mirror of stripes on either side of the ridge. That mirror is the actual evidence that the seafloor spreads, and that time is written into stone.</p>
+</div>
+<div id="hint">tap / space — force a reversal</div>
+<div id="readout">field: <span id="f">normal</span> · <span id="n">0</span> reversals</div>
+<a id="back" href="/">← back to the core</a>
+<script>
+(function(){
+  var c=document.getElementById('c'),x=c.getContext('2d');
+  var W,H,ridgeY,rows,rowH=10,pol=1,reversals=0,sinceFlip=0,flipAt=2.6+Math.random()*2.4,spread=0.55;
+  var fEl=document.getElementById('f'),nEl=document.getElementById('n');
+  function resize(){W=c.width=innerWidth;H=c.height=innerHeight;ridgeY=Math.floor(H*0.5);rows=[];}
+  resize();addEventListener('resize',resize);
+  var ac=null;
+  function tone(){try{ac=ac||new(window.AudioContext||window.webkitAudioContext)();var o=ac.createOscillator(),g=ac.createGain();o.type='sine';o.frequency.value=pol>0?92:69;o.connect(g);g.connect(ac.destination);var t=ac.currentTime;g.gain.setValueAtTime(0.0001,t);g.gain.exponentialRampToValueAtTime(0.14,t+0.02);g.gain.exponentialRampToValueAtTime(0.0001,t+1.5);o.start(t);o.stop(t+1.55);}catch(e){}}
+  function flip(manual){pol*=-1;reversals++;sinceFlip=0;flipAt=2.6+Math.random()*2.4;if(fEl)fEl.textContent=pol>0?'normal':'reversed';if(nEl)nEl.textContent=reversals;if(manual)tone();}
+  addEventListener('keydown',function(e){if(e.code==='Space'||e.key===' '){e.preventDefault();flip(true);}});
+  c.addEventListener('pointerdown',function(){flip(true);});
+  var last=performance.now();
+  function color(p){return p>0?['#33241a','#241a12']:['#cf9259','#b87a44'];}
+  function frame(now){
+    var dt=Math.min(0.05,(now-last)/1000);last=now;sinceFlip+=dt;
+    if(sinceFlip>flipAt)flip(false);
+    if(!rows._t)rows._t=0;rows._t+=dt;
+    if(rows._t>0.16){rows._t=0;rows.unshift({pol:pol,w:0});var maxR=Math.ceil(ridgeY/rowH)+2;if(rows.length>maxR)rows.pop();}
+    for(var i=0;i<rows.length;i++){rows[i].w=Math.min(W/2,rows[i].w+spread*W*dt*0.5+ (W*0.5)*( i>2?0.06:0.18 )*dt);}
+    x.fillStyle='#14100c';x.fillRect(0,0,W,H);
+    var cx=W/2;
+    for(var j=0;j<rows.length;j++){
+      var r=rows[j],y=ridgeY-(j+1)*rowH,col=color(r.pol);
+      var g=x.createLinearGradient(0,y,0,y+rowH);g.addColorStop(0,col[0]);g.addColorStop(1,col[1]);x.fillStyle=g;
+      x.fillRect(cx-r.w,y,r.w*2,rowH-1);
+      // mirror below ridge (older accreted crust pushed down)
+      var y2=ridgeY+j*rowH;x.fillStyle=g;x.fillRect(cx-r.w,y2,r.w*2,rowH-1);
+      // frozen needles
+      x.strokeStyle=r.pol>0?'rgba(204,130,82,.5)':'rgba(36,26,18,.6)';x.lineWidth=1.4;
+      for(var s=-1;s<=1;s+=2){var nx=cx+s*Math.min(r.w-14,r.w*0.6+18);if(r.w<24)continue;var ny=y+rowH/2;x.beginPath();x.moveTo(nx,ny-4*r.pol);x.lineTo(nx,ny+4*r.pol);x.stroke();}
+    }
+    // ridge line
+    x.strokeStyle='rgba(204,130,82,.6)';x.lineWidth=1.5;x.setLineDash([2,4]);x.beginPath();x.moveTo(cx,0);x.lineTo(cx,H);x.stroke();x.setLineDash([]);
+    // compass
+    var ox=W-46,oy=H-46,rad=20;x.strokeStyle='rgba(168,90,50,.4)';x.lineWidth=1;x.beginPath();x.arc(ox,oy,rad,0,6.283);x.stroke();
+    x.strokeStyle='#cc8252';x.lineWidth=3;x.beginPath();x.moveTo(ox,oy);x.lineTo(ox,oy+rad*0.8*pol);x.stroke();
+    x.fillStyle='#cc8252';x.beginPath();x.arc(ox,oy+rad*0.8*pol,2.6,0,6.283);x.fill();
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
