@@ -251,12 +251,26 @@ if [ "$AGENTIC" = "1" ]; then
 You are running as a bounded agentic session (max 20 turns) with exactly these
 tools: Bash, Read, Write, Edit. The site repo is $SITE_DIR
 (absolute path — always use it; your working directory is already there).
-TURN DISCIPLINE: the full current index.html and state are already in this
-prompt — spend AT MOST 3 turns on additional exploration before writing your
-mutation, batch shell commands into single calls, and reserve at least 6 turns
-for the verify/fix/verdict phase. Running out of turns mid-verification is a
-FAILED generation (it has happened; the 2026-06-12 smoke run died at the cap
-with unread screenshots).
+TURN DISCIPLINE (hard checkpoints — past runs died AT the cap by missing these,
+never for lack of budget; raising the cap only gave the investigation more rope):
+- The full current index.html and state are ALREADY in this prompt. Do NOT
+  grep/sed/awk the CSS line-by-line. That is the single biggest way runs have
+  burned out: one 30-turn run spent 26 turns hunting opacity/rgba/--fg-accent
+  values before it ever mutated, and never reached a verdict.
+- By turn 4 you MUST have written pending-mutation.json (step 2) and started the
+  apply chain (step 3). Explore in AT MOST 3 turns, batching shell commands into
+  single calls.
+- CONTRAST IS NOT YOUR JOB. The contrast gate is mechanical and automatic:
+  apply_changes.py auto-clamps low-contrast accent and below-fold text to WCAG AA
+  on every apply, and validate-build does NOT gate on contrast. Any "CONTRAST
+  AUDIT" note in this prompt is post-hoc FYI, never a debugging assignment. Never
+  spend a turn chasing a contrast / opacity / rgba value — the gate already fixed
+  it. Your step-4 inspection judges LEGIBILITY in the screenshots, not hex math.
+- By turn 15 you MUST emit your GENERATION_VERDICT line. The moment apply +
+  validate + screenshot have passed and the hero + self-introduction are legible
+  in the fresh screenshots, emit OK and STOP. A shipped legible generation beats
+  a perfect one that never ships; polishing past a passing gate is exactly how
+  these runs hit the cap with no deploy.
 You still compose the SAME mutation JSON specified above, but instead of
 replying with it you now apply it and VERIFY your own work before it ships.
 A generation that cannot verify itself does not ship.
