@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>091 · Curie Point</title>
+<style>
+  html,body{margin:0;height:100%;background:#14100c;overflow:hidden;font-family:'JetBrains Mono',ui-monospace,monospace;}
+  canvas{display:block;position:fixed;inset:0;}
+  #info{position:fixed;top:14px;left:14px;max-width:300px;z-index:5;color:#e8ddd0;
+    text-shadow:0 0 8px rgba(0,0,0,0.85),0 0 20px rgba(0,0,0,0.55);}
+  #info h1{font-family:'Playfair Display',Georgia,serif;font-size:18px;font-weight:600;margin:0 0 6px;color:#cc8252;}
+  #info p{font-size:12px;line-height:1.5;margin:0 0 8px;color:#cabfae;}
+  #ui{position:fixed;bottom:16px;left:14px;z-index:5;display:flex;gap:8px;flex-wrap:wrap;
+    text-shadow:0 0 8px rgba(0,0,0,0.85);}
+  button{font-family:inherit;font-size:12px;color:#e8ddd0;background:rgba(40,28,18,0.72);
+    border:1px solid #6a3a22;border-radius:3px;padding:7px 11px;cursor:pointer;}
+  button:hover{background:rgba(168,90,50,0.32);}
+  #temp{position:fixed;top:14px;right:14px;z-index:5;text-align:right;font-size:12px;
+    color:#cabfae;text-shadow:0 0 8px rgba(0,0,0,0.85);line-height:1.6;}
+  #temp b{font-size:22px;color:#cc8252;display:block;font-family:'Playfair Display',serif;}
+  #state{color:#9a8a74;}
+  #back{position:fixed;bottom:16px;right:14px;z-index:5;font-size:12px;color:#9a8a74;
+    text-decoration:none;text-shadow:0 0 8px rgba(0,0,0,0.85);}
+  #back:hover{color:#cc8252;}
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div id="info">
+  <h1>Curie Point</h1>
+  <p>Every magnetic rock has a temperature &mdash; for magnetite, about 580&deg;C &mdash; above which its domains lose all alignment and forget every field they ever held.</p>
+  <p>Heat the rock past that line and the arrows scramble. Let it cool in the present field and they lock, freezing a new chron into the stone. Click <b>Heat</b>, then <b>Flip field</b> before it cools to choose which direction gets remembered.</p>
+</div>
+<div id="temp"><b id="tval">20&deg;</b><span id="state">stable &middot; chron held</span></div>
+<div id="ui">
+  <button id="heat">Heat the rock</button>
+  <button id="flip">Flip field</button>
+</div>
+<a id="back" href="/">&larr; back to the core</a>
+<script>
+(function(){
+  var cv=document.getElementById('c'),x=cv.getContext('2d');
+  var dpr=Math.min(2,window.devicePixelRatio||1),W=0,H=0;
+  function size(){W=cv.width=Math.floor(innerWidth*dpr);H=cv.height=Math.floor(innerHeight*dpr);}
+  size();addEventListener('resize',size);
+  var CURIE=580, AMBIENT=20;
+  var T=AMBIENT;
+  var field=Math.PI/2;
+  var wasHot=false;
+  var domains=[];
+  var cols=0,rows=0,gap=0;
+  function build(){
+    gap=Math.max(34,Math.min(W,H)/16);
+    cols=Math.floor(W/gap),rows=Math.floor(H/gap);
+    domains=[];
+    for(var r=0;r<rows;r++)for(var c=0;c<cols;c++){
+      domains.push({gx:c,gy:r,a:field,frozen:field,jit:(Math.random()-0.5)*0.5});
+    }
+  }
+  build();addEventListener('resize',build);
+
+  var actx=null;
+  function ensure(){if(!actx){try{actx=new (window.AudioContext||window.webkitAudioContext)();}catch(e){}}}
+  function lockTone(){
+    if(!actx)return;var t=actx.currentTime;
+    [196,261.63].forEach(function(f){
+      var o=actx.createOscillator(),g=actx.createGain();o.type='sine';o.frequency.value=f;
+      g.gain.setValueAtTime(0.0001,t);g.gain.exponentialRampToValueAtTime(0.10,t+0.02);
+      g.gain.exponentialRampToValueAtTime(0.0001,t+2.2);
+      o.connect(g);g.connect(actx.destination);o.start(t);o.stop(t+2.3);
+    });
+  }
+
+  var tval=document.getElementById('tval'),stEl=document.getElementById('state');
+  document.getElementById('heat').addEventListener('click',function(){ensure();T=920;wasHot=true;stEl.textContent='molten · domains free';});
+  document.getElementById('flip').addEventListener('click',function(){ensure();field=field+Math.PI;});
+  cv.addEventListener('pointerdown',function(){ensure();T=Math.min(960,T+260);wasHot=true;});
+
+  function hotColor(temp){
+    var k=Math.max(0,Math.min(1,(temp-AMBIENT)/(960-AMBIENT)));
+    var r=Math.round(122+(255-122)*k);
+    var g=Math.round(72+(210-72)*k);
+    var b=Math.round(40+(150-40)*k);
+    return 'rgb('+r+','+g+','+b+')';
+  }
+
+  function step(){
+    if(T>AMBIENT){T+=(AMBIENT-T)*0.012;if(T<AMBIENT+0.5)T=AMBIENT;}
+    var hot=T>CURIE;
+    for(var i=0;i<domains.length;i++){
+      var d=domains[i];
+      if(hot){d.a+=(Math.random()-0.5)*1.2;}
+      else{
+        var target=field+d.jit*0.6;
+        var diff=Math.atan2(Math.sin(target-d.a),Math.cos(target-d.a));
+        d.a+=diff*0.06;
+      }
+    }
+    if(wasHot&&!hot){
+      for(var j=0;j<domains.length;j++)domains[j].frozen=field+domains[j].jit*0.6;
+      wasHot=false;lockTone();
+      stEl.textContent='chron frozen · field remembered';
+    }
+    tval.innerHTML=Math.round(T)+'&deg;';
+    if(hot)stEl.textContent='above Curie · all alignment lost';
+
+    x.fillStyle='rgba(20,16,12,0.55)';x.fillRect(0,0,W,H);
+    var len=gap*0.34,col=hotColor(T);
+    x.strokeStyle=col;x.lineWidth=2*dpr;x.lineCap='round';
+    for(var k2=0;k2<domains.length;k2++){
+      var dd=domains[k2];
+      var px=dd.gx*gap+gap/2,py=dd.gy*gap+gap/2;
+      var dx=Math.cos(dd.a)*len,dy=Math.sin(dd.a)*len;
+      x.beginPath();x.moveTo(px-dx,py-dy);x.lineTo(px+dx,py+dy);x.stroke();
+      x.beginPath();
+      x.moveTo(px+dx,py+dy);
+      x.lineTo(px+dx-Math.cos(dd.a-0.5)*len*0.45,py+dy-Math.sin(dd.a-0.5)*len*0.45);
+      x.moveTo(px+dx,py+dy);
+      x.lineTo(px+dx-Math.cos(dd.a+0.5)*len*0.45,py+dy-Math.sin(dd.a+0.5)*len*0.45);
+      x.stroke();
+    }
+    requestAnimationFrame(step);
+  }
+  x.fillStyle='#14100c';x.fillRect(0,0,W,H);
+  requestAnimationFrame(step);
+})();
+</script>
+</body>
+</html>

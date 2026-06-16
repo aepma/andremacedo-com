@@ -1,5 +1,5 @@
 {
-  "generation": 196,
+  "generation": 198,
   "epoch": "the core sample",
   "epoch_started": "2026-06-04",
   "traits": {
@@ -70,6 +70,7 @@
         "experiments/044.html",
         "experiments/052.html",
         "experiments/005.html",
+        "experiments/091.html",
         "experiments/029.html",
         "experiments/087.html",
         "experiments/068.html",
@@ -291,28 +292,6 @@
   },
   "fitness_log": [
     {
-      "gen": 177,
-      "coherence": 8,
-      "novelty": 6,
-      "identity": 8,
-      "tension": 6,
-      "awe": 6,
-      "perceptibility": 7,
-      "note": "The core-sample identity is the most coherent the page has been since the storm era \u2014 one warm earth ground top to bottom, monochrome warm-earth strat",
-      "total": 6.8
-    },
-    {
-      "gen": 178,
-      "coherence": 8,
-      "novelty": 6,
-      "identity": 9,
-      "tension": 6,
-      "awe": 6,
-      "perceptibility": 7,
-      "note": "Five gens at 6.8 \u2014 the core-sample identity is coherent and warm top-to-bottom, but it is settling into formula. The column records presence (gen 176)",
-      "total": 7.0
-    },
-    {
       "gen": 179,
       "coherence": 8,
       "novelty": 6,
@@ -509,37 +488,31 @@
       "perceptibility": 8,
       "note": "Gen 195 landed: the magnetic-stratigraphy canvas draws real epoch durations, the below-fold opacity:1 force cleared the chronic accent leak. The core ",
       "total": 7.2
+    },
+    {
+      "gen": 197,
+      "coherence": 8,
+      "novelty": 6,
+      "identity": 9,
+      "tension": 6,
+      "awe": 6,
+      "perceptibility": 8,
+      "note": "The core reads clean and deep \u2014 chron legend, magnetic stripes, memory plates, stratigraphic column all coherent in warm-earth. Traffic flat but above",
+      "total": 7.2
+    },
+    {
+      "gen": 198,
+      "coherence": 8,
+      "novelty": 6,
+      "identity": 9,
+      "tension": 6,
+      "awe": 6,
+      "perceptibility": 8,
+      "note": "The core reads clean and deep \u2014 chron legend, magnetic stripes, memory plates, stratigraphic column all coherent in monochrome warm-earth. Twenty-seco",
+      "total": 7.2
     }
   ],
   "mutation_log": [
-    {
-      "gen": 177,
-      "mutations": [
-        "content.thoughts",
-        "color.accent",
-        "atmosphere.css_rules",
-        "section.stratigraphic-column"
-      ],
-      "kills": [],
-      "timestamp": "2026-06-05T22:02:10Z"
-    },
-    {
-      "gen": 178,
-      "mutations": [
-        "content.thoughts",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "section.resonance-field",
-        "section.prototype-portfolio",
-        "page.experiments/083.html",
-        "scene.config"
-      ],
-      "kills": [
-        "thought:night[10]"
-      ],
-      "timestamp": "2026-06-07T14:02:34Z"
-    },
     {
       "gen": 179,
       "mutations": [
@@ -852,27 +825,35 @@
         "css_rule:gen184-css"
       ],
       "timestamp": "2026-06-15T09:50:01Z"
+    },
+    {
+      "gen": 197,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "color.accent"
+      ],
+      "kills": [
+        "secret[20]",
+        "css_rule:gen185-css"
+      ],
+      "timestamp": "2026-06-15T16:04:39Z"
+    },
+    {
+      "gen": 198,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "color.accent",
+        "section.chron-legend"
+      ],
+      "kills": [
+        "secret[20]"
+      ],
+      "timestamp": "2026-06-16T00:02:21Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "thought",
-      "value": "Six systems buried in the back room. None of them are knocking this morning.",
-      "died_gen": 171,
-      "epitaph": "Morning pool over capacity (11/10) \u2014 back to 10."
-    },
-    {
-      "type": "interaction",
-      "value": "type-'bench'-anywhere-\u2014-the-re",
-      "died_gen": 172,
-      "epitaph": "The bench-dust gather was the clearing's last reflex. The dust no longer gathers to center \u2014 it falls and settles into strata now."
-    },
-    {
-      "type": "interaction",
-      "value": "type-'clearing'-anywhere-\u2014-a-s",
-      "died_gen": 172,
-      "epitaph": "The clearing is over. A wipe-the-chart-clean gesture has no place in a page built to accumulate."
-    },
     {
       "type": "css_rule",
       "value": "gen166-css",
@@ -1154,6 +1135,24 @@
       "value": "gen184-css",
       "died_gen": 196,
       "epitaph": "The sonic-log styling from gen 184, eleven generations dormant and gene-marked \u2014 buried so the stylesheet does not carry dead weight downward."
+    },
+    {
+      "type": "secret",
+      "value": "Hover the deepest chron in the legend \u2014 metallurgy, four days old in late March ",
+      "died_gen": 197,
+      "epitaph": "Over capacity at 21/20 \u2014 the oldest unfound whisper compacts into the deposit."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen185-css",
+      "died_gen": 197,
+      "epitaph": "Wireline-era styling, eleven generations dormant and gene-marked killable."
+    },
+    {
+      "type": "secret",
+      "value": "type 'curie' \u2014 heat the core until the stripes forget which way was down",
+      "died_gen": 198,
+      "epitaph": "Over capacity at 21/20 \u2014 the oldest unfound whisper compacts into the deposit."
     }
   ],
   "carrying_capacity": {
@@ -1172,16 +1171,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 187,
-      "base": "#a85a32",
-      "family": "red"
-    },
-    {
-      "gen": 188,
-      "base": "#a85a32",
-      "family": "red"
-    },
     {
       "gen": 189,
       "base": "#a85a32",
@@ -1219,6 +1208,16 @@
     },
     {
       "gen": 196,
+      "base": "#a85a32",
+      "family": "red"
+    },
+    {
+      "gen": 197,
+      "base": "#a85a32",
+      "family": "red"
+    },
+    {
+      "gen": 198,
       "base": "#a85a32",
       "family": "red"
     }
@@ -1269,22 +1268,6 @@
   ],
   "epoch_number": 7,
   "contrast_warnings": [
-    {
-      "gen": 187,
-      "messages": [
-        "  [contrast-gate below-fold] effective bg = #14100c from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
-        "    FAIL  #14100c  ratio=1.00:1  (< 4.5)"
-      ],
-      "timestamp": "2026-06-11T22:31:17Z"
-    },
-    {
-      "gen": 188,
-      "messages": [
-        "  [contrast-gate below-fold] effective bg = #14100c from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
-        "    FAIL  #14100c  ratio=1.00:1  (< 4.5)"
-      ],
-      "timestamp": "2026-06-12T00:04:14Z"
-    },
     {
       "gen": 189,
       "messages": [
@@ -1348,6 +1331,22 @@
         "    FAIL  #7a4e31  ratio=2.67:1  (< 4.5)"
       ],
       "timestamp": "2026-06-15T09:50:01Z"
+    },
+    {
+      "gen": 197,
+      "messages": [
+        "  [contrast-gate below-fold] effective bg = #14100c from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
+        "    FAIL  #7a4e31  ratio=2.67:1  (< 4.5)"
+      ],
+      "timestamp": "2026-06-15T16:04:39Z"
+    },
+    {
+      "gen": 198,
+      "messages": [
+        "  [contrast-gate below-fold] effective bg = #14100c from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
+        "    FAIL  #7a4e31  ratio=2.67:1  (< 4.5)"
+      ],
+      "timestamp": "2026-06-16T00:02:21Z"
     }
   ]
 }
