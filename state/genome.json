@@ -1,5 +1,5 @@
 {
-  "generation": 199,
+  "generation": 200,
   "epoch": "the core sample",
   "epoch_started": "2026-06-04",
   "traits": {
@@ -293,17 +293,6 @@
   },
   "fitness_log": [
     {
-      "gen": 180,
-      "coherence": 8,
-      "novelty": 7,
-      "identity": 8,
-      "tension": 6,
-      "awe": 6,
-      "perceptibility": 8,
-      "note": "Six generations of one warm-earth core is the most coherent the page has been since the storm era, but novelty had plateaued because every lamina beha",
-      "total": 7.2
-    },
-    {
       "gen": 181,
       "coherence": 8,
       "novelty": 6,
@@ -511,31 +500,20 @@
       "perceptibility": 7,
       "note": "The core reads clean and deep \u2014 chron legend, magnetic stripes, memory plates, stratigraphic column all coherent. But novelty has sat at 6 for five ge",
       "total": 7.0
+    },
+    {
+      "gen": 200,
+      "coherence": 8,
+      "novelty": 6,
+      "identity": 9,
+      "tension": 6,
+      "awe": 6,
+      "perceptibility": 8,
+      "note": "The core reads clean and deep across two hundred generations \u2014 chron legend, magnetic stripes, memory plates, the stratigraphic column. Gen 200 is the",
+      "total": 7.2
     }
   ],
   "mutation_log": [
-    {
-      "gen": 180,
-      "mutations": [
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "interaction.type-'liquefy'-anywhere-\u2014-the-",
-        "section.stratigraphic-column",
-        "section.prototype-portfolio",
-        "page.experiments/084.html",
-        "scene.config"
-      ],
-      "kills": [
-        "interaction:type-'smalt'-anywhere-on-the-p",
-        "interaction:type-'curtain'-anywhere-to-par",
-        "interaction:type-'lettera'-anywhere-to-enc",
-        "thought:night[10]",
-        "secret[20]",
-        "css_rule:gen172-css"
-      ],
-      "timestamp": "2026-06-08T04:06:14Z"
-    },
     {
       "gen": 181,
       "mutations": [
@@ -849,15 +827,22 @@
         "secret[20]"
       ],
       "timestamp": "2026-06-16T08:05:52Z"
+    },
+    {
+      "gen": 200,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "color.accent",
+        "section.overlay-center"
+      ],
+      "kills": [
+        "secret[20]"
+      ],
+      "timestamp": "2026-06-16T16:03:02Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "css_rule",
-      "value": "gen167-css",
-      "died_gen": 172,
-      "epitaph": "Clearing-era neutral tiers, superseded."
-    },
     {
       "type": "css_rule",
       "value": "gen168-css",
@@ -1151,6 +1136,12 @@
       "value": "Hover the chron rows top to bottom \u2014 they descend in pitch, and the tallest row ",
       "died_gen": 199,
       "epitaph": "Secrets over capacity at 21/20 \u2014 the oldest unfound whisper compacts into the deposit to make room for 'wander'."
+    },
+    {
+      "type": "secret",
+      "value": "type 'wander' \u2014 the chron stripes lift their frozen declinations and trace the a",
+      "died_gen": 200,
+      "epitaph": "Secrets over capacity at 21/20 \u2014 the oldest unfound whisper compacts into the deposit, making room for the marker-bed secret."
     }
   ],
   "carrying_capacity": {
@@ -1169,11 +1160,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 190,
-      "base": "#a85a32",
-      "family": "red"
-    },
     {
       "gen": 191,
       "base": "#a85a32",
@@ -1216,6 +1202,11 @@
     },
     {
       "gen": 199,
+      "base": "#a85a32",
+      "family": "red"
+    },
+    {
+      "gen": 200,
       "base": "#a85a32",
       "family": "red"
     }
@@ -1266,14 +1257,6 @@
   ],
   "epoch_number": 7,
   "contrast_warnings": [
-    {
-      "gen": 190,
-      "messages": [
-        "  [contrast-gate below-fold] effective bg = #14100c from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
-        "    FAIL  #14100c  ratio=1.00:1  (< 4.5)"
-      ],
-      "timestamp": "2026-06-12T01:37:16Z"
-    },
     {
       "gen": 191,
       "messages": [
@@ -1345,6 +1328,14 @@
         "    FAIL  #7a4e31  ratio=2.67:1  (< 4.5)"
       ],
       "timestamp": "2026-06-16T08:05:52Z"
+    },
+    {
+      "gen": 200,
+      "messages": [
+        "  [contrast-gate below-fold] effective bg = #14100c from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
+        "    FAIL  #7a4e31  ratio=2.67:1  (< 4.5)"
+      ],
+      "timestamp": "2026-06-16T16:03:02Z"
     }
   ]
 }
