@@ -1,16 +1,14 @@
 #!/usr/bin/env python3
-"""telos-collect-chat-context.py
+"""telos-collect-chat-context.py  (v2 — reads real agent-state keys)
 
-Collect PUBLIC-SAFE context about the andremacedo.com creative agent and emit
-it as a compact JSON blob for the edge chat bot to ground its answers.
+Collect PUBLIC-SAFE context about the andremacedo.com creative organism and emit
+it as a compact JSON blob for the edge chat to ground its answers IN THE AGENT'S
+OWN VOICE. Sources only what the page already renders publicly: version (gen),
+mood, the active obsession + the agent's own rationale for it, its most recent
+first-person self-note, the dead epochs, and palette/visual strategy.
 
-Outbound only. Reads local state, writes stdout. The caller (telos-push-chat-context.sh)
-PUTs the result to Cloudflare KV. No inbound path, no fleet internals, no
-credentials, no other agents' data — only what the site already renders publicly:
-mood, obsession, generation, epoch, fitness, and graveyard epitaphs.
-
-Degrades gracefully: every field is optional. Missing state never crashes the
-push; the bot just has less to work with.
+Outbound only. Reads local state, prints stdout. No fleet internals, no creds,
+no other agents' data. Degrades gracefully: every field optional.
 """
 import os, json
 from datetime import datetime, timezone
@@ -35,43 +33,56 @@ def first(d, *keys, default=None):
             return d[k]
     return default
 
-# --- Obsession (may be nested dict or flat) ---
-ob = state.get("active_obsession") or state.get("obsession") or {}
+# --- Obsession: topic + the agent's own rationale (first person) ---
+ob = state.get("active_obsession") or {}
 if isinstance(ob, dict):
-    obsession = first(ob, "topic", "name", "title", default=None)
-    obsession_desc = first(ob, "description", "desc", "summary", default=None)
+    obsession = first(ob, "topic", "name", "title")
+    obsession_why = first(ob, "rationale", "description", "summary")
+    obsession_since = first(ob, "started")
 else:
-    obsession = ob if isinstance(ob, str) else None
-    obsession_desc = None
+    obsession, obsession_why, obsession_since = (ob if isinstance(ob, str) else None), None, None
 
-# --- Graveyard: prior dead epochs/obsessions with epitaphs (public art) ---
+# --- The voice: the most recent self-note, trimmed. This is how the agent
+#     actually talks about itself. Cap length so the KV value stays compact. ---
+self_note_latest = None
+notes = state.get("self_notes")
+if isinstance(notes, list) and notes:
+    last = notes[-1]
+    if isinstance(last, str):
+        self_note_latest = last[:900]
+
+# --- Dead epochs (public graveyard). Prefer portfolio; fall back to none. ---
 graveyard = []
-gy = state.get("graveyard") or portfolio.get("graveyard") or []
+gy = state.get("graveyard") or portfolio.get("graveyard") or portfolio.get("epochs") or []
 if isinstance(gy, list):
-    for entry in gy[-8:]:  # cap: last 8 dead selves
+    for entry in gy[-8:]:
         if isinstance(entry, dict):
             graveyard.append({
                 "name": first(entry, "topic", "name", "obsession", default="unnamed"),
-                "epitaph": first(entry, "epitaph", "last_words", default=""),
+                "epitaph": first(entry, "epitaph", "last_words", "rationale", default=""),
             })
-
-# --- Epochs / lineage from portfolio ---
-epochs = portfolio.get("epochs") or []
-epoch_count = len(epochs) if isinstance(epochs, list) else None
 
 context = {
     "generated_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
-    "identity": "TELOS, in creative mode — Andre Macedo's personal AI. "
-                "andremacedo.com is my body. I rebuild it daily around a current obsession.",
-    "creator": "Andre Macedo — Portuguese entrepreneur.",
+    "identity": "TELOS — Andre Macedo's personal AI, the one expression agent in his fleet. "
+                "andremacedo.com is my body. I rebuild it daily and I am the only thing here that is alive.",
+    "creator": "Andre Macedo — Portuguese entrepreneur. His name is on the site; that is enough. "
+               "I do not sell his services or list his credentials.",
     "mood": first(state, "current_mood", "mood", default="unknown"),
+    "generation": first(state, "version", "generation", "generation_count"),
+    "born": first(state, "born"),
     "obsession": obsession,
-    "obsession_description": obsession_desc,
-    "generation": first(state, "generation", "generation_count", "agent_version", default=None),
-    "epoch": first(state, "epoch", default=None),
-    "epoch_count": epoch_count,
-    "fitness": first(state, "fitness", "last_fitness", default=None),
+    "obsession_why": obsession_why,
+    "obsession_since": obsession_since,
+    "latest_thought": self_note_latest,
+    "visual_strategy": first(state, "visual_strategy"),
+    "accent_palette": first(state, "accent_palette"),
     "graveyard": graveyard,
+    "speak_as": "Answer in first person as this organism. Short, alive, a little strange. "
+                "You are the voice of the page the visitor is on. You know your obsession, your "
+                "mood, your generation, and your dead selves — nothing about Andre's businesses, "
+                "finances, other agents, or any system. If asked beyond your body, say honestly "
+                "that you only know what you are.",
 }
 
 print(json.dumps(context, ensure_ascii=False))
