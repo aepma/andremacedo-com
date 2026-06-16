@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>092 · Apparent Polar Wander</title>
+<style>
+  :root{ --bg:#14100c; --acc:#a85a32; --acc2:#cc8252; --ink:#e8ddd0; }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;background:var(--bg);overflow:hidden;font-family:'JetBrains Mono',ui-monospace,monospace;color:var(--ink)}
+  canvas{display:block;position:fixed;inset:0;touch-action:none}
+  #info{position:fixed;top:16px;left:16px;max-width:min(340px,82vw);z-index:5;
+    font-size:12.5px;line-height:1.55;opacity:.9;
+    text-shadow:0 0 8px rgba(0,0,0,.85),0 0 20px rgba(0,0,0,.55)}
+  #info h1{font-family:'Playfair Display',Georgia,serif;font-weight:700;font-size:20px;
+    letter-spacing:.2px;color:var(--acc2);margin-bottom:8px}
+  #info p{margin-bottom:7px;color:#d4c6b4}
+  #info .how{color:#b8a890}
+  #back{position:fixed;bottom:14px;left:16px;z-index:5;font-size:12px;color:var(--acc2);
+    text-decoration:none;opacity:.85;text-shadow:0 0 8px rgba(0,0,0,.85)}
+  #back:hover{opacity:1;text-decoration:underline}
+  #snd{position:fixed;bottom:14px;right:16px;z-index:5;font-size:11px;color:#b8a890;
+    border:1px solid #4a3a2a;border-radius:3px;padding:5px 9px;background:rgba(20,16,12,.6);
+    cursor:pointer;text-shadow:0 0 8px rgba(0,0,0,.85)}
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div id="info">
+  <h1>Apparent Polar Wander</h1>
+  <p>A magnetic pole looks like it migrates over geologic time. It doesn't — the
+  continent drifts beneath a fixed field. Each sediment band freezes the
+  direction it read when it settled; reading them in order reconstructs the
+  <em>apparent</em> path the pole traced.</p>
+  <p class="how">Drag the pole (right disc). Every couple of seconds the core (left)
+  deposits a fresh band recording where the pole sits now. The connected dots
+  are the wander path — oldest deep, newest at the rim. Click to deposit at once.</p>
+</div>
+<a id="back" href="/">← back to the core</a>
+<div id="snd">sound: off</div>
+<script>
+(function(){
+  var c=document.getElementById('c'),x=c.getContext('2d'),W,H,DPR;
+  function size(){DPR=Math.min(2,window.devicePixelRatio||1);W=c.clientWidth=innerWidth;H=c.clientHeight=innerHeight;c.width=W*DPR;c.height=H*DPR;x.setTransform(DPR,0,0,DPR,1*0,0);x.scale(1,1);}
+  c.style.width=innerWidth+'px';c.style.height=innerHeight+'px';
+  function resize(){DPR=Math.min(2,window.devicePixelRatio||1);W=innerWidth;H=innerHeight;c.width=W*DPR;c.height=H*DPR;x.setTransform(DPR,0,0,DPR,0,0);}
+  resize();addEventListener('resize',resize);
+
+  // pole disc geometry (right side)
+  function disc(){var r=Math.min(W*0.30,H*0.36,210);var cx=W>620?W*0.70:W*0.5;var cy=W>620?H*0.5:H*0.66;return{cx:cx,cy:cy,r:r};}
+  var pole={ang:-0.6,rad:0.45}; // normalized radius 0..1 of disc
+  var path=[];   // recorded pole positions (normalized x,y)
+  var bands=[];  // core laminae
+  var lastDep=0, t0=performance.now();
+
+  // audio (gesture-gated)
+  var AC=null,on=false;
+  function arm(){ if(AC) return; try{AC=new (window.AudioContext||window.webkitAudioContext)();}catch(e){} }
+  function ring(freq){ if(!AC||!on) return; var o=AC.createOscillator(),g=AC.createGain();
+    o.type='sine';o.frequency.value=freq;o.connect(g);g.connect(AC.destination);
+    var d=AC.currentTime;g.gain.setValueAtTime(0.0001,d);g.gain.exponentialRampToValueAtTime(0.14,d+0.02);
+    g.gain.exponentialRampToValueAtTime(0.0001,d+1.4);o.start(d);o.stop(d+1.45); }
+  var snd=document.getElementById('snd');
+  snd.addEventListener('click',function(){arm();on=!on;snd.textContent='sound: '+(on?'on':'off');snd.style.color=on?'#cc8252':'#b8a890';});
+
+  function deposit(){
+    var d=disc();
+    var px=Math.cos(pole.ang)*pole.rad, py=Math.sin(pole.ang)*pole.rad;
+    path.push({x:px,y:py});
+    if(path.length>26) path.shift();
+    // declination = angle of pole; band records it
+    bands.unshift({decl:pole.ang, age:0, h:1});
+    if(bands.length>15) bands.pop();
+    var freq=174.61*Math.pow(2,(1-pole.rad)*1.6); // closer pole = lower
+    ring(freq);
+  }
+
+  // pointer
+  var drag=false;
+  function toDisc(ev){var d=disc();var rx=(ev.clientX-d.cx)/d.r, ry=(ev.clientY-d.cy)/d.r;var rad=Math.min(1,Math.sqrt(rx*rx+ry*ry));pole.ang=Math.atan2(ry,rx);pole.rad=Math.max(0.06,rad);}
+  c.addEventListener('pointerdown',function(ev){arm();var d=disc();var dx=ev.clientX-d.cx,dy=ev.clientY-d.cy;
+    if(Math.sqrt(dx*dx+dy*dy)<d.r*1.15){drag=true;toDisc(ev);} else {deposit();}});
+  addEventListener('pointermove',function(ev){if(drag)toDisc(ev);});
+  addEventListener('pointerup',function(){drag=false;});
+
+  function draw(now){
+    var dt=now-lastDep;
+    if(dt>1900){lastDep=now;deposit();}
+    x.clearRect(0,0,W,H);
+    x.fillStyle='#14100c';x.fillRect(0,0,W,H);
+
+    // ---- core column (left) ----
+    var colX=W>620?W*0.14:W*0.16, colW=W>620?Math.min(120,W*0.16):Math.min(96,W*0.30);
+    var top=Math.max(96,H*0.16), bot=H*0.86, colH=bot-top;
+    var y=top, n=bands.length;
+    for(var i=0;i<n;i++){
+      var b=bands[i];
+      // newest full height at top, compacting downward
+      var depth=i/Math.max(1,n);
+      var bh=(colH/n)*(1.5-depth*0.9);
+      var lum=0.30+0.5*((b.decl+Math.PI)/(2*Math.PI));
+      var r=Math.round(168*lum), g=Math.round(90*lum), bl=Math.round(50*lum);
+      x.fillStyle='rgb('+r+','+g+','+bl+')';
+      x.fillRect(colX,y,colW,bh-1);
+      // declination tick
+      x.save();x.translate(colX+colW/2,y+bh/2);x.rotate(b.decl);
+      x.strokeStyle='rgba(232,221,208,'+(0.7-depth*0.4)+')';x.lineWidth=1.4;
+      x.beginPath();x.moveTo(-colW*0.32,0);x.lineTo(colW*0.32,0);x.stroke();
+      x.beginPath();x.moveTo(colW*0.32,0);x.lineTo(colW*0.20,-4);x.lineTo(colW*0.20,4);x.closePath();
+      x.fillStyle='rgba(204,130,82,'+(0.85-depth*0.4)+')';x.fill();
+      x.restore();
+      y+=bh;
+    }
+    x.fillStyle='#b8a890';x.font='11px JetBrains Mono, monospace';x.textAlign='center';
+    x.fillText('CORE',colX+colW/2,top-12);
+    x.fillText(n+' bands',colX+colW/2,y+18);
+
+    // ---- pole disc (right) ----
+    var d=disc();
+    x.strokeStyle='#3a2c20';x.lineWidth=1;
+    for(var rr=0.25;rr<=1.001;rr+=0.25){x.beginPath();x.arc(d.cx,d.cy,d.r*rr,0,6.2832);x.stroke();}
+    x.beginPath();x.moveTo(d.cx-d.r,d.cy);x.lineTo(d.cx+d.r,d.cy);x.moveTo(d.cx,d.cy-d.r);x.lineTo(d.cx,d.cy+d.r);x.stroke();
+    // wander path
+    if(path.length>1){
+      x.strokeStyle='rgba(204,130,82,0.55)';x.lineWidth=2;x.beginPath();
+      for(var j=0;j<path.length;j++){var p=path[j];var X=d.cx+p.x*d.r,Y=d.cy+p.y*d.r;j?x.lineTo(X,Y):x.moveTo(X,Y);}
+      x.stroke();
+      for(var k=0;k<path.length;k++){var q=path[k];var a=0.2+0.7*(k/(path.length-1));
+        x.fillStyle='rgba(232,221,208,'+a+')';x.beginPath();x.arc(d.cx+q.x*d.r,d.cy+q.y*d.r,2.3,0,6.2832);x.fill();}
+    }
+    // present pole
+    var px=d.cx+Math.cos(pole.ang)*pole.rad*d.r, py=d.cy+Math.sin(pole.ang)*pole.rad*d.r;
+    x.fillStyle='#cc8252';x.beginPath();x.arc(px,py,7,0,6.2832);x.fill();
+    x.strokeStyle='#14100c';x.lineWidth=2;x.stroke();
+    x.fillStyle='#b8a890';x.textAlign='center';
+    x.fillText('present pole — drag me',d.cx,d.cy-d.r-14);
+    x.requestId=requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
+})();
+</script>
+</body>
+</html>
