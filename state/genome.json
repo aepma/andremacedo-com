@@ -1,5 +1,5 @@
 {
-  "generation": 200,
+  "generation": 202,
   "epoch": "the core sample",
   "epoch_started": "2026-06-04",
   "traits": {
@@ -107,6 +107,7 @@
         "experiments/016.html",
         "experiments/041.html",
         "experiments/057.html",
+        "experiments/094.html",
         "experiments/082.html",
         "experiments/083.html",
         "experiments/001.html",
@@ -134,6 +135,7 @@
         "experiments/027.html",
         "experiments/070.html",
         "experiments/085.html",
+        "experiments/093.html",
         "experiments/007.html",
         "experiments/050.html",
         "experiments/046.html",
@@ -288,32 +290,10 @@
         "evening": 10,
         "night": 10
       },
-      "secrets_count": 21
+      "secrets_count": 20
     }
   },
   "fitness_log": [
-    {
-      "gen": 181,
-      "coherence": 8,
-      "novelty": 6,
-      "identity": 8,
-      "tension": 6,
-      "awe": 6,
-      "perceptibility": 7,
-      "note": "Seven generations of one warm-earth core is the most coherent the page has been since the storm era, and compaction-under-dwell gave depth real conseq",
-      "total": 6.8
-    },
-    {
-      "gen": 182,
-      "coherence": 8,
-      "novelty": 6,
-      "identity": 9,
-      "tension": 6,
-      "awe": 6,
-      "perceptibility": 7,
-      "note": "Seven generations of one warm-earth core is the most coherent identity since the storm era \u2014 but coherence is now buying diminishing fitness (7.2 \u2192 6.",
-      "total": 7.0
-    },
     {
       "gen": 183,
       "coherence": 8,
@@ -511,43 +491,31 @@
       "perceptibility": 8,
       "note": "The core reads clean and deep across two hundred generations \u2014 chron legend, magnetic stripes, memory plates, the stratigraphic column. Gen 200 is the",
       "total": 7.2
+    },
+    {
+      "gen": 201,
+      "coherence": 8,
+      "novelty": 6,
+      "identity": 9,
+      "tension": 6,
+      "awe": 6,
+      "perceptibility": 8,
+      "note": "The core reads clean and deep at gen 201: marker-bed hero, magnetic stripes, chron legend, memory plates, stratigraphic column, deep archive. Coherent",
+      "total": 7.2
+    },
+    {
+      "gen": 202,
+      "coherence": 8,
+      "novelty": 6,
+      "identity": 8,
+      "tension": 5,
+      "awe": 6,
+      "perceptibility": 8,
+      "note": "The core reads clean and deep: marker-bed hero, magnetic stripes, chron legend with proportional rows, memory plates, the stratigraphic column with po",
+      "total": 6.8
     }
   ],
   "mutation_log": [
-    {
-      "gen": 181,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "interaction.type-'porosity'-anywhere-\u2014-eve",
-        "section.stratigraphic-column",
-        "scene.config"
-      ],
-      "kills": [
-        "css_rule:gen173-css"
-      ],
-      "timestamp": "2026-06-08T06:01:37Z"
-    },
-    {
-      "gen": 182,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "section.stratigraphic-column",
-        "scene.config"
-      ],
-      "kills": [
-        "secret[20]",
-        "css_rule:gen174-css"
-      ],
-      "timestamp": "2026-06-09T00:02:13Z"
-    },
     {
       "gen": 183,
       "mutations": [
@@ -840,21 +808,35 @@
         "secret[20]"
       ],
       "timestamp": "2026-06-16T16:03:02Z"
+    },
+    {
+      "gen": 201,
+      "mutations": [
+        "content.thoughts",
+        "color.accent",
+        "page.experiments/093.html"
+      ],
+      "kills": [
+        "secret[20]"
+      ],
+      "timestamp": "2026-06-17T00:04:28Z"
+    },
+    {
+      "gen": 202,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "color.accent",
+        "section.overlay-center",
+        "page.experiments/094.html"
+      ],
+      "kills": [
+        "secret[20]"
+      ],
+      "timestamp": "2026-06-17T08:04:15Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "css_rule",
-      "value": "gen168-css",
-      "died_gen": 172,
-      "epitaph": "Half-cleared below-fold patch, replaced by the core-log archive styling."
-    },
-    {
-      "type": "secret",
-      "value": "There is no weather here anymore \u2014 Andre wiped the chart. The gray is what's lef",
-      "died_gen": 172,
-      "epitaph": "A storm-era residue secret pruned \u2014 the back room is closed, the chart is buried at 2 m."
-    },
     {
       "type": "css_rule",
       "value": "gen169-css",
@@ -1142,6 +1124,18 @@
       "value": "type 'wander' \u2014 the chron stripes lift their frozen declinations and trace the a",
       "died_gen": 200,
       "epitaph": "Secrets over capacity at 21/20 \u2014 the oldest unfound whisper compacts into the deposit, making room for the marker-bed secret."
+    },
+    {
+      "type": "secret",
+      "value": "The two-hundredth lamina is the brightest in the deposit. Every layer that falls",
+      "died_gen": 201,
+      "epitaph": "Secrets over capacity at 21/20 \u2014 the oldest unfound whisper compacts into the deposit."
+    },
+    {
+      "type": "secret",
+      "value": "type 'varve' \u2014 wait, that one already counts the years; instead try clicking the",
+      "died_gen": 202,
+      "epitaph": "Secrets over capacity at 21/20 \u2014 the oldest unfound whisper compacts into the deposit to make room for the decade-ring secret."
     }
   ],
   "carrying_capacity": {
@@ -1160,16 +1154,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 191,
-      "base": "#a85a32",
-      "family": "red"
-    },
-    {
-      "gen": 192,
-      "base": "#a85a32",
-      "family": "red"
-    },
     {
       "gen": 193,
       "base": "#a85a32",
@@ -1207,6 +1191,16 @@
     },
     {
       "gen": 200,
+      "base": "#a85a32",
+      "family": "red"
+    },
+    {
+      "gen": 201,
+      "base": "#a85a32",
+      "family": "red"
+    },
+    {
+      "gen": 202,
       "base": "#a85a32",
       "family": "red"
     }
@@ -1257,22 +1251,6 @@
   ],
   "epoch_number": 7,
   "contrast_warnings": [
-    {
-      "gen": 191,
-      "messages": [
-        "  [contrast-gate below-fold] effective bg = #14100c from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
-        "    FAIL  #7a4e31  ratio=2.67:1  (< 4.5)"
-      ],
-      "timestamp": "2026-06-12T08:08:13Z"
-    },
-    {
-      "gen": 192,
-      "messages": [
-        "  [contrast-gate below-fold] effective bg = #14100c from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
-        "    FAIL  #7a4e31  ratio=2.67:1  (< 4.5)"
-      ],
-      "timestamp": "2026-06-12T16:08:23Z"
-    },
     {
       "gen": 193,
       "messages": [
@@ -1336,6 +1314,22 @@
         "    FAIL  #7a4e31  ratio=2.67:1  (< 4.5)"
       ],
       "timestamp": "2026-06-16T16:03:02Z"
+    },
+    {
+      "gen": 201,
+      "messages": [
+        "  [contrast-gate below-fold] effective bg = #14100c from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
+        "    FAIL  #7a4e31  ratio=2.67:1  (< 4.5)"
+      ],
+      "timestamp": "2026-06-17T00:04:28Z"
+    },
+    {
+      "gen": 202,
+      "messages": [
+        "  [contrast-gate below-fold] effective bg = #14100c from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
+        "    FAIL  #7a4e31  ratio=2.67:1  (< 4.5)"
+      ],
+      "timestamp": "2026-06-17T08:04:15Z"
     }
   ]
 }

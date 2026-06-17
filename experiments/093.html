@@ -1,0 +1,40 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>093 · True vs Apparent Polar Wander</title><style>:root{--bg:#14100c;--fg:#e8ddd0;--accent:#cc8252;--two:#9a6038;--soft:#b8a890}html,body{margin:0;height:100%;background:var(--bg);color:var(--fg);font-family:Georgia,'Source Serif 4',serif;overflow:hidden}canvas{display:block;position:fixed;inset:0}#info{position:fixed;top:1rem;left:1rem;max-width:21rem;z-index:5;text-shadow:0 0 8px rgba(0,0,0,0.8),0 0 20px rgba(0,0,0,0.5)}#info h1{font-family:'Playfair Display',Georgia,serif;font-size:1.5rem;margin:0 0 .5rem;color:var(--fg);font-weight:700}#info p{font-size:.95rem;line-height:1.5;margin:0 0 .6rem;color:var(--soft)}#info .how{font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--accent);letter-spacing:.02em}#back{position:fixed;top:1rem;right:1rem;z-index:5;font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--accent);text-decoration:none;border:1px solid rgba(204,130,82,.4);padding:.35rem .7rem;text-shadow:0 0 8px rgba(0,0,0,0.8)}#back:hover{border-color:var(--accent)}#reassemble{position:fixed;bottom:1rem;left:50%;transform:translateX(-50%);z-index:5;font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--bg);background:var(--accent);border:none;padding:.5rem 1rem;cursor:pointer;text-shadow:none}#label{position:fixed;bottom:3.4rem;left:50%;transform:translateX(-50%);z-index:5;font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--soft);text-align:center;text-shadow:0 0 8px rgba(0,0,0,0.8)}@media(max-width:600px){#info{max-width:78vw}#info h1{font-size:1.2rem}}</style></head><body><canvas id="c"></canvas><div id="info"><h1>True vs Apparent Polar Wander</h1><p>One pole, fixed forever (the bright star). Two continents drift beneath it. Each continent's rocks record only where the pole sits <em>relative to itself</em> — so each builds its own "apparent polar wander" path, and the two paths disagree.</p><p>The disagreement is the proof: the pole never moved. The continents did. This is how paleomagnetism showed the ground we stand on is adrift.</p><p class="how">DRAG either continent to move it. Each leaves a recorded wander path in its own frame. Press REASSEMBLE to lock them back together — the two records snap into one.</p></div><a id="back" href="/">← core</a><div id="label">two drifting frames · one still pole</div><button id="reassemble">REASSEMBLE</button><script>
+var cv=document.getElementById('c'),x=cv.getContext('2d'),W,H,DPR=Math.min(window.devicePixelRatio||1,2);
+function rs(){W=cv.width=innerWidth*DPR;H=cv.height=innerHeight*DPR;}rs();addEventListener('resize',rs);
+function pole(){return {x:W*0.5,y:H*0.30};}
+var conts=[{c:'#cc8252',n:'GONDWANA',x:0.34,y:0.62,th:0,vth:0.0016,rec:[],home:{x:0.34,y:0.62,th:0}},{c:'#9a6038',n:'LAURASIA',x:0.66,y:0.66,th:0,vth:-0.0022,rec:[],home:{x:0.66,y:0.66,th:0}}];
+var drag=null,reass=0,tlast=0;
+function px(k){return {x:k.x*W,y:k.y*H};}
+cv.addEventListener('pointerdown',function(e){var mx=e.clientX*DPR,my=e.clientY*DPR;for(var i=0;i<conts.length;i++){var p=px(conts[i]);if(Math.hypot(mx-p.x,my-p.y)<46*DPR){drag=i;break;}}});
+addEventListener('pointermove',function(e){if(drag==null)return;conts[drag].x=(e.clientX*DPR)/W;conts[drag].y=(e.clientY*DPR)/H;});
+addEventListener('pointerup',function(){drag=null;});
+document.getElementById('reassemble').addEventListener('click',function(){reass=1;});
+function recPoint(k){var p=px(k),P=pole();var dx=P.x-p.x,dy=P.y-p.y;var ca=Math.cos(-k.th),sa=Math.sin(-k.th);return {x:dx*ca-dy*sa,y:dx*sa+dy*ca};}
+function loop(t){var dt=t-tlast;tlast=t;
+  x.fillStyle='rgba(20,16,12,0.28)';x.fillRect(0,0,W,H);
+  for(var i=0;i<conts.length;i++){var k=conts[i];
+    if(reass){var hm=k.home;k.x+=(hm.x-k.x)*0.08;k.y+=(hm.y-k.y)*0.08;k.th+=(hm.th-k.th)*0.08;}
+    else{if(drag!==i)k.th+=k.vth*(dt||16)/16;}
+  }
+  if(reass){var d0=Math.hypot(conts[0].x-conts[0].home.x,conts[0].y-conts[0].home.y);if(d0<0.002){reass=0;conts[0].rec=[];conts[1].rec=[];}}
+  // record
+  if(t-(loop.lr||0)>110){loop.lr=t;for(var i2=0;i2<conts.length;i2++){var r=recPoint(conts[i2]);conts[i2].rec.push(r);if(conts[i2].rec.length>140)conts[i2].rec.shift();}}
+  var P=pole();
+  // wander insets drawn relative to each continent origin
+  for(var i3=0;i3<conts.length;i3++){var k3=conts[i3],p3=px(k3);
+    x.save();x.translate(p3.x,p3.y);x.rotate(k3.th);
+    x.strokeStyle=k3.c;x.globalAlpha=0.85;x.lineWidth=1.4*DPR;x.beginPath();
+    for(var j=0;j<k3.rec.length;j++){var pt=k3.rec[j];if(j===0)x.moveTo(pt.x,pt.y);else x.lineTo(pt.x,pt.y);}
+    x.stroke();x.globalAlpha=1;
+    if(k3.rec.length){var last=k3.rec[k3.rec.length-1];x.fillStyle=k3.c;x.beginPath();x.arc(last.x,last.y,3.2*DPR,0,7);x.fill();}
+    x.restore();
+    // continent body
+    x.fillStyle=k3.c;x.globalAlpha=drag===i3?1:0.92;x.beginPath();x.ellipse(p3.x,p3.y,26*DPR,18*DPR,k3.th,0,7);x.fill();x.globalAlpha=1;
+    x.fillStyle='#14100c';x.font=(10*DPR)+"px 'JetBrains Mono',monospace";x.textAlign='center';x.fillText(k3.n,p3.x,p3.y+3.5*DPR);
+  }
+  // fixed pole star
+  x.save();x.translate(P.x,P.y);var R=11*DPR;x.fillStyle='#f0d9b8';x.shadowColor='#cc8252';x.shadowBlur=22*DPR;x.beginPath();for(var s=0;s<10;s++){var ang=Math.PI*s/5,rr=s%2?R*0.42:R;x.lineTo(Math.cos(ang)*rr,Math.sin(ang)*rr);}x.closePath();x.fill();x.shadowBlur=0;x.restore();
+  x.fillStyle='#b8a890';x.font=(11*DPR)+"px 'JetBrains Mono',monospace";x.textAlign='center';x.fillText('TRUE POLE (fixed)',P.x,P.y-20*DPR);
+  requestAnimationFrame(loop);}
+requestAnimationFrame(loop);
+</script></body></html>
