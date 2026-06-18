@@ -1,5 +1,5 @@
 {
-  "generation": 205,
+  "generation": 206,
   "epoch": "the core sample",
   "epoch_started": "2026-06-04",
   "traits": {
@@ -83,6 +83,7 @@
         "experiments/018.html",
         "experiments/080.html",
         "experiments/038.html",
+        "experiments/096.html",
         "experiments/079.html",
         "experiments/002.html",
         "experiments/055.html",
@@ -292,21 +293,10 @@
         "evening": 10,
         "night": 10
       },
-      "secrets_count": 21
+      "secrets_count": 22
     }
   },
   "fitness_log": [
-    {
-      "gen": 186,
-      "coherence": 8,
-      "novelty": 6,
-      "identity": 9,
-      "tension": 5,
-      "awe": 6,
-      "perceptibility": 7,
-      "note": "Eleventh generation of one warm-earth deposit \u2014 the borehole identity is the strongest since the storm era and both screenshots confirm the descent re",
-      "total": 6.8
-    },
     {
       "gen": 187,
       "coherence": 8,
@@ -515,31 +505,20 @@
       "perceptibility": 8,
       "note": "The core reads clean and deep \u2014 column, magnetic stripes, chron legend, memory plates \u2014 but the 'Count the Varves' hero has pointed at a varve section",
       "total": 7.2
+    },
+    {
+      "gen": 206,
+      "coherence": 8,
+      "novelty": 6,
+      "identity": 9,
+      "tension": 6,
+      "awe": 6,
+      "perceptibility": 8,
+      "note": "The core reads clean and deep at gen 206 \u2014 hero, stratigraphic column, varve-core couplets, magnetic stripes, chron legend, memory plates. The varve-c",
+      "total": 7.2
     }
   ],
   "mutation_log": [
-    {
-      "gen": 186,
-      "mutations": [
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "interaction.type-'plates'-anywhere-\u2014-the-p",
-        "section.overlay-center",
-        "section.core-plates",
-        "section.prototype-portfolio",
-        "page.experiments/087.html",
-        "svg.core-plate-glyph-001.svg",
-        "overlay.agent_data"
-      ],
-      "kills": [
-        "css_rule:gen180-css",
-        "css_rule:gen181-css",
-        "css_rule:gen182-css",
-        "interaction:type-'liquefy'-anywhere-\u2014-the-"
-      ],
-      "timestamp": "2026-06-10T22:07:32Z"
-    },
     {
       "gen": 187,
       "mutations": [
@@ -820,6 +799,17 @@
         "css_rule:gen192-css"
       ],
       "timestamp": "2026-06-18T00:05:59Z"
+    },
+    {
+      "gen": 206,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "color.accent",
+        "section.overlay-center"
+      ],
+      "kills": [],
+      "timestamp": "2026-06-18T08:04:14Z"
     }
   ],
   "graveyard": [
@@ -1141,11 +1131,6 @@
   },
   "color_history": [
     {
-      "gen": 196,
-      "base": "#a85a32",
-      "family": "red"
-    },
-    {
       "gen": 197,
       "base": "#a85a32",
       "family": "red"
@@ -1187,6 +1172,11 @@
     },
     {
       "gen": 205,
+      "base": "#a85a32",
+      "family": "red"
+    },
+    {
+      "gen": 206,
       "base": "#a85a32",
       "family": "red"
     }
@@ -1237,14 +1227,6 @@
   ],
   "epoch_number": 7,
   "contrast_warnings": [
-    {
-      "gen": 196,
-      "messages": [
-        "  [contrast-gate below-fold] effective bg = #14100c from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
-        "    FAIL  #7a4e31  ratio=2.67:1  (< 4.5)"
-      ],
-      "timestamp": "2026-06-15T09:50:01Z"
-    },
     {
       "gen": 197,
       "messages": [
@@ -1316,6 +1298,14 @@
         "    FAIL  #7a4e31  ratio=2.67:1  (< 4.5)"
       ],
       "timestamp": "2026-06-18T00:05:59Z"
+    },
+    {
+      "gen": 206,
+      "messages": [
+        "  [contrast-gate below-fold] effective bg = #14100c from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
+        "    FAIL  #7a4e31  ratio=2.67:1  (< 4.5)"
+      ],
+      "timestamp": "2026-06-18T08:04:14Z"
     }
   ]
 }

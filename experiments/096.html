@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>096 · Drill Core</title>
+<style>
+  :root{--bg:#14100c;--fg:#e8ddd0;--accent:#a85a32;}
+  *{box-sizing:border-box;}
+  html,body{margin:0;height:100%;background:var(--bg);color:var(--fg);
+    font-family:'JetBrains Mono',ui-monospace,monospace;overflow:hidden;}
+  #core{position:fixed;inset:0;width:100%;height:100%;display:block;cursor:ns-resize;}
+  .ov{position:fixed;text-shadow:0 0 8px rgba(0,0,0,.8),0 0 20px rgba(0,0,0,.5);}
+  #info{top:1.1rem;left:1.1rem;max-width:21rem;font-size:.78rem;line-height:1.5;opacity:.92;}
+  #info h1{font-family:Georgia,'Source Serif 4',serif;font-weight:700;font-size:1.15rem;
+    margin:0 0 .5rem;letter-spacing:.01em;color:#cc8252;}
+  #info p{margin:.4rem 0;color:#d4c6b4;}
+  #info .k{color:#a8957f;}
+  #readout{top:1.1rem;right:1.1rem;text-align:right;font-size:.8rem;color:#e8ddd0;}
+  #readout .big{font-family:Georgia,serif;font-size:2.4rem;color:#cc8252;display:block;line-height:1;}
+  #readout .sub{color:#a8957f;font-size:.72rem;letter-spacing:.06em;}
+  #back{bottom:1.1rem;left:1.1rem;font-size:.78rem;color:#cc8252;text-decoration:none;
+    border-bottom:1px dotted #cc8252;padding-bottom:1px;}
+  #back:hover{color:#e8ddd0;}
+  #hint{bottom:1.1rem;right:1.1rem;font-size:.72rem;color:#a8957f;}
+</style>
+</head>
+<body>
+<canvas id="core"></canvas>
+<div id="info" class="ov">
+  <h1>Drill Your Own Core</h1>
+  <p>A varve is one year of still-water sediment: a pale silt band laid in summer over a dark clay band settled under winter ice. Count the couplets and you read a calendar nobody wrote.</p>
+  <p class="k">Press and hold — or scroll — to lower the bit. Each pale-dark pair it crosses is one year recovered.</p>
+</div>
+<div id="readout" class="ov">
+  <span class="big" id="years">0</span>
+  <span class="sub">YEARS DRILLED</span>
+</div>
+<a id="back" class="ov" href="/">← back to the core</a>
+<div id="hint" class="ov">deepest band = oldest</div>
+<script>
+(function(){
+  var cv=document.getElementById('core'),ctx=cv.getContext('2d');
+  var W,H,dpr;
+  function size(){dpr=Math.min(window.devicePixelRatio||1,2);W=cv.clientWidth;H=cv.clientHeight;
+    cv.width=W*dpr;cv.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);}
+  window.addEventListener('resize',function(){size();draw();});
+  // generate a deterministic-ish stack of varve couplets, top=youngest
+  var YEARS=140, bands=[];
+  for(var i=0;i<YEARS;i++){
+    // thickness varies with a slow "climate" wave + jitter; warm years thicker
+    var clim=0.5+0.5*Math.sin(i*0.13)+0.18*Math.sin(i*0.5);
+    var thick=4+clim*9+ (((i*2654435761)%97)/97)*3;
+    bands.push(thick);
+  }
+  var totalThick=bands.reduce(function(a,b){return a+b;},0);
+  var depth=0;          // pixels drilled (in core-space)
+  var maxDepth=totalThick;
+  var drilling=false;
+  var actx=null;
+  function tick(){
+    if(!actx){try{actx=new (window.AudioContext||window.webkitAudioContext)();}catch(e){return;}}
+    var o=actx.createOscillator(),g=actx.createGain();
+    o.type='sine';o.frequency.value=70+ (depth/maxDepth)*40;
+    g.gain.setValueAtTime(0.0001,actx.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.05,actx.currentTime+0.01);
+    g.gain.exponentialRampToValueAtTime(0.0001,actx.currentTime+0.25);
+    o.connect(g);g.connect(actx.destination);o.start();o.stop(actx.currentTime+0.26);
+  }
+  function yearsAt(px){var acc=0;for(var i=0;i<bands.length;i++){acc+=bands[i];if(acc>=px)return i+1;}return bands.length;}
+  var shownYears=0;
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    // core column centered
+    var colW=Math.min(W*0.46,360),x0=(W-colW)/2;
+    var topPad=H*0.10, viewH=H*0.78, scale=viewH/maxDepth;
+    var y=topPad, acc=0;
+    for(var i=0;i<bands.length;i++){
+      var bt=bands[i]*scale;
+      // each band = couplet: pale half (summer) over dark half (winter)
+      var pale=(i%2===0)?1:1; // every band is a couplet; render two sub-stripes
+      var ph=bt*0.5;
+      // summer silt (pale warm)
+      ctx.fillStyle='rgb('+(150-Math.min(i,90))+','+(112-Math.min(i,70))+','+(82-Math.min(i,60))+')';
+      ctx.fillRect(x0,y,colW,ph);
+      // winter clay (dark)
+      ctx.fillStyle='rgb('+(46-Math.min(i*0.2,30))+','+(34)+','+(24)+')';
+      ctx.fillRect(x0,y+ph,colW,bt-ph);
+      y+=bt;acc+=bands[i];
+    }
+    // edges
+    ctx.strokeStyle='rgba(232,221,208,0.25)';ctx.lineWidth=1;
+    ctx.strokeRect(x0+0.5,topPad+0.5,colW-1,viewH-1);
+    // drill bit + recovered overlay
+    var dy=topPad+depth*scale;
+    // shade the already-drilled (recovered) portion
+    ctx.fillStyle='rgba(20,16,12,0.55)';
+    ctx.fillRect(x0,topPad,colW,depth*scale);
+    // bit line
+    ctx.strokeStyle='#cc8252';ctx.lineWidth=2;
+    ctx.beginPath();ctx.moveTo(x0-14,dy);ctx.lineTo(x0+colW+14,dy);ctx.stroke();
+    // bit triangle
+    ctx.fillStyle='#cc8252';
+    ctx.beginPath();ctx.moveTo(x0+colW+14,dy-6);ctx.lineTo(x0+colW+26,dy);ctx.lineTo(x0+colW+14,dy+6);ctx.closePath();ctx.fill();
+    // depth label
+    ctx.fillStyle='#a8957f';ctx.font='11px JetBrains Mono, monospace';
+    ctx.textAlign='left';
+    ctx.fillText((depth/maxDepth*8.2).toFixed(1)+' m', x0+colW+14, dy-12);
+  }
+  function step(){
+    if(drilling && depth<maxDepth){
+      depth=Math.min(maxDepth,depth+maxDepth/420);
+      var yv=yearsAt(depth);
+      if(yv!==shownYears){shownYears=yv;document.getElementById('years').textContent=yv;tick();}
+      draw();
+      requestAnimationFrame(step);
+    }
+  }
+  function start(){if(!drilling){drilling=true;requestAnimationFrame(step);}}
+  function stop(){drilling=false;}
+  cv.addEventListener('mousedown',start);window.addEventListener('mouseup',stop);
+  cv.addEventListener('touchstart',function(e){e.preventDefault();start();},{passive:false});
+  window.addEventListener('touchend',stop);
+  cv.addEventListener('wheel',function(e){e.preventDefault();
+    depth=Math.max(0,Math.min(maxDepth,depth+(e.deltaY>0?maxDepth/120:-maxDepth/120)));
+    var yv=yearsAt(depth);if(yv!==shownYears){shownYears=yv;document.getElementById('years').textContent=yv;tick();}
+    draw();
+  },{passive:false});
+  size();draw();
+})();
+</script>
+</body>
+</html>
