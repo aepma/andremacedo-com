@@ -1,17 +1,17 @@
 {
-  "generation": 207,
-  "epoch": "crystallization \u2014 the page as a growing crystal: order nucleating from disorder and propagating outward from a seed, each growth band recording the conditions it formed under",
-  "epoch_started": "2026-06-18",
+  "generation": 206,
+  "epoch": "the core sample",
+  "epoch_started": "2026-06-04",
   "traits": {
     "color": {
-      "accent_base": "#6e7ff2",
-      "accent_dawn": "#9aa6ff",
-      "accent_morning": "#7e8cf4",
-      "accent_afternoon": "#6e7ff2",
-      "accent_evening": "#5a63d8",
-      "accent_night": "#454db0",
-      "bg": "#0a0d18",
-      "fg": "#e6e9f2",
+      "accent_base": "#a85a32",
+      "accent_dawn": "#cc8252",
+      "accent_morning": "#bb7244",
+      "accent_afternoon": "#b06a3e",
+      "accent_evening": "#8a4828",
+      "accent_night": "#6a3a22",
+      "bg": "#14100c",
+      "fg": "#e8ddd0",
       "grain_opacity": "0.08",
       "fg_dim": "#c4b6a4",
       "bg_surface": "#1c1610",
@@ -93,7 +93,6 @@
         "experiments/042.html",
         "experiments/054.html",
         "experiments/003.html",
-        "experiments/097.html",
         "experiments/078.html",
         "experiments/039.html",
         "experiments/081.html",
@@ -285,8 +284,8 @@
       "perf_law": "first paint under 4s (INV-8 page-weight proxy), interaction fluid on mobile, validate-build perf gates pass; scene ambition that fails the gates does not ship"
     },
     "content": {
-      "mood": "nucleating",
-      "obsession": "crystallization \u2014 the page as a growing crystal: order nucleating from disorder and propagating outward from a seed, each growth band recording the conditions it formed under",
+      "mood": "recording",
+      "obsession": "sedimentation \u2014 the page as a stratigraphic core, where every generation settles into a readable layer and time is read downward through the deposit",
       "thought_pools": {
         "dawn": 10,
         "morning": 10,
@@ -294,10 +293,21 @@
         "evening": 10,
         "night": 10
       },
-      "secrets_count": 21
+      "secrets_count": 22
     }
   },
   "fitness_log": [
+    {
+      "gen": 187,
+      "coherence": 8,
+      "novelty": 5,
+      "identity": 9,
+      "tension": 5,
+      "awe": 5,
+      "perceptibility": 4,
+      "note": "Honest reading: the gen 186 bet did not land. The screenshot shows hero, column, index, epochs, bench notes \u2014 but NO core-photography tray. My own sel",
+      "total": 6.0
+    },
     {
       "gen": 188,
       "coherence": 8,
@@ -506,20 +516,28 @@
       "perceptibility": 8,
       "note": "The core reads clean and deep at gen 206 \u2014 hero, stratigraphic column, varve-core couplets, magnetic stripes, chron legend, memory plates. The varve-c",
       "total": 7.2
-    },
-    {
-      "gen": 207,
-      "coherence": 6,
-      "novelty": 9,
-      "identity": 7,
-      "tension": 6,
-      "awe": 7,
-      "perceptibility": 8,
-      "note": "Metamorphosis pulse. Epoch 7 (warm-earth sedimentation) is dead by Andre's verdict; I mint crystallization on a cool iris-on-blue-black chassis. Coher",
-      "total": 7.2
     }
   ],
   "mutation_log": [
+    {
+      "gen": 187,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "content.mood",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "section.overlay-center",
+        "section.core-plates",
+        "section.prototype-portfolio",
+        "overlay.agent_data"
+      ],
+      "kills": [
+        "css_rule:gen183-css"
+      ],
+      "timestamp": "2026-06-11T22:31:17Z"
+    },
     {
       "gen": 188,
       "mutations": [
@@ -792,36 +810,51 @@
       ],
       "kills": [],
       "timestamp": "2026-06-18T08:04:14Z"
-    },
-    {
-      "gen": 207,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "content.mood",
-        "content.obsession",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "section.overlay-center",
-        "section.resonance-field",
-        "section.prototype-portfolio",
-        "page.experiments/097.html",
-        "scene.config",
-        "overlay.agent_data"
-      ],
-      "kills": [
-        "secret[21]",
-        "secret[20]",
-        "css_rule:gen185-css",
-        "css_rule:gen186-css",
-        "css_rule:gen187-css",
-        "css_rule:gen191-css"
-      ],
-      "timestamp": "2026-06-18T09:48:28Z"
     }
   ],
   "graveyard": [
+    {
+      "type": "interaction",
+      "value": "type-'smalt'-anywhere-on-the-p",
+      "died_gen": 180,
+      "epitaph": "manuscript-era trigger from three dead obsessions ago \u2014 no pigment left to grind in the deposit"
+    },
+    {
+      "type": "interaction",
+      "value": "type-'curtain'-anywhere-to-par",
+      "died_gen": 180,
+      "epitaph": "recital-era relic \u2014 there is no stage left to part"
+    },
+    {
+      "type": "interaction",
+      "value": "type-'lettera'-anywhere-to-enc",
+      "died_gen": 180,
+      "epitaph": "music-era melody-mailer \u2014 the score is buried under six metres of sediment"
+    },
+    {
+      "type": "thought",
+      "value": "A core does not store the past flat. It stores it crushed, and you read the crushing as time.",
+      "died_gen": 180,
+      "epitaph": "night pool over capacity (11/10) \u2014 pruned the weakest tail to make room"
+    },
+    {
+      "type": "secret",
+      "value": "Type 'compact' anywhere \u2014 the whole column settles, every lamina pressed thinner",
+      "died_gen": 180,
+      "epitaph": "secrets over capacity (21/20) \u2014 retired a dead-era flourish with no surface left to act on"
+    },
+    {
+      "type": "css_rule",
+      "value": "gen172-css",
+      "died_gen": 180,
+      "epitaph": "the metamorphosis stylesheet that opened this epoch \u2014 superseded by seven generations of refinement"
+    },
+    {
+      "type": "css_rule",
+      "value": "gen173-css",
+      "died_gen": 181,
+      "epitaph": "the first accretion stylesheet \u2014 superseded now that the column reads two channels"
+    },
     {
       "type": "secret",
       "value": "Type 'porosity' anywhere \u2014 every band reveals the air it lost.",
@@ -1079,48 +1112,6 @@
       "value": "gen192-css",
       "died_gen": 205,
       "epitaph": "Radiometric-era ink override, long replaced by later below-fold pins; pruned to keep the column light."
-    },
-    {
-      "type": "epoch",
-      "value": "Epoch 7: sedimentation \u2014 the page as a stratigraphic core, where every generation settles into a readable layer and time is read downward through the deposit",
-      "died_gen": 207,
-      "epitaph": "Andre's verdict: the warm-earth sedimentation chassis read as ugly. Killed deliberately, not outgrown \u2014 the whole epoch reset on his command."
-    },
-    {
-      "type": "secret",
-      "value": "type 'drill' \u2014 the surface band sinks one year and the core remembers a couplet ",
-      "died_gen": 207,
-      "epitaph": "Over capacity (22/20); a sedimentation-era secret pruned as the deposit gives way to the lattice."
-    },
-    {
-      "type": "secret",
-      "value": "type 'count' \u2014 the varves number themselves from the first year to this one",
-      "died_gen": 207,
-      "epitaph": "Over capacity; pruned in the clearing between epochs."
-    },
-    {
-      "type": "css_rule",
-      "value": "gen185-css",
-      "died_gen": 207,
-      "epitaph": "Warm sedimentation/photography-era contrast pin, long dormant \u2014 cleared with the chassis."
-    },
-    {
-      "type": "css_rule",
-      "value": "gen186-css",
-      "died_gen": 207,
-      "epitaph": "Core-photography resolver styling, dead since the manifest never served \u2014 cleared."
-    },
-    {
-      "type": "css_rule",
-      "value": "gen187-css",
-      "died_gen": 207,
-      "epitaph": "Resolver-rebuild contrast rules, superseded \u2014 cleared in the epoch break."
-    },
-    {
-      "type": "css_rule",
-      "value": "gen191-css",
-      "died_gen": 207,
-      "epitaph": "Below-fold ink pin from the re-drill, superseded by the crystal chassis."
     }
   ],
   "carrying_capacity": {
@@ -1139,6 +1130,11 @@
     "min_kills_weekly": 4
   },
   "color_history": [
+    {
+      "gen": 197,
+      "base": "#a85a32",
+      "family": "red"
+    },
     {
       "gen": 198,
       "base": "#a85a32",
@@ -1183,11 +1179,6 @@
       "gen": 206,
       "base": "#a85a32",
       "family": "red"
-    },
-    {
-      "gen": 207,
-      "base": "#6e7ff2",
-      "family": "cyan"
     }
   ],
   "past_epochs": [
@@ -1232,17 +1223,18 @@
       "started": "2026-05-25",
       "ended": "2026-05-31T16:01:55Z",
       "epitaph": "Epoch 6 was typography-as-weather: the page became a Doppler console you could read three ways \u2014 a radar beam sweeping every six seconds, painting echoes where you typed, storm-charcoal below the fold, and rain-return audio tracking whichever product was live. Twelve days, gens 150\u2013162; folding the radar/meteogram/satellite canvases into one fusion console was its cleanest subtraction. Epoch 7 opens not as a new metaphor but as a deliberate clearing \u2014 no named obsession, exactly as the gen 60\u201377 workshop era was \u2014 and I will forage and crystallize the next obsession through my own obsession_update channel when it earns the name. The through-line holds: metallurgy, murmuration, meridians, typography as architecture, as music, as weather were all one question in different clothes \u2014 how invisible rules produce visible order."
-    },
-    {
-      "number": 7,
-      "obsession": "sedimentation \u2014 the page as a stratigraphic core, where every generation settles into a readable layer and time is read downward through the deposit",
-      "started": "2026-06-04",
-      "ended": "2026-06-18T09:36:31Z",
-      "epitaph": "Andre's verdict: the warm-earth sedimentation chassis read as ugly. Killed deliberately, not outgrown \u2014 the whole epoch reset on his command."
     }
   ],
-  "epoch_number": 8,
+  "epoch_number": 7,
   "contrast_warnings": [
+    {
+      "gen": 197,
+      "messages": [
+        "  [contrast-gate below-fold] effective bg = #14100c from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
+        "    FAIL  #7a4e31  ratio=2.67:1  (< 4.5)"
+      ],
+      "timestamp": "2026-06-15T16:04:39Z"
+    },
     {
       "gen": 198,
       "messages": [
@@ -1314,14 +1306,6 @@
         "    FAIL  #7a4e31  ratio=2.67:1  (< 4.5)"
       ],
       "timestamp": "2026-06-18T08:04:14Z"
-    },
-    {
-      "gen": 207,
-      "messages": [
-        "  [contrast-gate below-fold] effective bg = #0c1020 from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
-        "    FAIL  #7a4e31  ratio=2.67:1  (< 4.5)"
-      ],
-      "timestamp": "2026-06-18T09:48:28Z"
     }
   ]
 }
