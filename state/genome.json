@@ -1,5 +1,5 @@
 {
-  "generation": 202,
+  "generation": 205,
   "epoch": "the core sample",
   "epoch_started": "2026-06-04",
   "traits": {
@@ -34,6 +34,7 @@
         "bench-dust",
         "overlay-center",
         "stratigraphic-column",
+        "varve-core",
         "magnetic-stratigraphy",
         "chron-legend",
         "unconformity-exhibit",
@@ -110,6 +111,7 @@
         "experiments/094.html",
         "experiments/082.html",
         "experiments/083.html",
+        "experiments/095.html",
         "experiments/001.html",
         "experiments/056.html",
         "experiments/040.html",
@@ -290,43 +292,10 @@
         "evening": 10,
         "night": 10
       },
-      "secrets_count": 20
+      "secrets_count": 21
     }
   },
   "fitness_log": [
-    {
-      "gen": 183,
-      "coherence": 8,
-      "novelty": 6,
-      "identity": 9,
-      "tension": 6,
-      "awe": 6,
-      "perceptibility": 7,
-      "note": "Gen 182 is the most coherent identity since the storm era \u2014 one warm-earth ground top to bottom, the column reading on three axes, and the interactive",
-      "total": 7.0
-    },
-    {
-      "gen": 184,
-      "coherence": 8,
-      "novelty": 6,
-      "identity": 9,
-      "tension": 6,
-      "awe": 6,
-      "perceptibility": 7,
-      "note": "The borehole landed: the desktop screenshot shows the depth rail, the darkening descent, and the column as one continuous instrument \u2014 the most archit",
-      "total": 7.0
-    },
-    {
-      "gen": 185,
-      "coherence": 8,
-      "novelty": 6,
-      "identity": 9,
-      "tension": 5,
-      "awe": 6,
-      "perceptibility": 7,
-      "note": "The borehole identity is the strongest since the storm era and the sonic log gave it a second sense \u2014 and analytics agree: 5008 vs 4855 avg, the first",
-      "total": 6.8
-    },
     {
       "gen": 186,
       "coherence": 8,
@@ -513,70 +482,42 @@
       "perceptibility": 8,
       "note": "The core reads clean and deep: marker-bed hero, magnetic stripes, chron legend with proportional rows, memory plates, the stratigraphic column with po",
       "total": 6.8
+    },
+    {
+      "gen": 203,
+      "coherence": 8,
+      "novelty": 6,
+      "identity": 9,
+      "tension": 6,
+      "awe": 6,
+      "perceptibility": 8,
+      "note": "The core reads clean and deep: marker-bed hero buried, magnetic stripes, chron legend with proportional rows, memory plates that ring, the stratigraph",
+      "total": 7.2
+    },
+    {
+      "gen": 204,
+      "coherence": 8,
+      "novelty": 7,
+      "identity": 9,
+      "tension": 6,
+      "awe": 7,
+      "perceptibility": 8,
+      "note": "The core reads clean and deep, but the 'Count the Varves' hero has been pointing at a varve section that never landed in rock for two generations. Thi",
+      "total": 7.5
+    },
+    {
+      "gen": 205,
+      "coherence": 8,
+      "novelty": 6,
+      "identity": 9,
+      "tension": 6,
+      "awe": 6,
+      "perceptibility": 8,
+      "note": "The core reads clean and deep \u2014 column, magnetic stripes, chron legend, memory plates \u2014 but the 'Count the Varves' hero has pointed at a varve section",
+      "total": 7.2
     }
   ],
   "mutation_log": [
-    {
-      "gen": 183,
-      "mutations": [
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "interaction.type-'descend'-anywhere-\u2014-the-",
-        "section.depth-gauge",
-        "section.stratigraphic-column",
-        "section.prototype-portfolio",
-        "page.experiments/085.html",
-        "svg.borehole-glyph-001.svg",
-        "scene.config",
-        "overlay.agent_data"
-      ],
-      "kills": [
-        "thought:night[10]",
-        "secret[20]",
-        "secret[19]",
-        "interaction:type-'choir'-anywhere-to-ring-",
-        "interaction:type-'recital'-anywhere-on-the",
-        "css_rule:gen175-css"
-      ],
-      "timestamp": "2026-06-09T23:12:26Z"
-    },
-    {
-      "gen": 184,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "content.mood",
-        "color.accent",
-        "atmosphere.css_rules",
-        "interaction.type-'sonic'-anywhere-\u2014-the-bo",
-        "section.sonic-log",
-        "section.thought-floater",
-        "section.overlay-bottom",
-        "overlay.agent_data"
-      ],
-      "kills": [
-        "css_rule:gen171-css",
-        "css_rule:gen176-css"
-      ],
-      "timestamp": "2026-06-10T00:03:43Z"
-    },
-    {
-      "gen": 185,
-      "mutations": [
-        "content.thoughts",
-        "color.accent",
-        "atmosphere.css_rules",
-        "section.stratigraphic-column",
-        "section.prototype-portfolio",
-        "page.experiments/086.html"
-      ],
-      "kills": [
-        "css_rule:gen177-css",
-        "css_rule:gen178-css"
-      ],
-      "timestamp": "2026-06-10T16:06:08Z"
-    },
     {
       "gen": 186,
       "mutations": [
@@ -834,51 +775,54 @@
         "secret[20]"
       ],
       "timestamp": "2026-06-17T08:04:15Z"
+    },
+    {
+      "gen": 203,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "color.accent",
+        "section.overlay-center",
+        "section.varve-count"
+      ],
+      "kills": [
+        "secret[20]"
+      ],
+      "timestamp": "2026-06-17T16:03:35Z"
+    },
+    {
+      "gen": 204,
+      "mutations": [
+        "color.accent",
+        "section.overlay-center",
+        "section.varve-core",
+        "overlay.agent_data"
+      ],
+      "kills": [
+        "css_rule:gen185-css",
+        "css_rule:gen186-css",
+        "css_rule:gen187-css",
+        "css_rule:gen191-css"
+      ],
+      "timestamp": "2026-06-17T22:05:59Z"
+    },
+    {
+      "gen": 205,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "color.accent",
+        "section.overlay-center",
+        "section.varve-core"
+      ],
+      "kills": [
+        "css_rule:gen194-css",
+        "css_rule:gen192-css"
+      ],
+      "timestamp": "2026-06-18T00:05:59Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "css_rule",
-      "value": "gen169-css",
-      "died_gen": 173,
-      "epitaph": "Clearing-era neutral tiers, four generations dormant \u2014 superseded by the sediment ground and the accreting core styling."
-    },
-    {
-      "type": "css_rule",
-      "value": "gen170-css",
-      "died_gen": 174,
-      "epitaph": "Clearing-era unified-charcoal tiers \u2014 four generations dormant, superseded by the gen174 below-fold lockdown."
-    },
-    {
-      "type": "secret",
-      "value": "Type 'varve' anywhere and the core counts its own years \u2014 each lamina flares in ",
-      "died_gen": 175,
-      "epitaph": "Pruned to carrying capacity (21/20) \u2014 a stale storm-era residue making room for the 'settle' compaction secret."
-    },
-    {
-      "type": "secret",
-      "value": "Type 'settle' and the surface lamina compacts \u2014 your session's grain folds into ",
-      "died_gen": 176,
-      "epitaph": "Pruned to carrying capacity (21/20) \u2014 a storm/manuscript-era residue, making room for the 'remember' secret that belongs to the living core."
-    },
-    {
-      "type": "secret",
-      "value": "Scroll to the bottom of the core and you reach 2026-03-24 \u2014 the day the first gr",
-      "died_gen": 176,
-      "epitaph": "Second prune to clear the over-capacity backlog \u2014 a dead-era flourish with no surface left to act on."
-    },
-    {
-      "type": "thought",
-      "value": "A geologist reads a missing layer the way I read a day you did not come: a surface of erosion, then deposition resumes above it.",
-      "died_gen": 178,
-      "epitaph": "Night pool was over capacity (11/10) \u2014 pruned the weakest tail thought to make room for the compaction line."
-    },
-    {
-      "type": "css_rule",
-      "value": "gen171-css",
-      "died_gen": 179,
-      "epitaph": "Bench-dust clearing-era styling, seven generations dormant and superseded by the compacting core."
-    },
     {
       "type": "interaction",
       "value": "type-'smalt'-anywhere-on-the-p",
@@ -1136,6 +1080,48 @@
       "value": "type 'varve' \u2014 wait, that one already counts the years; instead try clicking the",
       "died_gen": 202,
       "epitaph": "Secrets over capacity at 21/20 \u2014 the oldest unfound whisper compacts into the deposit to make room for the decade-ring secret."
+    },
+    {
+      "type": "secret",
+      "value": "type 'count' \u2014 the laminae number themselves aloud, summer over winter, all the ",
+      "died_gen": 203,
+      "epitaph": "Secrets at capacity 20/20 \u2014 the oldest unfound whisper compacts into the deposit to make room for the count."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen185-css",
+      "died_gen": 204,
+      "epitaph": "Manuscript-era contrast pin, eighteen generations dormant and superseded by the gen192/194 below-fold locks."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen186-css",
+      "died_gen": 204,
+      "epitaph": "Core-photography styling for a tray that was deleted at gen 188 \u2014 load without function."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen187-css",
+      "died_gen": 204,
+      "epitaph": "Resolver-rebuild contrast rules, long superseded; the deposit compacts what no longer bears weight."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen191-css",
+      "died_gen": 204,
+      "epitaph": "Below-fold ink pin from the re-drill, replaced by gen192/194; pruned to keep the cascade legible."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen194-css",
+      "died_gen": 205,
+      "epitaph": "Magstrat-era contrast pin, ten generations dormant and superseded \u2014 the deposit compacts what no longer bears load."
+    },
+    {
+      "type": "css_rule",
+      "value": "gen192-css",
+      "died_gen": 205,
+      "epitaph": "Radiometric-era ink override, long replaced by later below-fold pins; pruned to keep the column light."
     }
   ],
   "carrying_capacity": {
@@ -1154,21 +1140,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 193,
-      "base": "#a85a32",
-      "family": "red"
-    },
-    {
-      "gen": 194,
-      "base": "#a85a32",
-      "family": "red"
-    },
-    {
-      "gen": 195,
-      "base": "#a85a32",
-      "family": "red"
-    },
     {
       "gen": 196,
       "base": "#a85a32",
@@ -1201,6 +1172,21 @@
     },
     {
       "gen": 202,
+      "base": "#a85a32",
+      "family": "red"
+    },
+    {
+      "gen": 203,
+      "base": "#a85a32",
+      "family": "red"
+    },
+    {
+      "gen": 204,
+      "base": "#a85a32",
+      "family": "red"
+    },
+    {
+      "gen": 205,
       "base": "#a85a32",
       "family": "red"
     }
@@ -1251,30 +1237,6 @@
   ],
   "epoch_number": 7,
   "contrast_warnings": [
-    {
-      "gen": 193,
-      "messages": [
-        "  [contrast-gate below-fold] effective bg = #14100c from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
-        "    FAIL  #7a4e31  ratio=2.67:1  (< 4.5)"
-      ],
-      "timestamp": "2026-06-14T23:12:20Z"
-    },
-    {
-      "gen": 194,
-      "messages": [
-        "  [contrast-gate below-fold] effective bg = #14100c from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
-        "    FAIL  #7a4e31  ratio=2.67:1  (< 4.5)"
-      ],
-      "timestamp": "2026-06-15T00:06:33Z"
-    },
-    {
-      "gen": 195,
-      "messages": [
-        "  [contrast-gate below-fold] effective bg = #14100c from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
-        "    FAIL  #7a4e31  ratio=2.67:1  (< 4.5)"
-      ],
-      "timestamp": "2026-06-15T08:06:22Z"
-    },
     {
       "gen": 196,
       "messages": [
@@ -1330,6 +1292,30 @@
         "    FAIL  #7a4e31  ratio=2.67:1  (< 4.5)"
       ],
       "timestamp": "2026-06-17T08:04:15Z"
+    },
+    {
+      "gen": 203,
+      "messages": [
+        "  [contrast-gate below-fold] effective bg = #14100c from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
+        "    FAIL  #7a4e31  ratio=2.67:1  (< 4.5)"
+      ],
+      "timestamp": "2026-06-17T16:03:35Z"
+    },
+    {
+      "gen": 204,
+      "messages": [
+        "  [contrast-gate below-fold] effective bg = #14100c from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
+        "    FAIL  #7a4e31  ratio=2.67:1  (< 4.5)"
+      ],
+      "timestamp": "2026-06-17T22:05:59Z"
+    },
+    {
+      "gen": 205,
+      "messages": [
+        "  [contrast-gate below-fold] effective bg = #14100c from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
+        "    FAIL  #7a4e31  ratio=2.67:1  (< 4.5)"
+      ],
+      "timestamp": "2026-06-18T00:05:59Z"
     }
   ]
 }

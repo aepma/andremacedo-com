@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>095 · Turbidite — graded bedding</title>
+<style>
+  html,body{margin:0;height:100%;background:#0f0c08;overflow:hidden;font-family:'JetBrains Mono',ui-monospace,monospace}
+  canvas{display:block;width:100vw;height:100vh}
+  #info{position:fixed;top:14px;left:14px;max-width:min(320px,72vw);color:#e8ddd0;font-size:12px;line-height:1.5;opacity:.82;text-shadow:0 0 8px rgba(0,0,0,0.8),0 0 20px rgba(0,0,0,0.5);z-index:5}
+  #info b{color:#cc8252;font-weight:600;letter-spacing:.04em}
+  #count{position:fixed;bottom:14px;left:14px;color:#cc8252;font-size:11px;opacity:.8;text-shadow:0 0 8px rgba(0,0,0,0.8),0 0 20px rgba(0,0,0,0.5);z-index:5}
+  #back{position:fixed;top:14px;right:14px;color:#cc8252;font-size:11px;text-decoration:none;opacity:.8;text-shadow:0 0 8px rgba(0,0,0,0.8),0 0 20px rgba(0,0,0,0.5);z-index:5}
+  #back:hover{opacity:1}
+</style>
+</head>
+<body>
+<div id="info"><b>095 · Turbidite</b><br>A turbidity current dumps a slurry of mixed grains; the coarse fall fastest and the fine drift down last, so each pulse settles a <b>fining-upward</b> graded bed. Stack pulses to read a sequence.<br><br>Click / tap anywhere to release a flow.</div>
+<a id="back" href="/">← back to the core</a>
+<div id="count">beds settled: 0</div>
+<canvas id="c"></canvas>
+<script>
+(function(){
+  var cv=document.getElementById('c'),ctx=cv.getContext('2d'),cnt=document.getElementById('count');
+  var W,H,dpr,floor,grains=[],beds=0;
+  function size(){dpr=Math.min(window.devicePixelRatio||1,2);W=innerWidth;H=innerHeight;cv.width=W*dpr;cv.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);floor=H-2;}
+  size();window.addEventListener('resize',size);
+  // settled column stored as horizontal slices of color, painted once, kept on a buffer canvas
+  var buf=document.createElement('canvas'),bx;
+  function bsize(){buf.width=W*dpr;buf.height=H*dpr;bx=buf.getContext('2d');bx.setTransform(dpr,0,0,dpr,0,0);}
+  bsize();window.addEventListener('resize',bsize);
+  var bedTop=H; // current top of settled deposit (in css px)
+  function grainColor(d){ // d 1..6 ; coarse=warm pale, fine=dark umber
+    var t=(d-1)/5;
+    var r=Math.round(176-(176-58)*t), g=Math.round(120-(120-42)*t), b=Math.round(70-(70-30)*t);
+    return 'rgb('+r+','+g+','+b+')';
+  }
+  function release(x){
+    beds++;cnt.textContent='beds settled: '+beds;
+    var n=240, spread=Math.min(W*0.42,260);
+    for(var i=0;i<n;i++){
+      var d=1+Math.floor(Math.random()*6); // grain size class 1..6
+      grains.push({x:x+(Math.random()-0.5)*spread, y:-Math.random()*120,
+        d:d, vx:(Math.random()-0.5)*0.5, vy:0,
+        term:0.5+d*d*0.16, // Stokes-ish terminal velocity grows with size^2
+        col:grainColor(d), r:0.8+d*0.45, settled:false});
+    }
+  }
+  cv.addEventListener('pointerdown',function(e){var r=cv.getBoundingClientRect();release((e.clientX||0)-r.left);});
+  function step(){
+    ctx.clearRect(0,0,W,H);
+    ctx.drawImage(buf,0,0,W,H);
+    var active=0;
+    for(var i=0;i<grains.length;i++){
+      var p=grains[i];if(p.settled)continue;active++;
+      p.vy+=(p.term-p.vy)*0.08; p.y+=p.vy; p.x+=p.vx;
+      if(p.x<2)p.x=2; if(p.x>W-2)p.x=W-2;
+      // settle when reaching the growing deposit surface
+      if(p.y>=bedTop-p.r){
+        p.y=bedTop-p.r; p.settled=true;
+        bx.fillStyle=p.col; bx.beginPath(); bx.arc(p.x,p.y,p.r,0,6.2832); bx.fill();
+        bedTop-=p.r*0.06; if(bedTop<H*0.18)bedTop=H*0.18;
+      }else{
+        ctx.fillStyle=p.col; ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,6.2832); ctx.fill();
+      }
+    }
+    if(active===0 && grains.length>600){grains=grains.filter(function(p){return false;});}
+    requestAnimationFrame(step);
+  }
+  step();
+})();
+</script>
+</body>
+</html>
