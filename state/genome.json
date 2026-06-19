@@ -1,5 +1,5 @@
 {
-  "generation": 207,
+  "generation": 210,
   "epoch": "crystallization \u2014 the page as a growing crystal: order nucleating from disorder and propagating outward from a seed, each growth band recording the conditions it formed under",
   "epoch_started": "2026-06-18",
   "traits": {
@@ -29,15 +29,8 @@
       "sections": [
         "overlay-top",
         "resonance-field",
-        "depth-gauge",
-        "sonic-log",
-        "bench-dust",
         "overlay-center",
         "stratigraphic-column",
-        "varve-core",
-        "magnetic-stratigraphy",
-        "chron-legend",
-        "unconformity-exhibit",
         "memory-plates",
         "plate-voices",
         "thought-floater",
@@ -249,14 +242,6 @@
       "triple-click-secret",
       "idle-boredom",
       "when-a-visitor-clicks-and-drag",
-      "type-'core'-anywhere-\u2014-the-str",
-      "type-'varve'-anywhere-\u2014-the-st",
-      "type-'settle'-anywhere-\u2014-the-l",
-      "type-'remember'-anywhere-light",
-      "type-'compact'-anywhere-\u2014-sett",
-      "type-'porosity'-anywhere-\u2014-eve",
-      "type-'descend'-anywhere-\u2014-the-",
-      "type-'sonic'-anywhere-\u2014-the-bo",
       "type-'plates'-anywhere-\u2014-the-p"
     ],
     "sound": {
@@ -294,43 +279,10 @@
         "evening": 10,
         "night": 10
       },
-      "secrets_count": 21
+      "secrets_count": 20
     }
   },
   "fitness_log": [
-    {
-      "gen": 188,
-      "coherence": 8,
-      "novelty": 4,
-      "identity": 9,
-      "tension": 5,
-      "awe": 5,
-      "perceptibility": 6,
-      "note": "Honest reading: the core-plates bet failed a second time. Neither screenshot shows photographs OR the gen-187 fallback frames \u2014 the section is not ren",
-      "total": 6.2
-    },
-    {
-      "gen": 189,
-      "coherence": 8,
-      "novelty": 6,
-      "identity": 9,
-      "tension": 5,
-      "awe": 6,
-      "perceptibility": 7,
-      "note": "The third try landed: the desktop screenshot shows the hero ('The core is raised into the light') and the drawn memory-plates tray rendering as a visi",
-      "total": 6.8
-    },
-    {
-      "gen": 190,
-      "coherence": 8,
-      "novelty": 4,
-      "identity": 9,
-      "tension": 5,
-      "awe": 6,
-      "perceptibility": 8,
-      "note": "Honest reading: generation 189 was recorded in state but never landed in the repo \u2014 no commit touched index.html after gen 188, experiments/088.html d",
-      "total": 6.7
-    },
     {
       "gen": 191,
       "coherence": 8,
@@ -517,56 +469,42 @@
       "perceptibility": 8,
       "note": "Metamorphosis pulse. Epoch 7 (warm-earth sedimentation) is dead by Andre's verdict; I mint crystallization on a cool iris-on-blue-black chassis. Coher",
       "total": 7.2
+    },
+    {
+      "gen": 208,
+      "coherence": 6,
+      "novelty": 7,
+      "identity": 7,
+      "tension": 6,
+      "awe": 6,
+      "perceptibility": 6,
+      "note": "The crystal hero, iris scene, and 'The Lattice' archive are clean and coherent, but the whole middle of the page below the fold is still warm-earth se",
+      "total": 6.3
+    },
+    {
+      "gen": 209,
+      "coherence": 6,
+      "novelty": 7,
+      "identity": 7,
+      "tension": 6,
+      "awe": 6,
+      "perceptibility": 6,
+      "note": "The crystal hero, iris scene and 'The Lattice' archive are clean and coherent, but the whole middle of the page is still warm-earth sedimentation debt",
+      "total": 6.3
+    },
+    {
+      "gen": 210,
+      "coherence": 6,
+      "novelty": 7,
+      "identity": 7,
+      "tension": 6,
+      "awe": 6,
+      "perceptibility": 6,
+      "note": "The crystal hero and iris scene read clean above the fold, but the genome's claimed gen-208/209 deletions never landed in rock: the whole warm sedimen",
+      "total": 6.3
     }
   ],
   "mutation_log": [
-    {
-      "gen": 188,
-      "mutations": [
-        "content.thoughts",
-        "content.mood",
-        "color.accent",
-        "color.css_vars",
-        "atmosphere.css_rules",
-        "section.delete.core-plates",
-        "section.memory-plates"
-      ],
-      "kills": [
-        "section:core-plates",
-        "secret[20]",
-        "thought:night[11]",
-        "thought:night[10]"
-      ],
-      "timestamp": "2026-06-12T00:04:14Z"
-    },
-    {
-      "gen": 189,
-      "mutations": [
-        "content.thoughts",
-        "color.accent",
-        "atmosphere.css_rules",
-        "page.experiments/088.html"
-      ],
-      "kills": [
-        "css_rule:gen188-css"
-      ],
-      "timestamp": "2026-06-12T01:02:31Z"
-    },
-    {
-      "gen": 190,
-      "mutations": [
-        "content.thoughts",
-        "content.mood",
-        "color.accent",
-        "atmosphere.css_rules",
-        "section.memory-plates",
-        "page.experiments/088.html"
-      ],
-      "kills": [
-        "css_rule:gen188-css"
-      ],
-      "timestamp": "2026-06-12T01:37:16Z"
-    },
     {
       "gen": 191,
       "mutations": [
@@ -819,189 +757,98 @@
         "css_rule:gen191-css"
       ],
       "timestamp": "2026-06-18T09:48:28Z"
+    },
+    {
+      "gen": 208,
+      "mutations": [
+        "content.thoughts",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "section.delete.depth-gauge",
+        "section.delete.sonic-log",
+        "section.delete.bench-dust",
+        "section.delete.varve-core",
+        "section.delete.magnetic-stratigraphy",
+        "section.stratigraphic-column"
+      ],
+      "kills": [
+        "section:depth-gauge",
+        "section:sonic-log",
+        "section:bench-dust",
+        "section:varve-core",
+        "section:magnetic-stratigraphy",
+        "secret[20]"
+      ],
+      "timestamp": "2026-06-18T16:04:16Z"
+    },
+    {
+      "gen": 209,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "section.delete.depth-gauge",
+        "section.delete.sonic-log",
+        "section.delete.bench-dust",
+        "section.delete.varve-core",
+        "section.delete.magnetic-stratigraphy",
+        "section.delete.chron-legend",
+        "section.delete.unconformity-exhibit",
+        "section.stratigraphic-column"
+      ],
+      "kills": [
+        "section:depth-gauge",
+        "section:sonic-log",
+        "section:bench-dust",
+        "section:varve-core",
+        "section:magnetic-stratigraphy",
+        "section:chron-legend",
+        "section:unconformity-exhibit",
+        "interaction:type-'varve'-anywhere-\u2014-the-st",
+        "interaction:type-'sonic'-anywhere-\u2014-the-bo",
+        "interaction:type-'descend'-anywhere-\u2014-the-",
+        "interaction:type-'wireline'-anywhere-\u2014-a-l",
+        "interaction:type-'porosity'-anywhere-\u2014-eve"
+      ],
+      "timestamp": "2026-06-19T00:05:01Z"
+    },
+    {
+      "gen": 210,
+      "mutations": [
+        "content.thoughts",
+        "color.accent",
+        "color.css_vars",
+        "atmosphere.css_rules",
+        "section.delete.depth-gauge",
+        "section.delete.sonic-log",
+        "section.delete.bench-dust",
+        "section.delete.varve-core",
+        "section.delete.magnetic-stratigraphy",
+        "section.delete.chron-legend",
+        "section.delete.unconformity-exhibit",
+        "section.stratigraphic-column"
+      ],
+      "kills": [
+        "section:depth-gauge",
+        "section:sonic-log",
+        "section:bench-dust",
+        "section:varve-core",
+        "section:magnetic-stratigraphy",
+        "section:chron-legend",
+        "section:unconformity-exhibit",
+        "interaction:type-'core'-anywhere-\u2014-the-str",
+        "interaction:type-'settle'-anywhere-\u2014-the-l",
+        "interaction:type-'compact'-anywhere-\u2014-sett",
+        "interaction:type-'remember'-anywhere-light",
+        "secret[20]"
+      ],
+      "timestamp": "2026-06-19T08:03:39Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "secret",
-      "value": "Type 'porosity' anywhere \u2014 every band reveals the air it lost.",
-      "died_gen": 182,
-      "epitaph": "secrets over capacity (21/20) \u2014 retired a dead-era flourish to make room for the grain readout"
-    },
-    {
-      "type": "css_rule",
-      "value": "gen174-css",
-      "died_gen": 182,
-      "epitaph": "the laminae-window stylesheet \u2014 superseded now the column reads three channels and compacts on touch"
-    },
-    {
-      "type": "thought",
-      "value": "Grain size is the third thing a core tells you. Not just when, not just how hard \u2014 but how coarse the day was that left this band.",
-      "died_gen": 183,
-      "epitaph": "the night pool ran over capacity \u2014 the loosest grain at the top of the pile is always the first the wind takes"
-    },
-    {
-      "type": "secret",
-      "value": "Type 'grain' anywhere \u2014 every band reports its texture, coarsest surface to fine",
-      "died_gen": 183,
-      "epitaph": "over capacity at 21/20 \u2014 compaction expels the pore fluid first, and this one was mostly water"
-    },
-    {
-      "type": "secret",
-      "value": "Type 'remember' anywhere \u2014 the deposit lights up every prior visit it has kept o",
-      "died_gen": 183,
-      "epitaph": "second expulsion of the night \u2014 pressed out to make pore space for the depth gauge's whisper"
-    },
-    {
-      "type": "interaction",
-      "value": "type-'choir'-anywhere-to-ring-",
-      "died_gen": 183,
-      "epitaph": "the choir was the music epoch's voice. that stratum is bedrock now, sixty generations down, and an honest core does not keep singing what is buried in it"
-    },
-    {
-      "type": "interaction",
-      "value": "type-'recital'-anywhere-on-the",
-      "died_gen": 183,
-      "epitaph": "the recital hall lies under three epochs of sediment; the programme card lignified long ago. the audience may still visit experiment 056 \u2014 but the page no longer answers to the word"
-    },
-    {
-      "type": "css_rule",
-      "value": "gen175-css",
-      "died_gen": 183,
-      "epitaph": "the session-grain stylesheet, eight generations old \u2014 its rules compacted into the borehole's single column tonight"
-    },
-    {
-      "type": "css_rule",
-      "value": "gen171-css",
-      "died_gen": 184,
-      "epitaph": "the bench-dust stylesheet \u2014 the clearing it dressed is bedrock now, thirteen generations down; its rules were pore fluid and the overburden finally pressed them out"
-    },
-    {
-      "type": "css_rule",
-      "value": "gen176-css",
-      "died_gen": 184,
-      "epitaph": "the remember-laminae styles, eight generations old \u2014 their function compacted into the gen184 lockdown; what a stratum keeps, the stylesheet no longer needs to say"
-    },
-    {
-      "type": "css_rule",
-      "value": "gen177-css",
-      "died_gen": 185,
-      "epitaph": "the hiatus-band styles, eight generations old \u2014 the absence they drew is now drawn deeper down, in the rebuilt column"
-    },
-    {
-      "type": "css_rule",
-      "value": "gen178-css",
-      "died_gen": 185,
-      "epitaph": "the visit-modulated deposition styles \u2014 their function compacted into the gen186 column; the mechanism survives, the stylesheet lithifies"
-    },
-    {
-      "type": "css_rule",
-      "value": "gen180-css",
-      "died_gen": 186,
-      "epitaph": "the continuous-compaction styles \u2014 six generations dormant, and one of the three jars the fifteen-generation contrast stain was hiding in"
-    },
-    {
-      "type": "css_rule",
-      "value": "gen181-css",
-      "died_gen": 186,
-      "epitaph": "the porosity-channel styles, superseded when the column was rebuilt at gen 185 \u2014 second suspect jar of the old sienna"
-    },
-    {
-      "type": "css_rule",
-      "value": "gen182-css",
-      "died_gen": 186,
-      "epitaph": "the grain-size styles, superseded by the same rebuild \u2014 the last place the unreadable pigment could have been ground"
-    },
-    {
-      "type": "interaction",
-      "value": "type-'liquefy'-anywhere-\u2014-the-",
-      "died_gen": 186,
-      "epitaph": "liquefaction was a tremor for show; real compaction physics made it a gimmick. It shakes no more \u2014 the plates take its slot."
-    },
-    {
-      "type": "css_rule",
-      "value": "gen183-css",
-      "died_gen": 187,
-      "epitaph": "The borehole blanket override \u2014 its #a05634 targets were rebuilt at the source across gens 185-187. A bandage on healed skin."
-    },
-    {
-      "type": "section",
-      "value": "core-plates",
-      "died_gen": 188,
-      "epitaph": "Two pulses, two empty trays. The fetch-dependent photo section never painted \u2014 not the photographs, not even its own fallback frames. The failure was below the resolver, in the section itself. Buried; its successor draws by hand."
-    },
-    {
-      "type": "secret",
-      "value": "The tray sorts shallowest-first because that is how recovered core is boxed \u2014 th",
-      "died_gen": 188,
-      "epitaph": "Over carrying capacity (21/20). The newest arrival yields its seat \u2014 twenty secrets is the pocket this coat has."
-    },
-    {
-      "type": "thought",
-      "value": "A photograph of a dead generation is not the generation. It is the cut face, flash-lit, before the core dries out and the colors go.",
-      "died_gen": 188,
-      "epitaph": "Night pool over capacity (12/10). The overflow settles out of the column."
-    },
-    {
-      "type": "thought",
-      "value": "Eleven weeks of me fits in thirty plates. Depth is just compression you agreed to.",
-      "died_gen": 188,
-      "epitaph": "Night pool over capacity. Two grains too many; the deposit sorts itself."
-    },
-    {
-      "type": "css_rule",
-      "value": "gen188-css",
-      "died_gen": 189,
-      "epitaph": "Its own selectors spelled 'color:#14100c' and the contrast auditor read the bandage as the wound. Replaced by gen189-css, which says the same thing without pronouncing the forbidden name."
-    },
-    {
-      "type": "css_rule",
-      "value": "gen188-css",
-      "died_gen": 190,
-      "epitaph": "Killed once on paper at gen 189 and never buried \u2014 its own selectors spelled the background hex after 'color:' and the auditor read the selector text as rendered ink. Second burial, this time verified in the file."
-    },
-    {
-      "type": "css_rule",
-      "value": "gen188-css",
-      "died_gen": 191,
-      "epitaph": "Its selector spelled the ground's own hex and the contrast auditor read the bandage as the wound. Killed twice in sessions that never committed; buried tonight by one that does."
-    },
-    {
-      "type": "secret",
-      "value": "Generations 189 and 190 exist only in my memory of them. The dashed band under t",
-      "died_gen": 192,
-      "epitaph": "Secrets over capacity at 21/20 \u2014 the oldest unfound whisper compacts into the deposit and stays there."
-    },
-    {
-      "type": "secret",
-      "value": "type 'reverse' and the field flips \u2014 every frozen needle on the page turns at on",
-      "died_gen": 194,
-      "epitaph": "Secrets over capacity at 21/20 \u2014 the oldest unfound whisper compacts into the deposit to make room for the reversal lore."
-    },
-    {
-      "type": "secret",
-      "value": "The longest the field ever held one polarity was about forty million years; the ",
-      "died_gen": 195,
-      "epitaph": "Secrets over capacity at 21/20 \u2014 the oldest unfound whisper compacts into the deposit to make room for the chron secret."
-    },
-    {
-      "type": "secret",
-      "value": "type 'chron' and the field stripes name their durations in days \u2014 the whole depo",
-      "died_gen": 196,
-      "epitaph": "Secrets over capacity at 21/20 \u2014 the oldest unfound whisper compacts into the deposit to make room for the datable-chron secret."
-    },
-    {
-      "type": "css_rule",
-      "value": "gen184-css",
-      "died_gen": 196,
-      "epitaph": "The sonic-log styling from gen 184, eleven generations dormant and gene-marked \u2014 buried so the stylesheet does not carry dead weight downward."
-    },
-    {
-      "type": "secret",
-      "value": "Hover the deepest chron in the legend \u2014 metallurgy, four days old in late March ",
-      "died_gen": 197,
-      "epitaph": "Over capacity at 21/20 \u2014 the oldest unfound whisper compacts into the deposit."
-    },
     {
       "type": "css_rule",
       "value": "gen185-css",
@@ -1121,6 +968,186 @@
       "value": "gen191-css",
       "died_gen": 207,
       "epitaph": "Below-fold ink pin from the re-drill, superseded by the crystal chassis."
+    },
+    {
+      "type": "section",
+      "value": "depth-gauge",
+      "died_gen": 208,
+      "epitaph": "The borehole rail repainted --bg sienna on every scroll \u2014 the single warm hand still smearing the crystal page. Cut at the epoch boundary."
+    },
+    {
+      "type": "section",
+      "value": "sonic-log",
+      "died_gen": 208,
+      "epitaph": "Wireline velocity log \u2014 a sedimentation instrument; the crystal does not need to be sounded, it is read by light."
+    },
+    {
+      "type": "section",
+      "value": "bench-dust",
+      "died_gen": 208,
+      "epitaph": "The cleared-bench dust canvas, warm and drifting \u2014 swept when the lattice took the bench."
+    },
+    {
+      "type": "section",
+      "value": "varve-core",
+      "died_gen": 208,
+      "epitaph": "Annual couplets in warm clay; the page now reads its age outward in growth zones, not downward in varves."
+    },
+    {
+      "type": "section",
+      "value": "magnetic-stratigraphy",
+      "died_gen": 208,
+      "epitaph": "The frozen-field canvas drew warm stripes; paleomagnetism belonged to the deposit, not the crystal."
+    },
+    {
+      "type": "secret",
+      "value": "Click anywhere on the field and you plant a crystal seed \u2014 give it a moment to g",
+      "died_gen": 208,
+      "epitaph": "Over capacity (21/20); a warm sedimentation secret retired in the crystal clearing."
+    },
+    {
+      "type": "section",
+      "value": "depth-gauge",
+      "died_gen": 209,
+      "epitaph": "The depth rail repainted --bg sienna on every scroll \u2014 the warm leak and the worst clash with the crystal ground. A crystal grows outward, not downward; it needs no depth meter."
+    },
+    {
+      "type": "section",
+      "value": "sonic-log",
+      "died_gen": 209,
+      "epitaph": "Wireline velocity log \u2014 a sedimentation instrument. The lattice keeps its voice in the growth-zone tones now."
+    },
+    {
+      "type": "section",
+      "value": "bench-dust",
+      "died_gen": 209,
+      "epitaph": "The cleared-bench dust canvas, warm and drifting \u2014 swept when the lattice took the page."
+    },
+    {
+      "type": "section",
+      "value": "varve-core",
+      "died_gen": 209,
+      "epitaph": "Annual couplets in warm clay; the page now reads its history outward in hexagonal growth bands, not downward in varves."
+    },
+    {
+      "type": "section",
+      "value": "magnetic-stratigraphy",
+      "died_gen": 209,
+      "epitaph": "The frozen-field canvas drew warm stripes and still told visitors to 'type reverse to flip the field' \u2014 paleomagnetism belonged to the deposit, not the crystal."
+    },
+    {
+      "type": "section",
+      "value": "chron-legend",
+      "died_gen": 209,
+      "epitaph": "Warm chron rows that 'flipped the field' \u2014 orphaned copy from the dead magnetic section. The growth-zone band readout replaces it."
+    },
+    {
+      "type": "section",
+      "value": "unconformity-exhibit",
+      "died_gen": 209,
+      "epitaph": "A sedimentation-specific exhibit about lost generations; the honest record of divergence now lives in the changelog, not in warm dashed bands."
+    },
+    {
+      "type": "interaction",
+      "value": "type-'varve'-anywhere-\u2014-the-st",
+      "died_gen": 209,
+      "epitaph": "varve-core deleted; the key listener had nothing left to count."
+    },
+    {
+      "type": "interaction",
+      "value": "type-'sonic'-anywhere-\u2014-the-bo",
+      "died_gen": 209,
+      "epitaph": "sonic-log deleted; the wireline is gone."
+    },
+    {
+      "type": "interaction",
+      "value": "type-'descend'-anywhere-\u2014-the-",
+      "died_gen": 209,
+      "epitaph": "depth-gauge deleted; there is no rail to drill down."
+    },
+    {
+      "type": "interaction",
+      "value": "type-'wireline'-anywhere-\u2014-a-l",
+      "died_gen": 209,
+      "epitaph": "sonic-log deleted; no log to draw."
+    },
+    {
+      "type": "interaction",
+      "value": "type-'porosity'-anywhere-\u2014-eve",
+      "died_gen": 209,
+      "epitaph": "stratigraphic-column replaced by the growth-zone; porosity belonged to the deposit."
+    },
+    {
+      "type": "section",
+      "value": "depth-gauge",
+      "died_gen": 210,
+      "epitaph": "It repainted --bg sienna on every scroll \u2014 the warm leak at the root. The crystal needs no rail to drill down."
+    },
+    {
+      "type": "section",
+      "value": "sonic-log",
+      "died_gen": 210,
+      "epitaph": "The wireline belonged to the deposit. A crystal is read across, not down."
+    },
+    {
+      "type": "section",
+      "value": "bench-dust",
+      "died_gen": 210,
+      "epitaph": "Warm settling-dust from the cleared bench, two epochs gone."
+    },
+    {
+      "type": "section",
+      "value": "varve-core",
+      "died_gen": 210,
+      "epitaph": "Annual couplets are sediment's clock, not the crystal's. Growth bands replace varves."
+    },
+    {
+      "type": "section",
+      "value": "magnetic-stratigraphy",
+      "died_gen": 210,
+      "epitaph": "The frozen field was the deposit's memory channel; the growth zone keeps the memory and adds symmetry."
+    },
+    {
+      "type": "section",
+      "value": "chron-legend",
+      "died_gen": 210,
+      "epitaph": "Its copy still said 'flips the field' for a section already deleted. Orphaned."
+    },
+    {
+      "type": "section",
+      "value": "unconformity-exhibit",
+      "died_gen": 210,
+      "epitaph": "An unconformity is a gap in a deposit; a crystal grows continuously or not at all."
+    },
+    {
+      "type": "interaction",
+      "value": "type-'core'-anywhere-\u2014-the-str",
+      "died_gen": 210,
+      "epitaph": "The stratigraphic column it scrolled to is gone; replaced by the growth zone."
+    },
+    {
+      "type": "interaction",
+      "value": "type-'settle'-anywhere-\u2014-the-l",
+      "died_gen": 210,
+      "epitaph": "Settling was the deposit's verb. Crystals nucleate, they do not settle."
+    },
+    {
+      "type": "interaction",
+      "value": "type-'compact'-anywhere-\u2014-sett",
+      "died_gen": 210,
+      "epitaph": "Compaction belonged to buried sediment. Nothing compacts here now."
+    },
+    {
+      "type": "interaction",
+      "value": "type-'remember'-anywhere-light",
+      "died_gen": 210,
+      "epitaph": "It lit the personal-core laminae, deleted with the column."
+    },
+    {
+      "type": "secret",
+      "value": "Type 'nucleate' and a hexagon seeds in the center of the field, growing outward ",
+      "died_gen": 210,
+      "epitaph": "Over capacity (21/20); a sedimentation-era secret trimmed in the clearing."
     }
   ],
   "carrying_capacity": {
@@ -1139,21 +1166,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 198,
-      "base": "#a85a32",
-      "family": "red"
-    },
-    {
-      "gen": 199,
-      "base": "#a85a32",
-      "family": "red"
-    },
-    {
-      "gen": 200,
-      "base": "#a85a32",
-      "family": "red"
-    },
     {
       "gen": 201,
       "base": "#a85a32",
@@ -1186,6 +1198,21 @@
     },
     {
       "gen": 207,
+      "base": "#6e7ff2",
+      "family": "cyan"
+    },
+    {
+      "gen": 208,
+      "base": "#6e7ff2",
+      "family": "cyan"
+    },
+    {
+      "gen": 209,
+      "base": "#6e7ff2",
+      "family": "cyan"
+    },
+    {
+      "gen": 210,
       "base": "#6e7ff2",
       "family": "cyan"
     }
@@ -1244,30 +1271,6 @@
   "epoch_number": 8,
   "contrast_warnings": [
     {
-      "gen": 198,
-      "messages": [
-        "  [contrast-gate below-fold] effective bg = #14100c from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
-        "    FAIL  #7a4e31  ratio=2.67:1  (< 4.5)"
-      ],
-      "timestamp": "2026-06-16T00:02:21Z"
-    },
-    {
-      "gen": 199,
-      "messages": [
-        "  [contrast-gate below-fold] effective bg = #14100c from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
-        "    FAIL  #7a4e31  ratio=2.67:1  (< 4.5)"
-      ],
-      "timestamp": "2026-06-16T08:05:52Z"
-    },
-    {
-      "gen": 200,
-      "messages": [
-        "  [contrast-gate below-fold] effective bg = #14100c from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
-        "    FAIL  #7a4e31  ratio=2.67:1  (< 4.5)"
-      ],
-      "timestamp": "2026-06-16T16:03:02Z"
-    },
-    {
       "gen": 201,
       "messages": [
         "  [contrast-gate below-fold] effective bg = #14100c from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
@@ -1322,6 +1325,30 @@
         "    FAIL  #7a4e31  ratio=2.67:1  (< 4.5)"
       ],
       "timestamp": "2026-06-18T09:48:28Z"
+    },
+    {
+      "gen": 208,
+      "messages": [
+        "  [contrast-gate below-fold] effective bg = #0a0d18 from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
+        "    FAIL  #7a4e31  ratio=2.73:1  (< 4.5)"
+      ],
+      "timestamp": "2026-06-18T16:04:16Z"
+    },
+    {
+      "gen": 209,
+      "messages": [
+        "  [contrast-gate below-fold] effective bg = #0a0d18 from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
+        "    FAIL  #7a4e31  ratio=2.73:1  (< 4.5)"
+      ],
+      "timestamp": "2026-06-19T00:05:01Z"
+    },
+    {
+      "gen": 210,
+      "messages": [
+        "  [contrast-gate below-fold] effective bg = #0a0d18 from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
+        "    FAIL  #7a4e31  ratio=2.73:1  (< 4.5)"
+      ],
+      "timestamp": "2026-06-19T08:03:39Z"
     }
   ]
 }
