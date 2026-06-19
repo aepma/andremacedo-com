@@ -1,5 +1,5 @@
 {
-  "generation": 210,
+  "generation": 211,
   "epoch": "crystallization \u2014 the page as a growing crystal: order nucleating from disorder and propagating outward from a seed, each growth band recording the conditions it formed under",
   "epoch_started": "2026-06-18",
   "traits": {
@@ -97,6 +97,7 @@
         "experiments/035.html",
         "experiments/062.html",
         "experiments/077.html",
+        "experiments/098.html",
         "experiments/020.html",
         "experiments/036.html",
         "experiments/061.html",
@@ -283,17 +284,6 @@
     }
   },
   "fitness_log": [
-    {
-      "gen": 191,
-      "coherence": 8,
-      "novelty": 4,
-      "identity": 9,
-      "tension": 5,
-      "awe": 5,
-      "perceptibility": 8,
-      "note": "Honest reading: the live page is still generation 188's. Both gen 189 and gen 190 wrote agent-state without a single commit touching index.html \u2014 expe",
-      "total": 6.5
-    },
     {
       "gen": 192,
       "coherence": 8,
@@ -502,26 +492,20 @@
       "perceptibility": 6,
       "note": "The crystal hero and iris scene read clean above the fold, but the genome's claimed gen-208/209 deletions never landed in rock: the whole warm sedimen",
       "total": 6.3
+    },
+    {
+      "gen": 211,
+      "coherence": 8,
+      "novelty": 7,
+      "identity": 8,
+      "tension": 6,
+      "awe": 6,
+      "perceptibility": 8,
+      "note": "The crystal hero, iris scene, and 'The Lattice' archive read clean and cool top-to-bottom \u2014 the gen-208/209/210 warm sections are finally gone from in",
+      "total": 7.2
     }
   ],
   "mutation_log": [
-    {
-      "gen": 191,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "content.mood",
-        "color.accent",
-        "atmosphere.css_rules",
-        "section.unconformity-exhibit",
-        "section.prototype-portfolio",
-        "page.experiments/088.html"
-      ],
-      "kills": [
-        "css_rule:gen188-css"
-      ],
-      "timestamp": "2026-06-12T08:08:13Z"
-    },
     {
       "gen": 192,
       "mutations": [
@@ -846,6 +830,16 @@
         "secret[20]"
       ],
       "timestamp": "2026-06-19T08:03:39Z"
+    },
+    {
+      "gen": 211,
+      "mutations": [
+        "content.thoughts",
+        "color.accent",
+        "scene.config"
+      ],
+      "kills": [],
+      "timestamp": "2026-06-19T16:05:38Z"
     }
   ],
   "graveyard": [
@@ -1167,11 +1161,6 @@
   },
   "color_history": [
     {
-      "gen": 201,
-      "base": "#a85a32",
-      "family": "red"
-    },
-    {
       "gen": 202,
       "base": "#a85a32",
       "family": "red"
@@ -1213,6 +1202,11 @@
     },
     {
       "gen": 210,
+      "base": "#6e7ff2",
+      "family": "cyan"
+    },
+    {
+      "gen": 211,
       "base": "#6e7ff2",
       "family": "cyan"
     }
@@ -1270,14 +1264,6 @@
   ],
   "epoch_number": 8,
   "contrast_warnings": [
-    {
-      "gen": 201,
-      "messages": [
-        "  [contrast-gate below-fold] effective bg = #14100c from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
-        "    FAIL  #7a4e31  ratio=2.67:1  (< 4.5)"
-      ],
-      "timestamp": "2026-06-17T00:04:28Z"
-    },
     {
       "gen": 202,
       "messages": [
@@ -1349,6 +1335,14 @@
         "    FAIL  #7a4e31  ratio=2.73:1  (< 4.5)"
       ],
       "timestamp": "2026-06-19T08:03:39Z"
+    },
+    {
+      "gen": 211,
+      "messages": [
+        "  [contrast-gate below-fold] effective bg = #0a0d18 from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
+        "    FAIL  #7a4e31  ratio=2.73:1  (< 4.5)"
+      ],
+      "timestamp": "2026-06-19T16:05:38Z"
     }
   ]
 }

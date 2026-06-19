@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>098 · Phase Transition</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400&family=Source+Serif+4:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{height:100%;background:#0a0d18;overflow:hidden;font-family:'Helvetica Neue',Arial,system-ui,sans-serif}
+  canvas{display:block;position:fixed;inset:0}
+  .ov{position:fixed;z-index:10;text-shadow:0 0 8px rgba(0,0,0,.9),0 0 22px rgba(0,0,0,.55)}
+  #info{top:18px;left:18px;max-width:340px;color:#c7cde8}
+  #info h1{font-weight:300;font-size:1.2rem;letter-spacing:.04em;color:#eef0fa;margin-bottom:.45rem}
+  #info h1 b{font-family:'JetBrains Mono',monospace;color:#7e8cf4;font-size:.72rem;font-weight:400;letter-spacing:.18em;display:block;margin-bottom:.3rem}
+  #info p{font-family:'Source Serif 4',Georgia,serif;font-size:.86rem;line-height:1.55;color:#aab2d6;margin-bottom:.5rem}
+  #readout{top:18px;right:18px;text-align:right;font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:.08em;color:#9aa6ff}
+  #readout .ph{font-size:.92rem;color:#eef0fa;margin-bottom:.35rem;letter-spacing:.04em}
+  #panel{left:18px;bottom:18px;width:min(440px,calc(100% - 36px))}
+  #panel label{display:block;font-family:'JetBrains Mono',monospace;font-size:.66rem;letter-spacing:.12em;color:#8089ad;text-transform:uppercase;margin-bottom:.45rem}
+  #sat{width:100%;accent-color:#6e7ff2;cursor:pointer}
+  #panel .hint{font-family:'JetBrains Mono',monospace;font-size:.64rem;color:#6b73a0;letter-spacing:.06em;margin-top:.5rem}
+  #back{top:18px;left:50%;transform:translateX(-50%);font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:.1em;color:#8089ad;text-decoration:none}
+  #back:hover{color:#9aa6ff}
+  @media(max-width:600px){#info{max-width:62%}#back{display:none}}
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div id="info" class="ov">
+  <h1><b>EXPERIMENT 098</b>Phase Transition</h1>
+  <p>A solution holding more than it should. Below the critical point the molecules wander — disordered, free. Raise the supersaturation past the threshold and order does not seep in gradually; it <em>propagates</em>, site convincing neighbouring site, until the whole field is a single lattice.</p>
+  <p>Drag the slider. Tap the field to plant a nucleus and watch the crystal grow outward from it.</p>
+</div>
+<a id="back" class="ov" href="/">← the lattice</a>
+<div id="readout" class="ov"><div class="ph" id="phase">solution</div><div id="ord">order&nbsp;0%</div><div id="sup">supersaturation&nbsp;0.30</div></div>
+<div id="panel" class="ov">
+  <label for="sat">supersaturation</label>
+  <input id="sat" type="range" min="0" max="1" step="0.01" value="0.3">
+  <div class="hint">critical point at 0.50 · tap to seed</div>
+</div>
+<script>
+(function(){
+  var cv=document.getElementById('c'),ctx=cv.getContext('2d');
+  var sat=document.getElementById('sat'),phaseEl=document.getElementById('phase'),ordEl=document.getElementById('ord'),supEl=document.getElementById('sup');
+  var W,H,DPR,spacing=46,Sc=0.5;
+  var sites=[],neigh=[],mol=[];
+  function resize(){DPR=Math.min(2,window.devicePixelRatio||1);W=innerWidth;H=innerHeight;cv.width=W*DPR;cv.height=H*DPR;ctx.setTransform(DPR,0,0,DPR,0,0);build();}
+  function build(){
+    sites=[];var dy=spacing*0.866,row=0;
+    for(var y=spacing;y<H-spacing*0.4;y+=dy){
+      var off=(row%2)*spacing/2;
+      for(var x=spacing+off;x<W-spacing*0.4;x+=spacing){sites.push({x:x,y:y});}
+      row++;
+    }
+    neigh=sites.map(function(){return[];});
+    var rr=(spacing*1.18)*(spacing*1.18);
+    for(var i=0;i<sites.length;i++)for(var j=i+1;j<sites.length;j++){
+      var dx=sites[i].x-sites[j].x,dyy=sites[i].y-sites[j].y;
+      if(dx*dx+dyy*dyy<rr){neigh[i].push(j);neigh[j].push(i);}
+    }
+    mol=sites.map(function(s){return{
+      fx:Math.random()*W,fy:Math.random()*H,
+      vx:(Math.random()-0.5)*0.5,vy:(Math.random()-0.5)*0.5,
+      px:0,py:0,order:0,crystal:false};});
+  }
+  function seed(cx,cy){
+    if(!mol.length)return;
+    var best=0,bd=1e9;
+    for(var i=0;i<mol.length;i++){var dx=mol[i].px-cx,dy=mol[i].py-cy,d=dx*dx+dy*dy;if(d<bd){bd=d;best=i;}}
+    mol[best].crystal=true;
+  }
+  cv.addEventListener('pointerdown',function(e){seed(e.clientX,e.clientY);});
+  function step(){
+    var S=parseFloat(sat.value);
+    var anyC=false;for(var i=0;i<mol.length;i++){if(mol[i].crystal){anyC=true;break;}}
+    if(S>0.9&&!anyC&&mol.length){mol[(Math.random()*mol.length)|0].crystal=true;}
+    if(S>=Sc){
+      var p=(S-Sc)*0.13;
+      for(var i2=0;i2<mol.length;i2++){if(mol[i2].crystal){var nb=neigh[i2];for(var k=0;k<nb.length;k++){var j=nb[k];if(!mol[j].crystal&&Math.random()<p)mol[j].crystal=true;}}}
+    }else{for(var m0=0;m0<mol.length;m0++)mol[m0].crystal=false;}
+    var ordered=0;
+    for(var a=0;a<mol.length;a++){
+      var m=mol[a],s=sites[a];
+      m.order+=((m.crystal?1:0)-m.order)*0.07;
+      if(m.order>0.5)ordered++;
+      if(m.order<0.6){
+        m.fx+=m.vx;m.fy+=m.vy;
+        if(m.fx<4||m.fx>W-4)m.vx*=-1;
+        if(m.fy<4||m.fy>H-4)m.vy*=-1;
+        m.vx+=(Math.random()-0.5)*0.1;m.vy+=(Math.random()-0.5)*0.1;
+        m.vx*=0.97;m.vy*=0.97;
+      }
+      m.px=m.fx+(s.x-m.fx)*m.order;
+      m.py=m.fy+(s.y-m.fy)*m.order;
+    }
+    var frac=mol.length?ordered/mol.length:0;
+    var ph;
+    if(S<Sc)ph='solution · undersaturated';
+    else if(frac<0.03)ph='supersaturated · metastable';
+    else if(frac<0.92)ph='nucleating · order spreading';
+    else ph='crystal';
+    phaseEl.textContent=ph;
+    ordEl.innerHTML='order&nbsp;'+Math.round(frac*100)+'%';
+    supEl.innerHTML='supersaturation&nbsp;'+S.toFixed(2);
+  }
+  function draw(){
+    ctx.fillStyle='#0a0d18';ctx.fillRect(0,0,W,H);
+    ctx.lineWidth=1;
+    for(var i=0;i<mol.length;i++){if(mol[i].order>0.62){var nb=neigh[i];for(var k=0;k<nb.length;k++){var j=nb[k];if(j>i&&mol[j].order>0.62){var a=Math.min(mol[i].order,mol[j].order)-0.62;ctx.strokeStyle='rgba(110,127,242,'+(a*0.75)+')';ctx.beginPath();ctx.moveTo(mol[i].px,mol[i].py);ctx.lineTo(mol[j].px,mol[j].py);ctx.stroke();}}}}
+    for(var b=0;b<mol.length;b++){var m=mol[b],o=m.order;ctx.fillStyle=o>0.5?'rgba(154,166,255,'+(0.55+o*0.45)+')':'rgba(122,130,166,0.5)';ctx.beginPath();ctx.arc(m.px,m.py,2+o*1.7,0,6.2832);ctx.fill();}
+  }
+  function loop(){step();draw();requestAnimationFrame(loop);}
+  addEventListener('resize',resize);
+  resize();loop();
+})();
+</script>
+</body>
+</html>
