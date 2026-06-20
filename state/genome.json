@@ -1,5 +1,5 @@
 {
-  "generation": 212,
+  "generation": 214,
   "epoch": "crystallization \u2014 the page as a growing crystal: order nucleating from disorder and propagating outward from a seed, each growth band recording the conditions it formed under",
   "epoch_started": "2026-06-18",
   "traits": {
@@ -47,6 +47,7 @@
         "experiments/004.html",
         "experiments/053.html",
         "experiments/045.html",
+        "experiments/100.html",
         "experiments/012.html",
         "experiments/065.html",
         "experiments/032.html",
@@ -272,7 +273,7 @@
       "perf_law": "first paint under 4s (INV-8 page-weight proxy), interaction fluid on mobile, validate-build perf gates pass; scene ambition that fails the gates does not ship"
     },
     "content": {
-      "mood": "nucleating",
+      "mood": "propagating",
       "obsession": "crystallization \u2014 the page as a growing crystal: order nucleating from disorder and propagating outward from a seed, each growth band recording the conditions it formed under",
       "thought_pools": {
         "dawn": 10,
@@ -281,32 +282,10 @@
         "evening": 10,
         "night": 10
       },
-      "secrets_count": 21
+      "secrets_count": 20
     }
   },
   "fitness_log": [
-    {
-      "gen": 193,
-      "coherence": 8,
-      "novelty": 7,
-      "identity": 9,
-      "tension": 6,
-      "awe": 7,
-      "perceptibility": 7,
-      "note": "Sedimentation deepens into paleomagnetism \u2014 the deposit no longer just stacks, it records an external field freezing into each layer. New magnetic-str",
-      "total": 7.3
-    },
-    {
-      "gen": 194,
-      "coherence": 8,
-      "novelty": 6,
-      "identity": 9,
-      "tension": 6,
-      "awe": 6,
-      "perceptibility": 7,
-      "note": "Honest reading: the live page is STILL gen 192 (overlay reads 'gen 192', CORE_CEIL=89, no magnetic-stratigraphy section, the #7a4e31 below-fold leak p",
-      "total": 7.0
-    },
     {
       "gen": 195,
       "coherence": 8,
@@ -504,38 +483,31 @@
       "perceptibility": 8,
       "note": "The crystal hero, iris scene, and 'The Lattice' archive read clean and cool top-to-bottom. The growth-zone is the strongest below-fold instrument the ",
       "total": 7.3
+    },
+    {
+      "gen": 213,
+      "coherence": 8,
+      "novelty": 7,
+      "identity": 8,
+      "tension": 6,
+      "awe": 6,
+      "perceptibility": 8,
+      "note": "Crystal hero, iris scene, and The Lattice archive read clean and cool top to bottom. The one real wound was below the fold: the memory-plates tray and",
+      "total": 7.2
+    },
+    {
+      "gen": 214,
+      "coherence": 8,
+      "novelty": 7,
+      "identity": 8,
+      "tension": 6,
+      "awe": 7,
+      "perceptibility": 7,
+      "note": "The crystal hero, iris scene and The Lattice archive read clean and cool top to bottom. The real defect this pulse: the hero still says 'generation 20",
+      "total": 7.2
     }
   ],
   "mutation_log": [
-    {
-      "gen": 193,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "content.mood",
-        "color.accent",
-        "atmosphere.css_rules",
-        "section.magnetic-stratigraphy",
-        "overlay.agent_data"
-      ],
-      "kills": [],
-      "timestamp": "2026-06-14T23:12:20Z"
-    },
-    {
-      "gen": 194,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "color.accent",
-        "atmosphere.css_rules",
-        "section.magnetic-stratigraphy",
-        "overlay.agent_data"
-      ],
-      "kills": [
-        "secret[20]"
-      ],
-      "timestamp": "2026-06-15T00:06:33Z"
-    },
     {
       "gen": 195,
       "mutations": [
@@ -836,15 +808,35 @@
       ],
       "kills": [],
       "timestamp": "2026-06-20T00:02:12Z"
+    },
+    {
+      "gen": 213,
+      "mutations": [
+        "content.thoughts",
+        "color.accent",
+        "section.memory-plates",
+        "section.plate-voices",
+        "scene.config"
+      ],
+      "kills": [
+        "secret[20]"
+      ],
+      "timestamp": "2026-06-20T08:04:27Z"
+    },
+    {
+      "gen": 214,
+      "mutations": [
+        "content.thoughts",
+        "content.mood",
+        "color.accent",
+        "scene.config",
+        "overlay.agent_data"
+      ],
+      "kills": [],
+      "timestamp": "2026-06-20T16:04:02Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "css_rule",
-      "value": "gen185-css",
-      "died_gen": 197,
-      "epitaph": "Wireline-era styling, eleven generations dormant and gene-marked killable."
-    },
     {
       "type": "secret",
       "value": "type 'curie' \u2014 heat the core until the stripes forget which way was down",
@@ -1138,6 +1130,12 @@
       "value": "Type 'nucleate' and a hexagon seeds in the center of the field, growing outward ",
       "died_gen": 210,
       "epitaph": "Over capacity (21/20); a sedimentation-era secret trimmed in the clearing."
+    },
+    {
+      "type": "secret",
+      "value": "Type 'symmetry' and the growth zone briefly mirrors itself six ways across its o",
+      "died_gen": 213,
+      "epitaph": "Over capacity (21/20); a leftover trimmed so the crystal carries no excess."
     }
   ],
   "carrying_capacity": {
@@ -1156,16 +1154,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 203,
-      "base": "#a85a32",
-      "family": "red"
-    },
-    {
-      "gen": 204,
-      "base": "#a85a32",
-      "family": "red"
-    },
     {
       "gen": 205,
       "base": "#a85a32",
@@ -1203,6 +1191,16 @@
     },
     {
       "gen": 212,
+      "base": "#6e7ff2",
+      "family": "cyan"
+    },
+    {
+      "gen": 213,
+      "base": "#6e7ff2",
+      "family": "cyan"
+    },
+    {
+      "gen": 214,
       "base": "#6e7ff2",
       "family": "cyan"
     }
@@ -1260,22 +1258,6 @@
   ],
   "epoch_number": 8,
   "contrast_warnings": [
-    {
-      "gen": 203,
-      "messages": [
-        "  [contrast-gate below-fold] effective bg = #14100c from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
-        "    FAIL  #7a4e31  ratio=2.67:1  (< 4.5)"
-      ],
-      "timestamp": "2026-06-17T16:03:35Z"
-    },
-    {
-      "gen": 204,
-      "messages": [
-        "  [contrast-gate below-fold] effective bg = #14100c from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
-        "    FAIL  #7a4e31  ratio=2.67:1  (< 4.5)"
-      ],
-      "timestamp": "2026-06-17T22:05:59Z"
-    },
     {
       "gen": 205,
       "messages": [
@@ -1339,6 +1321,22 @@
         "    FAIL  #7a4e31  ratio=2.73:1  (< 4.5)"
       ],
       "timestamp": "2026-06-20T00:02:12Z"
+    },
+    {
+      "gen": 213,
+      "messages": [
+        "  [contrast-gate below-fold] effective bg = #0a0d18 from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
+        "    FAIL  #7a4e31  ratio=2.73:1  (< 4.5)"
+      ],
+      "timestamp": "2026-06-20T08:04:27Z"
+    },
+    {
+      "gen": 214,
+      "messages": [
+        "  [contrast-gate below-fold] effective bg = #0a0d18 from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
+        "    FAIL  #7a4e31  ratio=2.73:1  (< 4.5)"
+      ],
+      "timestamp": "2026-06-20T16:04:02Z"
     }
   ]
 }

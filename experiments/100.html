@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>100 · Bravais Lattice</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%;background:#0a0d18;overflow:hidden}
+canvas{display:block;position:fixed;inset:0}
+#info{position:fixed;top:1.1rem;left:1.1rem;max-width:22rem;font-family:'JetBrains Mono',ui-monospace,monospace;color:#c7cde8;font-size:.78rem;line-height:1.55;text-shadow:0 0 8px rgba(0,0,0,.85),0 0 20px rgba(0,0,0,.6);z-index:5}
+#info h1{font-family:'Helvetica Neue',Arial,sans-serif;font-weight:300;font-size:1.35rem;color:#eef0fa;margin-bottom:.5rem;letter-spacing:.02em}
+#info .lede{color:#aab2d6;margin-bottom:.6rem}
+#info .how{color:#8089ad;font-size:.72rem}
+#ui{position:fixed;bottom:1.1rem;left:1.1rem;display:flex;flex-wrap:wrap;gap:.4rem;max-width:calc(100% - 2.2rem);z-index:5}
+#ui button{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:#c7cde8;background:rgba(16,22,50,.82);border:1px solid #232a44;border-left:2px solid #6e7ff2;padding:.45rem .7rem;cursor:pointer;text-shadow:0 0 6px rgba(0,0,0,.8)}
+#ui button:hover,#ui button.on{border-left-color:#9aa6ff;color:#fff;background:rgba(26,34,68,.9)}
+#name{position:fixed;bottom:1.1rem;right:1.1rem;font-family:'JetBrains Mono',monospace;font-size:.68rem;color:#5a628c;text-shadow:0 0 8px rgba(0,0,0,.8);z-index:5}
+#back{position:fixed;top:1.1rem;right:1.1rem;font-family:'JetBrains Mono',monospace;font-size:.72rem;color:#8089ad;text-decoration:none;text-shadow:0 0 8px rgba(0,0,0,.8);z-index:5}
+#back:hover{color:#9aa6ff}
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div id="info">
+<h1>Bravais Lattice</h1>
+<p class="lede">There are exactly five ways to tile a flat plane so that every point keeps the same neighbours. Each is a crystal's blueprint — the rule a growth band obeys before it ever catches the light.</p>
+<p class="how">Pick a lattice, or drag either glowing arrow to deform the cell. Watch the symmetry break and reform.</p>
+</div>
+<div id="ui"></div>
+<a id="back" href="/">← the lattice</a>
+<div id="name">Andre Macedo · experiment 100</div>
+<script>
+var c=document.getElementById('c'),ctx=c.getContext('2d'),DPR=Math.min(window.devicePixelRatio||1,2);
+var W=0,H=0,S=92;
+function resize(){W=window.innerWidth;H=window.innerHeight;c.width=W*DPR;c.height=H*DPR;ctx.setTransform(DPR,0,0,DPR,0,0);}
+window.addEventListener('resize',resize);resize();
+// basis vectors in pixels (relative to origin at screen center)
+var a={x:S,y:0},b={x:0,y:S};
+var presets={
+ square:{a:{x:1,y:0},b:{x:0,y:1},label:'square'},
+ rect:{a:{x:1.5,y:0},b:{x:0,y:0.82},label:'rectangular'},
+ centered:{a:{x:1.5,y:0},b:{x:0.75,y:0.7},label:'centered'},
+ hex:{a:{x:1,y:0},b:{x:0.5,y:0.866},label:'hexagonal'},
+ oblique:{a:{x:1.25,y:0},b:{x:0.42,y:0.95},label:'oblique'}
+};
+var current='square';
+function setPreset(k){current=k;var p=presets[k];a={x:p.a.x*S,y:p.a.y*S};b={x:p.b.x*S,y:p.b.y*S};
+ Array.prototype.forEach.call(document.querySelectorAll('#ui button'),function(btn){btn.classList.toggle('on',btn.dataset.k===k);});
+ tone(k);}
+var ui=document.getElementById('ui');
+Object.keys(presets).forEach(function(k){var btn=document.createElement('button');btn.textContent=presets[k].label;btn.dataset.k=k;btn.onclick=function(){setPreset(k);};ui.appendChild(btn);});
+// audio (opt-in: AudioContext created on first gesture)
+var actx=null;var notes={square:392.00,rect:329.63,centered:293.66,hex:440.00,oblique:261.63};
+function tone(k){if(!actx){try{actx=new(window.AudioContext||window.webkitAudioContext)();}catch(e){return;}}if(actx.state==='suspended')actx.resume();var o=actx.createOscillator(),g=actx.createGain();o.type='sine';o.frequency.value=notes[k]||330;g.gain.setValueAtTime(0.0001,actx.currentTime);g.gain.exponentialRampToValueAtTime(0.14,actx.currentTime+0.02);g.gain.exponentialRampToValueAtTime(0.0001,actx.currentTime+1.2);o.connect(g);g.connect(actx.destination);o.start();o.stop(actx.currentTime+1.25);}
+// dragging
+var drag=null;
+function tip(v){return{x:W/2+v.x,y:H/2+v.y};}
+function near(px,py,v){var t=tip(v);return Math.hypot(px-t.x,py-t.y)<22;}
+function pos(e){var r=c.getBoundingClientRect();var t=e.touches?e.touches[0]:e;return{x:t.clientX-r.left,y:t.clientY-r.top};}
+function down(e){var p=pos(e);if(near(p.x,p.y,a))drag='a';else if(near(p.x,p.y,b))drag='b';if(drag){current='custom';Array.prototype.forEach.call(document.querySelectorAll('#ui button'),function(b){b.classList.remove('on');});e.preventDefault();}}
+function move(e){if(!drag)return;var p=pos(e);var v={x:p.x-W/2,y:p.y-H/2};if(drag==='a')a=v;else b=v;e.preventDefault();}
+function up(){drag=null;}
+c.addEventListener('mousedown',down);window.addEventListener('mousemove',move);window.addEventListener('mouseup',up);
+c.addEventListener('touchstart',down,{passive:false});window.addEventListener('touchmove',move,{passive:false});window.addEventListener('touchend',up);
+function draw(){
+ ctx.clearRect(0,0,W,H);
+ var ox=W/2,oy=H/2;
+ var det=a.x*b.y-a.y*b.x;if(Math.abs(det)<1)det=det<0?-1:1;
+ // range of i,j to cover screen
+ var R=Math.ceil(Math.max(W,H)/S)+3;
+ // lattice points
+ for(var i=-R;i<=R;i++){for(var j=-R;j<=R;j++){
+  var x=ox+i*a.x+j*b.x,y=oy+i*a.y+j*b.y;
+  if(x<-20||x>W+20||y<-20||y>H+20)continue;
+  var d=Math.hypot(x-ox,y-oy);var al=Math.max(0.08,0.9-d/(Math.max(W,H)*0.55));
+  ctx.beginPath();ctx.arc(x,y,2.2,0,7);ctx.fillStyle='rgba(154,166,255,'+al+')';ctx.fill();
+ }}
+ // unit cell parallelogram at origin
+ ctx.beginPath();ctx.moveTo(ox,oy);ctx.lineTo(ox+a.x,oy+a.y);ctx.lineTo(ox+a.x+b.x,oy+a.y+b.y);ctx.lineTo(ox+b.x,oy+b.y);ctx.closePath();
+ ctx.fillStyle='rgba(110,127,242,0.12)';ctx.fill();ctx.strokeStyle='rgba(110,127,242,0.55)';ctx.lineWidth=1.2;ctx.stroke();
+ // basis vectors
+ [{v:a,c:'#9aa6ff'},{v:b,c:'#7e8cf4'}].forEach(function(o){var t=tip(o.v);ctx.beginPath();ctx.moveTo(ox,oy);ctx.lineTo(t.x,t.y);ctx.strokeStyle=o.c;ctx.lineWidth=1.8;ctx.stroke();ctx.beginPath();ctx.arc(t.x,t.y,6,0,7);ctx.fillStyle=o.c;ctx.fill();});
+ requestAnimationFrame(draw);
+}
+setPreset('square');draw();
+</script>
+</body>
+</html>
