@@ -1,0 +1,17 @@
+<!DOCTYPE html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>099 — Space Group</title><style>html,body{margin:0;height:100%;background:#0a0d18;overflow:hidden;font-family:'JetBrains Mono',ui-monospace,monospace}canvas{display:block;position:fixed;inset:0;width:100%;height:100%;cursor:crosshair}#info{position:fixed;top:16px;left:16px;max-width:300px;color:#c7cdf0;font-size:12.5px;line-height:1.55;z-index:3;text-shadow:0 0 8px rgba(0,0,0,.85),0 0 20px rgba(0,0,0,.55)}#info h1{font-family:Georgia,serif;font-weight:500;font-size:17px;margin:0 0 .5em;color:#9aa6ff}#info p{margin:0 0 .6em;opacity:.9}#back{position:fixed;top:16px;right:18px;color:#9aa6ff;font-size:12px;text-decoration:none;z-index:3;text-shadow:0 0 8px rgba(0,0,0,.85)}#back:hover{color:#e6e9f2}#hint{position:fixed;bottom:16px;left:16px;color:#7e8cf4;font-size:11.5px;z-index:3;text-shadow:0 0 8px rgba(0,0,0,.85)}</style></head><body><canvas id=c></canvas><div id=info><h1>Space Group</h1><p>A crystal cannot grow just any shape. Its lattice forces every mark to repeat under a fixed set of mirrors and rotations — its space group. Here the seed obeys <b>p6m</b>: six-fold rotation and six mirror planes, the symmetry of ice and quartz.</p><p>Move or drag to deposit. One gesture becomes twelve. Click to reseed the field; press 1–4 to change how many mirrors the lattice allows.</p></div><a id=back href="/">← back</a><div id=hint>drawing · p6m · 12 copies of every move</div><script>
+var c=document.getElementById('c'),x=c.getContext('2d'),W,H,cx,cy,DPR=Math.min(devicePixelRatio||1,2);var fold=6;
+function rs(){W=c.clientWidth;H=c.clientHeight;c.width=W*DPR;c.height=H*DPR;x.setTransform(DPR,0,0,DPR,0,0);cx=W/2;cy=H/2;x.fillStyle='#0a0d18';x.fillRect(0,0,W,H);}
+rs();addEventListener('resize',rs);
+var hue=232;
+function stamp(px,py){var dx=px-cx,dy=py-cy;var r=Math.sqrt(dx*dx+dy*dy),a=Math.atan2(dy,dx);for(var k=0;k<fold;k++){var aa=a+k*2*Math.PI/fold;put(cx+r*Math.cos(aa),cy+r*Math.sin(aa));put(cx+r*Math.cos(-aa),cy+r*Math.sin(-aa));}}
+function put(qx,qy){var l=42+Math.random()*22;x.fillStyle='hsla('+hue+','+(58+Math.random()*18)+'%,'+l+'%,0.9)';x.beginPath();x.arc(qx,qy,1.6+Math.random()*2.2,0,7);x.fill();}
+var down=false;
+function ev(e){var t=e.touches?e.touches[0]:e;stamp(t.clientX,t.clientY);}
+c.addEventListener('mousemove',function(e){if(down)ev(e);});
+c.addEventListener('mousedown',function(e){down=true;ev(e);});
+addEventListener('mouseup',function(){down=false;});
+c.addEventListener('touchstart',function(e){e.preventDefault();ev(e);},{passive:false});
+c.addEventListener('touchmove',function(e){e.preventDefault();ev(e);},{passive:false});
+c.addEventListener('click',function(){x.fillStyle='rgba(10,13,24,0.55)';x.fillRect(0,0,W,H);hue=210+Math.random()*45;});
+addEventListener('keydown',function(e){var n=parseInt(e.key);if(n>=1&&n<=4){fold=[2,3,4,6][n-1];document.getElementById('hint').textContent='drawing · '+fold+'-fold · '+(fold*2)+' copies of every move';}});
+</script></body></html>
