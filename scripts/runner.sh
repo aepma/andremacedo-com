@@ -366,7 +366,7 @@ HELPER_SCRIPT="${ANDREMACEDO_HELPER:-$HOME/.openclaw/scripts/claude-subscription
 # Hard wall on the whole claude session. No outer bounded-exec wraps this
 # launchd job, so the runner owns the ceiling itself; tmo returns 124 on
 # overrun, which lands in the helper-failure branch below (fail-closed).
-SESSION_WALL_CEILING=4800
+SESSION_WALL_CEILING=2400
 
 set +e
 if [ "$AGENTIC" = "1" ]; then
@@ -380,11 +380,11 @@ if [ "$AGENTIC" = "1" ]; then
   # 2 fix iterations + verdict; 15.00 covers 20 turns with margin. The
   # SESSION_WALL_CEILING (2400s) stays as the outer runaway guard. Event
   # pulses keep the single-turn 6.00 path below.
-  INPUT_JSONL="$INPUT_JSONL_FILE" OUTPUT_FILE="$HELPER_OUTPUT_FILE" CLAUDE_MAX_BUDGET_USD=45.00 \
+  INPUT_JSONL="$INPUT_JSONL_FILE" OUTPUT_FILE="$HELPER_OUTPUT_FILE" CLAUDE_MAX_BUDGET_USD=15.00 \
     tmo "$SESSION_WALL_CEILING" bash "$HELPER_SCRIPT" \
     --model claude-opus-4-8 \
     --input-format stream-json --output-format stream-json \
-    --max-turns 60 --verbose \
+    --max-turns 20 --verbose \
     --tools "Bash,Read,Write,Edit" \
     --permission-mode bypassPermissions \
     --strict-mcp-config --mcp-config "$HOME/.openclaw/andremacedo-runner-mcp.json" \
