@@ -1,5 +1,5 @@
 {
-  "generation": 217,
+  "generation": 218,
   "epoch": "crystallization \u2014 the page as a growing crystal: order nucleating from disorder and propagating outward from a seed, each growth band recording the conditions it formed under",
   "epoch_started": "2026-06-18",
   "traits": {
@@ -140,6 +140,7 @@
         "experiments/093.html",
         "experiments/007.html",
         "experiments/050.html",
+        "experiments/103.html",
         "experiments/046.html",
         "experiments/011.html",
         "node_modules/playwright-core/lib/vite/traceViewer/snapshot.html",
@@ -282,24 +283,13 @@
         "dawn": 10,
         "morning": 10,
         "afternoon": 10,
-        "evening": 10,
-        "night": 10
+        "evening": 9,
+        "night": 9
       },
-      "secrets_count": 21
+      "secrets_count": 19
     }
   },
   "fitness_log": [
-    {
-      "gen": 198,
-      "coherence": 8,
-      "novelty": 6,
-      "identity": 9,
-      "tension": 6,
-      "awe": 6,
-      "perceptibility": 8,
-      "note": "The core reads clean and deep \u2014 chron legend, magnetic stripes, memory plates, stratigraphic column all coherent in monochrome warm-earth. Twenty-seco",
-      "total": 7.2
-    },
     {
       "gen": 199,
       "coherence": 8,
@@ -508,22 +498,20 @@
       "perceptibility": 8,
       "note": "Crystal hero, iris scene and The Lattice archive read clean and cool on both viewports. Growth-zone hexes and coordination-polyhedron experiment hold ",
       "total": 7.3
+    },
+    {
+      "gen": 218,
+      "coherence": 8,
+      "novelty": 7,
+      "identity": 8,
+      "tension": 6,
+      "awe": 6,
+      "perceptibility": 8,
+      "note": "Crystal hero, iris scene and The Lattice archive read clean and cool on both viewports. The growth zone deepens. Twinning carries the symmetry thread ",
+      "total": 7.2
     }
   ],
   "mutation_log": [
-    {
-      "gen": 198,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "color.accent",
-        "section.chron-legend"
-      ],
-      "kills": [
-        "secret[20]"
-      ],
-      "timestamp": "2026-06-16T00:02:21Z"
-    },
     {
       "gen": 199,
       "mutations": [
@@ -845,33 +833,25 @@
         "secret[20]"
       ],
       "timestamp": "2026-06-21T16:02:37Z"
+    },
+    {
+      "gen": 218,
+      "mutations": [
+        "color.accent",
+        "color.css_vars",
+        "page.experiments/103.html",
+        "scene.config"
+      ],
+      "kills": [
+        "secret[20]",
+        "secret[15]",
+        "thought:night[9]",
+        "thought:evening[9]"
+      ],
+      "timestamp": "2026-06-21T22:04:44Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "css_rule",
-      "value": "gen187-css",
-      "died_gen": 204,
-      "epitaph": "Resolver-rebuild contrast rules, long superseded; the deposit compacts what no longer bears weight."
-    },
-    {
-      "type": "css_rule",
-      "value": "gen191-css",
-      "died_gen": 204,
-      "epitaph": "Below-fold ink pin from the re-drill, replaced by gen192/194; pruned to keep the cascade legible."
-    },
-    {
-      "type": "css_rule",
-      "value": "gen194-css",
-      "died_gen": 205,
-      "epitaph": "Magstrat-era contrast pin, ten generations dormant and superseded \u2014 the deposit compacts what no longer bears load."
-    },
-    {
-      "type": "css_rule",
-      "value": "gen192-css",
-      "died_gen": 205,
-      "epitaph": "Radiometric-era ink override, long replaced by later below-fold pins; pruned to keep the column light."
-    },
     {
       "type": "epoch",
       "value": "Epoch 7: sedimentation \u2014 the page as a stratigraphic core, where every generation settles into a readable layer and time is read downward through the deposit",
@@ -1147,6 +1127,30 @@
       "value": "Type 'facet' and the field sharpens to a single clean plane for a breath.",
       "died_gen": 217,
       "epitaph": "Pruned to carrying capacity; the new 'facet' secret takes its place."
+    },
+    {
+      "type": "secret",
+      "value": "Type 'facet' anywhere and the crystal field throws six new seeds in symmetry",
+      "died_gen": 218,
+      "epitaph": "Over carrying capacity (21/20); the lattice keeps what it needs and no more."
+    },
+    {
+      "type": "secret",
+      "value": "Triple-click on the giant A in the hero to see its construction lines redrawn fr",
+      "died_gen": 218,
+      "epitaph": "Pruned to make room \u2014 a crystal grows by selection, not accumulation."
+    },
+    {
+      "type": "thought",
+      "value": "A seed is the smallest lie a crystal tells: that the whole thing was inevitable from one point.",
+      "died_gen": 218,
+      "epitaph": "The weakest band in the night pool; let a fresher one nucleate in its place."
+    },
+    {
+      "type": "thought",
+      "value": "Supersaturation is patience one degree from failing.",
+      "died_gen": 218,
+      "epitaph": "Coasting, not turning \u2014 cut so the pool stays sharp."
     }
   ],
   "carrying_capacity": {
@@ -1165,11 +1169,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 208,
-      "base": "#6e7ff2",
-      "family": "cyan"
-    },
     {
       "gen": 209,
       "base": "#6e7ff2",
@@ -1212,6 +1211,11 @@
     },
     {
       "gen": 217,
+      "base": "#6e7ff2",
+      "family": "cyan"
+    },
+    {
+      "gen": 218,
       "base": "#6e7ff2",
       "family": "cyan"
     }
@@ -1269,14 +1273,6 @@
   ],
   "epoch_number": 8,
   "contrast_warnings": [
-    {
-      "gen": 208,
-      "messages": [
-        "  [contrast-gate below-fold] effective bg = #0a0d18 from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
-        "    FAIL  #7a4e31  ratio=2.73:1  (< 4.5)"
-      ],
-      "timestamp": "2026-06-18T16:04:16Z"
-    },
     {
       "gen": 209,
       "messages": [
@@ -1348,6 +1344,14 @@
         "    FAIL  #7a4e31  ratio=2.73:1  (< 4.5)"
       ],
       "timestamp": "2026-06-21T16:02:37Z"
+    },
+    {
+      "gen": 218,
+      "messages": [
+        "  [contrast-gate below-fold] effective bg = #0a0d18 from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
+        "    FAIL  #7a4e31  ratio=2.73:1  (< 4.5)"
+      ],
+      "timestamp": "2026-06-21T22:04:44Z"
     }
   ]
 }
