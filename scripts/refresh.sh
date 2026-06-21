@@ -197,7 +197,7 @@ print(json.dumps(data, indent=2))
 # ── Update TELOS sensorium ────────────────────────────────────────
 log "Updating TELOS sensorium (Clio pipeline)..."
 SENSORIUM_LOG=/tmp/sensorium-refresh.log
-if timeout 240 python3 "$SCRIPTS_DIR/sensorium.py" >"$SENSORIUM_LOG" 2>&1; then
+if timeout 240 python3 "$SCRIPT_DIR/sensorium.py" >"$SENSORIUM_LOG" 2>&1; then
   SENSORIUM_THEMES=$(python3 -c "import json;d=json.load(open('$SITE_DIR/data/sensorium.json'));print(len(d.get('themes',[])))" 2>/dev/null || echo "?")
   SENSORIUM_MOOD=$(python3 -c "import json;d=json.load(open('$SITE_DIR/data/sensorium.json'));print(d.get('overall_mood','?'))" 2>/dev/null || echo "?")
   log "Sensorium updated: themes=$SENSORIUM_THEMES mood=\"$SENSORIUM_MOOD\""
