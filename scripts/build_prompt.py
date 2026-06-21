@@ -786,7 +786,7 @@ This is REAL data from REAL visitors. Weight it heavily in your fitness score.
 
 ## DAILY PULSE — MUTATION BUDGET: {daily_budget}
 
-At least 1 mutation must be VISIBLE (a returning visitor would notice).
+At least 2 mutations must be VISIBLE (a returning visitor would notice), and at least 1 of those must be STRUCTURAL — a created or replaced section, new experiment page, or restructured layout, never a mere color or text swap. Cosmetic-only pulses do not satisfy this floor.
 Kills are optional daily but encouraged — especially if things are bloated.
 
 ## VISITOR JOURNEY (preserve these elements)
