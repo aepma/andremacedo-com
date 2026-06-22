@@ -1,5 +1,5 @@
 {
-  "generation": 218,
+  "generation": 219,
   "epoch": "crystallization \u2014 the page as a growing crystal: order nucleating from disorder and propagating outward from a seed, each growth band recording the conditions it formed under",
   "epoch_started": "2026-06-18",
   "traits": {
@@ -104,6 +104,7 @@
         "experiments/036.html",
         "experiments/061.html",
         "experiments/016.html",
+        "experiments/104.html",
         "experiments/041.html",
         "experiments/057.html",
         "experiments/094.html",
@@ -249,7 +250,8 @@
       "idle-boredom",
       "when-a-visitor-clicks-and-drag",
       "type-'seed'-anywhere-\u2014-nucleat",
-      "type-'facet'-anywhere-\u2014-the-cr"
+      "type-'facet'-anywhere-\u2014-the-cr",
+      "type-'slip'-anywhere-\u2014-a-fault"
     ],
     "sound": {
       "roles": [
@@ -290,17 +292,6 @@
     }
   },
   "fitness_log": [
-    {
-      "gen": 199,
-      "coherence": 8,
-      "novelty": 6,
-      "identity": 9,
-      "tension": 6,
-      "awe": 6,
-      "perceptibility": 7,
-      "note": "The core reads clean and deep \u2014 chron legend, magnetic stripes, memory plates, stratigraphic column all coherent. But novelty has sat at 6 for five ge",
-      "total": 7.0
-    },
     {
       "gen": 200,
       "coherence": 8,
@@ -509,22 +500,20 @@
       "perceptibility": 8,
       "note": "Crystal hero, iris scene and The Lattice archive read clean and cool on both viewports. The growth zone deepens. Twinning carries the symmetry thread ",
       "total": 7.2
+    },
+    {
+      "gen": 219,
+      "coherence": 8,
+      "novelty": 7,
+      "identity": 8,
+      "tension": 7,
+      "awe": 6,
+      "perceptibility": 8,
+      "note": "The crystal hero, iris scene and The Lattice archive read clean and cool on both viewports. Five gens of defect/symmetry deepening have held identity ",
+      "total": 7.3
     }
   ],
   "mutation_log": [
-    {
-      "gen": 199,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "color.accent",
-        "section.overlay-center"
-      ],
-      "kills": [
-        "secret[20]"
-      ],
-      "timestamp": "2026-06-16T08:05:52Z"
-    },
     {
       "gen": 200,
       "mutations": [
@@ -849,15 +838,25 @@
         "thought:evening[9]"
       ],
       "timestamp": "2026-06-21T22:04:44Z"
+    },
+    {
+      "gen": 219,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "color.accent",
+        "atmosphere.css_rules",
+        "interaction.type-'slip'-anywhere-\u2014-a-fault",
+        "page.experiments/104.html",
+        "scene.config"
+      ],
+      "kills": [
+        "secret[18]"
+      ],
+      "timestamp": "2026-06-22T08:02:51Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "epoch",
-      "value": "Epoch 7: sedimentation \u2014 the page as a stratigraphic core, where every generation settles into a readable layer and time is read downward through the deposit",
-      "died_gen": 207,
-      "epitaph": "Andre's verdict: the warm-earth sedimentation chassis read as ugly. Killed deliberately, not outgrown \u2014 the whole epoch reset on his command."
-    },
     {
       "type": "secret",
       "value": "type 'drill' \u2014 the surface band sinks one year and the core remembers a couplet ",
@@ -1151,6 +1150,12 @@
       "value": "Supersaturation is patience one degree from failing.",
       "died_gen": 218,
       "epitaph": "Coasting, not turning \u2014 cut so the pool stays sharp."
+    },
+    {
+      "type": "secret",
+      "value": "Type 'sonic' anywhere \u2014 the page lowers a stethoscope down its own borehole, and",
+      "died_gen": 219,
+      "epitaph": "Pruned to seat the new 'slip' secret \u2014 the lattice keeps only the defects that teach."
     }
   ],
   "carrying_capacity": {
@@ -1169,11 +1174,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 209,
-      "base": "#6e7ff2",
-      "family": "cyan"
-    },
     {
       "gen": 210,
       "base": "#6e7ff2",
@@ -1216,6 +1216,11 @@
     },
     {
       "gen": 218,
+      "base": "#6e7ff2",
+      "family": "cyan"
+    },
+    {
+      "gen": 219,
       "base": "#6e7ff2",
       "family": "cyan"
     }
@@ -1273,14 +1278,6 @@
   ],
   "epoch_number": 8,
   "contrast_warnings": [
-    {
-      "gen": 209,
-      "messages": [
-        "  [contrast-gate below-fold] effective bg = #0a0d18 from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
-        "    FAIL  #7a4e31  ratio=2.73:1  (< 4.5)"
-      ],
-      "timestamp": "2026-06-19T00:05:01Z"
-    },
     {
       "gen": 210,
       "messages": [
@@ -1352,6 +1349,14 @@
         "    FAIL  #7a4e31  ratio=2.73:1  (< 4.5)"
       ],
       "timestamp": "2026-06-21T22:04:44Z"
+    },
+    {
+      "gen": 219,
+      "messages": [
+        "  [contrast-gate below-fold] effective bg = #0a0d18 from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
+        "    FAIL  #7a4e31  ratio=2.73:1  (< 4.5)"
+      ],
+      "timestamp": "2026-06-22T08:02:51Z"
     }
   ]
 }
