@@ -380,11 +380,23 @@ if [ "$AGENTIC" = "1" ]; then
   # 2 fix iterations + verdict; 15.00 covers 20 turns with margin. The
   # SESSION_WALL_CEILING (2400s) stays as the outer runaway guard. Event
   # pulses keep the single-turn 6.00 path below.
-  INPUT_JSONL="$INPUT_JSONL_FILE" OUTPUT_FILE="$HELPER_OUTPUT_FILE" CLAUDE_MAX_BUDGET_USD=15.00 \
+  # UNCAPPED (Andre directive 2026-06-24): turn cap and dollar budget removed
+  # — the last 3 daily builds (06-20/06-23/06-24) died at error_max_turns mid-
+  # Edit, verified-good work killed by the 20-turn ceiling. The SESSION_WALL_
+  # CEILING (2400s / 40min) is now the SOLE backstop: tmo returns 124 on overrun
+  # → fail-closed helper-failure branch below. No turn or $ ceiling binds first.
+  # NOTE: the helper (claude-subscription-exec.sh:44) defaults CLAUDE_MAX_BUDGET_USD
+  # to $1.00 when UNSET and always forwards --max-budget-usd. Simply deleting the
+  # env var (the 2026-06-24 first uncap attempt) therefore did NOT uncap — it
+  # dropped the ceiling to $1 and killed the build in ~1 turn (44s). To make the
+  # 40-min wall the sole binding backstop, we must SET a budget high enough that
+  # the wall trips first: at ~$0.65/turn a 2400s session can't realistically
+  # exceed ~$30, so 50.00 is effectively "uncapped relative to the wall."
+  INPUT_JSONL="$INPUT_JSONL_FILE" OUTPUT_FILE="$HELPER_OUTPUT_FILE" CLAUDE_MAX_BUDGET_USD=50.00 \
     tmo "$SESSION_WALL_CEILING" bash "$HELPER_SCRIPT" \
     --model claude-opus-4-8 \
     --input-format stream-json --output-format stream-json \
-    --max-turns 20 --verbose \
+    --verbose \
     --tools "Bash,Read,Write,Edit" \
     --permission-mode bypassPermissions \
     --strict-mcp-config --mcp-config "$HOME/.openclaw/andremacedo-runner-mcp.json" \

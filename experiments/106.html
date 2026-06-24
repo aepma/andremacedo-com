@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>Annealing · experiment 106</title>
+<style>
+  html,body{margin:0;height:100%;background:#0a0d18;overflow:hidden;font-family:'JetBrains Mono',ui-monospace,monospace}
+  canvas{display:block;position:fixed;inset:0}
+  #info{position:fixed;top:1rem;left:1rem;max-width:330px;z-index:10;color:#e6e9f2;
+    text-shadow:0 0 8px rgba(0,0,0,.85),0 0 20px rgba(0,0,0,.55)}
+  #info h1{font-family:Georgia,serif;font-weight:500;font-size:1.25rem;margin:0 0 .5rem;letter-spacing:.01em}
+  #info p{font-size:.72rem;line-height:1.6;margin:.35rem 0;color:#aeb6d6}
+  #info .k{color:#9aa6ff}
+  #ui{position:fixed;bottom:1rem;left:1rem;z-index:10;display:flex;gap:.5rem;align-items:center;
+    color:#aeb6d6;font-size:.7rem;text-shadow:0 0 8px rgba(0,0,0,.85)}
+  #ui button{background:rgba(110,127,242,.14);border:1px solid #6e7ff2;color:#cdd3f5;
+    font-family:inherit;font-size:.7rem;padding:.4rem .7rem;border-radius:3px;cursor:pointer}
+  #ui button:hover{background:rgba(110,127,242,.28)}
+  #temp{min-width:120px}
+  #back{position:fixed;top:1rem;right:1rem;z-index:10;color:#9aa6ff;font-size:.7rem;
+    text-decoration:none;text-shadow:0 0 8px rgba(0,0,0,.85)}
+  #back:hover{color:#cdd3f5}
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div id="info">
+  <h1>Annealing</h1>
+  <p>A metal worked cold is a wreck of tiny, strained grains. Heat it and new,
+  unstrained crystals <span class="k">nucleate and eat their neighbours</span> —
+  order grows by consuming disorder. The grains coarsen; the boundaries shorten;
+  the metal softens.</p>
+  <p><span class="k">Drag</span> to pour in heat where the cursor passes.
+  <span class="k">Anneal</span> raises the whole field. Watch the grain count fall.</p>
+</div>
+<a id="back" href="/">← back to the lattice</a>
+<div id="ui">
+  <button id="anneal">anneal</button>
+  <button id="quench">quench &amp; re-strain</button>
+  <span id="temp">grains: —</span>
+</div>
+<script>
+(function(){
+  var cv=document.getElementById('c'),ctx=cv.getContext('2d');
+  var DPR=Math.min(window.devicePixelRatio||1,2),W,H;
+  var COLS,ROWS,CELL=6,grid,heat,nextGrid;
+  function palette(id){ // map grain id to an iris-family hue
+    var h=200+((id*47)%80); var l=30+((id*29)%40);
+    return 'hsl('+h+','+(28+((id*13)%30))+'%,'+l+'%)';
+  }
+  function resize(){
+    W=cv.width=Math.floor(innerWidth*DPR);H=cv.height=Math.floor(innerHeight*DPR);
+    cv.style.width=innerWidth+'px';cv.style.height=innerHeight+'px';
+    COLS=Math.ceil(W/(CELL*DPR));ROWS=Math.ceil(H/(CELL*DPR));
+    seed();
+  }
+  function seed(){
+    grid=new Int32Array(COLS*ROWS);nextGrid=new Int32Array(COLS*ROWS);
+    heat=new Float32Array(COLS*ROWS);
+    // cold-worked: every cell its own tiny grain id (maximal disorder)
+    for(var i=0;i<grid.length;i++){grid[i]=i;heat[i]=0.04+Math.random()*0.03;}
+  }
+  var ambient=0.05;
+  function step(){
+    // grain growth: each cell may adopt the id of a hotter/equal neighbour,
+    // probability scaled by local heat (recrystallization / boundary migration)
+    for(var y=0;y<ROWS;y++)for(var x=0;x<COLS;x++){
+      var idx=y*COLS+x;var t=heat[idx];nextGrid[idx]=grid[idx];
+      if(Math.random()<t){
+        var dx=(Math.random()<.5?-1:1),dy=(Math.random()<.5?-1:1);
+        var nx=x+dx,ny=y+dy;
+        if(nx>=0&&nx<COLS&&ny>=0&&ny<ROWS){nextGrid[idx]=grid[ny*COLS+nx];}
+      }
+      heat[idx]=t*0.965+ambient*0.04;
+    }
+    var tmp=grid;grid=nextGrid;nextGrid=tmp;
+  }
+  var seen={},count;
+  function draw(){
+    count=0;seen={};
+    for(var y=0;y<ROWS;y++)for(var x=0;x<COLS;x++){
+      var id=grid[y*COLS+x];
+      if(!seen[id]){seen[id]=1;count++;}
+      ctx.fillStyle=palette(id);
+      ctx.fillRect(x*CELL*DPR,y*CELL*DPR,CELL*DPR,CELL*DPR);
+    }
+    // boundary glow: draw bright iris edges where grains differ
+    ctx.fillStyle='rgba(154,166,255,0.5)';
+    for(var yy=0;yy<ROWS;yy++)for(var xx=0;xx<COLS;xx++){
+      var a=grid[yy*COLS+xx];
+      if(xx+1<COLS&&grid[yy*COLS+xx+1]!==a)ctx.fillRect((xx+1)*CELL*DPR-DPR,yy*CELL*DPR,DPR,CELL*DPR);
+      if(yy+1<ROWS&&grid[(yy+1)*COLS+xx]!==a)ctx.fillRect(xx*CELL*DPR,(yy+1)*CELL*DPR-DPR,CELL*DPR,DPR);
+    }
+    document.getElementById('temp').textContent='grains: '+count;
+  }
+  var frame=0;
+  function loop(){frame++;if(frame%2===0)step();draw();requestAnimationFrame(loop);}
+  function heatAt(px,py,r,amt){
+    var cx=Math.floor(px/(CELL))|0,cy=Math.floor(py/(CELL))|0;
+    var rr=r/CELL;
+    for(var y=-rr;y<=rr;y++)for(var x=-rr;x<=rr;x++){
+      var nx=cx+x,ny=cy+y;if(nx<0||nx>=COLS||ny<0||ny>=ROWS)continue;
+      if(x*x+y*y>rr*rr)continue;
+      heat[ny*COLS+nx]=Math.min(0.95,heat[ny*COLS+nx]+amt);
+    }
+  }
+  var down=false;
+  function pos(e){var t=e.touches?e.touches[0]:e;return [t.clientX,t.clientY];}
+  cv.addEventListener('mousedown',function(e){down=true;var p=pos(e);heatAt(p[0],p[1],40,0.5);});
+  cv.addEventListener('mousemove',function(e){if(!down)return;var p=pos(e);heatAt(p[0],p[1],40,0.45);});
+  window.addEventListener('mouseup',function(){down=false;});
+  cv.addEventListener('touchstart',function(e){down=true;var p=pos(e);heatAt(p[0],p[1],46,0.5);e.preventDefault();},{passive:false});
+  cv.addEventListener('touchmove',function(e){if(!down)return;var p=pos(e);heatAt(p[0],p[1],46,0.45);e.preventDefault();},{passive:false});
+  window.addEventListener('touchend',function(){down=false;});
+  document.getElementById('anneal').addEventListener('click',function(){
+    ambient=Math.min(0.6,ambient+0.18);for(var i=0;i<heat.length;i++)heat[i]=Math.min(0.95,heat[i]+0.35);
+  });
+  document.getElementById('quench').addEventListener('click',function(){ambient=0.05;seed();});
+  window.addEventListener('resize',resize);
+  resize();loop();
+})();
+</script>
+</body>
+</html>

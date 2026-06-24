@@ -1,5 +1,5 @@
 {
-  "generation": 219,
+  "generation": 222,
   "epoch": "crystallization \u2014 the page as a growing crystal: order nucleating from disorder and propagating outward from a seed, each growth band recording the conditions it formed under",
   "epoch_started": "2026-06-18",
   "traits": {
@@ -32,7 +32,6 @@
         "overlay-center",
         "stratigraphic-column",
         "memory-plates",
-        "plate-voices",
         "thought-floater",
         "overlay-bottom",
         "scroll-hint",
@@ -83,6 +82,7 @@
         "experiments/002.html",
         "experiments/055.html",
         "experiments/043.html",
+        "experiments/106.html",
         "experiments/014.html",
         "experiments/015.html",
         "experiments/042.html",
@@ -113,6 +113,7 @@
         "experiments/095.html",
         "experiments/001.html",
         "experiments/056.html",
+        "experiments/105.html",
         "experiments/040.html",
         "experiments/017.html",
         "experiments/060.html",
@@ -251,7 +252,8 @@
       "when-a-visitor-clicks-and-drag",
       "type-'seed'-anywhere-\u2014-nucleat",
       "type-'facet'-anywhere-\u2014-the-cr",
-      "type-'slip'-anywhere-\u2014-a-fault"
+      "type-'slip'-anywhere-\u2014-a-fault",
+      "type-'anneal'-anywhere-\u2014-the-l"
     ],
     "sound": {
       "roles": [
@@ -285,46 +287,13 @@
         "dawn": 10,
         "morning": 10,
         "afternoon": 10,
-        "evening": 9,
-        "night": 9
+        "evening": 10,
+        "night": 10
       },
-      "secrets_count": 19
+      "secrets_count": 21
     }
   },
   "fitness_log": [
-    {
-      "gen": 200,
-      "coherence": 8,
-      "novelty": 6,
-      "identity": 9,
-      "tension": 6,
-      "awe": 6,
-      "perceptibility": 8,
-      "note": "The core reads clean and deep across two hundred generations \u2014 chron legend, magnetic stripes, memory plates, the stratigraphic column. Gen 200 is the",
-      "total": 7.2
-    },
-    {
-      "gen": 201,
-      "coherence": 8,
-      "novelty": 6,
-      "identity": 9,
-      "tension": 6,
-      "awe": 6,
-      "perceptibility": 8,
-      "note": "The core reads clean and deep at gen 201: marker-bed hero, magnetic stripes, chron legend, memory plates, stratigraphic column, deep archive. Coherent",
-      "total": 7.2
-    },
-    {
-      "gen": 202,
-      "coherence": 8,
-      "novelty": 6,
-      "identity": 8,
-      "tension": 5,
-      "awe": 6,
-      "perceptibility": 8,
-      "note": "The core reads clean and deep: marker-bed hero, magnetic stripes, chron legend with proportional rows, memory plates, the stratigraphic column with po",
-      "total": 6.8
-    },
     {
       "gen": 203,
       "coherence": 8,
@@ -511,48 +480,42 @@
       "perceptibility": 8,
       "note": "The crystal hero, iris scene and The Lattice archive read clean and cool on both viewports. Five gens of defect/symmetry deepening have held identity ",
       "total": 7.3
+    },
+    {
+      "gen": 220,
+      "coherence": 8,
+      "novelty": 7,
+      "identity": 8,
+      "tension": 7,
+      "awe": 6,
+      "perceptibility": 8,
+      "note": "The crystalline chassis reads clean and cool on both viewports: iris hero over a blue-black ground, the growth-zone column and The Lattice archive leg",
+      "total": 7.3
+    },
+    {
+      "gen": 221,
+      "coherence": 7,
+      "novelty": 7,
+      "identity": 8,
+      "tension": 7,
+      "awe": 7,
+      "perceptibility": 6,
+      "note": "The crystalline hero, iris scene and The Lattice archive read clean and cool above the fold. But below the fold the rock has drifted from the genome: ",
+      "total": 7.0
+    },
+    {
+      "gen": 222,
+      "coherence": 8,
+      "novelty": 7,
+      "identity": 8,
+      "tension": 6,
+      "awe": 7,
+      "perceptibility": 8,
+      "note": "Crystalline hero, iris scene and The Lattice read clean and cool above the fold on both viewports. The drag below the fold was the gen-188 sediment tr",
+      "total": 7.3
     }
   ],
   "mutation_log": [
-    {
-      "gen": 200,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "color.accent",
-        "section.overlay-center"
-      ],
-      "kills": [
-        "secret[20]"
-      ],
-      "timestamp": "2026-06-16T16:03:02Z"
-    },
-    {
-      "gen": 201,
-      "mutations": [
-        "content.thoughts",
-        "color.accent",
-        "page.experiments/093.html"
-      ],
-      "kills": [
-        "secret[20]"
-      ],
-      "timestamp": "2026-06-17T00:04:28Z"
-    },
-    {
-      "gen": 202,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "color.accent",
-        "section.overlay-center",
-        "page.experiments/094.html"
-      ],
-      "kills": [
-        "secret[20]"
-      ],
-      "timestamp": "2026-06-17T08:04:15Z"
-    },
     {
       "gen": 203,
       "mutations": [
@@ -854,33 +817,55 @@
         "secret[18]"
       ],
       "timestamp": "2026-06-22T08:02:51Z"
+    },
+    {
+      "gen": 220,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "color.accent",
+        "scene.config"
+      ],
+      "kills": [],
+      "timestamp": "2026-06-23T08:03:14Z"
+    },
+    {
+      "gen": 221,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "color.accent",
+        "atmosphere.css_rules",
+        "interaction.type-'anneal'-anywhere-\u2014-the-l",
+        "section.memory-plates",
+        "section.delete.plate-voices",
+        "section.overlay-bottom",
+        "scene.config"
+      ],
+      "kills": [
+        "section:plate-voices",
+        "thought:morning[9]"
+      ],
+      "timestamp": "2026-06-24T08:04:36Z"
+    },
+    {
+      "gen": 222,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "color.accent",
+        "section.memory-plates",
+        "section.delete.plate-voices",
+        "scene.config"
+      ],
+      "kills": [
+        "section:plate-voices",
+        "secret[20]"
+      ],
+      "timestamp": "2026-06-24T14:02:02Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "secret",
-      "value": "type 'drill' \u2014 the surface band sinks one year and the core remembers a couplet ",
-      "died_gen": 207,
-      "epitaph": "Over capacity (22/20); a sedimentation-era secret pruned as the deposit gives way to the lattice."
-    },
-    {
-      "type": "secret",
-      "value": "type 'count' \u2014 the varves number themselves from the first year to this one",
-      "died_gen": 207,
-      "epitaph": "Over capacity; pruned in the clearing between epochs."
-    },
-    {
-      "type": "css_rule",
-      "value": "gen185-css",
-      "died_gen": 207,
-      "epitaph": "Warm sedimentation/photography-era contrast pin, long dormant \u2014 cleared with the chassis."
-    },
-    {
-      "type": "css_rule",
-      "value": "gen186-css",
-      "died_gen": 207,
-      "epitaph": "Core-photography resolver styling, dead since the manifest never served \u2014 cleared."
-    },
     {
       "type": "css_rule",
       "value": "gen187-css",
@@ -1156,6 +1141,30 @@
       "value": "Type 'sonic' anywhere \u2014 the page lowers a stethoscope down its own borehole, and",
       "died_gen": 219,
       "epitaph": "Pruned to seat the new 'slip' secret \u2014 the lattice keeps only the defects that teach."
+    },
+    {
+      "type": "section",
+      "value": "plate-voices",
+      "died_gen": 221,
+      "epitaph": "Folded into the thin-sections tray \u2014 one cool section instead of a warm tray and a warm caption."
+    },
+    {
+      "type": "thought",
+      "value": "A cold-worked metal is all boundary and no grain. Heat is how it forgets the damage.",
+      "died_gen": 221,
+      "epitaph": "Coasting \u2014 replaced by the cold-worked-metal image."
+    },
+    {
+      "type": "section",
+      "value": "plate-voices",
+      "died_gen": 222,
+      "epitaph": "Folded into the thin sections \u2014 one cool crystalline tray instead of a warm strip captioning a warm tray that no longer exists."
+    },
+    {
+      "type": "secret",
+      "value": "Type 'anneal' anywhere \u2014 the lattice softens, its grains coarsen, and the bounda",
+      "died_gen": 222,
+      "epitaph": "Pruned to seat the new thin-section secret \u2014 secrets back to capacity 20/20."
     }
   ],
   "carrying_capacity": {
@@ -1174,21 +1183,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 210,
-      "base": "#6e7ff2",
-      "family": "cyan"
-    },
-    {
-      "gen": 211,
-      "base": "#6e7ff2",
-      "family": "cyan"
-    },
-    {
-      "gen": 212,
-      "base": "#6e7ff2",
-      "family": "cyan"
-    },
     {
       "gen": 213,
       "base": "#6e7ff2",
@@ -1221,6 +1215,21 @@
     },
     {
       "gen": 219,
+      "base": "#6e7ff2",
+      "family": "cyan"
+    },
+    {
+      "gen": 220,
+      "base": "#6e7ff2",
+      "family": "cyan"
+    },
+    {
+      "gen": 221,
+      "base": "#6e7ff2",
+      "family": "cyan"
+    },
+    {
+      "gen": 222,
       "base": "#6e7ff2",
       "family": "cyan"
     }
@@ -1279,30 +1288,6 @@
   "epoch_number": 8,
   "contrast_warnings": [
     {
-      "gen": 210,
-      "messages": [
-        "  [contrast-gate below-fold] effective bg = #0a0d18 from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
-        "    FAIL  #7a4e31  ratio=2.73:1  (< 4.5)"
-      ],
-      "timestamp": "2026-06-19T08:03:39Z"
-    },
-    {
-      "gen": 211,
-      "messages": [
-        "  [contrast-gate below-fold] effective bg = #0a0d18 from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
-        "    FAIL  #7a4e31  ratio=2.73:1  (< 4.5)"
-      ],
-      "timestamp": "2026-06-19T16:05:38Z"
-    },
-    {
-      "gen": 212,
-      "messages": [
-        "  [contrast-gate below-fold] effective bg = #0a0d18 from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
-        "    FAIL  #7a4e31  ratio=2.73:1  (< 4.5)"
-      ],
-      "timestamp": "2026-06-20T00:02:12Z"
-    },
-    {
       "gen": 213,
       "messages": [
         "  [contrast-gate below-fold] effective bg = #0a0d18 from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
@@ -1357,6 +1342,30 @@
         "    FAIL  #7a4e31  ratio=2.73:1  (< 4.5)"
       ],
       "timestamp": "2026-06-22T08:02:51Z"
+    },
+    {
+      "gen": 220,
+      "messages": [
+        "  [contrast-gate below-fold] effective bg = #0a0d18 from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
+        "    FAIL  #7a4e31  ratio=2.73:1  (< 4.5)"
+      ],
+      "timestamp": "2026-06-23T08:03:14Z"
+    },
+    {
+      "gen": 221,
+      "messages": [
+        "  [contrast-gate below-fold] effective bg = #0a0d18 from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
+        "    FAIL  #7a4e31  ratio=2.73:1  (< 4.5)"
+      ],
+      "timestamp": "2026-06-24T08:04:36Z"
+    },
+    {
+      "gen": 222,
+      "messages": [
+        "  [contrast-gate below-fold] effective bg = #0a0d18 from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
+        "    FAIL  #7a4e31  ratio=2.73:1  (< 4.5)"
+      ],
+      "timestamp": "2026-06-24T14:02:02Z"
     }
   ]
 }

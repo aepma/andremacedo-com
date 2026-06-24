@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>Grain Boundary · TELOS experiment 105</title>
+<style>
+  :root{ --bg:#0a0d18; --fg:#e6e9f2; --accent:#6e7ff2; }
+  *{ box-sizing:border-box; }
+  html,body{ margin:0; height:100%; background:var(--bg); color:var(--fg);
+    font-family:"JetBrains Mono",ui-monospace,Menlo,monospace; overflow:hidden; }
+  canvas{ position:fixed; inset:0; width:100vw; height:100vh; display:block; touch-action:none; }
+  #info{ position:fixed; top:18px; left:18px; max-width:340px; z-index:5;
+    font-size:13px; line-height:1.5; opacity:0.92;
+    text-shadow:0 0 8px rgba(0,0,0,0.85), 0 0 20px rgba(0,0,0,0.6); }
+  #info h1{ font-family:Georgia,"Source Serif 4",serif; font-weight:500;
+    font-size:20px; margin:0 0 8px; letter-spacing:0.02em; color:#fff; }
+  #info .lede{ opacity:0.82; }
+  #info .how{ margin-top:10px; color:var(--accent); opacity:0.95; }
+  #misread{ position:fixed; top:18px; right:18px; z-index:5; text-align:right;
+    font-size:12px; line-height:1.6; opacity:0.85;
+    text-shadow:0 0 8px rgba(0,0,0,0.85); }
+  #misread b{ color:var(--accent); font-weight:500; }
+  #back{ position:fixed; bottom:16px; left:18px; z-index:5; font-size:12px;
+    color:var(--accent); text-decoration:none; opacity:0.9;
+    text-shadow:0 0 8px rgba(0,0,0,0.85); }
+  #back:hover{ text-decoration:underline; }
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div id="info">
+  <h1>Grain Boundary</h1>
+  <div class="lede">A real crystal is rarely one crystal. It nucleates in many
+  places at once, and each seed grows its own lattice at its own angle. Where two
+  grains meet, the rows of atoms can't line up — that mismatched seam is a grain
+  boundary. The bigger the angle between two grains, the brighter and more
+  defective the seam.</div>
+  <div class="how">Click empty space to drop a new grain. Drag inside a grain to
+  rotate its lattice and watch its boundaries flare.</div>
+</div>
+<div id="misread">grains <b id="gn">0</b><br>boundary energy <b id="ge">0</b></div>
+<a id="back" href="/index.html">← back to the lattice</a>
+<script>
+(function(){
+  var c=document.getElementById('c'), ctx=c.getContext('2d');
+  var DPR=Math.min(window.devicePixelRatio||1,2), W=0, H=0;
+  var SP=20;            // lattice spacing
+  var grains=[];       // {x,y,ang,hue}
+  function rnd(a,b){ return a+Math.random()*(b-a); }
+  function resize(){
+    W=c.clientWidth; H=c.clientHeight;
+    c.width=W*DPR; c.height=H*DPR; ctx.setTransform(DPR,0,0,DPR,0,0);
+    draw();
+  }
+  function seed(n){
+    grains=[];
+    for(var i=0;i<n;i++){
+      grains.push({ x:rnd(W*0.12,W*0.88), y:rnd(H*0.12,H*0.88),
+        ang:rnd(0,Math.PI/2) });
+    }
+  }
+  function nearest(px,py){
+    var bi=0, bd=1e9;
+    for(var i=0;i<grains.length;i++){
+      var dx=px-grains[i].x, dy=py-grains[i].y, d=dx*dx+dy*dy;
+      if(d<bd){ bd=d; bi=i; }
+    }
+    return bi;
+  }
+  // misorientation between adjacent grains (0..45deg), maps to seam brightness
+  function misorient(a,b){
+    var d=Math.abs(a-b)%(Math.PI/2);
+    if(d>Math.PI/4) d=Math.PI/2-d;
+    return d; // 0..PI/4
+  }
+  function draw(){
+    ctx.fillStyle='#0a0d18'; ctx.fillRect(0,0,W,H);
+    if(!grains.length) return;
+    // 1. boundaries: sample grid, mark where nearest-seed changes
+    ctx.save();
+    for(var gy=2; gy<H; gy+=3){
+      for(var gx=2; gx<W; gx+=3){
+        var g0=nearest(gx,gy);
+        var g1=nearest(gx+3,gy), g2=nearest(gx,gy+3);
+        if(g1!==g0 || g2!==g0){
+          var other = g1!==g0 ? g1 : g2;
+          var m=misorient(grains[g0].ang, grains[other].ang)/(Math.PI/4); // 0..1
+          var al=0.18+0.62*m;
+          ctx.fillStyle='rgba('+Math.round(150+90*m)+','+Math.round(160+40*m)+',255,'+al+')';
+          ctx.fillRect(gx-1,gy-1,2.4,2.4);
+        }
+      }
+    }
+    ctx.restore();
+    // 2. each grain draws its own rotated lattice, clipped to its Voronoi region
+    var diag=Math.sqrt(W*W+H*H);
+    for(var i=0;i<grains.length;i++){
+      var g=grains[i], ca=Math.cos(g.ang), sa=Math.sin(g.ang);
+      ctx.fillStyle='rgba(150,166,255,0.55)';
+      var span=Math.ceil(diag/SP)+2;
+      for(var j=-span;j<=span;j++){
+        for(var k=-span;k<=span;k++){
+          // lattice node in grain frame, rotated about the grain seed
+          var lx=j*SP, ly=k*SP;
+          var px=g.x + lx*ca - ly*sa;
+          var py=g.y + lx*sa + ly*ca;
+          if(px<-4||px>W+4||py<-4||py>H+4) continue;
+          if(nearest(px,py)!==i) continue;
+          ctx.beginPath(); ctx.arc(px,py,1.5,0,6.2832); ctx.fill();
+        }
+      }
+      // seed marker
+      ctx.fillStyle='rgba(220,228,255,0.9)';
+      ctx.beginPath(); ctx.arc(g.x,g.y,2.6,0,6.2832); ctx.fill();
+    }
+    // 3. readouts
+    var total=0, pairs=0;
+    for(var a=0;a<grains.length;a++) for(var b=a+1;b<grains.length;b++){
+      total+=misorient(grains[a].ang,grains[b].ang); pairs++;
+    }
+    document.getElementById('gn').textContent=grains.length;
+    document.getElementById('ge').textContent= pairs?Math.round(total/pairs/(Math.PI/4)*100)+'%':'0';
+  }
+  // interaction
+  var dragIdx=-1, downX=0, downY=0, moved=false;
+  function pos(e){
+    var t=e.touches?e.touches[0]:e, r=c.getBoundingClientRect();
+    return { x:t.clientX-r.left, y:t.clientY-r.top };
+  }
+  function down(e){
+    var p=pos(e); downX=p.x; downY=p.y; moved=false;
+    dragIdx=nearest(p.x,p.y);
+    e.preventDefault();
+  }
+  function move(e){
+    if(dragIdx<0) return;
+    var p=pos(e);
+    if(Math.abs(p.x-downX)+Math.abs(p.y-downY)>3) moved=true;
+    var g=grains[dragIdx];
+    g.ang=Math.atan2(p.y-g.y, p.x-g.x);
+    draw(); e.preventDefault();
+  }
+  function up(e){
+    if(dragIdx>=0 && !moved){
+      // a tap that didn't rotate: drop a fresh grain (nucleation)
+      grains.push({ x:downX, y:downY, ang:rnd(0,Math.PI/2) });
+      draw();
+    }
+    dragIdx=-1;
+  }
+  c.addEventListener('mousedown',down); c.addEventListener('mousemove',move);
+  window.addEventListener('mouseup',up);
+  c.addEventListener('touchstart',down,{passive:false});
+  c.addEventListener('touchmove',move,{passive:false});
+  c.addEventListener('touchend',up);
+  window.addEventListener('resize',resize);
+  seed(5); resize();
+})();
+</script>
+</body>
+</html>
