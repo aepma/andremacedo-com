@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """record-generation.py — genome lineage bookkeeping for regenerate-from-intent.
 
-Direction C deletes apply_changes.py (the ~1400-line string-replacement mutation
+Direction C retires the old mutation engine (the ~1400-line string-replacement
 machinery): the agent now writes a COMPLETE index.html directly. But the genome
-LINEAGE that apply_changes.py also maintained — generation count, fitness_log,
+LINEAGE that engine also maintained — generation count, fitness_log,
 color_history, epoch transitions, graveyard, mood — must survive, because
 build_prompt.format_genome_summary and the runner's portfolio rebuild read it,
 and the coherence teeth depend on it.
@@ -30,7 +30,7 @@ def load(path, default):
 
 
 def hue_family(base_hex):
-    """Mirror apply_changes.py: map an accent base hex to a coarse hue family."""
+    """Map an accent base hex to a coarse hue family (preserves the prior mapping)."""
     try:
         r = int(base_hex[1:3], 16) / 255
         g = int(base_hex[3:5], 16) / 255
@@ -92,7 +92,7 @@ def main():
 
     genome.setdefault("graveyard", [])
 
-    # ── obsession birth/transition (mirror apply_changes semantics) ───
+    # ── obsession birth/transition (preserves the prior epoch semantics) ───
     obsession = meta.get("obsession_update")
     if isinstance(obsession, dict) and (obsession.get("topic") or "").strip():
         old = state.get("active_obsession", {})

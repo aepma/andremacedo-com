@@ -69,8 +69,9 @@ document (doctype through `</html>`), no bundler/build-tool output references
 script in `package.json`.
 
 **Why:** SOUL.md constraint: "Single HTML file. No build step. No framework."
-The body must remain directly mutable by the pipeline; a build step would break
-every gene-injection mechanism in `apply_changes.py`.
+The body must remain a single self-contained document the agent regenerates
+whole each weekly run; a build step would break the regenerate-from-intent
+contract and the verbatim frozen-substrate paste.
 
 **Checked by:** `check_single_file` (static).
 
@@ -85,13 +86,15 @@ These blocks are owned by infrastructure tracks, not by the creative agent. Do
 not modify, move, or delete them.
 
 **Why:** Mutations repeatedly clobbered the mobile layout and touch
-interactions, leaving the site broken on phones — hence the protected-block
-markers and restore logic in `apply_changes.py`.
+interactions, leaving the site broken on phones — hence under Direction C these
+blocks are byte-FROZEN in `scripts/frozen-substrate.html` and pasted verbatim
+into every regeneration, never regenerated and hoped.
 
 **Checked by:** `check_mobile_scaffold` and `check_mobile_interaction_invariants`
-(static); `apply_changes.py` additionally restores both blocks post-mutation if
-missing; `mobile-gate.js` (runtime, Playwright) enforces structural mobile
-invariants before deploy.
+(static, over the frozen blocks pasted from `scripts/frozen-substrate.html`); a
+regeneration that drops or alters either block is REJECTED — there is no longer a
+post-hoc restore net; `mobile-gate.js` (runtime, Playwright) enforces structural
+mobile invariants before deploy.
 
 ## INV-6 — WebGL swarm panel present and alive
 
@@ -137,13 +140,15 @@ background. WCAG-grade contrast (>= 4.5:1) for foreground/background pairs.
 Decorative text may dissolve; communicative text must communicate.
 
 **Why:** SOUL.md perceptibility gate. Generated palettes repeatedly produced
-unreadable text (scoped CSS vars validated against the wrong background), hence
-the mechanical contrast clamp.
+unreadable text (scoped CSS vars validated against the wrong background). Under
+Direction C the mechanical auto-clamp is retired — the agent owns legibility and
+a rejecting contrast gate enforces it.
 
-**Checked by:** Runtime gates, not validate-build: contrast clamp +
-below-fold contrast audit in `apply_changes.py`, `audit-contrast.js`
-(pre-deploy when enabled), `contrast-check.sh` (post-deploy). Final judgment of
-legibility-in-context is prompt-level (perceptibility gate).
+**Checked by:** Runtime gates, not validate-build: the pre-deploy contrast gate
+`audit-contrast.js` (local mode, now ALWAYS-ON for regenerations — it REJECTS the
+page on critical failure, reverting the working tree; the old auto-clamp is gone)
+and `contrast-check.sh` (post-deploy). The dual adversarial craft judge (INV-14)
+also weighs legibility. Final judgment of legibility-in-context is prompt-level.
 
 ## INV-10 — Deploys go to production branch `main` only
 
@@ -206,6 +211,31 @@ without limits silently destroys first paint and mobile fluidity.
 ceiling by INV-8 (`check_page_weight`); shader/JS integrity by INV-7
 (`check_inline_scripts`). Judgment of fluidity and scene ambition is
 prompt-level (agentic self-verification loop).
+
+## INV-14 — Generated craft clears the dual adversarial judge
+
+**Rule:** Every agentic regeneration's RENDERED screenshot is judged by two
+independent adversarial critics from different model families
+(`scripts/craft-judge.py`, via the local proxy). The page ships only if BOTH
+return not-slop AND clear the craft threshold; either critic flagging slop, a
+score below threshold, or a critic that cannot be obtained is a FAILED verdict —
+working tree reverted, previous deploy stays live, exactly like a contrast
+failure. The maker never grades its own craft (the self-reported `craft_check`
+is abolished). The rubric (`scripts/craft-rubric.md`) and the threshold are an
+antifragile ratchet: they may only become MORE demanding, never relax.
+
+**Why:** The engine produced default-grade output because craft was self-graded
+("a label is not compliance," then trusting the label anyway). Craft is now
+externally and adversarially verified — the same law as the screenshot
+perceptibility loop. Two uncorrelated critics, not one, because a single judge is
+a single blind spot. Paired with it, the Coherence/Novelty fitness axes have
+teeth at the same gate: abandoning a live epoch's identity (no declared
+transition) is FAILED, not a style choice.
+
+**Checked by:** `craft-judge.py` at the runner verdict gate (runtime,
+fail-closed), after `validate-build.py` + `mobile-gate.js` + the contrast gate.
+Not a static validate-build check; this invariant is enforced by the runner, and
+the rubric content is judged by the generating-class models with fresh eyes.
 
 ---
 

@@ -10,7 +10,9 @@ CHANGELOG="$SITE_DIR/state/changelog.md"
 EXTERNAL_FILE="$SITE_DIR/data/external.json"
 INDEX_FILE="$SITE_DIR/index.html"
 SOUL_FILE="$SITE_DIR/SOUL.md"
-APPLY_SCRIPT="$SCRIPT_DIR/apply_changes.py"
+# Direction C: the mutation engine is retired (regenerate-from-intent). Genome
+# lineage bookkeeping moved to record-generation.py, run after the verdict gate.
+RECORD_SCRIPT="$SCRIPT_DIR/record-generation.py"
 
 LOG_FILE="$HOME/.openclaw/logs/andremacedo-agent.log"
 mkdir -p "$(dirname "$LOG_FILE")"
@@ -90,9 +92,11 @@ log() {
 # its own mutation before the runner deploys (SOUL.md perceptibility gate made
 # honorable — the single-turn path could never see its own render). Event
 # pulses keep the single-turn blind-shot path (f328732).
+# Direction C: weekly + event REGENERATE (agentic regenerate-from-intent + full
+# taste stack). daily is the cheap zero-LLM path (early branch below), never agentic.
 AGENTIC=0
 case "$PULSE_TYPE" in
-  daily|weekly) AGENTIC=1 ;;
+  weekly|event) AGENTIC=1 ;;
 esac
 
 telegram() {
@@ -154,7 +158,31 @@ _on_exit() {
 }
 trap '_on_exit' EXIT
 
-# ── Pre-flight ─────────────────────────────────────────────────────
+# ── Direction C: DAILY is the cheap, zero-LLM path ─────────────────
+# Refresh external data + sensorium, commit, deploy. The page's client-side
+# time-of-day rotation provides the visible daily change. No claude session and
+# no craft judge — a data refresh has no new design to judge, so judging it would
+# burn budget for nothing. Weekly + event do the full agentic regenerate + taste
+# stack. Skips the auth preflight and token ceiling on purpose (zero LLM spend).
+if [ "$PULSE_TYPE" = "daily" ]; then
+  log "daily cheap pulse (zero-LLM: refresh data + deploy)"
+  bash "$SCRIPT_DIR/refresh.sh" >> "$LOG_FILE" 2>&1 || log "WARN: refresh.sh failed; deploying with prior data"
+  cd "$SITE_DIR"
+  git add -A
+  git commit -m "agent: daily data refresh | pulse: daily" >> "$LOG_FILE" 2>&1 || log "daily: nothing to commit"
+  if ! npx wrangler pages deploy "$SITE_DIR" --project-name="andremacedo-com" --branch="main" --commit-dirty=true >> "$LOG_FILE" 2>&1; then
+    log_error "daily wrangler deploy failed"
+    record_failure
+    exit 1
+  fi
+  tmo 30 git -C "$SITE_DIR" push origin main 2>/dev/null || log "WARN: daily git push failed/timed out (non-fatal)"
+  log "daily pulse complete (data refreshed + deployed; no LLM spend)"
+  record_success
+  DEPLOY_SUCCEEDED=1
+  exit 0
+fi
+
+# ── Pre-flight (weekly + event only) ───────────────────────────────
 if ! ~/.local/bin/claude auth status 2>/dev/null | python3 -c '
 import json, sys
 d = json.loads(sys.stdin.read())
@@ -242,86 +270,99 @@ python3 "$SCRIPT_DIR/build_prompt.py" "$PULSE_TYPE" "$STATE_FILE" "$EXTERNAL_FIL
 #    "Respond ONLY in valid JSON" reply contract above it) ─────────
 if [ "$AGENTIC" = "1" ]; then
   # Stale artifacts from a previous run must never satisfy this run's gates.
-  rm -f "$SITE_DIR/state/pending-mutation.json" "$SITE_DIR/state/apply-output.log"
+  rm -f "$SITE_DIR/state/generation-meta.json"
   cat >> "$PROMPT_FILE" <<PROTOEOF
 
 
-## AGENTIC SESSION PROTOCOL (supersedes "Respond ONLY in valid JSON" above)
+## AGENTIC SESSION PROTOCOL (supersedes any reply-format above)
 
-You are running as a bounded agentic session (max 20 turns) with exactly these
-tools: Bash, Read, Write, Edit. The site repo is $SITE_DIR
-(absolute path — always use it; your working directory is already there).
-TURN DISCIPLINE (hard checkpoints — past runs died AT the cap by missing these,
-never for lack of budget; raising the cap only gave the investigation more rope):
-- The full current index.html and state are ALREADY in this prompt. Do NOT
-  grep/sed/awk the CSS line-by-line. That is the single biggest way runs have
-  burned out: one 30-turn run spent 26 turns hunting opacity/rgba/--fg-accent
-  values before it ever mutated, and never reached a verdict.
-- By turn 4 you MUST have written pending-mutation.json (step 2) and started the
-  apply chain (step 3). Explore in AT MOST 3 turns, batching shell commands into
-  single calls.
-- CONTRAST IS NOT YOUR JOB. The contrast gate is mechanical and automatic:
-  apply_changes.py auto-clamps low-contrast accent and below-fold text to WCAG AA
-  on every apply, and validate-build does NOT gate on contrast. Any "CONTRAST
-  AUDIT" note in this prompt is post-hoc FYI, never a debugging assignment. Never
-  spend a turn chasing a contrast / opacity / rgba value — the gate already fixed
-  it. Your step-4 inspection judges LEGIBILITY in the screenshots, not hex math.
-- By turn 15 you MUST emit your GENERATION_VERDICT line. The moment apply +
-  validate + screenshot have passed and the hero + self-introduction are legible
-  in the fresh screenshots, emit OK and STOP. A shipped legible generation beats
-  a perfect one that never ships; polishing past a passing gate is exactly how
-  these runs hit the cap with no deploy.
-You still compose the SAME mutation JSON specified above, but instead of
-replying with it you now apply it and VERIFY your own work before it ships.
-A generation that cannot verify itself does not ship.
+You are a bounded agentic session with exactly these tools: Bash, Read, Write,
+Edit. The repo is $SITE_DIR (absolute path; your cwd is already there). The
+wall-clock backstop is ~40 minutes — budget is not your constraint, focus is.
+
+You REGENERATE the site this run (Direction C): you write a COMPLETE,
+self-contained index.html in place — resolving the HERO first, holding this
+epoch's identity, using the appended aesthetic vocabulary as creative material.
+This REPLACES the old mutation-diff flow entirely: do NOT write a mutation-diff
+JSON and do NOT run the retired apply scripts — they no longer exist.
+
+FROZEN SUBSTRATE (non-negotiable): scripts/frozen-substrate.html holds the
+protected infrastructure (INV-5 mobile scaffold + interaction; INV-6 swarm panel,
+its CSS, and driver). READ it first, then paste EVERY block from it into your
+index.html VERBATIM at the right place — the <style> blocks in <head>/early body,
+the swarm element in the body, the interaction + swarm-driver <script>s near the
+end of <body>. Do not paraphrase, rename, or rewrite any frozen block, and do not
+emit your own elements with the reserved ids/classes it lists. validate-build.py
+REJECTS the page if any frozen block is missing or altered.
+
+YOU OWN LEGIBILITY (INV-9): there is no auto-clamp anymore. Communicative text
+MUST be WCAG-legible against its real rendered background, or the contrast gate
+rejects the page (revert, no deploy). Decorative text may dissolve. Don't chase
+hex math — judge legibility in your rendered screenshots (step 5).
+
+TURN DISCIPLINE: the current index.html, state, and recent renders are ALREADY in
+this prompt. Do NOT grep/sed the CSS line-by-line (the classic burnout). Explore
+in 2-3 turns max, batching shell calls. Resolve the hero, regenerate, verify,
+verdict — the moment every gate passes and the hero + self-introduction are
+legible, emit OK and STOP. Polishing past a passing gate is how runs die.
 
 MANDATED SEQUENCE — every step is an assertion gate; do not skip or reorder:
 
-1. MOBILE SUB-GATE first, on the attached live screenshots (rules above). If
-   it fails, do not mutate anything; end your final message with exactly:
+1. MOBILE SUB-GATE first on the attached live screenshots. If the current live
+   page is mobile-broken in a way you must be careful not to reproduce, note it;
+   your regenerated page is gated by mobile-gate.js below regardless. If you
+   genuinely cannot proceed safely, end with exactly:
    GENERATION_VERDICT: SKIP — mobile_gate_fail: <issue>
-2. Write your complete mutation JSON (the exact schema above, raw JSON, no
-   code fences) to $SITE_DIR/state/pending-mutation.json with the Write tool.
-3. Apply + validate + render in ONE Bash call so each gate halts the chain:
-   bash $SITE_DIR/scripts/agent-apply.sh $PULSE_TYPE && python3 $SITE_DIR/scripts/validate-build.py $SITE_DIR/index.html && bash $SITE_DIR/scripts/screenshot-local.sh
-   ALL THREE must succeed. agent-apply.sh applies your JSON through the
-   protected-block machinery; validate-build.py enforces INVARIANTS.md
-   statically; screenshot-local.sh serves your MUTATED working tree locally
+2. READ scripts/frozen-substrate.html. Write your COMPLETE new index.html to
+   $SITE_DIR/index.html with the Write tool — a full document (doctype through
+   </html>), the frozen substrate pasted in VERBATIM, the hero resolved first,
+   Andre's name visible, and the first-person self-introduction present and
+   legible above the fold (INV-1/2/3).
+3. Write your generation record to $SITE_DIR/state/generation-meta.json with the
+   Write tool — raw JSON, the metadata schema specified above (fitness_evaluation,
+   visual_strategy, accent_palette, palette_rationale, mood, kills, self_note,
+   summary; plus epoch_name/obsession_update if the epoch changes; weekly also
+   weekly_reflection). This is your RECORD of the generation, NOT an apply-this-
+   diff — your visual changes are already in the index.html you wrote.
+4. Validate + render in ONE Bash call so each gate halts the chain:
+   python3 $SITE_DIR/scripts/validate-build.py $SITE_DIR/index.html && bash $SITE_DIR/scripts/screenshot-local.sh
+   BOTH must succeed. validate-build.py enforces INVARIANTS.md statically
+   (including the frozen substrate); screenshot-local.sh serves YOUR working tree
    and writes /tmp/andremacedo-self-desktop.jpg and /tmp/andremacedo-self-mobile.jpg.
-4. LOOK at both screenshots with the Read tool (you can read both in one
-   turn). Apply the SOUL perceptibility gate and INVARIANTS to what you SEE,
-   not what you believe the code produces:
+5. LOOK at both screenshots with the Read tool (both in one turn). Apply the SOUL
+   perceptibility gate + INVARIANTS to what you SEE:
    - Hero + first-person self-introduction fully visible above the fold and
-     legible (INV-1, INV-2). If the top of the desktop screenshot is a dark
-     void with no readable way in, that is a FAIL.
-   - All communicative text readable against its actual rendered background
-     (INV-9). Decorative text may dissolve; communicative text must communicate.
-   - Mobile: no horizontal overflow, no clipped content, nothing occluding
-     the viewport (INV-5 spirit).
-5. If any gate in steps 3-4 fails: you get AT MOST 2 fix iterations. A fix is
-   a targeted Edit to $SITE_DIR/index.html (or to a page/asset you created
-   this session) — do NOT re-run agent-apply.sh for a fix unless your JSON
-   itself was rejected in step 3. After EVERY fix, re-run the validate +
-   screenshot chain from step 3 and re-inspect per step 4. Stale screenshots
-   prove nothing.
-6. Final message: report concrete visual evidence (what you saw in each
-   screenshot — the hero text content, where it sits, your contrast judgment,
-   any fix iterations used), then end with the verdict as the LAST line:
-   - every gate passed:                GENERATION_VERDICT: OK
-   - still failing after 2 fixes:      GENERATION_VERDICT: FAILED — <gate, what you saw>
-   On FAILED the runner keeps the previous deployment live and reverts your
-   working-tree changes. Never report OK without fresh passing screenshots.
+     legible (INV-1/2). A dark void with no readable way in is a FAIL.
+   - All communicative text readable against its real background (INV-9).
+   - Mobile: no horizontal overflow, no clipped content, nothing occluding the
+     viewport (INV-5 spirit).
+   - CRAFT, honestly: after you, TWO external adversarial critics judge this exact
+     screenshot. A centered-hero-on-a-background, a SaaS-landing shape, default
+     sans, decoration without hierarchy, or anything template-grade will FAIL the
+     craft gate and NOT ship. If what you see is slop, fix it now.
+6. If any gate in 4-5 fails: AT MOST 2 fix iterations — a targeted Edit to
+   index.html (or a file you created this session). After EVERY fix, re-run the
+   validate+screenshot chain in step 4 and re-inspect per step 5. Stale
+   screenshots prove nothing.
+7. Final message: report concrete visual evidence (the hero text and where it
+   sits, your legibility + craft judgment, any fixes used), then the verdict as
+   the LAST line:
+   - every gate passed:               GENERATION_VERDICT: OK
+   - still failing after 2 fixes:     GENERATION_VERDICT: FAILED — <gate, what you saw>
+   On FAILED/SKIP the runner keeps the previous deployment live and reverts your
+   working tree. Never report OK without fresh passing screenshots.
 
-HARD RULES (violating any of these makes the generation FAILED):
-- FOREGROUND ONLY. Never background anything: no trailing &, no nohup, no
-  long sleeps, no servers — screenshot-local.sh owns its own server lifecycle.
-  Before your final message nothing you started may still be running.
-- Do NOT deploy (no wrangler, no deploy.sh) and do NOT run git commit/push.
-  The runner deploys only after your OK verdict and its own gates.
-- Do NOT modify: SOUL.md, INVARIANTS.md, HEARTBEAT.md, MISSION.md, TOOLS.md,
-  anything under scripts/ or launchd/, deploy.sh, or any file outside
-  $SITE_DIR. Site mutations go through agent-apply.sh; fix iterations may
-  Edit index.html and files under experiments/, assets/, data/ only.
+HARD RULES (violating any makes the generation FAILED):
+- FOREGROUND ONLY. No trailing &, no nohup, no long sleeps, no servers —
+  screenshot-local.sh owns its own server lifecycle. Nothing you started may
+  still be running at your final message.
+- Do NOT deploy (no wrangler, no deploy.sh) and do NOT git commit/push. The
+  runner deploys only after your OK verdict and ITS gates: validate-build,
+  mobile-gate.js, the contrast gate, and the DUAL adversarial craft judge.
+- Do NOT modify SOUL.md, INVARIANTS.md, HEARTBEAT.md, MISSION.md, TOOLS.md,
+  the chat widget, anything under scripts/ or launchd/, deploy.sh, or any file
+  outside $SITE_DIR. You write index.html + state/generation-meta.json; fix
+  iterations may Edit index.html and files under experiments/, assets/, data/.
 PROTOEOF
 fi
 
@@ -504,7 +545,7 @@ PYEOF
 
 export CONTENT
 if [ "$AGENTIC" = "1" ]; then
-  CONTENT=""  # sourced from state/pending-mutation.json after the verdict gate below
+  CONTENT=""  # sourced from state/generation-meta.json after the verdict gate below
 else
   CONTENT="$(python3 - "$PARSE_RESULT_FILE" <<'PYEOF'
 import json, sys
@@ -555,8 +596,8 @@ PYEOF
 # ── Verdict gate (agentic pulses) ─────────────────────────────────
 # Token accounting above runs regardless of verdict — the session spent them.
 if [ "$AGENTIC" = "1" ]; then
-  # apply_changes.py ran inside the session with TOTAL_TOKENS=0, so the
-  # monthly-ceiling accounting happens here with the real session usage.
+  # The session spent its tokens regardless of verdict, so the monthly-ceiling
+  # accounting happens here with the real session usage.
   python3 - "$STATE_FILE" "$TOTAL_TOKENS" <<'PYEOF'
 import json, sys
 sf, tok = sys.argv[1], int(sys.argv[2])
@@ -603,41 +644,44 @@ PYEOF
       ;;
   esac
 
-  # OK verdict requires this run's mutation artifact (removed pre-session, so
-  # a stale file cannot satisfy this). Fail-closed if the session lied.
-  if [ ! -s "$SITE_DIR/state/pending-mutation.json" ]; then
-    log_error "verdict OK but state/pending-mutation.json missing — fail-closed, no deploy"
+  # OK verdict requires this run's regenerated record (removed pre-session, so a
+  # stale file cannot satisfy this). Fail-closed if the session lied.
+  if [ ! -s "$SITE_DIR/state/generation-meta.json" ]; then
+    log_error "verdict OK but state/generation-meta.json missing — fail-closed, no deploy"
     git -C "$SITE_DIR" checkout -- "$INDEX_FILE" 2>/dev/null || true
     record_failure
     exit 1
   fi
-  CONTENT="$(cat "$SITE_DIR/state/pending-mutation.json")"
+  if ! python3 -c 'import json,sys; json.load(open(sys.argv[1]))' "$SITE_DIR/state/generation-meta.json" 2>/dev/null; then
+    log_error "verdict OK but generation-meta.json is not valid JSON — fail-closed, no deploy"
+    git -C "$SITE_DIR" checkout -- "$INDEX_FILE" 2>/dev/null || true
+    record_failure
+    exit 1
+  fi
+  CONTENT="$(cat "$SITE_DIR/state/generation-meta.json")"
 fi
 
-# ── Apply changes ──────────────────────────────────────────────────
+# ── Record generation (genome lineage) ────────────────────────────
+# Direction C: the session already wrote index.html directly. record-generation.py
+# replaces the retired mutation engine's bookkeeping — reads generation-meta.json and updates
+# genome.json + agent-state.json (generation++, fitness_log, color_history, epoch
+# transitions, graveyard, mood, version stamp) and prints the one-line summary.
 cd "$SITE_DIR"
 export SITE_DIR PULSE_TYPE
 
-# Capture apply_changes.py output: full text goes to $BUILD_LOG, stderr to $ERROR_LOG,
-# and $SUMMARY is the final line only (the short description apply_changes.py prints last).
 APPLY_STDOUT="$(mktemp)"
-if [ "$AGENTIC" = "1" ]; then
-  # The session already applied the mutation via agent-apply.sh; its captured
-  # output feeds the summary/counters below. validate-build.py still re-runs
-  # as a runner-side backstop assertion right after this block.
-  cp "$SITE_DIR/state/apply-output.log" "$APPLY_STDOUT" 2>/dev/null \
-    || echo "(no apply output captured by session)" > "$APPLY_STDOUT"
-elif ! python3 "$APPLY_SCRIPT" >"$APPLY_STDOUT" 2>>"$ERROR_LOG"; then
-  log_error "Failed to apply changes"
+if ! python3 "$RECORD_SCRIPT" "$SITE_DIR/state/generation-meta.json" "$PULSE_TYPE" "$SITE_DIR" >"$APPLY_STDOUT" 2>>"$ERROR_LOG"; then
+  log_error "record-generation.py failed — fail-closed, no deploy. Reverting index.html."
   cat "$APPLY_STDOUT" >> "$ERROR_LOG"
+  git -C "$SITE_DIR" checkout -- "$INDEX_FILE" 2>/dev/null || true
   rm -f "$APPLY_STDOUT"
   record_failure
   exit 1
 fi
 
-# Append this run's full apply output to the daily build log for diagnosis
+# Append this run's record output to the daily build log for diagnosis
 {
-  echo "=== $(date -u +%Y-%m-%dT%H:%M:%SZ) [$PULSE_TYPE] apply_changes output ==="
+  echo "=== $(date -u +%Y-%m-%dT%H:%M:%SZ) [$PULSE_TYPE] record-generation output ==="
   cat "$APPLY_STDOUT"
   echo ""
 } >> "$BUILD_LOG"
@@ -651,8 +695,8 @@ fi
 if ! python3 "$SCRIPT_DIR/validate-build.py" "$INDEX_FILE" 2>>"$ERROR_LOG"; then
   log_error "JS validation failed — refusing to commit/deploy. Reverting index.html."
   # Don't ship a parse error to prod. Revert working tree on index.html so
-  # the next launchd run starts clean. Genome.json may have advanced inside
-  # apply_changes.py; that's a tolerable inconsistency the next successful
+  # the next launchd run starts clean. Genome.json may have advanced in
+  # record-generation; that's a tolerable inconsistency the next successful
   # run absorbs.
   git -C "$SITE_DIR" checkout -- "$INDEX_FILE" 2>/dev/null || true
   if [ -n "$BOT_TOKEN" ] && [ -n "$CHAT_ID" ]; then
@@ -829,11 +873,13 @@ elif [ "$GATE_EXIT" = "2" ]; then
     cat "$GATE_OUT" >> "$ERROR_LOG"
 fi
 
-# ── Pre-deploy contrast gate (2026-05-19, gated by CONTRAST_GATE_ENABLED) ──
-# When enabled, runs audit-contrast.js in local mode against the working-tree
-# index.html. On CRITICAL failure: revert index.html, skip deploy this cycle,
-# mirror mobile-gate pattern.
-if [ "${CONTRAST_GATE_ENABLED:-0}" = "1" ]; then
+# ── Pre-deploy contrast gate ───────────────────────────────────────
+# Runs audit-contrast.js in local mode against the working-tree index.html. On
+# CRITICAL failure: revert index.html, skip deploy this cycle (mirrors mobile-gate).
+# Direction C: ALWAYS-ON for agentic regenerations — the old pre-deploy WCAG
+# auto-clamp is gone, so this rejecting gate is now the contrast guarantee (the
+# agent owns legibility; INV-9). Env override still forces it on elsewhere.
+if [ "$AGENTIC" = "1" ] || [ "${CONTRAST_GATE_ENABLED:-0}" = "1" ]; then
     CONTRAST_GATE_OUT="$SITE_DIR/state/contrast-gate-latest.json"
     set +e
     tmo 30 node "$SCRIPT_DIR/audit-contrast.js" local "$SITE_DIR/index.html" > "$CONTRAST_GATE_OUT" 2>>"$ERROR_LOG"
@@ -852,6 +898,68 @@ if [ "${CONTRAST_GATE_ENABLED:-0}" = "1" ]; then
     elif [ "$GATE_EXIT" != "0" ]; then
         log "Contrast gate ERROR (script issue, non-fatal, exit=$GATE_EXIT) - proceeding with deploy"
     fi
+fi
+
+# ── Taste gate: DUAL adversarial craft judge + coherence teeth ─────
+# Direction C, fail-closed (same pattern as the contrast gate). Agentic
+# regenerations only (daily already exited). is_slop from EITHER critic, a craft
+# score below threshold, an unobtainable critic, OR abandoning the live epoch's
+# identity => revert index.html, keep the previous deploy live, no ship.
+if [ "$AGENTIC" = "1" ]; then
+  # Fresh canonical render of the FINAL index.html for the critics to judge.
+  if ! bash "$SCRIPT_DIR/screenshot-local.sh" >> "$LOG_FILE" 2>>"$ERROR_LOG"; then
+    log_error "craft gate: screenshot-local.sh failed — fail-closed, no deploy"
+    cd "$SITE_DIR" && git checkout HEAD -- index.html
+    DEPLOY_SUCCEEDED=1
+    exit 0
+  fi
+  CRAFT_OUT="$SITE_DIR/state/craft-judge-latest.json"
+  set +e
+  tmo 240 python3 "$SCRIPT_DIR/craft-judge.py" \
+    --desktop /tmp/andremacedo-self-desktop.jpg \
+    --mobile /tmp/andremacedo-self-mobile.jpg \
+    --json-out "$CRAFT_OUT" --quiet 2>>"$ERROR_LOG"
+  CRAFT_EXIT=$?
+  set -e
+  if [ "$CRAFT_EXIT" != "0" ]; then
+    # 1 = slop / below threshold (either critic); 2 = a critic unobtainable; 124 = timeout.
+    CRAFT_WHY="$(jq -r '.reason // .error // "craft gate failed"' "$CRAFT_OUT" 2>/dev/null || echo 'craft gate failed/timeout')"
+    log_error "craft judge FAILED (exit $CRAFT_EXIT): $CRAFT_WHY — reverting index.html, no deploy"
+    echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] [gen $GENERATION] craft-fail: $CRAFT_WHY" >> "$CHANGELOG"
+    cat "$CRAFT_OUT" >> "$ERROR_LOG" 2>/dev/null || true
+    cd "$SITE_DIR" && git checkout HEAD -- index.html
+    telegram "andremacedo.com $PULSE_TYPE: craft judge FAILED — ${CRAFT_WHY}. Deploy skipped, working tree reverted."
+    DEPLOY_SUCCEEDED=1
+    exit 0
+  fi
+  log "Craft judge PASSED: $(jq -r '"A="+(.critics.A.overall|tostring)+" B="+(.critics.B.overall|tostring)' "$CRAFT_OUT" 2>/dev/null || echo ok)"
+
+  # Coherence teeth: the Coherence/Novelty axes are ENFORCED, not just logged.
+  # Abandoning a live epoch's identity (no declared transition) = FAILED.
+  set +e
+  python3 - "$SITE_DIR/state/generation-meta.json" <<'PYEOF'
+import json, sys
+meta = json.load(open(sys.argv[1]))
+fit = meta.get("fitness_evaluation", {}) or {}
+coh = fit.get("coherence")
+# A declared epoch transition (new epoch_name or a new obsession topic) is a
+# sanctioned reinvention; coherence is only enforced when staying in-epoch.
+transition = bool(meta.get("epoch_name")) or bool((meta.get("obsession_update") or {}).get("topic"))
+if (not transition) and isinstance(coh, (int, float)) and coh < 4:
+    print(f"coherence={coh} (<4) within a live epoch, no declared transition", file=sys.stderr)
+    sys.exit(1)
+sys.exit(0)
+PYEOF
+  COH_EXIT=$?
+  set -e
+  if [ "$COH_EXIT" != "0" ]; then
+    log_error "coherence teeth FAILED — live epoch identity abandoned without a declared transition — reverting, no deploy"
+    echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] [gen $GENERATION] coherence-fail" >> "$CHANGELOG"
+    cd "$SITE_DIR" && git checkout HEAD -- index.html
+    telegram "andremacedo.com $PULSE_TYPE: coherence gate FAILED (live epoch abandoned). Deploy skipped, working tree reverted."
+    DEPLOY_SUCCEEDED=1
+    exit 0
+  fi
 fi
 
 # ── Git commit (for history) ──────────────────────────────────────

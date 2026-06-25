@@ -8,7 +8,7 @@ holds. Exits 1 otherwise, with a per-invariant report. Exits 2 on usage error.
 
 This is the build gate of the invariants contract: SOUL.md is the law,
 INVARIANTS.md is the building code, this script is the inspector. runner.sh
-invokes it after apply_changes.py and before `git commit`, so a violation
+invokes it after the generation step and before `git commit`, so a violation
 halts the run cleanly instead of landing in production.
 
 Every check function here maps to an invariant in INVARIANTS.md (INV-N).
