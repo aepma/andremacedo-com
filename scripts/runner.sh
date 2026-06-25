@@ -1029,6 +1029,18 @@ fi
 cd "$SCREENSHOT_DIR" && ls -t *.png 2>/dev/null | tail -n +101 | xargs rm -f 2>/dev/null || true
 
 # ── Deploy to Cloudflare Pages ────────────────────────────────────
+# Phase-4 preview guard (Direction C build): when ANDREMACEDO_NO_PROD_DEPLOY=1 the
+# generation + all gates + commit have already run on the current branch, but the
+# prod deploy to main and the origin/main push are SKIPPED. Phase-4 previews come
+# from the pushed engine-c branch (Cloudflare auto-previews non-prod branches),
+# never from this prod path. Adds no non-main branch reference — INV-10 intact.
+if [ "${ANDREMACEDO_NO_PROD_DEPLOY:-0}" = "1" ]; then
+  log "NO_PROD_DEPLOY=1 — generation committed to $(git rev-parse --abbrev-ref HEAD 2>/dev/null); skipping prod deploy + origin/main push (preview build)."
+  record_success
+  DEPLOY_SUCCEEDED=1
+  exit 0
+fi
+
 log "Deploying to Cloudflare Pages..."
 
 export CLOUDFLARE_ACCOUNT_ID="98a1dcdbeec2aa3aac24e49c22c652d2"
