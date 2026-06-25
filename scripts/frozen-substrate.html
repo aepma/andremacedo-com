@@ -1,0 +1,469 @@
+<!-- ════════════════════════════════════════════════════════════════════════
+     FROZEN SUBSTRATE — andremacedo.com (engine-c, Direction C)
+
+     The protected infrastructure of index.html. In regenerate-from-intent, the
+     agent writes a COMPLETE index.html in a sandbox; these blocks are pasted in
+     VERBATIM (build_prompt.py). They replace apply_changes.py's old restore net:
+     INV-5 (mobile scaffold + interaction) and INV-6 (swarm nervous system) are
+     no longer "regenerated and hoped" — they are byte-frozen.
+
+     LAW (antifragile ratchet): this file may only be EXTENDED to freeze MORE,
+     never relaxed to let the agent reclaim a frozen surface. Editing a frozen
+     block's logic is a constitutional change (INVARIANTS.md amendment + commit).
+
+     INTERFACE CONTRACT (the regenerated markup must honor; closes the wiring gap
+     in the 2026-06-25 memo adversary critique — frozen blocks bind only to other
+     frozen elements or to global window/document events, NEVER to regenerated
+     markup):
+       - Reserved element id: #swarmPanel (BLOCK 3). The driver (BLOCK 5) binds to
+         it by id; both are frozen, so the binding is frozen→frozen.
+       - Reserved CSS classes: .swarm-panel .swarm-line (BLOCK 2),
+         .telos-virtual-keyboard .telos-virtual-key (inside BLOCK 1). The agent
+         MUST NOT redefine or remove these.
+       - Reserved style/script element ids: mobile-scaffold, swarm-base,
+         mobile-interaction-invariants, swarm-driver. The agent MUST NOT emit its
+         own elements with these ids.
+       - Reserved global: window.onerror (BLOCK 5 routes errors into the panel).
+       - Theming hook (intentional, external): BLOCK 2 reads var(--fg-dim); the
+         agent's palette supplies it (:root default exists). This is the ONE
+         deliberate dependency on regenerated CSS.
+
+     Provenance: every block below is a byte-exact slice of the live index.html
+     at the cited lines, EXCEPT the swarm-base style and swarm-driver script
+     wrapper tags and the BLOCK 5 self-boot, which are new glue (clearly fenced).
+     Byte-identity is proven by scripts/verify-frozen-substrate in the build report.
+     ════════════════════════════════════════════════════════════════════════ -->
+
+<!-- ── BLOCK 1 — mobile scaffold (CSS). INV-5. Verbatim index.html:585-784.
+        Includes .telos-virtual-keyboard/.telos-virtual-key CSS (COMPONENT 3's
+        styling) and the swarm @media overrides — already self-contained here. ── -->
+<style id="mobile-scaffold">
+@media (max-width: 600px) {
+  /* Viewport containment — prevent any element from expanding scrollable width */
+  html, body {
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+
+  /* Box-sizing safety on direct children of major containers */
+  body > *, .below-fold > *, #overlay > * {
+    box-sizing: border-box;
+    max-width: 100%;
+  }
+
+  /* Word-wrap forcing on all text-bearing flow elements */
+  p, h1, h2, h3, h4, h5, h6, li, a, div, span, section, header {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+
+  /* Masthead: force flex-column so spans don't collide into "Andre MacedoProgram" */
+  .program-masthead {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 0.75rem 1rem;
+    width: 100%;
+  }
+
+  /* Clamp absolutely-positioned decorative float-thought elements */
+  .float-thought {
+    max-width: calc(100vw - 3rem);
+  }
+
+  /* Remove artificially inflated min-heights from .below-fold on mobile.
+     Two elements carry this class (outer div + #prototype-portfolio section),
+     each adding a full viewport height of empty space. Agent can re-add via
+     data-section if a generation genuinely needs it. */
+  .below-fold {
+    min-height: 0;
+    padding-bottom: 100px;
+  }
+
+  /* Clamp the fixed telemetry panel so it fits narrow viewports */
+  #overlay-bottom {
+    max-width: calc(100vw - 1.5rem);
+    right: 0.75rem;
+    font-size: 9px;
+  }
+
+  /* Default 2-column experiment grid for future generations.
+     Note: current data-section CSS overrides this to 1fr via higher source-order
+     when the agent specifies grid-template-columns explicitly. */
+  .comp-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Clamp the consciousness stream feed — long AI-generated fragments wrap 2x more
+     lines at 326px mobile vs 656px desktop, creating ~21k px of scroll. Cap it. */
+  #thought-stream-feed {
+    max-height: 5000px;
+    overflow: hidden;
+  }
+
+  /* Reposition the fixed compass widget into document flow on mobile so it
+     no longer overlaps content when scrolled to bottom. Desktop fixed-overlay
+     behavior preserved via the @media boundary. */
+  #overlay-bottom {
+    position: static;
+    right: auto;
+    bottom: auto;
+    width: auto;
+    text-align: left;
+    margin: 1.25rem 1rem 2rem 1rem;
+    opacity: 1;
+  }
+  #overlay-bottom .compass-line {
+    justify-content: flex-start;
+  }
+  #overlay-bottom .c-key,
+  #overlay-bottom .c-val {
+    text-align: left;
+  }
+  #overlay-bottom .c-val {
+    min-width: 0;
+  }
+
+  /* Pull the fixed swarm panel into document flow on mobile so it
+     no longer overlaps the bottom narrative paragraph (gen 113 hotfix). */
+  .swarm-panel {
+    position: static;
+    bottom: auto;
+    left: auto;
+    margin: 1.25rem 1rem 2rem 1rem;
+    opacity: 0.85;
+    font-size: 0.6rem;
+  }
+
+  /* Hide the scroll cue on mobile. The cue auto-hides on scroll and on
+     mobile scrolling is the dominant affordance, so the cue is redundant
+     and was producing a fixed-bottom-overlay overlap with the gen-status
+     meta line in document flow. Selector chosen in audit phase based on
+     stable DOM identifier. */
+  div:has(> #scroll-hint-count) {
+    display: none !important;
+  }
+
+  .telos-virtual-keyboard {
+    position: fixed; left: 0; right: 0; bottom: 0;
+    height: 64px; display: flex; gap: 4px; padding: 4px;
+    background: rgba(0,0,0,0.85);
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    z-index: 50;
+    border-top: 1px solid var(--accent, #888);
+  }
+  .telos-virtual-keyboard::before {
+    content: 'tap to ring \00B7 drag dark field for baton';
+    position: absolute; bottom: 100%; left: 0; right: 0;
+    text-align: center; font-size: 0.65rem; color: rgba(200,200,200,0.45);
+    font-family: 'JetBrains Mono', monospace;
+    pointer-events: none; white-space: nowrap; overflow: hidden; padding: 2px 0;
+  }
+  .telos-virtual-key {
+    flex: 1; display: flex; align-items: center; justify-content: center;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 4px;
+    color: var(--fg, #ddd);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1rem; text-transform: lowercase;
+    user-select: none; -webkit-user-select: none;
+    touch-action: manipulation;
+  }
+  .telos-virtual-key:active {
+    background: var(--accent, #888);
+    color: var(--bg, #000);
+  }
+  body { padding-bottom: 80px; }
+  .swarm-panel { display: none !important; } /* hand-edit 2026-05-14: prevent .swarm-panel × #overlay-bottom collision */
+
+  /* hand-edit 2026-05-19: structural viewport-containment for agent-generated sections.
+     Closes a 9-cycle gen{N}-colophon revert loop. The agent owns creative CSS;
+     the scaffold owns viewport invariants. See decision memo
+     telos/raw/2026-05-19-decision-andremacedo-creative-scaffold-owns-viewport-invariants.md */
+  html, body {
+    max-width: 100vw !important;
+    overflow-x: hidden !important;
+  }
+  body > section, body > div, body > article, body > header, body > footer, body > main, body > aside,
+  [class*="colophon"], [class*="programme"], [class*="composition"], [class*="chassis"] {
+    max-width: 100vw !important;
+    box-sizing: border-box !important;
+    overflow-x: clip;
+  }
+  /* Force block-level stacking on adjacency with p.meta to kill horizontal collisions. */
+  [class*="colophon"] + p.meta, p.meta + [class*="colophon"],
+  [class*="programme"] + p.meta, p.meta + [class*="programme"] {
+    display: block !important;
+    clear: both !important;
+    margin-top: 0.5rem !important;
+  }
+
+  /* hand-edit 2026-05-20: position lock-down v2, scoped to the agent's authoring
+     surface ([data-section]). v1 used body * scope which would have broken core
+     primitives (#overlay, .hidden-layer, #scene-frame). v2 narrows precisely to
+     the boundary the agent owns. No whitelist needed by construction. Decision:
+     telos/raw/2026-05-19-decision-andremacedo-creative-scaffold-position-lockdown.md */
+  [data-section] * {
+    position: static !important;
+  }
+
+  /* hand-edit 2026-05-20b: hide ambient floating thoughts on mobile.
+     Same precedent as .swarm-panel hand-edit 2026-05-14. On a 390px viewport,
+     decorative position:absolute thought floats inevitably collide with agent
+     content. Keep them on desktop, hide on mobile. */
+  #thought-floater, .float-thought {
+    display: none !important;
+  }
+
+  /* hand-edit 2026-05-20c: mobile-gate exit valve. The gate explicitly allows
+     overlap when either element has an opaque background (mobile-gate.js ~line 175,
+     hasOpaqueBackground check). Give agent-section and telemetry text elements the
+     page bg as their own — visually identical to current rendering (var(--bg) is
+     the page bg), but gate-recognized as cards. Closes the recurring TEXT_OVERLAP
+     class regardless of which specific selector pair overlaps next gen. */
+  [data-section] *, #overlay-bottom * {
+    background-color: var(--bg, #0a0a0a) !important;
+  }
+
+  /* hand-edit 2026-05-20d (v5): correct selector scope for opaque-bg exit valve.
+     v4 used [data-section] * but agent sections don't have data-section attribute
+     (only original architectural sections do). v5 targets the actual HTML the
+     agent generates: section elements + class-pattern matches. Visual cost:
+     spans inside .programme-card cream paper will get dark bg rectangles on
+     mobile — accepted trade-off to break the deploy stall. */
+  section *, [class*="-section"] *, [class*="below-fold"] *, #overlay-bottom * {
+    background-color: var(--bg, #0a0a0a) !important;
+  }
+}
+</style>
+
+<!-- ── BLOCK 2 — swarm-base (CSS). INV-6 visual self-sufficiency. New <style>
+        wrapper; rules verbatim index.html:140-158 + @keyframes fadeIn 202-205
+        (load-bearing: .swarm-panel is opacity:0 until fadeIn runs). Closes the
+        adversary-critique CSS-orphan risk (base styling was in the mutable block). ── -->
+<style id="swarm-base">
+  /* Swarm panel — fixed left side, vertical */
+  .swarm-panel {
+    position: fixed;
+    bottom: 3.5rem;
+    left: 2.5rem;
+    z-index: 11;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--fg-dim);
+    letter-spacing: 0.04em;
+    opacity: 0;
+    animation: fadeIn 2s ease forwards;
+    animation-delay: 2.5s;
+  }
+
+  .swarm-panel .swarm-line {
+    opacity: 0.35;
+    line-height: 1.8;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+</style>
+
+<!-- ── BLOCK 3 — swarm element (HTML). INV-6 nervous-system node. Verbatim
+        index.html:1013-1015. Reserved id #swarmPanel. ── -->
+  <div class="swarm-panel" id="swarmPanel">
+    <div class="swarm-line">swarm · connecting...</div>
+  </div>
+
+<!-- ── BLOCK 4 — mobile-interaction-invariants (JS). INV-5 COMPONENT 1/2/3.
+        Verbatim index.html:787-924. Binds only to document/window + its own
+        .telos-virtual-keyboard DOM — robust to any regenerated markup. ── -->
+<script id="mobile-interaction-invariants">
+(function() {
+  'use strict';
+  if (window.__telosMobileInvariantsInstalled) return;
+  window.__telosMobileInvariantsInstalled = true;
+
+  // COMPONENT 1: Touch-to-mouse bridge
+  // Synthesize mouse events from touch events so existing mouse-only handlers
+  // fire on touch devices. Skip on form controls and inside virtual keyboard.
+  (function() {
+    var SKIP_TAGS = /^(INPUT|TEXTAREA|BUTTON|A|SELECT)$/i;
+    function synth(touchEvt, mouseType) {
+      var t = touchEvt.changedTouches[0];
+      if (!t) return;
+      var target = document.elementFromPoint(t.clientX, t.clientY) || touchEvt.target;
+      if (SKIP_TAGS.test(target.tagName)) return;
+      var p = target;
+      while (p) {
+        if (p.classList && p.classList.contains('telos-virtual-keyboard')) return;
+        p = p.parentElement;
+      }
+      if (target.dataset && target.dataset.noTouchBridge !== undefined) return;
+      var me = new MouseEvent(mouseType, {
+        bubbles: true, cancelable: true, view: window,
+        clientX: t.clientX, clientY: t.clientY,
+        screenX: t.screenX, screenY: t.screenY
+      });
+      target.dispatchEvent(me);
+    }
+    document.addEventListener('touchstart',  function(e) { synth(e, 'mousedown'); }, {capture: true, passive: false});
+    document.addEventListener('touchmove',   function(e) { synth(e, 'mousemove'); }, {capture: true, passive: false});
+    document.addEventListener('touchend',    function(e) { synth(e, 'mouseup');   }, {capture: true, passive: false});
+  })();
+
+  // COMPONENT 0: Eager Tone.js load
+  // Tone.js is required for COMPONENT 2's gesture-init to call Tone.start()
+  // synchronously within the iOS user-gesture window. The agent's instruments
+  // load Tone lazily from CDN on first keypress, which races iOS gesture
+  // expiry. Loading eagerly here ensures Tone is available the moment the
+  // first user gesture fires.
+  (function() {
+    if (window.Tone) return;
+    var existing = document.querySelector('script[src*="tone@"]');
+    if (existing) return;
+    var s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/tone@14.7.77/build/Tone.js';
+    s.async = false;
+    document.head.appendChild(s);
+  })();
+
+  // COMPONENT 2: AudioContext gesture init
+  // Monkey-patch AudioContext constructors to register all instances.
+  // On any user gesture, resume suspended contexts and call Tone.start()
+  // if available. Handles Tone.js lazy CDN loading without {once:true}.
+  (function() {
+    var _ctxSet = new Set();
+    ['AudioContext', 'webkitAudioContext'].forEach(function(name) {
+      var Orig = window[name];
+      if (!Orig) return;
+      function Patched() {
+        var ctx = new Orig();
+        _ctxSet.add(ctx);
+        return ctx;
+      }
+      Patched.prototype = Orig.prototype;
+      window[name] = Patched;
+    });
+    function resumeAll() {
+      _ctxSet.forEach(function(ctx) {
+        if (ctx.state === 'suspended') ctx.resume().catch(function() {});
+      });
+      if (window.Tone) {
+        try {
+          if (window.Tone.start) window.Tone.start().catch(function() {});
+          if (window.Tone.context && window.Tone.context.resume) {
+            window.Tone.context.resume().catch(function() {});
+          }
+        } catch (err) {}
+      }
+    }
+    ['pointerdown', 'touchstart', 'click'].forEach(function(t) {
+      document.addEventListener(t, resumeAll, {passive: true});
+    });
+  })();
+
+  // COMPONENT 3: Virtual keyboard UI for mobile
+  // Letters d,f,h,i,k,m,o,p map to C4-C5 major scale in the agent's
+  // chromatic letter-to-frequency table (220*2^(i/12), i=3,5,7,8,10,12,14,15).
+  (function() {
+    var KEYS = ['d','f','h','i','k','m','o','p'];
+    function inject() {
+      if (document.querySelector('.telos-virtual-keyboard')) return;
+      if (!window.matchMedia('(max-width:600px)').matches) return;
+      var kb = document.createElement('div');
+      kb.className = 'telos-virtual-keyboard';
+      KEYS.forEach(function(letter) {
+        var btn = document.createElement('div');
+        btn.className = 'telos-virtual-key';
+        btn.textContent = letter;
+        var isHeld = false;
+        var releaseTimer = null;
+        function fireKeydown() {
+          document.body.dispatchEvent(new KeyboardEvent('keydown', {
+            key: letter, code: 'Key' + letter.toUpperCase(),
+            bubbles: true, cancelable: true
+          }));
+        }
+        function fireKeyup() {
+          if (!isHeld) return;
+          isHeld = false;
+          if (releaseTimer) { clearTimeout(releaseTimer); releaseTimer = null; }
+          document.body.dispatchEvent(new KeyboardEvent('keyup', {
+            key: letter, code: 'Key' + letter.toUpperCase(),
+            bubbles: true, cancelable: true
+          }));
+        }
+        btn.addEventListener('pointerdown', function(e) {
+          e.preventDefault();
+          if (isHeld) return;
+          isHeld = true;
+          fireKeydown();
+          releaseTimer = setTimeout(fireKeyup, 2500);
+        });
+        ['pointerup', 'pointercancel', 'pointerleave', 'touchend', 'touchcancel'].forEach(function(evt) {
+          btn.addEventListener(evt, fireKeyup);
+        });
+        kb.appendChild(btn);
+      });
+      document.body.appendChild(kb);
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', inject);
+    } else {
+      inject();
+    }
+  })();
+})();
+</script>
+
+<!-- ── BLOCK 5 — swarm-driver (JS). INV-6 driver. New <script> wrapper around
+        verbatim window.onerror (index.html:1111-1114) + verbatim fetchSwarmData
+        (index.html:1481-1510), plus a frozen self-boot so the panel is driven
+        independently of the regenerated creative script ("frozen, not hoped"). ── -->
+<script id="swarm-driver">
+  window.onerror = function(msg, url, line, col, err) {
+    var p = document.getElementById('swarmPanel');
+    if (p) p.innerHTML = '<div class="data-entry"><span class="data-label">!</span>JS ERROR: ' + msg + ' (line ' + line + ')</div>';
+  };
+
+  async function fetchSwarmData() {
+    const panel = document.getElementById('swarmPanel');
+    if (!panel) return;
+    try {
+      const res = await fetch('https://openclaw-status.andre-p-macedo.workers.dev');
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const data = await res.json();
+
+      const sys = data.system || {};
+      const agents = data.agents || [];
+      const now = Date.now();
+
+      let html = `<div class="swarm-line">swarm ${sys.active_now || 0}/${sys.total_agents || 0}</div>`;
+
+      const sorted = agents
+        .filter(a => a.last_active)
+        .sort((a, b) => new Date(b.last_active) - new Date(a.last_active))
+        .slice(0, 5);
+
+      for (const a of sorted) {
+        const ago = Math.floor((now - new Date(a.last_active).getTime()) / 60000);
+        const timeStr = ago < 60 ? `${ago}m ago` : `${Math.floor(ago / 60)}h ago`;
+        html += `<div class="swarm-line">${a.id} · ${timeStr}</div>`;
+      }
+
+      panel.innerHTML = html;
+    } catch (e) {
+      panel.innerHTML = '<div class="swarm-line">swarm · offline</div>';
+    }
+  }
+
+  // ── frozen self-boot (NEW glue) ── the old driver relied on the creative
+  // script's boot() to call fetchSwarmData; that boot() is now regenerated and
+  // cannot be trusted to wire the panel. Self-boot here guarantees INV-6.
+  (function bootSwarmDriver(){
+    function run(){ fetchSwarmData(); setInterval(fetchSwarmData, 60000); }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run);
+    else run();
+  })();
+</script>
