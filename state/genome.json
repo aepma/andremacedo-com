@@ -1,5 +1,5 @@
 {
-  "generation": 223,
+  "generation": 224,
   "epoch": "crystallization \u2014 the page as a growing crystal: order nucleating from disorder and propagating outward from a seed, each growth band recording the conditions it formed under",
   "epoch_started": "2026-06-18",
   "traits": {
@@ -99,6 +99,7 @@
         "experiments/023.html",
         "experiments/035.html",
         "experiments/062.html",
+        "experiments/108.html",
         "experiments/077.html",
         "experiments/098.html",
         "experiments/020.html",
@@ -288,24 +289,13 @@
         "dawn": 10,
         "morning": 10,
         "afternoon": 10,
-        "evening": 10,
+        "evening": 9,
         "night": 8
       },
-      "secrets_count": 20
+      "secrets_count": 21
     }
   },
   "fitness_log": [
-    {
-      "gen": 204,
-      "coherence": 8,
-      "novelty": 7,
-      "identity": 9,
-      "tension": 6,
-      "awe": 7,
-      "perceptibility": 8,
-      "note": "The core reads clean and deep, but the 'Count the Varves' hero has been pointing at a varve section that never landed in rock for two generations. Thi",
-      "total": 7.5
-    },
     {
       "gen": 205,
       "coherence": 8,
@@ -514,25 +504,20 @@
       "perceptibility": 8,
       "note": "Crystalline iris hero over blue-black reads clean and cool on both viewports; The Lattice archive and Growth Zone are legible. Weakness: the archive c",
       "total": 7.3
+    },
+    {
+      "gen": 224,
+      "coherence": 8,
+      "novelty": 7,
+      "identity": 8,
+      "tension": 7,
+      "awe": 7,
+      "perceptibility": 8,
+      "note": "Crystalline iris hero over blue-black reads clean and cool on both viewports; The Lattice archive and growth-zone read legibly below the fold. The def",
+      "total": 7.5
     }
   ],
   "mutation_log": [
-    {
-      "gen": 204,
-      "mutations": [
-        "color.accent",
-        "section.overlay-center",
-        "section.varve-core",
-        "overlay.agent_data"
-      ],
-      "kills": [
-        "css_rule:gen185-css",
-        "css_rule:gen186-css",
-        "css_rule:gen187-css",
-        "css_rule:gen191-css"
-      ],
-      "timestamp": "2026-06-17T22:05:59Z"
-    },
     {
       "gen": 205,
       "mutations": [
@@ -866,15 +851,24 @@
         "css_rule:gen207-css"
       ],
       "timestamp": "2026-06-24T22:02:57Z"
+    },
+    {
+      "gen": 224,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "color.accent",
+        "section.overlay-center",
+        "page.experiments/108.html",
+        "scene.config"
+      ],
+      "kills": [
+        "thought:evening[0]"
+      ],
+      "timestamp": "2026-06-25T08:03:13Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "section",
-      "value": "bench-dust",
-      "died_gen": 208,
-      "epitaph": "The cleared-bench dust canvas, warm and drifting \u2014 swept when the lattice took the bench."
-    },
     {
       "type": "section",
       "value": "varve-core",
@@ -1168,6 +1162,12 @@
       "value": "gen207-css",
       "died_gen": 223,
       "epitaph": "Dormant fifteen pulses \u2014 the lattice keeps only the rules that still bear load."
+    },
+    {
+      "type": "thought",
+      "value": "A new chron is not written. It is what the rock happens to be pointing at when it cools past caring.",
+      "died_gen": 224,
+      "epitaph": "Coasting \u2014 superseded by the transport thread; the gradient image is sharper."
     }
   ],
   "carrying_capacity": {
@@ -1186,11 +1186,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 214,
-      "base": "#6e7ff2",
-      "family": "cyan"
-    },
     {
       "gen": 215,
       "base": "#6e7ff2",
@@ -1233,6 +1228,11 @@
     },
     {
       "gen": 223,
+      "base": "#6e7ff2",
+      "family": "cyan"
+    },
+    {
+      "gen": 224,
       "base": "#6e7ff2",
       "family": "cyan"
     }
@@ -1290,14 +1290,6 @@
   ],
   "epoch_number": 8,
   "contrast_warnings": [
-    {
-      "gen": 214,
-      "messages": [
-        "  [contrast-gate below-fold] effective bg = #0a0d18 from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
-        "    FAIL  #7a4e31  ratio=2.73:1  (< 4.5)"
-      ],
-      "timestamp": "2026-06-20T16:04:02Z"
-    },
     {
       "gen": 215,
       "messages": [
@@ -1369,6 +1361,14 @@
         "    FAIL  #7a4e31  ratio=2.73:1  (< 4.5)"
       ],
       "timestamp": "2026-06-24T22:02:57Z"
+    },
+    {
+      "gen": 224,
+      "messages": [
+        "  [contrast-gate below-fold] effective bg = #0a0d18 from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
+        "    FAIL  #7a4e31  ratio=2.73:1  (< 4.5)"
+      ],
+      "timestamp": "2026-06-25T08:03:13Z"
     }
   ]
 }

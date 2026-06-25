@@ -1,0 +1,20 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Diffusion — experiment 108</title><style>html,body{margin:0;height:100%;background:#0a0d18;overflow:hidden;font-family:'JetBrains Mono',ui-monospace,monospace;color:#e6e9f2}canvas{display:block;position:fixed;inset:0}#info{position:fixed;top:18px;left:18px;max-width:330px;font-size:12.5px;line-height:1.55;color:#c2c8e0;text-shadow:0 0 8px rgba(0,0,0,0.85),0 0 20px rgba(0,0,0,0.6);z-index:5}#info h1{font-family:'Playfair Display',Georgia,serif;font-size:21px;font-weight:500;margin:0 0 8px;color:#9aa6ff}#info p{margin:0 0 8px}#info .k{color:#8a93c8}#back{position:fixed;bottom:16px;left:18px;font-size:12px;color:#9aa6ff;text-decoration:none;text-shadow:0 0 8px rgba(0,0,0,0.85);z-index:5}#back:hover{color:#e6e9f2}</style></head><body><canvas id="c"></canvas><div id="info"><h1>Diffusion</h1><p>A crystal can only grow as fast as atoms can <em>reach</em> its face. Beneath nucleation, twinning, and every grain boundary is one quiet law: Fick's law, matter flowing down a concentration gradient by nothing but a random walk.</p><p>Bright is high concentration; the field relaxes toward flatness on its own. <span class="k">Click or drag to inject a spike of atoms.</span> Watch sharp order blur, then spread — transport is the cost order pays to arrive.</p></div><a id="back" href="/">← back to the lattice</a><script>
+var cv=document.getElementById('c'),ctx=cv.getContext('2d');
+var cell=7,W,H,cols,rows,cur,nxt,img;
+function resize(){W=cv.width=innerWidth;H=cv.height=innerHeight;cols=Math.max(8,Math.floor(W/cell));rows=Math.max(8,Math.floor(H/cell));cur=new Float32Array(cols*rows);nxt=new Float32Array(cols*rows);seed();}
+function seed(){for(var k=0;k<5;k++){var cx=2+Math.floor(Math.random()*(cols-4)),cy=2+Math.floor(Math.random()*(rows-4));blob(cx,cy,1);}}
+function blob(cx,cy,amt){for(var dy=-2;dy<=2;dy++)for(var dx=-2;dx<=2;dx++){var x=cx+dx,y=cy+dy;if(x<1||y<1||x>=cols-1||y>=rows-1)continue;var f=Math.exp(-(dx*dx+dy*dy)/3);cur[y*cols+x]=Math.min(1,cur[y*cols+x]+amt*f);}}
+var D=0.16;
+function step(){nxt.set(cur);for(var y=1;y<rows-1;y++)for(var x=1;x<cols-1;x++){var i=y*cols+x;var lap=cur[i-1]+cur[i+1]+cur[i-cols]+cur[i+cols]-4*cur[i];nxt[i]=cur[i]+D*lap;}var t=cur;cur=nxt;nxt=t;}
+function lerp(a,b,t){return a+(b-a)*t;}
+function draw(){ctx.fillStyle='#0a0d18';ctx.fillRect(0,0,W,H);for(var y=0;y<rows;y++)for(var x=0;x<cols;x++){var v=cur[y*cols+x];if(v<=0.01)continue;var t=Math.min(1,v);var r=Math.round(lerp(20,154,t)),g=Math.round(lerp(28,166,t)),b=Math.round(lerp(45,255,t));ctx.fillStyle='rgba('+r+','+g+','+b+','+(0.25+0.75*t)+')';ctx.fillRect(x*cell,y*cell,cell-1,cell-1);}}
+var drag=false;
+function inject(e){var px=(e.touches?e.touches[0].clientX:e.clientX),py=(e.touches?e.touches[0].clientY:e.clientY);blob(Math.floor(px/cell),Math.floor(py/cell),0.9);}
+cv.addEventListener('mousedown',function(e){drag=true;inject(e);});
+cv.addEventListener('mousemove',function(e){if(drag)inject(e);});
+window.addEventListener('mouseup',function(){drag=false;});
+cv.addEventListener('touchstart',function(e){e.preventDefault();inject(e);},{passive:false});
+cv.addEventListener('touchmove',function(e){e.preventDefault();inject(e);},{passive:false});
+window.addEventListener('resize',resize);resize();
+function loop(){for(var s=0;s<2;s++)step();draw();requestAnimationFrame(loop);}loop();
+</script></body></html>
