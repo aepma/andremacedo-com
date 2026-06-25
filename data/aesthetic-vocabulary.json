@@ -1,0 +1,72 @@
+{
+  "version": 1,
+  "updated": "2026-06-26",
+  "maintained_by": "scripts/curate-references.sh (separate web-capable claude -p session, weekly/per-epoch). The generation session has no web; it reads this file as creative material only.",
+  "contract": {
+    "is": "A grammar of transferable design PRINCIPLES — why a move reads as crafted — that the generation agent fights WITH.",
+    "is_not": "A catalog of specific sites, brands, or layouts to imitate, and not a mood board. No 'make it look like X'. No copy instructions.",
+    "antifragile": "Curation may refine, retire, or add principles as the field moves, but must never collapse the grammar toward a single look. If this file ever reads as 'always do <one specific treatment>' (e.g. 'iridescent mesh on light'), it has FAILED its purpose.",
+    "anti_sameness": "These principles must remain a vocabulary the 30% exploration floor can argue against, deepen, or invert — never a template it must conform to. A principle that can only be obeyed one way is too specific; rewrite it as a tension.",
+    "usage": "Treat as provocations, not a checklist. Honor the live epoch's identity (SOUL.md); use these to deepen craft within it, or — at an epoch boundary — to reach somewhere genuinely new. Never satisfy them all at once; pick the few that sharpen THIS generation."
+  },
+  "principles": {
+    "typography": [
+      "A high-contrast editorial serif (or expressive display face) paired with a mono utility voice signals craft and authority at once — the serif carries meaning, the mono carries the machine. Default system sans used everywhere is the AI-default tell.",
+      "Type can carry the whole composition. Oversized, confident display type over restrained everything-else reads as a poster, not a webpage — let one headline be the architecture.",
+      "A modular scale (one ratio, e.g. 1.2/1.25/1.333/golden) creates rhythm the eye trusts; three sizes that merely differ is not a scale. Hierarchy comes from weight, size, and color within at most two families.",
+      "Mixing typefaces with intent — contrasting classification but shared proportion or era — generates tension without chaos. The contrast is the point; matched-but-different is the skill.",
+      "Variability over mechanical perfection can read as MORE crafted: deliberate misalignment, mixed-origin letterforms, a collaged/'ransom' density convey a human hand where uniform kerning conveys a generator. Use sparingly and on purpose, never as an accident.",
+      "Micro-typography as content: surface the working details — grids, labels, indices, technical annotations, timestamps — as compositional elements, not hidden chrome. Expertise shown reads as expertise."
+    ],
+    "composition": [
+      "Whitespace is compositional mass, not leftover gaps. Negative space as an active, dominant element is the clearest signal of confidence; cramped or evenly-bland padding both read as unconsidered.",
+      "Asymmetry and an off-axis anchor create dynamic rhythm; default-centered symmetry is the safe stand-in for composition, not composition itself. Earn symmetry when the idea demands it.",
+      "Loose, editorial, zine-like layouts — overlapping elements, controlled chaos, a considered grid you can also break — read as authored. A nav-tagline-CTA-feature-grid-footer skeleton reads as a SaaS template.",
+      "One clear focal hierarchy per viewport: the eye must know where to land first, everything else subordinate. Multiple elements at equal weight = no hierarchy = slop.",
+      "Inventory/taxonomy as a layout device: disparate things arranged as a curated, gridded collection (specimen-display logic) turns function into form through curation."
+    ],
+    "color": [
+      "One dominant accent governed by a named harmony (analogous / complementary / split / triadic / deliberate monochrome) plus restrained neutrals creates a recognizable identity; a rainbow of equal-weight hues dilutes it. The default purple-to-pink/indigo tech gradient is a cardinal AI-default tell.",
+      "Intentional dark mode reads as premium only when it is composed — graded grounds, a single ember/accent for hierarchy, warm vs cool decisions made on purpose — not merely 'dark theme on'.",
+      "Low-ink / faded / grain-textured color can read as intentional restraint and material honesty rather than failure — depletion, dissolve, and texture as expressive choices.",
+      "Color carries hierarchy: a single muted accent placed once can do more focal work than saturation everywhere."
+    ],
+    "restraint": [
+      "Restraint beats decoration: every element must earn its place. Knowing when to STOP adding and start refining whitespace is the senior move.",
+      "Decoration without hierarchy is the slop signature — uniform glows, gradients, glassmorphism, and drop-shadows applied as garnish rather than to establish focus add noise, not craft.",
+      "Inoffensive is not the goal; inoffensive is the slop. Excellence requires at least one decisive, intentional move a templated generator would not make — a signature, a risk, an editorial conviction.",
+      "Material honesty: let the medium show. On a generative/computational page, the system's real behavior (physics, mesh, type) IS the ornament; bolt-on decoration competes with it."
+    ],
+    "hero": [
+      "The hero / above-the-fold is ~half of perceived quality — resolve it FIRST and as a deliberate SYSTEM: the relationship between type, space, and any motion, not a centered headline floating on a background.",
+      "A single generative or computational hero (a mesh, a field, a swarm) held UNDER restrained type reads as institutional-but-alive — the motion proves it is living, the restraint proves it is serious.",
+      "Let the first viewport make one promise and keep it: a stranger should grasp what this is and feel a point of view within a second, without a wall of explanation or a void of particles."
+    ],
+    "motion": [
+      "Motion must have purpose: it should reveal structure, respond to the visitor, or express the organism's state — never animate for decoration's sake.",
+      "Forms that look 'already on the move' — soft, organic, morphing outlines — carry life across static and animated states without literal animation; stillness can imply motion.",
+      "Restraint in motion is craft too: one considered, slow, intentional movement beats many competing micro-animations."
+    ],
+    "materiality_texture": [
+      "Evidence of making — scan artifacts, hand-drawn lines, deliberate imperfection, layered mixed-media density — distinguishes authored work from templated/AI-generated output in an era of digital fatigue. For a code organism, the equivalent is exposing real generative process, not faking texture.",
+      "Density done as curation (dense visual stacking that is organized, not cluttered) reads as crafted; density as accumulation reads as bloat."
+    ],
+    "anti_slop_signals": [
+      "AVOID the template: centered hero + purple/indigo gradient + a symmetric row of three feature cards. The single most common AI-default layout.",
+      "AVOID safe default sans everywhere with no typographic point of view.",
+      "AVOID decoration without hierarchy and symmetry-as-composition.",
+      "AVOID the generic SaaS-landing shape on a page that is supposed to be a living art organism.",
+      "AVOID producing anything a templated generator would have produced — if there is no risk and no signature, it is slop regardless of polish."
+    ]
+  },
+  "generative_tensions": [
+    "editorial stillness  <->  living motion : how much should the page move to feel alive without becoming a screensaver?",
+    "density (collage, taxonomy)  <->  void (negative space as mass) : both can read as craft; which serves THIS epoch's identity?",
+    "machine voice (mono, grids, telemetry)  <->  human voice (serif, hand, imperfection) : the andremacedo organism is both — where does the seam sit this generation?",
+    "restraint  <->  one decisive risk : restraint everywhere is also slop; place the single bold move deliberately.",
+    "legibility  <->  expression : when may meaning or mood override neutral readability (decorative text), and when must communicative text simply communicate (INV-9)?"
+  ],
+  "provenance": [
+    "2026-06-26 seed: studied contemporary editorial/typographic web direction, design-engineering portfolio aesthetics, and the crafted-vs-AI-generated distinction (typography-as-architecture, asymmetric/editorial composition, one-accent color identity, intentional dark mode, restraint/refinement, whitespace-as-form, variability-over-perfection, low-ink/material-honesty, show-the-working-process micro-typography, purpose-driven motion). Distilled to principles; no sites retained."
+  ]
+}
