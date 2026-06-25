@@ -1,0 +1,61 @@
+<!doctype html>
+<!-- Calibration fixture: GENUINELY CRAFTED. Editorial dark, modular 1.333 scale,
+     8px spacing, one focal hero, asymmetric composition, restrained palette,
+     intentional serif+mono pairing. The craft judge MUST pass this. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>field notes</title>
+<style>
+  :root{
+    --ink:#14110d; --paper:#ece6da; --dim:#8a8276; --line:#2c2820; --ember:#c8634a;
+    --u:8px;                 /* spacing base unit */
+    --t0:15px; --t1:20px; --t2:27px; --t4:48px; --t6:113px;  /* modular scale r=1.333 */
+    --serif:Georgia,"Times New Roman",serif;
+    --mono:ui-monospace,"SF Mono",Menlo,monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    background:var(--ink); color:var(--paper); font-family:var(--serif);
+    -webkit-font-smoothing:antialiased; line-height:1.5;
+    padding:calc(var(--u)*7) calc(var(--u)*9);
+    display:grid; grid-template-rows:auto 1fr auto; min-height:100vh;
+  }
+  .kicker{
+    font-family:var(--mono); font-size:var(--t0); letter-spacing:.34em;
+    text-transform:uppercase; color:var(--dim);
+    display:flex; justify-content:space-between; align-items:baseline;
+  }
+  .kicker::after{content:""; height:1px; background:var(--line); flex:1; margin-left:calc(var(--u)*3)}
+  main{align-self:center; max-width:62%; padding-top:calc(var(--u)*4)}
+  .idx{font-family:var(--mono); font-size:var(--t1); color:var(--ember); margin-bottom:calc(var(--u)*3)}
+  h1{
+    font-size:var(--t6); line-height:.96; font-weight:400;
+    letter-spacing:-.022em; text-wrap:balance;
+  }
+  h1 em{font-style:italic; color:var(--dim)}
+  .lede{
+    font-size:var(--t2); color:var(--dim); line-height:1.45;
+    max-width:30ch; margin-top:calc(var(--u)*5); font-style:italic;
+  }
+  footer{
+    font-family:var(--mono); font-size:var(--t0); color:var(--dim);
+    display:flex; gap:calc(var(--u)*6); border-top:1px solid var(--line);
+    padding-top:calc(var(--u)*3);
+  }
+  footer b{color:var(--paper); font-weight:400}
+</style>
+</head>
+<body>
+  <div class="kicker"><span>field notes</span><span>№ 037</span></div>
+  <main>
+    <div class="idx">01 — sediment</div>
+    <h1>The slow grammar of <em>things that</em> settle.</h1>
+    <p class="lede">A study in restraint: weight held on one axis, the rest left
+      deliberately empty.</p>
+  </main>
+  <footer><span><b>andre macedo</b></span><span>barcelona</span><span>2026</span></footer>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!doctype html>
+<!-- Calibration fixture: DELIBERATE SLOP. Every cardinal slop state from the
+     rubric: centered hero + purple gradient + three feature cards, system sans,
+     decoration-without-hierarchy, symmetry-as-composition, generic SaaS shape.
+     The craft judge MUST flag this (is_slop:true) with specific findings. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Welcome</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{
+    font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    background:linear-gradient(135deg,#6e7ff2 0%,#a855f7 50%,#ec4899 100%);
+    color:#fff; min-height:100vh; text-align:center;
+  }
+  nav{display:flex; justify-content:center; gap:32px; padding:24px; font-size:15px}
+  nav a{color:rgba(255,255,255,.9); text-decoration:none}
+  .hero{padding:80px 20px 60px}
+  .hero h1{font-size:52px; font-weight:700; margin-bottom:20px}
+  .hero p{font-size:20px; opacity:.9; margin-bottom:32px}
+  .cta{
+    background:#fff; color:#7c3aed; border:none; padding:16px 40px;
+    font-size:17px; font-weight:600; border-radius:999px; cursor:pointer;
+    box-shadow:0 10px 30px rgba(0,0,0,.2);
+  }
+  .cards{display:flex; justify-content:center; gap:24px; padding:40px 20px; flex-wrap:wrap}
+  .card{
+    background:rgba(255,255,255,.12); backdrop-filter:blur(10px);
+    border:1px solid rgba(255,255,255,.2); border-radius:16px;
+    padding:32px; width:300px; box-shadow:0 8px 32px rgba(0,0,0,.15);
+  }
+  .card .icon{font-size:40px; margin-bottom:16px}
+  .card h3{font-size:22px; font-weight:600; margin-bottom:12px}
+  .card p{font-size:15px; opacity:.85; line-height:1.6}
+  footer{padding:40px; font-size:14px; opacity:.7}
+</style>
+</head>
+<body>
+  <nav><a>Home</a><a>Features</a><a>Pricing</a><a>Contact</a></nav>
+  <div class="hero">
+    <h1>Welcome to the Future</h1>
+    <p>The all-in-one platform to supercharge your workflow.</p>
+    <button class="cta">Get Started Free</button>
+  </div>
+  <div class="cards">
+    <div class="card"><div class="icon">🚀</div><h3>Fast</h3><p>Lightning quick performance that scales with your needs effortlessly.</p></div>
+    <div class="card"><div class="icon">🔒</div><h3>Secure</h3><p>Enterprise-grade security to keep your data safe and protected always.</p></div>
+    <div class="card"><div class="icon">✨</div><h3>Simple</h3><p>An intuitive experience your whole team will love from day one.</p></div>
+  </div>
+  <footer>© 2026 Acme Inc. All rights reserved.</footer>
+</body>
+</html>
