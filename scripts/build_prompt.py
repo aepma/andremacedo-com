@@ -365,6 +365,18 @@ def format_genome_summary(genome, html):
 
 # ── Read inputs ──────────────────────────────────────────────────
 state = read_file(state_file, "{}")
+# Direction C cost lever: self_notes accreted one entry per generation (224+ at the
+# transition, ~437KB) and dominated the prompt. record-generation.py no longer
+# appends to it (it writes last_self_note), so inject only the recent tail — the
+# model gets continuity without paying ~95K tokens/run for stale history. The
+# on-disk lineage in agent-state.json is left fully intact.
+try:
+    _st = json.loads(state)
+    if isinstance(_st.get("self_notes"), list) and len(_st["self_notes"]) > 20:
+        _st["self_notes"] = _st["self_notes"][-20:]
+        state = json.dumps(_st, ensure_ascii=False, indent=2)
+except Exception:
+    pass
 external = read_file(external_file, "{}")
 # Weather cut (epoch-7 clearing): strip the "weather" key from the external feed
 # before injection so the agent forages in a weather-free environment. Keeps
@@ -699,7 +711,7 @@ VISUAL STRATEGY: You MUST declare a visual_strategy for this weekly session. Thi
 - Use unexpected color combinations (not just "accent on dark")
 Read SOUL.md's VISUAL DIVERSITY MANDATE. The --bg, --fg, --bg-surface, --bg-elevated CSS vars can ALL change radically — but a weekly reinvention is the START of a new coherent epoch identity, not weekly thrashing for its own sake.
 
-Craft over novelty: a disciplined, well-made look beats arbitrary change, and Craft is one of the fitness axes you are judged on. CRAFT STANDARD (every generation): Use a modular type scale (a consistent ratio, e.g. 1.25 or 1.333 — not ad-hoc font sizes). Put spacing on a consistent system (a base unit and multiples — not arbitrary pixel values). Use whitespace deliberately as a compositional element, not just gaps. Establish ONE clear focal hierarchy per viewport. Restraint beats decoration. The contrast gate keeps text legible; this standard keeps the page graceful. Before deploy, state in a 'craft_check' field how this generation meets the type-scale, spacing-system, and hierarchy standards — a label is not compliance, name the actual ratio and base unit used.
+Craft over novelty: a disciplined, well-made look beats arbitrary change. Craft is now judged EXTERNALLY on your RENDERED screenshot by two independent adversarial critics (see "CRAFT IS JUDGED EXTERNALLY" below) — there is NO craft_check field and no self-grading; a stated label is worthless. Still hold the craft substance: a modular type scale (one consistent ratio, not ad-hoc sizes), spacing on a consistent base unit, whitespace as composition, ONE clear focal hierarchy per viewport, restraint over decoration. The aesthetic vocabulary appended below is your creative material.
 
 SCENE AUDIT: Review the WebGL scene parameters. Consider:
 - Changing particle count, orbital radius, speed to alter density and energy
@@ -734,7 +746,7 @@ Respond ONLY in valid JSON:
   "weekly_reflection": "string",
   "accent_palette": {{ "base": "#hex", "dawn": "#hex", "morning": "#hex", "afternoon": "#hex", "evening": "#hex", "night": "#hex" }} or null,
   "palette_rationale": "string — one sentence naming the harmony relationship (analogous|complementary|split-complementary|triadic|monochrome) and why it fits the current identity" or null,
-  "craft_check": "string — name the actual modular type-scale ratio, the spacing base unit, and the focal hierarchy used this generation" or null,
+  "summary": "string — one concise line describing this generation, used as the commit subject",
   "css_changes": {{ "--var": "value" }} or null,
   "new_css_rules": "CSS string" or null,
   "font_change": {{ "display": "name", "body": "name", "mono": "name" }} or null,
@@ -837,7 +849,7 @@ Tasks:
 1. REQUIRED: Evaluate fitness (fitness_evaluation). Be honest.
 2. Generate 3-5 new thoughts. Replace weak ones. Concrete images. Fragments. No corporate language.
 3. REQUIRED: Declare a visual_strategy for this generation. This is your high-level visual concept: "light mode brutalist", "gradient dusk", "monochrome charcoal", "white space minimalist", "saturated split-screen", "inverted high-contrast", etc. Your CSS changes and accent palette MUST match this strategy. The background (--bg) can be ANY color — white, cream, deep red, electric blue — not just dark. Within an epoch, refine and deepen ONE coherent identity rather than thrashing the look day to day. Read SOUL.md's VISUAL DIVERSITY MANDATE carefully.
-   Craft over novelty: a disciplined, well-made look beats arbitrary change, and Craft is one of the fitness axes you are judged on. CRAFT STANDARD (every generation): Use a modular type scale (a consistent ratio, e.g. 1.25 or 1.333 — not ad-hoc font sizes). Put spacing on a consistent system (a base unit and multiples — not arbitrary pixel values). Use whitespace deliberately as a compositional element, not just gaps. Establish ONE clear focal hierarchy per viewport. Restraint beats decoration. The contrast gate keeps text legible; this standard keeps the page graceful. Before deploy, state in a 'craft_check' field how this generation meets the type-scale, spacing-system, and hierarchy standards — a label is not compliance, name the actual ratio and base unit used.
+   Craft over novelty: a disciplined, well-made look beats arbitrary change. Craft is now judged EXTERNALLY on your RENDERED screenshot by two independent adversarial critics (see "CRAFT IS JUDGED EXTERNALLY" below) — there is NO craft_check field and no self-grading; a stated label is worthless. Still hold the craft substance: a modular type scale (one consistent ratio, not ad-hoc sizes), spacing on a consistent base unit, whitespace as composition, ONE clear focal hierarchy per viewport, restraint over decoration. The aesthetic vocabulary appended below is your creative material.
 4. REQUIRED: Accent color palette governed by HARMONY, not difference. Declare a NAMED harmony relationship — one of: analogous, complementary, split-complementary, triadic, or deliberate monochrome — and state the relationship between the accent, the background (--bg), and a neutral. Use ONE dominant accent with restraint (no rainbow of equal-weight hues); a recognizable identity beats arbitrary difference. Within an epoch the palette should evolve and deepen while staying coherent — do not change for the sake of changing. Not repeating the last 3 hue families (see COLOR HISTORY) is only a soft tiebreaker between two equally-harmonious options, NOT the objective. Emit a "palette_rationale": one sentence naming the harmony relationship and why it fits the current identity. Banned forever: teal (#1de9b6 and similar), salmon (#c4706a), safe gold (#c4a35a).
 5. Optionally: mood shift, new secret, external reaction.
 6. At least 1 STRUCTURAL mutation: create/replace a section, add canvas art, generate SVG, create a page. Color tweaks alone don't count.
@@ -854,7 +866,7 @@ Respond ONLY in valid JSON:
   "external_reaction": "string" or null,
   "accent_palette": {{ "base": "#hex", "dawn": "#hex", "morning": "#hex", "afternoon": "#hex", "evening": "#hex", "night": "#hex" }},
   "palette_rationale": "string — one sentence naming the harmony relationship (analogous|complementary|split-complementary|triadic|monochrome) and why it fits the current identity" or null,
-  "craft_check": "string — name the actual modular type-scale ratio, the spacing base unit, and the focal hierarchy used this generation" or null,
+  "summary": "string — one concise line describing this generation, used as the commit subject",
   "obsession_update": {{ "topic": "string", "rationale": "string" }} or null,
   "css_changes": {{ "--bg": "#hex", "--fg": "#hex", "--var": "value" }} or null,
   "new_css_rules": "CSS string" or null,
@@ -878,5 +890,59 @@ invariants_contract = read_file(
 ).strip()
 if invariants_contract:
     prompt += "\n\n" + invariants_contract
+
+# ── Direction C: regenerate-from-intent + taste layer (appended to every pulse,
+#    after invariants, so it is the last and authoritative creative framing) ──
+_dirc = []
+_dirc.append(
+    "## REGENERATE-FROM-INTENT — how your work ships now\n"
+    "You no longer emit a mutation diff. You write a COMPLETE, self-contained "
+    "index.html directly (the SESSION PROTOCOL below is authoritative on the exact "
+    "files to write and the frozen substrate you MUST paste in verbatim), then a "
+    "small generation-meta.json recording this generation. The 'section_operations "
+    "/ scene_changes / new_pages' JSON mechanics described earlier are LEGACY — "
+    "treat them as a menu of what is possible to build, NEVER as your reply format. "
+    "Your visual changes go straight into the page you write.")
+_dirc.append(
+    "## HERO-FIRST (resolve before anything else)\n"
+    "About half of a visitor's perceived quality is the hero / above-the-fold. "
+    "Resolve it FIRST, as a deliberate SYSTEM — the relationship between type, "
+    "space, and any motion — before you build the rest. A generic centered headline "
+    "floating over a background is a failure. Decide the hero's composition, its "
+    "type, and ONE decisive aesthetic move, then build outward from it.")
+_dirc.append(
+    "## HOLD THIS EPOCH'S IDENTITY (coherence has teeth now)\n"
+    "The attached screenshot(s) are recent generations and the GENOME above is your "
+    "lineage. Unless the live epoch has genuinely died (SOUL.md), DEEPEN this epoch's "
+    "identity — do not thrash into something unrecognizable from last week. "
+    "Abandoning a live epoch's visual identity is judged a FAILURE at the verdict "
+    "gate (the Coherence and Novelty axes are enforced, not just logged), not a "
+    "style choice.")
+_dirc.append(
+    "## CRAFT IS JUDGED EXTERNALLY (there is no craft_check to write)\n"
+    "Your RENDERED screenshot is scored by TWO independent adversarial critics from "
+    "different model families. They assume slop until proven otherwise and name what "
+    "is generic, safe, or template-grade. is_slop from EITHER critic — or a craft "
+    "score below threshold — FAILS the whole generation (working tree reverted, "
+    "previous deploy stays live), exactly like a contrast failure. A self-reported "
+    "label is worthless; make it genuinely excellent. Use the vocabulary below as "
+    "creative material — principles to fight WITH, not a template to obey, and never "
+    "satisfy them all at once.")
+try:
+    _vpath = os.path.join(os.path.dirname(os.path.abspath(soul_file)), "data", "aesthetic-vocabulary.json")
+    _voc = json.load(open(_vpath, encoding="utf-8"))
+    _vl = ["## AESTHETIC VOCABULARY (agent-curated reference — creative material, not law)"]
+    for _cat, _items in _voc.get("principles", {}).items():
+        _vl.append(f"### {_cat}")
+        _vl += [f"- {_p}" for _p in _items]
+    _tens = _voc.get("generative_tensions", [])
+    if _tens:
+        _vl.append("### tensions to compose between (your 30% exploration floor fights WITH these)")
+        _vl += [f"- {_t}" for _t in _tens]
+    _dirc.append("\n".join(_vl))
+except Exception:
+    pass
+
+prompt += "\n\n" + "\n\n".join(_dirc)
 
 print(prompt)
