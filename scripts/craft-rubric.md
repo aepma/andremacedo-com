@@ -6,6 +6,12 @@ rendered generation to. It judges the SCREENSHOT — the pixels a visitor sees �
 never the agent's stated intentions, craft_check, or visual_strategy. The maker
 does not grade its own craft.
 
+**Two independent critics from different model families** apply this rubric to the
+same screenshot — `claude-opus-4-8-oauth` and `grok-4-1-fast-reasoning` (fallback
+`gemini-3.5-flash` only if grok is slow/flaky). The point is uncorrelated blind
+spots, not raw capability. The page ships only if BOTH return not-slop and clear
+the threshold; either critic flagging slop is a FAILED verdict (see Pass condition).
+
 ## ANTIFRAGILE RATCHET (law)
 This rubric may only be amended to become **MORE** demanding — tighter slop
 definitions, higher bars, new failure states. It may **never** be relaxed to let
@@ -83,8 +89,10 @@ The judge returns JSON only:
 ```
 
 ## Pass condition (enforced by the runner's verdict gate)
-A generation PASSES craft only if `is_slop == false` **AND** `overall >=`
-threshold (current default 7.0; ratchet upward only). Anything else is a FAILED
-verdict: fail-closed, working tree reverted, previous deploy stays live — exactly
-like a contrast failure. A craft judge that cannot run (proxy down, image
-missing) is also fail-closed: unverified craft does not ship.
+CONJUNCTIVE across the two critics: a generation PASSES craft only if **BOTH**
+critics return `is_slop == false` **AND** `overall >=` threshold (current default
+7.0; ratchet upward only). Either critic flagging slop, or scoring below
+threshold, is a FAILED verdict: fail-closed, working tree reverted, previous
+deploy stays live — exactly like a contrast failure. A critic that cannot be
+obtained (proxy down, image missing, and — for critic B — its fallback also
+failing) is likewise fail-closed: unverified craft does not ship.

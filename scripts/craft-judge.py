@@ -1,30 +1,34 @@
 #!/usr/bin/env python3
-"""craft-judge.py — adversarial craft judge for andremacedo.com (taste layer).
+"""craft-judge.py — DUAL adversarial craft judge for andremacedo.com (taste layer).
 
 Fresh-eyes verification of CRAFT, the external/adversarial counterpart to the
-agent's (untrusted) self-reported craft_check. Feeds the RENDERED screenshot(s)
-to gemini-2.5-pro via the local LiteLLM proxy (localhost:4000, no credentials)
-with one adversarial job: assume slop until proven otherwise, score against
-scripts/craft-rubric.md, and name what is generic/safe/template-grade. It judges
-the pixels, never the agent's stated intentions.
+agent's (untrusted) self-reported craft_check. Two INDEPENDENT critics from
+DIFFERENT model families judge the same rendered screenshot(s) against the same
+rubric — the point is uncorrelated blind spots, not raw capability:
 
-Wired into the runner verdict gate in Phase 3: is_slop OR overall < threshold =>
-FAILED (fail-closed, working tree reverted, previous deploy stays live), exactly
-like a contrast failure. A judge that cannot run is also fail-closed.
+  Critic A = claude-opus-4-8-oauth
+  Critic B = grok-4-1-fast-reasoning   (different family)
+             fallback gemini-3.5-flash ONLY if B is slow/flaky (never gemini-2.5-pro)
 
-Exit codes:  0 = PASS (craft cleared)   1 = FAIL (slop or below threshold)
-             2 = ERROR (could not judge — treat as fail-closed at the gate)
+Combination is fail-closed and conjunctive: SHIP ONLY IF BOTH critics return
+not-slop AND each clears the threshold. EITHER critic flagging slop (or a critic
+we cannot obtain a verdict from) => FAILED verdict at the runner gate (working
+tree reverted, previous deploy stays live), exactly like a contrast failure.
 
-Usage:
-  craft-judge.py --desktop /tmp/andremacedo-self-desktop.jpg \
-                 [--mobile /tmp/andremacedo-self-mobile.jpg] \
-                 [--rubric scripts/craft-rubric.md] [--threshold 7.0] \
-                 [--model gemini/gemini-2.5-pro] [--json-out PATH] [--quiet]
+Both judge the SCREENSHOT — never the agent's stated intentions. Model IDs are
+verified against the live proxy (curl localhost:4000/v1/models) before wiring,
+never assumed from memory.
+
+Exit codes:  0 = PASS (both critics cleared)
+             1 = FAIL (either critic flagged slop or scored below threshold)
+             2 = ERROR (a critic could not be obtained — fail-closed at the gate)
 """
-import argparse, base64, json, os, sys, urllib.request, urllib.error
+import argparse, base64, json, os, sys, urllib.request
 
 DEFAULT_URL = "http://localhost:4000/v1/chat/completions"
-DEFAULT_MODEL = "gemini/gemini-2.5-pro"
+CRITIC_A = "claude-opus-4-8-oauth"
+CRITIC_B = "grok-4-1-fast-reasoning"
+CRITIC_B_FALLBACK = "gemini-3.5-flash"          # never gemini-2.5-pro (deprecated)
 HERE = os.path.dirname(os.path.abspath(__file__))
 DEFAULT_RUBRIC = os.path.join(HERE, "craft-rubric.md")
 
@@ -49,7 +53,7 @@ def b64_data_url(path):
         raw = f.read()
     ext = os.path.splitext(path)[1].lower()
     mime = "image/png" if ext == ".png" else "image/jpeg"
-    return f"data:{mime};base64," + base64.b64encode(raw).decode("ascii"), len(raw)
+    return f"data:{mime};base64," + base64.b64encode(raw).decode("ascii")
 
 
 def build_user_content(rubric, desktop, mobile):
@@ -70,12 +74,10 @@ def build_user_content(rubric, desktop, mobile):
             "DESKTOP render follows:"
         ),
     }]
-    url, _ = b64_data_url(desktop)
-    parts.append({"type": "image_url", "image_url": {"url": url}})
+    parts.append({"type": "image_url", "image_url": {"url": b64_data_url(desktop)}})
     if mobile and os.path.isfile(mobile):
         parts.append({"type": "text", "text": "MOBILE render follows:"})
-        murl, _ = b64_data_url(mobile)
-        parts.append({"type": "image_url", "image_url": {"url": murl}})
+        parts.append({"type": "image_url", "image_url": {"url": b64_data_url(mobile)}})
     return parts
 
 
@@ -87,7 +89,7 @@ def call_proxy(url, model, system, user_content, timeout, retries):
         "temperature": 0.2,
     }).encode("utf-8")
     last = None
-    for attempt in range(retries):
+    for _ in range(retries):
         try:
             req = urllib.request.Request(
                 url, data=payload, headers={"Content-Type": "application/json"})
@@ -96,7 +98,7 @@ def call_proxy(url, model, system, user_content, timeout, retries):
             return body["choices"][0]["message"]["content"]
         except Exception as e:  # noqa: BLE001 — proxy/network/parse all fail-closed
             last = e
-    raise RuntimeError(f"proxy call failed after {retries} attempt(s): {last}")
+    raise RuntimeError(f"{model}: proxy call failed after {retries} attempt(s): {last}")
 
 
 def extract_json(text):
@@ -109,7 +111,6 @@ def extract_json(text):
         return json.loads(t)
     except Exception:
         pass
-    # fall back to first balanced {...}
     start = t.find("{")
     if start < 0:
         raise ValueError("no JSON object in model output")
@@ -138,16 +139,24 @@ def normalize(v):
     }
 
 
+def judge_one(url, model, content, timeout, retries):
+    """Run a single critic; returns a normalized verdict or raises."""
+    return normalize(extract_json(call_proxy(url, model, SYSTEM, content, timeout, retries)))
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--desktop", required=True)
     ap.add_argument("--mobile")
     ap.add_argument("--rubric", default=DEFAULT_RUBRIC)
-    ap.add_argument("--model", default=DEFAULT_MODEL)
     ap.add_argument("--url", default=DEFAULT_URL)
+    ap.add_argument("--critic-a", default=CRITIC_A)
+    ap.add_argument("--critic-b", default=CRITIC_B)
+    ap.add_argument("--critic-b-fallback", default=CRITIC_B_FALLBACK)
     ap.add_argument("--threshold", type=float, default=7.0)
-    ap.add_argument("--timeout", type=float, default=120.0)
-    ap.add_argument("--retries", type=int, default=3)
+    ap.add_argument("--timeout-a", type=float, default=120.0)
+    ap.add_argument("--timeout-b", type=float, default=90.0)   # grok reasoning can be slower; beyond this -> fallback
+    ap.add_argument("--retries", type=int, default=2)
     ap.add_argument("--json-out")
     ap.add_argument("--quiet", action="store_true")
     args = ap.parse_args()
@@ -161,25 +170,65 @@ def main():
         sys.exit(code)
 
     if not os.path.isfile(args.desktop):
-        emit({"error": f"desktop screenshot missing: {args.desktop}",
-              "verdict": "ERROR", "is_slop": True}, 2)
+        emit({"verdict": "ERROR", "is_slop": True, "error": f"desktop screenshot missing: {args.desktop}"}, 2)
     try:
         rubric = open(args.rubric, encoding="utf-8").read()
     except Exception as e:
-        emit({"error": f"rubric unreadable: {e}", "verdict": "ERROR", "is_slop": True}, 2)
+        emit({"verdict": "ERROR", "is_slop": True, "error": f"rubric unreadable: {e}"}, 2)
 
+    content = build_user_content(rubric, args.desktop, args.mobile)
+
+    # Critic A — no fallback; if it cannot be obtained, we cannot verify craft.
     try:
-        content = build_user_content(rubric, args.desktop, args.mobile)
-        raw = call_proxy(args.url, args.model, SYSTEM, content, args.timeout, args.retries)
-        v = normalize(extract_json(raw))
+        a = judge_one(args.url, args.critic_a, content, args.timeout_a, args.retries)
+        a_model = args.critic_a
     except Exception as e:  # noqa: BLE001
-        emit({"error": str(e), "verdict": "ERROR", "is_slop": True}, 2)
+        emit({"verdict": "ERROR", "is_slop": True,
+              "error": f"critic A ({args.critic_a}) unobtainable: {e}"}, 2)
 
-    passed = (not v["is_slop"]) and v["overall"] >= args.threshold
-    v["threshold"] = args.threshold
-    v["model"] = args.model
-    v["verdict"] = "PASS" if passed else "SLOP"
-    emit(v, 0 if passed else 1)
+    # Critic B — grok; fall back to gemini-3.5-flash ONLY if grok is slow/flaky.
+    b_fell_back_from = None
+    try:
+        b = judge_one(args.url, args.critic_b, content, args.timeout_b, args.retries)
+        b_model = args.critic_b
+    except Exception as e_b:  # noqa: BLE001
+        try:
+            b = judge_one(args.url, args.critic_b_fallback, content, args.timeout_a, args.retries)
+            b_model = args.critic_b_fallback
+            b_fell_back_from = f"{args.critic_b} ({e_b})"
+        except Exception as e_fb:  # noqa: BLE001
+            emit({"verdict": "ERROR", "is_slop": True,
+                  "error": f"critic B unobtainable: {args.critic_b} -> {e_b}; "
+                           f"fallback {args.critic_b_fallback} -> {e_fb}"}, 2)
+
+    def critic_passed(v):
+        return (not v["is_slop"]) and v["overall"] >= args.threshold
+
+    a_pass, b_pass = critic_passed(a), critic_passed(b)
+    passed = a_pass and b_pass  # CONJUNCTIVE: ship only if BOTH clear
+
+    def fail_desc(label, model, v):
+        why = "slop" if v["is_slop"] else "{}<{}".format(v["overall"], args.threshold)
+        return "{}/{}({})".format(label, model, why)
+
+    failers = []
+    if not a_pass:
+        failers.append(fail_desc("A", a_model, a))
+    if not b_pass:
+        failers.append(fail_desc("B", b_model, b))
+
+    verdict = {
+        "verdict": "PASS" if passed else "SLOP",
+        "is_slop": a["is_slop"] or b["is_slop"],
+        "threshold": args.threshold,
+        "overall_min": min(a["overall"], b["overall"]),
+        "reason": "both critics cleared" if passed else "failed: " + ", ".join(failers),
+        "critics": {
+            "A": {"model": a_model, "passed": a_pass, **a},
+            "B": {"model": b_model, "fell_back_from": b_fell_back_from, "passed": b_pass, **b},
+        },
+    }
+    emit(verdict, 0 if passed else 1)
 
 
 if __name__ == "__main__":
