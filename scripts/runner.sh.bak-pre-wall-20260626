@@ -431,7 +431,7 @@ HELPER_SCRIPT="${ANDREMACEDO_HELPER:-$HOME/.openclaw/scripts/claude-subscription
 # Hard wall on the whole claude session. No outer bounded-exec wraps this
 # launchd job, so the runner owns the ceiling itself; tmo returns 124 on
 # overrun, which lands in the helper-failure branch below (fail-closed).
-SESSION_WALL_CEILING=5400
+SESSION_WALL_CEILING=2400
 
 set +e
 if [ "$AGENTIC" = "1" ]; then

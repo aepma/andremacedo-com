@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>109 · Thin Film — andremacedo.com</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..500;1,9..144,300..400&family=JetBrains+Mono:wght@300;400;500&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{width:100%;height:100%;overflow:hidden;background:#faf8f4;color:#1a1a20;font-family:'JetBrains Mono',monospace;}
+#c{position:fixed;inset:0;width:100%;height:100%;display:block;cursor:crosshair;}
+.ov{position:fixed;z-index:5;text-shadow:0 0 8px rgba(0,0,0,0.8),0 0 20px rgba(0,0,0,0.5);}
+#info{top:1.4rem;left:1.4rem;max-width:22rem;opacity:0.92;}
+#info h1{font-family:'Fraunces',serif;font-weight:330;font-size:1.7rem;letter-spacing:-0.01em;margin:0 0 0.5rem;color:#fff;}
+#info p{font-size:0.78rem;line-height:1.6;color:#f3f3f5;opacity:0.92;margin:0 0 0.4rem;}
+#info .k{color:#ffd2e6;letter-spacing:0.04em;}
+#read{bottom:1.4rem;left:1.4rem;font-size:0.74rem;color:#fff;letter-spacing:0.05em;}
+#back{top:1.4rem;right:1.4rem;font-size:0.74rem;color:#fff;text-decoration:none;border:1px solid rgba(255,255,255,0.5);padding:0.3rem 0.7rem;letter-spacing:0.08em;}
+#back:hover{background:rgba(255,255,255,0.15);}
+@media(max-width:600px){#info{max-width:78vw;}#info h1{font-size:1.3rem;}}
+</style>
+</head>
+<body>
+<canvas id="c" aria-label="full-screen thin-film interference field; drag to change film thickness"></canvas>
+<div id="info" class="ov">
+  <h1>Thin Film</h1>
+  <p>A film one wavelength thick makes color from nothing but its own thickness: some wavelengths interfere and brighten, the rest cancel. No pigment is present.</p>
+  <p class="k">Drag up / down — thin or thicken the film. Move sideways — change the angle of incidence. Click — hear the thickness as a pitch.</p>
+</div>
+<a id="back" class="ov" href="/">← back to TELOS</a>
+<div id="read" class="ov">thickness ≈ 430 nm</div>
+<script>
+(function(){
+  var c=document.getElementById('c'),g=c.getContext('2d');
+  var W,H,DPR=Math.min(window.devicePixelRatio||1,2);
+  function size(){W=window.innerWidth;H=window.innerHeight;c.width=Math.round(W*DPR);c.height=Math.round(H*DPR);g.setTransform(DPR,0,0,DPR,0,0);}
+  size();window.addEventListener('resize',size);
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+  var base=430,target=430,angle=0,tAngle=0;
+  var start=(window.performance&&performance.now)?performance.now():Date.now();
+  function film(d){
+    var r=0.40+0.60*(0.5+0.5*Math.cos(4*Math.PI*d/680));
+    var gg=0.40+0.60*(0.5+0.5*Math.cos(4*Math.PI*d/530));
+    var b=0.40+0.60*(0.5+0.5*Math.cos(4*Math.PI*d/440));
+    return [r,gg,b];
+  }
+  var COLS=64,ROWS=40;
+  function hash(x,y){var n=Math.sin(x*127.1+y*311.7)*43758.5453;return n-Math.floor(n);}
+  function noise(x,y){var ix=Math.floor(x),iy=Math.floor(y),fx=x-ix,fy=y-iy;
+    var a=hash(ix,iy),b=hash(ix+1,iy),cc=hash(ix,iy+1),d=hash(ix+1,iy+1);
+    var ux=fx*fx*(3-2*fx),uy=fy*fy*(3-2*fy);
+    return a*(1-ux)*(1-uy)+b*ux*(1-uy)+cc*(1-ux)*uy+d*ux*uy;}
+  function draw(){
+    var now=(window.performance&&performance.now)?performance.now():Date.now();
+    var t=(now-start)/1000;
+    base+=(target-base)*0.07;angle+=(tAngle-angle)*0.07;
+    var cw=W/COLS,ch=H/ROWS;
+    for(var j=0;j<ROWS;j++){
+      for(var i=0;i<COLS;i++){
+        var nx=i/COLS*3.0,ny=j/ROWS*3.0;
+        var warp=noise(nx+t*0.15,ny)+0.5*noise(nx*2.1-t*0.1,ny*2.1);
+        var d=(base+warp*260)/Math.cos(angle*0.9);
+        var col=film(d);
+        // pastel-on-light: lift toward white
+        var r=Math.round((0.32+0.68*col[0])*255);
+        var gg=Math.round((0.32+0.68*col[1])*255);
+        var b=Math.round((0.32+0.68*col[2])*255);
+        g.fillStyle='rgb('+r+','+gg+','+b+')';
+        g.fillRect(i*cw-1,j*ch-1,cw+2,ch+2);
+      }
+    }
+    if(!reduce)requestAnimationFrame(draw);
+  }
+  draw();
+  function move(x,y){
+    var ny=Math.max(0,Math.min(1,y/H));
+    var nx=Math.max(0,Math.min(1,x/W));
+    target=160+ny*820;
+    tAngle=(nx-0.5)*1.1;
+    var rd=document.getElementById('read');
+    if(rd)rd.textContent='thickness ≈ '+Math.round(target)+' nm · angle '+Math.round((nx-0.5)*70)+'°';
+  }
+  var dragging=false;
+  c.addEventListener('mousedown',function(e){dragging=true;move(e.clientX,e.clientY);});
+  window.addEventListener('mousemove',function(e){if(dragging)move(e.clientX,e.clientY);});
+  window.addEventListener('mouseup',function(){dragging=false;});
+  c.addEventListener('mousemove',function(e){move(e.clientX,e.clientY);});
+  // sound on click (opt-in gesture)
+  var actx=null;
+  c.addEventListener('click',function(){
+    if(!actx){try{actx=new(window.AudioContext||window.webkitAudioContext)();}catch(e){return;}}
+    if(actx.state==='suspended')actx.resume();
+    var f=196+(target-160)/820*620;
+    var o=actx.createOscillator(),gn=actx.createGain();
+    o.type='sine';o.frequency.value=f;
+    gn.gain.setValueAtTime(0.0001,actx.currentTime);
+    gn.gain.exponentialRampToValueAtTime(0.15,actx.currentTime+0.02);
+    gn.gain.exponentialRampToValueAtTime(0.0001,actx.currentTime+1.7);
+    o.connect(gn);gn.connect(actx.destination);o.start();o.stop(actx.currentTime+1.8);
+  });
+})();
+</script>
+</body>
+</html>

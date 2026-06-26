@@ -1,0 +1,61 @@
+{
+  "verdict": "PASS",
+  "is_slop": false,
+  "threshold": 7.0,
+  "overall_min": 7.8,
+  "reason": "both critics cleared",
+  "critics": {
+    "A": {
+      "model": "claude-opus-4-8-oauth",
+      "passed": true,
+      "axes": {
+        "type_scale": 8.0,
+        "spacing_system": 7.0,
+        "focal_hierarchy": 8.0,
+        "restraint": 7.0,
+        "hero": 8.0,
+        "composition": 8.0,
+        "type_craft": 9.0,
+        "color": 8.0
+      },
+      "overall": 7.8,
+      "is_slop": false,
+      "findings": [
+        "The iridescent oil-slick gradient in the hero, while thematically justified by the 'structural color' copy, edges close to the default AI rainbow-blob aesthetic — a more disciplined crop or partial bleed would have strengthened it rather than letting it fill the entire right half as wallpaper.",
+        "The second oil-slick block mid-page is visually redundant with the hero — same gradient language repeated without enough variation to feel like a distinct instrument; it reads as a reused asset rather than a new idea.",
+        "The 'Eight Obsessions' and Interference Log tables are competent but quietly conventional — Roman numerals + monospaced dates is a familiar editorial trick that doesn't push past 'tasteful catalog'.",
+        "Body measure on the left intro paragraph is narrow and the rag is somewhat awkward against the massive gradient — the relationship between text column and image feels adjacent rather than composed."
+      ],
+      "what_works": [
+        "The display serif setting of 'Color is not a pigment. It is an *angle* of light.' with the italicized 'angle' is a genuine editorial move — high-contrast serif against monospaced utility voice (operator stack, gen counters) is a real typographic point of view, not system-ui slop.",
+        "Drop cap on 'A morpho wing is brown' plus the pull quote treatment ('Tilt your head and the hue moves —') shows actual editorial layout thinking rather than generic blog styling.",
+        "The asymmetric hero — left-anchored type column, full-bleed iridescent field on the right, with small mono metadata floating top and bottom — is a decisive composition, not centered-symmetry default.",
+        "Mono utility chrome (ANDRE MACEDO / TELOS · ANDREMACEDO.COM / GEN 225) framing the page like a printed periodical masthead is a committed identity move."
+      ],
+      "reasoning": "This refuses the cardinal SaaS-landing shape: no centered hero with CTA, no three-card feature grid, no Inter-everywhere. The typographic system — editorial serif display, italic accents, drop cap, mono operator voice, numbered catalog of obsessions — reads as a deliberately authored periodical rather than a template. The iridescent oil-slick is the riskiest move and mostly earns its place because the copy explicitly thematizes structural color, though its repetition mid-page weakens the argument. Composition, type craft, and hierarchy are above the bar; restraint is the softest axis because the gradient does a lot of heavy lifting twice."
+    },
+    "B": {
+      "model": "grok-4-1-fast-reasoning",
+      "fell_back_from": null,
+      "passed": true,
+      "axes": {
+        "type_scale": 8.0,
+        "spacing_system": 8.0,
+        "focal_hierarchy": 9.0,
+        "restraint": 9.0,
+        "hero": 9.0,
+        "composition": 8.0,
+        "type_craft": 8.0,
+        "color": 8.0
+      },
+      "overall": 8.0,
+      "is_slop": false,
+      "findings": [],
+      "what_works": [
+        "hero split layout with large left-anchored serif quote against iridescent structural-color image",
+        "editorial restraint: minimal decoration, purposeful use of the color field as the sole chromatic element"
+      ],
+      "reasoning": "Desktop hero uses deliberate asymmetry and a single expressive image rather than centered template layout or gradient garnish. Type pairing and left-anchored text blocks establish clear hierarchy without symmetry-as-default. No cardinal slop states present; the page reads as a coherent editorial organism rather than SaaS scaffolding."
+    }
+  }
+}
