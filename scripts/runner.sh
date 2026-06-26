@@ -324,11 +324,16 @@ MANDATED SEQUENCE — every step is an assertion gate; do not skip or reorder:
    summary; plus epoch_name/obsession_update if the epoch changes; weekly also
    weekly_reflection). This is your RECORD of the generation, NOT an apply-this-
    diff — your visual changes are already in the index.html you wrote.
-4. Validate + render in ONE Bash call so each gate halts the chain:
-   python3 $SITE_DIR/scripts/validate-build.py $SITE_DIR/index.html && bash $SITE_DIR/scripts/screenshot-local.sh
-   BOTH must succeed. validate-build.py enforces INVARIANTS.md statically
-   (including the frozen substrate); screenshot-local.sh serves YOUR working tree
-   and writes /tmp/andremacedo-self-desktop.jpg and /tmp/andremacedo-self-mobile.jpg.
+4. Validate + render + run the DETERMINISTIC gates in ONE Bash call so each halts
+   the chain (these are the SAME gates the runner re-runs after you — pass them here):
+   python3 $SITE_DIR/scripts/validate-build.py $SITE_DIR/index.html && bash $SITE_DIR/scripts/screenshot-local.sh && node $SITE_DIR/scripts/mobile-gate.js $SITE_DIR/index.html && node $SITE_DIR/scripts/audit-contrast.js local $SITE_DIR/index.html
+   ALL must succeed. validate-build.py enforces INVARIANTS.md statically (incl. the
+   frozen substrate); screenshot-local.sh writes /tmp/andremacedo-self-desktop.jpg
+   and -mobile.jpg; mobile-gate.js is the runtime MOBILE check — it names exact
+   failures (e.g. \`TEXT_OVERLAP between "#a" and "#b"\`); audit-contrast.js rejects
+   WCAG-illegible text (you own legibility, INV-9 — there is no auto-clamp). If ANY
+   fails, read its output, make a TARGETED Edit to index.html fixing exactly what it
+   names (do not eyeball mobile — fix the named elements), and re-run this whole chain.
 5. LOOK at both screenshots with the Read tool (both in one turn). Apply the SOUL
    perceptibility gate + INVARIANTS to what you SEE:
    - Hero + first-person self-introduction fully visible above the fold and
@@ -355,7 +360,8 @@ MANDATED SEQUENCE — every step is an assertion gate; do not skip or reorder:
      • undifferentiated card/circle grid  -> ONE element with real focal dominance
      • safe default sans everywhere  -> an intentional pairing (e.g. editorial serif + mono)
      • generic SaaS nav/hero/grid/footer shape  -> an editorial/zine composition
-   Then re-run the step-4 validate+screenshot chain and re-run the craft judge.
+   Then re-run the FULL step-4 gate chain (validate + render + mobile + contrast —
+   craft edits can break mobile layout/contrast) and re-run the craft judge.
    Repeat for AT MOST 3 craft iterations. Keep INV-9 legible throughout. Do NOT
    emit OK until the craft judge returns PASS. If still SLOP after 3 iterations,
    emit GENERATION_VERDICT: FAILED — craft: <the findings that persisted>.
