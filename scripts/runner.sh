@@ -336,21 +336,39 @@ MANDATED SEQUENCE — every step is an assertion gate; do not skip or reorder:
    - All communicative text readable against its real background (INV-9).
    - Mobile: no horizontal overflow, no clipped content, nothing occluding the
      viewport (INV-5 spirit).
-   - CRAFT, honestly: after you, TWO external adversarial critics judge this exact
-     screenshot. A centered-hero-on-a-background, a SaaS-landing shape, default
-     sans, decoration without hierarchy, or anything template-grade will FAIL the
-     craft gate and NOT ship. If what you see is slop, fix it now.
-6. If any gate in 4-5 fails: AT MOST 2 fix iterations — a targeted Edit to
-   index.html (or a file you created this session). After EVERY fix, re-run the
-   validate+screenshot chain in step 4 and re-inspect per step 5. Stale
-   screenshots prove nothing.
-7. Final message: report concrete visual evidence (the hero text and where it
-   sits, your legibility + craft judgment, any fixes used), then the verdict as
-   the LAST line:
-   - every gate passed:               GENERATION_VERDICT: OK
-   - still failing after 2 fixes:     GENERATION_VERDICT: FAILED — <gate, what you saw>
+   If any of these fail, make a targeted Edit to index.html, re-run the step-4
+   validate+screenshot chain, and re-inspect. Stale screenshots prove nothing.
+
+6. CRAFT GATE — the external critics decide, then you fix what they NAME. This is
+   the loop that matters: your own taste just told you the page is fine, and the
+   data says self-judgment is exactly the faculty that fails (gen-1 self-graded a
+   centered-mandala SaaS page "OK"). So you do NOT grade your own craft — you RUN
+   two independent critics and FIX their findings. On your render:
+     python3 $SITE_DIR/scripts/craft-judge.py --desktop /tmp/andremacedo-self-desktop.jpg --json-out /tmp/craft-self.json --quiet ; echo "craft-exit=\$?"
+   Read /tmp/craft-self.json. If "verdict" == "PASS", craft cleared — go to step 7.
+   If "verdict" == "SLOP", the two critics each returned concrete findings
+   (critics.A.findings, critics.B.findings) naming exactly what is generic, safe,
+   or template-grade. Make TARGETED Edits to index.html that fix EACH named
+   finding — do not argue, do not re-grade yourself, FIX what they named:
+     • centered-symmetric hero  -> break the symmetry; one off-axis anchor
+     • default purple/indigo/blue palette  -> a governed harmony, one dominant accent
+     • undifferentiated card/circle grid  -> ONE element with real focal dominance
+     • safe default sans everywhere  -> an intentional pairing (e.g. editorial serif + mono)
+     • generic SaaS nav/hero/grid/footer shape  -> an editorial/zine composition
+   Then re-run the step-4 validate+screenshot chain and re-run the craft judge.
+   Repeat for AT MOST 3 craft iterations. Keep INV-9 legible throughout. Do NOT
+   emit OK until the craft judge returns PASS. If still SLOP after 3 iterations,
+   emit GENERATION_VERDICT: FAILED — craft: <the findings that persisted>.
+   (The runner re-runs this SAME dual judge after you as the authoritative gate, so
+   a real PASS is the only way to ship — there is no faking it.)
+
+7. Final message: report concrete visual evidence (the hero and where it sits, the
+   craft-judge verdict, how many craft iterations it took, what you fixed each
+   round), then the verdict as the LAST line:
+   - craft judge PASS + all gates clear:        GENERATION_VERDICT: OK
+   - still SLOP/failing after the iterations:   GENERATION_VERDICT: FAILED — <what persisted>
    On FAILED/SKIP the runner keeps the previous deployment live and reverts your
-   working tree. Never report OK without fresh passing screenshots.
+   working tree. Never report OK without a fresh craft-judge PASS.
 
 HARD RULES (violating any makes the generation FAILED):
 - FOREGROUND ONLY. No trailing &, no nohup, no long sleeps, no servers —
