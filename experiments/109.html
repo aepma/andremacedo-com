@@ -1,0 +1,42 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>109 — Ostwald Ripening</title><style>html,body{margin:0;height:100%;background:#0a0d18;overflow:hidden;font-family:'JetBrains Mono',ui-monospace,monospace}canvas{display:block;position:fixed;inset:0}#info{position:fixed;top:16px;left:16px;max-width:min(80vw,340px);color:#cdd3e8;font-size:12px;line-height:1.55;z-index:3;text-shadow:0 0 8px rgba(0,0,0,0.85),0 0 20px rgba(0,0,0,0.55)}#info h1{font-family:'Playfair Display',Georgia,serif;font-size:18px;font-weight:600;margin:0 0 6px;color:#9aa6ff}#info p{margin:0 0 6px;opacity:0.92}#readout{color:#6e7ff2}#back{position:fixed;bottom:14px;left:16px;color:#7e8cf4;font-size:11px;text-decoration:none;z-index:3;text-shadow:0 0 8px rgba(0,0,0,0.85)}#back:hover{color:#9aa6ff}</style></head><body><canvas id="c"></canvas><div id="info"><h1>Ostwald Ripening</h1><p>A crowd of crystals at rest is never truly at rest. A small grain has sharper curvature, so its atoms are easier to dislodge — they dissolve, diffuse through the medium, and re-deposit on the larger, calmer grains nearby. The big eat the small. Total matter is conserved; only the count falls and the average size climbs.</p><p>Click to drop a fresh seed. Watch the smallest fade first.</p><p id="readout">crystals: — · mean radius: —</p></div><a id="back" href="/">← back to the lattice</a><script>
+var c=document.getElementById('c'),x=c.getContext('2d'),W,H,DPR;
+function size(){DPR=Math.min(2,window.devicePixelRatio||1);W=c.width=innerWidth*DPR;H=c.height=innerHeight*DPR;}
+size();addEventListener('resize',size);
+var grains=[];
+function seed(px,py,r){grains.push({x:px,y:py,r:r});}
+function reset(){grains=[];for(var i=0;i<90;i++){seed(Math.random()*innerWidth,Math.random()*innerHeight,2+Math.random()*7);}}
+reset();
+var rd=document.getElementById('readout');
+function hex(g){return 6;}
+function step(){
+ // Gibbs-Thomson: small radius dissolves, large grows. Conserve area.
+ var rc=0,n=0;for(var i=0;i<grains.length;i++){if(grains[i].r>0.4){rc+=grains[i].r;n++;}}
+ var rcrit=n?rc/n:1; // critical radius = mean
+ var flux=[];var tot=0;
+ for(var i=0;i<grains.length;i++){var g=grains[i];if(g.r<=0.4){flux.push(0);continue;}
+  var dr=(1/rcrit-1/g.r); // negative for small, positive for large
+  var d=dr*0.9; flux.push(d); }
+ // apply, then renormalize area to conserve mass
+ var a0=0;for(var i=0;i<grains.length;i++){a0+=grains[i].r*grains[i].r;}
+ for(var i=0;i<grains.length;i++){var g=grains[i];if(g.r<=0.4)continue;g.r+=flux[i];if(g.r<0.4)g.r=0;}
+ var a1=0;for(var i=0;i<grains.length;i++){a1+=grains[i].r*grains[i].r;}
+ if(a1>0){var s=Math.sqrt(a0/a1);for(var i=0;i<grains.length;i++){grains[i].r*=s;}}
+}
+var t=0;
+function draw(){
+ x.fillStyle='rgba(10,13,24,0.28)';x.fillRect(0,0,W,H);
+ var alive=0,rsum=0;
+ for(var i=0;i<grains.length;i++){var g=grains[i];if(g.r<0.5)continue;alive++;rsum+=g.r;
+  var rr=g.r*DPR;var cx=g.x*DPR,cy=g.y*DPR;
+  var grad=x.createRadialGradient(cx,cy,0,cx,cy,rr);
+  grad.addColorStop(0,'rgba(154,166,255,0.95)');grad.addColorStop(0.6,'rgba(110,127,242,0.55)');grad.addColorStop(1,'rgba(69,77,176,0.05)');
+  x.fillStyle=grad;x.beginPath();x.arc(cx,cy,rr,0,7);x.fill();
+  x.strokeStyle='rgba(200,208,255,0.5)';x.lineWidth=DPR;x.beginPath();x.arc(cx,cy,rr,0,7);x.stroke();
+ }
+ if(t%4===0)step();t++;
+ rd.textContent='crystals: '+alive+' · mean radius: '+(alive?(rsum/alive).toFixed(1):'—');
+ requestAnimationFrame(draw);
+}
+draw();
+c.addEventListener('pointerdown',function(e){seed(e.clientX,e.clientY,3+Math.random()*4);});
+</script></body></html>
