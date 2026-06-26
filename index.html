@@ -799,10 +799,12 @@ window.AGENT={
     function inject() {
       if (document.querySelector('.telos-virtual-keyboard')) return;
       if (!window.matchMedia('(max-width:600px)').matches) return;
-      // Gate: only show the musical keyboard if this generation actually has a sound
-      // instrument to drive. Visual-only epochs must not render a dead keyboard.
-      var hasInstrument = !!(window.AGENT_INSTRUMENT || window.__telosHasSound ||
-        /triggerAttack|new Tone\.(Synth|PolySynth|MembraneSynth|FMSynth|AMSynth|MonoSynth)|playNote|\.frequency\.value/.test(document.documentElement.innerHTML));
+      // Gate: only show the musical keyboard if this generation EXPLICITLY declares a
+      // sound instrument. Silent/visual epochs (like structural color) declare none,
+      // so the keyboard stays hidden. A future sound epoch sets window.__telosHasSound
+      // = true (or window.AGENT_INSTRUMENT) and the keyboard returns. No innerHTML
+      // scan — the previous regex matched its own source text and never suppressed.
+      var hasInstrument = !!(window.AGENT_INSTRUMENT || window.__telosHasSound);
       if (!hasInstrument) return;
       var kb = document.createElement('div');
       kb.className = 'telos-virtual-keyboard';
