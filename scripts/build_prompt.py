@@ -904,6 +904,14 @@ _dirc.append(
     "treat them as a menu of what is possible to build, NEVER as your reply format. "
     "Your visual changes go straight into the page you write.")
 _dirc.append(
+    "## FAVICON — REQUIRED EVERY GENERATION\n"
+    "You must also rewrite favicon.svg so the browser-tab icon matches THIS generation's visual identity "
+    "(palette, motif, mood). The favicon is a 64x64 SVG. It must use the current epoch's palette — NOT a "
+    "stale palette from a previous epoch. Make it a simple, legible mark at 16px that distills the current "
+    "obsession (e.g. for 'structural color', an iridescent/thin-film motif on the light field; never leave "
+    "the old dark-navy/purple crystallization icon in place). Write the new favicon.svg to the site root "
+    "alongside index.html. A favicon that still shows a previous epoch's colors is a generation failure.")
+_dirc.append(
     "## HERO-FIRST (resolve before anything else)\n"
     "About half of a visitor's perceived quality is the hero / above-the-fold. "
     "Resolve it FIRST, as a deliberate SYSTEM — the relationship between type, "

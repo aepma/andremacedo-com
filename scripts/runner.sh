@@ -431,7 +431,8 @@ HELPER_SCRIPT="${ANDREMACEDO_HELPER:-$HOME/.openclaw/scripts/claude-subscription
 # Hard wall on the whole claude session. No outer bounded-exec wraps this
 # launchd job, so the runner owns the ceiling itself; tmo returns 124 on
 # overrun, which lands in the helper-failure branch below (fail-closed).
-SESSION_WALL_CEILING=5400
+# 2026-06-27 (Andre): doubled per-generation budget — wall 5400→10800s and dollar floor 50→100 so each generation gets 2x runway.
+SESSION_WALL_CEILING=10800
 
 set +e
 if [ "$AGENTIC" = "1" ]; then
@@ -457,7 +458,7 @@ if [ "$AGENTIC" = "1" ]; then
   # 40-min wall the sole binding backstop, we must SET a budget high enough that
   # the wall trips first: at ~$0.65/turn a 2400s session can't realistically
   # exceed ~$30, so 50.00 is effectively "uncapped relative to the wall."
-  INPUT_JSONL="$INPUT_JSONL_FILE" OUTPUT_FILE="$HELPER_OUTPUT_FILE" CLAUDE_MAX_BUDGET_USD=50.00 \
+  INPUT_JSONL="$INPUT_JSONL_FILE" OUTPUT_FILE="$HELPER_OUTPUT_FILE" CLAUDE_MAX_BUDGET_USD=100.00 \
     tmo "$SESSION_WALL_CEILING" bash "$HELPER_SCRIPT" \
     --model claude-opus-4-8 \
     --input-format stream-json --output-format stream-json \
@@ -468,7 +469,7 @@ if [ "$AGENTIC" = "1" ]; then
     --no-session-persistence
 else
   # Event pulse keeps the single-turn blind-shot path (f328732).
-  INPUT_JSONL="$INPUT_JSONL_FILE" OUTPUT_FILE="$HELPER_OUTPUT_FILE" CLAUDE_MAX_BUDGET_USD=6.00 \
+  INPUT_JSONL="$INPUT_JSONL_FILE" OUTPUT_FILE="$HELPER_OUTPUT_FILE" CLAUDE_MAX_BUDGET_USD=12.00 \
     tmo "$SESSION_WALL_CEILING" bash "$HELPER_SCRIPT" \
     --model claude-opus-4-8 \
     --input-format stream-json --output-format stream-json \
