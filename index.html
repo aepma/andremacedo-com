@@ -155,7 +155,9 @@
   }
 
   /* ── Below the fold ── */
-  .below-fold{position:relative;z-index:3;background:var(--bg-below-fold);}
+  /* z-index:20 lifts all below-fold content above #overlay (z-index:10) so archive links
+     are clickable regardless of overlay-dismissed state or child pointer-events. */
+  .below-fold{position:relative;z-index:20;background:var(--bg-below-fold);}
 
   .essay{max-width:760px;margin:0 auto;padding:5.5rem clamp(1.5rem,5vw,3.5rem) 2rem;}
   .essay .eyebrow{font-family:'JetBrains Mono',monospace;font-size:0.72rem;letter-spacing:0.24em;text-transform:uppercase;color:var(--fg-accent);margin:0 0 1.4rem;}
