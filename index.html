@@ -83,6 +83,7 @@
     justify-content:space-between;
   }
   #overlay *{pointer-events:auto;}
+  #overlay.overlay-dismissed, #overlay.overlay-dismissed *{ pointer-events:none !important; }
 
   .program-masthead{
     display:flex;justify-content:space-between;align-items:baseline;
@@ -682,7 +683,8 @@ window.AGENT={
     var sy=window.scrollY,vh=window.innerHeight;
     var fade=Math.max(0,1-sy/(vh*0.55));
     overlayEl.style.opacity=fade;
-    overlayEl.style.pointerEvents=fade<0.1?'none':'';
+    if(fade<0.1){ overlayEl.classList.add('overlay-dismissed'); }
+    else { overlayEl.classList.remove('overlay-dismissed'); }
   },{passive:true});
 
   // interactions: typed words pulse the iridescent film
