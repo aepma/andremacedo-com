@@ -2,37 +2,40 @@
   "verdict": "PASS",
   "is_slop": false,
   "threshold": 7.0,
-  "overall_min": 7.8,
+  "overall_min": 7.0,
   "reason": "both critics cleared",
   "critics": {
     "A": {
       "model": "claude-opus-4-8-oauth",
       "passed": true,
       "axes": {
-        "type_scale": 8.0,
+        "type_scale": 7.0,
         "spacing_system": 7.0,
         "focal_hierarchy": 8.0,
-        "restraint": 7.0,
-        "hero": 8.0,
-        "composition": 8.0,
-        "type_craft": 9.0,
-        "color": 8.0
+        "restraint": 6.0,
+        "hero": 7.0,
+        "composition": 6.0,
+        "type_craft": 8.0,
+        "color": 7.0
       },
-      "overall": 7.8,
+      "overall": 7.0,
       "is_slop": false,
       "findings": [
-        "The iridescent oil-slick gradient in the hero, while thematically justified by the 'structural color' copy, edges close to the default AI rainbow-blob aesthetic — a more disciplined crop or partial bleed would have strengthened it rather than letting it fill the entire right half as wallpaper.",
-        "The second oil-slick block mid-page is visually redundant with the hero — same gradient language repeated without enough variation to feel like a distinct instrument; it reads as a reused asset rather than a new idea.",
-        "The 'Eight Obsessions' and Interference Log tables are competent but quietly conventional — Roman numerals + monospaced dates is a familiar editorial trick that doesn't push past 'tasteful catalog'.",
-        "Body measure on the left intro paragraph is narrow and the rag is somewhat awkward against the massive gradient — the relationship between text column and image feels adjacent rather than composed."
+        "The iridescent oil-slick blob in the top-right is the page's one big bet, but it's rendered as a soft Photoshop-filter cloud with no edge, no grain, no compositional relationship to the type — it floats as decoration rather than locking into the grid as compositional mass.",
+        "Below the hero, the page collapses into a very conservative single-column editorial column anchored left at roughly the same x-axis for screen after screen — the 'living art organism' premise is not visible in the layout; it reads like a long-form Substack essay.",
+        "The Roman-numeral obsessions table and the Interference Log table both use default thin hairline rules and left-aligned mono dates — competent but completely generic editorial-table styling with no signature move.",
+        "The pull-quote in italic serif with a thin left rule ('Tilt your head and the hue moves…') is the single most templated editorial gesture in long-form web design; it adds no torque to the composition.",
+        "Whitespace below the hero is dead air rather than compositional mass — huge vertical gaps between sections without any counter-anchor, marginalia, or off-axis element to make the void intentional.",
+        "Color discipline is mostly monochrome black-on-cream with the holographic blob doing all the chromatic work; the lavender pull-quote tint and lavender 'Soap Bubble' card feel like two unrelated accent decisions rather than one governed harmony.",
+        "The 'Soap Bubble' card sits as a lone rounded-corner pastel block in an otherwise hairline-ruled editorial system — it breaks the visual language without justifying the break."
       ],
       "what_works": [
-        "The display serif setting of 'Color is not a pigment. It is an *angle* of light.' with the italicized 'angle' is a genuine editorial move — high-contrast serif against monospaced utility voice (operator stack, gen counters) is a real typographic point of view, not system-ui slop.",
-        "Drop cap on 'A morpho wing is brown' plus the pull quote treatment ('Tilt your head and the hue moves —') shows actual editorial layout thinking rather than generic blog styling.",
-        "The asymmetric hero — left-anchored type column, full-bleed iridescent field on the right, with small mono metadata floating top and bottom — is a decisive composition, not centered-symmetry default.",
-        "Mono utility chrome (ANDRE MACEDO / TELOS · ANDREMACEDO.COM / GEN 225) framing the page like a printed periodical masthead is a committed identity move."
+        "The display serif setting of 'Color is not a pigment. It is an angle of light.' with the italic 'angle' is a real typographic choice with editorial conviction — not the default Inter hero.",
+        "The micro-typography in the top rail (small-caps mono nav, the gen-number/epoch metadata, the right-side 'next rebuild' block) shows a considered information-architecture voice rather than generic nav chrome.",
+        "Type pairing of high-contrast serif against a mono utility voice is a deliberate, expressive pairing — not the safe default sans the rubric warns about.",
+        "The holographic gradient is at least a specific, named referent (oil slick, structural color) tied to the page's thesis, not a generic purple-indigo SaaS gradient."
       ],
-      "reasoning": "This refuses the cardinal SaaS-landing shape: no centered hero with CTA, no three-card feature grid, no Inter-everywhere. The typographic system — editorial serif display, italic accents, drop cap, mono operator voice, numbered catalog of obsessions — reads as a deliberately authored periodical rather than a template. The iridescent oil-slick is the riskiest move and mostly earns its place because the copy explicitly thematizes structural color, though its repetition mid-page weakens the argument. Composition, type craft, and hierarchy are above the bar; restraint is the softest axis because the gradient does a lot of heavy lifting twice."
+      "reasoning": "The hero earns a genuine typographic move and a thesis-linked chromatic gesture, and the page refuses the centered-hero / three-card SaaS template, so it clears the cardinal slop bar. But after the hero, the composition flattens into a conservative left-anchored editorial column with default hairline tables, a templated italic pull-quote, and dead vertical whitespace standing in for compositional tension. The holographic blob — the one decisive aesthetic bet — is rendered as a soft floating cloud rather than integrated as compositional mass, so the page lands as a well-typeset literary essay rather than the living art organism it claims to be."
     },
     "B": {
       "model": "grok-4-1-fast-reasoning",
@@ -45,17 +48,21 @@
         "restraint": 9.0,
         "hero": 9.0,
         "composition": 8.0,
-        "type_craft": 8.0,
-        "color": 8.0
+        "type_craft": 9.0,
+        "color": 9.0
       },
       "overall": 8.0,
       "is_slop": false,
-      "findings": [],
-      "what_works": [
-        "hero split layout with large left-anchored serif quote against iridescent structural-color image",
-        "editorial restraint: minimal decoration, purposeful use of the color field as the sole chromatic element"
+      "findings": [
+        "minor density in the long lab-notes blocks creates occasional gray rectangles that flatten rhythm",
+        "some meta labels (gen numbers, dates) sit at identical weight to body text, diluting hierarchy slightly"
       ],
-      "reasoning": "Desktop hero uses deliberate asymmetry and a single expressive image rather than centered template layout or gradient garnish. Type pairing and left-anchored text blocks establish clear hierarchy without symmetry-as-default. No cardinal slop states present; the page reads as a coherent editorial organism rather than SaaS scaffolding."
+      "what_works": [
+        "live iridescent thin-film WebGL hero that is the actual subject, not garnish",
+        "high-contrast editorial serif against mono utility pairing with clear expressive intent",
+        "left-anchored asymmetric layout that treats whitespace as mass rather than centering default"
+      ],
+      "reasoning": "Desktop render shows a single decisive move—the live structural-color simulation as hero background—paired with an intentional serif/mono voice and left-anchored editorial flow that avoids every listed cardinal slop state. No centered SaaS template, no safe system sans blanket, no uniform decoration. Minor density issues in the lower log sections prevent a 9 overall."
     }
   }
 }

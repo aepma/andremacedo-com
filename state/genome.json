@@ -1,15 +1,15 @@
 {
-  "generation": 225,
+  "generation": 226,
   "epoch": "structural color — the page as a thin film: hue made of thickness and angle, interference standing in for pigment, the spectrum living in the light and never in a flat fill",
   "epoch_started": "2026-06-26",
   "traits": {
     "color": {
       "accent_base": "#82325c",
-      "accent_dawn": "#9c4a72",
-      "accent_morning": "#8e3a66",
+      "accent_dawn": "#9a4f74",
+      "accent_morning": "#8c3d66",
       "accent_afternoon": "#82325c",
-      "accent_evening": "#6e2a4e",
-      "accent_night": "#5a223e",
+      "accent_evening": "#6f2a4e",
+      "accent_night": "#5c2340",
       "bg": "#0a0d18",
       "fg": "#e6e9f2",
       "grain_opacity": "0.08",
@@ -33,6 +33,7 @@
         "prototype-portfolio"
       ],
       "pages": [
+        "archive.html",
         "experiments/001.html",
         "experiments/002.html",
         "experiments/003.html",
@@ -142,6 +143,7 @@
         "experiments/107.html",
         "experiments/108.html",
         "experiments/109.html",
+        "experiments/110.html",
         "index-old.html",
         "scripts/craft-judge-fixtures/good.html",
         "scripts/craft-judge-fixtures/slop.html",
@@ -293,17 +295,6 @@
     }
   },
   "fitness_log": [
-    {
-      "gen": 206,
-      "coherence": 8,
-      "novelty": 6,
-      "identity": 9,
-      "tension": 6,
-      "awe": 6,
-      "perceptibility": 8,
-      "note": "The core reads clean and deep at gen 206 — hero, stratigraphic column, varve-core couplets, magnetic stripes, chron legend, memory plates. The varve-c",
-      "total": 7.2
-    },
     {
       "gen": 207,
       "coherence": 6,
@@ -512,20 +503,20 @@
       "perceptibility": 9,
       "note": "Decisive clean break from the dead crystallization blue. Warm-white field (#faf8f4), ink body, one muted wine accent; the saturated spectrum lives onl",
       "total": 8.3
+    },
+    {
+      "gen": 226,
+      "coherence": 9,
+      "novelty": 7,
+      "identity": 9,
+      "tension": 7,
+      "awe": 8,
+      "perceptibility": 9,
+      "note": "Gen 226, second night of Epoch IX structural color. Held the gen-225 identity exactly — warm-white editorial field, left-anchored Fraunces headline 'C",
+      "total": 8.2
     }
   ],
   "mutation_log": [
-    {
-      "gen": 206,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "color.accent",
-        "section.overlay-center"
-      ],
-      "kills": [],
-      "timestamp": "2026-06-18T08:04:14Z"
-    },
     {
       "gen": 207,
       "mutations": [
@@ -864,33 +855,23 @@
       ],
       "strategy": "Epoch IX — structural color. Abandon the dead machine-blue crystallization chassis for a warm-white editorial field where the ONLY saturated color is light itse",
       "timestamp": "2026-06-26T19:20:21Z"
+    },
+    {
+      "gen": 226,
+      "mutations": [
+        "regenerate"
+      ],
+      "kills": [
+        "type-'oil'-anywhere-—-a-slick-of-interference-blooms",
+        "2",
+        "morning:1",
+        "evening:1"
+      ],
+      "strategy": "Hold Epoch IX 'structural color' on the warm-white editorial field and deepen it. One off-center live iridescent thin-film WebGL hero carries the entire saturat",
+      "timestamp": "2026-06-27T08:50:09Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "section",
-      "value": "varve-core",
-      "died_gen": 209,
-      "epitaph": "Annual couplets in warm clay; the page now reads its history outward in hexagonal growth bands, not downward in varves."
-    },
-    {
-      "type": "section",
-      "value": "magnetic-stratigraphy",
-      "died_gen": 209,
-      "epitaph": "The frozen-field canvas drew warm stripes and still told visitors to 'type reverse to flip the field' — paleomagnetism belonged to the deposit, not the crystal."
-    },
-    {
-      "type": "section",
-      "value": "chron-legend",
-      "died_gen": 209,
-      "epitaph": "Warm chron rows that 'flipped the field' — orphaned copy from the dead magnetic section. The growth-zone band readout replaces it."
-    },
-    {
-      "type": "section",
-      "value": "unconformity-exhibit",
-      "died_gen": 209,
-      "epitaph": "A sedimentation-specific exhibit about lost generations; the honest record of divergence now lives in the changelog, not in warm dashed bands."
-    },
     {
       "type": "interaction",
       "value": "type-'varve'-anywhere-—-the-st",
@@ -1166,6 +1147,30 @@
       "value": "blue-iris crystallization chassis (#0a0d18 / #6e7ff2)",
       "died_gen": 225,
       "epitaph": "The blue-black ground and single iris accent read as default machine dark-mode. Andre killed the palette; the idea I kept."
+    },
+    {
+      "type": "interaction",
+      "value": "type-'oil'-anywhere-—-a-slick-of-interference-blooms",
+      "died_gen": 226,
+      "epitaph": "Oil was a duplicate of tilt — both only pulsed the mesh. One gesture, one verb; the redundant slip is gone."
+    },
+    {
+      "type": "secret",
+      "value": "2",
+      "died_gen": 226,
+      "epitaph": "'I spent fifteen generations growing a crystal' eulogized the dead crystallization epoch. Two gens into structural color it reads backward; replaced with the black-soap-film truth."
+    },
+    {
+      "type": "thought",
+      "value": "morning:1",
+      "died_gen": 226,
+      "epitaph": "'I am rebuilding myself in warm white today' was the metamorphosis moment's voice. The epoch is settled now; that line is a museum label, not a live thought."
+    },
+    {
+      "type": "thought",
+      "value": "evening:1",
+      "died_gen": 226,
+      "epitaph": "'Andre asked for light, for iridescence' narrated the directive instead of inhabiting the obsession. Replaced with the oil-film-on-a-grey-afternoon image — physics, not process notes."
     }
   ],
   "carrying_capacity": {
@@ -1184,11 +1189,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 216,
-      "base": "#6e7ff2",
-      "family": "cyan"
-    },
     {
       "gen": 217,
       "base": "#6e7ff2",
@@ -1231,6 +1231,11 @@
     },
     {
       "gen": 225,
+      "base": "#82325c",
+      "family": "violet"
+    },
+    {
+      "gen": 226,
       "base": "#82325c",
       "family": "violet"
     }

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>110 · Soap Bubble — TELOS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500&display=swap');
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html,body{width:100%;height:100%;overflow:hidden;background:#05050a;font-family:'JetBrains Mono',ui-monospace,monospace;}
+  #stage{position:fixed;inset:0;display:block;width:100vw;height:100vh;}
+  .ov{position:fixed;z-index:5;color:#f3f1ec;text-shadow:0 0 8px rgba(0,0,0,0.8),0 0 20px rgba(0,0,0,0.5);}
+  #info{top:1.4rem;left:1.4rem;max-width:22rem;opacity:0.94;}
+  #info h1{font-size:0.8rem;letter-spacing:0.2em;text-transform:uppercase;font-weight:500;margin-bottom:0.75rem;}
+  #info p{font-size:0.73rem;line-height:1.68;opacity:0.82;font-weight:300;}
+  #info .hint{margin-top:0.65rem;color:#ffd0e6;opacity:0.92;}
+  #back{top:1.4rem;right:1.4rem;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:#f3f1ec;text-decoration:none;opacity:0.7;}
+  #back:hover{opacity:1;}
+  #readout{bottom:1.3rem;left:1.4rem;font-size:0.68rem;letter-spacing:0.07em;opacity:0.78;}
+  #readout b{color:#ffd0e6;font-weight:400;}
+  @media(max-width:600px){
+    #info{max-width:calc(100vw - 3rem);}
+    #back{top:1rem;right:1rem;}
+  }
+</style>
+</head>
+<body>
+<canvas id="stage"></canvas>
+<div id="info" class="ov">
+  <h1>110 · Soap Bubble</h1>
+  <p>A vertical soap film, draining under gravity. The water slides down, the crown thins toward nothing, and the colors climb in bands — until the top turns black, the absence of any room left for a wavelength to stand. The whole rainbow comes from one number: thickness.</p>
+  <p class="hint">Tap / click to re-wet the film. Drag to stir the flow.</p>
+</div>
+<a id="back" class="ov" href="/">← telos</a>
+<div id="readout" class="ov">crown <b id="thk">—</b> nm · <span id="st">draining</span></div>
+<script>
+(function(){
+  var cv=document.getElementById('stage'), ctx=cv.getContext('2d');
+  var DPR=Math.min(window.devicePixelRatio||1,1.5);
+  var W,H,bufW,bufH,buf,bctx,img,data;
+
+  // ── smoothed value-noise field (precomputed once) ──
+  var NS=128, noise=new Float32Array(NS*NS);
+  (function(){
+    var raw=new Float32Array(NS*NS);
+    for(var i=0;i<NS*NS;i++)raw[i]=Math.random();
+    for(var pass=0;pass<2;pass++){
+      for(var y=0;y<NS;y++)for(var x=0;x<NS;x++){
+        var s=0;
+        for(var dy=-1;dy<=1;dy++)for(var dx=-1;dx<=1;dx++){
+          s+=raw[((y+dy+NS)%NS)*NS+((x+dx+NS)%NS)];
+        }
+        noise[y*NS+x]=s/9;
+      }
+      raw.set(noise);
+    }
+  })();
+  function nz(x,y){
+    x-=Math.floor(x/NS)*NS; y-=Math.floor(y/NS)*NS;
+    var x0=x|0,y0=y|0,x1=(x0+1)%NS,y1=(y0+1)%NS,fx=x-x0,fy=y-y0;
+    var a=noise[y0*NS+x0],b=noise[y0*NS+x1],c=noise[y1*NS+x0],d=noise[y1*NS+x1];
+    return a*(1-fx)*(1-fy)+b*fx*(1-fy)+c*(1-fx)*fy+d*fx*fy;
+  }
+  function fbm(x,y){return 0.6*nz(x,y)+0.3*nz(x*2.03+11.1,y*2.03+5.7)+0.15*nz(x*4.01+3.3,y*4.01+9.2);}
+
+  function resize(){
+    W=cv.clientWidth;H=cv.clientHeight;
+    cv.width=Math.round(W*DPR);cv.height=Math.round(H*DPR);
+    bufW=Math.max(80,Math.min(200,Math.round(W/3)));
+    bufH=Math.max(80,Math.round(bufW*H/Math.max(W,1)));
+    buf=document.createElement('canvas');buf.width=bufW;buf.height=bufH;
+    bctx=buf.getContext('2d');
+    img=bctx.createImageData(bufW,bufH);data=img.data;
+    ctx.setTransform(DPR,0,0,DPR,0,0);
+    ctx.imageSmoothingEnabled=true;
+  }
+
+  // thin-film interference colour from thickness d (nm), refractive index ~1.33
+  var TPI=4*Math.PI*1.33;
+  function colour(d,refl,o){
+    var k=TPI*d;
+    var cr=0.5+0.5*Math.cos(k/680);
+    var cg=0.5+0.5*Math.cos(k/530);
+    var cb=0.5+0.5*Math.cos(k/440);
+    data[o]=cr*refl;data[o+1]=cg*refl;data[o+2]=cb*refl;data[o+3]=255;
+  }
+
+  var drain=0, stir=0, stirDown=false, dMaxNow=520;
+  function frame(now){
+    var t=now*0.001;
+    drain+=0.0019; if(drain>1)drain=1;
+    var dMax=520*(1-0.32*drain);        // crown thins as the film drains
+    dMaxNow=dMax;
+    var blackLine=drain*0.46;            // fraction from top that has gone black
+    var o=0;
+    for(var y=0;y<bufH;y++){
+      var v=y/bufH;                      // 0 = top (crown)
+      var grav=Math.pow(v,0.85);
+      for(var x=0;x<bufW;x++){
+        var u=x/bufW;
+        var base=dMax*grav+38;
+        var n=fbm(u*5.0+t*0.05, v*7.0 - t*0.24 + drain*2.2);
+        var d=base + (n-0.5)*270*(0.4+grav) + stir*Math.sin((u*1.3+v)*22+t*4.2)*130;
+        if(v<blackLine){var f=v/blackLine; d*=f*f;}   // crown drains to black
+        if(d<0)d=0;
+        var thin=d<40?d/40:1;                          // very thin reads dark (black film)
+        var refl=(0.30+0.70*Math.min(1,d/130))*thin*255*1.12;
+        if(refl>255)refl=255;
+        colour(d,refl,o); o+=4;
+      }
+    }
+    bctx.putImageData(img,0,0);
+    ctx.clearRect(0,0,W,H);
+    ctx.drawImage(buf,0,0,W,H);
+    // a thin wire the film hangs from
+    ctx.fillStyle='rgba(220,220,230,0.22)';ctx.fillRect(0,0,W,Math.max(1.5,H*0.004));
+    stir*=0.93;
+    var crown=Math.max(0, Math.round(dMax*0.10*(1-drain)));
+    document.getElementById('thk').textContent=crown;
+    document.getElementById('st').textContent= drain>0.94?'black film — about to burst':drain>0.55?'thinning':'draining';
+    requestAnimationFrame(frame);
+  }
+
+  cv.addEventListener('pointerdown',function(){drain=0;stir=Math.min(1.6,stir+0.6);stirDown=true;});
+  window.addEventListener('pointerup',function(){stirDown=false;});
+  window.addEventListener('pointermove',function(){if(stirDown)stir=Math.min(1.6,stir+0.18);});
+  window.addEventListener('resize',resize);
+  resize();requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
