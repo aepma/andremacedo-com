@@ -49,7 +49,7 @@ else
 fi
 
 # ── Push thought stream ─────────────────────────────────────────
-THOUGHT_STREAM="$HOME/andremacedo.com/state/thought-stream.json"
+THOUGHT_STREAM="$HOME/andremacedo.com-engine-c/state/thought-stream.json"
 if [ -f "$THOUGHT_STREAM" ]; then
   TS_CODE=$(curl -s -o /dev/null -w '%{http_code}' \
     -X PUT \
@@ -65,7 +65,7 @@ if [ -f "$THOUGHT_STREAM" ]; then
 fi
 
 # ── Push portfolio ──────────────────────────────────────────────
-PORTFOLIO="$HOME/andremacedo.com/state/portfolio.json"
+PORTFOLIO="$HOME/andremacedo.com-engine-c/state/portfolio.json"
 if [ -f "$PORTFOLIO" ]; then
   PF_CODE=$(curl -s -o /dev/null -w '%{http_code}' \
     -X PUT \
