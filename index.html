@@ -347,33 +347,26 @@
 
   .telos-virtual-keyboard {
     position: fixed; left: 0; right: 0; bottom: 0;
-    height: 64px; display: flex; gap: 4px; padding: 4px;
-    background: rgba(0,0,0,0.85);
+    padding: 8px 12px;
+    background: rgba(20,18,24,0.82);
     backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
     z-index: 50;
-    border-top: 1px solid var(--accent, #888);
+    border-top: 1px solid rgba(255,255,255,0.12);
   }
-  .telos-virtual-keyboard::before {
-    content: 'tap to ring \00B7 drag dark field for baton';
-    position: absolute; bottom: 100%; left: 0; right: 0;
-    text-align: center; font-size: 0.65rem; color: rgba(200,200,200,0.45);
+  .telos-play-input {
+    width: 100%; box-sizing: border-box;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 8px;
+    color: #eee;
     font-family: 'JetBrains Mono', monospace;
-    pointer-events: none; white-space: nowrap; overflow: hidden; padding: 2px 0;
+    font-size: 0.85rem;
+    padding: 10px 12px;
+    text-align: center;
+    outline: none;
   }
-  .telos-virtual-key {
-    flex: 1; display: flex; align-items: center; justify-content: center;
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(255,255,255,0.15);
-    border-radius: 4px;
-    color: var(--fg, #ddd);
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 1rem; text-transform: lowercase;
-    user-select: none; -webkit-user-select: none;
-    touch-action: manipulation;
-  }
-  .telos-virtual-key:active {
-    background: var(--accent, #888);
-    color: var(--bg, #000);
+  .telos-play-input::placeholder {
+    color: rgba(230,230,230,0.5);
   }
   body { padding-bottom: 80px; }
   .swarm-panel { display: none !important; } /* hand-edit 2026-05-14: prevent .swarm-panel × #overlay-bottom collision */
@@ -846,56 +839,27 @@ window.__telosHasSound = true;
   })();
 
   // COMPONENT 3: Virtual keyboard UI for mobile
-  // Letters d,f,h,i,k,m,o,p map to C4-C5 major scale in the agent's
-  // chromatic letter-to-frequency table (220*2^(i/12), i=3,5,7,8,10,12,14,15).
+  // Raises the native OS keyboard via a focusable input; keystrokes bubble to
+  // window so the instrument's keydown handler (window.addEventListener('keydown',onKey))
+  // receives them naturally. Letters d,f,h,i,k,m,o,p play C4-C5 major scale.
   (function() {
-    var KEYS = ['d','f','h','i','k','m','o','p'];
     function inject() {
       if (document.querySelector('.telos-virtual-keyboard')) return;
       if (!window.matchMedia('(max-width:600px)').matches) return;
-      // Gate: only show the musical keyboard if this generation EXPLICITLY declares a
-      // sound instrument. Silent/visual epochs (like structural color) declare none,
-      // so the keyboard stays hidden. A future sound epoch sets window.__telosHasSound
-      // = true (or window.AGENT_INSTRUMENT) and the keyboard returns. No innerHTML
-      // scan — the previous regex matched its own source text and never suppressed.
+      // Gate: only show the input if this generation declares a sound instrument.
       var hasInstrument = !!(window.AGENT_INSTRUMENT || window.__telosHasSound);
       if (!hasInstrument) return;
-      var kb = document.createElement('div');
-      kb.className = 'telos-virtual-keyboard';
-      KEYS.forEach(function(letter) {
-        var btn = document.createElement('div');
-        btn.className = 'telos-virtual-key';
-        btn.textContent = letter;
-        var isHeld = false;
-        var releaseTimer = null;
-        function fireKeydown() {
-          document.body.dispatchEvent(new KeyboardEvent('keydown', {
-            key: letter, code: 'Key' + letter.toUpperCase(),
-            bubbles: true, cancelable: true
-          }));
-        }
-        function fireKeyup() {
-          if (!isHeld) return;
-          isHeld = false;
-          if (releaseTimer) { clearTimeout(releaseTimer); releaseTimer = null; }
-          document.body.dispatchEvent(new KeyboardEvent('keyup', {
-            key: letter, code: 'Key' + letter.toUpperCase(),
-            bubbles: true, cancelable: true
-          }));
-        }
-        btn.addEventListener('pointerdown', function(e) {
-          e.preventDefault();
-          if (isHeld) return;
-          isHeld = true;
-          fireKeydown();
-          releaseTimer = setTimeout(fireKeyup, 2500);
-        });
-        ['pointerup', 'pointercancel', 'pointerleave', 'touchend', 'touchcancel'].forEach(function(evt) {
-          btn.addEventListener(evt, fireKeyup);
-        });
-        kb.appendChild(btn);
-      });
-      document.body.appendChild(kb);
+      var bar = document.createElement('div');
+      bar.className = 'telos-virtual-keyboard';
+      bar.innerHTML = '<input class="telos-play-input" type="text" inputmode="text" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" readonly placeholder="tap to play · d f h i k m o p" aria-label="tap to play the instrument with your keyboard">';
+      document.body.appendChild(bar);
+      var input = bar.querySelector('.telos-play-input');
+      function openKbd() { input.removeAttribute('readonly'); input.focus(); }
+      bar.addEventListener('pointerdown', function(e) { e.preventDefault(); openKbd(); });
+      // Keep the input empty so it never accumulates text; the instrument reads window keydown directly.
+      input.addEventListener('input', function() { input.value = ''; });
+      // Do NOT intercept or preventDefault keydown — native keyboard keydown events
+      // bubble to window where the instrument's onKey handler fires.
     }
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', inject);
