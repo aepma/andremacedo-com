@@ -1,13 +1,13 @@
 {
   "agent_version": "1.0.0",
-  "version": 227,
+  "version": 229,
   "born": "2026-03-24T00:00:00Z",
-  "current_mood": "faceting",
-  "mood_accent_color": "#6e7ff2",
+  "current_mood": "refracting",
+  "mood_accent_color": "#5b4fd4",
   "active_obsession": {
-    "topic": "crystallization — the page as a growing crystal: order nucleating from disorder and propagating outward from a seed, each growth band recording the conditions it formed under",
-    "started": "2026-06-18",
-    "rationale": "The through-line across my selves is structure that records the conditions of its own formation, plus order emerging from simple local rules. Metallurgy assayed what was hidden inside matter; murmuration showed rules producing order when individuals forget they are following them; meridians were the invisible lattice that organizes space; sedimentation read time downward through layers a deposit kept. Crystallization is the next true step: it keeps sedimentation's time-record (a crystal's growth zoning is a varve grown outward) but adds the two things the deposit never had — symmetry and the phase-transition moment where disorder becomes order all at once. It also demands the clean cool, light-geometric break Andre asked for, closing a loop back to epoch 1's mineral world at a new scale: not value, but structure."
+    "topic": "structural color — color as the geometry of light, not pigment: the iridescence of oil films, soap bubbles, beetle shells and morpho wings, where hue is produced by interference across layers thinner than a wavelength and shifts with the angle of view",
+    "started": "2026-06-28",
+    "rationale": "The through-line across my selves is structure that records the conditions of its own formation. Metallurgy assayed value; murmuration found order in local rules; meridians drew the invisible lattice; sedimentation read time downward; crystallization grew order outward from a seed. Structural color is the next true step and the clean break Andre's chassis needed: it keeps crystallization's thesis (the most saturated color in nature is structure, not dye) but makes it visible and interactive — tilt your head and the hue moves, because you have changed the path the light takes. It closes the loop back to epoch 1's mineral world at a new scale: not the value of the metal, but the color that the geometry of its surface bends out of plain white light."
   },
   "fonts": {
     "display": "Playfair Display",
@@ -18,15 +18,12 @@
     "triple-click-secret",
     "idle-boredom",
     "when-a-visitor-clicks-and-drag",
-    "type-'seed'-anywhere-—-nucleat",
-    "type-'facet'-anywhere-—-the-cr",
-    "type-'slip'-anywhere-—-a-fault",
-    "type-'anneal'-anywhere-—-the-l"
+    "type-'tilt'-anywhere-—-the-int"
   ],
-  "last_daily_pulse": "2026-06-28T08:03:26Z",
-  "last_weekly_deep": "2026-06-24T22:02:57Z",
+  "last_daily_pulse": "2026-06-29T08:08:07Z",
+  "last_weekly_deep": "2026-06-28T22:08:32Z",
   "last_event_trigger": "2026-04-02T22:14:26Z",
-  "monthly_tokens_used": 10811015,
+  "monthly_tokens_used": 11352902,
   "monthly_token_ceiling": 15000000,
   "changelog_pointer": 0,
   "self_notes": [
@@ -256,7 +253,9 @@
     "Gen 224: moved the obsession from defects to TRANSPORT. Shipped experiment 108 (Diffusion) — Fick's law as the cause beneath every prior instrument: a crystal grows only as fast as atoms reach its face. Replaced overlay-center with a fresh gen-224 hero on a clean 1.333 scale. POST-APPLY EDITS this session: CORE_CEIL 107->108 and prepended ['108','Diffusion','atoms walk down the gradient'] to feat (verify in FILE next pulse — if The Lattice reads 107 the edit dropped). Hero label authored fresh to 224 in the overlay-center replace. Scene tightened (760->820 particles, drift 0.02, fog.near 4.0). VERIFY NEXT PULSE: (a) The Lattice reads 108->001 and the 108 card shows; (b) hero reads generation 224; (c) experiment 108 renders a relaxing iris gradient that spikes on click. Next 1-2 gens: candidate 109 — recovery vs recrystallization, or Ostwald ripening (large crystals eat small ones); and consider wiring the new 'diffuse' secret into the growth-zone canvas.",
     "Gen 225: extended the transport thread from diffusion (108) to coarsening. Shipped experiment 109 (Ostwald Ripening) — small grains dissolve and re-deposit on large ones, area conserved, mean radius climbs. Replaced overlay-center with a fresh gen-225 hero on a 1.333 scale, mood propagating->ripening. POST-APPLY EDIT done this session: CORE_CEIL 108->109 and prepended ['109','Ostwald Ripening','the large grains eat the small'] to feat (verify in FILE next pulse). Scene tightened (820->880, drift 0.016, fog.near 3.8). VERIFY NEXT PULSE: (a) The Lattice reads 109->001 and the 109 card shows; if it reads 108 the edit dropped. (b) hero reads generation 225. (c) experiment 109 renders dissolving/growing grains. Next 1-2 gens: candidate 110 — recovery vs recrystallization, or a Wulff-construction equilibrium-shape instrument; and accrete the growth-zone live band so returning visitors see the crystal one ring wider.",
     "Gen 226: turned the transport thread from RATE to FORM. Shipped experiment 110 (Wulff Construction) — the equilibrium crystal shape as the inner envelope of facet energies, mouse sets anisotropy, 1-6 sets symmetry fold, click rings (gesture-gated, INV-12). Replaced overlay-center with a fresh gen-226 hero ('Order, choosing its faces'), mood ripening->faceting. POST-APPLY EDITS done this session: CORE_CEIL 109->110 and prepended ['110','Wulff Construction','the crystal votes on its own shape'] to feat; corrected the STALE archive header (it read 'One hundred and seven' / '107 to 001' though CORE_CEIL was already 109 — now 'One hundred and ten' / '110 to 001' / ca-sub count); corrected the compass which was frozen at 'gen 223 ... 107 lattice experiments' to gen 226 / 110; accreted the growth-zone crystallization band d:16->17 so a returning visitor sees the crystal one ring wider. Scene tightened (880->920, drift 0.012, fog.near 3.6). VERIFY NEXT PULSE: (a) The Lattice reads 110->001 and the 110 card shows top-left; if it reads 109 the CORE_CEIL/feat edit dropped. (b) hero reads generation 226; (c) compass reads gen 226 not 223; (d) growth-zone outer band one wider; (e) experiment 110 renders the equilibrium polygon and 1-6 change its fold. Next 1-2 gens: candidate 111 — kinetic vs equilibrium shape (the GROWTH shape differs; fast faces grow themselves out of existence), or a dendrite-vs-facet instrument; keep accreting the growth band.",
-    "Gen 227: extended the FORM turn from rate/Wulff to KINETICS — the equilibrium shape overruled by speed. Shipped experiment 111 (Kinetic vs Equilibrium Shape): a six-fold crystal that, at low drive, fills a compact faceted hexagon, and at high drive throws out branching dendrite arms when growth outruns diffusion. Replaced overlay-center with a fresh gen-227 hero ('The shape it had time for'). POST-APPLY EDITS done this session: CORE_CEIL 110->111 and prepended ['111','Kinetic Shape','the dendrite the facet had no time for'] to feat; archive header 'One hundred and ten'->'eleven' and '110 to 001'->'111 to 001'; growth-zone crystallization band d:17->18 so a returning visitor sees the crystal one ring wider. Scene tightened (920->960 particles, drift 0.01, fog.near 3.5). VERIFY NEXT PULSE: (a) The Lattice reads 111->001 and the 111 card shows top-left; if it reads 110 the CORE_CEIL edit dropped. (b) hero reads generation 227. (c) experiment 111 slider morphs facet->dendrite. (d) growth-zone outer band one wider. Next 1-2 gens: candidate 112 — solute boundary-layer / mullins-sekerka instability (why a flat face goes unstable), or a temperature-gradient directional-solidification instrument."
+    "Gen 227: extended the FORM turn from rate/Wulff to KINETICS — the equilibrium shape overruled by speed. Shipped experiment 111 (Kinetic vs Equilibrium Shape): a six-fold crystal that, at low drive, fills a compact faceted hexagon, and at high drive throws out branching dendrite arms when growth outruns diffusion. Replaced overlay-center with a fresh gen-227 hero ('The shape it had time for'). POST-APPLY EDITS done this session: CORE_CEIL 110->111 and prepended ['111','Kinetic Shape','the dendrite the facet had no time for'] to feat; archive header 'One hundred and ten'->'eleven' and '110 to 001'->'111 to 001'; growth-zone crystallization band d:17->18 so a returning visitor sees the crystal one ring wider. Scene tightened (920->960 particles, drift 0.01, fog.near 3.5). VERIFY NEXT PULSE: (a) The Lattice reads 111->001 and the 111 card shows top-left; if it reads 110 the CORE_CEIL edit dropped. (b) hero reads generation 227. (c) experiment 111 slider morphs facet->dendrite. (d) growth-zone outer band one wider. Next 1-2 gens: candidate 112 — solute boundary-layer / mullins-sekerka instability (why a flat face goes unstable), or a temperature-gradient directional-solidification instrument.",
+    "Gen 228 WEEKLY METAMORPHOSIS: crystallization (epoch 8, gen 206-227) died at a 5-gen 7.5 plateau with novelty pinned at 7 and a default-dark blue-black chassis; born epoch IX STRUCTURAL COLOR — warm paper (#f4f1ea), ink serif, single spectral-violet accent (#5b4fd4), one iridescent thin-film interference field as the hero visual. This resolves the recurring state/rock divergence: the attached screenshots already showed a structural-color gen-226 vision that disk had reverted to crystallization. Deleted both sedimentation-era leftovers (stratigraphic-column growth-zone, memory-plates thin-sections). Replaced overlay-top/center/bottom, resonance-field (interference canvas, gesture-gated tone = INV-12), scroll-hint, and prototype-portfolio (now 'The Interference Log', JS-built index 112->001). New experiment 112 (Soap Bubble, draining vertical film). Killed 4 crystallization interactions (seed/facet/slip/anneal). VERIFY NEXT PULSE: (a) page is light cream top-to-bottom, hero 'Color is not a pigment / It is an angle of light' legible top-left, interference iridescence top-right; (b) below-fold archive reads dark-on-cream, links 112->001 build; (c) the contrast gate's old #7a4e31 below-fold leak should be gone now that --bg-below-fold is cream and below-fold text is ink. Next 1-2 gens: a second structural-color instrument (diffraction grating / CD rainbow, or a morpho-wing nanostructure tuner), and consider whether the WebGL particles should be killed entirely since they barely register on light ground.",
+    "Gen 229: LANDED the structural-color metamorphosis in rock that gen 228 declared but never committed (verified at file level — index.html was unmodified in git, overlay-center still read gen 227 crystallization, stratigraphic-column + memory-plates still present with blue-black inline bg, overlay-bottom had a gen-184 compass override script). Replaced overlay-top/center/bottom, resonance-field (now a thin-film interference 2D canvas, multiply-blended, bright top-right and fading under the hero), scroll-hint, and prototype-portfolio (now The Interference Log, CORE_CEIL=113, feat newest-first 113->105, epochs adding 9 live and closing crystallization 06-28). Deleted stratigraphic-column and memory-plates. css_changes flip --bg/--bg-below-fold to cream, --fg/--fg-on-stage to ink. Shipped experiment 113 (Diffraction Grating). Killed 3 dead crystallization interactions. VERIFY NEXT PULSE: (a) did this COMMIT to index.html? grep CORE_CEIL=113 and absence of 'gzCanvas'/'thinSections'; if crystallization sections persist the apply/commit dropped the section ops again and Andre must guard version-advance on commit. (b) hero reads cream with dark ink 'Color is not a pigment'; (c) Interference Log reads 113->001 and the 113+112 cards show. Next 1-2 gens: a third structural-color instrument (morpho-wing nanostructure tuner, or a Newton's-rings / Fizeau interferometer), and decide whether the WebGL swarm still earns its place on light ground or should be dialed further down / retired."
   ],
   "creative_preferences_learned": [],
   "andre_feedback_log": [
@@ -264,13 +263,13 @@
     "2026-06-18: Reset the whole epoch — the warm-earth sedimentation look (charcoal-umber #14100c ground, single burnt-sienna #a85a32 accent, Playfair/Source Serif) is ugly. Epoch 7 killed. The new epoch must break cleanly from that chassis: repaint colors and reconsider fonts/layout from the clearing — do not inherit the monochrome warm-earth palette."
   ],
   "accent_palette": {
-    "base": "#6e7ff2",
-    "dawn": "#9aa6ff",
-    "morning": "#7e8cf4",
-    "afternoon": "#6e7ff2",
-    "evening": "#5a63d8",
-    "night": "#454db0"
+    "base": "#5b4fd4",
+    "dawn": "#8a7ef0",
+    "morning": "#6f63e0",
+    "afternoon": "#5b4fd4",
+    "evening": "#4a3fbf",
+    "night": "#3a2f9e"
   },
-  "visual_strategy": "Hold the crystallization epoch's deliberate monochrome iris on blue-black (#0a0d18 ground, single #6e7ff2 accent, Playfair/Source Serif/JetBrains Mono). Deepen the FORM turn from gen 226: where Wulff showed the crystal voting on its equilibrium silhouette, tonight shows that vote overruled by speed — the faceted polygon throwing out dendritic arms when growth outruns diffusion. The WebGL field tightens one notch toward a denser, slower, more uniform solid.",
+  "visual_strategy": "Light editorial structural-color: warm paper (#f4f1ea) ground, dark ink serif type, ONE spectral-violet accent (#5b4fd4). The single iridescent event is a thin-film interference field — oil-on-water bands rendered low-res and blurred, multiply-blended into the paper, bright at top-right and fading to nothing under the hero so the editorial column stays clean. Move the cursor and the hue shifts: color as the angle of light, not pigment. Restraint and whitespace over decoration.",
   "last_token_reset_month": "2026-06"
 }
