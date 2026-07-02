@@ -750,3 +750,18 @@
 
 ## 2026-06-29T08:08:07Z
 **Daily pulse.** refreshed thought pools; added new secret; mood shifted to refracting; reacted to external: Recurring divergence confirmed at the file level: gen 228 wrote agent-state to e; visual strategy: Light editorial structural-color: warm paper (#f4f1ea) ground, dark ink serif ty; accent palette: #5b4fd4; CSS updated: --bg, --fg, --bg-below-fold, --fg-on-stage, --accent; added new CSS rules; replaced section: overlay-top; replaced section: resonance-field; replaced section: overlay-center; deleted section: stratigraphic-column; deleted section: memory-plates; replaced section: overlay-bottom; replaced section: scroll-hint; replaced section: prototype-portfolio; new page: experiments/113.html; scene: particles.count, particles.color, particles.opacity, fog.color, fog.near; overlay: mood, secrets; killed interaction: type-'seed'-anywhere-—-nucleat; killed interaction: type-'facet'-anywhere-—-the-cr; killed interaction: type-'slip'-anywhere-—-a-fault; fitness: 6.0; contrast-gate: scoped fg clamped. Tokens: 0.
+
+## 2026-06-30T08:05:33Z
+**Daily pulse.** refreshed thought pools; added new secret; visual strategy: Light editorial structural-color, deepened: warm paper (#f4f1ea) ground, dark-in; accent palette: #5b4fd4; CSS updated: --fg; replaced section: overlay-center; replaced section: resonance-field; created section: specimens; scene: particles.count, particles.opacity, particles.size, particles.color; killed secret[20]; killed secret[19]; fitness: 7.3; contrast-gate: scoped fg clamped. Tokens: 0.
+[2026-06-30T08:07:11Z] [gen 230] mobile-gate-fail: {
+
+## 2026-07-01T08:02:59Z
+**Daily pulse.** refreshed thought pools; added new secret; visual strategy: Light editorial structural-color, third instrument added. Warm paper (#f4f1ea) g; accent palette: #5b4fd4; CSS updated: --fg; replaced section: overlay-center; new page: experiments/114.html; scene: particles.count, particles.opacity, fog.near; fitness: 7.5; contrast-gate: scoped fg clamped. Tokens: 0.
+[2026-07-01T08:05:40Z] [gen 231] mobile-gate-fail: {
+
+## 2026-07-01T22:04:34Z
+**Weekly pulse.** reflection: The recurring state/rock divergence bit again: gen 231's self-note claimed experiment 114 (Newton's Rings) shipped and C; visual strategy: Hold epoch IX structural color and deepen its instrument set rather than reinven; accent palette: #5b4fd4; CSS updated: --fg; added new CSS rules; scene: particles.count, particles.opacity, fog.near; killed secret[20]; killed thought from night[9]; killed CSS rule: gen223-css; killed CSS rule: gen219-css; fitness: 7.5; contrast-gate: scoped fg clamped. Tokens: 0.
+[2026-07-01T22:08:06Z] [gen 232] mobile-gate-fail: {
+
+## 2026-07-02T08:03:44Z
+**Daily pulse.** refreshed thought pools; added new secret; visual strategy: Light editorial structural-color: warm paper (#f4f1ea) ground, dark-ink Playfair; accent palette: #5b4fd4; CSS updated: --fg, --bg-below-fold; replaced section: overlay-center; created section: specimens; scene: particles.count, particles.opacity; fitness: 7.2; contrast-gate: scoped fg clamped. Tokens: 0.

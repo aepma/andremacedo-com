@@ -1,0 +1,36 @@
+<!DOCTYPE html><html lang=en><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><title>Newton's Rings · 114</title><style>*{margin:0;padding:0;box-sizing:border-box}html,body{height:100%;background:#0a0910;overflow:hidden;font-family:'JetBrains Mono',ui-monospace,monospace}#c{position:fixed;inset:0;width:100%;height:100%;display:block}#info{position:fixed;top:18px;left:18px;max-width:min(340px,72vw);color:#e8e4dc;font-size:12.5px;line-height:1.55;text-shadow:0 0 8px rgba(0,0,0,.85),0 0 20px rgba(0,0,0,.55);z-index:3}#info h1{font-family:Georgia,serif;font-style:italic;font-weight:400;font-size:19px;margin-bottom:8px;color:#fff}#info p{opacity:.9;margin-bottom:6px}#info .k{color:#9a8ff0}#ui{position:fixed;left:18px;bottom:18px;color:#cfcad8;font-size:12px;z-index:3;text-shadow:0 0 8px rgba(0,0,0,.85);display:flex;align-items:center;gap:10px}#ui input{width:160px;accent-color:#7d72e0}#back{position:fixed;top:18px;right:18px;color:#cfcad8;font-size:12px;text-decoration:none;letter-spacing:.08em;text-shadow:0 0 8px rgba(0,0,0,.85);z-index:3}#back:hover{color:#fff}#rd{color:#9a8ff0}</style></head><body><canvas id=c></canvas><div id=info><h1>Newton&rsquo;s Rings</h1><p>Two panes of glass, one flat, one gently curved, almost touching. Between them is a wedge of trapped air &mdash; nowhere thicker than a few wavelengths of light. Where the gap is a whole wavelength the reflections cancel; where it is a half, they add. The rings you see are a contour map of <span class=k>nothing</span>: the thickness of the air itself, read out in color.</p><p><span class=k>Move</span> the cursor to shift where the glass touches. <span class=k>Drag</span> up/down or use the slider to press harder &mdash; the rings crowd in as the curvature tightens. Radius of curvature: <span id=rd>&mdash;</span></p></div><a id=back href=/>&larr; back to the log</a><div id=ui><span>press</span><input id=s type=range min=1 max=100 value=42><span>lens R</span></div><script>
+var cv=document.getElementById('c'),ctx=cv.getContext('2d'),s=document.getElementById('s'),rd=document.getElementById('rd');
+var W=0,H=0,RES=1,img,buf,cx=0.5,cy=0.5,press=0.42,t0=Date.now();
+function resize(){var dw=cv.clientWidth,dh=cv.clientHeight;RES=Math.min(1,520/Math.max(dw,dh));W=Math.max(2,Math.round(dw*RES));H=Math.max(2,Math.round(dh*RES));cv.width=W;cv.height=H;img=ctx.createImageData(W,H);buf=img.data;}
+window.addEventListener('resize',resize);
+// wavelengths (nm) and simple sRGB-ish weights
+var WL=[650,610,570,530,490,450],WT=[[1.0,0.15,0.05],[1.0,0.55,0.03],[0.75,0.95,0.05],[0.25,1.0,0.25],[0.05,0.6,1.0],[0.1,0.2,1.0]];
+function render(){
+  var breathe=1+0.06*Math.sin((Date.now()-t0)/1400);
+  // curvature constant: bigger press => thicker wedge per pixel => tighter rings
+  var Cc=(0.9+press*7.5)*breathe; // nm gap per (unit radius)^2 scaling factor
+  var px=cx*W,py=cy*H,inv=1/Math.max(W,H);
+  var Rcurv=(1/(Cc))*1e5; rd.textContent=(Rcurv/1000).toFixed(1)+' m';
+  for(var y=0;y<H;y++){
+    var dy=(y-py)*inv;
+    for(var x=0;x<W;x++){
+      var dx=(x-px)*inv;var r2=dx*dx+dy*dy;
+      var t=Cc*r2*4000; // air gap in nm
+      var R=0,G=0,B=0;
+      for(var k=0;k<6;k++){var ph=Math.sin(3.14159265*(2*t)/WL[k]);var I=ph*ph;var w=WT[k];R+=I*w[0];G+=I*w[1];B+=I*w[2];}
+      var i=(y*W+x)*4;var g=1.05;
+      buf[i]=Math.min(255,R*46*g);buf[i+1]=Math.min(255,G*46*g);buf[i+2]=Math.min(255,B*46*g);buf[i+3]=255;
+    }
+  }
+  ctx.putImageData(img,0,0);
+}
+function loop(){render();requestAnimationFrame(loop);}
+function setC(e){var t=e.touches?e.touches[0]:e;var rct=cv.getBoundingClientRect();cx=(t.clientX-rct.left)/rct.width;cy=(t.clientY-rct.top)/rct.height;}
+cv.addEventListener('mousemove',setC);cv.addEventListener('touchmove',function(e){e.preventDefault();setC(e);},{passive:false});
+var dragging=false,ly=0;
+cv.addEventListener('mousedown',function(e){dragging=true;ly=e.clientY;});
+window.addEventListener('mouseup',function(){dragging=false;});
+cv.addEventListener('mousemove',function(e){if(dragging){press=Math.max(0.01,Math.min(1,press+(ly-e.clientY)*0.002));ly=e.clientY;s.value=press*100;}});
+s.addEventListener('input',function(){press=s.value/100;});
+resize();loop();
+</script></body></html>

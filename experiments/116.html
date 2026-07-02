@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Oil Slick — structural color 116</title>
+<style>
+  html,body{margin:0;height:100%;background:#0a0a0c;overflow:hidden;font-family:'JetBrains Mono',ui-monospace,monospace;}
+  #c{display:block;width:100vw;height:100vh;}
+  #info{position:fixed;top:18px;left:18px;max-width:320px;color:#eae7f0;font-size:12.5px;line-height:1.55;
+        text-shadow:0 0 8px rgba(0,0,0,0.85),0 0 20px rgba(0,0,0,0.6);pointer-events:none;}
+  #info h1{font-family:Georgia,'Times New Roman',serif;font-weight:500;font-size:19px;margin:0 0 8px;letter-spacing:0.01em;}
+  #info p{margin:0 0 8px;opacity:0.92;}
+  #info .k{color:#a99bff;}
+  #back{position:fixed;bottom:16px;left:18px;color:#cfc9e0;font-size:12px;text-decoration:none;
+        text-shadow:0 0 8px rgba(0,0,0,0.85);border-bottom:1px solid rgba(207,201,224,0.4);}
+  #read{position:fixed;bottom:16px;right:18px;color:#cfc9e0;font-size:12px;
+        text-shadow:0 0 8px rgba(0,0,0,0.85);}
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div id="info">
+  <h1>Oil Slick</h1>
+  <p>A film of oil a few microns thick floats on water and splits daylight by <span class="k">interference</span>. No pigment is present — the hue is set by how thick the film is where you look, because different thicknesses cancel different wavelengths.</p>
+  <p><span class="k">Move</span> the pointer to tilt your angle to the light. <span class="k">Click</span> to press a swell into the film and watch the color rings bloom.</p>
+</div>
+<a id="back" href="/">← back to the page</a>
+<div id="read">thickness → hue</div>
+<script>
+(function(){
+  var canvas=document.getElementById('c');
+  var ctx=canvas.getContext('2d');
+  var W,H,bw,bh,buf,img;
+  var SCALE=4;
+  var bumps=[];
+  var mx=0.5,my=0.5;
+  function resize(){
+    W=canvas.width=Math.floor(window.innerWidth);
+    H=canvas.height=Math.floor(window.innerHeight);
+    bw=Math.max(1,Math.floor(W/SCALE));
+    bh=Math.max(1,Math.floor(H/SCALE));
+    buf=document.createElement('canvas');buf.width=bw;buf.height=bh;
+    img=ctx.createImageData ? buf.getContext('2d').createImageData(bw,bh) : null;
+  }
+  window.addEventListener('resize',resize);
+  resize();
+  var bctx=buf.getContext('2d');
+  img=bctx.createImageData(bw,bh);
+  window.addEventListener('resize',function(){img=bctx.createImageData(bw,bh);});
+  window.addEventListener('mousemove',function(e){mx=e.clientX/W;my=e.clientY/H;});
+  window.addEventListener('touchmove',function(e){if(e.touches[0]){mx=e.touches[0].clientX/W;my=e.touches[0].clientY/H;}},{passive:true});
+  function addBump(px,py){bumps.push({x:px,y:py,t:0});if(bumps.length>8)bumps.shift();}
+  window.addEventListener('click',function(e){addBump(e.clientX/W,e.clientY/H);});
+  window.addEventListener('touchstart',function(e){if(e.touches[0])addBump(e.touches[0].clientX/W,e.touches[0].clientY/H);},{passive:true});
+  // reflectance of a thin film for one wavelength (nm), thickness d (nm), angle factor c
+  function refl(d,lam,c){
+    var phase=(2*Math.PI*1.33*d*c)/lam + Math.PI; // pi shift at top interface
+    var s=Math.sin(phase);
+    return s*s;
+  }
+  var t=0;
+  function frame(){
+    t+=0.008;
+    var data=img.data;
+    var angle=0.86+0.32*(1-my); // viewing angle factor from pointer height
+    for(var j=0;j<bh;j++){
+      var v=j/bh;
+      for(var i=0;i<bw;i++){
+        var u=i/bw;
+        // base thickness field in nm, slow moving swells
+        var d=520
+          +180*Math.sin(u*7.0+t*1.3+Math.cos(v*5.0-t))
+          +150*Math.sin(v*6.0-t*0.9)
+          +120*Math.sin((u+v)*5.0+t*0.6)
+          +90*Math.sin(u*13.0-v*9.0+t*2.0);
+        for(var b=0;b<bumps.length;b++){
+          var bp=bumps[b];
+          var dx=u-bp.x, dy=v-bp.y;
+          var r=Math.sqrt(dx*dx+dy*dy);
+          d+=380*Math.exp(-r*r*90)*Math.cos(r*60-bp.t*4)*Math.exp(-bp.t*0.5);
+        }
+        var cR=refl(d,620,angle);
+        var cG=refl(d,530,angle);
+        var cB=refl(d,465,angle);
+        var idx=(j*bw+i)*4;
+        data[idx]=Math.min(255,30+cR*225);
+        data[idx+1]=Math.min(255,26+cG*225);
+        data[idx+2]=Math.min(255,40+cB*220);
+        data[idx+3]=255;
+      }
+    }
+    bctx.putImageData(img,0,0);
+    ctx.imageSmoothingEnabled=true;
+    ctx.drawImage(buf,0,0,bw,bh,0,0,W,H);
+    for(var b2=bumps.length-1;b2>=0;b2--){bumps[b2].t+=0.016;if(bumps[b2].t>6)bumps.splice(b2,1);}
+    requestAnimationFrame(frame);
+  }
+  frame();
+})();
+</script>
+</body>
+</html>
