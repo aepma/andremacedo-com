@@ -3,6 +3,16 @@
 # Usage: runner.sh --daily | --weekly | --event
 set -euo pipefail
 
+# ── CUTOVER GUARD (2026-07-03): this checkout is RETIRED ──────────────
+# andremacedo.com is now served by the engine-c checkout
+# (/Users/andrepiresmacedo/andremacedo.com-engine-c); the four launchd daemons
+# were repointed there on 2026-07-03. This early exit makes the retired runner a
+# no-op so a stray manual or scheduled call can never deploy stale content over
+# engine-c. Nothing is deleted. To reverse: git revert this guard commit.
+mkdir -p "$HOME/.openclaw/logs" 2>/dev/null || true
+echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] cutover-guard: retired andremacedo.com $(basename "$0") invoked — no-op, engine-c is production. Exiting 0." >> "$HOME/.openclaw/logs/andremacedo-oldguard.log" 2>/dev/null || true
+exit 0
+
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 SITE_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
 STATE_FILE="$SITE_DIR/state/agent-state.json"
