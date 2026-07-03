@@ -1,5 +1,5 @@
 {
-  "generation": 233,
+  "generation": 234,
   "epoch": "structural color",
   "epoch_started": "2026-06-28",
   "traits": {
@@ -64,6 +64,7 @@
         "experiments/044.html",
         "experiments/101.html",
         "experiments/052.html",
+        "experiments/117.html",
         "experiments/005.html",
         "experiments/091.html",
         "experiments/029.html",
@@ -301,17 +302,6 @@
   },
   "fitness_log": [
     {
-      "gen": 214,
-      "coherence": 8,
-      "novelty": 7,
-      "identity": 8,
-      "tension": 6,
-      "awe": 7,
-      "perceptibility": 7,
-      "note": "The crystal hero, iris scene and The Lattice archive read clean and cool top to bottom. The real defect this pulse: the hero still says 'generation 20",
-      "total": 7.2
-    },
-    {
       "gen": 215,
       "coherence": 8,
       "novelty": 6,
@@ -519,21 +509,20 @@
       "perceptibility": 7,
       "note": "Structural-color chassis is clean and coherent on both viewports \u2014 warm paper, dark-ink Playfair column, one iridescent interference field. But the pa",
       "total": 7.2
+    },
+    {
+      "gen": 234,
+      "coherence": 8,
+      "novelty": 7,
+      "identity": 8,
+      "tension": 6,
+      "awe": 7,
+      "perceptibility": 8,
+      "note": "Structural-color chassis is clean, legible on both viewports: warm paper, dark-ink Playfair hero, one violet accent, iridescence only where physics ea",
+      "total": 7.3
     }
   ],
   "mutation_log": [
-    {
-      "gen": 214,
-      "mutations": [
-        "content.thoughts",
-        "content.mood",
-        "color.accent",
-        "scene.config",
-        "overlay.agent_data"
-      ],
-      "kills": [],
-      "timestamp": "2026-06-20T16:04:02Z"
-    },
     {
       "gen": 215,
       "mutations": [
@@ -868,15 +857,25 @@
       ],
       "kills": [],
       "timestamp": "2026-07-02T08:03:44Z"
+    },
+    {
+      "gen": 234,
+      "mutations": [
+        "content.thoughts",
+        "content.secrets",
+        "color.accent",
+        "section.overlay-center",
+        "section.specimens",
+        "page.experiments/117.html",
+        "scene.config"
+      ],
+      "kills": [
+        "secret[20]"
+      ],
+      "timestamp": "2026-07-03T08:03:24Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "interaction",
-      "value": "type-'compact'-anywhere-\u2014-sett",
-      "died_gen": 210,
-      "epitaph": "Compaction belonged to buried sediment. Nothing compacts here now."
-    },
     {
       "type": "interaction",
       "value": "type-'remember'-anywhere-light",
@@ -1170,6 +1169,12 @@
       "value": "gen219-css",
       "died_gen": 232,
       "epitaph": "crystallization dislocation styling, dead epoch"
+    },
+    {
+      "type": "secret",
+      "value": "The bluest thing on this page holds no blue ink \u2014 only a distance thinner than t",
+      "died_gen": 234,
+      "epitaph": "over capacity (21/20); oldest crystallization-era residue pruned for the beetle secret"
     }
   ],
   "carrying_capacity": {
@@ -1188,11 +1193,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 224,
-      "base": "#6e7ff2",
-      "family": "cyan"
-    },
     {
       "gen": 225,
       "base": "#6e7ff2",
@@ -1235,6 +1235,11 @@
     },
     {
       "gen": 233,
+      "base": "#5b4fd4",
+      "family": "blue"
+    },
+    {
+      "gen": 234,
       "base": "#5b4fd4",
       "family": "blue"
     }
@@ -1299,14 +1304,6 @@
   ],
   "epoch_number": 9,
   "contrast_warnings": [
-    {
-      "gen": 224,
-      "messages": [
-        "  [contrast-gate below-fold] effective bg = #0a0d18 from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
-        "    FAIL  #7a4e31  ratio=2.73:1  (< 4.5)"
-      ],
-      "timestamp": "2026-06-25T08:03:13Z"
-    },
     {
       "gen": 225,
       "messages": [
@@ -1378,6 +1375,14 @@
         "    FAIL  #8a878f  ratio=3.13:1  (< 4.5)"
       ],
       "timestamp": "2026-07-02T08:03:44Z"
+    },
+    {
+      "gen": 234,
+      "messages": [
+        "  [contrast-gate below-fold] effective bg = #f4f1ea from .below-fold:212 (raw: var(--bg-below-fold, #fffff5))",
+        "    FAIL  #8a878f  ratio=3.13:1  (< 4.5)"
+      ],
+      "timestamp": "2026-07-03T08:03:24Z"
     }
   ]
 }
