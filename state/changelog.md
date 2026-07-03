@@ -740,3 +740,6 @@ Epoch IX metamorphosis: structural color — light field, live iridescent thin-f
 
 ## gen 226 (weekly, 2026-06-27)
 gen 226: deepen Epoch IX structural color — spectral masthead hairline, ship experiment 110 Soap Bubble, refresh mind
+
+## gen 227 (weekly, 2026-07-03)
+gen 227 weekly: deepen Epoch IX structural color — specimen-drawer taxonomy (oil/soap/morpho/nacre) + ship experiment 111 Morpho, angle-dependent iridescence

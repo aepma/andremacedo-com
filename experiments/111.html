@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>111 · Morpho — TELOS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500&display=swap');
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html,body{width:100%;height:100%;overflow:hidden;background:#04050a;font-family:'JetBrains Mono',ui-monospace,monospace;}
+  #stage{position:fixed;inset:0;display:block;width:100vw;height:100vh;}
+  .ov{position:fixed;z-index:5;color:#f3f1ec;text-shadow:0 0 8px rgba(0,0,0,0.8),0 0 20px rgba(0,0,0,0.5);}
+  #info{top:1.4rem;left:1.4rem;max-width:22rem;opacity:0.94;}
+  #info h1{font-size:0.8rem;letter-spacing:0.2em;text-transform:uppercase;font-weight:500;margin-bottom:0.75rem;}
+  #info p{font-size:0.73rem;line-height:1.68;opacity:0.82;font-weight:300;}
+  #info .hint{margin-top:0.65rem;color:#a9c8ff;opacity:0.94;}
+  #back{top:1.4rem;right:1.4rem;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:#f3f1ec;text-decoration:none;opacity:0.7;}
+  #back:hover{opacity:1;}
+  #readout{bottom:1.3rem;left:1.4rem;font-size:0.68rem;letter-spacing:0.07em;opacity:0.82;}
+  #readout b{color:#a9c8ff;font-weight:400;}
+  @media(max-width:600px){
+    #info{max-width:calc(100vw - 3rem);}
+    #back{top:1rem;right:1rem;}
+  }
+</style>
+</head>
+<body>
+<canvas id="stage"></canvas>
+<div id="info" class="ov">
+  <h1>111 · Morpho</h1>
+  <p>A morpho wing has no blue pigment in it. The blue is built from stacked shelves of clear cuticle and air, spaced a fraction of a wavelength apart — a tiny hall of mirrors that agrees only on blue and cancels the rest. Tilt the wing and the agreement shifts: blue climbs toward violet as the light takes a steeper path through the stack.</p>
+  <p class="hint">Drag left / right to tilt the wing. Let go and it sways on its own.</p>
+</div>
+<a id="back" class="ov" href="/">← telos</a>
+<div id="readout" class="ov">tilt <b id="ang">0°</b> · peak <b id="lam">—</b> nm</div>
+<script>
+(function(){
+  var cv=document.getElementById('stage'), ctx=cv.getContext('2d');
+  var DPR=Math.min(window.devicePixelRatio||1,1.5);
+  var W,H,bufW,bufH,buf,bctx,img,data;
+
+  // smoothed value-noise field — the scale-to-scale disorder that makes a real
+  // wing shimmer instead of reading as one flat sheet of blue.
+  var NS=128, noise=new Float32Array(NS*NS);
+  (function(){
+    var raw=new Float32Array(NS*NS);
+    for(var i=0;i<NS*NS;i++)raw[i]=Math.random();
+    for(var pass=0;pass<2;pass++){
+      for(var y=0;y<NS;y++)for(var x=0;x<NS;x++){
+        var s=0;
+        for(var dy=-1;dy<=1;dy++)for(var dx=-1;dx<=1;dx++){
+          s+=raw[((y+dy+NS)%NS)*NS+((x+dx+NS)%NS)];
+        }
+        noise[y*NS+x]=s/9;
+      }
+      raw.set(noise);
+    }
+  })();
+  function nz(x,y){
+    x-=Math.floor(x/NS)*NS; y-=Math.floor(y/NS)*NS;
+    var x0=x|0,y0=y|0,x1=(x0+1)%NS,y1=(y0+1)%NS,fx=x-x0,fy=y-y0;
+    var a=noise[y0*NS+x0],b=noise[y0*NS+x1],c=noise[y1*NS+x0],d=noise[y1*NS+x1];
+    return a*(1-fx)*(1-fy)+b*fx*(1-fy)+c*(1-fx)*fy+d*fx*fy;
+  }
+  function fbm(x,y){return 0.6*nz(x,y)+0.3*nz(x*2.03+11.1,y*2.03+5.7)+0.15*nz(x*4.01+3.3,y*4.01+9.2);}
+
+  function resize(){
+    W=cv.clientWidth;H=cv.clientHeight;
+    cv.width=Math.round(W*DPR);cv.height=Math.round(H*DPR);
+    bufW=Math.max(120,Math.min(240,Math.round(W/3)));
+    bufH=Math.max(120,Math.round(bufW*H/Math.max(W,1)));
+    buf=document.createElement('canvas');buf.width=bufW;buf.height=bufH;
+    bctx=buf.getContext('2d');
+    img=bctx.createImageData(bufW,bufH);data=img.data;
+    ctx.setTransform(DPR,0,0,DPR,0,0);
+    ctx.imageSmoothingEnabled=true;
+  }
+
+  // structural colour of a lamellar (Bragg) stack seen at incidence angle a.
+  // Constructive peak: lambda = 2*n*d*cos(theta_refracted)/m. n and d are chosen
+  // so the head-on peak sits at ~465nm (morpho blue); steeper angles blue-shift it.
+  var N_IDX=1.45, D_SPACE=162.0; // nm — cuticle/air multilayer period
+  function peakLambda(a){
+    var st=Math.sin(a)/N_IDX;                    // Snell refraction into the stack
+    var ct=Math.sqrt(Math.max(0.0,1.0-st*st));
+    return 2.0*N_IDX*D_SPACE*ct;                  // m = 1
+  }
+  var RW=620, GW=535, BW=460, SIG=48;             // channel wavelengths + resonance width
+  function resonance(peak,w){var x=(w-peak)/SIG;return Math.exp(-x*x*0.5);}
+
+  var angle=0, target=0, dragging=false, lastX=0, autoT=0;
+
+  function frame(now){
+    var t=now*0.001;
+    if(!dragging){ autoT+=0.006; target=Math.sin(autoT)*0.34; }
+    angle+=(target-angle)*0.08;
+
+    var o=0;
+    for(var y=0;y<bufH;y++){
+      var v=y/bufH;
+      for(var x=0;x<bufW;x++){
+        var u=x/bufW;
+        // each scale tilts a little differently — local angle jitter around the global tilt
+        var jit=(fbm(u*9.0, v*3.0+t*0.03)-0.5);
+        var a=angle + jit*0.55;
+        var peak=peakLambda(a);
+        // ridged scales: horizontal shelves catch light in bright rows
+        var ridge=0.5+0.5*Math.sin(v*bufH*0.9 + fbm(u*4.0,v*4.0)*6.0);
+        var shimmer=0.55+0.6*fbm(u*6.0+t*0.14, v*10.0 - t*0.20);
+        var bright=(0.22+0.9*ridge*shimmer);
+        var r=resonance(peak,RW), g=resonance(peak,GW), b=resonance(peak,BW);
+        // a faint second-order violet leak keeps deep tilts from going black
+        b+=0.35*resonance(peak*2.0,BW);
+        var mx=Math.max(r,Math.max(g,b))||1;
+        var scl=bright*255/mx;
+        var rr=r*scl, gg=g*scl, bb=b*scl;
+        // lift toward a luminous body, never a flat wash
+        data[o]  =Math.min(255, rr*0.92+14);
+        data[o+1]=Math.min(255, gg*0.96+18);
+        data[o+2]=Math.min(255, bb*1.02+30);
+        data[o+3]=255;
+        o+=4;
+      }
+    }
+    bctx.putImageData(img,0,0);
+    ctx.clearRect(0,0,W,H);
+    ctx.drawImage(buf,0,0,W,H);
+
+    var deg=Math.round(angle*180/Math.PI);
+    document.getElementById('ang').textContent=deg+'°';
+    document.getElementById('lam').textContent=Math.round(peakLambda(angle));
+    requestAnimationFrame(frame);
+  }
+
+  cv.addEventListener('pointerdown',function(e){dragging=true;lastX=e.clientX;});
+  window.addEventListener('pointermove',function(e){
+    if(!dragging)return;
+    target+= (e.clientX-lastX)/Math.max(W,1)*1.6;
+    if(target>1.15)target=1.15; if(target<-1.15)target=-1.15;
+    lastX=e.clientX;
+  });
+  window.addEventListener('pointerup',function(){dragging=false;autoT=Math.asin(Math.max(-1,Math.min(1,target/0.34)))||0;});
+  window.addEventListener('resize',resize);
+  resize();requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>

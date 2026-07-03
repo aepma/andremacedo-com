@@ -2,40 +2,38 @@
   "verdict": "PASS",
   "is_slop": false,
   "threshold": 7.0,
-  "overall_min": 7.0,
+  "overall_min": 7.8,
   "reason": "both critics cleared",
   "critics": {
     "A": {
       "model": "claude-opus-4-8-oauth",
       "passed": true,
       "axes": {
-        "type_scale": 7.0,
-        "spacing_system": 7.0,
+        "type_scale": 8.0,
+        "spacing_system": 8.0,
         "focal_hierarchy": 8.0,
-        "restraint": 6.0,
-        "hero": 7.0,
-        "composition": 6.0,
-        "type_craft": 8.0,
-        "color": 7.0
+        "restraint": 7.0,
+        "hero": 8.0,
+        "composition": 7.0,
+        "type_craft": 9.0,
+        "color": 8.0
       },
-      "overall": 7.0,
+      "overall": 7.8,
       "is_slop": false,
       "findings": [
-        "The iridescent oil-slick blob in the top-right is the page's one big bet, but it's rendered as a soft Photoshop-filter cloud with no edge, no grain, no compositional relationship to the type — it floats as decoration rather than locking into the grid as compositional mass.",
-        "Below the hero, the page collapses into a very conservative single-column editorial column anchored left at roughly the same x-axis for screen after screen — the 'living art organism' premise is not visible in the layout; it reads like a long-form Substack essay.",
-        "The Roman-numeral obsessions table and the Interference Log table both use default thin hairline rules and left-aligned mono dates — competent but completely generic editorial-table styling with no signature move.",
-        "The pull-quote in italic serif with a thin left rule ('Tilt your head and the hue moves…') is the single most templated editorial gesture in long-form web design; it adds no torque to the composition.",
-        "Whitespace below the hero is dead air rather than compositional mass — huge vertical gaps between sections without any counter-anchor, marginalia, or off-axis element to make the void intentional.",
-        "Color discipline is mostly monochrome black-on-cream with the holographic blob doing all the chromatic work; the lavender pull-quote tint and lavender 'Soap Bubble' card feel like two unrelated accent decisions rather than one governed harmony.",
-        "The 'Soap Bubble' card sits as a lone rounded-corner pastel block in an otherwise hairline-ruled editorial system — it breaks the visual language without justifying the break."
+        "The iridescent holographic blob in the hero is the one moment of visible risk, but it reads as a stock 'AI aurora' texture — soft, airbrushed, and generic; a more editorial page would either commit harder (bleed, crop, distort) or replace it with something typographic.",
+        "Below the hero the page collapses into a fairly conventional long-form editorial column — center-anchored text block with mono captions above each section — which is a well-executed but familiar 'longread' template rather than a decisive compositional gesture.",
+        "The specimen drawer and Interference Log tables are handsome but conservative: standard left-aligned rows, thin rules, mono labels — the kind of restraint that reads as taste, but there's no signature move that a strong templated generator couldn't reach.",
+        "The pink 'IX structural color — live now' highlight rule is used twice (in the log and in the index) which slightly dilutes its function as a live-status marker."
       ],
       "what_works": [
-        "The display serif setting of 'Color is not a pigment. It is an angle of light.' with the italic 'angle' is a real typographic choice with editorial conviction — not the default Inter hero.",
-        "The micro-typography in the top rail (small-caps mono nav, the gen-number/epoch metadata, the right-side 'next rebuild' block) shows a considered information-architecture voice rather than generic nav chrome.",
-        "Type pairing of high-contrast serif against a mono utility voice is a deliberate, expressive pairing — not the safe default sans the rubric warns about.",
-        "The holographic gradient is at least a specific, named referent (oil slick, structural color) tied to the page's thesis, not a generic purple-indigo SaaS gradient."
+        "The hero typography is a genuine point of view: a large high-contrast serif with a real italic ('angle') doing editorial work against a mono utility voice in the sub-deck and rails — this is not the default sans slop.",
+        "The header/footer rails set in tiny tracked mono with actual content ('epoch IX — structural color', 'next rewrite: tonight') give the page a masthead/broadside feel rather than a SaaS nav.",
+        "Drop cap on 'A morpho' and the pull-quote with a pink vertical rule are old-print moves executed with restraint, not garnish.",
+        "The specimen drawer swatches (oil-on-water, soap film, morpho wing, abalone nacre) are tiny holographic gradients used as data, not decoration — they tie the hero blob back to content.",
+        "Color discipline: mostly warm off-white paper, black type, one accent pink for live-state and quote, iridescence contained to hero + swatches. Not a rainbow, not a purple/indigo gradient template."
       ],
-      "reasoning": "The hero earns a genuine typographic move and a thesis-linked chromatic gesture, and the page refuses the centered-hero / three-card SaaS template, so it clears the cardinal slop bar. But after the hero, the composition flattens into a conservative left-anchored editorial column with default hairline tables, a templated italic pull-quote, and dead vertical whitespace standing in for compositional tension. The holographic blob — the one decisive aesthetic bet — is rendered as a soft floating cloud rather than integrated as compositional mass, so the page lands as a well-typeset literary essay rather than the living art organism it claims to be."
+      "reasoning": "This is not the centered-hero + gradient + three-card template. The hero is a broadside masthead with a high-contrast serif setting an actual argument in italic, flanked by tracked mono rails that carry real content, and the accent color is a single restrained pink used for live-state signaling. Below the fold it settles into a competent editorial longread with specimen tables and an index, which is where it stops surprising — the compositional risk is mostly front-loaded and the holographic blob itself is the softest, most stock element on the page. Solid taste and a real typographic point of view keep it out of slop territory, but it doesn't quite earn a higher score because the second half is well-mannered rather than decisive."
     },
     "B": {
       "model": "grok-4-1-fast-reasoning",
@@ -43,26 +41,22 @@
       "passed": true,
       "axes": {
         "type_scale": 8.0,
-        "spacing_system": 8.0,
-        "focal_hierarchy": 9.0,
+        "spacing_system": 7.0,
+        "focal_hierarchy": 8.0,
         "restraint": 9.0,
         "hero": 9.0,
         "composition": 8.0,
-        "type_craft": 9.0,
-        "color": 9.0
+        "type_craft": 8.0,
+        "color": 7.0
       },
       "overall": 8.0,
       "is_slop": false,
-      "findings": [
-        "minor density in the long lab-notes blocks creates occasional gray rectangles that flatten rhythm",
-        "some meta labels (gen numbers, dates) sit at identical weight to body text, diluting hierarchy slightly"
-      ],
+      "findings": [],
       "what_works": [
-        "live iridescent thin-film WebGL hero that is the actual subject, not garnish",
-        "high-contrast editorial serif against mono utility pairing with clear expressive intent",
-        "left-anchored asymmetric layout that treats whitespace as mass rather than centering default"
+        "Hero composition pairs massive left-aligned editorial serif with off-axis iridescent light field instead of centered gradient",
+        "Specimen drawer uses actual thin-film swatches as functional color proof rather than decorative icons"
       ],
-      "reasoning": "Desktop render shows a single decisive move—the live structural-color simulation as hero background—paired with an intentional serif/mono voice and left-anchored editorial flow that avoids every listed cardinal slop state. No centered SaaS template, no safe system sans blanket, no uniform decoration. Minor density issues in the lower log sections prevent a 9 overall."
+      "reasoning": "Desktop shows deliberate left-anchored typography, purposeful asymmetry, and a hero that treats the iridescent field as structural evidence rather than garnish. No template SaaS grid, no default sans, no uniform decoration. Mobile reflow preserves hierarchy without collapse."
     }
   }
 }
