@@ -743,3 +743,6 @@ gen 226: deepen Epoch IX structural color — spectral masthead hairline, ship e
 
 ## gen 227 (weekly, 2026-07-03)
 gen 227 weekly: deepen Epoch IX structural color — specimen-drawer taxonomy (oil/soap/morpho/nacre) + ship experiment 111 Morpho, angle-dependent iridescence
+
+## gen 228 (weekly, 2026-07-05)
+gen 228 weekly: make the specimen drawer playable — tap a creature to retune the live thin-film hero to its regime; ship experiment 112 Nacre

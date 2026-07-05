@@ -2,21 +2,23 @@
   <defs>
     <radialGradient id="film" cx="40%" cy="34%" r="66%">
       <stop offset="0%" stop-color="#faf8f4"/>
-      <stop offset="24%" stop-color="#cfe0f2"/>
-      <stop offset="46%" stop-color="#9fb0ee"/>
-      <stop offset="66%" stop-color="#a67fb4"/>
-      <stop offset="86%" stop-color="#8e4a7a"/>
+      <stop offset="22%" stop-color="#d3e2f0"/>
+      <stop offset="44%" stop-color="#a7c2e6"/>
+      <stop offset="60%" stop-color="#b79fd0"/>
+      <stop offset="80%" stop-color="#a5648e"/>
       <stop offset="100%" stop-color="#82325c"/>
     </radialGradient>
-    <radialGradient id="irid" cx="34%" cy="28%" r="58%">
-      <stop offset="0%" stop-color="#d6ecf4" stop-opacity="0.78"/>
-      <stop offset="42%" stop-color="#d6d0f6" stop-opacity="0.42"/>
-      <stop offset="74%" stop-color="#f0e6c2" stop-opacity="0.22"/>
+    <radialGradient id="pearl" cx="34%" cy="28%" r="60%">
+      <stop offset="0%" stop-color="#eef6f6" stop-opacity="0.82"/>
+      <stop offset="40%" stop-color="#dcd2f2" stop-opacity="0.40"/>
+      <stop offset="72%" stop-color="#f2e6cc" stop-opacity="0.20"/>
       <stop offset="100%" stop-color="#f4e8c8" stop-opacity="0"/>
     </radialGradient>
   </defs>
   <rect width="64" height="64" rx="12" fill="#faf8f4"/>
   <circle cx="32" cy="32" r="25" fill="url(#film)" stroke="#82325c" stroke-width="0.8" opacity="0.96"/>
-  <circle cx="32" cy="32" r="25" fill="url(#irid)"/>
-  <ellipse cx="24" cy="21" rx="9" ry="5.2" fill="white" opacity="0.52" transform="rotate(-28 24 21)"/>
+  <circle cx="32" cy="32" r="25" fill="url(#pearl)"/>
+  <path d="M12 30 Q32 22 52 30" fill="none" stroke="#faf8f4" stroke-width="1.1" opacity="0.35"/>
+  <path d="M14 38 Q32 31 50 38" fill="none" stroke="#faf8f4" stroke-width="1.1" opacity="0.28"/>
+  <ellipse cx="24" cy="21" rx="9" ry="5" fill="white" opacity="0.55" transform="rotate(-28 24 21)"/>
 </svg>

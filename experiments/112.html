@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>112 · Nacre — TELOS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500&display=swap');
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html,body{width:100%;height:100%;overflow:hidden;background:#07070c;font-family:'JetBrains Mono',ui-monospace,monospace;}
+  #stage{position:fixed;inset:0;display:block;width:100vw;height:100vh;}
+  .ov{position:fixed;z-index:5;color:#f3f1ec;text-shadow:0 0 8px rgba(0,0,0,0.8),0 0 20px rgba(0,0,0,0.5);}
+  #info{top:1.4rem;left:1.4rem;max-width:23rem;opacity:0.94;}
+  #info h1{font-size:0.8rem;letter-spacing:0.2em;text-transform:uppercase;font-weight:500;margin-bottom:0.75rem;}
+  #info p{font-size:0.73rem;line-height:1.68;opacity:0.82;font-weight:300;}
+  #info .hint{margin-top:0.65rem;color:#e6c6dd;opacity:0.96;}
+  #back{top:1.4rem;right:1.4rem;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:#f3f1ec;text-decoration:none;opacity:0.7;}
+  #back:hover{opacity:1;}
+  #readout{bottom:1.3rem;left:1.4rem;font-size:0.68rem;letter-spacing:0.07em;opacity:0.84;}
+  #readout b{color:#e6c6dd;font-weight:400;}
+  @media(max-width:600px){
+    #info{max-width:calc(100vw - 3rem);}
+    #back{top:1rem;right:1rem;}
+  }
+</style>
+</head>
+<body>
+<canvas id="stage"></canvas>
+<div id="info" class="ov">
+  <h1>112 · Nacre</h1>
+  <p>Mother-of-pearl is the same dull chalk an abalone builds its shell from — aragonite, stacked in hundreds of tile-thin plates about 500&nbsp;nm each. No dye lives here. The color is in the stacking: every plate boundary reflects a sliver of light, and the slivers interfere. Tilt the shell and the sheen sweeps, because you changed the path length through the stack.</p>
+  <p class="hint">Drag to tilt the shell — the pearl sheen sweeps across it. Release and it drifts on its own.</p>
+</div>
+<a id="back" class="ov" href="/">← telos</a>
+<div id="readout" class="ov">tilt <b id="ang">0°</b> · plate <b id="thk">500</b> nm · peak <b id="lam">—</b> nm</div>
+<script>
+(function(){
+  var cv=document.getElementById('stage'), ctx=cv.getContext('2d');
+  var DPR=Math.min(window.devicePixelRatio||1,1.5);
+  var W,H;
+  function resize(){
+    W=cv.clientWidth;H=cv.clientHeight;
+    cv.width=Math.round(W*DPR);cv.height=Math.round(H*DPR);
+    ctx.setTransform(DPR,0,0,DPR,0,0);
+  }
+  window.addEventListener('resize',resize);resize();
+
+  // Thin-film interference colour: cos of 2·(2π n d cosθ)/λ per channel, folded
+  // toward pastel (white) because nacre stacks many faint reflections, not one.
+  function film(d,ang){
+    var lam=[610,545,470];       // r,g,b reference wavelengths
+    var eff=d*Math.cos(ang*0.55);// steeper tilt shortens the path
+    var out=[0,0,0];
+    for(var i=0;i<3;i++){
+      var ph=4.0*Math.PI*1.55*eff/lam[i]; // n≈1.55 aragonite
+      out[i]=0.5+0.5*Math.cos(ph);
+    }
+    // pastel fold: mother-of-pearl is a low-saturation shimmer
+    return [0.62+0.38*out[0],0.62+0.38*out[1],0.66+0.34*out[2]];
+  }
+  function peakLam(d,ang){
+    var eff=d*Math.cos(ang*0.55),best=0,bl=560;
+    for(var l=420;l<=680;l+=4){
+      var v=Math.pow(Math.cos(2.0*Math.PI*1.55*eff/l),2);
+      if(v>best){best=v;bl=l;}
+    }
+    return bl;
+  }
+
+  // Aragonite platelets — jittered brick lattice, each a rounded tile with its
+  // own thickness (490–520nm) and a slow personal phase so the sheen isn't uniform.
+  var plates=[];
+  function build(){
+    plates.length=0;
+    var cx=W*0.5, cy=H*0.54, R=Math.min(W,H)*0.42;
+    var step=Math.max(15,Math.min(30,R/12));
+    for(var y=-R;y<R;y+=step){
+      var off=((Math.round(y/step))%2)*step*0.5;
+      for(var x=-R;x<R;x+=step){
+        var px=cx+x+off, py=cy+y;
+        var dx=(px-cx)/R, dy=(py-cy)/(R*0.86);
+        var rr=dx*dx+dy*dy;
+        if(rr>1)continue;
+        plates.push({
+          x:px+(Math.random()-0.5)*step*0.4,
+          y:py+(Math.random()-0.5)*step*0.4,
+          w:step*(0.66+Math.random()*0.5),
+          h:step*(0.5+Math.random()*0.42),
+          rot:(Math.random()-0.5)*0.5,
+          thk:490+Math.random()*30,
+          ph:Math.random()*6.28,
+          rim:1-rr
+        });
+      }
+    }
+  }
+
+  var ang=0, tgt=0.0, vel=0.0, dragging=false, lastX=0, auto=0;
+  function pt(e){return e.touches?e.touches[0]:e;}
+  cv.addEventListener('pointerdown',function(e){dragging=true;lastX=pt(e).clientX;vel=0;});
+  window.addEventListener('pointermove',function(e){
+    if(!dragging)return;
+    var x=pt(e).clientX; vel=(x-lastX); tgt+=(x-lastX)*0.006; lastX=x;
+    tgt=Math.max(-1.25,Math.min(1.25,tgt));
+  });
+  window.addEventListener('pointerup',function(){dragging=false;});
+
+  var angEl=document.getElementById('ang'),thkEl=document.getElementById('thk'),lamEl=document.getElementById('lam');
+  var t0=performance.now();
+  function frame(now){
+    var t=(now-t0)/1000;
+    if(!dragging){ auto+=0.004; tgt=Math.sin(auto)*0.9; }
+    ang+=(tgt-ang)*0.06;
+
+    // ground: a graded dark shell interior
+    var bg=ctx.createLinearGradient(0,0,0,H);
+    bg.addColorStop(0,'#0b0b12');bg.addColorStop(1,'#050508');
+    ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);
+
+    for(var i=0;i<plates.length;i++){
+      var p=plates[i];
+      var localAng=ang + 0.18*Math.sin(t*0.6+p.ph) + p.rim*0.12;
+      var c=film(p.thk,localAng);
+      var r=Math.round(c[0]*255),g=Math.round(c[1]*255),b=Math.round(c[2]*255);
+      ctx.save();
+      ctx.translate(p.x,p.y);
+      ctx.rotate(p.rot);
+      var grd=ctx.createRadialGradient(-p.w*0.2,-p.h*0.2,1,0,0,p.w);
+      grd.addColorStop(0,'rgba('+Math.min(255,r+40)+','+Math.min(255,g+40)+','+Math.min(255,b+40)+',0.96)');
+      grd.addColorStop(0.7,'rgba('+r+','+g+','+b+',0.9)');
+      grd.addColorStop(1,'rgba('+Math.round(r*0.5)+','+Math.round(g*0.5)+','+Math.round(b*0.55)+',0.72)');
+      ctx.fillStyle=grd;
+      ctx.beginPath();
+      var rx=p.w,ry=p.h;
+      ctx.ellipse(0,0,rx,ry,0,0,6.2832);
+      ctx.fill();
+      ctx.restore();
+    }
+
+    // moving specular band — the physical sweep of the highlight as you tilt
+    var bandX=W*(0.5+0.42*Math.sin(ang));
+    var spec=ctx.createLinearGradient(bandX-W*0.22,0,bandX+W*0.22,0);
+    spec.addColorStop(0,'rgba(255,255,255,0)');
+    spec.addColorStop(0.5,'rgba(255,252,248,0.20)');
+    spec.addColorStop(1,'rgba(255,255,255,0)');
+    ctx.globalCompositeOperation='lighter';
+    ctx.fillStyle=spec;ctx.fillRect(0,0,W,H);
+    ctx.globalCompositeOperation='source-over';
+
+    var deg=Math.round(ang*57.3);
+    angEl.textContent=deg+'°';
+    thkEl.textContent=Math.round(plates.length?plates[0].thk:500);
+    lamEl.textContent=peakLam(505,ang);
+    requestAnimationFrame(frame);
+  }
+  build();
+  window.addEventListener('resize',build);
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
