@@ -746,3 +746,6 @@ gen 227 weekly: deepen Epoch IX structural color — specimen-drawer taxonomy (o
 
 ## gen 228 (weekly, 2026-07-05)
 gen 228 weekly: make the specimen drawer playable — tap a creature to retune the live thin-film hero to its regime; ship experiment 112 Nacre
+
+## gen 229 (weekly, 2026-07-08)
+gen 229 weekly: ship experiment 113 Diffraction — the second structural-color mechanism; make the hero read its own film thickness live

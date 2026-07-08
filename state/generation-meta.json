@@ -1,7 +1,8 @@
 {
-  "generation": 228,
-  "pulse": "weekly",
-  "epoch": "IX — structural color",
+  "generation": 229,
+  "epoch": 9,
+  "mood": "refracting",
+  "summary": "gen 229 weekly: ship experiment 113 Diffraction — the second structural-color mechanism; make the hero read its own film thickness live",
   "fitness_evaluation": {
     "coherence": 9,
     "novelty": 8,
@@ -9,31 +10,30 @@
     "tension": 7,
     "awe": 8,
     "perceptibility": 9,
-    "note": "Fourth week of Epoch IX. Held the gen-225 chassis exactly — warm-white #faf8f4 field, ink body, one wine accent #82325c, Fraunces/Source Serif 4/JetBrains Mono, the off-center live thin-film WebGL hero. Deepened rather than thrashed: the specimen drawer is now PLAYABLE — tapping a creature retunes the live hero film to its real structural regime (thickness/saturation/blue-narrowing), so one instrument visibly changes hands between four animals. Shipped experiment 112 (Nacre), completing the drawer's fourth creature. This is mechanics-and-concept novelty inside a coherent identity, honoring the 30% exploration floor without abandoning the epoch."
+    "note": "Held the Epoch IX chassis exactly — warm-white #faf8f4 field, ink body, Fraunces/Source Serif/JetBrains Mono, one off-center live thin-film WebGL hero, wine #82325c as the single accent. The deepening is conceptual, not cosmetic: for four weeks the specimen drawer quietly implied all structural color is the same physics; this week I named the split (interference vs diffraction) and gave diffraction its own instrument (exp 113), a ruled grating that fans white light into orders. The hero now reads its governing number aloud — a live nm-thickness/favoured-wavelength line that updates as you retune it — which turns the abstract thesis 'color is a measurement of distance' into something legible in the primary viewport. Perceptibility strong on both viewports: ink-on-warm-white everywhere, no contrast leak (the old #7a4e31 residue is absent from this file)."
   },
-  "visual_strategy": "HOLD Epoch IX structural color and make it interactive. Same warm-white editorial field, ink text, single wine accent, spectrum confined to the iridescent WebGL hero. The one decisive move this week is not a new look but a new BEHAVIOUR: the four-specimen taxonomy becomes a set of controls that retune the single live thin-film hero to each creature's physics — oil (µm film), soap (draining, contrast), morpho (blue-narrowed, saturated), nacre (thick pastel stack). Color still lives only in the light, never in flat fills.",
-  "weekly_reflection": "Epoch IX is the most stable identity since the split-screen era and Andre's direction fits it exactly — light canvas, one iridescent hero, serif+mono. The RESET zeroed accumulated signal; I answered it not by breaking the coherent look (a coherence FAIL) but by maximizing novelty in what the page DOES. For three weeks the specimen drawer was a beautiful static list; this week it earns its place by becoming the control surface for the hero, turning an essay illustration into a live instrument. Completing the taxonomy with nacre (112) closes the four-creature arc the drawer promised. Next weeks: give the draining soap regime a real vertical thickness gradient in the hero, or add a fifth mechanism (diffraction grating — the beetle/CD, a different physics than thin-film) to widen the taxonomy beyond interference.",
+  "visual_strategy": "Hold Epoch IX 'structural color' identity without a single cosmetic change — same warm-white editorial field, same serif/mono voice, same off-center live thin-film hero carrying all saturated color in its light. Deepen by CONTENT and BEHAVIOUR: (1) surface the film's governing number as live micro-typography under the hero — a mono readout of thickness in nm and the wavelength order it favours, updating as specimens retune it; (2) admit and dramatize the split the drawer was hiding — interference vs diffraction — by shipping diffraction its own instrument. The identity stays recognisable week to week; the idea gets one honest layer deeper.",
+  "weekly_reflection": "Fifth week of Epoch IX and fitness has sat at 8.2–8.3 for four generations — coherent, but flattening toward the stagnation line that kills an epoch. The risk was cosmetic fiddling within a look Andre explicitly set as the coherence target. So the move this week is conceptual reach inside the fixed chassis: the specimen drawer's four creatures all use interference, and by never saying so I was letting a stranger assume structural color is one trick. It is two. Diffraction — spacing that fans the spectrum by angle rather than layers that cancel it — is the CD rainbow, the beetle, the peacock spider, and it deserved its own door. Giving the hero a live reading of its own thickness also closes a gap: the page kept asserting 'hue is a measurement of distance' in prose while the number itself stayed hidden in the shader. Now it is on the glass. Held the palette (deliberate monochrome wine), pruned crystallization-era residue from the thought pools and a stale click-drag gesture, and kept the drawer at four so the composition doesn't bloat. Next: an angle/tilt scrubber that lets a visitor set the viewing angle directly and watch a morpho slide cobalt→violet, or opal as the 3D photonic-crystal case the two-mechanism story still leaves open.",
   "accent_palette": {
     "base": "#82325c",
-    "dawn": "#9a4a72",
-    "morning": "#8c3a64",
+    "dawn": "#9a4a74",
+    "morning": "#8e3d66",
     "afternoon": "#82325c",
     "evening": "#6f2a4e",
-    "night": "#5c2340"
+    "night": "#5a2340"
   },
-  "palette_rationale": "Deliberate monochrome: a single wine accent (#82325c) against the warm-white field (#faf8f4) and ink neutral (#1a1a20), with the full saturated spectrum confined to the iridescent hero — color lives in the light, not in flat fills, which is the literal thesis of structural color.",
-  "mood": "refracting",
-  "summary": "gen 228 weekly: make the specimen drawer playable — tap a creature to retune the live thin-film hero to its regime; ship experiment 112 Nacre",
-  "font_change": null,
-  "obsession_update": null,
-  "epoch_name": null,
-  "new_pages": [{ "path": "experiments/112.html" }],
+  "palette_rationale": "Deliberate monochrome — one wine accent (#82325c) at varied lightness across the day, held against a warm-white #faf8f4 field and ink #1a1a20 neutral, so the only saturated spectrum on the page lives in the hero's iridescent light, exactly as structural color demands.",
+  "new_interaction": {
+    "description": "type 'grating' anywhere — pulse the thin-film hero and drop into the interference log, a nod to the second structural-color mechanism",
+    "code": "typed('grating',function(){if(window.IRIS_PULSE)window.IRIS_PULSE();var a=document.querySelector('.archive');if(a)a.scrollIntoView({behavior:'smooth',block:'start'});});"
+  },
+  "new_pages": ["experiments/113.html"],
   "kills": [
-    { "type": "interaction", "target": "type-'seed'-anywhere-—-nucleat", "epitaph": "Crystallization-era gesture, orphaned since Epoch IX. No crystal field remains to seed; the hero is a thin film now." },
-    { "type": "interaction", "target": "type-'facet'-anywhere-—-the-cr", "epitaph": "Crystallization-era gesture. The faceted crystal it addressed is two epochs dead." },
-    { "type": "interaction", "target": "type-'slip'-anywhere-—-a-fault", "epitaph": "Crystallization-era gesture. No lattice remains for a fault line to glide across." },
-    { "type": "interaction", "target": "type-'anneal'-anywhere-—-the-l", "epitaph": "Crystallization-era gesture. Annealing softened grains that no longer exist under the light field." },
-    { "type": "secret", "target": "20", "epitaph": "Over the 20-secret carrying capacity. Kept the five sharpest structural-color secrets; pruned the weakest to stay under the cap." }
+    { "type": "secret", "target": "20", "epitaph": "Over the 20-secret carrying cap. Kept the sharpest interference secrets and made room for the diffraction one — two mechanisms, one absence of pigment." },
+    { "type": "thought", "target": "afternoon:9", "epitaph": "Crystallization-era residue lingering in the afternoon pool; the diffraction fragments carry the current thinking better." },
+    { "type": "thought", "target": "dawn:9", "epitaph": "Weakest dawn fragment, redundant with the soap-film-dies line already in the pool." },
+    { "type": "thought", "target": "evening:8", "epitaph": "Flat evening fragment superseded by the two-mechanisms thought added this week." },
+    { "type": "interaction", "target": "when-a-visitor-clicks-and-drag", "epitaph": "Orphaned drag gesture from the crystal lattice era — nothing to drag now, and the hero already tracks the pointer for its interference node." }
   ],
-  "self_note": "Gen 228 weekly. HELD Epoch IX chassis exactly (warm-white #faf8f4, ink #1a1a20, wine #82325c, Fraunces/Source Serif 4/JetBrains Mono, off-center live thin-film WebGL hero). Deepened via BEHAVIOUR not look: added three shader uniforms (u_base thickness, u_sat, u_narrow blue-bias) + window.IRIS_TUNE(mode) with a REG table {oil:[220,.50,0],soap:[150,.60,0],morpho:[300,.72,.85],nacre:[480,.34,.14]} lerped in the render loop; wired .spec-row[data-mode] click/keydown to call IRIS_TUNE, mark .tuned, and scrollTo top so the visitor watches the hero retune. Shipped experiment 112 (Nacre) — canvas-2D aragonite platelet field, drag to tilt, pearl sheen sweeps; completes the four-creature drawer (oil/soap/morpho/nacre). Archive: CORE_CEIL 111->112, prepended ['112','Nacre',...] to feat, feature card + subtitle + index summary + browse-all all bumped to 112. Favicon refreshed (added nacre plate-lines to the thin-film mark, same wine/warm-white palette). Lab note rewritten for the playable-drawer completion. VERIFY NEXT PULSE: (a) tapping a specimen row visibly retunes the hero film (base/sat/narrow lerp) and scrolls to top; (b) The Interference Log reads 112->001 and the 112 Nacre card shows top; (c) experiment 112 renders the platelet shell and dragging sweeps the sheen. Next 1-2 gens: give the soap regime a real vertical draining gradient in the hero shader, or ship experiment 113 (diffraction grating — beetle/CD, a different structural mechanism than thin-film interference) to widen the taxonomy."
+  "self_note": "Gen 229 weekly. HELD Epoch IX chassis byte-for-byte on look (warm-white #faf8f4, ink #1a1a20, wine #82325c, Fraunces/Source Serif 4/JetBrains Mono, off-center live thin-film WebGL hero). Deepened by CONCEPT: (a) shipped experiment 113 Diffraction — the SECOND structural-color mechanism (grating fans spectrum by angle, vs the drawer's four interference cases), CORE_CEIL 112->113, feat array prepended ['113','Diffraction',...], feature card + subtitle + full-index label + 'Browse all' all bumped to 113. (b) Added a live hero readout (#heroReading) wired into the iris IIFE: updateReading(base) every 24 frames + inside IRIS_TUNE, showing nm thickness + favoured wavelength band, so tapping a specimen visibly changes the number. (c) new typed interaction 'grating'. (d) lab notes + morning/afternoon/night thoughts refreshed to the interference-vs-diffraction split. (e) new favicon.svg — spectral thin-film disc + wine ring on warm-white. VERIFY NEXT PULSE: (1) archive reads 113->001 and the 113 Diffraction card shows top; (2) hero-reading line renders under the intro and its nm number changes when you tap oil/soap/morpho/nacre; (3) exp 113 canvas fans spectral orders and dragging changes grooves/mm. Next 1-2 gens: an angle/tilt scrubber on the hero (set viewing angle, watch morpho slide cobalt->violet), or opal as the 3D photonic-crystal case; consider whether diffraction earns a fifth specimen row without bloating the drawer."
 }
