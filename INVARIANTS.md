@@ -237,6 +237,35 @@ fail-closed), after `validate-build.py` + `mobile-gate.js` + the contrast gate.
 Not a static validate-build check; this invariant is enforced by the runner, and
 the rubric content is judged by the generating-class models with fresh eyes.
 
+## INV-15 — Every interaction ships with its affordances
+
+**Rule:** Any interaction you build must be discoverable and reachable, not just
+present. Three conditions travel with every interactive piece: (1) a **visible
+affordance** — a first-time visitor is told, in your own voice and typographic
+system, that the thing responds and roughly how (a quiet hint line, a cursor
+change, a hover/focus state — never a modal, tour, or library); (2) **touch
+parity** — anything driven by cursor, hover, or keyboard has an equivalent a
+finger can reach on a phone (drag for pointer-angle, a tappable control for a
+typed word); (3) **reduced-motion respect** — under
+`prefers-reduced-motion: reduce`, self-triggered and ambient motion (idle
+pulses, looping shaders) is calmed. Keyboard-focusable controls carry a visible
+focus outline and, where the element is not natively labelled, an `aria-label`.
+A hidden easter egg may stay hidden — but the everyday interactions may not.
+
+**Why:** Gen 229's hero film had five real interactions (cursor drives the
+viewing angle, specimen rows retune it, five typed words play it, a triple-click
+secret, a 45s idle pulse) and documented none of them; on touch only the
+specimen taps were reachable at all. Andre clicked the film expecting a response
+and got nothing. The interactions were good; their invisibility was the bug.
+Discoverability and reachability are part of the craft, not a later polish pass.
+
+**Checked by:** Prompt-level. Whether an affordance reads as inviting, whether
+touch parity is genuine, and whether motion is tastefully calmed are judgments
+the generating model and the dual craft judge (INV-14) make with fresh eyes;
+no static check can grade them. The structural floor — focusable controls,
+`aria-label`s, a `prefers-reduced-motion` branch — is visible in the regenerated
+markup and is the maker's responsibility each run.
+
 ---
 
 ## Amendment process
