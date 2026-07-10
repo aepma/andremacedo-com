@@ -268,6 +268,44 @@ markup and is the maker's responsibility each run.
 
 ---
 
+## INV-16 — The live instrument dominates, and its changes reach the visitor
+
+**Rule:** Two conditions travel with the hero instrument every generation.
+(1) **Dominance** — the live piece (the film, the scene, whatever the epoch's
+instrument is) must *dominate the hero*, not decorate a corner of it: full-bleed
+across the hero on both desktop and mobile, occupying the majority of the hero's
+visible height, with the title/intro/reading line/affordances sitting compactly
+over or beside it and staying legible (a local scrim or opaque text backing is
+fair game; shrinking the instrument to a sidebar is not). The overlay's
+scroll-fade must stay coherent with the layout. (2) **Perceivable change** — when
+a visitor triggers a state change (a retune, a mode switch), the change must be
+*perceivable from where the visitor is standing*, not only from a pixel they may
+not be looking at. A whole-field acknowledgement — the gen-229 `regimeFlash`
+interference sweep is the reference implementation — fires on every regime change
+regardless of which surface triggered it (specimen row, tappable word, key), and
+is unmissable from the top of the page. Under `prefers-reduced-motion: reduce`
+the whole-field event degrades to a quick gentle crossfade — never a strobe.
+
+**Why:** Gen 229 shipped the retune and the film correctly but both failed the
+*perception* test. The film tucked into a top-right corner reading as a decorative
+wash rather than the subject; Andre reported it occupied too small a share of the
+hero. And a retune triggered from a specimen row far down the page changed the
+film silently — the acknowledgement was a one-line text pulse a scrolled-away
+visitor never saw. Correct state and imperceptible state are the same bug to the
+person looking at the page. The instrument is the point of this site; it must
+look like the point, and its responses must land where the eye already is.
+
+**Checked by:** Prompt-level. Whether the instrument reads as dominant, whether a
+state change genuinely lands from the visitor's vantage, and whether the
+reduced-motion degrade is tasteful are judgments the generating model and the dual
+craft judge (INV-14) make with fresh eyes. The structural floor — a full-bleed
+instrument sized to the majority of the hero, and a whole-field acknowledgement
+element (a stable marker token such as `regimeFlash`) fired on every state change
+with a `prefers-reduced-motion` branch — is visible in the regenerated markup and
+is the maker's responsibility each run.
+
+---
+
 ## Amendment process
 
 A new invariant enters this file with all three fields (rule, why, checked-by)

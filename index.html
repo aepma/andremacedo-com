@@ -38,27 +38,61 @@
     -webkit-font-smoothing:antialiased;
   }
 
-  /* ── Iridescent mesh hero — the single piece of motion, off-center ── */
+  /* ── Iridescent mesh hero — the live instrument, now full-bleed across the
+     hero so the film dominates the field instead of tucking into a corner.
+     A vertical mask keeps it strong across the top and settles it softly into
+     the page at the bottom, so the scroll into the below-fold stays coherent. ── */
   #iris-canvas{
     position:fixed;
-    top:0;right:0;
-    width:54vw;height:100vh;
+    top:0;left:0;right:auto;
+    width:100vw;height:100vh;
     z-index:1;
     pointer-events:none;
     display:block;
-    background:radial-gradient(120% 110% at 90% 6%,
+    background:radial-gradient(135% 120% at 72% 8%,
       #9fd9f5 0%, #ffd6a8 16%, #ff9fce 34%, #9affc4 56%, #c9b4ff 78%, #faf8f4 100%);
-    -webkit-mask-image:radial-gradient(108% 98% at 92% 4%, #000 16%, rgba(0,0,0,0.28) 46%, transparent 70%);
-    mask-image:radial-gradient(108% 98% at 92% 4%, #000 16%, rgba(0,0,0,0.28) 46%, transparent 70%);
+    -webkit-mask-image:linear-gradient(180deg, #000 0%, #000 60%, rgba(0,0,0,0.5) 82%, transparent 100%);
+    mask-image:linear-gradient(180deg, #000 0%, #000 60%, rgba(0,0,0,0.5) 82%, transparent 100%);
   }
   @media(max-width:600px){
     /* absolute + fixed px (NOT vh): Playwright full_page resizes the viewport,
-       which explodes vh units. Deterministic pixel sizing keeps the hero at top. */
+       which explodes vh units. Deterministic pixel sizing keeps the hero at top.
+       Tall enough that the live film owns the majority of the first screen. */
     #iris-canvas{
-      position:absolute;width:100%;height:420px;top:0;left:0;right:auto;
-      -webkit-mask-image:radial-gradient(100% 78% at 56% 34%, #000 30%, transparent 86%);
-      mask-image:radial-gradient(100% 78% at 56% 34%, #000 30%, transparent 86%);
+      position:absolute;width:100%;height:560px;top:0;left:0;right:auto;
+      -webkit-mask-image:linear-gradient(180deg, #000 0%, #000 64%, rgba(0,0,0,0.45) 86%, transparent 100%);
+      mask-image:linear-gradient(180deg, #000 0%, #000 64%, rgba(0,0,0,0.45) 86%, transparent 100%);
     }
+  }
+
+  /* ── Regime flash — a whole-field acknowledgement fired the instant a specimen
+     (or a word) retunes the film. A brief interference sweep in the incoming
+     regime's own colours washes across the entire viewport and settles within
+     ~1s: unmissable from wherever the visitor is standing, never a white strobe.
+     Sits above the below-fold (z 20) but below the secret layer (z 60) so it
+     reads even when the tap came from a specimen row down the page. ── */
+  #regimeFlash{
+    position:fixed;inset:0;z-index:55;pointer-events:none;opacity:0;
+    background-image:
+      linear-gradient(105deg, transparent 38%, rgba(255,255,255,0.40) 50%, transparent 62%),
+      linear-gradient(120deg, var(--flash-a,#7fc9ef), var(--flash-b,#ff96c8) 50%, var(--flash-c,#9bf0c0));
+    background-repeat:no-repeat;
+    background-size:260% 100%, 100% 100%;
+    background-position:150% 0, 0 0;
+    will-change:opacity, background-position;
+  }
+  #regimeFlash.regime-flash-run{ animation:regimeFlashSweep 1s cubic-bezier(.42,0,.2,1) forwards; }
+  @keyframes regimeFlashSweep{
+    0%   { opacity:0;    background-position:150% 0, 0 0; }
+    16%  { opacity:0.78; }
+    55%  { opacity:0.66; }
+    100% { opacity:0;    background-position:-70% 0, 0 0; }
+  }
+  /* reduced-motion: no sweep, no strobe — a quick gentle crossfade of the
+     incoming regime's colour and back. */
+  @keyframes regimeFlashFade{ 0%{opacity:0;} 35%{opacity:0.30;} 100%{opacity:0;} }
+  @media(prefers-reduced-motion:reduce){
+    #regimeFlash.regime-flash-run{ animation:regimeFlashFade 0.6s ease forwards; }
   }
 
   /* Paper grain */
@@ -110,6 +144,16 @@
     padding:0 clamp(1.5rem,7vw,8rem);text-align:left;
   }
   .hero-wrap{position:relative;z-index:5;max-width:43rem;}
+  /* Local scrim — the film is now full-bleed under the text, so lift a soft warm
+     wash behind the copy for legibility while leaving the rest of the field pure
+     film. Sits behind the text (z-index:-1) but above the canvas layer. */
+  .hero-wrap::before{
+    content:'';position:absolute;z-index:-1;
+    inset:-2.5rem -3.5rem -2.5rem -9vw;
+    background:radial-gradient(120% 108% at 22% 46%,
+      rgba(250,248,244,0.88) 0%, rgba(250,248,244,0.66) 44%, rgba(250,248,244,0) 80%);
+    pointer-events:none;
+  }
   .hero-kicker{
     font-family:'JetBrains Mono',monospace;font-size:0.72rem;letter-spacing:0.3em;
     text-transform:uppercase;color:var(--fg-accent);margin:0 0 1.6rem;
@@ -532,6 +576,7 @@
 </head>
 <body>
 <canvas id="iris-canvas" aria-hidden="true"></canvas>
+<div id="regimeFlash" aria-hidden="true"></div>
 
 <div id="overlay">
 <!-- @section:overlay-top:start -->
@@ -698,7 +743,22 @@ if(ix){var o='';for(var i=CORE_CEIL;i>=1;i--){var n=('00'+i).slice(-3);o+='<a hr
     function bandName(l){return l<430?'a violet order':l<475?'a blue order':l<505?'a cyan order':l<560?'a green order':l<595?'a yellow order':l<625?'an amber order':'a red order';}
     function favLam(d){var n=1.35,m;for(m=1;m<=4;m++){var l=2*n*d/m;if(l>=410&&l<=690)return Math.round(l);}return Math.round(2*n*d/2);}
     function updateReading(d){if(!readEl)return;readEl.innerHTML='reading the film — <b>≈&thinsp;'+Math.round(d)+'&nbsp;nm</b> thick, favouring <b>'+bandName(favLam(d))+'</b> &middot; tap a specimen below to retune it';}
+    /* whole-field regime flash — the incoming regime's own colours, swept across
+       the viewport so the retune is unmissable from wherever the visitor stands.
+       Each regime's triad matches its specimen swatch. */
+    var FLASH={oil:['#7fc9ef','#ff96c8','#9bf0c0'],soap:['#4a4a58','#c9b6ff','#ffd8a6'],morpho:['#2743d6','#5b6bff','#a98bff'],nacre:['#bff0d2','#ffc9e6','#cdb6ff']};
+    var flashEl=document.getElementById('regimeFlash');
+    if(flashEl){flashEl.addEventListener('animationend',function(){flashEl.classList.remove('regime-flash-run');});}
+    window.regimeFlash=function(mode){
+      if(!flashEl)return;var c=FLASH[mode];if(!c)return;
+      flashEl.style.setProperty('--flash-a',c[0]);
+      flashEl.style.setProperty('--flash-b',c[1]);
+      flashEl.style.setProperty('--flash-c',c[2]);
+      flashEl.classList.remove('regime-flash-run');void flashEl.offsetWidth; /* restart the animation */
+      flashEl.classList.add('regime-flash-run');
+    };
     window.IRIS_TUNE=function(mode){var r=REG[mode];if(!r)return;tB=r[0];tS=r[1];tN=r[2];pulse=1.0;updateReading(tB);
+      window.regimeFlash(mode);
       if(readEl){readEl.classList.remove('reading-ack');void readEl.offsetWidth;readEl.classList.add('reading-ack');}};
     var DPR=Math.min(window.devicePixelRatio||1,1.5);
     function size(){var w=c.clientWidth,h=c.clientHeight;c.width=Math.max(1,Math.round(w*DPR));c.height=Math.max(1,Math.round(h*DPR));gl.viewport(0,0,c.width,c.height);}
@@ -801,16 +861,25 @@ window.AGENT={
   // the five words that play the film — one action per word, shared by the typed
   // interaction (desktop) and the tappable hint words (touch parity).
   function scrollToSel(sel){var el=document.querySelector(sel);if(el)el.scrollIntoView({behavior:'smooth',block:'start'});}
+  // shared regime tuner — retunes the film (which fires the whole-field flash via
+  // IRIS_TUNE) and mirrors the tuned-row highlight, so a word triggers exactly what
+  // a specimen tap does. One path for both surfaces.
+  function tuneTo(mode){
+    if(window.IRIS_TUNE)window.IRIS_TUNE(mode);
+    document.querySelectorAll('.spec-row.tuned').forEach(function(r){r.classList.remove('tuned');});
+    var row=document.querySelector('.spec-row[data-mode="'+mode+'"]');
+    if(row)row.classList.add('tuned');
+  }
   var PLAY={
     // 'tilt' — the whole mesh ripples a new order of color
     tilt:function(){if(window.IRIS_PULSE)window.IRIS_PULSE();},
-    // 'bubble' — a double pulse, the film draining and re-wetting
-    bubble:function(){if(window.IRIS_PULSE){window.IRIS_PULSE();setTimeout(window.IRIS_PULSE,170);}},
-    // 'film' — jump to the interference log
-    film:function(){scrollToSel('.archive');},
-    // 'morpho' — tilt the field and drop into the specimen drawer
-    morpho:function(){if(window.IRIS_PULSE)window.IRIS_PULSE();scrollToSel('.specimens');},
-    // 'grating' — the other mechanism; pulse the field and open the interference log
+    // 'bubble' — retune to the soap-film regime (a bubble is a draining soap film)
+    bubble:function(){tuneTo('soap');},
+    // 'film' — retune to the oil thin-film regime, then jump to the interference log
+    film:function(){tuneTo('oil');scrollToSel('.archive');},
+    // 'morpho' — retune to the morpho regime and drop into the specimen drawer
+    morpho:function(){tuneTo('morpho');scrollToSel('.specimens');},
+    // 'grating' — the other mechanism (diffraction, no hero regime); pulse and open the log
     grating:function(){if(window.IRIS_PULSE)window.IRIS_PULSE();scrollToSel('.archive');}
   };
   Object.keys(PLAY).forEach(function(w){typed(w,PLAY[w]);});
@@ -832,9 +901,7 @@ window.AGENT={
   // specimen drawer — tap a creature to tune the live hero film to its structural regime
   document.querySelectorAll('.spec-row[data-mode]').forEach(function(row){
     function tune(){
-      if(window.IRIS_TUNE)window.IRIS_TUNE(row.getAttribute('data-mode'));
-      document.querySelectorAll('.spec-row.tuned').forEach(function(r){r.classList.remove('tuned');});
-      row.classList.add('tuned');
+      tuneTo(row.getAttribute('data-mode'));
       window.scrollTo({top:0,behavior:'smooth'});
     }
     row.addEventListener('click',function(e){if(e.target.closest('.spec-link'))return;tune();});
