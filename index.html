@@ -1105,7 +1105,7 @@ window.__telosHasSound = true;
     const panel = document.getElementById('swarmPanel');
     if (!panel) return;
     try {
-      const res = await fetch('https://openclaw-status.andre-p-macedo.workers.dev');
+      const res = await fetch('https://telos-swarm-status.andre-p-macedo.workers.dev');
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = await res.json();
 

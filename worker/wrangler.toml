@@ -1,16 +1,19 @@
-name = "openclaw-status"
-main = "openclaw-status.js"
+name = "telos-swarm-status"
+main = "telos-swarm-status.js"
 compatibility_date = "2024-01-01"
 account_id = "98a1dcdbeec2aa3aac24e49c22c652d2"
 
 # KV namespace — create with:
-#   npx wrangler kv namespace create OPENCLAW_STATUS
+#   npx wrangler kv namespace create TELOS_SWARM_STATUS
 # Then paste the ID below.
 [[kv_namespaces]]
-binding = "OPENCLAW_STATUS"
-id = "cdbb273a121f4b888f30345d0ccd0707"
+binding = "TELOS_SWARM_STATUS"
+id = "634147cf3dc24272b0533482724ba8d0"
 
 # Optional: custom domain route
 # [routes]
 # pattern = "andremacedo.com/api/status"
 # zone_name = "andremacedo.com"
+
+# Predecessor (retained, live): worker "openclaw-status" / binding OPENCLAW_STATUS
+# (KV cdbb273a121f4b888f30345d0ccd0707) — retire in August per audit items 5-7.
