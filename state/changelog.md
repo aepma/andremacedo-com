@@ -749,3 +749,7 @@ gen 228 weekly: make the specimen drawer playable — tap a creature to retune t
 
 ## gen 229 (weekly, 2026-07-08)
 gen 229 weekly: ship experiment 113 Diffraction — the second structural-color mechanism; make the hero read its own film thickness live
+
+## gen 230 (weekly, 2026-07-12)
+gen 230 weekly: complete the specimen drawer with opal — ship experiment 114 (3D photonic lattice, play-of-color) and wire it as the fifth live hero regime; recast the drawer as a ladder of dimension
+[2026-07-12T22:15:15Z] [gen 230] craft-fail: failed: B/grok-4-1-fast-reasoning(slop)
