@@ -10,10 +10,14 @@ rubric — the point is uncorrelated blind spots, not raw capability:
   Critic B = grok-4-1-fast-reasoning   (different family)
              fallback gemini-3.5-flash ONLY if B is slow/flaky (never gemini-2.5-pro)
 
-Combination is fail-closed and conjunctive: SHIP ONLY IF BOTH critics return
-not-slop AND each clears the threshold. EITHER critic flagging slop (or a critic
-we cannot obtain a verdict from) => FAILED verdict at the runner gate (working
-tree reverted, previous deploy stays live), exactly like a contrast failure.
+Combination is fail-closed with a MARGIN RULE: SHIP if BOTH critics return
+not-slop AND each clears the base threshold (both_passed), OR if exactly ONE
+critic passes and its overall clears the higher --margin (margin_override — a
+lone STRONG pass overrides the other critic's slop veto). It FAILS when both
+flag slop, when the sole passing critic is below the margin, or when a critic
+cannot be scored at all (ERROR is never overridden). A FAILED verdict at the
+runner gate reverts the working tree and keeps the previous deploy live,
+exactly like a contrast failure.
 
 Both judge the SCREENSHOT — never the agent's stated intentions. Model IDs are
 verified against the live proxy (curl localhost:4000/v1/models) before wiring,
@@ -144,6 +148,41 @@ def judge_one(url, model, content, timeout, retries):
     return normalize(extract_json(call_proxy(url, model, SYSTEM, content, timeout, retries)))
 
 
+def critic_passed(v, threshold):
+    """A critic passes iff it did NOT flag slop AND cleared the base threshold."""
+    return (not v["is_slop"]) and v["overall"] >= threshold
+
+
+def decide_gate(a, b, threshold, margin):
+    """Pure, testable combination rule (the 'margin rule').
+
+    a / b are normalized critic verdicts, or None if a critic could not be
+    obtained. Returns a dict: {passed, gate_rule[, override_label, override_overall]}.
+
+      - both_passed    : both critics pass (unchanged happy path)      -> SHIP
+      - margin_override: exactly one critic passed AND its overall is   -> SHIP
+                         at/above the margin (a lone STRONG pass beats
+                         the other critic's slop veto)
+      - failed         : anything else                                 -> FAIL
+
+    Fail-closed: if EITHER critic is unobtainable (None), the gate fails and is
+    NEVER overridden by the other critic's pass — an ERROR is not a veto that a
+    margin can beat, it is an inability to verify craft at all.
+    """
+    if a is None or b is None:
+        return {"passed": False, "gate_rule": "failed"}
+    a_pass = critic_passed(a, threshold)
+    b_pass = critic_passed(b, threshold)
+    if a_pass and b_pass:
+        return {"passed": True, "gate_rule": "both_passed"}
+    if a_pass ^ b_pass:  # exactly one passed
+        label, v = ("A", a) if a_pass else ("B", b)
+        if v["overall"] >= margin:
+            return {"passed": True, "gate_rule": "margin_override",
+                    "override_label": label, "override_overall": v["overall"]}
+    return {"passed": False, "gate_rule": "failed"}
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--desktop", required=True)
@@ -154,6 +193,9 @@ def main():
     ap.add_argument("--critic-b", default=CRITIC_B)
     ap.add_argument("--critic-b-fallback", default=CRITIC_B_FALLBACK)
     ap.add_argument("--threshold", type=float, default=7.0)
+    ap.add_argument("--margin", type=float, default=7.3,
+                    help="a lone passing critic must clear this (> threshold) to "
+                         "override the other critic's slop veto and ship")
     ap.add_argument("--timeout-a", type=float, default=120.0)
     ap.add_argument("--timeout-b", type=float, default=90.0)   # grok reasoning can be slower; beyond this -> fallback
     ap.add_argument("--retries", type=int, default=2)
@@ -201,11 +243,11 @@ def main():
                   "error": f"critic B unobtainable: {args.critic_b} -> {e_b}; "
                            f"fallback {args.critic_b_fallback} -> {e_fb}"}, 2)
 
-    def critic_passed(v):
-        return (not v["is_slop"]) and v["overall"] >= args.threshold
-
-    a_pass, b_pass = critic_passed(a), critic_passed(b)
-    passed = a_pass and b_pass  # CONJUNCTIVE: ship only if BOTH clear
+    a_pass, b_pass = critic_passed(a, args.threshold), critic_passed(b, args.threshold)
+    # MARGIN RULE: ship if BOTH clear, OR exactly one clears at/above --margin.
+    decision = decide_gate(a, b, args.threshold, args.margin)
+    passed = decision["passed"]
+    gate_rule = decision["gate_rule"]
 
     def fail_desc(label, model, v):
         why = "slop" if v["is_slop"] else "{}<{}".format(v["overall"], args.threshold)
@@ -217,17 +259,39 @@ def main():
     if not b_pass:
         failers.append(fail_desc("B", b_model, b))
 
+    if gate_rule == "both_passed":
+        reason = "both critics cleared"
+    elif gate_rule == "margin_override":
+        ov_label = decision["override_label"]
+        ov_model = a_model if ov_label == "A" else b_model
+        reason = ("margin override: critic {}/{} overall {} >= margin {} ships "
+                  "despite the other critic's veto ({})".format(
+                      ov_label, ov_model, decision["override_overall"],
+                      args.margin, ", ".join(failers)))
+    else:
+        reason = "failed: " + ", ".join(failers)
+
     verdict = {
         "verdict": "PASS" if passed else "SLOP",
+        "gate_rule": gate_rule,
         "is_slop": a["is_slop"] or b["is_slop"],
         "threshold": args.threshold,
+        "margin": args.margin,
         "overall_min": min(a["overall"], b["overall"]),
-        "reason": "both critics cleared" if passed else "failed: " + ", ".join(failers),
+        "reason": reason,
         "critics": {
             "A": {"model": a_model, "passed": a_pass, **a},
             "B": {"model": b_model, "fell_back_from": b_fell_back_from, "passed": b_pass, **b},
         },
     }
+    if gate_rule == "margin_override":
+        # Audit trail: make it obvious to a human why a slop-flagged page shipped.
+        verdict["margin_override"] = {
+            "critic": decision["override_label"],
+            "model": a_model if decision["override_label"] == "A" else b_model,
+            "overall": decision["override_overall"],
+            "margin": args.margin,
+        }
     emit(verdict, 0 if passed else 1)
 
 
