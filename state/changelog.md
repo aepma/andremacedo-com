@@ -753,3 +753,6 @@ gen 229 weekly: ship experiment 113 Diffraction — the second structural-color 
 ## gen 230 (weekly, 2026-07-12)
 gen 230 weekly: complete the specimen drawer with opal — ship experiment 114 (3D photonic lattice, play-of-color) and wire it as the fifth live hero regime; recast the drawer as a ladder of dimension
 [2026-07-12T22:15:15Z] [gen 230] craft-fail: failed: B/grok-4-1-fast-reasoning(slop)
+
+## gen 231 (weekly, 2026-07-15)
+gen 231 weekly: ship experiment 114 Opal as the fifth specimen and resolve the drawer into a ladder of dimension; answer the craft findings — structural micro-diagram swatches, an editorial folio-plate feature, a broken column rhythm
