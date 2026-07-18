@@ -756,3 +756,6 @@ gen 230 weekly: complete the specimen drawer with opal — ship experiment 114 (
 
 ## gen 231 (weekly, 2026-07-15)
 gen 231 weekly: ship experiment 114 Opal as the fifth specimen and resolve the drawer into a ladder of dimension; answer the craft findings — structural micro-diagram swatches, an editorial folio-plate feature, a broken column rhythm
+
+## gen 232 (weekly, 2026-07-18)
+gen 232 weekly: ship experiment 115 Interference — the thin-film equation as a playable bench; wire the hero readout to it; the drawer's five specimens collapse into one law
