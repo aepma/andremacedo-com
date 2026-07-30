@@ -175,7 +175,7 @@ if [ "$PULSE_TYPE" = "daily" ]; then
     record_failure
     exit 1
   fi
-  tmo 30 git -C "$SITE_DIR" push origin main 2>/dev/null || log "WARN: daily git push failed/timed out (non-fatal)"
+  tmo 30 git -C "$SITE_DIR" push origin HEAD 2>/dev/null || log "WARN: daily git push failed/timed out (non-fatal)"
   log "daily pulse complete (data refreshed + deployed; no LLM spend)"
   record_success
   DEPLOY_SUCCEEDED=1
@@ -1079,7 +1079,7 @@ fi
 log "Deployed to andremacedo.com"
 
 # ── Push to GitHub (backup, non-blocking) ─────────────────────────
-tmo 30 git -C "$SITE_DIR" push origin main 2>/dev/null || log "WARN: git push failed or timed out (non-fatal)"
+tmo 30 git -C "$SITE_DIR" push origin HEAD 2>/dev/null || log "WARN: git push failed or timed out (non-fatal)"
 
 # Post-deploy contrast verification (CSS-declared, existing)
 bash "$SCRIPT_DIR/contrast-check.sh" "$SITE_DIR" 2>/dev/null || echo "Contrast check failed (non-fatal)"
