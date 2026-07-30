@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>113 · Diffraction — TELOS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500&display=swap');
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html,body{width:100%;height:100%;overflow:hidden;background:#05050a;font-family:'JetBrains Mono',ui-monospace,monospace;}
+  #stage{position:fixed;inset:0;display:block;width:100vw;height:100vh;}
+  .ov{position:fixed;z-index:5;color:#f3f1ec;text-shadow:0 0 8px rgba(0,0,0,0.8),0 0 20px rgba(0,0,0,0.5);}
+  #info{top:1.4rem;left:1.4rem;max-width:23rem;opacity:0.94;}
+  #info h1{font-size:0.8rem;letter-spacing:0.2em;text-transform:uppercase;font-weight:500;margin-bottom:0.75rem;}
+  #info p{font-size:0.73rem;line-height:1.68;opacity:0.82;font-weight:300;}
+  #info .hint{margin-top:0.65rem;color:#e6c6dd;opacity:0.96;}
+  #back{top:1.4rem;right:1.4rem;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:#f3f1ec;text-decoration:none;opacity:0.7;}
+  #back:hover{opacity:1;}
+  #readout{bottom:1.3rem;left:1.4rem;font-size:0.68rem;letter-spacing:0.07em;opacity:0.86;line-height:1.8;}
+  #readout b{color:#e6c6dd;font-weight:400;}
+  #eqn{bottom:1.3rem;right:1.4rem;font-size:0.66rem;letter-spacing:0.05em;opacity:0.6;text-align:right;}
+  @media(max-width:600px){
+    #info{max-width:calc(100vw - 3rem);}
+    #back{top:1rem;right:1rem;}
+    #eqn{display:none;}
+  }
+</style>
+</head>
+<body>
+<canvas id="stage"></canvas>
+<div id="info" class="ov">
+  <h1>113 · Diffraction</h1>
+  <p>The other way to make color without pigment. A diffraction grating is a surface ruled with grooves finer than a wavelength of light. It cannot bend all colors the same amount, so it fans white light into its full spectrum by angle — a separate rainbow for each order. This is the sheen on a CD, on a beetle's ridged shell, on a peacock spider. No dye, no film: only spacing.</p>
+  <p class="hint">Drag left / right to tighten or loosen the ruling — the tighter the grooves, the wider the orders spread. Release and it drifts.</p>
+</div>
+<a id="back" class="ov" href="/">← telos</a>
+<div id="readout" class="ov">ruling <b id="gmm">1600</b> grooves/mm · spacing <b id="dnm">625</b> nm<br>orders visible <b id="ord">±2</b> · red bends to <b id="ang">—</b></div>
+<div id="eqn" class="ov">d · sin θ = m · λ<br>spacing × angle = order × wavelength</div>
+<script>
+(function(){
+  var cv=document.getElementById('stage'), ctx=cv.getContext('2d');
+  var DPR=Math.min(window.devicePixelRatio||1,1.5);
+  var W,H;
+  function resize(){
+    W=cv.clientWidth;H=cv.clientHeight;
+    cv.width=Math.round(W*DPR);cv.height=Math.round(H*DPR);
+    ctx.setTransform(DPR,0,0,DPR,0,0);
+  }
+  window.addEventListener('resize',resize);resize();
+
+  // Wavelength (nm) → RGB, Bruton-style approximation with intensity falloff.
+  function wl2rgb(l){
+    var r=0,g=0,b=0;
+    if(l>=380&&l<440){r=-(l-440)/60;b=1;}
+    else if(l<490){g=(l-440)/50;b=1;}
+    else if(l<510){g=1;b=-(l-510)/20;}
+    else if(l<580){r=(l-510)/70;g=1;}
+    else if(l<645){r=1;g=-(l-645)/65;}
+    else if(l<=780){r=1;}
+    var f=1;
+    if(l<420)f=0.3+0.7*(l-380)/40;
+    else if(l>700)f=0.3+0.7*(780-l)/80;
+    return [Math.pow(r*f,0.8),Math.pow(g*f,0.8),Math.pow(b*f,0.8)];
+  }
+
+  // grating spacing in nm; drag maps to this. 400nm (2500 g/mm) → 2000nm (500 g/mm)
+  var d=625, td=625, dragging=false, lastX=0, auto=0, t0=performance.now();
+  function pt(e){return e.touches?e.touches[0]:e;}
+  cv.addEventListener('pointerdown',function(e){dragging=true;lastX=pt(e).clientX;});
+  window.addEventListener('pointermove',function(e){
+    if(!dragging)return;
+    var x=pt(e).clientX; td+=(x-lastX)*2.4; lastX=x;
+    td=Math.max(360,Math.min(2100,td));
+  });
+  window.addEventListener('pointerup',function(){dragging=false;});
+
+  var gmmEl=document.getElementById('gmm'),dnmEl=document.getElementById('dnm'),
+      ordEl=document.getElementById('ord'),angEl=document.getElementById('ang');
+
+  function frame(now){
+    var t=(now-t0)/1000;
+    if(!dragging){ auto+=0.006; td=1150+750*Math.sin(auto); }
+    d+=(td-d)*0.06;
+
+    // ground: a graded dark field, cool at the crown warming to ink below
+    var bg=ctx.createLinearGradient(0,0,0,H);
+    bg.addColorStop(0,'#0a0a14');bg.addColorStop(0.5,'#06060c');bg.addColorStop(1,'#040407');
+    ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);
+
+    var cx=W*0.5, gy=H*0.38;
+    var reach=Math.hypot(W,H);
+
+    // incoming white beam from the top into the grating point
+    var beam=ctx.createLinearGradient(cx,0,cx,gy);
+    beam.addColorStop(0,'rgba(255,255,255,0)');
+    beam.addColorStop(1,'rgba(255,255,255,0.5)');
+    ctx.strokeStyle=beam;ctx.lineWidth=2.2;
+    ctx.beginPath();ctx.moveTo(cx,0);ctx.lineTo(cx,gy);ctx.stroke();
+
+    // diffracted orders — additive so overlaps brighten
+    ctx.globalCompositeOperation='lighter';
+    var maxOrd=0;
+    for(var m=-3;m<=3;m++){
+      for(var l=400;l<=700;l+=3){
+        var s=m*l/d;                 // sinθ from the grating equation
+        if(s<=-1||s>=1)continue;
+        var th=Math.asin(s);         // angle from vertical (straight down = m0)
+        if(Math.abs(m)>maxOrd)maxOrd=Math.abs(m);
+        var ex=cx+Math.sin(th)*reach;
+        var ey=gy+Math.cos(th)*reach;
+        var c=wl2rgb(l);
+        var inten=(m===0)?0.9:0.5/Math.abs(m); // higher orders fainter
+        ctx.strokeStyle='rgba('+Math.round(c[0]*255)+','+Math.round(c[1]*255)+','+Math.round(c[2]*255)+','+(inten*0.5)+')';
+        ctx.lineWidth=(m===0)?2.4:1.7;
+        ctx.beginPath();ctx.moveTo(cx,gy);ctx.lineTo(ex,ey);ctx.stroke();
+      }
+    }
+    ctx.globalCompositeOperation='source-over';
+
+    // the grating itself — a bright ruled band, grooves shimmering with time
+    ctx.save();
+    var half=Math.min(W*0.34,150);
+    var lines=Math.max(10,Math.round(2*half/Math.max(3,d/34)));
+    for(var i=0;i<=lines;i++){
+      var gx=cx-half+ (2*half)*i/lines;
+      var sh=0.4+0.5*Math.abs(Math.sin(i*0.9+t*1.2));
+      ctx.strokeStyle='rgba(230,235,245,'+(0.16+0.5*sh)+')';
+      ctx.lineWidth=1;
+      ctx.beginPath();ctx.moveTo(gx,gy-7);ctx.lineTo(gx,gy+7);ctx.stroke();
+    }
+    ctx.restore();
+    // grating baseline
+    ctx.strokeStyle='rgba(230,235,245,0.55)';ctx.lineWidth=1.4;
+    ctx.beginPath();ctx.moveTo(cx-half,gy);ctx.lineTo(cx+half,gy);ctx.stroke();
+    // bright node where the beam meets the ruling
+    var glow=ctx.createRadialGradient(cx,gy,0,cx,gy,26);
+    glow.addColorStop(0,'rgba(255,255,255,0.85)');glow.addColorStop(1,'rgba(255,255,255,0)');
+    ctx.fillStyle=glow;ctx.beginPath();ctx.arc(cx,gy,26,0,6.2832);ctx.fill();
+
+    // readout
+    gmmEl.textContent=Math.round(1e6/d);
+    dnmEl.textContent=Math.round(d);
+    ordEl.textContent='±'+maxOrd;
+    var sRed=700/d; angEl.textContent=(sRed<1?Math.round(Math.asin(sRed)*57.3):90)+'°';
+
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>

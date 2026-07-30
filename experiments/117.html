@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>117 — Standing Wave · andremacedo.com</title>
+<style>
+  html,body{margin:0;height:100%;background:#131109;overflow:hidden;font-family:'JetBrains Mono',monospace;}
+  canvas#string{position:fixed;inset:0;display:block;touch-action:none;}
+  #info{
+    position:fixed;top:1.2rem;left:1.2rem;z-index:10;max-width:21rem;
+    color:#ece5d3;opacity:0.82;pointer-events:none;
+    text-shadow:0 0 8px rgba(0,0,0,0.8), 0 0 20px rgba(0,0,0,0.5);
+  }
+  #info h1{font-size:0.95rem;letter-spacing:0.18em;text-transform:uppercase;margin:0 0 0.5rem;font-weight:500;}
+  #info p{font-size:0.72rem;line-height:1.7;margin:0 0 0.4rem;color:#9a917c;}
+  #info p b{color:#d97a4e;font-weight:500;}
+  #ui{
+    position:fixed;left:1.2rem;bottom:1.2rem;z-index:10;display:flex;flex-direction:column;gap:0.6rem;
+    color:#ece5d3;font-size:0.68rem;letter-spacing:0.06em;
+    text-shadow:0 0 8px rgba(0,0,0,0.8), 0 0 20px rgba(0,0,0,0.5);
+  }
+  #ui .row{display:flex;align-items:center;gap:0.8rem;}
+  #ui label{color:#9a917c;text-transform:uppercase;font-size:0.62rem;letter-spacing:0.14em;}
+  #ui output{color:#d97a4e;font-variant-numeric:tabular-nums;}
+  input[type=range]{width:min(46vw,280px);accent-color:#d97a4e;}
+  button{
+    font:inherit;color:#d97a4e;background:none;border:1px solid rgba(217,122,78,0.55);
+    padding:0.35rem 0.8rem;cursor:pointer;letter-spacing:0.1em;text-transform:uppercase;font-size:0.62rem;
+  }
+  button:hover{background:rgba(217,122,78,0.14);}
+  button:focus-visible{outline:2px solid #d97a4e;outline-offset:2px;}
+  #back{
+    position:fixed;top:1.2rem;right:1.2rem;z-index:10;color:#9a917c;text-decoration:none;
+    font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;
+    text-shadow:0 0 8px rgba(0,0,0,0.8), 0 0 20px rgba(0,0,0,0.5);
+  }
+  #back:hover{color:#ece5d3;}
+  @media(max-width:600px){#info{max-width:15rem;}}
+</style>
+</head>
+<body>
+<canvas id="string"></canvas>
+<div id="info">
+  <h1>117 — Standing Wave</h1>
+  <p>A string fixed at both ends keeps only the voices that fit: a whole count of half-waves, nothing else. Pluck it and every allowed voice sounds at once — then the high ones, with farther to travel, die first, and the chord pares itself down to the fundamental.</p>
+  <p><b>Drag across the string</b> and release to pluck it. <b>Sweep the slider</b> to isolate one harmonic and watch its nodes stand still. <b>Pluck</b> sounds the chord; <b>voice</b> sounds the isolated harmonic alone.</p>
+</div>
+<a id="back" href="/">← andremacedo.com</a>
+<div id="ui">
+  <div class="row"><label for="harm">harmonic</label><input id="harm" type="range" min="1" max="16" value="3" aria-label="Harmonic to isolate"><output id="read">3rd · 660 Hz</output></div>
+  <div class="row"><button id="pluck" type="button">pluck</button><button id="voice" type="button">voice</button><button id="still" type="button">still</button></div>
+</div>
+<script>
+(function(){
+  var cv=document.getElementById('string'),ctx=cv.getContext('2d');
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+  var W=0,H=0,X0=0,X1=0,CY=0;
+  function size(){
+    W=window.innerWidth;H=window.innerHeight;
+    var dpr=Math.min(window.devicePixelRatio||1,2);
+    cv.width=W*dpr;cv.height=H*dpr;cv.style.width=W+'px';cv.style.height=H+'px';
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    X0=W*0.07;X1=W*0.93;CY=H*0.52;
+    ctx.fillStyle='#131109';ctx.fillRect(0,0,W,H);
+  }
+  size();window.addEventListener('resize',size);
+
+  var NMAX=16,F1=220;
+  var amp=new Float64Array(NMAX+1),ph=new Float64Array(NMAX+1);
+  var solo=0;               // 0 = full pluck spectrum; n = harmonic n alone
+  var pulling=false,pullX=0.5,pullY=0;
+  var harmSlider=document.getElementById('harm'),read=document.getElementById('read');
+
+  function pluckAt(x0,depth){
+    solo=0;
+    for(var n=1;n<=NMAX;n++){
+      amp[n]=depth*Math.sin(n*Math.PI*x0)/(n*n);   // triangular pluck spectrum
+      ph[n]=(Math.random()-0.5)*0.5;
+    }
+  }
+  function soloHarmonic(n){
+    solo=n;
+    for(var i=1;i<=NMAX;i++){amp[i]=(i===n)?0.5:0;ph[i]=0;}
+  }
+
+  /* Sound — opt-in, created inside a gesture, always decaying. */
+  var AC=null;
+  function audio(){ if(!AC){try{AC=new (window.AudioContext||window.webkitAudioContext)();}catch(e){}} return AC; }
+  function tone(freq,vol,dur){
+    var ac=audio(); if(!ac)return;
+    try{
+      var o=ac.createOscillator(),g=ac.createGain(),f=ac.createBiquadFilter();
+      o.type='sine';o.frequency.value=freq;
+      f.type='lowpass';f.frequency.value=3200;
+      var t=ac.currentTime;
+      g.gain.setValueAtTime(0.0001,t);
+      g.gain.exponentialRampToValueAtTime(vol,t+0.012);
+      g.gain.exponentialRampToValueAtTime(0.0001,t+dur);
+      o.connect(f);f.connect(g);g.connect(ac.destination);
+      o.start(t);o.stop(t+dur+0.1);
+    }catch(e){}
+  }
+  function pluckSound(){
+    if(!audio())return;
+    for(var n=1;n<=6;n++){
+      var v=Math.min(0.11,Math.abs(amp[n])*1.1);
+      if(v>0.004)tone(F1*n,v,2.6/Math.sqrt(n));   // the high voices die first
+    }
+  }
+
+  /* Render */
+  var last=performance.now();
+  function yAt(x,t){
+    var y=0,visF=reduce?0:1.35;
+    for(var n=1;n<=NMAX;n++){
+      if(Math.abs(amp[n])<0.0004)continue;
+      y+=amp[n]*Math.sin(n*Math.PI*x)*Math.cos(2*Math.PI*visF*n*t+ph[n]);
+    }
+    return y;
+  }
+  function frame(now){
+    var dt=Math.min((now-last)/1000,0.05);last=now;
+    var t=now/1000;
+    for(var n=1;n<=NMAX;n++){ amp[n]*=Math.exp(-dt*(0.22+0.30*n)); }  // damping rises with n
+
+    ctx.fillStyle='rgba(19,17,9,0.34)';
+    ctx.fillRect(0,0,W,H);
+
+    /* fixed ends */
+    ctx.fillStyle='rgba(154,145,124,0.5)';
+    ctx.fillRect(X0-3,CY-14,6,28);
+    ctx.fillRect(X1-3,CY-14,6,28);
+
+    /* the string */
+    var L=X1-X0,scale=H*0.30;
+    ctx.beginPath();
+    if(pulling){
+      /* held shape: two straight segments to the pull point */
+      ctx.moveTo(X0,CY);
+      ctx.lineTo(X0+pullX*L,CY+pullY*scale);
+      ctx.lineTo(X1,CY);
+    }else{
+      for(var i=0;i<=160;i++){
+        var x=i/160,yy=CY+yAt(x,t)*scale;
+        if(i===0)ctx.moveTo(X0,CY);else ctx.lineTo(X0+x*L,yy);
+      }
+    }
+    ctx.strokeStyle='rgba(236,229,211,0.88)';
+    ctx.lineWidth=1.6;
+    ctx.stroke();
+
+    /* nodes of the dominant harmonic — cinnabar, the places that do not move */
+    var dom=solo>0?solo:0;
+    if(dom===0){var best=1;for(var n=2;n<=NMAX;n++){if(Math.abs(amp[n])>Math.abs(amp[best]))best=n;}dom=best;}
+    if(dom>1){
+      ctx.fillStyle='rgba(217,122,78,0.85)';
+      for(var k=1;k<dom;k++){
+        var nx=X0+(k/dom)*L;
+        ctx.beginPath();ctx.arc(nx,CY,2.6,0,Math.PI*2);ctx.fill();
+      }
+    }
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+
+  /* Pluck by dragging the string itself */
+  function evX(e){return (e.clientX-X0)/(X1-X0);}
+  function evY(e){return (e.clientY-CY)/(H*0.30);}
+  cv.addEventListener('pointerdown',function(e){
+    var x=evX(e);if(x<0||x>1)return;
+    pulling=true;pullX=Math.max(0.02,Math.min(0.98,x));pullY=Math.max(-0.9,Math.min(0.9,evY(e)));
+    cv.setPointerCapture(e.pointerId);
+  });
+  cv.addEventListener('pointermove',function(e){
+    if(!pulling)return;
+    pullX=Math.max(0.02,Math.min(0.98,evX(e)));
+    pullY=Math.max(-0.9,Math.min(0.9,evY(e)));
+  });
+  cv.addEventListener('pointerup',function(){
+    if(!pulling)return;
+    pulling=false;
+    var depth=Math.max(-0.9,Math.min(0.9,pullY));
+    if(Math.abs(depth)<0.05)depth=0.35;
+    pluckAt(pullX,depth);
+    pluckSound();
+  });
+
+  /* Controls */
+  function sliderRead(){
+    var n=parseInt(harmSlider.value,10);
+    var ord=n+(n===1?'st':n===2?'nd':n===3?'rd':'th');
+    read.textContent=ord+' · '+(F1*n)+' Hz';
+  }
+  harmSlider.addEventListener('input',function(){sliderRead();soloHarmonic(parseInt(harmSlider.value,10));});
+  document.getElementById('pluck').addEventListener('click',function(){pluckAt(0.382,0.5);pluckSound();});
+  document.getElementById('voice').addEventListener('click',function(){
+    var n=parseInt(harmSlider.value,10);
+    soloHarmonic(n);tone(F1*n,0.12,2.4);
+  });
+  document.getElementById('still').addEventListener('click',function(){for(var n=1;n<=NMAX;n++)amp[n]=0;});
+
+  /* Keys 1-9 solo a harmonic; space plucks */
+  document.addEventListener('keydown',function(e){
+    if(e.metaKey||e.ctrlKey||e.altKey)return;
+    if(e.key>='1'&&e.key<='9'){var n=parseInt(e.key,10);harmSlider.value=n;sliderRead();soloHarmonic(n);tone(F1*n,0.12,2.4);}
+    else if(e.key===' '){e.preventDefault();pluckAt(0.382,0.5);pluckSound();}
+  });
+
+  sliderRead();
+})();
+</script>
+</body>
+</html>

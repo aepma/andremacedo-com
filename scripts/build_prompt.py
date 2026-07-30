@@ -338,7 +338,7 @@ def format_genome_summary(genome, html):
         lines.append("")
         lines.append("GRAVEYARD (recent):")
         for entry in graveyard[-5:]:
-            lines.append(f"  gen {entry.get('died_gen','?')}: {entry.get('type','?')} \"{entry.get('value','?')[:50]}\" — {entry.get('epitaph','')[:80]}")
+            lines.append(f"  gen {entry.get('died_gen','?')}: {entry.get('type','?')} \"{str(entry.get('value','?'))[:50]}\" — {str(entry.get('epitaph',''))[:80]}")
 
     # Mutation log
     mutation_log = genome.get("mutation_log", [])
@@ -346,8 +346,8 @@ def format_genome_summary(genome, html):
         lines.append("")
         lines.append("RECENT MUTATIONS:")
         for entry in mutation_log[-3:]:
-            muts = ", ".join(entry.get("mutations", [])[:5])
-            kills = ", ".join(entry.get("kills", []))
+            muts = ", ".join(str(m) for m in entry.get("mutations", [])[:5])
+            kills = ", ".join(str(k) for k in entry.get("kills", []))
             lines.append(f"  gen {entry.get('gen','?')}: [{muts}] killed [{kills}]")
 
     # Color history — the agent MUST avoid repeating recent hue families

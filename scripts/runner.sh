@@ -943,6 +943,7 @@ if [ "$AGENTIC" = "1" ]; then
   tmo 240 python3 "$SCRIPT_DIR/craft-judge.py" \
     --desktop /tmp/andremacedo-self-desktop.jpg \
     --mobile /tmp/andremacedo-self-mobile.jpg \
+    --margin 7.3 \
     --json-out "$CRAFT_OUT" --quiet 2>>"$ERROR_LOG"
   CRAFT_EXIT=$?
   set -e

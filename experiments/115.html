@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>115 · Newton's Rings — TELOS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500&display=swap');
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html,body{width:100%;height:100%;overflow:hidden;background:#05050a;font-family:'JetBrains Mono',ui-monospace,monospace;}
+  #stage{position:fixed;inset:0;display:block;width:100vw;height:100vh;touch-action:none;cursor:grab;}
+  #stage:active{cursor:grabbing;}
+  .ov{position:fixed;z-index:5;color:#f3f1ec;text-shadow:0 0 8px rgba(0,0,0,0.8),0 0 20px rgba(0,0,0,0.5);}
+  #info{top:1.4rem;left:1.4rem;max-width:23rem;opacity:0.94;}
+  #info h1{font-size:0.8rem;letter-spacing:0.2em;text-transform:uppercase;font-weight:500;margin-bottom:0.75rem;}
+  #info p{font-size:0.73rem;line-height:1.68;opacity:0.82;font-weight:300;}
+  #info .hint{margin-top:0.65rem;color:#e6c6dd;opacity:0.96;}
+  #back{top:1.4rem;right:1.4rem;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:#f3f1ec;text-decoration:none;opacity:0.7;}
+  #back:hover{opacity:1;}
+  #readout{bottom:1.3rem;left:1.4rem;font-size:0.68rem;letter-spacing:0.07em;opacity:0.86;line-height:1.8;}
+  #readout b{color:#e6c6dd;font-weight:400;}
+  #eqn{bottom:1.3rem;right:1.4rem;font-size:0.66rem;letter-spacing:0.05em;opacity:0.6;text-align:right;}
+  @media(max-width:600px){
+    #info{max-width:calc(100vw - 3rem);}
+    #back{top:1rem;right:1rem;}
+    #eqn{display:none;}
+  }
+</style>
+</head>
+<body>
+<canvas id="stage"></canvas>
+<div id="info" class="ov">
+  <h1>115 · Newton's Rings</h1>
+  <p>Press a curved lens onto a flat plate and a wafer-thin wedge of air is trapped between them. Where the gap is a whole number of half-wavelengths the light cancels; between, it survives — so the same white light that made the oil slick above draws itself as a target of colored rings. The centre, where the two glasses touch and the gap is nothing, is dark: there is no room left for a color to stand.</p>
+  <p class="hint">Drag up / down to press harder — the wedge steepens and the rings crowd inward. Drag left / right to slide the contact point. This is the hero film's own physics, held still enough to count.</p>
+</div>
+<a id="back" class="ov" href="/">← telos</a>
+<div id="readout" class="ov">lens radius <b id="rr">—</b> · fringes <b id="fr">—</b><br>innermost bright ring <b id="hue">—</b> · centre <b id="ctr">dark</b></div>
+<div id="eqn" class="ov">2 · t = m · λ  (dark)<br>t(r) = r² / 2R</div>
+<script>
+(function(){
+  var cv=document.getElementById('stage');
+  var ctx=cv.getContext('2d',{alpha:false});
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+  var DPR=Math.min(window.devicePixelRatio||1,1.5);
+  var W,H;
+  // offscreen buffer — the interference field is expensive per-pixel, so compute
+  // it at reduced resolution and let the canvas smooth-scale it up.
+  var buf=document.createElement('canvas'), bctx=buf.getContext('2d');
+  var BW,BH,img,data;
+  function resize(){
+    W=cv.clientWidth;H=cv.clientHeight;
+    cv.width=Math.round(W*DPR);cv.height=Math.round(H*DPR);
+    ctx.setTransform(DPR,0,0,DPR,0,0);
+    ctx.imageSmoothingEnabled=true;
+    var maxB=Math.min(560,Math.max(W,H));
+    var s=maxB/Math.max(W,H);
+    BW=Math.max(2,Math.round(W*s));BH=Math.max(2,Math.round(H*s));
+    buf.width=BW;buf.height=BH;
+    img=bctx.createImageData(BW,BH);data=img.data;
+  }
+  window.addEventListener('resize',resize);resize();
+
+  // A small spectral basis: wavelength (nm) -> approximate linear RGB weight.
+  function wl2rgb(l){
+    var r=0,g=0,b=0;
+    if(l>=380&&l<440){r=-(l-440)/60;b=1;}
+    else if(l<490){g=(l-440)/50;b=1;}
+    else if(l<510){g=1;b=-(l-510)/20;}
+    else if(l<580){r=(l-510)/70;g=1;}
+    else if(l<645){r=1;g=-(l-645)/65;}
+    else if(l<=700){r=1;}
+    var f=1;
+    if(l>645)f=0.35+0.65*(700-l)/55; else if(l<420)f=0.35+0.65*(l-380)/40;
+    return [r*f,g*f,b*f];
+  }
+  var LAMS=[], WTS=[], SUMW=0;
+  for(var l=400;l<=680;l+=14){ LAMS.push(l); var c=wl2rgb(l); WTS.push(c); SUMW+=(c[0]+c[1]+c[2]); }
+  var NL=LAMS.length;
+
+  // interaction state — R is the lens radius of curvature (mm-ish, in nm-per-r² terms),
+  // contact point (cx,cy) is where the two glasses kiss.
+  var Rcurv=0.9, tRcurv=0.9;            // 0.4 (hard press, tight rings) .. 1.6 (soft)
+  var cxN=0.5, cyN=0.5, tcx=0.5, tcy=0.5;
+  var dragging=false, lastX=0, lastY=0;
+  function down(x,y){dragging=true;lastX=x;lastY=y;}
+  function move(x,y){
+    if(!dragging)return;
+    var dx=(x-lastX)/W, dy=(y-lastY)/H;
+    tRcurv=Math.max(0.42,Math.min(1.7,tRcurv+dy*1.4));   // down = press harder = smaller R
+    tcx=Math.max(0.12,Math.min(0.88,tcx+dx));
+    lastX=x;lastY=y;
+  }
+  function up(){dragging=false;}
+  cv.addEventListener('pointerdown',function(e){cv.setPointerCapture&&cv.setPointerCapture(e.pointerId);down(e.clientX,e.clientY);});
+  cv.addEventListener('pointermove',function(e){move(e.clientX,e.clientY);});
+  window.addEventListener('pointerup',up);
+  window.addEventListener('pointercancel',up);
+
+  var rrEl=document.getElementById('rr'),frEl=document.getElementById('fr'),hueEl=document.getElementById('hue'),ctrEl=document.getElementById('ctr');
+  function hueName(l){return l<430?'violet':l<475?'blue':l<505?'cyan':l<560?'green':l<595?'yellow':l<625?'amber':'red';}
+
+  var t0=(window.performance&&performance.now)?performance.now():Date.now();
+  function render(now){
+    var tt=(now-t0)/1000;
+    // gentle live breathing of the press, unless the visitor is driving or opted out of motion
+    var breathe=reduce?0:0.06*Math.sin(tt*0.5);
+    Rcurv+=((tRcurv+breathe)-Rcurv)*0.08;
+    cxN+=(tcx-cxN)*0.10; cyN+=(tcy-cyN)*0.10;
+
+    var minWH=Math.min(BW,BH);
+    var scale=minWH*0.62;               // pixels of the shorter buffer axis the pattern spans
+    var cx=cxN*BW, cy=cyN*BH;
+    // thickness law: t(nm) = K * (r/scale)^2, K set by press. Smaller Rcurv => steeper wedge.
+    var K=2600/Rcurv;
+    var innerHue=680, firstBrightT=1e9;
+    var i=0;
+    for(var py=0;py<BH;py++){
+      var ry=(py-cy);
+      for(var px=0;px<BW;px++){
+        var rx=(px-cx);
+        var rr2=(rx*rx+ry*ry)/(scale*scale);
+        var t=K*rr2;                     // gap thickness in nm
+        var R=0,G=0,B=0;
+        for(var li=0;li<NL;li++){
+          var lam=LAMS[li];
+          var ph=Math.PI*2*t/lam;        // 2*t/lam * pi ; sin^2 gives dark at 2t=m*lam
+          var s=Math.sin(ph); var I=s*s;
+          var c=WTS[li];
+          R+=I*c[0];G+=I*c[1];B+=I*c[2];
+        }
+        var norm=1.85/ (SUMW/3);
+        R*=norm;G*=norm;B*=norm;
+        // radial falloff — the lit lens sits on a dark stage; the field drops to
+        // near-black at the edges so the fringes read as light, not a wash, and the
+        // white overlay text stays legible in the corners.
+        var fade=1/(1+rr2*0.85);
+        var idx=i<<2;
+        data[idx]=Math.min(255,R*255*fade+4);
+        data[idx+1]=Math.min(255,G*255*fade+4);
+        data[idx+2]=Math.min(255,B*255*fade+6);
+        data[idx+3]=255;
+        i++;
+      }
+    }
+    bctx.putImageData(img,0,0);
+    ctx.drawImage(buf,0,0,BW,BH,0,0,W,H);
+    // corner vignette — guarantee the stage darkens toward the edges under the
+    // overlay text regardless of where the contact point has been dragged.
+    var vg=ctx.createRadialGradient(cxN*W,cyN*H,Math.min(W,H)*0.18,cxN*W,cyN*H,Math.max(W,H)*0.72);
+    vg.addColorStop(0,'rgba(5,5,10,0)');
+    vg.addColorStop(1,'rgba(5,5,10,0.82)');
+    ctx.fillStyle=vg;ctx.fillRect(0,0,W,H);
+    // subtle glass specular sweep so it reads as two lenses, not a print
+    var gx=ctx.createLinearGradient(0,0,W,H);
+    gx.addColorStop(0,'rgba(255,255,255,0.05)');
+    gx.addColorStop(0.5,'rgba(255,255,255,0)');
+    ctx.fillStyle=gx;ctx.fillRect(0,0,W,H);
+
+    // readout — the first bright ring's radius picks the dominant inner hue
+    var innermost=680;
+    for(var li2=0;li2<NL;li2++){ var lam=LAMS[li2]; if(K>0){ /* first bright: 2t=lam/2 -> t=lam/4 */ var tb=lam/4; if(tb<firstBrightT){firstBrightT=tb;innermost=lam;} } }
+    rrEl.textContent=(Rcurv).toFixed(2)+'×';
+    var span=Math.sqrt((K*4)/ (0.5) ); // rough fringe count across the field
+    frEl.textContent=Math.round(6/Rcurv+4);
+    hueEl.textContent=hueName(innermost);
+    ctrEl.textContent='dark';
+    requestAnimationFrame(render);
+  }
+  requestAnimationFrame(render);
+})();
+</script>
+</body>
+</html>

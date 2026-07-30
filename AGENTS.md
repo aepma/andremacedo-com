@@ -1,0 +1,1 @@
+/Users/andrepiresmacedo/.telos/AGENTS.md

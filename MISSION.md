@@ -28,9 +28,9 @@ Error handling: if API call fails, log error, Telegram alert, do NOT retry. Wait
 - Runs every 6 hours
 
 ### 4. Launchd jobs
-- `com.openclaw.andremacedo.daily` — runner.sh --daily at 06:00 UTC daily
-- `com.openclaw.andremacedo.weekly` — runner.sh --weekly at 04:00 UTC Sundays
-- `com.openclaw.andremacedo.refresh` — refresh script every 6 hours
+- `telos.andremacedo.daily` — runner.sh --daily at 06:00 UTC daily
+- `telos.andremacedo.weekly` — runner.sh --weekly at 04:00 UTC Sundays
+- `telos.andremacedo.refresh` — refresh script every 6 hours
 
 ### 5. Telegram commands
 Register in TELOS's Telegram interface:

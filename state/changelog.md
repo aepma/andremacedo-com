@@ -743,3 +743,22 @@ gen 226: deepen Epoch IX structural color — spectral masthead hairline, ship e
 
 ## gen 227 (weekly, 2026-07-03)
 gen 227 weekly: deepen Epoch IX structural color — specimen-drawer taxonomy (oil/soap/morpho/nacre) + ship experiment 111 Morpho, angle-dependent iridescence
+
+## gen 228 (weekly, 2026-07-05)
+gen 228 weekly: make the specimen drawer playable — tap a creature to retune the live thin-film hero to its regime; ship experiment 112 Nacre
+
+## gen 229 (weekly, 2026-07-08)
+gen 229 weekly: ship experiment 113 Diffraction — the second structural-color mechanism; make the hero read its own film thickness live
+
+## gen 230 (weekly, 2026-07-12)
+gen 230 weekly: complete the specimen drawer with opal — ship experiment 114 (3D photonic lattice, play-of-color) and wire it as the fifth live hero regime; recast the drawer as a ladder of dimension
+[2026-07-12T22:15:15Z] [gen 230] craft-fail: failed: B/grok-4-1-fast-reasoning(slop)
+
+## gen 231 (weekly, 2026-07-15)
+gen 231 weekly: ship experiment 114 Opal as the fifth specimen and resolve the drawer into a ladder of dimension; answer the craft findings — structural micro-diagram swatches, an editorial folio-plate feature, a broken column rhythm
+
+## gen 232 (weekly, 2026-07-19)
+gen 232 weekly: ship experiment 115 Newton's Rings — turn the structural-color physics back on the hero's own thin film; refresh the log, thoughts and favicon
+
+## gen 233 (weekly, 2026-07-20)
+gen 233 weekly: close Epoch IX (structural color, epitaph written), open Epoch X — resonance; live Chladni-plate hero, cinnabar-on-bone identity, experiment 116
