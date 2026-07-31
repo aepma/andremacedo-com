@@ -330,7 +330,7 @@ def format_genome_summary(genome, html):
         lines.append("PAST EPOCHS (dead):")
         for pe in past_epochs:
             lines.append(f"  Epoch {pe.get('number','?')}: \"{pe.get('obsession','?')}\" ({pe.get('started','?')} to {pe.get('ended','?')})")
-            lines.append(f"    epitaph: {pe.get('epitaph','')[:120]}")
+            lines.append(f"    epitaph: {str(pe.get('epitaph') or '')[:120]}")
 
     # Graveyard
     graveyard = genome.get("graveyard", [])
@@ -338,7 +338,7 @@ def format_genome_summary(genome, html):
         lines.append("")
         lines.append("GRAVEYARD (recent):")
         for entry in graveyard[-5:]:
-            lines.append(f"  gen {entry.get('died_gen','?')}: {entry.get('type','?')} \"{str(entry.get('value','?'))[:50]}\" — {str(entry.get('epitaph',''))[:80]}")
+            lines.append(f"  gen {entry.get('died_gen','?')}: {str(entry.get('type','?'))} \"{str(entry.get('value','?'))[:50]}\" — {str(entry.get('epitaph') or '')[:80]}")
 
     # Mutation log
     mutation_log = genome.get("mutation_log", [])
