@@ -762,3 +762,6 @@ gen 232 weekly: ship experiment 115 Newton's Rings — turn the structural-color
 
 ## gen 233 (weekly, 2026-07-20)
 gen 233 weekly: close Epoch IX (structural color, epitaph written), open Epoch X — resonance; live Chladni-plate hero, cinnabar-on-bone identity, experiment 116
+
+## gen 234 (weekly, 2026-08-02)
+gen 234 weekly: deepen Epoch X resonance — live room-mode instrument (the room hums back), experiment 118 Sympathy, census of voices spans three dimensions

@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>118 — Sympathy · andremacedo.com</title>
+<style>
+  html,body{margin:0;height:100%;background:#131109;overflow:hidden;font-family:'JetBrains Mono',monospace;}
+  canvas#stage{position:fixed;inset:0;display:block;touch-action:none;}
+  #info{
+    position:fixed;top:1.2rem;left:1.2rem;z-index:10;max-width:21rem;
+    color:#ece5d3;opacity:0.82;pointer-events:none;
+    text-shadow:0 0 8px rgba(0,0,0,0.8), 0 0 20px rgba(0,0,0,0.5);
+  }
+  #info h1{font-size:0.95rem;letter-spacing:0.18em;text-transform:uppercase;margin:0 0 0.5rem;font-weight:500;}
+  #info p{font-size:0.72rem;line-height:1.7;margin:0 0 0.4rem;color:#9a917c;}
+  #info p b{color:#d97a4e;font-weight:500;}
+  #ui{
+    position:fixed;left:1.2rem;bottom:1.2rem;z-index:10;display:flex;flex-direction:column;gap:0.6rem;
+    color:#ece5d3;font-size:0.68rem;letter-spacing:0.06em;
+    text-shadow:0 0 8px rgba(0,0,0,0.8), 0 0 20px rgba(0,0,0,0.5);
+  }
+  #ui .row{display:flex;align-items:center;gap:0.8rem;}
+  #ui label{color:#9a917c;text-transform:uppercase;font-size:0.62rem;letter-spacing:0.14em;}
+  #ui output{color:#d97a4e;font-variant-numeric:tabular-nums;}
+  input[type=range]{width:min(46vw,280px);accent-color:#d97a4e;}
+  button{
+    font:inherit;color:#d97a4e;background:none;border:1px solid rgba(217,122,78,0.55);
+    padding:0.35rem 0.8rem;cursor:pointer;letter-spacing:0.1em;text-transform:uppercase;font-size:0.62rem;
+  }
+  button:hover{background:rgba(217,122,78,0.14);}
+  button:focus-visible{outline:2px solid #d97a4e;outline-offset:2px;}
+  #read{
+    position:fixed;right:1.2rem;bottom:1.2rem;z-index:10;max-width:22rem;text-align:right;
+    color:#9a917c;font-size:0.68rem;line-height:1.7;letter-spacing:0.05em;
+    text-shadow:0 0 8px rgba(0,0,0,0.8), 0 0 20px rgba(0,0,0,0.5);
+  }
+  #read b{color:#d97a4e;font-weight:500;}
+  #back{
+    position:fixed;top:1.2rem;right:1.2rem;z-index:10;color:#9a917c;text-decoration:none;
+    font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;
+    text-shadow:0 0 8px rgba(0,0,0,0.8), 0 0 20px rgba(0,0,0,0.5);
+  }
+  #back:hover{color:#ece5d3;}
+  @media(max-width:600px){#info{max-width:15rem;}#read{max-width:15rem;font-size:0.62rem;}}
+</style>
+</head>
+<body>
+<canvas id="stage"></canvas>
+<div id="info">
+  <h1>118 — Sympathy</h1>
+  <p>Two strings share the air. Pluck the upper one and the lower answers — but only when one of its own voices matches a voice of the first. Sympathy is resonance with an address: the untouched string ignores everything you play except the exact partials it already keeps.</p>
+  <p><b>Drag across the upper string</b> and release to pluck it. <b>The slider retunes the lower string</b> — hunt for the ratios where it wakes: 2:1, 3:2, 4:3. <b>Pluck</b> sounds the pair; <b>still</b> silences them.</p>
+</div>
+<a id="back" href="/">← andremacedo.com</a>
+<div id="ui">
+  <div class="row"><label for="tune">string B tuning</label><input id="tune" type="range" min="50" max="200" value="100" aria-label="Tuning ratio of the second string"><output id="tuneRead">1.00 × 220 Hz</output></div>
+  <div class="row"><button id="pluck" type="button">pluck</button><button id="still" type="button">still</button></div>
+</div>
+<p id="read">the lower string is listening.</p>
+<script>
+(function(){
+  var cv=document.getElementById('stage');
+  var ctx=cv.getContext('2d');
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+  var readEl=document.getElementById('read');
+  var tuneEl=document.getElementById('tune');
+  var tuneRead=document.getElementById('tuneRead');
+
+  var W=0,H=0;
+  function size(){
+    W=window.innerWidth;H=window.innerHeight;
+    var dpr=Math.min(window.devicePixelRatio||1,2);
+    cv.width=Math.round(W*dpr);cv.height=Math.round(H*dpr);
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+  }
+  size();
+  window.addEventListener('resize',size);
+
+  var N=8,F1=220,TOL=7;             // match tolerance in Hz
+  var aA=new Float64Array(N+1),phA=new Float64Array(N+1);   // string A (plucked)
+  var aB=new Float64Array(N+1),phB=new Float64Array(N+1);   // string B (sympathetic)
+  var ratio=1;
+
+  /* Sound — opt-in, gesture-gated, decaying */
+  var AC=null;
+  function audio(){ if(!AC){try{AC=new (window.AudioContext||window.webkitAudioContext)();}catch(e){}} return AC; }
+  function tone(fr,vol,dur,delay){
+    var ac=audio(); if(!ac)return;
+    try{
+      var o=ac.createOscillator(),g=ac.createGain(),f=ac.createBiquadFilter();
+      o.type='sine';o.frequency.value=fr;
+      f.type='lowpass';f.frequency.value=3200;
+      var t=ac.currentTime+(delay||0);
+      g.gain.setValueAtTime(0.0001,t);
+      g.gain.exponentialRampToValueAtTime(vol,t+(delay?0.9:0.012));  // sympathy arrives late
+      g.gain.exponentialRampToValueAtTime(0.0001,t+dur);
+      o.connect(f);f.connect(g);g.connect(ac.destination);
+      o.start(t);o.stop(t+dur+0.1);
+    }catch(e){}
+  }
+
+  function matches(){
+    /* pairs (n of A, m of B) whose voices agree within tolerance */
+    var out=[];
+    for(var n=1;n<=N;n++)for(var m=1;m<=N;m++){
+      if(Math.abs(n*F1-m*F1*ratio)<TOL&&Math.abs(aA[n])>0.004)out.push([n,m]);
+    }
+    return out;
+  }
+
+  function pluckAt(x0,depth){
+    for(var n=1;n<=N;n++){
+      aA[n]=depth*Math.sin(n*Math.PI*x0)/(n*n);
+      phA[n]=(Math.random()-0.5)*0.5;
+    }
+    for(var m=1;m<=N;m++){aB[m]=0;phB[m]=(Math.random()-0.5)*0.5;}
+    if(audio()){
+      for(var k=1;k<=5;k++){
+        var v=Math.min(0.11,Math.abs(aA[k])*1.1);
+        if(v>0.004)tone(F1*k,v,2.6/Math.sqrt(k),0);
+      }
+      var pr=matches();
+      for(var j=0;j<pr.length;j++){
+        tone(F1*pr[j][1]*ratio,Math.min(0.09,Math.abs(aA[pr[j][0]])*0.9),3.0,0.35);
+      }
+    }
+    report();
+  }
+
+  function report(){
+    var pr=matches();
+    if(!pr.length){
+      readEl.innerHTML='the lower string is listening.<br>no voices agree at this tuning — try <b>1.50</b> (3:2) or <b>2.00</b> (2:1).';
+    }else{
+      var s=pr.map(function(p){
+        return 'A&rsquo;s <b>'+p[0]+'</b>'+ord(p[0])+' voice = B&rsquo;s <b>'+p[1]+'</b>'+ord(p[1])+' · '+(p[0]*F1).toFixed(0)+' &asymp; '+(p[1]*F1*ratio).toFixed(0)+' Hz';
+      }).join('<br>');
+      readEl.innerHTML=s+'<br>— the string you never touched is singing.';
+    }
+  }
+  function ord(n){return n===1?'st':n===2?'nd':n===3?'rd':'th';}
+
+  tuneEl.addEventListener('input',function(){
+    ratio=parseInt(tuneEl.value,10)/100;
+    tuneRead.textContent=ratio.toFixed(2)+' × 220 Hz';
+    report();
+  });
+  document.getElementById('pluck').addEventListener('click',function(){pluckAt(0.382,0.5);});
+  document.getElementById('still').addEventListener('click',function(){
+    for(var n=1;n<=N;n++){aA[n]=0;aB[n]=0;}
+    readEl.innerHTML='silence. the lower string is listening.';
+  });
+
+  /* Drag the upper string to pluck it (pointer events = touch parity) */
+  var pulling=false,pullX=0.5,pullY=0;
+  function padX(){return W*0.09;}
+  function lenX(){return W-2*padX();}
+  function cyA(){return H*0.34;}
+  function cyB(){return H*0.62;}
+  function sc(){return H*0.085;}
+  function evXY(e){
+    return {
+      x:(e.clientX-padX())/lenX(),
+      y:(e.clientY-cyA())/sc()
+    };
+  }
+  cv.addEventListener('pointerdown',function(e){
+    var p=evXY(e);
+    if(p.x<-0.05||p.x>1.05||Math.abs(p.y)>1.6)return;
+    pulling=true;
+    pullX=Math.max(0.02,Math.min(0.98,p.x));
+    pullY=Math.max(-0.9,Math.min(0.9,p.y));
+    try{cv.setPointerCapture(e.pointerId);}catch(err){}
+  });
+  cv.addEventListener('pointermove',function(e){
+    if(!pulling)return;
+    var p=evXY(e);
+    pullX=Math.max(0.02,Math.min(0.98,p.x));
+    pullY=Math.max(-0.9,Math.min(0.9,p.y));
+  });
+  function release(){
+    if(!pulling)return;
+    pulling=false;
+    pluckAt(pullX,Math.abs(pullY)<0.05?0.35:pullY);
+  }
+  cv.addEventListener('pointerup',release);
+  cv.addEventListener('pointercancel',function(){pulling=false;});
+
+  function yAt(amp,ph,f1,x,t){
+    var y=0,visF=reduce?0:1.35;
+    for(var n=1;n<=N;n++){
+      if(Math.abs(amp[n])<0.0004)continue;
+      y+=amp[n]*Math.sin(n*Math.PI*x)*Math.cos(2*Math.PI*visF*n*(f1/F1)*t+ph[n]);
+    }
+    return y;
+  }
+
+  var last=performance.now();
+  function frame(now){
+    var dt=Math.min((now-last)/1000,0.05);last=now;
+    var t=now/1000;
+
+    /* A decays, high voices first */
+    for(var n=1;n<=N;n++){aA[n]*=Math.exp(-dt*(0.22+0.30*n));}
+    /* B is driven by the matching voices of A, and decays on its own */
+    var pr=matches();
+    var driven=[];
+    for(var j=0;j<pr.length;j++){driven[pr[j][1]]=pr[j][0];}
+    for(var m=1;m<=N;m++){
+      aB[m]*=Math.exp(-dt*(0.30+0.26*m));
+      if(driven[m]){
+        var src=Math.abs(aA[driven[m]]);
+        if(src>0.004)aB[m]+=(src*0.9-aB[m])*Math.min(1,dt*1.1);  // sympathy takes a moment
+      }
+    }
+
+    ctx.fillStyle='rgba(19,17,9,0.34)';
+    ctx.fillRect(0,0,W,H);
+    var pad=padX(),L=lenX();
+
+    /* fixed ends */
+    ctx.fillStyle='rgba(154,145,124,0.5)';
+    [cyA(),cyB()].forEach(function(cy){
+      ctx.fillRect(pad-3,cy-14,6,28);
+      ctx.fillRect(pad+L-3,cy-14,6,28);
+    });
+
+    /* string A — the one you touch */
+    ctx.beginPath();
+    if(pulling){
+      ctx.moveTo(pad,cyA());
+      ctx.lineTo(pad+pullX*L,cyA()+pullY*sc());
+      ctx.lineTo(pad+L,cyA());
+    }else{
+      for(var i=0;i<=160;i++){
+        var x=i/160,yy=cyA()+yAt(aA,phA,F1,x,t)*sc();
+        if(i===0)ctx.moveTo(pad,yy);else ctx.lineTo(pad+x*L,yy);
+      }
+    }
+    ctx.strokeStyle='rgba(236,229,211,0.9)';ctx.lineWidth=1.6;ctx.stroke();
+
+    /* string B — the one that answers */
+    var bGlow=0;
+    for(var m2=1;m2<=N;m2++){bGlow+=Math.abs(aB[m2]);}
+    bGlow=Math.min(1,bGlow*2.2);
+    ctx.beginPath();
+    for(var i2=0;i2<=160;i2++){
+      var x2=i2/160,yy2=cyB()+yAt(aB,phB,F1*ratio,x2,t)*sc();
+      if(i2===0)ctx.moveTo(pad,yy2);else ctx.lineTo(pad+x2*L,yy2);
+    }
+    ctx.strokeStyle='rgba(236,229,211,'+(0.30+bGlow*0.6).toFixed(3)+')';
+    ctx.lineWidth=1.6;ctx.stroke();
+    if(bGlow>0.04){
+      ctx.strokeStyle='rgba(217,122,78,'+(bGlow*0.35).toFixed(3)+')';
+      ctx.lineWidth=4.5;ctx.stroke();
+    }
+
+    /* labels */
+    ctx.fillStyle='rgba(154,145,124,0.75)';
+    ctx.font='11px "JetBrains Mono",monospace';
+    ctx.fillText('A — the string you touch · f₁ = 220 Hz',pad,cyA()-sc()*1.25);
+    ctx.fillText('B — the string that answers · f₁ = '+(F1*ratio).toFixed(0)+' Hz',pad,cyB()-sc()*1.25);
+
+    /* match markers — cinnabar ties between the agreeing voices */
+    if(pr.length){
+      ctx.fillStyle='rgba(217,122,78,0.85)';
+      for(var q=0;q<pr.length;q++){
+        var mm=pr[q][1];
+        for(var kk=1;kk<mm;kk++){
+          ctx.beginPath();ctx.arc(pad+(kk/mm)*L,cyB(),2.6,0,Math.PI*2);ctx.fill();
+        }
+      }
+    }
+
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>

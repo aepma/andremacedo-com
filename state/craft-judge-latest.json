@@ -4,7 +4,7 @@
   "is_slop": false,
   "threshold": 7.0,
   "margin": 7.3,
-  "overall_min": 7.0,
+  "overall_min": 7.6,
   "reason": "both critics cleared",
   "critics": {
     "A": {
@@ -12,58 +12,52 @@
       "passed": true,
       "axes": {
         "type_scale": 8.0,
-        "spacing_system": 8.0,
+        "spacing_system": 7.0,
         "focal_hierarchy": 7.0,
-        "restraint": 9.0,
+        "restraint": 8.0,
         "hero": 8.0,
-        "composition": 7.0,
-        "type_craft": 9.0,
-        "color": 8.0
+        "composition": 8.0,
+        "type_craft": 8.0,
+        "color": 7.0
       },
-      "overall": 7.8,
+      "overall": 7.6,
       "is_slop": false,
       "findings": [
-        "The dark abstract graphic in the top-right of the hero is under-resolved — it reads as a moody stock texture rather than a considered counterweight to the type block, and its edge against the cream background is soft/muddy rather than deliberately composed",
-        "The six-figure table uses tiny thumbnail glyphs that are nearly illegible at this scale — they function as decorative bullets more than as the 'figures' the copy insists on",
-        "The 'Wine Obsessions' index and the 'Sounding Log' table both fall into a fairly conventional left-label / right-date ledger pattern; competent but not the boldest possible move for a page claiming to be a living organism",
-        "The single accent (a muted rust/terracotta) is used sparingly and well, but the RESONANCE highlight in row X is the only place it truly earns focal weight — elsewhere it's almost too shy to register"
+        "The black diagram panels in the 'A pluck is a chord' and 'Every room keeps a private list' sections are near-empty rectangles with a single thin horizontal line — they read closer to placeholder voids than resolved figures, the weakest craft moment on the page.",
+        "Some utility/caption text (the mono metadata strips under headings) is set so small and low-contrast it becomes near-illegible decorative texture rather than legible information.",
+        "The lower 'Sounding Log' index tables lean on fairly conventional ledger-row formatting; competent but the least distinctive zone."
       ],
       "what_works": [
-        "Genuine editorial typographic voice: high-contrast serif (Chladni-esque, almost a Didone/transitional) paired with a small-caps mono utility voice — this is not the default Inter/system-sans reach",
-        "The pull-quote treatment with the vertical rule and italic serif is a real editorial move, not a template card",
-        "The oversized numeral '116' set against 'Chladni' establishes a proper display moment mid-page — a decisive scale jump that a templated generator would not risk",
-        "Left-aligned, asymmetric, narrow measure column of body copy sitting against generous negative space on the right — composition-as-restraint rather than centered-symmetry slop",
-        "The hero avoids every cardinal SaaS trap: no centered tagline, no gradient, no three-card grid, no CTA button — instead a broken-line poem set flush-left with an italic terminal word ('still.') doing the work",
-        "Consistent modular type rhythm from the display serif down through body and small-caps captions; the caption/label system (small tracked caps in muted grey) is coherent throughout"
+        "Genuine editorial hero: high-contrast serif with a deliberately italicized 'still.' set left-aligned against a dark organic Chladni-plate render on the right — an asymmetric composition with real tension, not a centered tagline.",
+        "Consistent typographic voice — a contrasty book serif for display/body against a spaced uppercase mono for labels and catalog numbers — a committed pairing no default generator reaches for.",
+        "The whole page is structured as a physical catalog/log of vibrating plates (numbered figure rows, a '118 Sympathy' log entry with an oversized numeral, epoch notes), a specific conceptual conceit rather than a feature grid.",
+        "Restrained palette: warm paper ground, ink black, and a single oxidized rust-red used sparingly to mark one active table row and section rules."
       ],
-      "reasoning": "This is not slop. The page refuses every default AI move — no centered hero, no gradient, no feature-card triptych, no system sans — and instead commits to an editorial broadsheet identity: flush-left broken poem, high-contrast serif, small-caps mono labels, a single muted terracotta accent, and asymmetric composition with real negative-space discipline. The type pairing and the oversized '116' numeral are decisive, non-templated moves. It stops short of a 9 because the hero's dark graphic feels like a stock-ish texture rather than a fully resolved counter-mass, and the mid-page ledger tables, while competent, are the safest structural choice on the page."
+      "reasoning": "This is a deliberate editorial/catalog artifact — asymmetric serif hero over a textured plate image, a committed serif-plus-mono type system, and a paper/ink/rust palette used with restraint — none of which resembles the centered-hero-plus-gradient-plus-three-cards SaaS template. It clears the bar on hero and composition with a real signature. It falls short of the top band because a few of the black 'diagram' panels read as empty placeholder space and some mono metadata is illegibly small, softening the otherwise strong hierarchy."
     },
     "B": {
       "model": "grok-4-1-fast-reasoning",
       "fell_back_from": null,
       "passed": true,
       "axes": {
-        "type_scale": 7.0,
-        "spacing_system": 7.0,
-        "focal_hierarchy": 8.0,
+        "type_scale": 9.0,
+        "spacing_system": 8.0,
+        "focal_hierarchy": 9.0,
         "restraint": 9.0,
-        "hero": 8.0,
-        "composition": 7.0,
-        "type_craft": 8.0,
-        "color": 7.0
+        "hero": 9.0,
+        "composition": 8.0,
+        "type_craft": 9.0,
+        "color": 8.0
       },
-      "overall": 7.0,
+      "overall": 8.0,
       "is_slop": false,
-      "findings": [
-        "hero typography uses a single editorial serif without a visible modular ratio between display, subhead, and body sizes",
-        "desktop layout relies on left-margin text blocks and thin vertical rules rather than active compositional tension or asymmetry",
-        "color palette is limited to off-white, black, and one red accent but lacks a named harmonic relationship or decisive accent usage"
-      ],
+      "findings": [],
       "what_works": [
-        "Chladni figure grid with inline frequency labels and subtle background tints creates a non-generic visual system",
-        "restraint: absence of gradients, glows, cards, or centered SaaS shapes"
+        "Hero typography establishes immediate editorial voice with large serif display against restrained body text",
+        "Consistent left-margin vertical rhythm and red accent rules create a clear reading spine without centering or symmetry defaults",
+        "Interactive string and figure elements are integrated as native content rather than decorative overlays"
       ],
-      "reasoning": "Desktop avoids every cardinal slop state (no purple gradient, no three-card row, no system sans, no centered symmetry). Hierarchy and restraint are strong, but type scale and spacing show only competent rather than decisive craft; overall sits at the threshold."
+      "reasoning": "Desktop render shows a deliberate, text-first editorial composition with modular type hierarchy, restrained red accents on a near-monochrome field, and asymmetric layouts that avoid all listed slop states. No gradients, cards, or SaaS shapes appear; the hero is a strong typographic statement rather than a generic centered tagline. Minor deductions only for occasional dense text blocks that could tighten vertical rhythm further."
     }
   }
 }
