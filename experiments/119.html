@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>119 — Beat · andremacedo.com</title>
+<title>119 — Beats · andremacedo.com</title>
 <style>
   html,body{margin:0;height:100%;background:#131109;overflow:hidden;font-family:'JetBrains Mono',monospace;}
-  canvas#stage{position:fixed;inset:0;display:block;touch-action:none;cursor:ew-resize;}
+  canvas#stage{position:fixed;inset:0;display:block;touch-action:none;}
   #info{
     position:fixed;top:1.2rem;left:1.2rem;z-index:10;max-width:21rem;
     color:#ece5d3;opacity:0.82;pointer-events:none;
@@ -48,24 +48,24 @@
 <body>
 <canvas id="stage"></canvas>
 <div id="info">
-  <h1>119 — Beat</h1>
-  <p>Two tones a hair apart. Their sum is a carrier under a slow hand — sin(2πft) + sin(2π(f+Δf)t) = 2cos(πΔf·t)·sin(2πf̄t) — and the hand's zeros are the nodal lines of a Chladni figure drawn in time instead of space. The silences return every 1/Δf seconds, exactly on schedule.</p>
-  <p><b>Drag or use the slider</b> to pull the second tone away from 220 Hz. <b>Sound</b> plays the pair — the wobble you hear is the figure. <b>Still</b> silences it.</p>
+  <h1>119 — Beats</h1>
+  <p>Two tones a few cycles apart refuse to decide between them: the air swells and cancels on a schedule. The Chladni node is a stillness in space; the beat is a stillness in time — a silence that walks the length of the tone. Push the pair far enough apart and the difference itself becomes a third voice neither tone is singing.</p>
+  <p><b>Drag across the field</b> (or use the slider) to pull voice B away from 220 Hz. <b>Sound</b> holds the pair; <b>still</b> silences it. The cinnabar columns are the silences, walking.</p>
 </div>
 <a id="back" href="/">← andremacedo.com</a>
 <div id="ui">
-  <div class="row"><label for="detune">detune Δf</label><input id="detune" type="range" min="0" max="1000" value="500" aria-label="Detune of the second tone, logarithmic sweep from 0.05 to 20 hertz"><output id="detuneRead">1.00 Hz</output></div>
+  <div class="row"><label for="detune">voice B detune</label><input id="detune" type="range" min="2" max="320" value="20" aria-label="Detune of voice B in tenths of a hertz"><output id="detuneRead">Δf = 2.0 Hz</output></div>
   <div class="row"><button id="sound" type="button">sound</button><button id="still" type="button">still</button></div>
 </div>
-<p id="read">the two tones agree — pull them apart.</p>
+<p id="read">two voices resting in unison.</p>
 <script>
 (function(){
   var cv=document.getElementById('stage');
   var ctx=cv.getContext('2d');
   var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches;
-  var readEl=document.getElementById('read');
-  var detuneEl=document.getElementById('detune');
+  var slider=document.getElementById('detune');
   var detuneRead=document.getElementById('detuneRead');
+  var readEl=document.getElementById('read');
 
   var W=0,H=0;
   function size(){
@@ -77,136 +77,125 @@
   size();
   window.addEventListener('resize',size);
 
-  var F1=220;
-  var df=1;                    // detune, Hz
-  var bloom=0;
+  var F0=220,df=2.0;
+
+  function setDf(v,fromSlider){
+    df=Math.max(0.2,Math.min(32,v));
+    if(!fromSlider)slider.value=Math.round(df*10);
+    detuneRead.textContent='Δf = '+df.toFixed(1)+' Hz';
+    if(df<0.5){
+      readEl.innerHTML='nearly one voice — the stillness breathes once every <b>'+(1/df).toFixed(0)+' s</b>.';
+    }else if(df<15){
+      readEl.innerHTML='the pair detuned — <b>'+F0+' &amp; '+(F0+df).toFixed(1)+' Hz</b> · silence walks past <b>'+df.toFixed(1)+' times a second</b>.';
+    }else{
+      readEl.innerHTML='<b>Δf = '+df.toFixed(1)+' Hz</b> — past counting, the difference becomes a <b>third voice at '+df.toFixed(0)+' Hz</b> that neither tone is singing.';
+    }
+  }
 
   /* Sound — opt-in, gesture-gated, always stoppable */
-  var AC=null,voices=null;
+  var AC=null,oscA=null,oscB=null,gMaster=null;
   function audio(){ if(!AC){try{AC=new (window.AudioContext||window.webkitAudioContext)();}catch(e){}} return AC; }
-  function sound(){
-    still();
+  function soundOn(){
     var ac=audio(); if(!ac)return;
+    if(oscA)return;
     try{
-      var g=ac.createGain(),fl=ac.createBiquadFilter();
-      fl.type='lowpass';fl.frequency.value=1800;
-      var t=ac.currentTime;
-      g.gain.setValueAtTime(0.0001,t);
-      g.gain.exponentialRampToValueAtTime(0.14,t+0.05);
-      var os=[];
-      [F1,F1+df].forEach(function(fr){
-        var o=ac.createOscillator();o.type='sine';o.frequency.value=fr;
-        o.connect(fl);o.start(t);os.push(o);
-      });
-      fl.connect(g);g.connect(ac.destination);
-      voices={os:os,g:g};
+      gMaster=ac.createGain();
+      gMaster.gain.setValueAtTime(0.0001,ac.currentTime);
+      gMaster.gain.exponentialRampToValueAtTime(0.09,ac.currentTime+0.6);
+      var fl=ac.createBiquadFilter();fl.type='lowpass';fl.frequency.value=2600;
+      oscA=ac.createOscillator();oscB=ac.createOscillator();
+      oscA.type='sine';oscB.type='sine';
+      oscA.frequency.value=F0;oscB.frequency.value=F0+df;
+      oscA.connect(fl);oscB.connect(fl);fl.connect(gMaster);gMaster.connect(ac.destination);
+      oscA.start();oscB.start();
     }catch(e){}
   }
-  function still(){
-    if(!voices||!AC)return;
+  function soundOff(){
+    if(!oscA||!AC)return;
     try{
-      var t=AC.currentTime,v=voices;voices=null;
-      v.g.gain.cancelScheduledValues(t);
-      v.g.gain.setTargetAtTime(0.0001,t,0.15);
-      setTimeout(function(){v.os.forEach(function(o){try{o.stop();}catch(e){}});},700);
+      gMaster.gain.exponentialRampToValueAtTime(0.0001,AC.currentTime+0.35);
+      var a=oscA,b=oscB;
+      setTimeout(function(){try{a.stop();b.stop();}catch(e){}},450);
     }catch(e){}
+    oscA=null;oscB=null;gMaster=null;
   }
+  document.getElementById('sound').addEventListener('click',soundOn);
+  document.getElementById('still').addEventListener('click',soundOff);
 
-  function report(){
-    detuneRead.textContent=df.toFixed(2)+' Hz';
-    if(df<=0.02){
-      readEl.innerHTML='the two tones agree — <b>Δf ≈ 0</b> · no silence is scheduled.';
-    }else{
-      readEl.innerHTML='Δf = <b>'+df.toFixed(2)+' Hz</b> — f&#8322; = <b>'+(F1+df).toFixed(1)+' Hz</b><br>a silence returns every <b>'+(1/df).toFixed(2)+' s</b>, exactly on schedule.';
-    }
-  }
+  slider.addEventListener('input',function(){setDf(parseInt(slider.value,10)/10,true);});
 
-  detuneEl.addEventListener('input',function(){
-    var v=parseInt(detuneEl.value,10)/1000;      // 0 .. 1
-    df=0.05*Math.pow(400,v);                      // log sweep 0.05 .. 20 Hz
-    if(voices){sound();}                          // retune live while sounding
-    bloom=0.6;
-    report();
-  });
-  document.getElementById('sound').addEventListener('click',function(){sound();bloom=1;report();});
-  document.getElementById('still').addEventListener('click',function(){still();readEl.innerHTML='still. the figure waits.';});
-
-  /* Drag on the field sweeps the detune too (touch parity with the slider) */
+  /* Drag across the field detunes voice B (pointer events = touch parity) */
   var dragging=false;
-  function evDf(e){
-    var t=Math.max(0,Math.min(1,e.clientX/Math.max(1,W)));
-    return 0.05*Math.pow(400,t);
-  }
-  cv.addEventListener('pointerdown',function(e){dragging=true;df=evDf(e);syncSlider();if(voices)sound();bloom=0.6;report();try{cv.setPointerCapture(e.pointerId);}catch(err){}});
-  cv.addEventListener('pointermove',function(e){if(!dragging)return;df=evDf(e);syncSlider();if(voices)sound();report();});
+  function evDf(e){var t=Math.max(0,Math.min(1,e.clientX/Math.max(1,W)));return 0.2*Math.pow(160,t);}
+  cv.addEventListener('pointerdown',function(e){dragging=true;try{cv.setPointerCapture(e.pointerId);}catch(err){}setDf(evDf(e));});
+  cv.addEventListener('pointermove',function(e){if(dragging)setDf(evDf(e));});
   cv.addEventListener('pointerup',function(){dragging=false;});
   cv.addEventListener('pointercancel',function(){dragging=false;});
-  function syncSlider(){
-    var v=Math.log(df/0.05)/Math.log(400);
-    detuneEl.value=Math.round(v*1000);
+
+  function render(tNow){
+    ctx.fillStyle='#131109';ctx.fillRect(0,0,W,H);
+    var pad=W*0.05,L=W-2*pad,CY=H*0.46,A=H*0.30;
+    var span=Math.max(0.4,Math.min(14,3.5/df));
+
+    /* the body of the summed tone */
+    ctx.fillStyle='rgba(236,229,211,0.05)';
+    for(var x=0;x<L;x+=2){
+      var tt=tNow-(1-x/L)*span;
+      var env=Math.abs(Math.cos(Math.PI*df*tt));
+      var h=env*A;
+      ctx.fillRect(pad+x,CY-h,1.6,2*h);
+    }
+    /* the envelope, mirrored */
+    ctx.strokeStyle='rgba(236,229,211,0.85)';ctx.lineWidth=1.5;
+    [-1,1].forEach(function(s){
+      ctx.beginPath();
+      for(var x2=0;x2<=L;x2+=2){
+        var tt2=tNow-(1-x2/L)*span;
+        var e2=Math.abs(Math.cos(Math.PI*df*tt2))*A;
+        var y=CY+s*e2;
+        if(x2===0)ctx.moveTo(pad+x2,y);else ctx.lineTo(pad+x2,y);
+      }
+      ctx.stroke();
+    });
+    /* the walking silences */
+    var k0=Math.ceil(df*(tNow-span)-0.5),k1=Math.floor(df*tNow-0.5);
+    for(var k=k0;k<=k1;k++){
+      var tn=(k+0.5)/df;
+      var xn=pad+L*(1-(tNow-tn)/span);
+      var g=ctx.createLinearGradient(xn,0,xn+14,0);
+      g.addColorStop(0,'rgba(217,122,78,0.55)');
+      g.addColorStop(1,'rgba(217,122,78,0)');
+      ctx.fillStyle=g;
+      ctx.fillRect(xn-1,H*0.14,14,H*0.64);
+      ctx.fillStyle='rgba(217,122,78,0.95)';
+      ctx.fillRect(xn-1,H*0.14,2,H*0.64);
+    }
+    /* the third voice — when Δf outruns counting, draw the difference tone */
+    if(df>=15){
+      ctx.strokeStyle='rgba(217,122,78,0.5)';ctx.lineWidth=1.2;
+      ctx.beginPath();
+      var cyc=df*span;
+      for(var x3=0;x3<=L;x3+=3){
+        var tt3=tNow-(1-x3/L)*span;
+        var y3=H*0.86+Math.sin(2*Math.PI*df*tt3)*H*0.05;
+        if(x3===0)ctx.moveTo(pad+x3,y3);else ctx.lineTo(pad+x3,y3);
+      }
+      ctx.stroke();
+    }
+    /* now-line */
+    ctx.fillStyle='rgba(236,229,211,0.3)';
+    ctx.fillRect(pad+L-1,H*0.1,1,H*0.72);
   }
 
-  /* Render — the sum signal under its envelope, silences in cinnabar */
   var last=performance.now();
   function frame(now){
-    var dt=Math.min((now-last)/1000,0.05);last=now;
-    bloom*=Math.pow(0.35,dt);
-    var tNow=now/1000;
-    var WIN=Math.min(6,Math.max(1.2,2.4/Math.max(df,0.05)));
-    var FC=31;                                    // display carrier, slowed ~7×
-
-    ctx.fillStyle='rgba(19,17,9,'+(reduce?1:0.45)+')';
-    ctx.fillRect(0,0,W,H);
-
-    var pad=W*0.06,L=W-2*pad,CY=H*0.52,scale=H*0.32;
-
-    /* envelope */
-    ctx.beginPath();
-    for(var i=0;i<=220;i++){
-      var x=i/220,t=tNow-WIN+x*WIN;
-      var e=Math.abs(Math.cos(Math.PI*df*t));
-      if(i===0)ctx.moveTo(pad,CY-e*scale);else ctx.lineTo(pad+x*L,CY-e*scale);
-    }
-    for(var i2=220;i2>=0;i2--){
-      var x2=i2/220,t2=tNow-WIN+x2*WIN;
-      ctx.lineTo(pad+x2*L,CY+Math.abs(Math.cos(Math.PI*df*t2))*scale);
-    }
-    ctx.closePath();
-    ctx.fillStyle='rgba(236,229,211,0.07)';
-    ctx.fill();
-
-    /* the silences */
-    ctx.fillStyle='rgba(217,122,78,'+(0.5+bloom*0.45).toFixed(3)+')';
-    var t0=tNow-WIN;
-    var k0=Math.ceil(df*t0-0.5),k1=Math.floor(df*tNow+0.5);
-    for(var k=k0;k<=k1;k++){
-      var ts=(k+0.5)/df;
-      if(ts<t0||ts>tNow)continue;
-      var xs=pad+((ts-t0)/WIN)*L;
-      ctx.fillRect(xs-1.2,CY-scale-10,2.4,scale*2+20);
-    }
-
-    /* the sum */
-    ctx.beginPath();
-    for(var j=0;j<=560;j++){
-      var xj=j/560,tj=tNow-WIN+xj*WIN;
-      var y=Math.cos(Math.PI*df*tj)*Math.cos(2*Math.PI*FC*tj);
-      var yy=CY-y*scale*0.92;
-      if(j===0)ctx.moveTo(pad,yy);else ctx.lineTo(pad+xj*L,yy);
-    }
-    ctx.strokeStyle='rgba(236,229,211,0.85)';
-    ctx.lineWidth=1.4;
-    ctx.stroke();
-
-    ctx.strokeStyle='rgba(154,145,124,0.28)';
-    ctx.lineWidth=1;
-    ctx.beginPath();ctx.moveTo(pad,CY);ctx.lineTo(pad+L,CY);ctx.stroke();
-
+    last=now;
+    if(oscB&&AC){try{oscB.frequency.setTargetAtTime(F0+df,AC.currentTime,0.08);}catch(e){}}
+    render(reduce?0:now/1000);
     requestAnimationFrame(frame);
   }
   requestAnimationFrame(frame);
-
-  report();
+  setDf(2.0,true);
 })();
 </script>
 </body>

@@ -765,3 +765,6 @@ gen 233 weekly: close Epoch IX (structural color, epitaph written), open Epoch X
 
 ## gen 234 (weekly, 2026-08-02)
 gen 234 weekly: deepen Epoch X resonance — live room-mode instrument (the room hums back), experiment 118 Sympathy, census of voices spans three dimensions
+
+## gen 235 (weekly, 2026-08-09)
+gen 235 weekly: deepen Epoch X resonance — the census turns from space to time: live beat instrument (the silence walks), experiment 119 Beats, favicon retuned

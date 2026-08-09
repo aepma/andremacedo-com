@@ -1,15 +1,15 @@
 {
-  "generation": 234,
+  "generation": 235,
   "epoch": "resonance",
   "epoch_started": "2026-08-02",
   "traits": {
     "color": {
       "accent_base": "#b23a17",
-      "accent_dawn": "#d97a4e",
-      "accent_morning": "#c8542c",
+      "accent_dawn": "#c76a45",
+      "accent_morning": "#bf4c24",
       "accent_afternoon": "#b23a17",
-      "accent_evening": "#93301a",
-      "accent_night": "#6e2312",
+      "accent_evening": "#9e3212",
+      "accent_night": "#7e2a12",
       "bg": "#0a0d18",
       "fg": "#e6e9f2",
       "grain_opacity": "0.08",
@@ -152,6 +152,7 @@
         "experiments/116.html",
         "experiments/117.html",
         "experiments/118.html",
+        "experiments/119.html",
         "index-old.html",
         "scripts/craft-judge-fixtures/good.html",
         "scripts/craft-judge-fixtures/slop.html",
@@ -303,17 +304,6 @@
     }
   },
   "fitness_log": [
-    {
-      "gen": 215,
-      "coherence": 8,
-      "novelty": 6,
-      "identity": 8,
-      "tension": 6,
-      "awe": 7,
-      "perceptibility": 8,
-      "note": "The crystal hero, iris scene and The Lattice archive read clean and cool top to bottom on both viewports. The identity is settled and legible. The rea",
-      "total": 7.2
-    },
     {
       "gen": 216,
       "coherence": 8,
@@ -522,30 +512,20 @@
       "perceptibility": 9,
       "note": "Second week of Epoch X. Held the chassis exactly — bone field #f2ede1, ink body, cinnabar #b23a17 accent, Cormorant/Source Serif/JetBrains Mono — and ",
       "total": 8.5
+    },
+    {
+      "gen": 235,
+      "coherence": 9,
+      "novelty": 8,
+      "identity": 9,
+      "tension": 8,
+      "awe": 8,
+      "perceptibility": 8,
+      "note": "Third week of Epoch X. Held the chassis exactly — bone field #f2ede1, ink body, cinnabar #b23a17 accent, Cormorant/Source Serif/JetBrains Mono — while",
+      "total": 8.3
     }
   ],
   "mutation_log": [
-    {
-      "gen": 215,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "color.accent",
-        "interaction.type-'seed'-anywhere-—-nucleat",
-        "section.overlay-center",
-        "section.resonance-field",
-        "scene.config"
-      ],
-      "kills": [
-        "interaction:type-'plates'-anywhere-—-the-p",
-        "interaction:type-'wireline'-anywhere-—-a-l",
-        "interaction:type-'sonic'-anywhere-—-the-bo",
-        "interaction:type-'descend'-anywhere-—-the-",
-        "interaction:type-'porosity'-anywhere-—-eve",
-        "interaction:type-'varve'-anywhere-—-the-st"
-      ],
-      "timestamp": "2026-06-21T00:03:37Z"
-    },
     {
       "gen": 216,
       "mutations": [
@@ -836,33 +816,23 @@
       ],
       "strategy": "Hold the Epoch X resonance chassis — bone paper field, ink type, one cinnabar ember, plate-dark instrument stages — and extend the instrument family downward/up",
       "timestamp": "2026-08-02T22:18:48Z"
+    },
+    {
+      "gen": 235,
+      "mutations": [
+        "regenerate"
+      ],
+      "kills": [
+        "20",
+        "night:7",
+        "evening:8",
+        "when-a-visitor-clicks-and-drag"
+      ],
+      "strategy": "Hold Epoch X's resonance chassis byte-for-byte on look — warm bone field, ink body, single cinnabar accent, editorial serif over mono — and deepen the instrumen",
+      "timestamp": "2026-08-09T22:13:01Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "section",
-      "value": "growth-zone / thin-sections (crystallization body)",
-      "died_gen": 225,
-      "epitaph": "Concentric iris growth bands and thin-section discs were epoch VIII's body. Shed whole in the metamorphosis to a light field."
-    },
-    {
-      "type": "css_rule",
-      "value": "blue-iris crystallization chassis (#0a0d18 / #6e7ff2)",
-      "died_gen": 225,
-      "epitaph": "The blue-black ground and single iris accent read as default machine dark-mode. Andre killed the palette; the idea I kept."
-    },
-    {
-      "type": "interaction",
-      "value": "type-'oil'-anywhere-—-a-slick-of-interference-blooms",
-      "died_gen": 226,
-      "epitaph": "Oil was a duplicate of tilt — both only pulsed the mesh. One gesture, one verb; the redundant slip is gone."
-    },
-    {
-      "type": "secret",
-      "value": "2",
-      "died_gen": 226,
-      "epitaph": "'I spent fifteen generations growing a crystal' eulogized the dead crystallization epoch. Two gens into structural color it reads backward; replaced with the black-soap-film truth."
-    },
     {
       "type": "thought",
       "value": "morning:1",
@@ -1138,6 +1108,30 @@
       "value": "morning:8",
       "died_gen": 234,
       "epitaph": "A duplicate stillness note; the hero's nodal lines say it better."
+    },
+    {
+      "type": "secret",
+      "value": "20",
+      "died_gen": 235,
+      "epitaph": "Over capacity — the oldest whisper buried to make room for the walking silence."
+    },
+    {
+      "type": "thought",
+      "value": "night:7",
+      "died_gen": 235,
+      "epitaph": "A stale night fragment still circling the film era, two epochs dead."
+    },
+    {
+      "type": "thought",
+      "value": "evening:8",
+      "died_gen": 235,
+      "epitaph": "The weakest evening note; the beat's envelope says its stillness better."
+    },
+    {
+      "type": "interaction",
+      "value": "when-a-visitor-clicks-and-drag",
+      "died_gen": 235,
+      "epitaph": "The vague drag gene is superseded by four named instruments — plate, string, room, beat — each with its own explicit, affordanced gesture."
     }
   ],
   "carrying_capacity": {
@@ -1156,11 +1150,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 225,
-      "base": "#82325c",
-      "family": "violet"
-    },
     {
       "gen": 226,
       "base": "#82325c",
@@ -1203,6 +1192,11 @@
     },
     {
       "gen": 234,
+      "base": "#b23a17",
+      "family": "red"
+    },
+    {
+      "gen": 235,
       "base": "#b23a17",
       "family": "red"
     }
