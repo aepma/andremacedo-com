@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>120 — Feedback · andremacedo.com</title>
+<style>
+  html,body{margin:0;height:100%;background:#131109;overflow:hidden;font-family:'JetBrains Mono',monospace;}
+  canvas#stage{position:fixed;inset:0;display:block;touch-action:none;}
+  #info{
+    position:fixed;top:1.2rem;left:1.2rem;z-index:10;max-width:21rem;
+    color:#ece5d3;opacity:0.82;pointer-events:none;
+    text-shadow:0 0 8px rgba(0,0,0,0.8), 0 0 20px rgba(0,0,0,0.5);
+  }
+  #info h1{font-size:0.95rem;letter-spacing:0.18em;text-transform:uppercase;margin:0 0 0.5rem;font-weight:500;}
+  #info p{font-size:0.72rem;line-height:1.7;margin:0 0 0.4rem;color:#9a917c;}
+  #info p b{color:#d97a4e;font-weight:500;}
+  #ui{
+    position:fixed;left:1.2rem;bottom:1.2rem;z-index:10;display:flex;flex-direction:column;gap:0.6rem;
+    color:#ece5d3;font-size:0.68rem;letter-spacing:0.06em;
+    text-shadow:0 0 8px rgba(0,0,0,0.8), 0 0 20px rgba(0,0,0,0.5);
+  }
+  #ui .row{display:flex;align-items:center;gap:0.8rem;}
+  #ui label{color:#9a917c;text-transform:uppercase;font-size:0.62rem;letter-spacing:0.14em;}
+  #ui output{color:#d97a4e;font-variant-numeric:tabular-nums;}
+  input[type=range]{width:min(46vw,280px);accent-color:#d97a4e;}
+  button{
+    font:inherit;color:#d97a4e;background:none;border:1px solid rgba(217,122,78,0.55);
+    padding:0.35rem 0.8rem;cursor:pointer;letter-spacing:0.1em;text-transform:uppercase;font-size:0.62rem;
+  }
+  button:hover{background:rgba(217,122,78,0.14);}
+  button:focus-visible{outline:2px solid #d97a4e;outline-offset:2px;}
+  #read{
+    position:fixed;right:1.2rem;bottom:1.2rem;z-index:10;max-width:22rem;text-align:right;
+    color:#9a917c;font-size:0.68rem;line-height:1.7;letter-spacing:0.05em;
+    text-shadow:0 0 8px rgba(0,0,0,0.8), 0 0 20px rgba(0,0,0,0.5);
+  }
+  #read b{color:#d97a4e;font-weight:500;}
+  #back{
+    position:fixed;top:1.2rem;right:1.2rem;z-index:10;color:#9a917c;text-decoration:none;
+    font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;
+    text-shadow:0 0 8px rgba(0,0,0,0.8), 0 0 20px rgba(0,0,0,0.5);
+  }
+  #back:hover{color:#ece5d3;}
+  @media(max-width:600px){#info{max-width:15rem;}#read{max-width:15rem;font-size:0.62rem;}}
+</style>
+</head>
+<body>
+<canvas id="stage"></canvas>
+<div id="info">
+  <h1>120 — Feedback</h1>
+  <p>A microphone and a speaker in the same air. The tone leaves the cone, enters the mic, comes back louder, comes back again. Below gain one every echo returns smaller; cross the cinnabar ring and the loop catches its own tail — the howl chooses the pitch the delay loves most and holds it with no hand at all.</p>
+  <p><b>Move the microphone</b> (pointer, drag, or the slider) toward the speaker to raise the gain. <b>Clap</b> puts a sound into the loop; <b>still</b> cuts it. Inside the ring, the loop lights itself.</p>
+</div>
+<a id="back" href="/">← andremacedo.com</a>
+<div id="ui">
+  <div class="row"><label for="gain">loop gain</label><input id="gain" type="range" min="20" max="160" value="52" aria-label="Loop gain in hundredths"><output id="gainRead">g = 0.52</output></div>
+  <div class="row"><button id="clap" type="button">clap</button><button id="still" type="button">still</button></div>
+</div>
+<p id="read">the loop is open — every echo returns smaller.</p>
+<script>
+(function(){
+  var cv=document.getElementById('stage');
+  var ctx=cv.getContext('2d');
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+  var readEl=document.getElementById('read');
+  var gainEl=document.getElementById('gain');
+  var gainRead=document.getElementById('gainRead');
+
+  var W=0,H=0,CX=0,CY=0,R1=0;
+  function size(){
+    W=window.innerWidth;H=window.innerHeight;
+    var dpr=Math.min(window.devicePixelRatio||1,2);
+    cv.width=Math.round(W*dpr);cv.height=Math.round(H*dpr);
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    CX=W/2;CY=H/2;
+    R1=Math.min(W,H)*0.24;   // the threshold ring: inside it, gain > 1
+  }
+  size();
+  window.addEventListener('resize',size);
+
+  var HOWL=220;
+  var FS=6000;
+  var D=Math.round(FS/HOWL);
+  var N=FS;
+  var buf=new Float32Array(N),head=0;
+  var g=0.52;
+  var inject=0,bloom=0,loud=0;
+  var micA=-Math.PI/3,micR=R1*2.1;   // mic polar position around the speaker
+
+  function gsim(){return Math.min(g,1.28);}
+  function setGain(ng,fromUI){
+    var was=g>=1;
+    g=Math.max(0.2,Math.min(1.6,ng));
+    if(!fromUI)gainEl.value=Math.round(g*100);
+    gainRead.textContent='g = '+g.toFixed(2);
+    applyGain();
+    if((g>=1)!==was)describe();
+  }
+  function describe(){
+    if(g>=1&&loud>0.28){
+      readEl.innerHTML='the loop has caught its own tail — <b>'+HOWL+' Hz</b>, no hand on it.';
+    }else if(g>=1){
+      readEl.innerHTML='past the threshold — <b>g = '+g.toFixed(2)+'</b> · clap, and the howl builds itself.';
+    }else{
+      readEl.innerHTML='the loop is open — <b>g = '+g.toFixed(2)+'</b> · every echo returns smaller.';
+    }
+  }
+
+  /* Sound — opt-in, gesture-gated, always stoppable. A real feedback loop:
+     delay → gain → lowpass → delay, through a compressor. 'still' zeroes it. */
+  var AC=null,nodes=null;
+  function audio(){ if(!AC){try{AC=new (window.AudioContext||window.webkitAudioContext)();}catch(e){}} return AC; }
+  function ensureLoop(){
+    var ac=audio(); if(!ac)return null;
+    if(nodes)return nodes;
+    try{
+      var input=ac.createGain();input.gain.value=1;
+      var delay=ac.createDelay(1);delay.delayTime.value=1/HOWL;
+      var fb=ac.createGain();fb.gain.value=0;
+      var lp=ac.createBiquadFilter();lp.type='lowpass';lp.frequency.value=2600;
+      var comp=ac.createDynamicsCompressor();
+      var out=ac.createGain();out.gain.value=0.14;
+      input.connect(delay);delay.connect(fb);fb.connect(lp);lp.connect(delay);
+      delay.connect(comp);comp.connect(out);out.connect(ac.destination);
+      nodes={input:input,fb:fb,out:out};
+      return nodes;
+    }catch(e){return null;}
+  }
+  function applyGain(){
+    if(!nodes||!AC)return;
+    var target=g>=1?0.985:Math.max(0,0.62*g);
+    try{nodes.fb.gain.setTargetAtTime(target,AC.currentTime,0.08);}catch(e){}
+  }
+  function clap(){
+    var ac=audio(); if(!ac)return;
+    var nd=ensureLoop(); if(!nd)return;
+    try{
+      var dur=0.12,sr=ac.sampleRate,b=ac.createBuffer(1,Math.floor(sr*dur),sr),d=b.getChannelData(0);
+      for(var i=0;i<d.length;i++){d[i]=(Math.random()*2-1)*Math.pow(1-i/d.length,1.6);}
+      var s=ac.createBufferSource();s.buffer=b;
+      var g2=ac.createGain();g2.gain.value=0.9;
+      s.connect(g2);g2.connect(nd.input);
+      s.start();
+    }catch(e){}
+    inject=0.12;bloom=1;
+    applyGain();describe();
+  }
+  function still(){
+    inject=0;bloom=0;
+    for(var i=0;i<N;i++)buf[i]=0;
+    loud=0;
+    if(nodes&&AC){try{nodes.fb.gain.setTargetAtTime(0,AC.currentTime,0.05);}catch(e){}}
+    readEl.innerHTML='cut. the house is quiet — <b>g = '+g.toFixed(2)+'</b>.';
+  }
+
+  document.getElementById('clap').addEventListener('click',clap);
+  document.getElementById('still').addEventListener('click',still);
+  gainEl.addEventListener('input',function(){setGain(gainEl.value/100,true);describe();});
+
+  /* the mic follows the pointer; its distance from the cone sets the gain */
+  var dragging=false;
+  function place(e){
+    var dx=e.clientX-CX,dy=e.clientY-CY;
+    micA=Math.atan2(dy,dx);
+    micR=Math.max(R1*0.25,Math.hypot(dx,dy));
+    setGain(R1/micR,false);   // on the ring exactly 1 · at the cone ~1.6 · far away it dies
+  }
+  cv.addEventListener('pointerdown',function(e){dragging=true;place(e);describe();if(reduce)render();});
+  cv.addEventListener('pointermove',function(e){if(dragging){place(e);describe();if(reduce)render();}});
+  cv.addEventListener('pointerup',function(){dragging=false;});
+  cv.addEventListener('pointercancel',function(){dragging=false;});
+
+  function render(){
+    ctx.fillStyle='#131109';ctx.fillRect(0,0,W,H);
+
+    /* faint range rings */
+    ctx.strokeStyle='rgba(236,229,211,0.07)';ctx.lineWidth=1;
+    [0.6,1.4,2.2,3.0].forEach(function(k){
+      ctx.beginPath();ctx.arc(CX,CY,R1*k,0,Math.PI*2);ctx.stroke();
+    });
+    /* the threshold ring — inside it, gain past one */
+    var lit=g>=1&&loud>0.28;
+    ctx.strokeStyle=lit?'rgba(217,122,78,0.95)':'rgba(217,122,78,0.55)';
+    ctx.lineWidth=lit?2.4:1.4;
+    ctx.setLineDash([5,6]);
+    ctx.beginPath();ctx.arc(CX,CY,R1,0,Math.PI*2);ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle='rgba(217,122,78,0.85)';
+    ctx.font='500 10px "JetBrains Mono",monospace';
+    ctx.fillText('gain 1',CX+R1+8,CY+3);
+
+    /* the loop's voice — a circular oscilloscope: radius breathes with the buffer */
+    var RR=Math.min(W,H)*0.36;
+    ctx.beginPath();
+    var span=3*D;
+    for(var a=0;a<=360;a+=2){
+      var th=a*Math.PI/180;
+      var idx=(head-span+Math.floor((a/360)*span)+2*N)%N;
+      var r=RR+buf[idx]*RR*0.30;
+      var x=CX+Math.cos(th)*r,y=CY+Math.sin(th)*r;
+      if(a===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);
+    }
+    ctx.closePath();
+    ctx.strokeStyle=lit?'rgba(217,122,78,0.9)':'rgba(236,229,211,0.8)';
+    ctx.lineWidth=1.6;
+    ctx.stroke();
+
+    /* the speaker — a small cone at center */
+    ctx.fillStyle='rgba(236,229,211,0.92)';
+    ctx.beginPath();ctx.arc(CX,CY,7+bloom*4,0,Math.PI*2);ctx.fill();
+    ctx.fillStyle='rgba(154,145,124,0.9)';
+    ctx.fillText('speaker',CX-22,CY+26);
+
+    /* the mic — where the pointer last put it */
+    var mx=CX+Math.cos(micA)*micR,my=CY+Math.sin(micA)*micR;
+    ctx.strokeStyle=lit?'rgba(217,122,78,0.95)':'rgba(236,229,211,0.85)';
+    ctx.lineWidth=lit?2.2:1.4;
+    ctx.beginPath();ctx.arc(mx,my,lit?9:6.5,0,Math.PI*2);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(CX,CY);ctx.lineTo(mx,my);
+    ctx.strokeStyle='rgba(236,229,211,0.16)';ctx.lineWidth=1;ctx.stroke();
+    ctx.fillStyle='rgba(154,145,124,0.9)';
+    ctx.fillText('mic',mx-6,my-14);
+  }
+
+  var last=performance.now();
+  function frame(now){
+    var dt=Math.min((now-last)/1000,0.05);last=now;
+    bloom*=Math.pow(0.3,dt);
+    if(inject>0)inject-=dt;
+    var steps=Math.min(Math.round(dt*FS),Math.floor(FS/4));
+    var acc=0;
+    for(var s=0;s<steps;s++){
+      var y=buf[(head-D+N)%N];
+      var x=(inject>0)?(Math.random()*2-1)*0.6*Math.min(1,inject/0.05):0;
+      var v=x+gsim()*y;
+      v=Math.tanh(v);
+      buf[head]=v;acc+=v*v;
+      head=(head+1)%N;
+    }
+    var rms=steps?Math.sqrt(acc/steps):0;
+    loud+=(rms-loud)*Math.min(1,dt*8);
+    render();
+    requestAnimationFrame(frame);
+  }
+  if(reduce){render();}
+  else{requestAnimationFrame(frame);}
+  describe();
+})();
+</script>
+</body>
+</html>

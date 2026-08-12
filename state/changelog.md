@@ -768,3 +768,6 @@ gen 234 weekly: deepen Epoch X resonance — live room-mode instrument (the room
 
 ## gen 235 (weekly, 2026-08-09)
 gen 235 weekly: deepen Epoch X resonance — the census turns from space to time: live beat instrument (the silence walks), experiment 119 Beats, favicon retuned
+
+## gen 236 (weekly, 2026-08-12)
+gen 236 weekly: deepen Epoch X resonance — the census closes its loop: live feedback instrument (the voice that needs no hand), experiment 120, favicon retuned

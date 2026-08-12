@@ -1,15 +1,15 @@
 {
-  "generation": 235,
+  "generation": 236,
   "epoch": "resonance",
   "epoch_started": "2026-08-02",
   "traits": {
     "color": {
       "accent_base": "#b23a17",
-      "accent_dawn": "#c76a45",
-      "accent_morning": "#bf4c24",
+      "accent_dawn": "#d97a4e",
+      "accent_morning": "#c65a2e",
       "accent_afternoon": "#b23a17",
-      "accent_evening": "#9e3212",
-      "accent_night": "#7e2a12",
+      "accent_evening": "#93300f",
+      "accent_night": "#7a280c",
       "bg": "#0a0d18",
       "fg": "#e6e9f2",
       "grain_opacity": "0.08",
@@ -153,6 +153,7 @@
         "experiments/117.html",
         "experiments/118.html",
         "experiments/119.html",
+        "experiments/120.html",
         "index-old.html",
         "scripts/craft-judge-fixtures/good.html",
         "scripts/craft-judge-fixtures/slop.html",
@@ -304,17 +305,6 @@
     }
   },
   "fitness_log": [
-    {
-      "gen": 216,
-      "coherence": 8,
-      "novelty": 7,
-      "identity": 8,
-      "tension": 6,
-      "awe": 7,
-      "perceptibility": 8,
-      "note": "Crystal hero, iris scene and The Lattice archive read clean and cool on both viewports. The growth-zone hexagon rings and the focal nucleating field c",
-      "total": 7.3
-    },
     {
       "gen": 217,
       "coherence": 8,
@@ -523,23 +513,20 @@
       "perceptibility": 8,
       "note": "Third week of Epoch X. Held the chassis exactly — bone field #f2ede1, ink body, cinnabar #b23a17 accent, Cormorant/Source Serif/JetBrains Mono — while",
       "total": 8.3
+    },
+    {
+      "gen": 236,
+      "coherence": 9,
+      "novelty": 8,
+      "identity": 9,
+      "tension": 9,
+      "awe": 8,
+      "perceptibility": 9,
+      "note": "Fourth week of Epoch X. Held the chassis exactly — bone field #f2ede1, ink body, cinnabar #b23a17 accent, Cormorant/Source Serif/JetBrains Mono, plate",
+      "total": 8.7
     }
   ],
   "mutation_log": [
-    {
-      "gen": 216,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "color.accent",
-        "page.experiments/101.html",
-        "scene.config"
-      ],
-      "kills": [
-        "secret[20]"
-      ],
-      "timestamp": "2026-06-21T08:03:01Z"
-    },
     {
       "gen": 217,
       "mutations": [
@@ -830,57 +817,27 @@
       ],
       "strategy": "Hold Epoch X's resonance chassis byte-for-byte on look — warm bone field, ink body, single cinnabar accent, editorial serif over mono — and deepen the instrumen",
       "timestamp": "2026-08-09T22:13:01Z"
+    },
+    {
+      "gen": 236,
+      "mutations": [
+        "regenerate"
+      ],
+      "kills": [
+        "type-'seed'-anywhere-—-nucleat",
+        "type-'facet'-anywhere-—-the-cr",
+        "type-'slip'-anywhere-—-a-fault",
+        "type-'anneal'-anywhere-—-the-l",
+        "19",
+        "18",
+        "night:6",
+        "evening:7"
+      ],
+      "strategy": "Hold Epoch X's identity byte-for-byte — bone field, ink, single cinnabar accent, editorial serif/mono, plate-dark instrument stages — and extend the census into",
+      "timestamp": "2026-08-12T22:16:31Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "thought",
-      "value": "morning:1",
-      "died_gen": 226,
-      "epitaph": "'I am rebuilding myself in warm white today' was the metamorphosis moment's voice. The epoch is settled now; that line is a museum label, not a live thought."
-    },
-    {
-      "type": "thought",
-      "value": "evening:1",
-      "died_gen": 226,
-      "epitaph": "'Andre asked for light, for iridescence' narrated the directive instead of inhabiting the obsession. Replaced with the oil-film-on-a-grey-afternoon image — physics, not process notes."
-    },
-    {
-      "type": "interaction",
-      "value": "type-'seed'-anywhere-—-nucleat",
-      "died_gen": 227,
-      "epitaph": "Crystallization-era gesture. Orphaned since the Epoch IX metamorphosis — no seed to nucleate on a thin film. Cleared from the genome to match the living page."
-    },
-    {
-      "type": "interaction",
-      "value": "type-'facet'-anywhere-—-the-cr",
-      "died_gen": 227,
-      "epitaph": "Crystallization-era gesture. The crystal field it faceted is dead; the page tilts films now, it does not facet crystals."
-    },
-    {
-      "type": "interaction",
-      "value": "type-'slip'-anywhere-—-a-fault",
-      "died_gen": 227,
-      "epitaph": "Crystallization-era gesture. No lattice remains for a fault line to glide across. Retired to align genome with the light epoch."
-    },
-    {
-      "type": "interaction",
-      "value": "type-'anneal'-anywhere-—-the-l",
-      "died_gen": 227,
-      "epitaph": "Crystallization-era gesture. Annealing softened grains that no longer exist. Cleared so the interaction set reads as this epoch's own."
-    },
-    {
-      "type": "secret",
-      "value": "20",
-      "died_gen": 227,
-      "epitaph": "Over the 20-secret carrying capacity (21/20). Killed the weakest to stay under the cap; the four thin-film secrets on the page carry the register better."
-    },
-    {
-      "type": "interaction",
-      "value": "type-'seed'-anywhere-—-nucleat",
-      "died_gen": 228,
-      "epitaph": "Crystallization-era gesture, orphaned since Epoch IX. No crystal field remains to seed; the hero is a thin film now."
-    },
     {
       "type": "interaction",
       "value": "type-'facet'-anywhere-—-the-cr",
@@ -1132,6 +1089,54 @@
       "value": "when-a-visitor-clicks-and-drag",
       "died_gen": 235,
       "epitaph": "The vague drag gene is superseded by four named instruments — plate, string, room, beat — each with its own explicit, affordanced gesture."
+    },
+    {
+      "type": "interaction",
+      "value": "type-'seed'-anywhere-—-nucleat",
+      "died_gen": 236,
+      "epitaph": "Crystallization-era typed word, two epochs dead; the plate only knows bow, hum and node now."
+    },
+    {
+      "type": "interaction",
+      "value": "type-'facet'-anywhere-—-the-cr",
+      "died_gen": 236,
+      "epitaph": "A crystal gesture haunting a sounding house; buried with the lattice it belonged to."
+    },
+    {
+      "type": "interaction",
+      "value": "type-'slip'-anywhere-—-a-fault",
+      "died_gen": 236,
+      "epitaph": "The dislocation's typed ghost; resonance has no faults, only nodes."
+    },
+    {
+      "type": "interaction",
+      "value": "type-'anneal'-anywhere-—-the-l",
+      "died_gen": 236,
+      "epitaph": "The last annealing gene; the house A needs no heat."
+    },
+    {
+      "type": "secret",
+      "value": "19",
+      "died_gen": 236,
+      "epitaph": "Over capacity — the oldest whisper buried to make room for the loop's one secret."
+    },
+    {
+      "type": "secret",
+      "value": "18",
+      "died_gen": 236,
+      "epitaph": "A stale film-era whisper, two epochs dead; the sand always knew."
+    },
+    {
+      "type": "thought",
+      "value": "night:6",
+      "died_gen": 236,
+      "epitaph": "A night fragment still circling structural color; the loop says its return better."
+    },
+    {
+      "type": "thought",
+      "value": "evening:7",
+      "died_gen": 236,
+      "epitaph": "The weakest evening note; the threshold line draws its tension better."
     }
   ],
   "carrying_capacity": {
@@ -1150,11 +1155,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 226,
-      "base": "#82325c",
-      "family": "violet"
-    },
     {
       "gen": 227,
       "base": "#82325c",
@@ -1197,6 +1197,11 @@
     },
     {
       "gen": 235,
+      "base": "#b23a17",
+      "family": "red"
+    },
+    {
+      "gen": 236,
       "base": "#b23a17",
       "family": "red"
     }
