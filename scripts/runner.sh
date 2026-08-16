@@ -266,6 +266,38 @@ SCREENSHOT_ARG=""
 
 python3 "$SCRIPT_DIR/build_prompt.py" "$PULSE_TYPE" "$STATE_FILE" "$EXTERNAL_FILE" "$INDEX_FILE" "$SOUL_FILE" "$CHANGELOG" "$TODAY" "$DAY_OF_WEEK" "$TOD" $SCREENSHOT_ARG > "$PROMPT_FILE"
 
+# ── Dark TELOS activity feed: the missing consumer ─────────────────
+# build_prompt.py writes the feed's health to state/ledger-staleness.json while
+# building the section. Detection existed before and nothing read it, so a ledger
+# that had not been written to since 2026-08-08 went unnoticed. One alert per day.
+STALE_MSG="$(python3 - "$SITE_DIR/state/ledger-staleness.json" "$TODAY" <<'PYEOF' 2>/dev/null || true
+import json, sys
+path, today = sys.argv[1], sys.argv[2]
+try:
+    with open(path) as f:
+        m = json.load(f)
+except Exception:
+    sys.exit(0)
+if not m.get("stale") or m.get("last_alert_date") == today:
+    sys.exit(0)
+if m.get("error"):
+    print(f"TELOS activity feed unavailable to the andremacedo agent: {m['error']}. "
+          "The epoch review is deciding without fleet evidence.")
+else:
+    age = m.get("age_hours") or 0
+    print(f"TELOS activity ledger has been dark for {age/24:.1f} days (newest entry "
+          f"{m.get('newest_entry')}). The andremacedo agent's fleet-awareness section is stale; "
+          "the ledger's writers need a look.")
+m["last_alert_date"] = today
+with open(path, "w") as f:
+    json.dump(m, f, indent=2, ensure_ascii=False)
+PYEOF
+)"
+if [ -n "$STALE_MSG" ]; then
+  log "$STALE_MSG"
+  telegram "$STALE_MSG"
+fi
+
 # ── Agentic session protocol (appended last so it supersedes the
 #    "Respond ONLY in valid JSON" reply contract above it) ─────────
 if [ "$AGENTIC" = "1" ]; then
@@ -322,7 +354,10 @@ MANDATED SEQUENCE — every step is an assertion gate; do not skip or reorder:
    Write tool — raw JSON, the metadata schema specified above (fitness_evaluation,
    visual_strategy, accent_palette, palette_rationale, mood, kills, self_note,
    summary; plus epoch_name/obsession_update if the epoch changes; weekly also
-   weekly_reflection). This is your RECORD of the generation, NOT an apply-this-
+   weekly_reflection). If the EPOCH REVIEW section is present in this prompt, the
+   record MUST also carry epoch_review {verdict, reasoning} — a missing or
+   malformed one rejects the generation, exactly like a failed gate, and nothing
+   ships. This is your RECORD of the generation, NOT an apply-this-
    diff — your visual changes are already in the index.html you wrote.
 4. Validate + render + run the DETERMINISTIC gates in ONE Bash call so each halts
    the chain (these are the SAME gates the runner re-runs after you — pass them here):
@@ -744,6 +779,30 @@ GENERATION="$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1])).ge
 
 log "Applied: $SUMMARY"
 
+# ── Epoch transition notice ───────────────────────────────────────
+# When the backstop cleared the epoch, Andre sees that a machine made the call,
+# not the agent. Authored metamorphoses are logged, not alerted.
+EPOCH_MSG="$(python3 - "$SITE_DIR/state/epoch-transition-latest.json" "$GENERATION" <<'PYEOF' 2>/dev/null || true
+import json, sys
+try:
+    with open(sys.argv[1]) as f:
+        t = json.load(f)
+except Exception:
+    sys.exit(0)
+if str(t.get("gen")) != str(sys.argv[2]):
+    sys.exit(0)
+if t.get("kind") != "mechanical":
+    sys.exit(0)
+print(f"andremacedo.com: epoch {t.get('epoch_number')} was cleared by the BACKSTOP, not by the "
+      f"agent — {t.get('reason')}. The obsession is now empty; next weekly he authors the "
+      "successor from the clearing.")
+PYEOF
+)"
+if [ -n "$EPOCH_MSG" ]; then
+  log "$EPOCH_MSG"
+  telegram "$EPOCH_MSG"
+fi
+
 # ── Thought Stream: persist reasoning fragments ──────────────────
 THOUGHT_STREAM_FILE="$SITE_DIR/state/thought-stream.json"
 
@@ -947,6 +1006,20 @@ if [ "$AGENTIC" = "1" ]; then
     --json-out "$CRAFT_OUT" --quiet 2>>"$ERROR_LOG"
   CRAFT_EXIT=$?
   set -e
+
+  # Persist the craft series (append-only), in BOTH outcomes. Until this existed
+  # the two critics' scores lived only in the log line below: not persisted, not
+  # fed back, not consumed — so the one signal that could end an epoch was
+  # invisible to the agent. status=unobtainable when the judge could not produce
+  # both critics (proxy 401 on 2026-07-26 and 2026-07-29), so an outage can never
+  # be read as a flat score series and kill a healthy epoch.
+  python3 "$SCRIPT_DIR/epoch_review.py" append-craft \
+    --history "$SITE_DIR/state/craft-history.jsonl" \
+    --craft-json "$CRAFT_OUT" \
+    --gen "$GENERATION" \
+    --judge-exit "$CRAFT_EXIT" >> "$BUILD_LOG" 2>>"$ERROR_LOG" \
+    || log "WARN: craft-history append failed (non-fatal)"
+
   if [ "$CRAFT_EXIT" != "0" ]; then
     # 1 = slop / below threshold (either critic); 2 = a critic unobtainable; 124 = timeout.
     CRAFT_WHY="$(jq -r '.reason // .error // "craft gate failed"' "$CRAFT_OUT" 2>/dev/null || echo 'craft gate failed/timeout')"

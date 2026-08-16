@@ -20,6 +20,9 @@ Prints a one-line summary (used as the commit subject). Exit 0 on success.
 import json, os, re, sys, colorsys
 from datetime import datetime, timezone
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import epoch_review as er
+
 
 def load(path, default):
     try:
@@ -45,6 +48,34 @@ def hue_family(base_hex):
         if hue <= threshold:
             return name
     return "red"
+
+
+def bury_epoch(genome, state, epoch_num, topic, started, epitaph, gen, now, today,
+               mechanical_reason=None):
+    """Kill the live epoch and leave a clearing behind it.
+
+    Mirrors the obsession-swap burial (past_epochs + graveyard + epoch_number++)
+    but does NOT mint a successor: the clearing is the point — the next weekly
+    enters build_obsession_directive's clearing branch and the agent authors his
+    own next obsession there. genome["epoch"]/["epoch_started"] are deliberately
+    left alone, exactly as the 2026-08-16 hand-clearing left them; the next
+    obsession birth sets both.
+    """
+    dead = {"number": epoch_num, "obsession": topic,
+            "started": started or genome.get("epoch_started", "unknown"),
+            "ended": now, "epitaph": epitaph}
+    if mechanical_reason:
+        dead["transition"] = "mechanical"
+        dead["transition_reason"] = mechanical_reason
+    else:
+        dead["transition"] = "authored"
+    genome.setdefault("past_epochs", []).append(dead)
+    genome.setdefault("graveyard", []).append(
+        {"type": "epoch", "value": f"Epoch {epoch_num}: {topic}",
+         "died_gen": gen, "epitaph": epitaph})
+    genome["epoch_number"] = epoch_num + 1
+    state["active_obsession"] = {"topic": "", "started": today, "rationale": ""}
+    return dead
 
 
 def main():
@@ -92,8 +123,89 @@ def main():
 
     genome.setdefault("graveyard", [])
 
+    # ── Epoch review: the monthly pivot decision ──────────────────────
+    # A live epoch past EPOCH_REVIEW_AGE_DAYS is on trial at every weekly pulse.
+    # The verdict is the agent's — except when the backstop fires, because an epoch
+    # that can only be ended by its own author's permission never ends. Runs before
+    # any state is mutated: a rejection here leaves both files untouched.
+    state_dir = os.path.join(site_dir, "state")
+    obs_live = state.get("active_obsession", {}) or {}
+    live_topic = (obs_live.get("topic") or "").strip()
+    live_started = obs_live.get("started", "")
+    live_age = er.epoch_age_days(live_started, today)
+    epoch_num = genome.get("epoch_number", 1)
+    review_due = (pulse_type == "weekly" and bool(live_topic)
+                  and live_age is not None and live_age >= er.EPOCH_REVIEW_AGE_DAYS)
+    cleared_this_pulse = False
+
+    if review_due:
+        verdict, reasoning = er.parse_review(meta.get("epoch_review"))
+        if verdict is None:
+            print(f"record-generation: an epoch review was REQUIRED this pulse (epoch "
+                  f"{epoch_num} is {live_age} days old) but {reasoning}. Rejecting the "
+                  "generation.", file=sys.stderr)
+            sys.exit(1)
+
+        history = er.load_jsonl(er.craft_history_path(state_dir))
+        pl = er.plateau(history, since=live_started)
+        streak = er.deepen_streak(state_dir, epoch_num) + (1 if verdict == "deepen" else 0)
+        mechanical = None
+        if live_age > er.EPOCH_BACKSTOP_AGE_DAYS:
+            mechanical = (f"epoch age {live_age}d exceeded the "
+                          f"{er.EPOCH_BACKSTOP_AGE_DAYS}-day ceiling")
+        elif verdict == "deepen" and streak >= er.DEEPEN_STREAK_LIMIT and pl["flat"]:
+            mechanical = (f"{streak} consecutive 'deepen' verdicts against a flat craft series "
+                          f"(spread {pl['spread']} across the last {pl['window']} scored "
+                          "generations)")
+
+        if mechanical or verdict == "metamorphose":
+            if mechanical:
+                epitaph = (f"Epoch {epoch_num}, \"{live_topic}\", ran {live_started} to {today} "
+                           f"({live_age} days). It was not ended by a decision: the backstop "
+                           f"cleared it because {mechanical}. No authored eulogy exists for this "
+                           "epoch — it outlived the point at which one was owed.")
+            else:
+                # Provenance fix: the epitaph is the dying epoch's own, never the
+                # successor's rationale. Falls back to a neutral generated line.
+                epitaph = (str(meta.get("epoch_epitaph") or "").strip()
+                           or reasoning
+                           or f"Epoch {epoch_num}, \"{live_topic}\", ran {live_started} to "
+                              f"{today} ({live_age} days). No epitaph was written.")
+            bury_epoch(genome, state, epoch_num, live_topic, live_started, epitaph,
+                       new_version, now, today, mechanical_reason=mechanical)
+            cleared_this_pulse = True
+            kind = "mechanical" if mechanical else "authored"
+            parts.append(f"epoch review: Epoch {epoch_num} buried ({kind}), clearing opens")
+            try:
+                with open(os.path.join(state_dir, "epoch-transition-latest.json"), "w",
+                          encoding="utf-8") as f:
+                    json.dump({"gen": new_version, "date": today, "epoch_number": epoch_num,
+                               "topic": live_topic, "kind": kind, "age_days": live_age,
+                               "reason": mechanical or "authored metamorphose verdict",
+                               "craft_plateau": pl}, f, indent=2, ensure_ascii=False)
+            except OSError:
+                pass
+        else:
+            parts.append(f"epoch review: deepen (deferral {streak}/{er.DEEPEN_STREAK_LIMIT})")
+
+        er.record_review(state_dir, {
+            "gen": new_version, "date": today, "epoch_number": epoch_num,
+            "epoch_topic": live_topic, "age_days": live_age,
+            "verdict": "mechanical_clear" if mechanical else verdict,
+            "agent_verdict": verdict,
+            "deepen_streak": streak if verdict == "deepen" else 0,
+            "craft_spread": pl.get("spread"), "craft_flat": pl.get("flat"),
+            "reasoning": reasoning[:600],
+        })
+
     # ── obsession birth/transition (preserves the prior epoch semantics) ───
     obsession = meta.get("obsession_update")
+    if cleared_this_pulse and isinstance(obsession, dict) and (obsession.get("topic") or "").strip():
+        # A clearing is not a swap: the successor is authored NEXT weekly, from the
+        # clearing, with the whole lineage in front of him. Never in the same breath.
+        print(f"  [epoch] obsession_update {obsession['topic']!r} ignored — the epoch was "
+              "cleared this pulse and the clearing is the point", file=sys.stderr)
+        obsession = None
     if isinstance(obsession, dict) and (obsession.get("topic") or "").strip():
         old = state.get("active_obsession", {})
         old_topic = (old.get("topic") or "").strip()
@@ -106,9 +218,18 @@ def main():
         else:
             if is_swap:
                 epoch_num = genome.get("epoch_number", 1)
+                # The epitaph is the DYING epoch's eulogy. Until 2026-08-16 this line
+                # took the INCOMING obsession's rationale, so every entry in
+                # past_epochs was the successor's birth statement (epoch 8's stored
+                # epitaph is verbatim the rationale for resonance) and the lineage the
+                # agent mines was corrupt. Never fall back to the rationale.
+                epitaph = str(meta.get("epoch_epitaph") or "").strip() or (
+                    f"Epoch {epoch_num}, \"{old_topic}\", ran "
+                    f"{old.get('started', genome.get('epoch_started', 'unknown'))} to {today}. "
+                    "No epitaph was written for it.")
                 dead = {"number": epoch_num, "obsession": old_topic,
                         "started": old.get("started", genome.get("epoch_started", "unknown")),
-                        "ended": now, "epitaph": obsession.get("rationale", f"{old_topic} — ended.")}
+                        "ended": now, "epitaph": epitaph, "transition": "swap"}
                 genome.setdefault("past_epochs", []).append(dead)
                 genome["graveyard"].append({"type": "epoch", "value": f"Epoch {epoch_num}: {old_topic}",
                                             "died_gen": new_version, "epitaph": dead["epitaph"]})

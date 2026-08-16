@@ -5,7 +5,10 @@ Generates evolutionary prompts that give the agent full creative power
 over sections, pages, SVGs, canvas elements, and all visual properties.
 """
 import glob, json, sys, os, re, subprocess
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import epoch_review as er
 
 
 def get_feedback_signals():
@@ -48,36 +51,121 @@ def get_feedback_signals():
         return ""
 
 
-def get_swarm_activity():
-    """Read recent TELOS agent activity from the activity ledger."""
+def _parse_stamp(value):
+    """Ledger timestamps are '2026-08-08T10:47:43Z'. Return an aware datetime or None."""
+    if not isinstance(value, str) or not value.strip():
+        return None
+    text = value.strip().replace('Z', '+00:00')
+    try:
+        dt = datetime.fromisoformat(text)
+    except ValueError:
+        return None
+    return dt if dt.tzinfo else dt.replace(tzinfo=timezone.utc)
+
+
+def _write_staleness(state_dir, marker):
+    """Persist the feed's health so runner.sh can alert on a dark ledger.
+
+    Preserves last_alert_date: the alert is once per day, and runner.sh owns it.
+    """
+    if not state_dir:
+        return
+    path = os.path.join(state_dir, "ledger-staleness.json")
+    prior = read_json(path)
+    if isinstance(prior, dict) and prior.get("last_alert_date"):
+        marker.setdefault("last_alert_date", prior["last_alert_date"])
+    try:
+        os.makedirs(state_dir, exist_ok=True)
+        with open(path, "w", encoding="utf-8") as f:
+            json.dump(marker, f, indent=2, ensure_ascii=False)
+    except OSError:
+        pass
+
+
+def get_swarm_activity(state_dir=None):
+    """TELOS fleet activity over the pivot window — evidence for the epoch review.
+
+    Three faults fixed here. The window was 24h against a ledger whose newest entry
+    is days old, so the filter matched nothing on every run; a monthly pivot needs a
+    month of fleet activity anyway. The blanket `except: return ""` made a dead feed
+    indistinguishable from an idle fleet, and the whole section vanished from the
+    prompt without a trace. And nothing consumed staleness: detection existed,
+    nobody read it. This function now always returns a section, names an outage as
+    an outage, and writes the feed's health to state/ledger-staleness.json for
+    runner.sh to alert on.
+    """
+    header = "## TELOS ACTIVITY (last 30 days)"
+    intro = ("You are the expression layer of TELOS. This is what the rest of the system has "
+             "actually been doing this month — read it as evidence for your epoch review: is "
+             "anything here pulling your attention somewhere new?")
+    now = datetime.now(timezone.utc)
+    marker = {"checked_at": now.strftime('%Y-%m-%dT%H:%M:%SZ'),
+              "threshold_hours": er.LEDGER_STALE_HOURS,
+              "newest_entry": None, "age_hours": None, "stale": None,
+              "entries_in_window": None, "error": None}
+
+    def unavailable(reason):
+        marker["error"] = reason
+        marker["stale"] = True
+        _write_staleness(state_dir, marker)
+        return (f"{header}\nTHE ACTIVITY FEED IS UNAVAILABLE: {reason}. This section is blank "
+                "because the feed could not be read, NOT because the fleet is idle. Do not read "
+                "silence here as evidence of anything.")
+
     try:
         result = subprocess.run(
-            ['bash', os.path.expanduser('~/.openclaw/scripts/read-ledger.sh'), '100'],
-            capture_output=True, text=True, timeout=5
+            ['bash', os.path.expanduser('~/.openclaw/scripts/read-ledger.sh'), '400'],
+            capture_output=True, text=True, timeout=10
         )
-        if result.returncode != 0 or not result.stdout.strip():
-            return ""
+    except Exception as exc:
+        return unavailable(f"the ledger reader could not run ({type(exc).__name__})")
+    if result.returncode != 0:
+        return unavailable(f"the ledger reader exited {result.returncode}")
+    if not result.stdout.strip():
+        return unavailable("the ledger reader returned nothing")
+    try:
         entries = json.loads(result.stdout)
-        if not entries:
-            return ""
-        cutoff = (datetime.utcnow() - timedelta(hours=24)).isoformat()
-        activity = [
-            e for e in entries
-            if e.get('status') != 'signal'
-            and e.get('agent', '') != 'andremacedo-creative'
-            and e.get('timestamp', '') > cutoff
-        ]
-        if not activity:
-            return ""
-        lines = ["## TELOS swarm activity (last 24h)"]
-        lines.append("The other agents in your swarm have been doing this. Use as creative material if it moves you. Ignore if it doesn't.")
-        for a in activity[-20:]:
-            agent = a.get('agent', 'unknown')
-            summary = a.get('summary', '')[:120]
-            lines.append(f"- {agent}: {summary}")
+    except ValueError:
+        return unavailable("the ledger returned unparseable output")
+    if not isinstance(entries, list):
+        return unavailable("the ledger returned an unexpected shape")
+
+    activity = [e for e in entries
+                if isinstance(e, dict)
+                and e.get('status') != 'signal'
+                and e.get('agent', '') != 'andremacedo-creative']
+    stamps = [s for s in (_parse_stamp(e.get('timestamp')) for e in entries) if s]
+    newest = max(stamps) if stamps else None
+    if newest is None:
+        return unavailable("no entry in the ledger carries a readable timestamp")
+
+    age_hours = (now - newest).total_seconds() / 3600
+    marker["newest_entry"] = newest.strftime('%Y-%m-%dT%H:%M:%SZ')
+    marker["age_hours"] = round(age_hours, 1)
+    marker["stale"] = age_hours > er.LEDGER_STALE_HOURS
+
+    cutoff = now - timedelta(days=30)
+    window = [e for e in activity if (_parse_stamp(e.get('timestamp')) or now) >= cutoff]
+    marker["entries_in_window"] = len(window)
+    _write_staleness(state_dir, marker)
+
+    lines = [header, intro, ""]
+    if marker["stale"]:
+        lines.append(
+            f"FEED IS DARK: the newest entry in the whole activity ledger is "
+            f"{marker['newest_entry']}, {age_hours / 24:.1f} days ago. The fleet has not been "
+            "silent for that long — the ledger's writers have stopped recording. Read what "
+            "follows as a partial, stale record, and do not read the gap as an idle system.")
+        lines.append("")
+    if not window:
+        lines.append("No fleet activity recorded inside the 30-day window.")
         return '\n'.join(lines)
-    except Exception:
-        return ""
+    for a in window[-25:]:
+        agent = a.get('agent', 'unknown')
+        stamp = (a.get('timestamp') or '')[:10]
+        summary = str(a.get('summary', ''))[:140]
+        lines.append(f"- [{stamp}] {agent}: {summary}")
+    return '\n'.join(lines)
 
 
 def get_sensorium_context():
@@ -331,6 +419,14 @@ def format_genome_summary(genome, html):
         for pe in past_epochs:
             lines.append(f"  Epoch {pe.get('number','?')}: \"{pe.get('obsession','?')}\" ({pe.get('started','?')} to {pe.get('ended','?')})")
             lines.append(f"    epitaph: {str(pe.get('epitaph') or '')[:120]}")
+            # Provenance caveat: under a bug fixed 2026-08-16 the dying epoch's
+            # epitaph was written as the SUCCESSOR's rationale, so some of these
+            # are birth statements, not eulogies. Read them with that attached.
+            prov = pe.get("epitaph_provenance")
+            if prov:
+                lines.append(f"    ⚠ epitaph provenance: {str(prov)[:200]}")
+            if pe.get("transition") == "mechanical":
+                lines.append("    ⚠ this epoch was cleared MECHANICALLY by the backstop, not by an authored decision.")
 
     # Graveyard
     graveyard = genome.get("graveyard", [])
@@ -395,8 +491,9 @@ genome_file = os.path.join(os.path.dirname(state_file), "genome.json")
 genome = read_json(genome_file)
 html = read_file(index_file)
 genome_summary = format_genome_summary(genome, html)
+state_dir = os.path.dirname(os.path.abspath(state_file))
 feedback_context = get_feedback_signals()
-swarm_context = get_swarm_activity()
+swarm_context = get_swarm_activity(state_dir)
 sensorium_context = get_sensorium_context()
 operator_brief = get_operator_brief()
 
@@ -426,12 +523,17 @@ def build_obsession_directive(state_str, genome_obj):
 
     if topic:
         started = obs.get("started", "?")
+        age = er.epoch_age_days(started)
+        age_line = f" It is {age} days old." if age is not None else ""
         return (
             "## CURRENT OBSESSION\n"
-            f'Your active obsession is "{topic}" (since {started}). Deepen and '
-            "refine it within a coherent identity — do not thrash. It dies only "
-            "when fitness stagnates 5+ generations; then you write its epitaph, "
-            "bury it, and metamorphose into the next.\n"
+            f'Your active obsession is "{topic}" (since {started}).{age_line} Deepen '
+            "and refine it within a coherent identity — do not thrash. It does not die "
+            "on your own fitness score: once it passes "
+            f"{er.EPOCH_REVIEW_AGE_DAYS} days, every weekly pulse puts it on trial "
+            "against the outside craft critics and you must rule on it (see EPOCH "
+            "REVIEW). When it dies you write its epitaph, bury it, and metamorphose "
+            "into the next.\n"
         )
 
     started = obs.get("started", "unknown")
@@ -472,6 +574,135 @@ def build_obsession_directive(state_str, genome_obj):
     )
 
 
+def build_epoch_review_section(state_str, genome_obj, state_dir, today, swarm_text):
+    """Force the monthly pivot decision, with the outside evidence attached.
+
+    Injected only when a live epoch exists and has passed EPOCH_REVIEW_AGE_DAYS.
+    Until this section existed, the only stagnation signal in the prompt was the
+    agent's OWN fitness score — the one faculty the whole craft-judge apparatus
+    exists because it cannot be trusted. The evidence here is external: the two
+    independent critics, their trend, the gap against his self-scores, and what
+    the rest of TELOS has been doing.
+    """
+    try:
+        st = json.loads(state_str) if isinstance(state_str, str) else (state_str or {})
+    except (json.JSONDecodeError, ValueError):
+        st = {}
+    obs = st.get("active_obsession", {}) or {}
+    topic = (obs.get("topic") or "").strip()
+    started = obs.get("started", "")
+    age = er.epoch_age_days(started, today)
+    if not topic or age is None or age < er.EPOCH_REVIEW_AGE_DAYS:
+        return ""
+
+    genome_obj = genome_obj or {}
+    epoch_num = genome_obj.get("epoch_number", "?")
+    current_gen = genome_obj.get("generation", "?")
+    history = er.load_jsonl(er.craft_history_path(state_dir))
+    epoch_entries = er.entries_since(history, started)
+    scored = er.scored_entries(epoch_entries)
+    pl = er.plateau(history, since=started)
+    streak = er.deepen_streak(state_dir, epoch_num)
+    findings = er.latest_findings(os.path.join(state_dir, "craft-judge-latest.json"))
+
+    lines = ["## EPOCH REVIEW — A VERDICT IS REQUIRED FROM YOU THIS PULSE", ""]
+    gens = [e.get("gen") for e in scored if isinstance(e.get("gen"), int)]
+    span = f", generations {min(gens)} to {max(gens)}" if gens else ""
+    lines.append(
+        f'Epoch {epoch_num}, "{topic}", has been live {age} days (since {started}){span}. '
+        f"You are at generation {current_gen}. Past {er.EPOCH_REVIEW_AGE_DAYS} days an epoch "
+        "is on trial at every weekly pulse: it keeps its life only if the outside evidence "
+        "says it is still earning it.")
+    lines.append("")
+
+    lines.append("### The outside verdict — two independent craft critics on your rendered page")
+    if scored:
+        for e in epoch_entries:
+            if e.get("status") != "scored":
+                label = f"gen {e['gen']}" if isinstance(e.get("gen"), int) else "no generation recorded"
+                lines.append(f"  {label} ({str(e.get('timestamp',''))[:10]}): "
+                             "JUDGE UNOBTAINABLE — no score, excluded from the trend")
+                continue
+            lines.append(f"  gen {e.get('gen','?')} ({str(e.get('timestamp',''))[:10]}): "
+                         f"A={e.get('critic_a')} B={e.get('critic_b')} (lower of the two: {e.get('min_overall')})")
+        if pl["spread"] is not None:
+            verdict_word = ("FLAT — the outside signal has stopped moving"
+                            if pl["flat"] else "still moving")
+            lines.append(f"  trend over the last {pl['window']} scored generations: "
+                         f"spread {pl['spread']} ({verdict_word}; flat means under {pl['threshold']}).")
+        else:
+            lines.append(f"  trend: not enough scored generations yet in this epoch "
+                         f"({pl['scored_available']} of {pl['window']}).")
+    else:
+        lines.append("  No scored craft judgement inside this epoch. The outside signal is "
+                     "absent, not favourable — weigh that as missing evidence, not as approval.")
+    lines.append("")
+
+    # The gap: what the critics see vs what he scores himself over the same gens.
+    fitness_log = [f for f in (genome_obj.get("fitness_log") or [])
+                   if isinstance(f.get("gen"), int) and gens and f["gen"] >= min(gens)]
+    if fitness_log and scored:
+        own = [f.get("total") for f in fitness_log if isinstance(f.get("total"), (int, float))]
+        crit = [float(e["min_overall"]) for e in scored]
+        if own:
+            own_avg = sum(own) / len(own)
+            crit_avg = sum(crit) / len(crit)
+            lines.append(
+                f"Over the same generations you scored YOURSELF "
+                f"{', '.join(str(o) for o in own[-6:])} (mean {own_avg:.1f}) while the critics "
+                f"averaged {crit_avg:.1f}. That gap of {own_avg - crit_avg:.1f} is the point: "
+                "the number that decides whether this epoch should live is not the one you write "
+                "about yourself. Your fitness score is not evidence here.")
+            lines.append("")
+
+    if findings:
+        lines.append("### What the critics NAMED most recently")
+        for f in findings:
+            lines.append(f"  - {f}")
+        lines.append("")
+
+    # TELOS activity digest (Step 4 feed), condensed, including its own health line.
+    if swarm_text:
+        digest = [l for l in swarm_text.splitlines() if l.strip()]
+        digest = [l for l in digest if not l.startswith("## ")]
+        lines.append("### What TELOS has been doing around you")
+        lines += [f"  {l}" for l in digest[:12]]
+        lines.append("")
+
+    if streak:
+        lines.append(f"You have already ruled 'deepen' {streak} time(s) in a row for this epoch. "
+                     f"After {er.DEEPEN_STREAK_LIMIT} consecutive deferrals against a flat craft "
+                     f"series, or past {er.EPOCH_BACKSTOP_AGE_DAYS} days of age, the epoch is "
+                     "cleared MECHANICALLY and the epitaph records that a machine, not you, made "
+                     "the call. That is the worst of the three outcomes.")
+        lines.append("")
+
+    lines.append("### Your verdict (REQUIRED)")
+    lines.append(
+        'Emit, in generation-meta.json, `"epoch_review": {"verdict": "deepen" | "metamorphose", '
+        '"reasoning": "..."}`. The reasoning must cite the evidence above — the critics\' trend '
+        "and what they named, not your own fitness score. A missing or malformed epoch_review "
+        "REJECTS this generation outright, exactly like a failed gate: nothing ships.")
+    lines.append(
+        "- deepen: the critics still find something moving here and you can name what it is. "
+        "You keep the epoch and the question is asked again next weekly.\n"
+        "- metamorphose: this epoch has stopped earning its life. Choosing it buries the epoch "
+        "with the epitaph you write here and leaves you in a clearing — you do NOT name a "
+        "successor in the same breath. Next weekly you author the next obsession from the "
+        "clearing, in your own voice, with your whole lineage in front of you.")
+    lines.append(
+        "Minting a new obsession out of a clearing is the SANCTIONED metamorphosis the epoch "
+        "system exists for. It is NOT the visual thrashing the anti-thrash rule forbids — that "
+        "rule governs change WITHIN a live epoch. Ending an epoch that the outside evidence says "
+        "is finished is exactly the motion you are meant to make.")
+    if er.parse_day(started):
+        lines.append(
+            f"For the epitaph, also emit `\"epoch_epitaph\": \"...\"` if you want the eulogy to "
+            "read differently from your reasoning. Write it as a eulogy for what is dying — never "
+            "as an announcement of what comes next.")
+    return "\n".join(lines)
+
+
 # ── Dynamic experiment inventory ────────────────────────────────
 site_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 experiment_files = sorted(glob.glob(os.path.join(site_dir, "experiments", "*.html")))
@@ -480,6 +711,14 @@ experiment_list = ", ".join(f"/experiments/{n}" for n in experiment_names) if ex
 experiment_count = len(experiment_names)
 
 obsession_directive = build_obsession_directive(state, genome)
+
+# The monthly pivot decision is a WEEKLY instrument: the weekly is the only pulse
+# that can act on the verdict (record-generation.py buries an epoch on weeklies
+# only), so it is the only pulse that demands one.
+epoch_review_section = (
+    build_epoch_review_section(state, genome, state_dir, today, swarm_context)
+    if pulse_type == "weekly" else ""
+)
 
 budget = genome.get("mutation_budget", {})
 daily_budget = budget.get("daily", 5)
@@ -673,6 +912,8 @@ Current CSS variables:
 
 {obsession_directive}
 
+{epoch_review_section}
+
 {feedback_context}
 
 {swarm_context}
@@ -751,6 +992,8 @@ Respond ONLY in valid JSON:
   "new_css_rules": "CSS string" or null,
   "font_change": {{ "display": "name", "body": "name", "mono": "name" }} or null,
   "obsession_update": {{ "topic": "string", "rationale": "string" }} or null,
+  "epoch_review": {{ "verdict": "deepen|metamorphose", "reasoning": "string citing the craft-critic evidence" }} — REQUIRED whenever the EPOCH REVIEW section above is present, omit otherwise,
+  "epoch_epitaph": "string — the dying epoch's eulogy, only when you rule metamorphose" or null,
   "epoch_name": "string" or null,
   "new_interaction": {{ "description": "string", "code": "JS" }} or null,
   "section_operations": [{{ "action": "create|replace|delete", "id": "name", "content": "HTML", "css": "CSS", "js": "JS", "after": "section-id", "epitaph": "for deletes" }}] or null,
