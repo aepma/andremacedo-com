@@ -4,65 +4,64 @@
   "is_slop": false,
   "threshold": 7.0,
   "margin": 7.3,
-  "overall_min": 7.5,
+  "overall_min": 7.0,
   "reason": "both critics cleared",
   "critics": {
     "A": {
       "model": "claude-opus-4-8-oauth",
       "passed": true,
       "axes": {
-        "type_scale": 8.0,
+        "type_scale": 7.0,
         "spacing_system": 7.0,
         "focal_hierarchy": 7.0,
         "restraint": 8.0,
-        "hero": 8.0,
+        "hero": 7.0,
         "composition": 8.0,
         "type_craft": 8.0,
         "color": 7.0
       },
-      "overall": 7.5,
+      "overall": 7.3,
       "is_slop": false,
       "findings": [
-        "The recurring full-width black interactive widgets (oscilloscope/waveform blocks) read as near-identical dark rectangles and start to feel repetitive against the warm ground by the fourth or fifth appearance — they risk looking like placeholder voids rather than distinct instruments.",
-        "The 'Sounding Log' feed section at the bottom collapses into dense small mono/serif text with a numbered ledger that gets visually monotone — long unbroken paragraph runs weaken the otherwise strong rhythm.",
-        "Some caption/mono micro-text under the widgets is set so small it becomes texture rather than legible content."
+        "The upper-right hero graphic is a soft dark smoke/particle gradient that reads as atmospheric garnish; only its thematic tie to Chladni sand patterns keeps it from being generic decoration.",
+        "Body copy runs quite small and dense across several sections, risking a wall-of-text feel where the editorial rhythm nearly flattens into uniform gray blocks.",
+        "The dark waveform/diagram panels repeat a similar black-box treatment multiple times, edging toward a predictable module rhythm by mid-scroll."
       ],
       "what_works": [
-        "Genuinely editorial hero: an asymmetric left-set high-contrast serif headline with an intentional line-break ('needs no hand' italicized) bleeding into an organic dark sand/Chladni image top-right — a decisive composition no SaaS template reaches for.",
-        "Committed parchment-and-ink palette with a restrained rust/terracotta accent used only in the figure list — a named, disciplined harmony rather than a rainbow or purple gradient.",
-        "Real typographic point of view: high-contrast editorial serif for display and body paired with small-caps mono section labels, plus a drop-cap opening paragraph — expressive pairing, not default sans.",
-        "Consistent, rhythmic modular type scale from oversized display through headings, italic pull-quotes, body, to tiny mono captions.",
-        "Off-axis anchors and asymmetric column grids throughout treat whitespace as compositional mass rather than centered filler."
+        "Ragged left-aligned display serif hero with italic accents ('no hand', 'here') set against an asymmetric dark smoke field — a decisive, non-centered composition no SaaS template reaches for.",
+        "Consistent mono utility labels ('IN RESONANCE', section subtitles) playing marginalia against the high-contrast editorial serif — a genuine two-voice typographic system.",
+        "The 'Sounding Log' numbered data table with a lone rust-red 'X' row is a real editorial signature, treating the page as an instrument log rather than a landing page.",
+        "Warm cream/charcoal palette with a single muted rust accent used sparingly — restrained named harmony, no purple-gradient default."
       ],
-      "reasoning": "This is a warm, ink-on-parchment editorial artifact with a decisive asymmetric hero, an expressive serif/mono pairing, and a disciplined palette — none of the cardinal slop states (centered gradient hero, feature-card trio, default sans, SaaS shape) are present. The typographic conviction and off-axis composition clear the bar as a living art organism. It falls short of top marks because the repeated black interactive blocks flatten into visual sameness and the closing log section drifts into dense, monotone text that dilutes the otherwise strong hierarchy."
+      "reasoning": "This is clearly not SaaS slop: the hero is an asymmetric ragged serif composition over a themed dark field, and the whole page behaves as a long-form editorial instrument log with a consistent serif-plus-mono two-voice system and a restrained warm palette punctuated by one rust accent. The decisive moves — the numbered 'Sounding Log' with its single red row, the marginalia labeling, the interactive-looking resonance diagrams — are things a templated generator would not produce. It loses points for a somewhat generic atmospheric smoke graphic and dense small body text that occasionally flattens the rhythm, but it clears the bar."
     },
     "B": {
       "model": "grok-4-1-fast-reasoning",
       "fell_back_from": null,
       "passed": true,
       "axes": {
-        "type_scale": 8.0,
-        "spacing_system": 7.0,
+        "type_scale": 7.0,
+        "spacing_system": 6.0,
         "focal_hierarchy": 7.0,
-        "restraint": 9.0,
-        "hero": 8.0,
-        "composition": 8.0,
-        "type_craft": 8.0,
-        "color": 9.0
+        "restraint": 8.0,
+        "hero": 7.0,
+        "composition": 7.0,
+        "type_craft": 7.0,
+        "color": 7.0
       },
-      "overall": 8.0,
+      "overall": 7.0,
       "is_slop": false,
       "findings": [
-        "long unbroken text blocks create occasional density without visual breaks",
-        "interactive canvases sit flush against text with minimal framing",
-        "section dividers rely on small red labels that can be overlooked"
+        "dense justified body text in long unbroken columns creates visual fatigue rather than rhythmic reading",
+        "interactive canvases sit in identical black frames with identical caption styling, producing template repetition",
+        "left vertical nav is present but its weight and spacing feel ad-hoc against the main text measure",
+        "hero typography uses a single editorial voice with only one red accent; no second voice or scale tension"
       ],
       "what_works": [
-        "opening three-line headline uses deliberate line breaks and one red word as focal anchor",
-        "black interactive panels are treated as equal-weight content rather than embedded widgets",
-        "color restricted to off-white, black, and single red accent throughout"
+        "opening three-line stanza with the single red word creates immediate focal pull",
+        "monochrome palette with restrained red and orange labels avoids gradient slop"
       ],
-      "reasoning": "Desktop render shows an editorial essay layout with embedded instruments rather than any SaaS template pattern; typography and spacing maintain rhythm, the hero composition is asymmetric and text-driven, and restraint is high with no decorative gradients or cards. Minor density in text columns prevents a 9."
+      "reasoning": "Desktop render avoids every cardinal SaaS template shape and uses editorial typography plus integrated interactive figures, yet the layout remains safe in its symmetry of section blocks and lacks a decisive compositional risk or modular spacing system that would lift it above competent literary site defaults."
     }
   }
 }

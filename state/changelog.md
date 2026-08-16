@@ -771,3 +771,6 @@ gen 235 weekly: deepen Epoch X resonance — the census turns from space to time
 
 ## gen 236 (weekly, 2026-08-12)
 gen 236 weekly: deepen Epoch X resonance — the census closes its loop: live feedback instrument (the voice that needs no hand), experiment 120, favicon retuned
+
+## gen 237 (weekly, 2026-08-16)
+gen 237 weekly: deepen Epoch X resonance — go under the census to its one law, a live driven-pendulum resonance-curve instrument, ship experiment 121

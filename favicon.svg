@@ -1,8 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="10" fill="#131109"/>
-  <circle cx="32" cy="32" r="19" fill="none" stroke="#ece5d3" stroke-width="2.2" opacity="0.4"/>
-  <circle cx="32" cy="32" r="11" fill="none" stroke="#ece5d3" stroke-width="2.6" opacity="0.9"/>
-  <circle cx="43" cy="32" r="4.4" fill="#b23a17"/>
-  <circle cx="32" cy="13" r="1.8" fill="#ece5d3" opacity="0.75"/>
-  <circle cx="32" cy="51" r="1.8" fill="#ece5d3" opacity="0.75"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <rect width="64" height="64" fill="#f2ede1"/>
+  <!-- baseline -->
+  <rect x="6" y="46" width="52" height="1.4" fill="#171410" opacity="0.35"/>
+  <!-- resonance curve: flat, then a sharp cinnabar peak at the natural frequency -->
+  <path d="M6 44 C 16 43, 22 42, 27 40 C 30 38, 31 12, 34 12 C 37 12, 38 38, 41 40 C 46 42, 52 43, 58 44"
+        fill="none" stroke="#b23a17" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- the one pitch it cannot refuse -->
+  <circle cx="34" cy="12" r="3.2" fill="#b23a17"/>
 </svg>

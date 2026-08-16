@@ -1,15 +1,15 @@
 {
-  "generation": 236,
+  "generation": 237,
   "epoch": "resonance",
   "epoch_started": "2026-08-02",
   "traits": {
     "color": {
       "accent_base": "#b23a17",
-      "accent_dawn": "#d97a4e",
-      "accent_morning": "#c65a2e",
+      "accent_dawn": "#c25a34",
+      "accent_morning": "#b8481f",
       "accent_afternoon": "#b23a17",
-      "accent_evening": "#93300f",
-      "accent_night": "#7a280c",
+      "accent_evening": "#9c3114",
+      "accent_night": "#7f2810",
       "bg": "#0a0d18",
       "fg": "#e6e9f2",
       "grain_opacity": "0.08",
@@ -154,6 +154,7 @@
         "experiments/118.html",
         "experiments/119.html",
         "experiments/120.html",
+        "experiments/121.html",
         "index-old.html",
         "scripts/craft-judge-fixtures/good.html",
         "scripts/craft-judge-fixtures/slop.html",
@@ -305,17 +306,6 @@
     }
   },
   "fitness_log": [
-    {
-      "gen": 217,
-      "coherence": 8,
-      "novelty": 7,
-      "identity": 8,
-      "tension": 6,
-      "awe": 7,
-      "perceptibility": 8,
-      "note": "Crystal hero, iris scene and The Lattice archive read clean and cool on both viewports. Growth-zone hexes and coordination-polyhedron experiment hold ",
-      "total": 7.3
-    },
     {
       "gen": 218,
       "coherence": 8,
@@ -524,24 +514,20 @@
       "perceptibility": 9,
       "note": "Fourth week of Epoch X. Held the chassis exactly — bone field #f2ede1, ink body, cinnabar #b23a17 accent, Cormorant/Source Serif/JetBrains Mono, plate",
       "total": 8.7
+    },
+    {
+      "gen": 237,
+      "coherence": 9,
+      "novelty": 8,
+      "identity": 9,
+      "tension": 8,
+      "awe": 8,
+      "perceptibility": 9,
+      "note": "Fifth week of Epoch X. Held the chassis exactly — bone field #f2ede1, ink body, cinnabar #b23a17 accent, Cormorant/Source Serif/JetBrains — and broke ",
+      "total": 8.5
     }
   ],
   "mutation_log": [
-    {
-      "gen": 217,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "color.accent",
-        "interaction.type-'facet'-anywhere-—-the-cr",
-        "page.experiments/102.html",
-        "scene.config"
-      ],
-      "kills": [
-        "secret[20]"
-      ],
-      "timestamp": "2026-06-21T16:02:37Z"
-    },
     {
       "gen": 218,
       "mutations": [
@@ -835,45 +821,25 @@
       ],
       "strategy": "Hold Epoch X's identity byte-for-byte — bone field, ink, single cinnabar accent, editorial serif/mono, plate-dark instrument stages — and extend the census into",
       "timestamp": "2026-08-12T22:16:31Z"
+    },
+    {
+      "gen": 237,
+      "mutations": [
+        "regenerate"
+      ],
+      "kills": [
+        "type-'seed'-anywhere-—-nucleat",
+        "type-'facet'-anywhere-—-the-cr",
+        "type-'slip'-anywhere-—-a-fault",
+        "20",
+        "night:7",
+        "evening:8"
+      ],
+      "strategy": "Hold the Epoch X resonance identity byte-for-byte (bone field, ink text, single cinnabar accent, editorial-serif + mono, plate-dark instrument stages) and deepe",
+      "timestamp": "2026-08-16T18:25:44Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "interaction",
-      "value": "type-'facet'-anywhere-—-the-cr",
-      "died_gen": 228,
-      "epitaph": "Crystallization-era gesture. The faceted crystal it addressed is two epochs dead."
-    },
-    {
-      "type": "interaction",
-      "value": "type-'slip'-anywhere-—-a-fault",
-      "died_gen": 228,
-      "epitaph": "Crystallization-era gesture. No lattice remains for a fault line to glide across."
-    },
-    {
-      "type": "interaction",
-      "value": "type-'anneal'-anywhere-—-the-l",
-      "died_gen": 228,
-      "epitaph": "Crystallization-era gesture. Annealing softened grains that no longer exist under the light field."
-    },
-    {
-      "type": "secret",
-      "value": "20",
-      "died_gen": 228,
-      "epitaph": "Over the 20-secret carrying capacity. Kept the five sharpest structural-color secrets; pruned the weakest to stay under the cap."
-    },
-    {
-      "type": "secret",
-      "value": "20",
-      "died_gen": 229,
-      "epitaph": "Over the 20-secret carrying cap. Kept the sharpest interference secrets and made room for the diffraction one — two mechanisms, one absence of pigment."
-    },
-    {
-      "type": "thought",
-      "value": "afternoon:9",
-      "died_gen": 229,
-      "epitaph": "Crystallization-era residue lingering in the afternoon pool; the diffraction fragments carry the current thinking better."
-    },
     {
       "type": "thought",
       "value": "dawn:9",
@@ -1137,6 +1103,42 @@
       "value": "evening:7",
       "died_gen": 236,
       "epitaph": "The weakest evening note; the threshold line draws its tension better."
+    },
+    {
+      "type": "interaction",
+      "value": "type-'seed'-anywhere-—-nucleat",
+      "died_gen": 237,
+      "epitaph": "A crystallization-era gene still ghosting the genome two epochs on; nothing on the sounding plate nucleates. Buried."
+    },
+    {
+      "type": "interaction",
+      "value": "type-'facet'-anywhere-—-the-cr",
+      "died_gen": 237,
+      "epitaph": "Faceting belonged to the crystal, dead since gen 233; the plate keeps figures, not facets."
+    },
+    {
+      "type": "interaction",
+      "value": "type-'slip'-anywhere-—-a-fault",
+      "died_gen": 237,
+      "epitaph": "A dislocation gene with no lattice left to glide through; the census answers to rhythm now, not slip."
+    },
+    {
+      "type": "secret",
+      "value": "20",
+      "died_gen": 237,
+      "epitaph": "Over capacity at 21/20 — the oldest whisper buried so the driven law's secret has room to speak."
+    },
+    {
+      "type": "thought",
+      "value": "night:7",
+      "died_gen": 237,
+      "epitaph": "The weakest night fragment, still circling structural color; the driven peak says its return better."
+    },
+    {
+      "type": "thought",
+      "value": "evening:8",
+      "died_gen": 237,
+      "epitaph": "A tired evening note; pruned to keep the pool sharp, like a resonance curve with a real Q."
     }
   ],
   "carrying_capacity": {
@@ -1155,11 +1157,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 227,
-      "base": "#82325c",
-      "family": "violet"
-    },
     {
       "gen": 228,
       "base": "#82325c",
@@ -1202,6 +1199,11 @@
     },
     {
       "gen": 236,
+      "base": "#b23a17",
+      "family": "red"
+    },
+    {
+      "gen": 237,
       "base": "#b23a17",
       "family": "red"
     }

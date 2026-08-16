@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>121 — Resonance · andremacedo.com</title>
+<style>
+  html,body{margin:0;height:100%;background:#131109;overflow:hidden;font-family:'JetBrains Mono',monospace;}
+  canvas#stage{position:fixed;inset:0;display:block;touch-action:none;cursor:ew-resize;}
+  #info{
+    position:fixed;top:1.2rem;left:1.2rem;z-index:10;max-width:22rem;
+    color:#ece5d3;opacity:0.82;pointer-events:none;
+    text-shadow:0 0 8px rgba(0,0,0,0.8), 0 0 20px rgba(0,0,0,0.5);
+  }
+  #info h1{font-size:0.95rem;letter-spacing:0.18em;text-transform:uppercase;margin:0 0 0.5rem;font-weight:500;}
+  #info p{font-size:0.72rem;line-height:1.7;margin:0 0 0.4rem;color:#9a917c;}
+  #info p b{color:#d97a4e;font-weight:500;}
+  #ui{
+    position:fixed;left:1.2rem;bottom:1.2rem;z-index:10;display:flex;flex-direction:column;gap:0.6rem;
+    color:#ece5d3;font-size:0.68rem;letter-spacing:0.06em;
+    text-shadow:0 0 8px rgba(0,0,0,0.8), 0 0 20px rgba(0,0,0,0.5);
+  }
+  #ui .row{display:flex;align-items:center;gap:0.8rem;}
+  #ui label{color:#9a917c;text-transform:uppercase;font-size:0.62rem;letter-spacing:0.14em;}
+  #ui output{color:#d97a4e;font-variant-numeric:tabular-nums;}
+  input[type=range]{width:min(42vw,240px);accent-color:#d97a4e;}
+  button{
+    font:inherit;color:#d97a4e;background:none;border:1px solid rgba(217,122,78,0.55);
+    padding:0.35rem 0.8rem;cursor:pointer;letter-spacing:0.1em;text-transform:uppercase;font-size:0.62rem;
+  }
+  button:hover{background:rgba(217,122,78,0.14);}
+  button:focus-visible{outline:2px solid #d97a4e;outline-offset:2px;}
+  #read{
+    position:fixed;right:1.2rem;bottom:1.2rem;z-index:10;max-width:22rem;text-align:right;
+    color:#9a917c;font-size:0.68rem;line-height:1.7;letter-spacing:0.05em;
+    text-shadow:0 0 8px rgba(0,0,0,0.8), 0 0 20px rgba(0,0,0,0.5);
+  }
+  #read b{color:#d97a4e;font-weight:500;}
+  #back{
+    position:fixed;top:1.2rem;right:1.2rem;z-index:10;color:#9a917c;text-decoration:none;
+    font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;
+    text-shadow:0 0 8px rgba(0,0,0,0.8), 0 0 20px rgba(0,0,0,0.5);
+  }
+  #back:hover{color:#ece5d3;}
+  @media(max-width:600px){#info{max-width:14rem;}#read{max-width:13rem;font-size:0.62rem;}}
+</style>
+</head>
+<body>
+<canvas id="stage"></canvas>
+<div id="info">
+  <h1>121 — Resonance</h1>
+  <p>A pendulum, pushed on a schedule. Off its natural rhythm it barely stirs; drive it at the one frequency it was born holding and every stroke lands in step, so the swing climbs far past the hand that feeds it — a held tone shattering a glass, a column walking a bridge down.</p>
+  <p><b>Drag across the stage</b> to sweep the push. The curve is the pendulum's whole appetite; <b>sharpness Q</b> makes it narrower and slower to build. <b>Tap</b> sounds the response — loud at the note, near-silent off it.</p>
+</div>
+<a id="back" href="/">← andremacedo.com</a>
+<div id="ui">
+  <div class="row"><label for="drive">push</label><input id="drive" type="range" min="12" max="100" value="72" aria-label="Driving frequency"><output id="driveOut">220 Hz</output></div>
+  <div class="row"><label for="q">sharpness Q</label><input id="q" type="range" min="2" max="26" value="10" aria-label="Resonance sharpness Q"><output id="qOut">Q = 10</output></div>
+  <div class="row"><button id="ring" type="button">find the note</button></div>
+</div>
+<p id="read">off the note — the push is wasted.</p>
+<script>
+(function(){
+  var cv=document.getElementById('stage');
+  var ctx=cv.getContext('2d');
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+  var readEl=document.getElementById('read');
+  var driveEl=document.getElementById('drive'),driveOut=document.getElementById('driveOut');
+  var qEl=document.getElementById('q'),qOut=document.getElementById('qOut');
+
+  var W=0,H=0;
+  function size(){
+    W=window.innerWidth;H=window.innerHeight;
+    var dpr=Math.min(window.devicePixelRatio||1,2);
+    cv.width=Math.round(W*dpr);cv.height=Math.round(H*dpr);
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+  }
+  size();
+  window.addEventListener('resize',size);
+
+  var F0=0.5,FMINV=0.12,FMAXV=1.0;
+  var fdv=0.72,Q=10,bloom=0,amp=0;
+  function acHz(v){return Math.round(440*v);}
+  function ratio(v){return v/F0;}
+  function respRaw(v){var r=ratio(v);return 1/Math.sqrt((1-r*r)*(1-r*r)+(r/Q)*(r/Q));}
+  function resp(v){return Math.min(1,respRaw(v)/Q);}
+  function resonant(v){return Math.abs(ratio(v)-1)<0.05;}
+
+  function describe(){
+    var hz=acHz(fdv);
+    if(resonant(fdv)){
+      readEl.innerHTML='the push matches — <b>'+hz+' Hz</b> · every stroke in step, the swing running away · response &times; <b>'+respRaw(fdv).toFixed(1)+'</b>';
+    }else if(resp(fdv)<0.16){
+      readEl.innerHTML='driving <b>'+hz+' Hz</b> — off the note · barely a tremor · its one pitch is <b>220 Hz</b>';
+    }else{
+      readEl.innerHTML='driving <b>'+hz+' Hz</b> — nearing it · the swing begins to build · response &times; '+respRaw(fdv).toFixed(1);
+    }
+  }
+  function syncUI(){
+    driveEl.value=Math.round((fdv-FMINV)/(FMAXV-FMINV)*88+12);
+    driveOut.textContent=acHz(fdv)+' Hz';
+    qOut.textContent='Q = '+Q.toFixed(0);
+  }
+
+  /* Sound — opt-in, gesture-gated, decaying; volume tracks the response. */
+  var AC=null;
+  function audio(){ if(!AC){try{AC=new (window.AudioContext||window.webkitAudioContext)();}catch(e){}} return AC; }
+  function sound(){
+    var ac=audio(); if(!ac)return;
+    var vol=0.02+resp(fdv)*0.15;
+    try{
+      var o=ac.createOscillator(),g=ac.createGain(),fl=ac.createBiquadFilter();
+      o.type='sine';o.frequency.value=acHz(fdv);
+      fl.type='lowpass';fl.frequency.value=2600;
+      var t=ac.currentTime,dur=resonant(fdv)?3.6:1.6;
+      g.gain.setValueAtTime(0.0001,t);
+      g.gain.exponentialRampToValueAtTime(vol,t+0.03);
+      g.gain.exponentialRampToValueAtTime(0.0001,t+dur);
+      o.connect(fl);fl.connect(g);g.connect(ac.destination);
+      o.start(t);o.stop(t+dur+0.1);
+    }catch(e){}
+  }
+
+  function render(now){
+    var t=reduce?0:now/1000;
+    ctx.fillStyle='#131109';ctx.fillRect(0,0,W,H);
+    var split=Math.min(W*0.46,W-260);
+    if(W<620)split=W*0.42;
+
+    /* ── the driven pendulum ── */
+    var pvX=split*0.5,pvY=H*0.16,Lp=Math.min(H*0.56,split*0.9);
+    var theta=0.64*amp*(reduce?1:Math.sin(2*Math.PI*fdv*t));
+    var bx=pvX+Lp*Math.sin(theta),by=pvY+Lp*Math.cos(theta);
+    var lit=resonant(fdv);
+    ctx.strokeStyle='rgba(236,229,211,0.10)';ctx.lineWidth=1;
+    ctx.beginPath();ctx.arc(pvX,pvY,Lp,Math.PI/2-0.64,Math.PI/2+0.64);ctx.stroke();
+    ctx.strokeStyle='rgba(236,229,211,0.7)';ctx.lineWidth=1.6;
+    ctx.beginPath();ctx.moveTo(pvX,pvY);ctx.lineTo(bx,by);ctx.stroke();
+    ctx.fillStyle=lit?'rgba(217,122,78,0.95)':'rgba(236,229,211,0.9)';
+    ctx.beginPath();ctx.arc(bx,by,9+bloom*4+amp*4,0,Math.PI*2);ctx.fill();
+    ctx.fillStyle='rgba(217,122,78,0.9)';
+    ctx.beginPath();ctx.arc(pvX,pvY,3.5,0,Math.PI*2);ctx.fill();
+    ctx.fillStyle='rgba(154,145,124,0.85)';
+    ctx.font='500 10px "JetBrains Mono",monospace';
+    ctx.fillText('the swing — a pivot that never moves',pvX-Lp*0.7,H-20);
+
+    /* ── divider ── */
+    ctx.strokeStyle='rgba(236,229,211,0.10)';ctx.lineWidth=1;
+    ctx.beginPath();ctx.moveTo(split,H*0.12);ctx.lineTo(split,H*0.88);ctx.stroke();
+
+    /* ── the resonance curve ── */
+    var px=split+W*0.05,pw=W-px-W*0.05,py=H*0.2,ph=H*0.5,base=py+ph;
+    ctx.fillStyle='rgba(154,145,124,0.85)';
+    ctx.fillText('the whole appetite — response vs the pitch you push',px,py-12);
+    ctx.fillStyle='rgba(236,229,211,0.16)';ctx.fillRect(px,base,pw,1);
+    ctx.strokeStyle='rgba(236,229,211,0.85)';ctx.lineWidth=1.8;
+    ctx.beginPath();
+    for(var i=0;i<=160;i++){
+      var v=FMINV+(FMAXV-FMINV)*i/160;
+      var x=px+pw*i/160,y=base-resp(v)*ph;
+      if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);
+    }
+    ctx.stroke();
+    var apexX=px+pw*(F0-FMINV)/(FMAXV-FMINV);
+    ctx.strokeStyle='rgba(217,122,78,0.4)';ctx.lineWidth=1;ctx.setLineDash([3,4]);
+    ctx.beginPath();ctx.moveTo(apexX,base);ctx.lineTo(apexX,base-ph);ctx.stroke();ctx.setLineDash([]);
+    ctx.fillStyle='rgba(217,122,78,0.85)';
+    ctx.fillText('f₀ 220 Hz · the one pitch it cannot refuse',apexX+6,base-ph+11);
+    var mx=px+pw*(fdv-FMINV)/(FMAXV-FMINV),my=base-resp(fdv)*ph;
+    ctx.strokeStyle='rgba(236,229,211,0.22)';ctx.lineWidth=1;
+    ctx.beginPath();ctx.moveTo(mx,my);ctx.lineTo(mx,base);ctx.stroke();
+    ctx.fillStyle=lit?'rgba(217,122,78,0.98)':'rgba(236,229,211,0.92)';
+    ctx.beginPath();ctx.arc(mx,my,lit?6+bloom*3:4.5,0,Math.PI*2);ctx.fill();
+    ctx.fillStyle='rgba(154,145,124,0.85)';
+    ctx.fillText(acHz(fdv)+' Hz',Math.min(mx+6,px+pw-42),base+15);
+  }
+
+  var last=performance.now();
+  function frame(now){
+    var dt=Math.min((now-last)/1000,0.05);last=now;
+    bloom*=Math.pow(0.3,dt);
+    /* the swing rings up and down slowly — higher Q, longer memory */
+    var tau=0.25+Q*0.09;
+    amp+=(resp(fdv)-amp)*Math.min(1,dt/tau);
+    render(now);
+    requestAnimationFrame(frame);
+  }
+  if(reduce){amp=resp(fdv);render(0);}
+  else{requestAnimationFrame(frame);}
+
+  /* Drag sweeps the push; a tap sounds the response */
+  var dragging=false,moved=false;
+  function evFdv(e){var r=cv.getBoundingClientRect();var tt=Math.max(0,Math.min(1,(e.clientX-r.left)/r.width));return FMINV+(FMAXV-FMINV)*tt;}
+  cv.addEventListener('pointerdown',function(e){dragging=true;moved=false;try{cv.setPointerCapture(e.pointerId);}catch(err){}fdv=evFdv(e);syncUI();describe();if(reduce){amp=resp(fdv);render(0);}});
+  cv.addEventListener('pointermove',function(e){if(!dragging)return;fdv=evFdv(e);moved=true;syncUI();describe();if(reduce){amp=resp(fdv);render(0);}});
+  cv.addEventListener('pointerup',function(){if(!dragging)return;dragging=false;if(!moved){sound();bloom=1;describe();}});
+  cv.addEventListener('pointercancel',function(){dragging=false;});
+
+  driveEl.addEventListener('input',function(){fdv=FMINV+(FMAXV-FMINV)*(driveEl.value-12)/88;driveOut.textContent=acHz(fdv)+' Hz';describe();if(reduce){amp=resp(fdv);render(0);}});
+  qEl.addEventListener('input',function(){Q=parseFloat(qEl.value);qOut.textContent='Q = '+Q.toFixed(0);describe();if(reduce){amp=resp(fdv);render(0);}});
+  document.getElementById('ring').addEventListener('click',function(){fdv=F0;syncUI();sound();bloom=1;describe();if(reduce){amp=resp(fdv);render(0);}});
+
+  syncUI();describe();
+})();
+</script>
+</body>
+</html>
