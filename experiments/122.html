@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>122 · Entrainment — andremacedo.com</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#f7f4ec;--fg:#17140f;--dim:#645e50;--accent:#2c3bbd;}
+  html,body{margin:0;height:100%;background:var(--bg);overflow:hidden;}
+  canvas{position:fixed;inset:0;width:100%;height:100%;display:block;}
+  #info{
+    position:fixed;top:1.2rem;left:1.2rem;max-width:21rem;opacity:0.82;
+    font-family:'JetBrains Mono',monospace;font-size:0.72rem;line-height:1.7;
+    color:var(--fg);pointer-events:none;z-index:5;
+    text-shadow:0 0 8px rgba(0,0,0,0.8),0 0 20px rgba(0,0,0,0.5);
+  }
+  #info h1{
+    font-family:'Cormorant Garamond',serif;font-weight:300;font-size:1.9rem;
+    margin:0 0 0.4rem;color:var(--fg);
+    text-shadow:0 0 8px rgba(0,0,0,0.8),0 0 20px rgba(0,0,0,0.5);
+  }
+  #info b{color:var(--accent);}
+  #back{
+    position:fixed;top:1.2rem;right:1.2rem;z-index:6;
+    font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--fg);
+    text-decoration:none;border-bottom:1px solid var(--accent);
+    text-shadow:0 0 8px rgba(0,0,0,0.8),0 0 20px rgba(0,0,0,0.5);
+  }
+  #ui{
+    position:fixed;bottom:1.4rem;left:50%;transform:translateX(-50%);z-index:6;
+    display:flex;align-items:center;gap:0.9rem;
+    font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--fg);
+    text-shadow:0 0 8px rgba(0,0,0,0.8),0 0 20px rgba(0,0,0,0.5);
+  }
+  #ui input{-webkit-appearance:none;appearance:none;width:min(280px,52vw);height:2px;
+    background:rgba(23,20,15,0.3);cursor:pointer;}
+  #ui input::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:14px;height:14px;
+    border-radius:50%;background:var(--accent);border:2px solid var(--bg);}
+  #ui input::-moz-range-thumb{width:12px;height:12px;border-radius:50%;background:var(--accent);
+    border:2px solid var(--bg);}
+  #ui output{color:var(--accent);min-width:3em;}
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div id="info"><h1>122 · Entrainment</h1><p>A ring of oscillators, each ticking at its own wrong rate, coupled by one shared pull. Below the threshold every voice keeps its own time; above it <b>agreement condenses out of noise</b> — no conductor anywhere.</p><p>Drag the <b>coupling</b> slider. Click the ring to scatter one voice. Watch <b>r</b> climb as the blue wedge gathers.</p></div>
+<a id="back" href="/">← the body</a>
+<div id="ui"><label for="k">coupling</label><input type="range" id="k" min="0" max="3" step="0.05" value="0.6" aria-label="Coupling strength"><output id="ko">0.60</output></div>
+<script>
+(function(){
+  var cv=document.getElementById('c'),ctx=cv.getContext('2d');
+  var W=0,H=0,CX=0,CY=0,R=0;
+  function size(){
+    W=window.innerWidth;H=window.innerHeight;
+    var dpr=Math.min(window.devicePixelRatio||1,2);
+    cv.width=Math.round(W*dpr);cv.height=Math.round(H*dpr);
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    CX=W/2;CY=H/2;R=Math.min(W,H)*0.36;
+  }
+  size();window.addEventListener('resize',size);
+  var MOBILE=window.matchMedia&&window.matchMedia('(max-width:600px)').matches;
+  var N=MOBILE?160:320,TAU=Math.PI*2;
+  var th=new Float64Array(N),om=new Float64Array(N);
+  function gauss(){var u=0,v=0;while(!u)u=Math.random();while(!v)v=Math.random();
+    return Math.sqrt(-2*Math.log(u))*Math.cos(TAU*v);}
+  for(var i=0;i<N;i++){om[i]=1+gauss()*0.09;th[i]=Math.random()*TAU;}
+  var K=0.6,r=0,PSI=0;
+  function wrap(a){while(a>Math.PI)a-=TAU;while(a<-Math.PI)a+=TAU;return a;}
+  var slider=document.getElementById('k'),ko=document.getElementById('ko');
+  slider.addEventListener('input',function(){K=parseFloat(slider.value);ko.textContent=K.toFixed(2);});
+  cv.addEventListener('click',function(e){
+    var ang=Math.atan2(e.clientY-CY,e.clientX-CX),best=0,bd=99;
+    for(var i=0;i<N;i++){var d=Math.abs(wrap(th[i]-ang));if(d<bd){bd=d;best=i;}}
+    th[best]+=(Math.random()-0.5)*3;
+  });
+  var last=performance.now();
+  function frame(now){
+    var dt=Math.min((now-last)/1000,0.05);last=now;
+    var sx=0,sy=0,i;
+    for(i=0;i<N;i++){sx+=Math.cos(th[i]);sy+=Math.sin(th[i]);}
+    r=Math.sqrt(sx*sx+sy*sy)/N;PSI=Math.atan2(sy,sx);
+    for(i=0;i<N;i++){th[i]+=(1.7*om[i]+K*r*Math.sin(PSI-th[i]))*dt;}
+    ctx.clearRect(0,0,W,H);
+    ctx.strokeStyle='rgba(23,20,15,0.12)';ctx.lineWidth=1;
+    ctx.beginPath();ctx.arc(CX,CY,R,0,TAU);ctx.stroke();
+    if(r>0.85){
+      ctx.strokeStyle='rgba(44,59,189,'+Math.min(0.3,(r-0.85)*2.4).toFixed(3)+')';
+      ctx.lineWidth=R*0.16;
+      ctx.beginPath();ctx.arc(CX,CY,R,PSI-0.55,PSI+0.55);ctx.stroke();
+    }
+    for(i=0;i<N;i++){
+      var locked=Math.abs(wrap(th[i]-PSI))<0.8&&r>0.45;
+      ctx.fillStyle=locked?'rgba(44,59,189,0.85)':'rgba(23,20,15,0.42)';
+      ctx.fillRect(CX+Math.cos(th[i])*R-1.2,CY+Math.sin(th[i])*R-1.2,2.4,2.4);
+    }
+    ctx.strokeStyle='rgba(44,59,189,0.55)';ctx.lineWidth=1.5;
+    ctx.beginPath();ctx.moveTo(CX,CY);
+    ctx.lineTo(CX+Math.cos(PSI)*R*r*0.92,CY+Math.sin(PSI)*R*r*0.92);ctx.stroke();
+    ctx.fillStyle='rgba(44,59,189,0.7)';
+    ctx.beginPath();ctx.arc(CX,CY,3+7*r,0,TAU);ctx.fill();
+    ctx.fillStyle='rgba(23,20,15,0.75)';
+    ctx.font='12px "JetBrains Mono",monospace';
+    ctx.fillText('r = '+r.toFixed(3)+(r>0.75?' — locking':r>0.4?' — gathering':' — scattered'),CX-60,CY+R+28);
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>

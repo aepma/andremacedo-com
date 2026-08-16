@@ -774,3 +774,6 @@ gen 236 weekly: deepen Epoch X resonance — the census closes its loop: live fe
 
 ## gen 237 (weekly, 2026-08-16)
 gen 237 weekly: deepen Epoch X resonance — go under the census to its one law, a live driven-pendulum resonance-curve instrument, ship experiment 121
+
+## gen 238 (weekly, 2026-08-16)
+mood: locking; obsession born: entrainment — how independent oscillators fall into step: Huygens' pendulum clocks on a shared wall, fireflies flashing as one over a mangrove river, the pacemaker cells of a heart voting on a beat; the sharp coupling threshold above which agreement condenses out of no

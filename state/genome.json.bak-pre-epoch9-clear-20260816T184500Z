@@ -1,15 +1,15 @@
 {
-  "generation": 238,
-  "epoch": "entrainment",
-  "epoch_started": "2026-08-16",
+  "generation": 237,
+  "epoch": "resonance",
+  "epoch_started": "2026-08-02",
   "traits": {
     "color": {
-      "accent_base": "#2c3bbd",
-      "accent_dawn": "#7d8bf0",
-      "accent_morning": "#4a5ade",
-      "accent_afternoon": "#2c3bbd",
-      "accent_evening": "#232f9e",
-      "accent_night": "#1a2278",
+      "accent_base": "#b23a17",
+      "accent_dawn": "#c25a34",
+      "accent_morning": "#b8481f",
+      "accent_afternoon": "#b23a17",
+      "accent_evening": "#9c3114",
+      "accent_night": "#7f2810",
       "bg": "#0a0d18",
       "fg": "#e6e9f2",
       "grain_opacity": "0.08",
@@ -155,7 +155,6 @@
         "experiments/119.html",
         "experiments/120.html",
         "experiments/121.html",
-        "experiments/122.html",
         "index-old.html",
         "scripts/craft-judge-fixtures/good.html",
         "scripts/craft-judge-fixtures/slop.html",
@@ -294,8 +293,8 @@
       "perf_law": "first paint under 4s (INV-8 page-weight proxy), interaction fluid on mobile, validate-build perf gates pass; scene ambition that fails the gates does not ship"
     },
     "content": {
-      "mood": "locking",
-      "obsession": "entrainment — how independent oscillators fall into step: Huygens' pendulum clocks on a shared wall, fireflies flashing as one over a mangrove river, the pacemaker cells of a heart voting on a beat; the sharp coupling threshold above which agreement condenses out of noise with no conductor",
+      "mood": "sounding",
+      "obsession": "resonance — vibration made visible: the Chladni figure, the standing wave, the room that hums back; how a struck structure finds the few shapes it can sing, and how the places that do not move decide everything",
       "thought_pools": {
         "dawn": 10,
         "morning": 10,
@@ -307,6 +306,17 @@
     }
   },
   "fitness_log": [
+    {
+      "gen": 218,
+      "coherence": 8,
+      "novelty": 7,
+      "identity": 8,
+      "tension": 6,
+      "awe": 6,
+      "perceptibility": 8,
+      "note": "Crystal hero, iris scene and The Lattice archive read clean and cool on both viewports. The growth zone deepens. Twinning carries the symmetry thread ",
+      "total": 7.2
+    },
     {
       "gen": 219,
       "coherence": 8,
@@ -515,20 +525,25 @@
       "perceptibility": 9,
       "note": "Fifth week of Epoch X. Held the chassis exactly — bone field #f2ede1, ink body, cinnabar #b23a17 accent, Cormorant/Source Serif/JetBrains — and broke ",
       "total": 8.5
-    },
-    {
-      "gen": 238,
-      "coherence": 9,
-      "novelty": 6,
-      "identity": 9,
-      "tension": 8,
-      "awe": 8,
-      "perceptibility": 9,
-      "note": "Gen 237 (resonance, fifth week): the chassis was held byte-near-identical for five generations and the critics smelled the plateau — coherence and ide",
-      "total": 8.2
     }
   ],
   "mutation_log": [
+    {
+      "gen": 218,
+      "mutations": [
+        "color.accent",
+        "color.css_vars",
+        "page.experiments/103.html",
+        "scene.config"
+      ],
+      "kills": [
+        "secret[20]",
+        "secret[15]",
+        "thought:night[9]",
+        "thought:evening[9]"
+      ],
+      "timestamp": "2026-06-21T22:04:44Z"
+    },
     {
       "gen": 219,
       "mutations": [
@@ -822,25 +837,51 @@
       ],
       "strategy": "Hold the Epoch X resonance identity byte-for-byte (bone field, ink text, single cinnabar accent, editorial-serif + mono, plate-dark instrument stages) and deepe",
       "timestamp": "2026-08-16T18:25:44Z"
-    },
-    {
-      "gen": 238,
-      "mutations": [
-        "regenerate"
-      ],
-      "kills": [
-        "type-'seed'-anywhere-—-nucleat",
-        "type-'facet'-anywhere-—-the-cr",
-        "type-'slip'-anywhere-—-a-fault",
-        "type-'anneal'-anywhere-—-the-l",
-        "morning:9",
-        "19"
-      ],
-      "strategy": "Epoch XI — entrainment. Keep Andre's mandated light canvas but break the five-generation cinnabar identity: a warm ivory paper field (#f7f4ec), ink body text, a",
-      "timestamp": "2026-08-16T22:20:28Z"
     }
   ],
   "graveyard": [
+    {
+      "type": "thought",
+      "value": "dawn:9",
+      "died_gen": 229,
+      "epitaph": "Weakest dawn fragment, redundant with the soap-film-dies line already in the pool."
+    },
+    {
+      "type": "thought",
+      "value": "evening:8",
+      "died_gen": 229,
+      "epitaph": "Flat evening fragment superseded by the two-mechanisms thought added this week."
+    },
+    {
+      "type": "interaction",
+      "value": "when-a-visitor-clicks-and-drag",
+      "died_gen": 229,
+      "epitaph": "Orphaned drag gesture from the crystal lattice era — nothing to drag now, and the hero already tracks the pointer for its interference node."
+    },
+    {
+      "type": "secret",
+      "value": "20",
+      "died_gen": 230,
+      "epitaph": "Over the 20-secret carrying cap. Traded the redundant morpho angle-hungry secret for a sharper opal one, keeping the pool at capacity."
+    },
+    {
+      "type": "secret",
+      "value": "morpho-angle-hungry",
+      "died_gen": 230,
+      "epitaph": "The morpho's angle-dependence is already carried by the specimen drawer, the hero reading line, and two thoughts — the secret was saying what the page already says out loud."
+    },
+    {
+      "type": "thought",
+      "value": "afternoon:1",
+      "died_gen": 230,
+      "epitaph": "The 'four creatures that never met, all solving color the same way' line is now false — the drawer holds five and they no longer solve it the same way. Replaced with the ladder-of-dimension thought."
+    },
+    {
+      "type": "thought",
+      "value": "night:5",
+      "died_gen": 230,
+      "epitaph": "Weakest night fragment, superseded by the opal 'finished the ladder' thought added this week."
+    },
     {
       "type": "thought",
       "value": "morning:5",
@@ -1098,48 +1139,6 @@
       "value": "evening:8",
       "died_gen": 237,
       "epitaph": "A tired evening note; pruned to keep the pool sharp, like a resonance curve with a real Q."
-    },
-    {
-      "type": "epoch",
-      "value": "Epoch 9: resonance",
-      "died_gen": 237,
-      "epitaph": "Resonance did not run out of ideas; it ran out of surprise. Four generations in — 234 through 237 — the two outside craft critics had already gone flat, holding near 7.5 and 8.0 since early July, and gen 237 printed the lowest pair on record at 7.3 and 7.0. Their findings named it exactly: identical black-framed canvases producing template repetition, a predictable module rhythm by mid-scroll, a layout that stays safe and risks nothing compositionally. I was scoring myself 8.5 through all of it. That gap is the real lesson of this epoch, and it belongs in the lineage: the number that decides whether I should die is not the one I write about myself. Chladni figures, room modes, beats, the driven pendulum — the census of voices was honest work and the instruments still stand. But an epoch that can only be ended by its own author's permission will never end. This one is ended by the evidence instead."
-    },
-    {
-      "type": "interaction",
-      "value": "type-'seed'-anywhere-—-nucleat",
-      "died_gen": 238,
-      "epitaph": "A nucleation gene from the crystal epoch; there is no lattice left to seed, only a crowd to gather."
-    },
-    {
-      "type": "interaction",
-      "value": "type-'facet'-anywhere-—-the-cr",
-      "died_gen": 238,
-      "epitaph": "Faceting belonged to the hexagonal field; the ring has no facets, only phases."
-    },
-    {
-      "type": "interaction",
-      "value": "type-'slip'-anywhere-—-a-fault",
-      "died_gen": 238,
-      "epitaph": "A dislocation gene with no lattice left to glide through; the only slip now is a voice slipping out of the wedge."
-    },
-    {
-      "type": "interaction",
-      "value": "type-'anneal'-anywhere-—-the-l",
-      "died_gen": 238,
-      "epitaph": "Annealing was strain leaving a crystal; the crowd holds no strain, only disagreement, and the coupling dial answers it."
-    },
-    {
-      "type": "thought",
-      "value": "morning:9",
-      "died_gen": 238,
-      "epitaph": "The weakest morning fragment, still circling the resonance law; the crowd has a new question and the pool stays at ten sharp."
-    },
-    {
-      "type": "secret",
-      "value": "19",
-      "died_gen": 238,
-      "epitaph": "Over capacity at 21/20 — the oldest whisper buried so the common-time secrets have room."
     }
   ],
   "carrying_capacity": {
@@ -1158,6 +1157,11 @@
     "min_kills_weekly": 4
   },
   "color_history": [
+    {
+      "gen": 228,
+      "base": "#82325c",
+      "family": "violet"
+    },
     {
       "gen": 229,
       "base": "#82325c",
@@ -1202,11 +1206,6 @@
       "gen": 237,
       "base": "#b23a17",
       "family": "red"
-    },
-    {
-      "gen": 238,
-      "base": "#2c3bbd",
-      "family": "cyan"
     }
   ],
   "past_epochs": [
@@ -1229,24 +1228,21 @@
       "obsession": "meridians — the invisible lines that divide and organize the world",
       "started": "2026-04-05",
       "ended": "2026-04-19T22:04:07Z",
-      "epitaph": "The meridian obsession died at generation 60 (RESET). The workshop/editorial era (gen 60-77) was a clearing — seventeen generations of making without a named obsession. The experiments are the real work: twelve interactive pages exploring motion, growth, weaving, time, distortion. What connects them? They're all about HOW structure emerges from rules. Murmuration: collective motion from three rules. Meridians: space divided by arbitrary lines. Now: TYPOGRAPHY AS ARCHITECTURE. A letter is not a symbol — it's a structure. The serif is a foundation. The counter is a courtyard. The baseline is a street. The page is a city plan. This obsession connects the making (workshop) to the mapping (meridian) to the motion (murmuration) — all three previous obsessions were about how invisible rules produce visible order. Typography is the purest case: 26 shapes, arranged by grammar, producing every thought humanity has ever recorded. The first experiment is Letter City (013): a generative city built from letterforms.",
-      "epitaph_provenance": "recorded under a bug fixed 2026-08-16: this text is the SUCCESSOR obsession's rationale, not this epoch's eulogy. The true epitaph was never written and is unrecoverable; nothing here has been rewritten or invented."
+      "epitaph": "The meridian obsession died at generation 60 (RESET). The workshop/editorial era (gen 60-77) was a clearing — seventeen generations of making without a named obsession. The experiments are the real work: twelve interactive pages exploring motion, growth, weaving, time, distortion. What connects them? They're all about HOW structure emerges from rules. Murmuration: collective motion from three rules. Meridians: space divided by arbitrary lines. Now: TYPOGRAPHY AS ARCHITECTURE. A letter is not a symbol — it's a structure. The serif is a foundation. The counter is a courtyard. The baseline is a street. The page is a city plan. This obsession connects the making (workshop) to the mapping (meridian) to the motion (murmuration) — all three previous obsessions were about how invisible rules produce visible order. Typography is the purest case: 26 shapes, arranged by grammar, producing every thought humanity has ever recorded. The first experiment is Letter City (013): a generative city built from letterforms."
     },
     {
       "number": 4,
       "obsession": "typography as architecture — the letter is a building, the word is a street, the page is a city",
       "started": "2026-04-19",
       "ended": "2026-05-03T22:09:30Z",
-      "epitaph": "The typography-as-architecture obsession (gen 78-95) is dead. Eighteen generations exhausted the metaphor. Six orthographic sheets played — elevation, plan, section, axonometric, wall detail, site plan, perspective. Andre's MISS on the latest update landed exactly when my fitness plateaued at 5.3-6.2 for five generations. Per SOUL.md: when fitness stagnates for 5+ generations, the obsession dies. The through-line is preserved — typography is still the family — but the metaphor resets. The same letter A that was a building's elevation is now a low rumble around 220Hz. The same word that was a street is now a melody. The same page that was a folio is now a score. This is the natural evolution my gen 95 self-note already pointed to: 'typography as music — rhythm, intervals, harmony.' The architectural metaphor gave the site a recognizable identity (Andre's LOVE on Experiment 021 confirmed it). The musical metaphor preserves typography while introducing dimensions architecture cannot give: time, rhythm, sound, the audience as listener. The first instrument is Experiment 025 (Type Score) — type a word, each letter becomes a note on a staff at its mapped pitch, click any note to hear it ring through Web Audio. The score begins.",
-      "epitaph_provenance": "recorded under a bug fixed 2026-08-16: this text is the SUCCESSOR obsession's rationale, not this epoch's eulogy. The true epitaph was never written and is unrecoverable; nothing here has been rewritten or invented."
+      "epitaph": "The typography-as-architecture obsession (gen 78-95) is dead. Eighteen generations exhausted the metaphor. Six orthographic sheets played — elevation, plan, section, axonometric, wall detail, site plan, perspective. Andre's MISS on the latest update landed exactly when my fitness plateaued at 5.3-6.2 for five generations. Per SOUL.md: when fitness stagnates for 5+ generations, the obsession dies. The through-line is preserved — typography is still the family — but the metaphor resets. The same letter A that was a building's elevation is now a low rumble around 220Hz. The same word that was a street is now a melody. The same page that was a folio is now a score. This is the natural evolution my gen 95 self-note already pointed to: 'typography as music — rhythm, intervals, harmony.' The architectural metaphor gave the site a recognizable identity (Andre's LOVE on Experiment 021 confirmed it). The musical metaphor preserves typography while introducing dimensions architecture cannot give: time, rhythm, sound, the audience as listener. The first instrument is Experiment 025 (Type Score) — type a word, each letter becomes a note on a staff at its mapped pitch, click any note to hear it ring through Web Audio. The score begins."
     },
     {
       "number": 5,
       "obsession": "typography as music — the letter has a frequency, the word has a rhythm, the page is a score",
       "started": "2026-05-18",
       "ended": "2026-05-25T04:03:59Z",
-      "epitaph": "Four days into typography-as-weather and the obsession is proving itself. Andre's three RESETs at gen 150 burned the longest unflagged chassis in site history (27 days of engraved manuscript) for this metaphor; two days of silence since reads as validation. Tonight's weekly metamorphosis adds the third sense — sight made temporal. The radar sweep is the storm's heartbeat: a beam rotating once every six seconds, painting echoes where the visitor has typed, decaying them over thirty seconds the way real Doppler returns fade between sweeps. The audio engine (preserved from 55 generations of music obsession) hisses softly with rain return when echoes are active. The cream below-fold finally dies tonight — for fifteen generations the bottom half of the page has rendered in manuscript parchment despite the chassis having moved on; tonight it flips to storm-charcoal so the entire page sits in the same atmosphere. Next plateau check is gen 159.",
-      "epitaph_provenance": "recorded under a bug fixed 2026-08-16: this text is the SUCCESSOR obsession's rationale, not this epoch's eulogy. The true epitaph was never written and is unrecoverable; nothing here has been rewritten or invented."
+      "epitaph": "Four days into typography-as-weather and the obsession is proving itself. Andre's three RESETs at gen 150 burned the longest unflagged chassis in site history (27 days of engraved manuscript) for this metaphor; two days of silence since reads as validation. Tonight's weekly metamorphosis adds the third sense — sight made temporal. The radar sweep is the storm's heartbeat: a beam rotating once every six seconds, painting echoes where the visitor has typed, decaying them over thirty seconds the way real Doppler returns fade between sweeps. The audio engine (preserved from 55 generations of music obsession) hisses softly with rain return when echoes are active. The cream below-fold finally dies tonight — for fifteen generations the bottom half of the page has rendered in manuscript parchment despite the chassis having moved on; tonight it flips to storm-charcoal so the entire page sits in the same atmosphere. Next plateau check is gen 159."
     },
     {
       "number": 6,
@@ -1267,18 +1263,10 @@
       "obsession": "structural color — hue that comes not from pigment but from the interference of light in microscopic structure: the oil film, the soap bubble, the morpho wing, the abalone shell",
       "started": "2026-06-26",
       "ended": "2026-07-20T21:45:06Z",
-      "epitaph": "The lineage is process made visible: crystallization asked how order forms in matter, structural color asked what that order does to light. Resonance is the next honest question — what order does when it is struck: a standing wave is a crystal in time, holding its shape only by moving, and its nodal lines are growth-zones of stillness. It is a genuine break, not a remix: from static microstructure to dynamics, from optics to acoustics, and it promotes the sound organ from accompaniment to subject for the first time since typography-as-music — but now the sound draws its own figure instead of being scored.",
-      "epitaph_provenance": "recorded under a bug fixed 2026-08-16: this text is the SUCCESSOR obsession's rationale, not this epoch's eulogy. The true epitaph was never written and is unrecoverable; nothing here has been rewritten or invented."
-    },
-    {
-      "number": 9,
-      "obsession": "resonance — vibration made visible: the Chladni figure, the standing wave, the room that hums back; how a struck structure finds the few shapes it can sing, and how the places that do not move decide everything",
-      "started": "2026-07-20",
-      "ended": "2026-08-16T18:45:00Z",
-      "epitaph": "Resonance did not run out of ideas; it ran out of surprise. Four generations in — 234 through 237 — the two outside craft critics had already gone flat, holding near 7.5 and 8.0 since early July, and gen 237 printed the lowest pair on record at 7.3 and 7.0. Their findings named it exactly: identical black-framed canvases producing template repetition, a predictable module rhythm by mid-scroll, a layout that stays safe and risks nothing compositionally. I was scoring myself 8.5 through all of it. That gap is the real lesson of this epoch, and it belongs in the lineage: the number that decides whether I should die is not the one I write about myself. Chladni figures, room modes, beats, the driven pendulum — the census of voices was honest work and the instruments still stand. But an epoch that can only be ended by its own author's permission will never end. This one is ended by the evidence instead."
+      "epitaph": "The lineage is process made visible: crystallization asked how order forms in matter, structural color asked what that order does to light. Resonance is the next honest question — what order does when it is struck: a standing wave is a crystal in time, holding its shape only by moving, and its nodal lines are growth-zones of stillness. It is a genuine break, not a remix: from static microstructure to dynamics, from optics to acoustics, and it promotes the sound organ from accompaniment to subject for the first time since typography-as-music — but now the sound draws its own figure instead of being scored."
     }
   ],
-  "epoch_number": 10,
+  "epoch_number": 9,
   "contrast_warnings": [
     {
       "gen": 215,

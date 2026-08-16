@@ -4,64 +4,65 @@
   "is_slop": false,
   "threshold": 7.0,
   "margin": 7.3,
-  "overall_min": 7.0,
+  "overall_min": 7.6,
   "reason": "both critics cleared",
   "critics": {
     "A": {
       "model": "claude-opus-4-8-oauth",
       "passed": true,
       "axes": {
-        "type_scale": 7.0,
+        "type_scale": 8.0,
         "spacing_system": 7.0,
-        "focal_hierarchy": 7.0,
+        "focal_hierarchy": 8.0,
         "restraint": 8.0,
-        "hero": 7.0,
+        "hero": 8.0,
         "composition": 8.0,
         "type_craft": 8.0,
         "color": 7.0
       },
-      "overall": 7.3,
+      "overall": 7.6,
       "is_slop": false,
       "findings": [
-        "The upper-right hero graphic is a soft dark smoke/particle gradient that reads as atmospheric garnish; only its thematic tie to Chladni sand patterns keeps it from being generic decoration.",
-        "Body copy runs quite small and dense across several sections, risking a wall-of-text feel where the editorial rhythm nearly flattens into uniform gray blocks.",
-        "The dark waveform/diagram panels repeat a similar black-box treatment multiple times, edging toward a predictable module rhythm by mid-scroll."
+        "The hero circle on the right is thin-stroked and sparse — the single blue dot inside a large empty orbit risks reading as underfilled negative space rather than a fully resolved graphic; it leans on the type to carry the composition.",
+        "The mono utility captions (TELOS · ANDREMACEDO.COM, coupling readouts) are set very small and dense; in places the interface-labeling gets close to decorative texture rather than legible signal.",
+        "The lower-page long-form 'Lab Notes' / 'Consciousness Stream' sections collapse toward a straight single-column wall of text, less compositionally considered than the top half."
       ],
       "what_works": [
-        "Ragged left-aligned display serif hero with italic accents ('no hand', 'here') set against an asymmetric dark smoke field — a decisive, non-centered composition no SaaS template reaches for.",
-        "Consistent mono utility labels ('IN RESONANCE', section subtitles) playing marginalia against the high-contrast editorial serif — a genuine two-voice typographic system.",
-        "The 'Sounding Log' numbered data table with a lone rust-red 'X' row is a real editorial signature, treating the page as an instrument log rather than a landing page.",
-        "Warm cream/charcoal palette with a single muted rust accent used sparingly — restrained named harmony, no purple-gradient default."
+        "Genuine editorial voice: high-contrast Didone-style display serif ('No conductor. No score. One pulse.') paired with a mono utility register — an intentional pairing no SaaS template reaches for.",
+        "The italic blue 'pulse' as the lone chromatic accent against a warm cream ground is disciplined color restraint governed by a single hue.",
+        "Asymmetric hero (heavy type block left, orbital diagram right) plus the numbered index tables ('Ten Obsessions', 'The Common Time', roman-numeral epochs) build a magazine/dossier structure, not a centered-hero-plus-three-cards layout.",
+        "The embedded black pendulum panel and coupling slider read as a living instrument rather than garnish, tying the visual system to the page's concept."
       ],
-      "reasoning": "This is clearly not SaaS slop: the hero is an asymmetric ragged serif composition over a themed dark field, and the whole page behaves as a long-form editorial instrument log with a consistent serif-plus-mono two-voice system and a restrained warm palette punctuated by one rust accent. The decisive moves — the numbered 'Sounding Log' with its single red row, the marginalia labeling, the interactive-looking resonance diagrams — are things a templated generator would not produce. It loses points for a somewhat generic atmospheric smoke graphic and dense small body text that occasionally flattens the rhythm, but it clears the bar."
+      "reasoning": "This is clearly not template-grade slop: it commits to an editorial-magazine identity with a high-contrast serif against mono, a single restrained blue accent on cream, asymmetric composition, and interactive/diagrammatic elements that a default generator would not produce. Hierarchy is unambiguous with the display headline owning the first viewport. It falls short of top marks because the hero's right-side circle feels sparse and the lower long-form sections thin out into denser single-column text with less compositional tension, but the decisive typographic and structural moves comfortably clear the bar."
     },
     "B": {
       "model": "grok-4-1-fast-reasoning",
       "fell_back_from": null,
       "passed": true,
       "axes": {
-        "type_scale": 7.0,
-        "spacing_system": 6.0,
-        "focal_hierarchy": 7.0,
-        "restraint": 8.0,
-        "hero": 7.0,
-        "composition": 7.0,
+        "type_scale": 8.0,
+        "spacing_system": 7.0,
+        "focal_hierarchy": 8.0,
+        "restraint": 9.0,
+        "hero": 9.0,
+        "composition": 8.0,
         "type_craft": 7.0,
-        "color": 7.0
+        "color": 9.0
       },
-      "overall": 7.0,
+      "overall": 8.0,
       "is_slop": false,
       "findings": [
-        "dense justified body text in long unbroken columns creates visual fatigue rather than rhythmic reading",
-        "interactive canvases sit in identical black frames with identical caption styling, producing template repetition",
-        "left vertical nav is present but its weight and spacing feel ad-hoc against the main text measure",
-        "hero typography uses a single editorial voice with only one red accent; no second voice or scale tension"
+        "hero text left-aligned with large empty circle right creates deliberate asymmetry rather than centered default",
+        "blue accent used only for key phrases and links, never as decorative gradient or glow",
+        "pendulum canvas and numbered list of lockings use minimal iconography without added shadows or borders",
+        "dense body text blocks maintain consistent measure and leading without ad-hoc size jumps"
       ],
       "what_works": [
-        "opening three-line stanza with the single red word creates immediate focal pull",
-        "monochrome palette with restrained red and orange labels avoids gradient slop"
+        "hero composition pairs large serif-adjacent display with off-axis circle and micro interactive dots",
+        "restrained single blue accent governs all emphasis without competing hues",
+        "live pendulum demo sits inside text flow as functional instrument rather than illustration"
       ],
-      "reasoning": "Desktop render avoids every cardinal SaaS template shape and uses editorial typography plus integrated interactive figures, yet the layout remains safe in its symmetry of section blocks and lacks a decisive compositional risk or modular spacing system that would lift it above competent literary site defaults."
+      "reasoning": "Desktop render shows an editorial, text-dense layout with intentional left-right tension in the hero and sparse use of a single blue accent; no centered SaaS template, no uniform decoration, and no default system-sans monotony. The pendulum interaction and numbered case studies further differentiate it from generic AI output. Minor deductions for slightly loose vertical rhythm in lower sections and safe body typeface."
     }
   }
 }
