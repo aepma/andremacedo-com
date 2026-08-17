@@ -157,7 +157,11 @@ $(cat "$VOCAB")
 EOF
 
 log "running web-capable curation session (bounded)…"
+# TELOS_AGENT is the helper's audit-log caller id. Unset, this pass lands in the
+# shared executor log as the literal "unknown" and cannot be told apart from the
+# generation runner's rows, which is the whole point of curating separately.
 PROMPT_FILE="$PROMPT_FILE" OUTPUT_FILE="$OUTPUT_FILE" CLAUDE_MAX_BUDGET_USD="${CURATE_BUDGET_USD:-5.00}" \
+  TELOS_AGENT="${TELOS_AGENT:-andremacedo-curate-references}" \
   bash "$HELPER" \
     --model "${CURATE_MODEL:-claude-opus-4-8}" \
     --allowedTools WebSearch WebFetch Read Write \

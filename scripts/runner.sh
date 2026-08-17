@@ -493,7 +493,12 @@ if [ "$AGENTIC" = "1" ]; then
   # 40-min wall the sole binding backstop, we must SET a budget high enough that
   # the wall trips first: at ~$0.65/turn a 2400s session can't realistically
   # exceed ~$30, so 50.00 is effectively "uncapped relative to the wall."
+  # TELOS_AGENT is the helper's audit-log caller id. Unset, every row this
+  # runner writes lands as the literal "unknown" and the shared executor log
+  # cannot be grouped by job. Pulse type is carried so the agentic build and
+  # the single-turn pulse below stay distinguishable in the log.
   INPUT_JSONL="$INPUT_JSONL_FILE" OUTPUT_FILE="$HELPER_OUTPUT_FILE" CLAUDE_MAX_BUDGET_USD=100.00 \
+    TELOS_AGENT="${TELOS_AGENT:-andremacedo-creative:${PULSE_TYPE:-runner.sh}}" \
     tmo "$SESSION_WALL_CEILING" bash "$HELPER_SCRIPT" \
     --model claude-opus-4-8 \
     --input-format stream-json --output-format stream-json \
@@ -505,6 +510,7 @@ if [ "$AGENTIC" = "1" ]; then
 else
   # Event pulse keeps the single-turn blind-shot path (f328732).
   INPUT_JSONL="$INPUT_JSONL_FILE" OUTPUT_FILE="$HELPER_OUTPUT_FILE" CLAUDE_MAX_BUDGET_USD=12.00 \
+    TELOS_AGENT="${TELOS_AGENT:-andremacedo-creative:${PULSE_TYPE:-runner.sh}}" \
     tmo "$SESSION_WALL_CEILING" bash "$HELPER_SCRIPT" \
     --model claude-opus-4-8 \
     --input-format stream-json --output-format stream-json \
