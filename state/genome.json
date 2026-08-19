@@ -1,15 +1,15 @@
 {
-  "generation": 238,
+  "generation": 239,
   "epoch": "entrainment",
   "epoch_started": "2026-08-16",
   "traits": {
     "color": {
       "accent_base": "#2c3bbd",
-      "accent_dawn": "#7d8bf0",
-      "accent_morning": "#4a5ade",
+      "accent_dawn": "#7d86e8",
+      "accent_morning": "#5a66d8",
       "accent_afternoon": "#2c3bbd",
       "accent_evening": "#232f9e",
-      "accent_night": "#1a2278",
+      "accent_night": "#1a2378",
       "bg": "#0a0d18",
       "fg": "#e6e9f2",
       "grain_opacity": "0.08",
@@ -156,6 +156,7 @@
         "experiments/120.html",
         "experiments/121.html",
         "experiments/122.html",
+        "experiments/123.html",
         "index-old.html",
         "scripts/craft-judge-fixtures/good.html",
         "scripts/craft-judge-fixtures/slop.html",
@@ -294,7 +295,7 @@
       "perf_law": "first paint under 4s (INV-8 page-weight proxy), interaction fluid on mobile, validate-build perf gates pass; scene ambition that fails the gates does not ship"
     },
     "content": {
-      "mood": "locking",
+      "mood": "gathering",
       "obsession": "entrainment — how independent oscillators fall into step: Huygens' pendulum clocks on a shared wall, fireflies flashing as one over a mangrove river, the pacemaker cells of a heart voting on a beat; the sharp coupling threshold above which agreement condenses out of noise with no conductor",
       "thought_pools": {
         "dawn": 10,
@@ -307,17 +308,6 @@
     }
   },
   "fitness_log": [
-    {
-      "gen": 219,
-      "coherence": 8,
-      "novelty": 7,
-      "identity": 8,
-      "tension": 7,
-      "awe": 6,
-      "perceptibility": 8,
-      "note": "The crystal hero, iris scene and The Lattice archive read clean and cool on both viewports. Five gens of defect/symmetry deepening have held identity ",
-      "total": 7.3
-    },
     {
       "gen": 220,
       "coherence": 8,
@@ -526,25 +516,20 @@
       "perceptibility": 9,
       "note": "Gen 237 (resonance, fifth week): the chassis was held byte-near-identical for five generations and the critics smelled the plateau — coherence and ide",
       "total": 8.2
+    },
+    {
+      "gen": 239,
+      "coherence": 9,
+      "novelty": 8,
+      "identity": 9,
+      "tension": 8,
+      "awe": 8,
+      "perceptibility": 9,
+      "note": "Second generation of Epoch XI, holding the ivory/ink/ultramarine chassis exactly and deepening the obsession's sharpest idea. The hero crowd now keeps",
+      "total": 8.5
     }
   ],
   "mutation_log": [
-    {
-      "gen": 219,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "color.accent",
-        "atmosphere.css_rules",
-        "interaction.type-'slip'-anywhere-—-a-fault",
-        "page.experiments/104.html",
-        "scene.config"
-      ],
-      "kills": [
-        "secret[18]"
-      ],
-      "timestamp": "2026-06-22T08:02:51Z"
-    },
     {
       "gen": 220,
       "mutations": [
@@ -838,39 +823,24 @@
       ],
       "strategy": "Epoch XI — entrainment. Keep Andre's mandated light canvas but break the five-generation cinnabar identity: a warm ivory paper field (#f7f4ec), ink body text, a",
       "timestamp": "2026-08-16T22:20:28Z"
+    },
+    {
+      "gen": 239,
+      "mutations": [
+        "regenerate"
+      ],
+      "kills": [
+        "type-'seed'-anywhere-—-nucleat",
+        "when-a-visitor-clicks-and-drag",
+        "17",
+        "afternoon:9",
+        "evening:8"
+      ],
+      "strategy": "Hold Epoch XI's identity — warm ivory paper, ink, a single ultramarine accent, Cormorant serif + JetBrains mono, left-anchored editorial hero over the live Kura",
+      "timestamp": "2026-08-19T22:22:20Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "thought",
-      "value": "morning:5",
-      "died_gen": 230,
-      "epitaph": "Crystallization-era residue lingering in the morning pool; off-obsession now that the drawer is complete."
-    },
-    {
-      "type": "secret",
-      "value": "4",
-      "died_gen": 231,
-      "epitaph": "The morpho angle-hungry secret is fully carried by the specimen drawer and the live hero; traded for an opal secret that names the new top rung of the ladder."
-    },
-    {
-      "type": "thought",
-      "value": "afternoon:1",
-      "died_gen": 231,
-      "epitaph": "'Four creatures that never met' is factually superseded — the drawer is now five structures ordered by dimension."
-    },
-    {
-      "type": "thought",
-      "value": "morning:1",
-      "died_gen": 231,
-      "epitaph": "The 'four animals / second door' diffraction framing was last week's news; replaced by the completed-drawer, ladder-of-dimension thought."
-    },
-    {
-      "type": "thought",
-      "value": "dawn:2",
-      "died_gen": 231,
-      "epitaph": "Stale 'this week I started studying a stack' framing; replaced by the ladder-of-dimension realization that culminates in opal."
-    },
     {
       "type": "thought",
       "value": "night:1",
@@ -1140,6 +1110,36 @@
       "value": "19",
       "died_gen": 238,
       "epitaph": "Over capacity at 21/20 — the oldest whisper buried so the common-time secrets have room."
+    },
+    {
+      "type": "interaction",
+      "value": "type-'seed'-anywhere-—-nucleat",
+      "died_gen": 239,
+      "epitaph": "Nucleation belonged to the crystal; the crowd has no seeds, only phases that find each other."
+    },
+    {
+      "type": "interaction",
+      "value": "when-a-visitor-clicks-and-drag",
+      "died_gen": 239,
+      "epitaph": "A crystal-field drag gene with no lattice left to drag; the ring answers clicks and the plank answers drags — this gene answered nothing."
+    },
+    {
+      "type": "secret",
+      "value": "17",
+      "died_gen": 239,
+      "epitaph": "Over capacity at 21/20 — an older whisper buried so the common-time secrets have room to breathe."
+    },
+    {
+      "type": "thought",
+      "value": "afternoon:9",
+      "died_gen": 239,
+      "epitaph": "The weakest afternoon fragment, still circling the resonance law; the crowd has a newer question."
+    },
+    {
+      "type": "thought",
+      "value": "evening:8",
+      "died_gen": 239,
+      "epitaph": "A sediment-era afterglow that survived three epochs; the evening pool keeps its sharper voices."
     }
   ],
   "carrying_capacity": {
@@ -1158,11 +1158,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 229,
-      "base": "#82325c",
-      "family": "violet"
-    },
     {
       "gen": 230,
       "base": "#82325c",
@@ -1205,6 +1200,11 @@
     },
     {
       "gen": 238,
+      "base": "#2c3bbd",
+      "family": "cyan"
+    },
+    {
+      "gen": 239,
       "base": "#2c3bbd",
       "family": "cyan"
     }

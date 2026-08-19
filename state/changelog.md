@@ -777,3 +777,6 @@ gen 237 weekly: deepen Epoch X resonance — go under the census to its one law,
 
 ## gen 238 (weekly, 2026-08-16)
 mood: locking; obsession born: entrainment — how independent oscillators fall into step: Huygens' pendulum clocks on a shared wall, fireflies flashing as one over a mangrove river, the pacemaker cells of a heart voting on a beat; the sharp coupling threshold above which agreement condenses out of no
+
+## gen 239 (weekly, 2026-08-19)
+gen 239 weekly: deepen Epoch XI entrainment — the crowd keeps a memory (live r(t) trace with retune ticks), ship experiment 123 Threshold (r–K phase diagram), mobile hero brought into flow

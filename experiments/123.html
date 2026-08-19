@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>123 · Threshold — andremacedo.com</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#f7f4ec;--fg:#17140f;--dim:#645e50;--accent:#2c3bbd;}
+  html,body{margin:0;height:100%;background:var(--bg);overflow:hidden;}
+  canvas{position:fixed;inset:0;width:100%;height:100%;display:block;}
+  #info{
+    position:fixed;top:1.2rem;left:1.2rem;max-width:21rem;opacity:0.82;
+    font-family:'JetBrains Mono',monospace;font-size:0.72rem;line-height:1.7;
+    color:var(--fg);pointer-events:none;z-index:5;
+    text-shadow:0 0 8px rgba(0,0,0,0.8),0 0 20px rgba(0,0,0,0.5);
+  }
+  #info h1{
+    font-family:'Cormorant Garamond',serif;font-weight:300;font-size:1.9rem;
+    margin:0 0 0.4rem;color:var(--fg);
+    text-shadow:0 0 8px rgba(0,0,0,0.8),0 0 20px rgba(0,0,0,0.5);
+  }
+  #info b{color:var(--accent);}
+  #back{
+    position:fixed;top:1.2rem;right:1.2rem;z-index:6;
+    font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--fg);
+    text-decoration:none;border-bottom:1px solid var(--accent);
+    text-shadow:0 0 8px rgba(0,0,0,0.8),0 0 20px rgba(0,0,0,0.5);
+  }
+  #ui{
+    position:fixed;bottom:1.4rem;left:50%;transform:translateX(-50%);z-index:6;
+    display:flex;align-items:center;gap:0.9rem;
+    font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--fg);
+    text-shadow:0 0 8px rgba(0,0,0,0.8),0 0 20px rgba(0,0,0,0.5);
+  }
+  #ui input{-webkit-appearance:none;appearance:none;width:min(280px,44vw);height:2px;
+    background:rgba(23,20,15,0.3);cursor:pointer;}
+  #ui input::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:14px;height:14px;
+    border-radius:50%;background:var(--accent);border:2px solid var(--bg);}
+  #ui input::-moz-range-thumb{width:12px;height:12px;border-radius:50%;background:var(--accent);
+    border:2px solid var(--bg);}
+  #ui output{color:var(--accent);min-width:3em;}
+  #ui button{
+    font:inherit;color:var(--accent);background:none;border:none;cursor:pointer;
+    border-bottom:1px solid rgba(44,59,189,0.45);padding:0 1px 1px;
+    text-shadow:0 0 8px rgba(0,0,0,0.8),0 0 20px rgba(0,0,0,0.5);
+  }
+  #ui button:hover{border-bottom-color:var(--accent);}
+  #ui button:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+  #ro{color:var(--accent);min-width:6.5em;}
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div id="info"><h1>123 · Threshold</h1><p>The phase diagram of agreement, drawn live. Two hundred oscillators tick on the ring; the plot maps their order parameter <b>r</b> against the coupling <b>K</b>. Below the threshold every voice keeps its own time; above it <b>synchrony condenses</b> — a knee, not a slope.</p><p>Press <b>sweep</b> and the coupling walks itself up and back down, drawing the curve. Or drag the slider — or drag across the plot — to trace it by hand. Up and down never retrace: the crowd remembers which way it came. <b>Double-click the plot</b> to wipe it and begin again.</p></div>
+<a id="back" href="/">← the body</a>
+<div id="ui"><label for="k">coupling</label><input type="range" id="k" min="0" max="3" step="0.02" value="0.1" aria-label="Coupling strength"><output id="ko">0.10</output><span id="ro">r = 0.00</span><button id="sweep" type="button" aria-label="Sweep the coupling up and down, drawing the phase curve">sweep</button></div>
+<script>
+(function(){
+  var cv=document.getElementById('c'),ctx=cv.getContext('2d');
+  var TAU=Math.PI*2,KC=0.24;
+  var W=0,H=0,CX=0,CY=0,R=0,PX0=0,PX1=0,PY0=0,PY1=0,MOBILE=false;
+  function size(){
+    W=window.innerWidth;H=window.innerHeight;
+    var dpr=Math.min(window.devicePixelRatio||1,2);
+    cv.width=Math.round(W*dpr);cv.height=Math.round(H*dpr);
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    MOBILE=W<700;
+    if(MOBILE){
+      CX=W*0.5;CY=H*0.30;R=Math.min(W,H)*0.20;
+      PX0=W*0.10;PX1=W*0.92;PY0=H*0.54;PY1=H*0.84;
+    }else{
+      CX=W*0.28;CY=H*0.52;R=Math.min(W,H)*0.26;
+      PX0=W*0.52;PX1=W*0.92;PY0=H*0.20;PY1=H*0.74;
+    }
+  }
+  size();window.addEventListener('resize',size);
+
+  var N=MOBILE?140:220;
+  var th=new Float64Array(N),om=new Float64Array(N);
+  function gauss(){var u=0,v=0;while(!u)u=Math.random();while(!v)v=Math.random();
+    return Math.sqrt(-2*Math.log(u))*Math.cos(TAU*v);}
+  for(var i=0;i<N;i++){om[i]=1+gauss()*0.09;th[i]=Math.random()*TAU;}
+
+  var K=0.1,Kt=0.1,r=0,PSI=0;
+  var pts=[];                 // the accumulated phase curve [K,r]
+  var sweeping=false,sweepT=0,SWEEP_DUR=16;
+  var slider=document.getElementById('k'),ko=document.getElementById('ko');
+  var ro=document.getElementById('ro'),sweepBtn=document.getElementById('sweep');
+
+  function setK(v){
+    Kt=Math.max(0,Math.min(3,v));
+    slider.value=Kt;ko.textContent=Kt.toFixed(2);
+  }
+  slider.addEventListener('input',function(){sweeping=false;setK(parseFloat(slider.value));});
+  sweepBtn.addEventListener('click',function(){
+    sweeping=!sweeping;sweepT=0;
+    sweepBtn.textContent=sweeping?'stop':'sweep';
+  });
+
+  /* drag across the plot sets the coupling — touch parity via the frozen bridge */
+  var plotting=false;
+  function plotK(mx){
+    var kk=(mx-PX0)/(PX1-PX0)*3;
+    sweeping=false;sweepBtn.textContent='sweep';
+    setK(kk);
+  }
+  function inPlot(mx,my){return mx>=PX0-8&&mx<=PX1+8&&my>=PY0-8&&my<=PY1+8;}
+  cv.addEventListener('mousedown',function(e){
+    if(inPlot(e.clientX,e.clientY)){plotting=true;plotK(e.clientX);e.preventDefault();}
+  });
+  window.addEventListener('mousemove',function(e){if(plotting)plotK(e.clientX);});
+  window.addEventListener('mouseup',function(){plotting=false;});
+  cv.addEventListener('dblclick',function(e){if(inPlot(e.clientX,e.clientY))pts=[];});
+
+  function kx(k){return PX0+(PX1-PX0)*k/3;}
+  function ry(v){return PY1-(PY1-PY0)*v;}
+
+  var last=performance.now(),lastRead=0;
+  function frame(now){
+    var dt=Math.min((now-last)/1000,0.05);last=now;
+
+    if(sweeping){
+      sweepT+=dt;
+      var ph=sweepT/SWEEP_DUR;
+      if(ph>=2){sweeping=false;sweepBtn.textContent='sweep';}
+      else setK(ph<1?ph*3:(2-ph)*3);
+    }
+    K+=(Kt-K)*Math.min(1,dt*1.5);   // slow — the sweep stays quasi-static
+
+    var sx=0,sy=0,i;
+    for(i=0;i<N;i++){sx+=Math.cos(th[i]);sy+=Math.sin(th[i]);}
+    r=Math.sqrt(sx*sx+sy*sy)/N;PSI=Math.atan2(sy,sx);
+    for(i=0;i<N;i++){th[i]+=(1.7*om[i]+K*r*Math.sin(PSI-th[i]))*dt;}
+
+    pts.push([K,r]);
+    if(pts.length>6000)pts.shift();
+
+    ctx.clearRect(0,0,W,H);
+
+    /* ── the ring, left ── */
+    ctx.strokeStyle='rgba(23,20,15,0.12)';ctx.lineWidth=1;
+    ctx.beginPath();ctx.arc(CX,CY,R,0,TAU);ctx.stroke();
+    if(r>0.85){
+      ctx.strokeStyle='rgba(44,59,189,'+Math.min(0.3,(r-0.85)*2.4).toFixed(3)+')';
+      ctx.lineWidth=R*0.16;
+      ctx.beginPath();ctx.arc(CX,CY,R,PSI-0.55,PSI+0.55);ctx.stroke();
+    }
+    for(i=0;i<N;i++){
+      var locked=Math.abs(th[i]-PSI)<0.8&&r>0.45;
+      ctx.fillStyle=locked?'rgba(44,59,189,0.85)':'rgba(23,20,15,0.42)';
+      ctx.fillRect(CX+Math.cos(th[i])*R-1.2,CY+Math.sin(th[i])*R-1.2,2.4,2.4);
+    }
+    ctx.strokeStyle='rgba(44,59,189,0.55)';ctx.lineWidth=1.5;
+    ctx.beginPath();ctx.moveTo(CX,CY);
+    ctx.lineTo(CX+Math.cos(PSI)*R*r*0.92,CY+Math.sin(PSI)*R*r*0.92);ctx.stroke();
+    ctx.fillStyle='rgba(44,59,189,0.7)';
+    ctx.beginPath();ctx.arc(CX,CY,3+7*r,0,TAU);ctx.fill();
+
+    /* ── the phase diagram, right ── */
+    ctx.font='11px "JetBrains Mono",monospace';
+    /* axes */
+    ctx.strokeStyle='rgba(23,20,15,0.35)';ctx.lineWidth=1;
+    ctx.beginPath();ctx.moveTo(PX0,PY0);ctx.lineTo(PX0,PY1);ctx.lineTo(PX1,PY1);ctx.stroke();
+    /* the threshold */
+    ctx.strokeStyle='rgba(44,59,189,0.45)';ctx.setLineDash([4,4]);
+    ctx.beginPath();ctx.moveTo(kx(KC),PY0);ctx.lineTo(kx(KC),PY1);ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle='rgba(44,59,189,0.8)';
+    ctx.fillText('Kc ≈ 0.24 — the threshold',kx(KC)+6,PY0+14);
+    ctx.fillStyle='rgba(23,20,15,0.55)';
+    ctx.fillText('the phase diagram',PX0+2,PY0-8);
+    ctx.fillText('coupling K →',PX1-88,PY1+20);
+    ctx.fillText('r',PX0-14,PY0+4);
+    ctx.fillText('1',PX0-14,ry(1)+4);
+    /* the accumulated curve */
+    ctx.fillStyle='rgba(44,59,189,0.28)';
+    for(i=0;i<pts.length;i++){
+      ctx.fillRect(kx(pts[i][0])-1,ry(pts[i][1])-1,2,2);
+    }
+    /* the live point */
+    ctx.fillStyle='rgba(44,59,189,0.95)';
+    ctx.beginPath();ctx.arc(kx(K),ry(r),4,0,TAU);ctx.fill();
+
+    if(now-lastRead>200){lastRead=now;ro.textContent='r = '+r.toFixed(2);}
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
