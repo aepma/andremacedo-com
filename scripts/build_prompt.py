@@ -15,7 +15,7 @@ def get_feedback_signals():
     """Read LOVE/GOOD/MISS/RESET signals from activity ledger with 14-day decay."""
     try:
         result = subprocess.run(
-            ['bash', os.path.expanduser('~/.openclaw/scripts/read-ledger.sh'), '200'],
+            ['bash', os.path.expanduser('~/.telos/scripts/read-ledger.sh'), '200'],
             capture_output=True, text=True, timeout=5
         )
         if result.returncode != 0 or not result.stdout.strip():
@@ -114,7 +114,7 @@ def get_swarm_activity(state_dir=None):
 
     try:
         result = subprocess.run(
-            ['bash', os.path.expanduser('~/.openclaw/scripts/read-ledger.sh'), '400'],
+            ['bash', os.path.expanduser('~/.telos/scripts/read-ledger.sh'), '400'],
             capture_output=True, text=True, timeout=10
         )
     except Exception as exc:

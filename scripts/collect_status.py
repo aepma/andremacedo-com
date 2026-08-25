@@ -1,16 +1,16 @@
 #!/usr/bin/env python3
 """Collect OpenClaw agent status data and output as JSON.
 
-Reads real session JSONL files from ~/.openclaw/agents/*/sessions/
+Reads real session JSONL files from ~/.telos/agents/*/sessions/
 to determine agent status, last action, model, and token usage.
 Also reads site mood, gold price, and gateway uptime.
 """
 import os, json, glob, re
 from datetime import datetime, timezone, timedelta
 
-agents_dir = os.path.expanduser("~/.openclaw/agents")
+agents_dir = os.path.expanduser("~/.telos/agents")
 site_dir = os.path.expanduser("~/andremacedo.com")
-gateway_log = os.path.expanduser("~/.openclaw/logs/gateway.log")
+gateway_log = os.path.expanduser("~/.telos/logs/gateway.log")
 now = datetime.now(timezone.utc)
 today_start = now.replace(hour=0, minute=0, second=0, microsecond=0)
 

@@ -34,9 +34,9 @@ DEFAULT_URL = "http://localhost:4000/v1/chat/completions"
 
 def proxy_api_key():
     """Bearer key for the local litellm proxy (master-key auth activated
-    2026-07-24, quota-governor phase 2). Prefer ~/.openclaw/.env (canonical,
+    2026-07-24, quota-governor phase 2). Prefer ~/.telos/.env (canonical,
     current) over the process env, which can carry a stale key."""
-    env_file = os.path.expanduser("~/.openclaw/.env")
+    env_file = os.path.expanduser("~/.telos/.env")
     try:
         with open(env_file) as f:
             for line in f:

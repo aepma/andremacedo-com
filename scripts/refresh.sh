@@ -6,7 +6,7 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 SITE_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
 EXTERNAL_FILE="$SITE_DIR/data/external.json"
-LOG_FILE="$HOME/.openclaw/logs/andremacedo-refresh.log"
+LOG_FILE="$HOME/.telos/logs/andremacedo-refresh.log"
 mkdir -p "$(dirname "$LOG_FILE")"
 
 log() { echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] $*" >> "$LOG_FILE"; }

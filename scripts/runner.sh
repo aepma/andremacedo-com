@@ -14,7 +14,7 @@ SOUL_FILE="$SITE_DIR/SOUL.md"
 # lineage bookkeeping moved to record-generation.py, run after the verdict gate.
 RECORD_SCRIPT="$SCRIPT_DIR/record-generation.py"
 
-LOG_FILE="$HOME/.openclaw/logs/andremacedo-agent.log"
+LOG_FILE="$HOME/.telos/logs/andremacedo-agent.log"
 mkdir -p "$(dirname "$LOG_FILE")"
 
 # Per-site logs and failure tracking (local to the site repo)
@@ -29,7 +29,7 @@ FAILURE_THRESHOLD=2
 mkdir -p "$SITE_LOG_DIR"
 
 # Portable timeout shim — macOS lacks GNU `timeout` by default.
-# Mirrors pattern from ~/.openclaw/scripts/claude-auth-heartbeat.sh.
+# Mirrors pattern from ~/.telos/scripts/claude-auth-heartbeat.sh.
 # Returns 124 on timeout to match GNU timeout exit-code convention used by callers.
 if command -v gtimeout >/dev/null 2>&1; then
   _TMO_BIN="gtimeout"
@@ -462,7 +462,7 @@ PYEOF
 
 # ANDREMACEDO_HELPER is a test seam (forced-failure dry runs); production
 # default is the canonical subscription helper.
-HELPER_SCRIPT="${ANDREMACEDO_HELPER:-$HOME/.openclaw/scripts/claude-subscription-exec.sh}"
+HELPER_SCRIPT="${ANDREMACEDO_HELPER:-$HOME/.telos/scripts/claude-subscription-exec.sh}"
 # Hard wall on the whole claude session. No outer bounded-exec wraps this
 # launchd job, so the runner owns the ceiling itself; tmo returns 124 on
 # overrun, which lands in the helper-failure branch below (fail-closed).
@@ -505,7 +505,7 @@ if [ "$AGENTIC" = "1" ]; then
     --verbose \
     --tools "Bash,Read,Write,Edit" \
     --permission-mode bypassPermissions \
-    --strict-mcp-config --mcp-config "$HOME/.openclaw/andremacedo-runner-mcp.json" \
+    --strict-mcp-config --mcp-config "$HOME/.telos/andremacedo-runner-mcp.json" \
     --no-session-persistence
 else
   # Event pulse keeps the single-turn blind-shot path (f328732).
@@ -516,7 +516,7 @@ else
     --input-format stream-json --output-format stream-json \
     --max-turns 1 --verbose \
     --tools "" \
-    --strict-mcp-config --mcp-config "$HOME/.openclaw/andremacedo-runner-mcp.json" \
+    --strict-mcp-config --mcp-config "$HOME/.telos/andremacedo-runner-mcp.json" \
     --no-session-persistence
 fi
 HELPER_EXIT=$?
@@ -635,7 +635,7 @@ export TOTAL_TOKENS=$((INPUT_TOKENS + OUTPUT_TOKENS))
 log "Tokens: $INPUT_TOKENS in + $OUTPUT_TOKENS out = $TOTAL_TOKENS"
 
 # Write session entry for cost-report.sh auto-discovery
-SESSIONS_DIR="$HOME/.openclaw/agents/andremacedo-creative/sessions"
+SESSIONS_DIR="$HOME/.telos/agents/andremacedo-creative/sessions"
 mkdir -p "$SESSIONS_DIR"
 SESSION_FILE="$SESSIONS_DIR/$(date -u +%Y-%m-%d).jsonl"
 EPOCH_MS=$(python3 -c 'import time; print(int(time.time()*1000))')
@@ -1078,7 +1078,7 @@ SCREENSHOT_FILE="$SCREENSHOT_DIR/${TIMESTAMP}.png"
 MANIFEST_FILE="$SCREENSHOT_DIR/manifest.json"
 
 # Take screenshot of current live site
-PLAYWRIGHT_PYTHON="$HOME/.openclaw/playwright-venv/bin/python3"
+PLAYWRIGHT_PYTHON="$HOME/.telos/playwright-venv/bin/python3"
 if [ -x "$PLAYWRIGHT_PYTHON" ]; then
   "$PLAYWRIGHT_PYTHON" - "$SCREENSHOT_FILE" <<'PYEOF' 2>/dev/null || echo "Archive screenshot failed (non-fatal)"
 import asyncio, sys

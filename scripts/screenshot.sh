@@ -5,7 +5,7 @@
 #   ~/andremacedo.com/state/page-metrics.json  ({rendered_height_px, screenshot_height_px, timestamp})
 set -euo pipefail
 
-VENV="$HOME/.openclaw/playwright-venv/bin/python3"
+VENV="$HOME/.telos/playwright-venv/bin/python3"
 
 # Remove stale outputs first: a failed capture must not leave yesterday's
 # images behind for the runner to embed as today's visual context.

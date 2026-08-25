@@ -16,7 +16,7 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 SITE_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
-VENV="$HOME/.openclaw/playwright-venv/bin/python3"
+VENV="$HOME/.telos/playwright-venv/bin/python3"
 
 DESKTOP_OUT="/tmp/andremacedo-self-desktop.jpg"
 MOBILE_OUT="/tmp/andremacedo-self-mobile.jpg"

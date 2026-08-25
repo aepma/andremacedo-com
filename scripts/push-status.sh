@@ -5,13 +5,13 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-LOG_FILE="$HOME/.openclaw/logs/push-status.log"
+LOG_FILE="$HOME/.telos/logs/push-status.log"
 mkdir -p "$(dirname "$LOG_FILE")"
 
 log() { echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] $*" >> "$LOG_FILE"; }
 
 # ── Environment ──────────────────────────────────────────────────
-source "$HOME/.openclaw/.env" 2>/dev/null || true
+source "$HOME/.telos/.env" 2>/dev/null || true
 if [ -z "${CF_API_TOKEN:-}" ] && [ -f "$HOME/.zshrc" ]; then
   set +eu
   source "$HOME/.zshrc" 2>/dev/null || true

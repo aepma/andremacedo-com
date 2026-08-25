@@ -6,7 +6,7 @@
 set -euo pipefail
 SITE_PATH="${1:-$HOME/andremacedo.com/assets}"
 STATE_PATH="$HOME/andremacedo.com/state"
-PY="$HOME/.openclaw/playwright-venv/bin/python3"
+PY="$HOME/.telos/playwright-venv/bin/python3"
 
 "$PY" - "$SITE_PATH" "$STATE_PATH" << 'PYEOF'
 import json, re, sys, os

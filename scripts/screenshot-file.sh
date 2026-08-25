@@ -6,7 +6,7 @@
 set -euo pipefail
 SRC="${1:?usage: screenshot-file.sh <html-file> <out.jpg>}"
 OUT="${2:?usage: screenshot-file.sh <html-file> <out.jpg>}"
-VENV="$HOME/.openclaw/playwright-venv/bin/python3"
+VENV="$HOME/.telos/playwright-venv/bin/python3"
 RAW="${OUT%.jpg}-raw.png"
 rm -f "$RAW" "$OUT"
 ABS="$(cd "$(dirname "$SRC")" && pwd)/$(basename "$SRC")"

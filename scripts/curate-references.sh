@@ -13,7 +13,7 @@
 #   - FAIL-SAFE: a failed/empty/malformed/shrunken curation NEVER overwrites the
 #     live vocabulary. The prior file persists; the chain degrades gracefully.
 #
-# Auth/billing: reuses ~/.openclaw/scripts/claude-subscription-exec.sh (OAuth
+# Auth/billing: reuses ~/.telos/scripts/claude-subscription-exec.sh (OAuth
 # preflight + env isolation + spend ceiling) — credentials are never handled here.
 #
 # Usage:   curate-references.sh              # live curation pass
@@ -22,7 +22,7 @@ set -uo pipefail
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 SITE_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
 VOCAB="$SITE_DIR/data/aesthetic-vocabulary.json"
-HELPER="${ANDREMACEDO_HELPER:-$HOME/.openclaw/scripts/claude-subscription-exec.sh}"
+HELPER="${ANDREMACEDO_HELPER:-$HOME/.telos/scripts/claude-subscription-exec.sh}"
 log(){ echo "[curate-references $(date -u +%H:%M:%SZ)] $*" >&2; }
 
 # ── validate a candidate vocabulary file: valid JSON, required structure,
