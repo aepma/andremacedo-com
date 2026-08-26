@@ -17,6 +17,21 @@ RECORD_SCRIPT="$SCRIPT_DIR/record-generation.py"
 LOG_FILE="$HOME/.telos/logs/andremacedo-agent.log"
 mkdir -p "$(dirname "$LOG_FILE")"
 
+# Wrangler runs non-interactively under launchd, which requires
+# CLOUDFLARE_API_TOKEN — and neither deploy path ever exported it, so every
+# scheduled daily run failed at the deploy step (2026-08-24/25). Read the
+# Cloudflare vars from the TELOS env file when unset. Never print these values.
+if [ -f "$HOME/.telos/.env" ]; then
+  if [ -z "${CLOUDFLARE_API_TOKEN:-}" ]; then
+    CLOUDFLARE_API_TOKEN=$(grep -E '^CLOUDFLARE_API_TOKEN=' "$HOME/.telos/.env" | head -1 | cut -d'=' -f2-)
+    export CLOUDFLARE_API_TOKEN
+  fi
+  if [ -z "${CLOUDFLARE_ACCOUNT_ID:-}" ]; then
+    CLOUDFLARE_ACCOUNT_ID=$(grep -E '^CLOUDFLARE_ACCOUNT_ID=' "$HOME/.telos/.env" | head -1 | cut -d'=' -f2-)
+    export CLOUDFLARE_ACCOUNT_ID
+  fi
+fi
+
 # Per-site logs and failure tracking (local to the site repo)
 SITE_LOG_DIR="$SITE_DIR/logs"
 ERROR_LOG="$SITE_LOG_DIR/build-errors.log"
