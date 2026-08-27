@@ -267,10 +267,23 @@ fi
 # ── Capture screenshot of current site ────────────────────────────
 SCREENSHOT="/tmp/andremacedo-current.jpg"
 log "Capturing screenshot..."
-bash "$SCRIPT_DIR/screenshot.sh" >> "$LOG_FILE" 2>&1 || {
+if ! bash "$SCRIPT_DIR/screenshot.sh" >> "$LOG_FILE" 2>&1; then
+  rm -f "$SCREENSHOT" /tmp/andremacedo-mobile.jpg
+  # An agentic run opens its MANDATED SEQUENCE on the mobile sub-gate over the
+  # ATTACHED live screenshots. With none attached the session cannot clear step 1;
+  # it burns the full ~40min wall-clock, emits no result event, and reaches launchd
+  # as a bare exit 1 with the real cause nowhere in the job's own report. That is
+  # exactly how the 2026-08-24 Miami cutover (which left ~/.telos/playwright-venv
+  # unbuilt, so screenshot.sh could not run) stayed invisible for three days across
+  # two weekly runs. A fail-open capture must not feed a fail-closed gate: abort
+  # before the session starts and name the cause. DAILY is AGENTIC=0 and has no
+  # such gate, so it keeps the tolerant path.
+  if [ "$AGENTIC" = "1" ]; then
+    log_error "screenshot capture failed and this is an agentic run — the mobile sub-gate would have no live screenshots to read; aborting before the session starts (see $LOG_FILE for the capture error)"
+    exit 1
+  fi
   log "WARNING: Screenshot capture failed, continuing without visual context"
-  rm -f "$SCREENSHOT"
-}
+fi
 
 # ── Build prompt ───────────────────────────────────────────────────
 PROMPT_FILE="$(mktemp)"

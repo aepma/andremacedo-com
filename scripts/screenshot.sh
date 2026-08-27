@@ -7,6 +7,16 @@ set -euo pipefail
 
 VENV="$HOME/.telos/playwright-venv/bin/python3"
 
+# The venv is gitignored local state, so a host rebuild restores this repo without
+# it and every capture below dies on "No such file or directory" — the 2026-08-24
+# Miami cutover did exactly that. Name the missing prerequisite and the one command
+# that rebuilds it, rather than leaving a bare interpreter-not-found in the log.
+if [ ! -x "$VENV" ]; then
+    echo "ERROR: playwright venv missing at $VENV" >&2
+    echo "  rebuild: python3 -m venv \"$HOME/.telos/playwright-venv\" && \"$VENV\" -m pip install playwright && \"$VENV\" -m playwright install chromium" >&2
+    exit 1
+fi
+
 # Remove stale outputs first: a failed capture must not leave yesterday's
 # images behind for the runner to embed as today's visual context.
 rm -f /tmp/andremacedo-current.jpg /tmp/andremacedo-mobile.jpg
