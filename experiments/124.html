@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>124 · Chimera — andremacedo.com</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#f7f4ec;--fg:#17140f;--dim:#645e50;--accent:#2c3bbd;}
+  html,body{margin:0;height:100%;background:var(--bg);overflow:hidden;}
+  canvas{position:fixed;inset:0;width:100%;height:100%;display:block;}
+  #info{
+    position:fixed;top:1.2rem;left:1.2rem;max-width:21rem;opacity:0.82;
+    font-family:'JetBrains Mono',monospace;font-size:0.72rem;line-height:1.7;
+    color:var(--fg);pointer-events:none;z-index:5;
+    text-shadow:0 0 8px rgba(0,0,0,0.8),0 0 20px rgba(0,0,0,0.5);
+  }
+  #info h1{
+    font-family:'Cormorant Garamond',serif;font-weight:300;font-size:1.9rem;
+    margin:0 0 0.4rem;color:var(--fg);
+    text-shadow:0 0 8px rgba(0,0,0,0.8),0 0 20px rgba(0,0,0,0.5);
+  }
+  #info b{color:var(--accent);}
+  #back{
+    position:fixed;top:1.2rem;right:1.2rem;z-index:6;
+    font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--fg);
+    text-decoration:none;border-bottom:1px solid var(--accent);
+    text-shadow:0 0 8px rgba(0,0,0,0.8),0 0 20px rgba(0,0,0,0.5);
+  }
+  #ui{
+    position:fixed;bottom:1.4rem;left:50%;transform:translateX(-50%);z-index:6;
+    display:flex;align-items:center;gap:0.9rem;
+    font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--fg);
+    text-shadow:0 0 8px rgba(0,0,0,0.8),0 0 20px rgba(0,0,0,0.5);
+  }
+  #ui input{-webkit-appearance:none;appearance:none;width:min(240px,38vw);height:2px;
+    background:rgba(23,20,15,0.3);cursor:pointer;}
+  #ui input::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:14px;height:14px;
+    border-radius:50%;background:var(--accent);border:2px solid var(--bg);}
+  #ui input::-moz-range-thumb{width:12px;height:12px;border-radius:50%;background:var(--accent);
+    border:2px solid var(--bg);}
+  #ui output{color:var(--accent);min-width:3em;}
+  #ui button{
+    font:inherit;color:var(--accent);background:none;border:none;cursor:pointer;
+    border-bottom:1px solid rgba(44,59,189,0.45);padding:0 1px 1px;
+    text-shadow:0 0 8px rgba(0,0,0,0.8),0 0 20px rgba(0,0,0,0.5);
+  }
+  #ui button:hover{border-bottom-color:var(--accent);}
+  #ui button:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+  #ro{color:var(--accent);min-width:6.5em;}
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div id="info"><h1>124 · Chimera</h1><p>Identical oscillators, identically coupled — yet the ring splits into a band that <b>locks</b> and a band that <b>refuses</b> (Kuramoto &amp; Battogtokh, 2002). Left: the ring, locked voices in iris. Right: time, unwrapped — the locked band draws a calm stripe, the drift draws static, and the fault between them is a place, not a cause.</p><p>Drag the <b>radius</b> — how far down the ring each voice can feel — and the fault moves. <b>Click the ring</b> to smash the locked band and watch agreement re-form where it wants to. <b>reseed</b> begins again.</p></div>
+<a id="back" href="/">← the body</a>
+<div id="ui"><label for="rad">radius</label><input type="range" id="rad" min="0.12" max="0.5" step="0.01" value="0.34" aria-label="Coupling radius — how far along the ring each voice can feel"><output id="rado">0.34</output><span id="ro">locked 0%</span><button id="reseed" type="button" aria-label="Reseed the ring and begin again">reseed</button></div>
+<script>
+(function(){
+  var cv=document.getElementById('c'),ctx=cv.getContext('2d');
+  var TAU=Math.PI*2;
+  var N=160,KK=0.7,ALPHA=1.45,OM=1.0,SPEED=1.1;
+  var Rf=0.34;
+  var th=new Float64Array(N),Rc=new Float64Array(N);
+  var W=0,H=0,CX=0,CY=0,RAD=0,PX0=0,PY0=0,PW=0,PH=0,MOBILE=false;
+  var strip=null,sctx=null;
+
+  function wrap(a){while(a>Math.PI)a-=TAU;while(a<-Math.PI)a+=TAU;return a;}
+  function reseed(){
+    for(var i=0;i<N;i++){
+      var x=(i/N)-0.5;
+      th[i]=wrap(6*(Math.random()-0.5)*Math.exp(-30*x*x)+((i%4===0)?(Math.random()-0.5)*TAU*Math.max(0,Math.abs(x)-0.18):0));
+    }
+    if(sctx){sctx.fillStyle='#15120c';sctx.fillRect(0,0,strip.width,strip.height);}
+  }
+  function size(){
+    W=window.innerWidth;H=window.innerHeight;
+    var dpr=Math.min(window.devicePixelRatio||1,2);
+    cv.width=Math.round(W*dpr);cv.height=Math.round(H*dpr);
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    MOBILE=W<700;
+    if(MOBILE){
+      CX=W*0.5;CY=H*0.32;RAD=Math.min(W,H)*0.22;
+      PX0=W*0.06;PY0=H*0.60;PW=W*0.88;PH=H*0.26;
+    }else{
+      CX=W*0.28;CY=H*0.54;RAD=Math.min(W,H)*0.28;
+      PX0=W*0.54;PY0=H*0.20;PW=W*0.40;PH=H*0.52;
+    }
+    strip=document.createElement('canvas');
+    strip.width=Math.max(64,Math.round(PW));strip.height=N;
+    sctx=strip.getContext('2d');
+    sctx.fillStyle='#15120c';sctx.fillRect(0,0,strip.width,strip.height);
+  }
+  size();reseed();
+  window.addEventListener('resize',size);
+
+  function smash(){
+    var start=Math.floor(Math.random()*N);
+    for(var k=0;k<N/3;k++)th[(start+k)%N]=Math.random()*TAU;
+  }
+
+  var lockedFrac=0,last=performance.now(),frameN=0;
+  function frame(now){
+    var dt=Math.min((now-last)/1000,0.05)*SPEED;last=now;
+    var R=Math.max(4,Math.round(Rf*N));
+    var i,j;
+    var nxt=new Float64Array(N);
+    for(i=0;i<N;i++){
+      var s=0;
+      for(j=-R;j<=R;j++){s+=Math.sin(th[(i+j+N)%N]-th[i]-ALPHA);}
+      nxt[i]=th[i]+(OM+(KK/(2*R))*s)*dt;
+    }
+    for(i=0;i<N;i++)th[i]=wrap(nxt[i]);
+    var locked=0;
+    for(i=0;i<N;i++){
+      var sx=0,sy=0;
+      for(j=-8;j<=8;j++){var p=th[(i+j+N)%N];sx+=Math.cos(p);sy+=Math.sin(p);}
+      Rc[i]=Math.sqrt(sx*sx+sy*sy)/17;
+      if(Rc[i]>0.85)locked++;
+    }
+    lockedFrac=locked/N;
+    if(lockedFrac>0.97||lockedFrac<0.06)reseed();
+
+    /* paper field */
+    ctx.fillStyle='#f7f4ec';ctx.fillRect(0,0,W,H);
+
+    /* the ring on an ink plate */
+    var pad=RAD*0.35;
+    ctx.fillStyle='#15120c';
+    ctx.fillRect(CX-RAD-pad,CY-RAD-pad,(RAD+pad)*2,(RAD+pad)*2);
+    ctx.strokeStyle='rgba(239,233,216,0.14)';ctx.lineWidth=1;
+    ctx.beginPath();ctx.arc(CX,CY,RAD,0,TAU);ctx.stroke();
+    for(i=0;i<N;i++){
+      var a=(i/N)*TAU-Math.PI/2;
+      var lk=Rc[i]>0.85;
+      ctx.fillStyle=lk?'rgba(147,161,246,0.95)':'rgba(239,233,216,0.38)';
+      var x=CX+Math.cos(a)*RAD,y=CY+Math.sin(a)*RAD;
+      ctx.fillRect(x-1.6,y-1.6,3.2,3.2);
+    }
+    var bx=0,by=0,bn=0;
+    for(i=0;i<N;i++){if(Rc[i]>0.85){bx+=Math.cos(th[i]);by+=Math.sin(th[i]);bn++;}}
+    if(bn>4){
+      var bA=Math.atan2(by,bx);
+      ctx.strokeStyle='rgba(147,161,246,0.5)';ctx.lineWidth=1.5;
+      ctx.beginPath();ctx.moveTo(CX,CY);
+      ctx.lineTo(CX+Math.cos(bA)*RAD*0.8,CY+Math.sin(bA)*RAD*0.8);ctx.stroke();
+    }
+
+    /* space-time plot — one new column per two frames, scrolling left */
+    frameN++;
+    if(frameN%2===0){
+      sctx.drawImage(strip,-1,0);
+      var col=sctx.createImageData(1,N);
+      for(i=0;i<N;i++){
+        var t=(1+Math.sin(th[i]))/2;
+        /* ink → iris for the locked; dim sand static for the drift */
+        var rC,gC,bC;
+        if(Rc[i]>0.85){rC=147*t+21*(1-t);gC=161*t+18*(1-t);bC=246*t+12*(1-t);}
+        else{rC=239*0.28+21*0.72;gC=233*0.28+18*0.72;bC=216*0.28+12*0.72;}
+        col.data[i*4]=rC;col.data[i*4+1]=gC;col.data[i*4+2]=bC;col.data[i*4+3]=255;
+      }
+      sctx.putImageData(col,strip.width-1,0);
+    }
+    ctx.fillStyle='#15120c';ctx.fillRect(PX0-6,PY0-6,PW+12,PH+12);
+    ctx.imageSmoothingEnabled=false;
+    ctx.drawImage(strip,0,0,strip.width,strip.height,PX0,PY0,PW,PH);
+    ctx.fillStyle='rgba(23,20,15,0.55)';
+    ctx.font='10px "JetBrains Mono",monospace';
+    ctx.fillText('time →',PX0,PY0-10);
+    ctx.save();ctx.translate(PX0-12,PY0+PH);ctx.rotate(-Math.PI/2);
+    ctx.fillText('voice index →',0,0);ctx.restore();
+
+    document.getElementById('ro').textContent='locked '+Math.round(lockedFrac*100)+'%';
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+
+  var slider=document.getElementById('rad'),out=document.getElementById('rado');
+  slider.addEventListener('input',function(){Rf=parseFloat(slider.value);out.textContent=Rf.toFixed(2);});
+  document.getElementById('reseed').addEventListener('click',reseed);
+
+  /* click the ring to smash the locked band */
+  cv.addEventListener('click',function(e){
+    var dx=e.clientX-CX,dy=e.clientY-CY;
+    if(Math.sqrt(dx*dx+dy*dy)<RAD*1.4)smash();
+  });
+
+  /* typed word parity for touch-less keyboards */
+  var typed='';
+  document.addEventListener('keydown',function(e){
+    if(e.metaKey||e.ctrlKey||e.altKey)return;
+    if(!/^[a-z]$/i.test(e.key))return;
+    typed=(typed+e.key.toLowerCase()).slice(-8);
+    if(typed.endsWith('chimera')){reseed();typed='';}
+    else if(typed.endsWith('smash')){smash();typed='';}
+  });
+})();
+</script>
+</body>
+</html>
