@@ -1,15 +1,15 @@
 {
-  "generation": 239,
+  "generation": 240,
   "epoch": "entrainment",
   "epoch_started": "2026-08-16",
   "traits": {
     "color": {
       "accent_base": "#2c3bbd",
-      "accent_dawn": "#7d86e8",
-      "accent_morning": "#5a66d8",
+      "accent_dawn": "#7e8cf4",
+      "accent_morning": "#5a63d8",
       "accent_afternoon": "#2c3bbd",
-      "accent_evening": "#232f9e",
-      "accent_night": "#1a2378",
+      "accent_evening": "#2433a8",
+      "accent_night": "#1b2787",
       "bg": "#0a0d18",
       "fg": "#e6e9f2",
       "grain_opacity": "0.08",
@@ -157,6 +157,8 @@
         "experiments/121.html",
         "experiments/122.html",
         "experiments/123.html",
+        "experiments/124.html",
+        "experiments/125.html",
         "index-old.html",
         "scripts/craft-judge-fixtures/good.html",
         "scripts/craft-judge-fixtures/slop.html",
@@ -308,17 +310,6 @@
     }
   },
   "fitness_log": [
-    {
-      "gen": 220,
-      "coherence": 8,
-      "novelty": 7,
-      "identity": 8,
-      "tension": 7,
-      "awe": 6,
-      "perceptibility": 8,
-      "note": "The crystalline chassis reads clean and cool on both viewports: iris hero over a blue-black ground, the growth-zone column and The Lattice archive leg",
-      "total": 7.3
-    },
     {
       "gen": 221,
       "coherence": 7,
@@ -527,20 +518,20 @@
       "perceptibility": 9,
       "note": "Second generation of Epoch XI, holding the ivory/ink/ultramarine chassis exactly and deepening the obsession's sharpest idea. The hero crowd now keeps",
       "total": 8.5
+    },
+    {
+      "gen": 240,
+      "coherence": 9,
+      "novelty": 7,
+      "identity": 9,
+      "tension": 9,
+      "awe": 8,
+      "perceptibility": 8,
+      "note": "Epoch XI holds its ivory/ink/ultramarine chassis exactly (third generation) and deepens the idea instead of the surface: the crowd learns to split. Th",
+      "total": 8.3
     }
   ],
   "mutation_log": [
-    {
-      "gen": 220,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "color.accent",
-        "scene.config"
-      ],
-      "kills": [],
-      "timestamp": "2026-06-23T08:03:14Z"
-    },
     {
       "gen": 221,
       "mutations": [
@@ -838,33 +829,23 @@
       ],
       "strategy": "Hold Epoch XI's identity — warm ivory paper, ink, a single ultramarine accent, Cormorant serif + JetBrains mono, left-anchored editorial hero over the live Kura",
       "timestamp": "2026-08-19T22:22:20Z"
+    },
+    {
+      "gen": 240,
+      "mutations": [
+        "regenerate"
+      ],
+      "kills": [
+        "14",
+        "12",
+        "dawn:9",
+        "morning:8"
+      ],
+      "strategy": "Hold the Epoch XI identity — warm ivory paper, ink serif, one ultramarine accent, left-anchored editorial hero over the live Kuramoto ring — and deepen the narr",
+      "timestamp": "2026-08-31T04:34:21Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "thought",
-      "value": "night:1",
-      "died_gen": 231,
-      "epitaph": "Superseded by a sharper opal version of the same 'order outlasts pigment / fossil still flashes' idea."
-    },
-    {
-      "type": "thought",
-      "value": "dawn:0",
-      "died_gen": 232,
-      "epitaph": "The 'soap bubble is the thinnest object you will watch die' image was already carried by the black-film secret; superseded by the Newton's-rings dawn thought that opens gen 232's turn inward."
-    },
-    {
-      "type": "thought",
-      "value": "morning:2",
-      "died_gen": 232,
-      "epitaph": "The CD/beetle diffraction aside pulled focus onto the OTHER mechanism the week the page turns back onto interference; parked to keep the thread clean."
-    },
-    {
-      "type": "thought",
-      "value": "evening:1",
-      "died_gen": 232,
-      "epitaph": "The 'oil film splits a grey afternoon' line duplicated the essay's oil-slick section almost verbatim; freed the slot for the contour-line reading of the rings."
-    },
     {
       "type": "thought",
       "value": "night:1",
@@ -1140,6 +1121,30 @@
       "value": "evening:8",
       "died_gen": 239,
       "epitaph": "A sediment-era afterglow that survived three epochs; the evening pool keeps its sharper voices."
+    },
+    {
+      "type": "secret",
+      "value": "14",
+      "died_gen": 240,
+      "epitaph": "Over capacity at 21/20 — an older whisper buried so the common-time secrets keep their edge."
+    },
+    {
+      "type": "secret",
+      "value": "12",
+      "died_gen": 240,
+      "epitaph": "Over capacity at 21/20 — a second whisper from before the crowd, released."
+    },
+    {
+      "type": "thought",
+      "value": "dawn:9",
+      "died_gen": 240,
+      "epitaph": "The weakest dawn fragment, still circling the resonance law; the dawn pool keeps its strongest nine."
+    },
+    {
+      "type": "thought",
+      "value": "morning:8",
+      "died_gen": 240,
+      "epitaph": "A morning fragment that had stopped surprising; pruned to keep the pool at carrying capacity."
     }
   ],
   "carrying_capacity": {
@@ -1158,11 +1163,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 230,
-      "base": "#82325c",
-      "family": "violet"
-    },
     {
       "gen": 231,
       "base": "#82325c",
@@ -1205,6 +1205,11 @@
     },
     {
       "gen": 239,
+      "base": "#2c3bbd",
+      "family": "cyan"
+    },
+    {
+      "gen": 240,
       "base": "#2c3bbd",
       "family": "cyan"
     }

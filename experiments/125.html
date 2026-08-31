@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>125 · Firefly River — andremacedo.com</title>
+<meta name="description" content="Experiment 125: pulse-coupled fireflies on a dark riverbank — each flash nudges its neighbours, and the crowd agrees on now.">
+<style>
+  html,body{margin:0;height:100%;background:#0b0e1a;overflow:hidden;}
+  canvas{display:block;width:100%;height:100%;}
+  #info{
+    position:fixed;top:14px;left:14px;z-index:5;max-width:300px;
+    font-family:'JetBrains Mono',monospace;color:#e8e6da;opacity:0.82;
+    text-shadow:0 0 8px rgba(  0,0,0,0.8),0 0 20px rgba(0,0,0,0.5);
+  }
+  #info h1{font-size:0.82rem;letter-spacing:0.14em;text-transform:uppercase;margin:0 0 0.5rem;font-weight:500;}
+  #info p{font-size:0.68rem;line-height:1.6;margin:0 0 0.5rem;}
+  #info .how{color:#9aa3c8;}
+  #back{
+    position:fixed;top:14px;right:14px;z-index:5;
+    font-family:'JetBrains Mono',monospace;font-size:0.68rem;letter-spacing:0.1em;
+    color:#e8e6da;text-decoration:none;opacity:0.82;
+    text-shadow:0 0 8px rgba(0,0,0,0.8),0 0 20px rgba(0,0,0,0.5);
+  }
+  #back:hover{color:#93a1f6;}
+  #ui{
+    position:fixed;left:14px;bottom:14px;z-index:5;
+    font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:#e8e6da;
+    text-shadow:0 0 8px rgba(0,0,0,0.8),0 0 20px rgba(0,0,0,0.5);
+  }
+  #ui label{letter-spacing:0.12em;text-transform:uppercase;color:#9aa3c8;}
+  #ui output{color:#93a1f6;min-width:3em;display:inline-block;}
+  input#eps{-webkit-appearance:none;appearance:none;width:min(200px,42vw);height:2px;background:rgba(232,230,218,0.3);border-radius:1px;cursor:pointer;vertical-align:middle;}
+  input#eps::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:13px;height:13px;border-radius:50%;background:#93a1f6;border:2px solid #0b0e1a;}
+  input#eps::-moz-range-thumb{width:11px;height:11px;border-radius:50%;background:#93a1f6;border:2px solid #0b0e1a;}
+  #read{margin-top:0.4rem;color:#9aa3c8;}
+  #read b{color:#e8e6da;font-weight:500;}
+</style>
+</head>
+<body>
+<canvas id="cv"></canvas>
+<div id="info">
+  <h1>125 · Firefly River</h1>
+  <p>Pulse-coupled oscillators. Each firefly's clock runs alone until it overflows into a flash; every neighbour who sees the flash is nudged a little closer to its own. No mean field, no conductor — only light carried eye to eye. Above a faint threshold the whole mangrove bank agrees on <i>now</i>.</p>
+  <p class="how">slide <b>coupling</b> to strengthen the nudge · tap the river to scatter them again · type <b>sync</b> or <b>drift</b></p>
+</div>
+<a id="back" href="/#prototype-portfolio">&larr; the common time</a>
+<div id="ui">
+  <label for="eps">coupling</label>
+  <input type="range" id="eps" min="0" max="0.4" step="0.005" value="0.02" aria-label="Coupling strength — how strongly a flash nudges its neighbours">
+  <output id="epsOut" for="eps">0.020</output>
+  <div id="read">coherence = <b>0.00</b> — scattered</div>
+</div>
+<script>
+(function(){
+  var cv=document.getElementById('cv'),ctx=cv.getContext('2d');
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+  var W=0,H=0;
+  function size(){
+    W=cv.clientWidth||window.innerWidth;H=cv.clientHeight||window.innerHeight;
+    var dpr=Math.min(window.devicePixelRatio||1,2);
+    cv.width=Math.round(W*dpr);cv.height=Math.round(H*dpr);
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+  }
+  size();window.addEventListener('resize',size);
+
+  var N=900;
+  var xs=new Float64Array(N),ys=new Float64Array(N);
+  var ph=new Float64Array(N),om=new Float64Array(N),glow=new Float64Array(N);
+  var TAU=Math.PI*2;
+  function scatter(){
+    for(var i=0;i<N;i++){
+      var x=Math.random()*W;
+      var bank=H*0.55+Math.sin(x/W*3.1)*H*0.10;
+      xs[i]=x;ys[i]=bank+(Math.random()+Math.random()-1)*H*0.16;
+      om[i]=0.55+Math.random()*0.10;
+      ph[i]=Math.random();glow[i]=0;
+    }
+  }
+  scatter();
+  window.addEventListener('resize',scatter);
+
+  var eps=0.02;
+  var slider=document.getElementById('eps'),out=document.getElementById('epsOut');
+  slider.addEventListener('input',function(){eps=parseFloat(slider.value);out.textContent=eps.toFixed(3);});
+
+  var R2=110*110;
+  var last=performance.now(),lastRead=0;
+  var readEl=document.getElementById('read');
+
+  function frame(now){
+    var dt=Math.min((now-last)/1000,0.05);last=now;
+    var speed=reduce?0.35:1;
+
+    var flashes=[];
+    var i;
+    for(i=0;i<N;i++){
+      ph[i]+=om[i]*dt*speed;
+      if(ph[i]>=1){ph[i]-=1;flashes.push(i);glow[i]=1;}
+      glow[i]*=Math.pow(0.02,dt);
+    }
+    for(var f=0;f<flashes.length;f++){
+      var fx=xs[flashes[f]],fy=ys[flashes[f]];
+      for(var j=0;j<N;j++){
+        var dx=xs[j]-fx,dy=ys[j]-fy;
+        if(dx*dx+dy*dy<R2){ph[j]+=eps*(1-ph[j]);if(ph[j]>=1){ph[j]-=1;glow[j]=Math.max(glow[j],0.7);}}
+      }
+    }
+
+    ctx.fillStyle='rgba(11,14,26,0.5)';ctx.fillRect(0,0,W,H);
+
+    ctx.strokeStyle='rgba(147,161,246,0.10)';ctx.lineWidth=1;
+    ctx.beginPath();
+    for(var x=0;x<=W;x+=24){var y=H*0.55+Math.sin(x/W*3.1)*H*0.10+H*0.17;if(x===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);}
+    ctx.stroke();
+
+    var sx=0,sy=0;
+    for(i=0;i<N;i++){sx+=Math.cos(TAU*ph[i]);sy+=Math.sin(TAU*ph[i]);}
+    var coh=Math.sqrt(sx*sx+sy*sy)/N;
+
+    for(var k=0;k<N;k++){
+      var g=glow[k];
+      if(g>0.03){
+        var r=2+10*g;
+        ctx.fillStyle='rgba(232,230,218,'+(0.10*g).toFixed(3)+')';
+        ctx.beginPath();ctx.arc(xs[k],ys[k],r*2.2,0,TAU);ctx.fill();
+        ctx.fillStyle='rgba(255,246,200,'+(0.95*g).toFixed(3)+')';
+        ctx.beginPath();ctx.arc(xs[k],ys[k],r*0.4,0,TAU);ctx.fill();
+      }else{
+        ctx.fillStyle='rgba(232,230,218,0.28)';
+        ctx.fillRect(xs[k]-1,ys[k]-1,2,2);
+      }
+    }
+
+    if(now-lastRead>250){
+      lastRead=now;
+      var word=coh>0.55?'the bank agrees on now':coh>0.25?'waves rolling down the bank':'scattered';
+      readEl.innerHTML='coherence = <b>'+coh.toFixed(2)+'</b> — '+word;
+    }
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+
+  cv.addEventListener('click',function(){
+    for(var i=0;i<N;i++)ph[i]=Math.random();
+  });
+
+  var typed='';
+  document.addEventListener('keydown',function(e){
+    if(e.metaKey||e.ctrlKey||e.altKey)return;
+    if(!/^[a-z]$/i.test(e.key))return;
+    typed=(typed+e.key.toLowerCase()).slice(-8);
+
+    if(typed.endsWith('sync')){eps=0.22;slider.value=eps;out.textContent=eps.toFixed(3);typed='';}
+    else if(typed.endsWith('drift')){eps=0.0;slider.value=eps;out.textContent=eps.toFixed(3);typed='';}
+  });
+})();
+</script>
+</body>
+</html>

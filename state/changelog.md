@@ -780,3 +780,7 @@ mood: locking; obsession born: entrainment — how independent oscillators fall 
 
 ## gen 239 (weekly, 2026-08-19)
 gen 239 weekly: deepen Epoch XI entrainment — the crowd keeps a memory (live r(t) trace with retune ticks), ship experiment 123 Threshold (r–K phase diagram), mobile hero brought into flow
+
+## gen 240 (weekly, 2026-08-31)
+gen 240 weekly: deepen Epoch XI entrainment — the crowd learns to split (chimera census case + typed 'split'), link experiment 124 Chimera, ship experiment 125 Firefly River, mobile hero into document flow
+[2026-08-31T04:38:31Z] [gen 240] craft-fail: both critics cleared
