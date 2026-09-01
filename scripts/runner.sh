@@ -173,6 +173,22 @@ _on_exit() {
 }
 trap '_on_exit' EXIT
 
+# `wrangler pages deploy` walks the WHOLE site directory and caps files at 25 MiB.
+# It does not honour .gitignore or .wranglerignore for that walk. On 2026-08-31 an
+# agentic pulse installed a Playwright browser cache inside the site dir
+# (.pw-browsers, 149 MiB binary) and every deploy after it failed with
+# "Pages only supports files up to 25 MiB" — visible only in wrangler's own log.
+# Local tool caches are regenerable; the deploy is not optional. Purge them first.
+purge_local_caches() {
+  local cache
+  for cache in .pw-browsers .pw-node .venv-pw; do
+    if [ -e "$SITE_DIR/$cache" ]; then
+      log "purging non-deployable local cache $cache from site dir before deploy"
+      rm -rf "$SITE_DIR/$cache"
+    fi
+  done
+}
+
 # ── Direction C: DAILY is the cheap, zero-LLM path ─────────────────
 # Refresh external data + sensorium, commit, deploy. The page's client-side
 # time-of-day rotation provides the visible daily change. No claude session and
@@ -185,6 +201,7 @@ if [ "$PULSE_TYPE" = "daily" ]; then
   cd "$SITE_DIR"
   git add -A
   git commit -m "agent: daily data refresh | pulse: daily" >> "$LOG_FILE" 2>&1 || log "daily: nothing to commit"
+  purge_local_caches
   if ! npx wrangler pages deploy "$SITE_DIR" --project-name="andremacedo-com" --branch="main" --commit-dirty=true >> "$LOG_FILE" 2>&1; then
     log_error "daily wrangler deploy failed"
     record_failure
@@ -1177,6 +1194,7 @@ fi
 log "Deploying to Cloudflare Pages..."
 
 export CLOUDFLARE_ACCOUNT_ID="98a1dcdbeec2aa3aac24e49c22c652d2"
+purge_local_caches
 if ! npx wrangler pages deploy "$SITE_DIR" --project-name="andremacedo-com" --branch="main" --commit-dirty=true 2>&1 | tee -a "$LOG_FILE" "$BUILD_LOG"; then
   log_error "wrangler deploy failed"
   record_failure
