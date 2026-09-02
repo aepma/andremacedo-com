@@ -598,7 +598,7 @@ def build_epoch_review_section(state_str, genome_obj, state_dir, today, swarm_te
     genome_obj = genome_obj or {}
     epoch_num = genome_obj.get("epoch_number", "?")
     current_gen = genome_obj.get("generation", "?")
-    history = er.load_jsonl(er.craft_history_path(state_dir))
+    history = er.load_craft_history(er.craft_history_path(state_dir))
     epoch_entries = er.entries_since(history, started)
     scored = er.scored_entries(epoch_entries)
     pl = er.plateau(history, since=started)

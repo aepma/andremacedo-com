@@ -146,7 +146,7 @@ def main():
                   "generation.", file=sys.stderr)
             sys.exit(1)
 
-        history = er.load_jsonl(er.craft_history_path(state_dir))
+        history = er.load_craft_history(er.craft_history_path(state_dir))
         pl = er.plateau(history, since=live_started)
         streak = er.deepen_streak(state_dir, epoch_num) + (1 if verdict == "deepen" else 0)
         mechanical = None

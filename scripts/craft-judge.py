@@ -23,13 +23,42 @@ Both judge the SCREENSHOT — never the agent's stated intentions. Model IDs are
 verified against the live proxy (curl localhost:4000/v1/models) before wiring,
 never assumed from memory.
 
+The two critics run CONCURRENTLY: they are independent by construction, and run
+serially their budgets summed past any sane wrapper bound. The wall-clock bound a
+wrapper must allow is derived here from the live budgets (--print-wall-budget)
+and asserted here when the wrapper hands it back (--wall-budget), so the two
+numbers can never drift apart again.
+
 Exit codes:  0 = PASS (both critics cleared)
              1 = FAIL (either critic flagged slop or scored below threshold)
-             2 = ERROR (a critic could not be obtained — fail-closed at the gate)
+             2 = ERROR (a critic could not be obtained, or the wrapper's wall
+                 bound is below this judge's worst case — fail-closed at the gate)
+
+Any OTHER exit means this judge never reached emit(): it was killed or it
+crashed, and --json-out was never written. epoch_review.py treats that as a run
+that produced no verdict and no scores.
 """
-import argparse, base64, json, os, sys, urllib.request
+import argparse, base64, concurrent.futures, json, math, os, sys, urllib.request
 
 DEFAULT_URL = "http://localhost:4000/v1/chat/completions"
+
+# Everything outside the per-request timeouts: interpreter start, reading and
+# base64-encoding two screenshots, proxy connect, JSON parse, writing --json-out.
+CRITIC_OVERHEAD_SECONDS = 30.0
+
+# The per-critic budgets, in ONE place, because the wrapper's wall bound is
+# derived from them (see wall_budget_seconds) and the two must never drift.
+#
+# Critic A's budget was 120s. Measured 2026-09-02, judging the known-good fixture
+# through the local proxy, claude-opus-4-8-oauth took 152.4s to return: the
+# budget had become smaller than the work, so critic A could only ever time out
+# and the gate could only ever fail closed. Raised to 240s, which is headroom
+# over that measurement rather than a fit to it. Read the latency again before
+# tightening this: the failure mode of too-tight is a discarded weekly cycle,
+# the failure mode of too-loose is a slower gate.
+TIMEOUT_A_DEFAULT = 240.0
+TIMEOUT_B_DEFAULT = 90.0        # grok reasoning can be slower; beyond this -> fallback
+RETRIES_DEFAULT = 2             # attempts, not extra tries
 
 
 def proxy_api_key():
@@ -66,6 +95,46 @@ SYSTEM = (
     "aesthetic move a templated generator would not make. Output JSON only — no "
     "prose before or after, no code fences."
 )
+
+
+def wall_budget_seconds(timeout_a, timeout_b, retries, overhead=CRITIC_OVERHEAD_SECONDS):
+    """The wall-clock bound a wrapper must allow this judge, derived from the same
+    numbers the judge actually runs on.
+
+    Worst case per critic, with every retry exhausted:
+
+        critic A : retries * timeout_a
+        critic B : retries * timeout_b            (grok)
+                 + retries * timeout_a            (fallback, run at A's budget)
+
+    The two critics run CONCURRENTLY (see main), so the pair costs max(A, B),
+    not their sum, plus `overhead`.
+
+    This function exists because the relationship was previously a hardcoded 240
+    in runner.sh against per-critic budgets summing to 660, and on 2026-08-31 it
+    killed the weekly run at 240s before the judge reached a verdict. The wrapper
+    now reads this number at runtime (--print-wall-budget) and hands it back
+    (--wall-budget) so the judge asserts the relationship instead of trusting it.
+    """
+    assert timeout_a > 0, "critic A budget must be positive"
+    assert timeout_b > 0, "critic B budget must be positive"
+    assert retries >= 1, "retries is an attempt count and must be at least 1"
+    assert overhead >= 0, "overhead must not be negative"
+    a_path = retries * timeout_a
+    b_path = retries * timeout_b + retries * timeout_a
+    return int(math.ceil(max(a_path, b_path) + overhead))
+
+
+def wall_budget_derivation(timeout_a, timeout_b, retries, overhead=CRITIC_OVERHEAD_SECONDS):
+    """Human-readable arithmetic behind wall_budget_seconds, for stderr and logs."""
+    a_path = retries * timeout_a
+    b_path = retries * timeout_b + retries * timeout_a
+    return ("critic A worst case {r}x{ta}s = {a}s; critic B worst case {r}x{tb}s + "
+            "fallback {r}x{ta}s = {b}s; critics run concurrently so the pair costs "
+            "max({a}, {b}) = {m}s; + {o}s overhead = {total}s".format(
+                r=retries, ta=timeout_a, tb=timeout_b, a=a_path, b=b_path,
+                m=max(a_path, b_path), o=overhead,
+                total=wall_budget_seconds(timeout_a, timeout_b, retries, overhead)))
 
 
 def b64_data_url(path):
@@ -205,7 +274,7 @@ def decide_gate(a, b, threshold, margin):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--desktop", required=True)
+    ap.add_argument("--desktop")
     ap.add_argument("--mobile")
     ap.add_argument("--rubric", default=DEFAULT_RUBRIC)
     ap.add_argument("--url", default=DEFAULT_URL)
@@ -216,12 +285,27 @@ def main():
     ap.add_argument("--margin", type=float, default=7.3,
                     help="a lone passing critic must clear this (> threshold) to "
                          "override the other critic's slop veto and ship")
-    ap.add_argument("--timeout-a", type=float, default=120.0)
-    ap.add_argument("--timeout-b", type=float, default=90.0)   # grok reasoning can be slower; beyond this -> fallback
-    ap.add_argument("--retries", type=int, default=2)
+    ap.add_argument("--timeout-a", type=float, default=TIMEOUT_A_DEFAULT)
+    ap.add_argument("--timeout-b", type=float, default=TIMEOUT_B_DEFAULT)
+    ap.add_argument("--retries", type=int, default=RETRIES_DEFAULT)
+    ap.add_argument("--wall-budget", type=float, default=None,
+                    help="the wrapper's wall-clock bound in seconds; the judge "
+                         "refuses to start if it is below its own worst case")
+    ap.add_argument("--print-wall-budget", action="store_true",
+                    help="print the required wall bound (integer seconds) to "
+                         "stdout, the arithmetic to stderr, and exit")
     ap.add_argument("--json-out")
     ap.add_argument("--quiet", action="store_true")
     args = ap.parse_args()
+
+    # The wrapper bound and the per-critic budgets are reconciled HERE, from the
+    # live arguments, so the relationship survives anyone editing either number.
+    required_wall = wall_budget_seconds(args.timeout_a, args.timeout_b, args.retries)
+    if args.print_wall_budget:
+        print(required_wall)
+        print(wall_budget_derivation(args.timeout_a, args.timeout_b, args.retries),
+              file=sys.stderr)
+        sys.exit(0)
 
     def emit(verdict, code):
         if args.json_out:
@@ -231,6 +315,21 @@ def main():
             print(json.dumps(verdict, indent=2, ensure_ascii=False))
         sys.exit(code)
 
+    # Fail closed BEFORE spending a critic call: a bound below the worst case
+    # means a run where both critics answer inside their own budgets can still be
+    # killed, which is how a passing weekly generation was discarded on
+    # 2026-08-31. Refusing to start reverts and skips the deploy, which is the
+    # same outcome as the kill, but it says why.
+    if args.wall_budget is not None and args.wall_budget < required_wall:
+        emit({"verdict": "ERROR", "is_slop": True,
+              "error": (f"wrapper wall budget {args.wall_budget:g}s is below this "
+                        f"judge's worst case {required_wall}s — "
+                        + wall_budget_derivation(args.timeout_a, args.timeout_b,
+                                                 args.retries))}, 2)
+
+    if not args.desktop:
+        emit({"verdict": "ERROR", "is_slop": True,
+              "error": "--desktop is required for every path that judges a render"}, 2)
     if not os.path.isfile(args.desktop):
         emit({"verdict": "ERROR", "is_slop": True, "error": f"desktop screenshot missing: {args.desktop}"}, 2)
     try:
@@ -240,28 +339,57 @@ def main():
 
     content = build_user_content(rubric, args.desktop, args.mobile)
 
+    # The two critics are INDEPENDENT — that is the whole point of using two
+    # model families — so they run concurrently. Serially their budgets summed to
+    # 660s worst case against a 240s wrapper bound; concurrently the pair costs
+    # the slower path, which is what wall_budget_seconds() bounds. Both calls are
+    # blocking socket I/O, so threads are the right shape here.
+
     # Critic A — no fallback; if it cannot be obtained, we cannot verify craft.
-    try:
-        a = judge_one(args.url, args.critic_a, content, args.timeout_a, args.retries)
-        a_model = args.critic_a
-    except Exception as e:  # noqa: BLE001
-        emit({"verdict": "ERROR", "is_slop": True,
-              "error": f"critic A ({args.critic_a}) unobtainable: {e}"}, 2)
+    def run_critic_a():
+        return judge_one(args.url, args.critic_a, content, args.timeout_a, args.retries)
 
     # Critic B — grok; fall back to gemini-3.5-flash ONLY if grok is slow/flaky.
-    b_fell_back_from = None
-    try:
-        b = judge_one(args.url, args.critic_b, content, args.timeout_b, args.retries)
-        b_model = args.critic_b
-    except Exception as e_b:  # noqa: BLE001
+    # The fallback runs INSIDE this worker so the pair stays bounded by one path.
+    def run_critic_b():
         try:
-            b = judge_one(args.url, args.critic_b_fallback, content, args.timeout_a, args.retries)
-            b_model = args.critic_b_fallback
-            b_fell_back_from = f"{args.critic_b} ({e_b})"
-        except Exception as e_fb:  # noqa: BLE001
-            emit({"verdict": "ERROR", "is_slop": True,
-                  "error": f"critic B unobtainable: {args.critic_b} -> {e_b}; "
-                           f"fallback {args.critic_b_fallback} -> {e_fb}"}, 2)
+            v = judge_one(args.url, args.critic_b, content, args.timeout_b, args.retries)
+            return v, args.critic_b, None
+        except Exception as e_b:  # noqa: BLE001
+            try:
+                v = judge_one(args.url, args.critic_b_fallback, content,
+                              args.timeout_a, args.retries)
+                return v, args.critic_b_fallback, f"{args.critic_b} ({e_b})"
+            except Exception as e_fb:  # noqa: BLE001
+                raise RuntimeError(
+                    f"{args.critic_b} -> {e_b}; "
+                    f"fallback {args.critic_b_fallback} -> {e_fb}") from e_fb
+
+    a = b = None
+    a_error = b_error = None
+    b_model, b_fell_back_from = None, None
+    with concurrent.futures.ThreadPoolExecutor(max_workers=2,
+                                               thread_name_prefix="critic") as pool:
+        future_a = pool.submit(run_critic_a)
+        future_b = pool.submit(run_critic_b)
+        try:
+            a = future_a.result()
+        except Exception as exc:  # noqa: BLE001
+            a_error = exc
+        try:
+            b, b_model, b_fell_back_from = future_b.result()
+        except Exception as exc:  # noqa: BLE001
+            b_error = exc
+
+    # Emitted only after the pool has closed, so no critic thread outlives the
+    # process. ERROR is fail-closed and is never overridden by the other critic.
+    a_model = args.critic_a
+    if a_error is not None:
+        emit({"verdict": "ERROR", "is_slop": True,
+              "error": f"critic A ({args.critic_a}) unobtainable: {a_error}"}, 2)
+    if b_error is not None:
+        emit({"verdict": "ERROR", "is_slop": True,
+              "error": f"critic B unobtainable: {b_error}"}, 2)
 
     a_pass, b_pass = critic_passed(a, args.threshold), critic_passed(b, args.threshold)
     # MARGIN RULE: ship if BOTH clear, OR exactly one clears at/above --margin.

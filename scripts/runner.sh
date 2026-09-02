@@ -1131,14 +1131,50 @@ if [ "$AGENTIC" = "1" ]; then
     exit 0
   fi
   CRAFT_OUT="$SITE_DIR/state/craft-judge-latest.json"
+
+  # The wall bound is READ FROM THE JUDGE at runtime, never written here. The
+  # judge derives it from the same per-critic budgets and retry count it will
+  # actually run on, and we hand it straight back so the judge asserts the
+  # relationship rather than trusting it. This was a hardcoded 240s against
+  # per-critic budgets whose worst case was 660s, and it killed the gen-240
+  # weekly run on 2026-08-31 before the judge could reach a verdict. Fail closed
+  # if the number cannot be read.
   set +e
-  tmo 240 python3 "$SCRIPT_DIR/craft-judge.py" \
+  CRAFT_WALL="$(python3 "$SCRIPT_DIR/craft-judge.py" --print-wall-budget 2>>"$ERROR_LOG")"
+  CRAFT_WALL_EXIT=$?
+  set -e
+  case "$CRAFT_WALL" in
+    ''|*[!0-9]*) CRAFT_WALL_EXIT=1 ;;
+  esac
+  if [ "$CRAFT_WALL_EXIT" != "0" ] || [ "$CRAFT_WALL" -le 0 ]; then
+    log_error "craft gate: could not read the judge's wall budget (exit $CRAFT_WALL_EXIT, value '${CRAFT_WALL}') — fail-closed, no deploy"
+    echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] [gen $GENERATION] craft-fail: judge wall budget unreadable" >> "$CHANGELOG"
+    cd "$SITE_DIR" && git checkout HEAD -- index.html
+    telegram "andremacedo.com $PULSE_TYPE: craft gate could not read its own time budget. Deploy skipped, working tree reverted."
+    DEPLOY_SUCCEEDED=1
+    exit 0
+  fi
+  log "Craft gate wall budget: ${CRAFT_WALL}s (read from craft-judge.py)"
+
+  # Per-run output file. The judge writes --json-out only when it reaches its own
+  # emit(), so a killed run leaves this EMPTY instead of leaving the previous
+  # generation's verdict sitting at a shared path to be read as this one's. That
+  # stale read is what put "critic_a 8.0, critic_b 8.0, PASS" in the craft ledger
+  # for gen 240, a run that was killed and never deployed.
+  CRAFT_RUN_OUT="$(mktemp -t craft-judge-run)"
+  set +e
+  tmo "$CRAFT_WALL" python3 "$SCRIPT_DIR/craft-judge.py" \
     --desktop /tmp/andremacedo-self-desktop.jpg \
     --mobile /tmp/andremacedo-self-mobile.jpg \
     --margin 7.3 \
-    --json-out "$CRAFT_OUT" --quiet 2>>"$ERROR_LOG"
+    --wall-budget "$CRAFT_WALL" \
+    --json-out "$CRAFT_RUN_OUT" --quiet 2>>"$ERROR_LOG"
   CRAFT_EXIT=$?
   set -e
+  # Publish only a verdict this run actually produced.
+  if [ -s "$CRAFT_RUN_OUT" ]; then
+    cp "$CRAFT_RUN_OUT" "$CRAFT_OUT"
+  fi
 
   # Persist the craft series (append-only), in BOTH outcomes. Until this existed
   # the two critics' scores lived only in the log line below: not persisted, not
@@ -1148,23 +1184,32 @@ if [ "$AGENTIC" = "1" ]; then
   # be read as a flat score series and kill a healthy epoch.
   python3 "$SCRIPT_DIR/epoch_review.py" append-craft \
     --history "$SITE_DIR/state/craft-history.jsonl" \
-    --craft-json "$CRAFT_OUT" \
+    --craft-json "$CRAFT_RUN_OUT" \
     --gen "$GENERATION" \
     --judge-exit "$CRAFT_EXIT" >> "$BUILD_LOG" 2>>"$ERROR_LOG" \
     || log "WARN: craft-history append failed (non-fatal)"
 
   if [ "$CRAFT_EXIT" != "0" ]; then
     # 1 = slop / below threshold (either critic); 2 = a critic unobtainable; 124 = timeout.
-    CRAFT_WHY="$(jq -r '.reason // .error // "craft gate failed"' "$CRAFT_OUT" 2>/dev/null || echo 'craft gate failed/timeout')"
+    # Read the reason from THIS run's file. Reading the shared path here is what
+    # made the gen-240 revert log "craft-fail: both critics cleared": the reason
+    # of a different generation's passing run.
+    if [ -s "$CRAFT_RUN_OUT" ]; then
+      CRAFT_WHY="$(jq -r '.reason // .error // "craft gate failed"' "$CRAFT_RUN_OUT" 2>/dev/null || echo 'craft gate failed')"
+    else
+      CRAFT_WHY="judge produced no verdict (exit $CRAFT_EXIT, killed at the ${CRAFT_WALL}s wall bound or crashed)"
+    fi
     log_error "craft judge FAILED (exit $CRAFT_EXIT): $CRAFT_WHY — reverting index.html, no deploy"
     echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] [gen $GENERATION] craft-fail: $CRAFT_WHY" >> "$CHANGELOG"
-    cat "$CRAFT_OUT" >> "$ERROR_LOG" 2>/dev/null || true
+    cat "$CRAFT_RUN_OUT" >> "$ERROR_LOG" 2>/dev/null || true
+    rm -f "$CRAFT_RUN_OUT"
     cd "$SITE_DIR" && git checkout HEAD -- index.html
     telegram "andremacedo.com $PULSE_TYPE: craft judge FAILED — ${CRAFT_WHY}. Deploy skipped, working tree reverted."
     DEPLOY_SUCCEEDED=1
     exit 0
   fi
-  log "Craft judge PASSED: $(jq -r '"A="+(.critics.A.overall|tostring)+" B="+(.critics.B.overall|tostring)' "$CRAFT_OUT" 2>/dev/null || echo ok)"
+  log "Craft judge PASSED: $(jq -r '"A="+(.critics.A.overall|tostring)+" B="+(.critics.B.overall|tostring)' "$CRAFT_RUN_OUT" 2>/dev/null || echo ok)"
+  rm -f "$CRAFT_RUN_OUT"
 
   # Coherence teeth: the Coherence/Novelty axes are ENFORCED, not just logged.
   # Abandoning a live epoch's identity (no declared transition) = FAILED.
