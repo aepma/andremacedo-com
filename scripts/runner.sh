@@ -126,6 +126,34 @@ log_error() {
   log "ERROR: $*"
 }
 
+# A bare "X failed" line cannot be diagnosed after the fact. Three consecutive
+# daily deploy failures (2026-08-31T14:00Z, 2026-08-31T19:18Z, 2026-09-01T14:00Z)
+# wrote only "daily wrangler deploy failed" to build-errors.log: no command, no
+# exit code, no stderr. The actual cause ("Pages only supports files up to 25 MiB
+# in size") existed the whole time, but only in the shared agent log, which the
+# error log does not point at. Anyone reading the error log alone had nothing to
+# act on. Record the cause next to the failure instead.
+#
+# Usage: log_command_failure <label> <exit_code> <command_string> [output_file]
+CMD_FAILURE_TAIL_LINES="${CMD_FAILURE_TAIL_LINES:-12}"
+CMD_FAILURE_TAIL_BYTES="${CMD_FAILURE_TAIL_BYTES:-1200}"
+log_command_failure() {
+  local label="$1" rc="$2" cmd="$3" outfile="${4:-}"
+  local tail_txt=""
+  if [ -n "$outfile" ] && [ -s "$outfile" ]; then
+    # Strip ANSI colour (wrangler emits it even when redirected) so the line
+    # stays greppable, drop blank lines, and flatten to a single log line. The
+    # byte cap keeps one runaway failure from flooding the error log.
+    tail_txt=$(tail -n "$CMD_FAILURE_TAIL_LINES" "$outfile" 2>/dev/null \
+      | sed -e $'s/\033\\[[0-9;]*[a-zA-Z]//g' -e 's/[[:space:]]\{1,\}$//' -e '/^[[:space:]]*$/d' \
+      | tr '\n' '|' \
+      | sed -e 's/|\{1,\}$//' \
+      | cut -c1-"$CMD_FAILURE_TAIL_BYTES") || tail_txt=""
+  fi
+  [ -n "$tail_txt" ] || tail_txt="(no output captured)"
+  log_error "$label | exit=$rc | cmd=$cmd | output_tail: $tail_txt"
+}
+
 # Consecutive-failure counter — launchd retries via the next scheduled run.
 # After $FAILURE_THRESHOLD consecutive failures, send one Telegram and reset.
 read_failure_count() {
@@ -163,6 +191,7 @@ _on_exit() {
     ${INPUT_JSONL_FILE:+"$INPUT_JSONL_FILE"} \
     ${HELPER_OUTPUT_FILE:+"$HELPER_OUTPUT_FILE"} \
     ${PARSE_RESULT_FILE:+"$PARSE_RESULT_FILE"} \
+    ${DEPLOY_OUTPUT_FILE:+"$DEPLOY_OUTPUT_FILE"} \
     2>/dev/null || true
   # Guard: any unexpected exit that didn't call record_failure must still trip
   # the counter so launchd's next run starts with an accurate failure count.
@@ -189,6 +218,42 @@ purge_local_caches() {
   done
 }
 
+# The publish toolchain gets upgraded underneath this script, so nothing here
+# pins a version. Resolve node and wrangler at runtime, record what actually ran
+# (so a future failure can be read against the version that produced it), and
+# fail loudly and namefully when a required binary is gone rather than letting
+# wrangler fail with something that looks unrelated.
+require_deploy_toolchain() {
+  local bin missing=""
+  for bin in node npx; do
+    command -v "$bin" >/dev/null 2>&1 || missing="$missing $bin"
+  done
+  if [ -n "$missing" ]; then
+    log_error "deploy toolchain incomplete: missing required binary(s):${missing} | PATH=$PATH"
+    return 1
+  fi
+  local node_v wrangler_v
+  node_v=$(node --version 2>/dev/null | tr -d '\r') || node_v=""
+  wrangler_v=$(npx --no-install wrangler --version 2>/dev/null | tr -d '\r' | tail -1) || wrangler_v=""
+  log "deploy toolchain: node ${node_v:-unresolved}, wrangler ${wrangler_v:-unresolved}"
+  return 0
+}
+
+# Cloudflare Pages rejects the whole deploy if any single file in the walked
+# directory exceeds 25 MiB, and it does that regardless of .assetsignore or
+# .wranglerignore (confirmed 2026-09-02: a planted 26 MiB file failed the deploy
+# even though its directory was not deployable content). purge_local_caches only
+# clears caches it knows by name, so name any other oversized file up front —
+# the deploy still gets to run, but the log now carries the culprit either way.
+warn_oversized_deploy_files() {
+  local found
+  found=$(find "$SITE_DIR" -type f -size +25M -not -path "$SITE_DIR/.git/*" 2>/dev/null \
+    | sed -e "s|^$SITE_DIR/||" | head -20 | tr '\n' ' ') || found=""
+  if [ -n "${found// /}" ]; then
+    log "WARN: files over the Cloudflare Pages 25 MiB per-file limit are present in the site dir: $found"
+  fi
+}
+
 # ── Direction C: DAILY is the cheap, zero-LLM path ─────────────────
 # Refresh external data + sensorium, commit, deploy. The page's client-side
 # time-of-day rotation provides the visible daily change. No claude session and
@@ -202,11 +267,28 @@ if [ "$PULSE_TYPE" = "daily" ]; then
   git add -A
   git commit -m "agent: daily data refresh | pulse: daily" >> "$LOG_FILE" 2>&1 || log "daily: nothing to commit"
   purge_local_caches
-  if ! npx wrangler pages deploy "$SITE_DIR" --project-name="andremacedo-com" --branch="main" --commit-dirty=true >> "$LOG_FILE" 2>&1; then
-    log_error "daily wrangler deploy failed"
+  if ! require_deploy_toolchain; then
     record_failure
     exit 1
   fi
+  warn_oversized_deploy_files
+  # Capture the deploy's own output instead of piping it straight into the
+  # shared agent log. The full transcript still lands in $LOG_FILE exactly as
+  # before; the difference is that on failure the tail is also available to
+  # log_command_failure, so build-errors.log names the cause by itself.
+  DAILY_DEPLOY_CMD=(npx wrangler pages deploy "$SITE_DIR" --project-name="andremacedo-com" --branch="main" --commit-dirty=true)
+  DEPLOY_OUTPUT_FILE=$(mktemp "${TMPDIR:-/tmp}/andremacedo-daily-deploy.XXXXXX")
+  daily_deploy_rc=0
+  "${DAILY_DEPLOY_CMD[@]}" >"$DEPLOY_OUTPUT_FILE" 2>&1 || daily_deploy_rc=$?
+  cat "$DEPLOY_OUTPUT_FILE" >> "$LOG_FILE" 2>/dev/null || true
+  if [ "$daily_deploy_rc" -ne 0 ]; then
+    log_command_failure "daily wrangler deploy failed" \
+      "$daily_deploy_rc" "${DAILY_DEPLOY_CMD[*]}" "$DEPLOY_OUTPUT_FILE"
+    rm -f "$DEPLOY_OUTPUT_FILE"
+    record_failure
+    exit 1
+  fi
+  rm -f "$DEPLOY_OUTPUT_FILE"
   tmo 30 git -C "$SITE_DIR" push origin HEAD 2>/dev/null || log "WARN: daily git push failed/timed out (non-fatal)"
   log "daily pulse complete (data refreshed + deployed; no LLM spend)"
   record_success
