@@ -360,15 +360,26 @@ def decide_gate(a, b, threshold, margin):
     return {"passed": False, "gate_rule": "failed"}
 
 
-def main():
+def build_parser():
+    """The judge's CLI contract, built where a test can inspect it."""
     ap = argparse.ArgumentParser()
     ap.add_argument("--desktop")
     ap.add_argument("--mobile")
     ap.add_argument("--rubric", default=DEFAULT_RUBRIC)
     ap.add_argument("--url", default=DEFAULT_URL)
-    ap.add_argument("--critic-a", default=CRITIC_A)
-    ap.add_argument("--critic-b", default=CRITIC_B)
-    ap.add_argument("--critic-b-fallback", default=CRITIC_B_FALLBACK)
+    # Default None, not the candidate head: it is the only way to tell an
+    # OPERATOR'S explicit choice from the shipped default. An explicit id that
+    # the proxy does not serve is refused outright — quietly judging with a
+    # different model than the one asked for is the exact defect this resolution
+    # exists to remove, and it does not become acceptable just because a human
+    # typed the dead id.
+    ap.add_argument("--critic-a", default=None,
+                    help=f"override critic A; default resolves {CRITIC_A_CANDIDATES}")
+    ap.add_argument("--critic-b", default=None,
+                    help=f"override critic B; default resolves {CRITIC_B_CANDIDATES}")
+    ap.add_argument("--critic-b-fallback", default=None,
+                    help="override critic B's fallback; default resolves "
+                         f"{CRITIC_B_FALLBACK_CANDIDATES}")
     ap.add_argument("--threshold", type=float, default=7.0)
     ap.add_argument("--margin", type=float, default=7.3,
                     help="a lone passing critic must clear this (> threshold) to "
@@ -384,6 +395,11 @@ def main():
                          "stdout, the arithmetic to stderr, and exit")
     ap.add_argument("--json-out")
     ap.add_argument("--quiet", action="store_true")
+    return ap
+
+
+def main():
+    ap = build_parser()
     args = ap.parse_args()
 
     # The wrapper bound and the per-critic budgets are reconciled HERE, from the
@@ -439,12 +455,21 @@ def main():
         emit({"verdict": "ERROR", "is_slop": True,
               "error": f"could not read the proxy's model list: {e}"}, 2)
 
+    # An explicitly requested id must exist. No fall-through, no substitution.
+    for flag, requested in (("--critic-a", args.critic_a),
+                            ("--critic-b", args.critic_b),
+                            ("--critic-b-fallback", args.critic_b_fallback)):
+        if requested and requested not in available:
+            emit({"verdict": "ERROR", "is_slop": True,
+                  "error": (f"{flag} {requested} is not served by the proxy; "
+                            "refusing to substitute a model that was not asked for")}, 2)
+
     critic_a_model = resolve_critic(CRITIC_A_CANDIDATES, available, args.critic_a)
     if critic_a_model is None:
         emit({"verdict": "ERROR", "is_slop": True,
               "error": ("critic A unobtainable: none of its candidate models are "
                         "served by the proxy — looked for "
-                        + ", ".join(dict.fromkeys([args.critic_a] + list(CRITIC_A_CANDIDATES))))}, 2)
+                        + ", ".join(CRITIC_A_CANDIDATES))}, 2)
     critic_b_model = resolve_critic(CRITIC_B_CANDIDATES, available, args.critic_b)
     critic_b_fallback_model = resolve_critic(CRITIC_B_FALLBACK_CANDIDATES, available,
                                              args.critic_b_fallback)

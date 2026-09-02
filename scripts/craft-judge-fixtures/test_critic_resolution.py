@@ -12,6 +12,7 @@ Fail-closed: exit 1 if ANY case fails. Runs entirely offline against synthetic
 model lists; it never calls the proxy.
 """
 import importlib.util
+import io
 import os
 import sys
 
@@ -53,11 +54,22 @@ def main():
     check("an explicit live request wins over the default order",
           got == "grok-4.3", f"resolved {got!r}")
 
-    # An explicit --critic-b that is DEAD does not become a silent substitution:
-    # it is tried first, found absent, and the declared order decides.
-    got = cj.resolve_critic(cj.CRITIC_B_CANDIDATES, LIVE, requested="grok-4-1-fast-reasoning")
-    check("an explicit dead request falls through to a live candidate",
-          got == cj.CRITIC_B_CANDIDATES[0], f"resolved {got!r}")
+    # An explicit --critic-b that is DEAD is refused by main() before resolution
+    # ever runs, so the resolver is only ever handed a live explicit id. What is
+    # asserted here is the argparse contract that makes that check possible: the
+    # flags default to None, so an explicit choice is distinguishable from the
+    # shipped default. Without this, a dead operator-supplied id would silently
+    # fall through to a model nobody asked for.
+    defaults = cj.build_parser().parse_args(["--desktop", "x.jpg"])
+    check("the critic flags default to None so an explicit choice is detectable",
+          defaults.critic_a is None and defaults.critic_b is None
+          and defaults.critic_b_fallback is None,
+          f"got a={defaults.critic_a!r} b={defaults.critic_b!r} "
+          f"fallback={defaults.critic_b_fallback!r}")
+
+    explicit = cj.build_parser().parse_args(["--desktop", "x.jpg", "--critic-b", "grok-4.3"])
+    check("an explicitly passed critic id survives parsing as itself",
+          explicit.critic_b == "grok-4.3", f"got {explicit.critic_b!r}")
 
     # Nothing live -> None, so the caller can fail closed and say what it wanted.
     got = cj.resolve_critic(cj.CRITIC_B_CANDIDATES, {"gemini-3.5-flash"})
