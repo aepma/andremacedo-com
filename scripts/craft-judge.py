@@ -6,9 +6,17 @@ agent's (untrusted) self-reported craft_check. Two INDEPENDENT critics from
 DIFFERENT model families judge the same rendered screenshot(s) against the same
 rubric — the point is uncorrelated blind spots, not raw capability:
 
-  Critic A = claude-opus-4-8-oauth
-  Critic B = grok-4-1-fast-reasoning   (different family)
-             fallback gemini-3.5-flash ONLY if B is slow/flaky (never gemini-2.5-pro)
+  Critic A = the claude-opus family
+  Critic B = the grok family           (different family, by design)
+             fallback to a gemini model ONLY if B is slow/flaky (never
+             gemini-2.5-pro, deprecated)
+
+Neither critic's exact model id is pinned in this file. Ids are retired under it
+without warning — grok-4-1-fast-reasoning was, and until 2026-09-02 the fallback
+silently absorbed that and let a model nobody chose judge the site. Each critic
+declares an ordered candidate list and the id is resolved at RUNTIME against the
+proxy's live model list. Nothing resolves means the judge fails closed and names
+what it looked for.
 
 Combination is fail-closed with a MARGIN RULE: SHIP if BOTH critics return
 not-slop AND each clears the base threshold (both_passed), OR if exactly ONE
@@ -20,8 +28,8 @@ runner gate reverts the working tree and keeps the previous deploy live,
 exactly like a contrast failure.
 
 Both judge the SCREENSHOT — never the agent's stated intentions. Model IDs are
-verified against the live proxy (curl localhost:4000/v1/models) before wiring,
-never assumed from memory.
+verified against the live proxy (GET /v1/models) on every run, never assumed from
+memory and never assumed from this file.
 
 The two critics run CONCURRENTLY: they are independent by construction, and run
 serially their budgets summed past any sane wrapper bound. The wall-clock bound a
@@ -75,9 +83,46 @@ def proxy_api_key():
     except OSError:
         pass
     return os.environ.get("LITELLM_MASTER_KEY")
-CRITIC_A = "claude-opus-4-8-oauth"
-CRITIC_B = "grok-4-1-fast-reasoning"
-CRITIC_B_FALLBACK = "gemini-3.5-flash"          # never gemini-2.5-pro (deprecated)
+# ── critic wiring ────────────────────────────────────────────────────
+# Model ids are NOT stable infrastructure. They are retired under this file
+# without warning, and a retired id does not announce itself: the proxy answers
+# HTTP 400 "Invalid model name", the judge's fallback catches the exception, and
+# a different model quietly judges the site while the record still names the
+# configured one.
+#
+# That is not hypothetical. Measured 2026-09-02 against the live proxy,
+# grok-4-1-fast-reasoning — critic B as configured since this file was written —
+# no longer exists. Every craft run since had been judged by the gemini fallback,
+# and gemini-3.5-flash scores the known-good fixture 6.0 against a 7.0 threshold,
+# so the gate could not pass on craft grounds at all. The two-independent-families
+# property the judge claims in its own docstring was silently false.
+#
+# So critic ids are resolved at RUNTIME against the proxy's live model list
+# (resolve_critic), never trusted from this file. Each critic declares an ORDERED
+# candidate list, most-preferred first, and the first id the proxy actually
+# serves wins. When no candidate resolves, the judge fails CLOSED and says which
+# ids it looked for — it never substitutes a model nobody chose.
+CRITIC_A_CANDIDATES = ("claude-opus-4-8-oauth", "claude-opus-5-oauth",
+                       "claude-opus-4-7-oauth", "claude-opus-4-7")
+# Critic B must stay a DIFFERENT model family from critic A: the point of the
+# second critic is uncorrelated blind spots, not more capability. The retired id
+# was a "fast" grok variant, and grok-4.20-fast is its closest live analogue —
+# measured 5.8s and 8.0 on the known-good fixture on 2026-09-02, where grok-4.6
+# did not answer inside 90s.
+CRITIC_B_CANDIDATES = ("grok-4.20-fast", "grok-4.5", "grok-4.3", "grok-4.6")
+# Last resort only, when no grok resolves at all: a third family, still not
+# critic A's. Never gemini-2.5-pro (deprecated).
+CRITIC_B_FALLBACK_CANDIDATES = ("gemini-3.6-flash", "gemini-3.5-flash")
+
+# Kept as the argparse defaults so --critic-a/--critic-b still name one model
+# each; the resolver replaces an id that the proxy does not serve.
+CRITIC_A = CRITIC_A_CANDIDATES[0]
+CRITIC_B = CRITIC_B_CANDIDATES[0]
+CRITIC_B_FALLBACK = CRITIC_B_FALLBACK_CANDIDATES[0]
+
+# The model-list GET. It is one small request and it lives inside
+# CRITIC_OVERHEAD_SECONDS, so it does not widen the wall budget.
+MODEL_LIST_TIMEOUT = 10.0
 HERE = os.path.dirname(os.path.abspath(__file__))
 DEFAULT_RUBRIC = os.path.join(HERE, "craft-rubric.md")
 
@@ -95,6 +140,49 @@ SYSTEM = (
     "aesthetic move a templated generator would not make. Output JSON only — no "
     "prose before or after, no code fences."
 )
+
+
+def proxy_models(url=DEFAULT_URL, timeout=MODEL_LIST_TIMEOUT):
+    """The set of model ids the proxy serves RIGHT NOW.
+
+    Read at runtime, never assumed from this file: the ids in it are retired
+    under us (grok-4-1-fast-reasoning was, before 2026-09-02) and a stale id
+    fails as a silent substitution rather than as an error.
+
+    Raises on any failure. The caller fails closed on that: an unreadable model
+    list is not permission to guess which critic is live.
+    """
+    assert timeout > 0, "model-list timeout must be positive"
+    endpoint = url.split("/v1/")[0].rstrip("/") + "/v1/models"
+    headers = {}
+    key = proxy_api_key()
+    if key:
+        headers["Authorization"] = f"Bearer {key}"
+    req = urllib.request.Request(endpoint, headers=headers)
+    with urllib.request.urlopen(req, timeout=timeout) as r:
+        body = json.loads(r.read().decode("utf-8"))
+    ids = {m.get("id") for m in (body.get("data") or []) if m.get("id")}
+    if not ids:
+        raise RuntimeError(f"{endpoint} returned no model ids")
+    return ids
+
+
+def resolve_critic(candidates, available, requested=None):
+    """The first candidate the proxy actually serves, or None.
+
+    `requested` is an explicitly passed --critic-* id. An explicit request is
+    honoured when it is live, and is otherwise treated as the head of the
+    candidate list rather than silently discarded: the operator asked for it, so
+    it is tried first, but a dead id never becomes a silent substitution.
+    """
+    assert candidates, "a critic must declare at least one candidate model"
+    ordered = list(candidates)
+    if requested:
+        ordered = [requested] + [c for c in ordered if c != requested]
+    for model in ordered:
+        if model in available:
+            return model
+    return None
 
 
 def wall_budget_seconds(timeout_a, timeout_b, retries, overhead=CRITIC_OVERHEAD_SECONDS):
@@ -339,6 +427,56 @@ def main():
 
     content = build_user_content(rubric, args.desktop, args.mobile)
 
+    # Resolve every critic against the proxy's LIVE model list before spending a
+    # single call. A retired id used to surface as an exception inside the critic
+    # worker, where critic B's fallback swallowed it and quietly substituted
+    # another model for the rest of the run; critic A had no fallback and simply
+    # burned its whole budget failing. Resolving up front makes a dead id a named,
+    # immediate, fail-closed error instead.
+    try:
+        available = proxy_models(args.url)
+    except Exception as e:  # noqa: BLE001 — an unreadable model list is fail-closed
+        emit({"verdict": "ERROR", "is_slop": True,
+              "error": f"could not read the proxy's model list: {e}"}, 2)
+
+    critic_a_model = resolve_critic(CRITIC_A_CANDIDATES, available, args.critic_a)
+    if critic_a_model is None:
+        emit({"verdict": "ERROR", "is_slop": True,
+              "error": ("critic A unobtainable: none of its candidate models are "
+                        "served by the proxy — looked for "
+                        + ", ".join(dict.fromkeys([args.critic_a] + list(CRITIC_A_CANDIDATES))))}, 2)
+    critic_b_model = resolve_critic(CRITIC_B_CANDIDATES, available, args.critic_b)
+    critic_b_fallback_model = resolve_critic(CRITIC_B_FALLBACK_CANDIDATES, available,
+                                             args.critic_b_fallback)
+    if critic_b_model is None and critic_b_fallback_model is None:
+        emit({"verdict": "ERROR", "is_slop": True,
+              "error": ("critic B unobtainable: neither its candidates nor its "
+                        "fallbacks are served by the proxy — looked for "
+                        + ", ".join(dict.fromkeys(list(CRITIC_B_CANDIDATES)
+                                                  + list(CRITIC_B_FALLBACK_CANDIDATES))))}, 2)
+    critic_b_degraded = None
+    if critic_b_model is None:
+        # No grok family member is live. The fallback still judges, but this is a
+        # degraded configuration, not the designed one, and it is recorded as such
+        # rather than passing for the model the config names.
+        critic_b_degraded = ("no candidate in critic B's designed family is served "
+                             "by the proxy (" + ", ".join(CRITIC_B_CANDIDATES)
+                             + "); judged by the fallback " + critic_b_fallback_model)
+        critic_b_model = critic_b_fallback_model
+        critic_b_fallback_model = None
+    # Two critics from the SAME model are one critic with extra steps; the whole
+    # design is uncorrelated blind spots.
+    if critic_b_model == critic_a_model:
+        emit({"verdict": "ERROR", "is_slop": True,
+              "error": (f"critic A and critic B both resolved to {critic_a_model}; "
+                        "two critics from one model cannot be independent")}, 2)
+    args.critic_a = critic_a_model
+    args.critic_b = critic_b_model
+    args.critic_b_fallback = critic_b_fallback_model
+    if not args.quiet:
+        print(f"critics resolved: A={args.critic_a} B={args.critic_b} "
+              f"fallback={args.critic_b_fallback}", file=sys.stderr)
+
     # The two critics are INDEPENDENT — that is the whole point of using two
     # model families — so they run concurrently. Serially their budgets summed to
     # 660s worst case against a 240s wrapper bound; concurrently the pair costs
@@ -349,13 +487,19 @@ def main():
     def run_critic_a():
         return judge_one(args.url, args.critic_a, content, args.timeout_a, args.retries)
 
-    # Critic B — grok; fall back to gemini-3.5-flash ONLY if grok is slow/flaky.
+    # Critic B — grok; fall back to another family ONLY if grok is slow/flaky.
     # The fallback runs INSIDE this worker so the pair stays bounded by one path.
+    # Both ids were resolved against the live model list above, so reaching the
+    # fallback now means the model was there and did not answer — a real
+    # flakiness signal — rather than an id that never existed.
     def run_critic_b():
         try:
             v = judge_one(args.url, args.critic_b, content, args.timeout_b, args.retries)
             return v, args.critic_b, None
         except Exception as e_b:  # noqa: BLE001
+            if not args.critic_b_fallback:
+                raise RuntimeError(f"{args.critic_b} -> {e_b}; "
+                                   "no live fallback model to try") from e_b
             try:
                 v = judge_one(args.url, args.critic_b_fallback, content,
                               args.timeout_a, args.retries)
@@ -429,9 +573,14 @@ def main():
         "reason": reason,
         "critics": {
             "A": {"model": a_model, "passed": a_pass, **a},
-            "B": {"model": b_model, "fell_back_from": b_fell_back_from, "passed": b_pass, **b},
+            "B": {"model": b_model, "fell_back_from": b_fell_back_from,
+                  "passed": b_pass, **b},
         },
     }
+    if critic_b_degraded:
+        # A verdict reached without the designed second family is still a verdict,
+        # but it must never read as the designed configuration having passed.
+        verdict["critic_b_degraded"] = critic_b_degraded
     if gate_rule == "margin_override":
         # Audit trail: make it obvious to a human why a slop-flagged page shipped.
         verdict["margin_override"] = {
