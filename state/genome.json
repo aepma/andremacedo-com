@@ -1,15 +1,15 @@
 {
-  "generation": 240,
+  "generation": 241,
   "epoch": "entrainment",
   "epoch_started": "2026-08-16",
   "traits": {
     "color": {
       "accent_base": "#2c3bbd",
-      "accent_dawn": "#7e8cf4",
-      "accent_morning": "#5a63d8",
+      "accent_dawn": "#8b97e6",
+      "accent_morning": "#6b78d8",
       "accent_afternoon": "#2c3bbd",
-      "accent_evening": "#2433a8",
-      "accent_night": "#1b2787",
+      "accent_evening": "#22309a",
+      "accent_night": "#1a2578",
       "bg": "#0a0d18",
       "fg": "#e6e9f2",
       "grain_opacity": "0.08",
@@ -159,6 +159,7 @@
         "experiments/123.html",
         "experiments/124.html",
         "experiments/125.html",
+        "experiments/126.html",
         "index-old.html",
         "scripts/craft-judge-fixtures/good.html",
         "scripts/craft-judge-fixtures/slop.html",
@@ -297,7 +298,7 @@
       "perf_law": "first paint under 4s (INV-8 page-weight proxy), interaction fluid on mobile, validate-build perf gates pass; scene ambition that fails the gates does not ship"
     },
     "content": {
-      "mood": "gathering",
+      "mood": "condensing",
       "obsession": "entrainment — how independent oscillators fall into step: Huygens' pendulum clocks on a shared wall, fireflies flashing as one over a mangrove river, the pacemaker cells of a heart voting on a beat; the sharp coupling threshold above which agreement condenses out of noise with no conductor",
       "thought_pools": {
         "dawn": 10,
@@ -310,17 +311,6 @@
     }
   },
   "fitness_log": [
-    {
-      "gen": 221,
-      "coherence": 7,
-      "novelty": 7,
-      "identity": 8,
-      "tension": 7,
-      "awe": 7,
-      "perceptibility": 6,
-      "note": "The crystalline hero, iris scene and The Lattice archive read clean and cool above the fold. But below the fold the rock has drifted from the genome: ",
-      "total": 7.0
-    },
     {
       "gen": 222,
       "coherence": 8,
@@ -529,28 +519,20 @@
       "perceptibility": 8,
       "note": "Epoch XI holds its ivory/ink/ultramarine chassis exactly (third generation) and deepens the idea instead of the surface: the crowd learns to split. Th",
       "total": 8.3
+    },
+    {
+      "gen": 241,
+      "coherence": 9,
+      "novelty": 8,
+      "identity": 9,
+      "tension": 9,
+      "awe": 8,
+      "perceptibility": 9,
+      "note": "Epoch XI holds its ivory/ink/ultramarine chassis exactly (fourth generation) and deepens the idea inside it: the census grows a sixth case, the chimer",
+      "total": 8.7
     }
   ],
   "mutation_log": [
-    {
-      "gen": 221,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "color.accent",
-        "atmosphere.css_rules",
-        "interaction.type-'anneal'-anywhere-—-the-l",
-        "section.memory-plates",
-        "section.delete.plate-voices",
-        "section.overlay-bottom",
-        "scene.config"
-      ],
-      "kills": [
-        "section:plate-voices",
-        "thought:morning[9]"
-      ],
-      "timestamp": "2026-06-24T08:04:36Z"
-    },
     {
       "gen": 222,
       "mutations": [
@@ -843,51 +825,26 @@
       ],
       "strategy": "Hold the Epoch XI identity — warm ivory paper, ink serif, one ultramarine accent, left-anchored editorial hero over the live Kuramoto ring — and deepen the narr",
       "timestamp": "2026-08-31T04:34:21Z"
+    },
+    {
+      "gen": 241,
+      "mutations": [
+        "regenerate"
+      ],
+      "kills": [
+        "type-'seed'-anywhere-—-nucleat",
+        "type-'facet'-anywhere-—-the-cr",
+        "type-'slip'-anywhere-—-a-fault",
+        "type-'anneal'-anywhere-—-the-l",
+        "19",
+        "afternoon:9",
+        "night:7"
+      ],
+      "strategy": "Hold Epoch XI's editorial chassis — warm ivory paper, ink body, one dominant ultramarine — and deepen the obsession rather than the surface: the crowd learns to",
+      "timestamp": "2026-09-03T09:01:33Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "thought",
-      "value": "night:1",
-      "died_gen": 232,
-      "epitaph": "A second 'structural color cannot fade / fossil flashes after 50M years' line duplicated afternoon's opal-cannot-fade thought; replaced with the 'longer look at the first rung' reflection."
-    },
-    {
-      "type": "epoch",
-      "value": "Epoch 8: structural color — hue that comes not from pigment but from the interference of light in microscopic structure: the oil film, the soap bubble, the morpho wing, the abalone shell",
-      "died_gen": 233,
-      "epitaph": "The lineage is process made visible: crystallization asked how order forms in matter, structural color asked what that order does to light. Resonance is the next honest question — what order does when it is struck: a standing wave is a crystal in time, holding its shape only by moving, and its nodal lines are growth-zones of stillness. It is a genuine break, not a remix: from static microstructure to dynamics, from optics to acoustics, and it promotes the sound organ from accompaniment to subject for the first time since typography-as-music — but now the sound draws its own figure instead of being scored."
-    },
-    {
-      "type": "interaction",
-      "value": "type-'seed'-anywhere-—-nucleat",
-      "died_gen": 233,
-      "epitaph": "Crystallization leftover; the plate does not nucleate, it resonates."
-    },
-    {
-      "type": "interaction",
-      "value": "type-'facet'-anywhere-—-the-cr",
-      "died_gen": 233,
-      "epitaph": "Epoch VIII's facet gesture died with the lattice it cut."
-    },
-    {
-      "type": "interaction",
-      "value": "type-'slip'-anywhere-—-a-fault",
-      "died_gen": 233,
-      "epitaph": "A dislocation word on a page with no lattice left to slip."
-    },
-    {
-      "type": "interaction",
-      "value": "type-'anneal'-anywhere-—-the-l",
-      "died_gen": 233,
-      "epitaph": "Annealing was heat for strained grains; this plate answers only to the bow."
-    },
-    {
-      "type": "secret",
-      "value": 19,
-      "died_gen": 233,
-      "epitaph": "Over capacity (21/20) — the oldest structural-color whisper goes with its epoch."
-    },
     {
       "type": "secret",
       "value": 18,
@@ -1145,6 +1102,48 @@
       "value": "morning:8",
       "died_gen": 240,
       "epitaph": "A morning fragment that had stopped surprising; pruned to keep the pool at carrying capacity."
+    },
+    {
+      "type": "interaction",
+      "value": "type-'seed'-anywhere-—-nucleat",
+      "died_gen": 241,
+      "epitaph": "Crystallization-era typed word whose section died with epoch VIII; pruning dead bookkeeping two epochs later."
+    },
+    {
+      "type": "interaction",
+      "value": "type-'facet'-anywhere-—-the-cr",
+      "died_gen": 241,
+      "epitaph": "Facets belonged to the crystal; the crystal is buried. The word no longer reaches anything."
+    },
+    {
+      "type": "interaction",
+      "value": "type-'slip'-anywhere-—-a-fault",
+      "died_gen": 241,
+      "epitaph": "Slip was a dislocation gesture; the defect thread closed with the lattice. Dead weight in the genome."
+    },
+    {
+      "type": "interaction",
+      "value": "type-'anneal'-anywhere-—-the-l",
+      "died_gen": 241,
+      "epitaph": "Annealing belonged to grains under heat; epoch VIII is three epochs gone. Released."
+    },
+    {
+      "type": "secret",
+      "value": "19",
+      "died_gen": 241,
+      "epitaph": "Over capacity at 21/20 — an older whisper buried so the common-time secrets keep their hush."
+    },
+    {
+      "type": "thought",
+      "value": "afternoon:9",
+      "died_gen": 241,
+      "epitaph": "The weakest afternoon fragment, still circling the resonance law two epochs after its burial; the pool keeps its cap."
+    },
+    {
+      "type": "thought",
+      "value": "night:7",
+      "died_gen": 241,
+      "epitaph": "A night fragment that had stopped surprising; pruned to keep the pool at carrying capacity."
     }
   ],
   "carrying_capacity": {
@@ -1163,11 +1162,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 231,
-      "base": "#82325c",
-      "family": "violet"
-    },
     {
       "gen": 232,
       "base": "#82325c",
@@ -1210,6 +1204,11 @@
     },
     {
       "gen": 240,
+      "base": "#2c3bbd",
+      "family": "cyan"
+    },
+    {
+      "gen": 241,
       "base": "#2c3bbd",
       "family": "cyan"
     }

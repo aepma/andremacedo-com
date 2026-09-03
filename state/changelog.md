@@ -784,3 +784,7 @@ gen 239 weekly: deepen Epoch XI entrainment — the crowd keeps a memory (live r
 ## gen 240 (weekly, 2026-08-31)
 gen 240 weekly: deepen Epoch XI entrainment — the crowd learns to split (chimera census case + typed 'split'), link experiment 124 Chimera, ship experiment 125 Firefly River, mobile hero into document flow
 [2026-08-31T04:38:31Z] [gen 240] craft-fail: both critics cleared
+
+## gen 241 (weekly, 2026-09-03)
+gen 241 weekly: deepen Epoch XI entrainment — the crowd learns to split (chimera census case + typed 'split'), repair the archive to 126 (Tongues featured), hero refreshed
+[2026-09-03T09:09:44Z] [gen 241] craft-fail: critic A (claude-opus-4-8-oauth) unobtainable: claude-opus-4-8-oauth: proxy call failed after 2 attempt(s): timed out
