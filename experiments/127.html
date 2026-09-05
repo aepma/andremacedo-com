@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>127 · Pacemaker — andremacedo.com</title>
+<meta name="description" content="Experiment 127: the sinoatrial node as a plate of pulse-coupled cells. Each charges, fires, and pushes its neighbours; the fastest cell takes the beat without being elected. Tap to plant a faster one.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#15120c;--fg:#efe9d8;--dim:#98917c;--accent:#93a1f6;}
+  html,body{margin:0;height:100%;background:var(--bg);overflow:hidden;}
+  canvas{position:fixed;inset:0;width:100%;height:100%;display:block;touch-action:none;cursor:crosshair;}
+  #info{
+    position:fixed;top:1.1rem;left:1.1rem;max-width:23rem;opacity:0.85;z-index:5;
+    font-family:'JetBrains Mono',monospace;font-size:0.7rem;line-height:1.7;
+    color:var(--fg);pointer-events:none;
+    text-shadow:0 0 8px rgba(0,0,0,0.8),0 0 20px rgba(0,0,0,0.5);
+  }
+  #info h1{
+    font-family:'Cormorant Garamond',serif;font-weight:300;font-size:1.8rem;
+    margin:0 0 0.4rem;color:var(--fg);
+    text-shadow:0 0 8px rgba(0,0,0,0.8),0 0 20px rgba(0,0,0,0.5);
+  }
+  #info b{color:var(--accent);}
+  #back{
+    position:fixed;top:1.1rem;right:1.1rem;z-index:6;
+    font-family:'JetBrains Mono',monospace;font-size:0.7rem;letter-spacing:0.1em;
+    color:var(--fg);text-decoration:none;border-bottom:1px solid var(--accent);
+    padding-bottom:2px;opacity:0.85;
+    text-shadow:0 0 8px rgba(0,0,0,0.8),0 0 20px rgba(0,0,0,0.5);
+  }
+  #back:hover{color:var(--accent);}
+  #back:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+  #ui{
+    position:fixed;left:1.1rem;bottom:1rem;z-index:5;
+    font-family:'JetBrains Mono',monospace;font-size:0.7rem;line-height:1.7;
+    color:var(--fg);opacity:0.9;
+    text-shadow:0 0 8px rgba(0,0,0,0.8),0 0 20px rgba(0,0,0,0.5);
+  }
+  #ui b{color:var(--accent);}
+  #ui button{
+    font:inherit;color:var(--accent);background:none;border:none;
+    border-bottom:1px solid rgba(147,161,246,0.5);padding:0 1px 1px;cursor:pointer;
+    text-shadow:inherit;
+  }
+  #ui button:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+  @media(max-width:600px){
+    #info{max-width:calc(100vw - 5.5rem);font-size:0.62rem;}
+    #info h1{font-size:1.3rem;}
+    #ui{font-size:0.62rem;bottom:0.8rem;max-width:calc(100vw - 2.2rem);}
+  }
+</style>
+</head>
+<body>
+<canvas id="c" aria-label="A plate of pulse-coupled pacemaker cells — tap to plant a faster cell and move the origin of the beat"></canvas>
+<a id="back" href="/">&larr; andremacedo.com</a>
+<div id="info">
+  <h1>127 · Pacemaker</h1>
+  <p>The sinoatrial node, rebuilt: a thousand cells, each charging toward a threshold at its own rate, firing, emptying, and shoving its neighbours a little further up their slope. Nobody is elected. The fastest cell simply fires first, and the wave it starts resets everyone before their own time comes — so the whole plate beats at the tempo of its quickest voice.</p>
+  <p><b>tap</b> to plant a faster cell where you tap — an ectopic focus — and watch the wave change its origin · <b>f</b> or <b>fibrillate</b> scatters every cell and the vote is recounted · the trace along the foot is the plate’s ECG · the first tap unlocks a soft beat</p>
+</div>
+<div id="ui"><span id="read">charging</span> · <button type="button" id="fib" aria-label="Fibrillate — scatter every cell">fibrillate</button></div>
+<script>
+(function(){
+  var cv=document.getElementById('c'),ctx=cv.getContext('2d');
+  var readEl=document.getElementById('read');
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+  var W=0,H=0,GX=0,GY=0,NC=0,cw=0,ch=0,PLOT=64;
+  var x,rate,flash,refr,lastFire;
+  var EPS=0.22,T=1.05,REF=0.16,TAU=Math.PI*2;
+  var leader=0,leaderPer=0,sync=0,waves=0,planted=0,leadFires=[];
+  function alloc(){
+    NC=GX*GY;
+    x=new Float32Array(NC);rate=new Float32Array(NC);flash=new Float32Array(NC);refr=new Float32Array(NC);lastFire=new Float32Array(NC);
+    for(var i=0;i<NC;i++){x[i]=Math.random();rate[i]=0.86+Math.random()*0.10;lastFire[i]=-9;}
+    leader=Math.floor(Math.random()*NC);rate[leader]=1.0;waves=0;planted=0;leadFires=[];
+  }
+  function size(){
+    W=window.innerWidth;H=window.innerHeight;
+    var dpr=Math.min(window.devicePixelRatio||1,2);
+    cv.width=Math.round(W*dpr);cv.height=Math.round(H*dpr);
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    var cell=W<600?13:16;
+    var gx=Math.max(12,Math.floor(W/cell)),gy=Math.max(8,Math.floor((H-PLOT)/cell));
+    if(gx!==GX||gy!==GY){GX=gx;GY=gy;alloc();}
+    cw=W/GX;ch=(H-PLOT)/GY;
+  }
+  size();
+  window.addEventListener('resize',size);
+
+  var AC=null,armed=false;
+  function audio(){if(!AC){try{AC=new (window.AudioContext||window.webkitAudioContext)();}catch(e){}}return AC;}
+  function thump(){
+    var ac=audio();if(!ac)return;
+    try{
+      var o=ac.createOscillator(),g=ac.createGain();
+      o.type='sine';var t=ac.currentTime;
+      o.frequency.setValueAtTime(92,t);o.frequency.exponentialRampToValueAtTime(48,t+0.14);
+      g.gain.setValueAtTime(0.0001,t);
+      g.gain.exponentialRampToValueAtTime(0.2,t+0.008);
+      g.gain.exponentialRampToValueAtTime(0.0001,t+0.24);
+      o.connect(g);g.connect(ac.destination);o.start(t);o.stop(t+0.28);
+    }catch(e){}
+  }
+
+  var queue=[],ecg=new Float32Array(600),ei=0;
+  function fire(i,tnow){
+    x[i]=0;refr[i]=REF;flash[i]=1;lastFire[i]=tnow;
+    var cx=i%GX,cy=(i-cx)/GX;
+    var nb=[[cx-1,cy],[cx+1,cy],[cx,cy-1],[cx,cy+1],[cx-1,cy-1],[cx+1,cy+1],[cx-1,cy+1],[cx+1,cy-1]];
+    for(var k=0;k<8;k++){
+      var nx=nb[k][0],ny=nb[k][1];
+      if(nx<0||ny<0||nx>=GX||ny>=GY)continue;
+      var j=ny*GX+nx;
+      if(refr[j]>0)continue;
+      x[j]+=EPS*(k<4?1:0.7);
+      if(x[j]>=1)queue.push(j);
+    }
+  }
+  function fibrillate(){for(var i=0;i<NC;i++){x[i]=Math.random();refr[i]=0;}waves=0;leadFires=[];}
+
+  var last=performance.now(),t=0,lastRead=0,lastE=0;
+  function frame(now){
+    var dt=Math.min((now-last)/1000,0.04);last=now;t+=dt;
+    var i,firedNow=0;
+    for(i=0;i<NC;i++){
+      if(refr[i]>0)refr[i]-=dt;else x[i]+=rate[i]*dt/T;
+      flash[i]*=Math.exp(-dt*6);
+    }
+    queue.length=0;
+    for(i=0;i<NC;i++){if(x[i]>=1&&refr[i]<=0)queue.push(i);}
+    var guard=0;
+    while(queue.length&&guard++<NC*3){
+      var q=queue.shift();
+      if(refr[q]>0)continue;
+      fire(q,t);firedNow++;
+      if(q===leader){
+        leadFires.push(t);if(leadFires.length>3)leadFires.shift();
+        if(leadFires.length>1)leaderPer=leadFires[leadFires.length-1]-leadFires[leadFires.length-2];
+        var c=0;for(var m=0;m<NC;m++){if(t-lastFire[m]<0.3)c++;}
+        sync=c/NC;waves++;
+        if(armed)thump();
+      }
+    }
+    if(now-lastE>16){lastE=now;ecg[ei]=firedNow/NC;ei=(ei+1)%ecg.length;}
+
+    ctx.fillStyle='#15120c';ctx.fillRect(0,0,W,H);
+    var pad=Math.max(1,Math.min(cw,ch)*0.22);
+    for(i=0;i<NC;i++){
+      var cx=i%GX,cy=(i-cx)/GX;
+      var a=0.06+0.16*x[i];
+      ctx.fillStyle='rgba(239,233,216,'+a.toFixed(3)+')';
+      ctx.fillRect(cx*cw+pad,cy*ch+pad,cw-pad*2,ch-pad*2);
+      var f=flash[i];
+      if(f>0.02){ctx.fillStyle='rgba(147,161,246,'+(0.95*f).toFixed(3)+')';ctx.fillRect(cx*cw+pad,cy*ch+pad,cw-pad*2,ch-pad*2);}
+    }
+    var lx=leader%GX,ly=(leader-lx)/GX;
+    ctx.strokeStyle='rgba(239,233,216,0.75)';ctx.lineWidth=1;
+    ctx.beginPath();ctx.arc(lx*cw+cw/2,ly*ch+ch/2,Math.min(cw,ch)*0.95,0,TAU);ctx.stroke();
+
+    /* the ECG — fraction of the plate firing, per frame, sixteen ms a step */
+    var y0=H-14;
+    ctx.strokeStyle='rgba(239,233,216,0.18)';ctx.lineWidth=1;
+    ctx.beginPath();ctx.moveTo(0,y0);ctx.lineTo(W,y0);ctx.stroke();
+    ctx.strokeStyle='rgba(147,161,246,0.85)';ctx.lineWidth=1.4;
+    ctx.beginPath();
+    var L=ecg.length;
+    for(var j=0;j<L;j++){
+      var idx=(ei+j)%L;
+      var px=W*j/(L-1),py=y0-Math.min(1,ecg[idx]*4)*(PLOT-18);
+      if(j===0)ctx.moveTo(px,py);else ctx.lineTo(px,py);
+    }
+    ctx.stroke();
+    ctx.fillStyle='rgba(239,233,216,0.5)';ctx.font='10px "JetBrains Mono",monospace';
+    ctx.fillText('ecg — fraction of the plate firing',8,y0-PLOT+18);
+
+    if(now-lastRead>250&&readEl){
+      lastRead=now;
+      var bpm=leaderPer>0?Math.round(60/leaderPer):0;
+      readEl.innerHTML=(bpm?'<b>'+bpm+' bpm</b> — ':'charging — ')+(waves<2?'the first wave has not left the fastest cell':(sync>0.9?'one beat, <b>'+Math.round(sync*100)+'%</b> of the plate inside the leader’s wave':sync>0.5?'gathering — <b>'+Math.round(sync*100)+'%</b> in step':'scattered — <b>'+Math.round(sync*100)+'%</b> in step; the fastest cell is recruiting'))+(planted?' · origin moved '+planted+'×':'')+' · '+NC+' cells';
+    }
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+
+  function plant(cx,cy){
+    var gx=Math.floor(cx/cw),gy=Math.floor(cy/ch);
+    if(gx<0||gy<0||gx>=GX||gy>=GY)return;
+    var j=gy*GX+gx,mx=0;
+    for(var i=0;i<NC;i++)if(rate[i]>mx)mx=rate[i];
+    rate[j]=Math.min(1.7,mx*1.07);leader=j;planted++;leadFires=[];x[j]=1;
+    armed=true;audio();thump();
+  }
+  cv.addEventListener('pointerdown',function(e){plant(e.clientX,e.clientY);});
+  document.getElementById('fib').addEventListener('click',fibrillate);
+  var typed='';
+  document.addEventListener('keydown',function(e){
+    if(e.metaKey||e.ctrlKey||e.altKey)return;
+    if(e.key==='f'&&e.target===document.body){fibrillate();}
+    if(!/^[a-z]$/i.test(e.key))return;
+    typed=(typed+e.key.toLowerCase()).slice(-12);
+    if(typed.endsWith('fibrillate')){fibrillate();typed='';}
+  });
+})();
+</script>
+</body>
+</html>

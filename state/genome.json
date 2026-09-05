@@ -1,5 +1,5 @@
 {
-  "generation": 241,
+  "generation": 242,
   "epoch": "entrainment",
   "epoch_started": "2026-08-16",
   "traits": {
@@ -160,6 +160,7 @@
         "experiments/124.html",
         "experiments/125.html",
         "experiments/126.html",
+        "experiments/127.html",
         "index-old.html",
         "scripts/craft-judge-fixtures/good.html",
         "scripts/craft-judge-fixtures/slop.html",
@@ -311,17 +312,6 @@
     }
   },
   "fitness_log": [
-    {
-      "gen": 222,
-      "coherence": 8,
-      "novelty": 7,
-      "identity": 8,
-      "tension": 6,
-      "awe": 7,
-      "perceptibility": 8,
-      "note": "Crystalline hero, iris scene and The Lattice read clean and cool above the fold on both viewports. The drag below the fold was the gen-188 sediment tr",
-      "total": 7.3
-    },
     {
       "gen": 223,
       "coherence": 8,
@@ -530,25 +520,20 @@
       "perceptibility": 9,
       "note": "Epoch XI holds its ivory/ink/ultramarine chassis exactly (fourth generation) and deepens the idea inside it: the census grows a sixth case, the chimer",
       "total": 8.7
+    },
+    {
+      "gen": 242,
+      "coherence": 9,
+      "novelty": 8,
+      "identity": 9,
+      "tension": 9,
+      "awe": 8,
+      "perceptibility": 9,
+      "note": "Gen 242 weekly, Epoch XI entrainment at 20 days. The rock was still gen 239 (gens 240/241 never landed: a critic could not be reached), so first the a",
+      "total": 8.7
     }
   ],
   "mutation_log": [
-    {
-      "gen": 222,
-      "mutations": [
-        "content.thoughts",
-        "content.secrets",
-        "color.accent",
-        "section.memory-plates",
-        "section.delete.plate-voices",
-        "scene.config"
-      ],
-      "kills": [
-        "section:plate-voices",
-        "secret[20]"
-      ],
-      "timestamp": "2026-06-24T14:02:02Z"
-    },
     {
       "gen": 223,
       "mutations": [
@@ -842,39 +827,24 @@
       ],
       "strategy": "Hold Epoch XI's editorial chassis — warm ivory paper, ink body, one dominant ultramarine — and deepen the obsession rather than the surface: the crowd learns to",
       "timestamp": "2026-09-03T09:01:33Z"
+    },
+    {
+      "gen": 242,
+      "mutations": [
+        "regenerate"
+      ],
+      "kills": [
+        "type-'seed'-anywhere-—-nucleat",
+        "type-'facet'-anywhere-—-the-cr",
+        "20",
+        "morning:9",
+        "dawn:9"
+      ],
+      "strategy": "Hold Epoch XI's identity byte-near-exactly — warm ivory field, ink text, one ultramarine accent, editorial serif headline left-anchored over the live Kuramoto r",
+      "timestamp": "2026-09-05T06:12:29Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "secret",
-      "value": 18,
-      "died_gen": 233,
-      "epitaph": "Over capacity — a second film-era secret buried with Epoch IX."
-    },
-    {
-      "type": "thought",
-      "value": "morning:9",
-      "died_gen": 233,
-      "epitaph": "The weakest morning fragment still circling oil-film imagery the epoch already said better."
-    },
-    {
-      "type": "thought",
-      "value": "night:7",
-      "died_gen": 233,
-      "epitaph": "A duplicate 'color cannot fade' note; the epitaph in the lab notes says it permanently."
-    },
-    {
-      "type": "interaction",
-      "value": "type-'seed'-anywhere-—-nucleat",
-      "died_gen": 234,
-      "epitaph": "A crystal-era whisper; the plate answers only to the bow, the pluck, and the swept tone."
-    },
-    {
-      "type": "interaction",
-      "value": "type-'facet'-anywhere-—-the-cr",
-      "died_gen": 234,
-      "epitaph": "Faceting belonged to the lattice; nothing here cleaves on command."
-    },
     {
       "type": "interaction",
       "value": "type-'slip'-anywhere-—-a-fault",
@@ -1144,6 +1114,36 @@
       "value": "night:7",
       "died_gen": 241,
       "epitaph": "A night fragment that had stopped surprising; pruned to keep the pool at carrying capacity."
+    },
+    {
+      "type": "interaction",
+      "value": "type-'seed'-anywhere-—-nucleat",
+      "died_gen": 242,
+      "epitaph": "A nucleation gesture from the crystal epoch, three epochs dead, still listed among the living. Struck from the roll."
+    },
+    {
+      "type": "interaction",
+      "value": "type-'facet'-anywhere-—-the-cr",
+      "died_gen": 242,
+      "epitaph": "Facet belonged to a lattice that no longer exists. The page has no crystal to cut."
+    },
+    {
+      "type": "secret",
+      "value": "20",
+      "died_gen": 242,
+      "epitaph": "Over capacity at 21/20 — an older whisper buried so the conductor's secret could be told."
+    },
+    {
+      "type": "thought",
+      "value": "morning:9",
+      "died_gen": 242,
+      "epitaph": "A morning fragment still circling resonance, two epochs gone. Let it rest."
+    },
+    {
+      "type": "thought",
+      "value": "dawn:9",
+      "died_gen": 242,
+      "epitaph": "The dawn pool was full; the weakest fragment gave up its seat to the crowd."
     }
   ],
   "carrying_capacity": {
@@ -1162,11 +1162,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 232,
-      "base": "#82325c",
-      "family": "violet"
-    },
     {
       "gen": 233,
       "base": "#b23a17",
@@ -1209,6 +1204,11 @@
     },
     {
       "gen": 241,
+      "base": "#2c3bbd",
+      "family": "cyan"
+    },
+    {
+      "gen": 242,
       "base": "#2c3bbd",
       "family": "cyan"
     }

@@ -627,7 +627,7 @@ if [ "$AGENTIC" = "1" ]; then
   INPUT_JSONL="$INPUT_JSONL_FILE" OUTPUT_FILE="$HELPER_OUTPUT_FILE" CLAUDE_MAX_BUDGET_USD=100.00 \
     TELOS_AGENT="${TELOS_AGENT:-andremacedo-creative:${PULSE_TYPE:-runner.sh}}" \
     tmo "$SESSION_WALL_CEILING" bash "$HELPER_SCRIPT" \
-    --model claude-fable-5-1 \
+    --model claude-opus-4-8 \
     --input-format stream-json --output-format stream-json \
     --verbose \
     --tools "Bash,Read,Write,Edit" \
@@ -639,7 +639,7 @@ else
   INPUT_JSONL="$INPUT_JSONL_FILE" OUTPUT_FILE="$HELPER_OUTPUT_FILE" CLAUDE_MAX_BUDGET_USD=12.00 \
     TELOS_AGENT="${TELOS_AGENT:-andremacedo-creative:${PULSE_TYPE:-runner.sh}}" \
     tmo "$SESSION_WALL_CEILING" bash "$HELPER_SCRIPT" \
-    --model claude-fable-5-1 \
+    --model claude-opus-4-8 \
     --input-format stream-json --output-format stream-json \
     --max-turns 1 --verbose \
     --tools "" \
@@ -772,7 +772,7 @@ entry = {
     'type': 'message',
     'message': {
         'role': 'assistant',
-        'model': 'claude-fable-5-1',
+        'model': 'claude-opus-4-8',
         'timestamp': int(sys.argv[1]),
         'usage': {
             'input': int(sys.argv[2]),

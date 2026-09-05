@@ -1,5 +1,31 @@
 {
-  "gate": "error",
-  "checks": [],
-  "summary": "Script error: browserType.launch: Executable doesn't exist at /Users/andrepiresmacedo/Library/Caches/ms-playwright/chromium_headless_shell-1217/chrome-headless-shell-mac-arm64/chrome-headless-shell\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+  "gate": "pass",
+  "checks": [
+    {
+      "name": "HORIZONTAL_OVERFLOW",
+      "passed": true,
+      "details": "No overflow detected"
+    },
+    {
+      "name": "TEXT_OVERLAP",
+      "passed": true,
+      "details": "No significant text overlap detected"
+    },
+    {
+      "name": "HEIGHT_RATIO",
+      "passed": true,
+      "details": "mobile=10781px desktop=8712px ratio=1.24"
+    },
+    {
+      "name": "MASTHEAD_WHITESPACE",
+      "passed": true,
+      "details": "No whitespace issues"
+    },
+    {
+      "name": "MOBILE_INTERACTIVITY",
+      "passed": true,
+      "details": "invariants installed, keyboard visible (8 keys), touch bridge works"
+    }
+  ],
+  "summary": "All mobile checks passed"
 }
