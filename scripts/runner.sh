@@ -5,6 +5,12 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 SITE_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
+# A separately published review must survive scheduled runs from this checkout.
+# Remove the marker only when restoring this publisher or adopting its successor.
+if [ -f "$SITE_DIR/state/publication-hold" ]; then
+  echo "Publication held: a separately deployed work is under review."
+  exit 0
+fi
 STATE_FILE="$SITE_DIR/state/agent-state.json"
 CHANGELOG="$SITE_DIR/state/changelog.md"
 EXTERNAL_FILE="$SITE_DIR/data/external.json"
