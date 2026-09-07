@@ -236,15 +236,44 @@ def check_single_file(html, path):
 # ── INV-5: mobile scaffold + interaction invariants intact ─────────
 
 
-def check_mobile_scaffold(html, path):
-    """INV-5a: the mobile scaffold style block is present and well-formed.
+INSTRUMENT_BODY_RE = re.compile(
+    r"""<body\b[^>]*\bdata-instrument\s*=\s*["']true["']""", re.IGNORECASE)
+TONE_SCRIPT_TAG_RE = re.compile(
+    r"""<script\b[^>]*\bsrc\s*=\s*["'][^"']*tone[^"']*["']""", re.IGNORECASE)
+# Tone.js CDN or API references inside inline scripts. Deliberately does NOT
+# match three.js `renderer.toneMapping`: the patterns need the package
+# spelling (`tone@`), the file name, or the Tone global's API.
+TONE_INLINE_RE = re.compile(r"tone@\d|/Tone\.js\b|\bTone\.(?:start|context)\b")
 
-    Requirements:
+
+def page_declares_instrument(html):
+    """INV-5: a page opts into the instrument scaffold with
+    data-instrument="true" on <body>. Anything else is a non-instrument page."""
+    if not re.search(r"<body\b", html, re.IGNORECASE):
+        raise AssertionError("no <body> tag found; cannot classify page")
+    return INSTRUMENT_BODY_RE.search(html) is not None
+
+
+def check_mobile_scaffold(html, path):
+    """INV-5a: the mobile scaffold style block is present and well-formed on an
+    instrument page, and ABSENT on a non-instrument page (amended 2026-09-07).
+
+    Instrument page requirements:
       - '<style id="mobile-scaffold">' must be present
       - a matching '</style>' must follow
       - the block must contain at least one @media rule with max-width <= 600
+    Non-instrument page requirement:
+      - no '<style id="mobile-scaffold">' and no telos-virtual-keyboard CSS
     """
     start_tag = '<style id="mobile-scaffold">'
+    if not page_declares_instrument(html):
+        if start_tag in html:
+            return False, ('mobile-scaffold present on a non-instrument page: <style '
+                           'id="mobile-scaffold"> found but <body> lacks data-instrument="true"')
+        if 'telos-virtual-keyboard' in html:
+            return False, ('virtual keyboard scaffold present on a non-instrument page: '
+                           "'telos-virtual-keyboard' found but <body> lacks data-instrument=\"true\"")
+        return True, "non-instrument page; scaffold absent as required"
     if start_tag not in html:
         return False, "mobile-scaffold missing or malformed: <style id=\"mobile-scaffold\"> not found"
 
@@ -268,14 +297,30 @@ def check_mobile_scaffold(html, path):
 
 
 def check_mobile_interaction_invariants(html, path):
-    """INV-5b: the mobile-interaction-invariants script block is present and intact.
+    """INV-5b: the mobile-interaction-invariants script block is present and
+    intact on an instrument page, and ABSENT (along with any Tone.js script tag
+    or inline Tone.js reference) on a non-instrument page (amended 2026-09-07).
 
-    Requirements:
+    Instrument page requirements:
       - '<script id="mobile-interaction-invariants">' must be present
       - a matching '</script>' must follow
       - the block must contain markers for all three components
     """
     open_tag = '<script id="mobile-interaction-invariants">'
+    if not page_declares_instrument(html):
+        if open_tag in html:
+            return False, ('mobile-interaction-invariants present on a non-instrument page: '
+                           '<script id="mobile-interaction-invariants"> found but <body> lacks '
+                           'data-instrument="true"')
+        if TONE_SCRIPT_TAG_RE.search(html):
+            return False, ('Tone.js script tag present on a non-instrument page; <body> lacks '
+                           'data-instrument="true"')
+        for line, body in find_inline_scripts(html):
+            m = TONE_INLINE_RE.search(body)
+            if m:
+                return False, (f'Tone.js reference {m.group(0)!r} in inline script at line {line} '
+                               'on a non-instrument page; <body> lacks data-instrument="true"')
+        return True, "non-instrument page; interaction scaffold and Tone.js absent as required"
     if open_tag not in html:
         return False, 'mobile-interaction-invariants missing: <script id="mobile-interaction-invariants"> not found'
 

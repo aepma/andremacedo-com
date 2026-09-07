@@ -272,6 +272,25 @@ async function runGate() {
     });
 
     // CHECK 5 - MOBILE_INTERACTIVITY
+    // INV-5 (amended 2026-09-07): the instrument scaffold is required only on a
+    // page whose <body> declares data-instrument="true". On any other page the
+    // check is SKIPPED, reported as such (never as a pass), and does not fail
+    // the gate.
+    const declaresInstrument = await page.evaluate(
+      () => document.body.getAttribute('data-instrument') === 'true'
+    );
+    if (!declaresInstrument) {
+      checks.push({
+        name: 'MOBILE_INTERACTIVITY',
+        passed: true,
+        skipped: true,
+        status: 'skipped',
+        details: 'skipped: <body> lacks data-instrument="true" (INV-5, non-instrument page); scaffold not required',
+      });
+      await browser.close();
+      return checks;
+    }
+
     const interactivityResult = await page.evaluate(() => {
       const results = {};
 
@@ -346,9 +365,11 @@ runGate()
   .then((checks) => {
     const failed = checks.filter((c) => !c.passed);
     const gate = failed.length === 0 ? 'pass' : 'fail';
+    const skipped = checks.filter((c) => c.skipped);
     const summary =
       gate === 'pass'
-        ? 'All mobile checks passed'
+        ? 'All mobile checks passed' +
+          (skipped.length ? ' (skipped: ' + skipped.map((c) => c.name).join(', ') + ')' : '')
         : 'Failed: ' + failed.map((c) => c.name).join(', ');
     console.log(JSON.stringify({ gate, checks, summary }, null, 2));
     process.exit(gate === 'pass' ? 0 : 1);

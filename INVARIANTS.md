@@ -75,26 +75,42 @@ contract and the verbatim frozen-substrate paste.
 
 **Checked by:** `check_single_file` (static).
 
-## INV-5 — Mobile scaffold and interaction invariants intact
+## INV-5 — Mobile scaffold and interaction invariants: intact on instrument pages, absent elsewhere
 
-**Rule:** Two protected infrastructure blocks must survive every mutation
-verbatim: the mobile scaffold (`<style id="mobile-scaffold">` containing an
+**Rule:** A page declares that it carries an instrument with the page-level
+attribute `data-instrument="true"` on `<body>`. On a page that declares it, two
+protected infrastructure blocks must survive every mutation verbatim: the
+mobile scaffold (`<style id="mobile-scaffold">` containing an
 `@media (max-width: <=600px)` rule) and the mobile interaction invariants
 (`<script id="mobile-interaction-invariants">` containing its three COMPONENT
 markers: touch-to-mouse bridge, AudioContext gesture init, virtual keyboard).
 These blocks are owned by infrastructure tracks, not by the creative agent. Do
-not modify, move, or delete them.
+not modify, move, or delete them on an instrument page. On a page that does
+NOT declare `data-instrument="true"`, none of the scaffold may be present: no
+`<style id="mobile-scaffold">`, no `<script id="mobile-interaction-invariants">`,
+no `telos-virtual-keyboard` markup or class, and no Tone.js script tag or
+CDN reference. A business-surface page carries no instrument furniture.
 
 **Why:** Mutations repeatedly clobbered the mobile layout and touch
 interactions, leaving the site broken on phones — hence under Direction C these
 blocks are byte-FROZEN in `scripts/frozen-substrate.html` and pasted verbatim
-into every regeneration, never regenerated and hoped.
+into every regeneration, never regenerated and hoped. Amended 2026-09-07: the
+production page is a business surface without an instrument (Andre's ruling:
+restraint). On that page the eight-key keyboard bar, its hint line, and the
+eager Tone.js load were the only things outside the art direction, so the
+scaffold now applies only where an instrument is declared, and its presence on
+a non-instrument page is a rejected build, not a tolerated leftover.
 
 **Checked by:** `check_mobile_scaffold` and `check_mobile_interaction_invariants`
-(static, over the frozen blocks pasted from `scripts/frozen-substrate.html`); a
-regeneration that drops or alters either block is REJECTED — there is no longer a
-post-hoc restore net; `mobile-gate.js` (runtime, Playwright) enforces structural
-mobile invariants before deploy.
+(static). Both branch on `data-instrument="true"`: on an instrument page they
+assert the frozen blocks pasted from `scripts/frozen-substrate.html` are intact,
+and a regeneration that drops or alters either block is REJECTED — there is no
+post-hoc restore net; on a non-instrument page they assert the scaffold, the
+keyboard markup, and any Tone.js tag or reference are ABSENT, and a page that
+carries them is REJECTED. `mobile-gate.js` (runtime, Playwright) enforces the
+structural mobile invariants before deploy; its `MOBILE_INTERACTIVITY` check
+runs only on an instrument page and reports `skipped` (never `pass`) on any
+other page.
 
 ## INV-6 — WebGL swarm panel present and alive
 
@@ -176,8 +192,11 @@ in prose is prompt-level).
 
 ## INV-12 — Sound capability present and opt-in
 
-**Rule:** Sound is a persistent organ: the capability survives epoch death and
-no generation may remove it. It is always opt-in — a visitor gesture starts it,
+**Rule:** On a page that declares `data-instrument="true"` (INV-5), sound is a
+persistent organ: the capability survives epoch death and no generation may
+remove it. A page without that declaration carries no sound organ and no audio
+loader (amended 2026-09-07, same ruling as INV-5). Wherever sound exists it is
+always opt-in — a visitor gesture starts it,
 never autoplay — always stoppable, and silent by default; audio code lazy-loads
 only on first gesture. Statically: no `autoplay` attribute on `<audio>`/`<video>`
 and no script assignment `.autoplay = true`; every inline script block that
@@ -191,8 +210,9 @@ but a page that makes noise uninvited is hostile, so opt-in is law, not taste.
 
 **Checked by:** `check_no_autoplay` and `check_audio_behind_gesture` (static
 proxies). The gesture-resume substrate is the protected
-mobile-interaction-invariants block (INV-5, COMPONENT 2). "Capability present"
-and composing in the register of the living obsession are prompt-level.
+mobile-interaction-invariants block (INV-5, COMPONENT 2) on instrument pages.
+"Capability present" and composing in the register of the living obsession are
+prompt-level, and only apply where an instrument is declared.
 
 ## INV-13 — The three.js scene is a full instrument, within the perf law
 
@@ -338,3 +358,10 @@ and, when statically checkable, a matching enforcement function in
 by the generating model, it is marked "prompt-level" explicitly. Patching the
 validator without amending this file — or amending this file without
 enforcement — is itself a violation of the contract.
+
+## Amendment log
+
+- 2026-09-07 — INV-5 and INV-12 made conditional on `data-instrument="true"`
+  on `<body>`; non-instrument pages must carry none of the mobile scaffold,
+  keyboard, or Tone.js. Reason: the production page is a business surface
+  without an instrument. INV-6 and INV-17 unchanged.
