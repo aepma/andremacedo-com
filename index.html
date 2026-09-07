@@ -92,7 +92,8 @@
   /* ── second screen ── */
   .second{max-width:calc(34em + var(--margin) * 2);padding:calc(var(--u) * 8) var(--margin) 0;}
   .second h2{font-family:var(--mono);font-weight:400;font-size:var(--s0);letter-spacing:0.08em;text-transform:uppercase;
-    margin:0 0 var(--u);}
+    margin:0 0 var(--u);padding-top:calc(var(--u) * 3);border-top:1px solid rgba(28,26,23,.14);}
+  .second h2 .idx{color:var(--gold-ink);margin-right:1em;}
   .second p{font-size:var(--s1);max-width:32em;margin:0 0 calc(var(--u) * 5);}
   .second .studio{display:inline-block;margin:calc(var(--u) * -2) 0 calc(var(--u) * 5);}
   footer{padding:calc(var(--u) * 8) var(--margin) calc(var(--u) * 6);color:var(--ink);}
@@ -171,13 +172,13 @@
   </section>
 
   <section class="second" aria-label="What I do">
-    <h2>RealWorld.fi</h2>
+    <h2><span class="idx" aria-hidden="true">01</span>RealWorld.fi</h2>
     <p>RealWorld.fi lends against physical assets. A borrower brings gold, watches, jewellery or other luxury goods to one of our custodian partners, where the item is verified and held. The loan is funded against it, usually for less than 25,000 dollars. The asset is the security.</p>
 
-    <h2>ActualSales</h2>
+    <h2><span class="idx" aria-hidden="true">02</span>ActualSales</h2>
     <p>ActualSales generates B2B leads for a client and follows them through to closed sales. We write the creative, run the campaigns, qualify the responses by phone and hand over people who are ready to buy. I started it twenty years ago; it has produced more than five million leads across North America, Europe and Latin America.</p>
 
-    <h2>TELOS</h2>
+    <h2><span class="idx" aria-hidden="true">03</span>TELOS</h2>
     <p>TELOS is the AI system I run. It maintains this page and carries the daily operations of both businesses: research, outreach drafts, monitoring, reporting. I make the decisions. The earlier forms of this page, which TELOS rebuilt every day for six months, are kept in the studio.</p>
     <a class="mono studio" href="/archive.html">the studio →</a>
   </section>
@@ -307,7 +308,11 @@
     pmrem.dispose();
 
     var uT = { value: t0 }, uPtr = { value: new THREE.Vector3(0, 0, 1) }, uSwell = { value: 0 };
-    var mat = new THREE.MeshPhysicalMaterial({ color: 0xd8ad4f, metalness: 1, roughness: 0.2, envMapIntensity: 1.0 });
+    /* liquid gold with an oil-film skin: physical thin-film iridescence, so the
+       rim of the metal breaks into a faint holographic spectrum at grazing
+       angles — the colour lives in the light, never in a flat fill */
+    var mat = new THREE.MeshPhysicalMaterial({ color: 0xd8ad4f, metalness: 1, roughness: 0.2, envMapIntensity: 1.0,
+      iridescence: 0.5, iridescenceIOR: 1.7, iridescenceThicknessRange: [140, 460] });
     mat.onBeforeCompile = function(s){
       s.uniforms.uT = uT; s.uniforms.uPtr = uPtr; s.uniforms.uSwell = uSwell;
       s.vertexShader = 'uniform float uT;uniform vec3 uPtr;uniform float uSwell;\n' + NOISE +
@@ -345,7 +350,7 @@
         var hr2 = document.querySelector('.hero').getBoundingClientRect();
         target.x = Math.min((hr2.right / W * 2 - 1) * halfW + target.s * 0.62, halfW - target.s * 0.95); target.y = 0.2 * halfH;
       } else {
-        target.x = 0; target.y = 0.16 * halfH; target.s = Math.min(0.95, halfW * 1.05);
+        target.x = 0; target.y = 0.26 * halfH; target.s = Math.min(1.0, halfW * 1.15);
       }
       group.position.set(target.x, target.y, 0);
       group.scale.setScalar(target.s);

@@ -14,18 +14,20 @@
     {
       "name": "HEIGHT_RATIO",
       "passed": true,
-      "details": "mobile=10781px desktop=8712px ratio=1.24"
+      "details": "mobile=1914px desktop=8712px ratio=0.22"
     },
     {
       "name": "MASTHEAD_WHITESPACE",
       "passed": true,
-      "details": "No whitespace issues"
+      "details": ".program-masthead not found — skipping"
     },
     {
       "name": "MOBILE_INTERACTIVITY",
       "passed": true,
-      "details": "invariants installed, keyboard visible (8 keys), touch bridge works"
+      "skipped": true,
+      "status": "skipped",
+      "details": "skipped: <body> lacks data-instrument=\"true\" (INV-5, non-instrument page); scaffold not required"
     }
   ],
-  "summary": "All mobile checks passed"
+  "summary": "All mobile checks passed (skipped: MOBILE_INTERACTIVITY)"
 }

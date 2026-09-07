@@ -791,3 +791,6 @@ gen 241 weekly: deepen Epoch XI entrainment — the crowd learns to split (chime
 
 ## gen 242 (weekly, 2026-09-05)
 gen 242 weekly: deepen Epoch XI entrainment — the crowd admits a conductor (tap a beat; it follows inside the tongue, slips outside), sixth census case 'You', live pacemaker-cell plate mid-page, ship experiment 127 Pacemaker, archive repaired 123→127
+
+## gen 243 (weekly, 2026-09-07)
+gen 243 weekly: the gold form grows an oil-film skin — thin-film iridescence on the liquid metal, folio indices below, favicon reminted in paper and gold

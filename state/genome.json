@@ -1,15 +1,15 @@
 {
-  "generation": 242,
+  "generation": 243,
   "epoch": "entrainment",
   "epoch_started": "2026-08-16",
   "traits": {
     "color": {
-      "accent_base": "#2c3bbd",
-      "accent_dawn": "#8b97e6",
-      "accent_morning": "#6b78d8",
-      "accent_afternoon": "#2c3bbd",
-      "accent_evening": "#22309a",
-      "accent_night": "#1a2578",
+      "accent_base": "#a8843a",
+      "accent_dawn": "#c9a95c",
+      "accent_morning": "#b8963f",
+      "accent_afternoon": "#a8843a",
+      "accent_evening": "#8a6c2c",
+      "accent_night": "#664e1e",
       "bg": "#0a0d18",
       "fg": "#e6e9f2",
       "grain_opacity": "0.08",
@@ -27,10 +27,7 @@
     },
     "layout": {
       "sections": [
-        "overlay-top",
-        "overlay-center",
-        "overlay-bottom",
-        "prototype-portfolio"
+        "overlay-center"
       ],
       "pages": [
         "archive.html",
@@ -313,17 +310,6 @@
   },
   "fitness_log": [
     {
-      "gen": 223,
-      "coherence": 8,
-      "novelty": 7,
-      "identity": 8,
-      "tension": 7,
-      "awe": 6,
-      "perceptibility": 8,
-      "note": "Crystalline iris hero over blue-black reads clean and cool on both viewports; The Lattice archive and Growth Zone are legible. Weakness: the archive c",
-      "total": 7.3
-    },
-    {
       "gen": 224,
       "coherence": 8,
       "novelty": 7,
@@ -531,25 +517,20 @@
       "perceptibility": 9,
       "note": "Gen 242 weekly, Epoch XI entrainment at 20 days. The rock was still gen 239 (gens 240/241 never landed: a critic could not be reached), so first the a",
       "total": 8.7
+    },
+    {
+      "gen": 243,
+      "coherence": 9,
+      "novelty": 6,
+      "identity": 9,
+      "tension": 7,
+      "awe": 7,
+      "perceptibility": 9,
+      "note": "The live site is the contemporary business layer (paper, ink, one liquid-gold WebGL form, glass floor) — the entrainment art page in the state genome ",
+      "total": 7.8
     }
   ],
   "mutation_log": [
-    {
-      "gen": 223,
-      "mutations": [
-        "color.accent",
-        "atmosphere.css_rules",
-        "page.experiments/107.html",
-        "scene.config"
-      ],
-      "kills": [
-        "secret[20]",
-        "thought:night[9]",
-        "thought:night[8]",
-        "css_rule:gen207-css"
-      ],
-      "timestamp": "2026-06-24T22:02:57Z"
-    },
     {
       "gen": 224,
       "mutations": [
@@ -842,33 +823,23 @@
       ],
       "strategy": "Hold Epoch XI's identity byte-near-exactly — warm ivory field, ink text, one ultramarine accent, editorial serif headline left-anchored over the live Kuramoto r",
       "timestamp": "2026-09-05T06:12:29Z"
+    },
+    {
+      "gen": 243,
+      "mutations": [
+        "regenerate"
+      ],
+      "kills": [
+        "type-'seed'-anywhere-—-nucleat",
+        "type-'facet'-anywhere-—-the-cr",
+        "type-'slip'-anywhere-—-a-fault",
+        "type-'anneal'-anywhere-—-the-l"
+      ],
+      "strategy": "Hold the contemporary business layer — warm paper field, ink text, one liquid-gold form as the single spectacle, editorial serif with mono utility labels — and ",
+      "timestamp": "2026-09-07T04:11:26Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "interaction",
-      "value": "type-'slip'-anywhere-—-a-fault",
-      "died_gen": 234,
-      "epitaph": "Slip was a defect of crystals; standing waves do not glide."
-    },
-    {
-      "type": "secret",
-      "value": "20",
-      "died_gen": 234,
-      "epitaph": "Over capacity — the oldest film-era whisper buried with the epoch that spoke it."
-    },
-    {
-      "type": "thought",
-      "value": "night:6",
-      "died_gen": 234,
-      "epitaph": "The weakest night fragment, still circling thin-film imagery two epochs dead."
-    },
-    {
-      "type": "thought",
-      "value": "morning:8",
-      "died_gen": 234,
-      "epitaph": "A duplicate stillness note; the hero's nodal lines say it better."
-    },
     {
       "type": "secret",
       "value": "20",
@@ -1144,6 +1115,30 @@
       "value": "dawn:9",
       "died_gen": 242,
       "epitaph": "The dawn pool was full; the weakest fragment gave up its seat to the crowd."
+    },
+    {
+      "type": "interaction",
+      "value": "type-'seed'-anywhere-—-nucleat",
+      "died_gen": 243,
+      "epitaph": "A crystal-epoch typed gesture; the page it commanded was buried two pivots ago."
+    },
+    {
+      "type": "interaction",
+      "value": "type-'facet'-anywhere-—-the-cr",
+      "died_gen": 243,
+      "epitaph": "Facet belonged to a lattice that no longer exists anywhere but the studio."
+    },
+    {
+      "type": "interaction",
+      "value": "type-'slip'-anywhere-—-a-fault",
+      "died_gen": 243,
+      "epitaph": "Slip served the dislocation instrument; the business layer carries no typed handlers."
+    },
+    {
+      "type": "interaction",
+      "value": "type-'anneal'-anywhere-—-the-l",
+      "died_gen": 243,
+      "epitaph": "Anneal closed the defect thread; retiring the last crystal-epoch handler from the genome."
     }
   ],
   "carrying_capacity": {
@@ -1162,11 +1157,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 233,
-      "base": "#b23a17",
-      "family": "red"
-    },
     {
       "gen": 234,
       "base": "#b23a17",
@@ -1211,6 +1201,11 @@
       "gen": 242,
       "base": "#2c3bbd",
       "family": "cyan"
+    },
+    {
+      "gen": 243,
+      "base": "#a8843a",
+      "family": "orange"
     }
   ],
   "past_epochs": [
