@@ -127,7 +127,13 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 DEFAULT_RUBRIC = os.path.join(HERE, "craft-rubric.md")
 
 AXES = ["type_scale", "spacing_system", "focal_hierarchy", "restraint",
-        "hero", "composition", "type_craft", "color"]
+        "hero", "composition", "type_craft", "color", "stranger_test"]
+
+# rubric_version 2 (2026-09-06): axis 9, stranger_test, is a FLOOR. Any critic
+# scoring it under STRANGER_FLOOR is a FAILED verdict regardless of the other
+# axes, the overall, or the margin rule. andremacedo.com is a business surface.
+STRANGER_AXIS = "stranger_test"
+STRANGER_FLOOR = 7.0
 
 SYSTEM = (
     "You are an adversarial design-engineering critic with fresh eyes and zero "
@@ -244,7 +250,7 @@ def build_user_content(rubric, desktop, mobile):
             "the craft holds responsively (do not let mobile alone rescue a weak "
             "desktop).\n\nScore every axis 0-10, be stingy, and set is_slop=true "
             "if ANY cardinal slop state in the rubric is present. Return JSON "
-            "EXACTLY matching the output contract — keys: axes (the 8 named axes), "
+            "EXACTLY matching the output contract — keys: axes (the 9 named axes), "
             "overall (number), is_slop (boolean), findings (array of specific "
             "strings), what_works (array, may be empty), reasoning (string).\n\n"
             "===== RUBRIC =====\n" + rubric + "\n===== END RUBRIC =====\n\n"
@@ -325,9 +331,18 @@ def judge_one(url, model, content, timeout, retries):
     return normalize(extract_json(call_proxy(url, model, SYSTEM, content, timeout, retries)))
 
 
+def stranger_floor_failed(v):
+    """True iff this critic scored the stranger_test axis under STRANGER_FLOOR.
+
+    A missing axis normalizes to 0 and therefore fails: a critic that did not
+    score the floor did not verify it (fail-closed)."""
+    return float(v["axes"].get(STRANGER_AXIS, 0) or 0) < STRANGER_FLOOR
+
+
 def critic_passed(v, threshold):
-    """A critic passes iff it did NOT flag slop AND cleared the base threshold."""
-    return (not v["is_slop"]) and v["overall"] >= threshold
+    """A critic passes iff it did NOT flag slop AND cleared the base threshold
+    AND did not score the stranger_test axis under its floor."""
+    return (not v["is_slop"]) and v["overall"] >= threshold and not stranger_floor_failed(v)
 
 
 def decide_gate(a, b, threshold, margin):
@@ -340,6 +355,8 @@ def decide_gate(a, b, threshold, margin):
       - margin_override: exactly one critic passed AND its overall is   -> SHIP
                          at/above the margin (a lone STRONG pass beats
                          the other critic's slop veto)
+      - stranger_floor : EITHER critic scored stranger_test < 7        -> FAIL
+                         (absolute; never overridden by the margin)
       - failed         : anything else                                 -> FAIL
 
     Fail-closed: if EITHER critic is unobtainable (None), the gate fails and is
@@ -348,6 +365,9 @@ def decide_gate(a, b, threshold, margin):
     """
     if a is None or b is None:
         return {"passed": False, "gate_rule": "failed"}
+    if stranger_floor_failed(a) or stranger_floor_failed(b):
+        # The visitor floor is absolute: no margin override, no other axis rescues it.
+        return {"passed": False, "gate_rule": "stranger_floor"}
     a_pass = critic_passed(a, threshold)
     b_pass = critic_passed(b, threshold)
     if a_pass and b_pass:
@@ -567,7 +587,13 @@ def main():
     gate_rule = decision["gate_rule"]
 
     def fail_desc(label, model, v):
-        why = "slop" if v["is_slop"] else "{}<{}".format(v["overall"], args.threshold)
+        if stranger_floor_failed(v):
+            why = "stranger_test {}<{} (visitor floor)".format(
+                v["axes"].get(STRANGER_AXIS), STRANGER_FLOOR)
+        elif v["is_slop"]:
+            why = "slop"
+        else:
+            why = "{}<{}".format(v["overall"], args.threshold)
         return "{}/{}({})".format(label, model, why)
 
     failers = []
@@ -585,6 +611,8 @@ def main():
                   "despite the other critic's veto ({})".format(
                       ov_label, ov_model, decision["override_overall"],
                       args.margin, ", ".join(failers)))
+    elif gate_rule == "stranger_floor":
+        reason = "visitor floor failed: " + ", ".join(failers)
     else:
         reason = "failed: " + ", ".join(failers)
 

@@ -304,6 +304,30 @@ element (a stable marker token such as `regimeFlash`) fired on every state chang
 with a `prefers-reduced-motion` branch — is visible in the regenerated markup and
 is the maker's responsibility each run.
 
+## INV-17 — Visitor floor: `data-floor` is a reserved attribute
+
+**Rule:** `data-floor` is a reserved attribute. Its three values `name`,
+`role`, and `contact` each appear exactly once in the rendered markup (outside
+scripts, styles, and comments). The `name` element carries the text
+"Andre Macedo"; the `role` element carries one non-empty line under 90
+characters; the `contact` element is an `<a>` whose `href` is
+`mailto:me@andremacedo.com` and whose visible text is `me@andremacedo.com`.
+Each must be visible in the first viewport with no interaction, at 390x844 and
+1280x800, at first paint and at three seconds, unclipped, opacity 1, at least
+14px at phone width, and at contrast >= 4.5:1 against the rendered pixels
+behind it.
+
+**Why:** SOUL.md Visitor floor (Andre's ruling, 2026-09-06): the site is a
+business surface. The gen-242 page passed every gate and still told a stranger
+nothing about who Andre is, what he does, or how to reach him. The gates were
+aimed wrong, not missing.
+
+**Checked by:** `check_visitor_floor` (static: presence, uniqueness, text and
+href) and `scripts/visitor-floor.js` (runtime, Playwright, both viewports, both
+timings, pixel contrast) at the runner's pre-deploy gate, directly after
+`mobile-gate.js`. The craft rubric's `stranger_test` axis (INV-14) judges the
+same question with fresh eyes.
+
 ---
 
 ## Amendment process

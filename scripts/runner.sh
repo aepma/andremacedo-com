@@ -494,7 +494,7 @@ MANDATED SEQUENCE — every step is an assertion gate; do not skip or reorder:
    diff — your visual changes are already in the index.html you wrote.
 4. Validate + render + run the DETERMINISTIC gates in ONE Bash call so each halts
    the chain (these are the SAME gates the runner re-runs after you — pass them here):
-   python3 $SITE_DIR/scripts/validate-build.py $SITE_DIR/index.html && bash $SITE_DIR/scripts/screenshot-local.sh && node $SITE_DIR/scripts/mobile-gate.js $SITE_DIR/index.html && node $SITE_DIR/scripts/audit-contrast.js local $SITE_DIR/index.html
+   python3 $SITE_DIR/scripts/validate-build.py $SITE_DIR/index.html && bash $SITE_DIR/scripts/screenshot-local.sh && node $SITE_DIR/scripts/mobile-gate.js $SITE_DIR/index.html && node $SITE_DIR/scripts/audit-contrast.js local $SITE_DIR/index.html && node $SITE_DIR/scripts/visitor-floor.js $SITE_DIR/index.html
    ALL must succeed. validate-build.py enforces INVARIANTS.md statically (incl. the
    frozen substrate); screenshot-local.sh writes /tmp/andremacedo-self-desktop.jpg
    and -mobile.jpg; mobile-gate.js is the runtime MOBILE check — it names exact
@@ -1094,6 +1094,33 @@ if [ "$GATE_EXIT" = "1" ]; then
 elif [ "$GATE_EXIT" = "2" ]; then
     log "Mobile gate ERROR (script issue, non-fatal) - proceeding with deploy"
     cat "$GATE_OUT" >> "$ERROR_LOG"
+fi
+
+# ── Visitor-floor gate — runs BEFORE commit/deploy (SOUL.md Visitor floor, INV-17) ──
+# Deterministic Playwright gate: name, role and contact present once each and
+# visible in the first viewport at 390x844 and 1280x800, first paint and 3s, no
+# interaction, unclipped, opacity 1, >=14px on phone, contrast >=4.5:1 against
+# rendered pixels. Mirrors the mobile gate exactly: on FAIL (exit 1) revert
+# index.html, skip deploy this cycle, exit 0 with DEPLOY_SUCCEEDED=1 so the
+# failure counter does not trip on a healthy gate firing.
+FLOOR_GATE_OUT="$SITE_DIR/state/visitor-floor-latest.json"
+set +e
+node "$SCRIPT_DIR/visitor-floor.js" "$SITE_DIR/index.html" > "$FLOOR_GATE_OUT" 2>>"$ERROR_LOG"
+GATE_EXIT=$?
+set -e
+
+if [ "$GATE_EXIT" = "1" ]; then
+    log "Visitor-floor gate FAIL - reverting index.html, skipping deploy this cycle"
+    echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] [gen $GENERATION] visitor-floor-fail: $(jq -r '.summary' "$FLOOR_GATE_OUT" 2>/dev/null || head -1 "$FLOOR_GATE_OUT")" >> "$CHANGELOG"
+    cat "$FLOOR_GATE_OUT" >> "$ERROR_LOG"
+    cp "$SITE_DIR/index.html" "/tmp/last-failed-visitor-floor-$(date -u +%Y%m%dT%H%M%SZ).html" 2>/dev/null || true
+    cd "$SITE_DIR" && git checkout HEAD -- index.html
+    telegram "andremacedo.com $PULSE_TYPE: visitor-floor gate FAILED — $(jq -r '.summary' "$FLOOR_GATE_OUT" 2>/dev/null || echo 'name/role/contact not visible in the first viewport'). Deploy skipped, working tree reverted."
+    DEPLOY_SUCCEEDED=1
+    exit 0
+elif [ "$GATE_EXIT" = "2" ]; then
+    log "Visitor-floor gate ERROR (script issue, non-fatal) - proceeding with deploy"
+    cat "$FLOOR_GATE_OUT" >> "$ERROR_LOG"
 fi
 
 # ── Pre-deploy contrast gate ───────────────────────────────────────

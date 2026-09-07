@@ -473,6 +473,65 @@ def check_audio_behind_gesture(html, path):
     return True, ""
 
 
+# ── INV-17: visitor floor — data-floor is reserved, three values once each ─
+
+FLOOR_ROLE_MAX_CHARS = 90
+FLOOR_MAILTO = "mailto:me@andremacedo.com"
+FLOOR_EMAIL = "me@andremacedo.com"
+
+
+def check_visitor_floor(html, path):
+    """INV-17: `data-floor` is reserved. name/role/contact appear exactly once
+    each in rendered markup; name says "Andre Macedo"; role is one non-empty
+    line under 90 chars; contact is an <a href="mailto:me@andremacedo.com">
+    whose visible text is the address. Runtime visibility, viewport, opacity,
+    clipping, font size and pixel contrast are enforced by
+    scripts/visitor-floor.js at the runner gate, not here."""
+    rendered = strip_nonrendered(html)
+    tag_re = re.compile(r"""<(\w+)\b([^>]*?)\bdata-floor\s*=\s*["']([^"']*)["']([^>]*)>""")
+    found = {}
+    for m in tag_re.finditer(rendered):
+        found.setdefault(m.group(3), []).append(m)
+    unknown = sorted(set(found) - {"name", "role", "contact"})
+    if unknown:
+        return False, f"visitor-floor: unknown data-floor value(s) {unknown}; the attribute is reserved"
+    for key in ("name", "role", "contact"):
+        n = len(found.get(key, []))
+        if n != 1:
+            return False, (f"visitor-floor: data-floor=\"{key}\" appears {n} time(s) in rendered "
+                           "markup; exactly one is required (SOUL.md Visitor floor)")
+
+    def inner_text(m):
+        tag = m.group(1)
+        close = re.compile(r"</\s*" + re.escape(tag) + r"\s*>", re.IGNORECASE)
+        cm = close.search(rendered, m.end())
+        if not cm:
+            return None
+        raw = rendered[m.end():cm.start()]
+        return re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", raw)).strip()
+
+    name_text = inner_text(found["name"][0])
+    if name_text != "Andre Macedo":
+        return False, f"visitor-floor: data-floor=\"name\" text is {name_text!r}, must be exactly 'Andre Macedo'"
+    role_text = inner_text(found["role"][0])
+    if not role_text or "\n" in role_text or len(role_text) >= FLOOR_ROLE_MAX_CHARS:
+        return False, (f"visitor-floor: data-floor=\"role\" must be one non-empty line under "
+                       f"{FLOOR_ROLE_MAX_CHARS} chars; got {role_text!r}")
+    cm = found["contact"][0]
+    if cm.group(1).lower() != "a":
+        return False, f"visitor-floor: data-floor=\"contact\" must be an <a>, got <{cm.group(1)}>"
+    attrs = cm.group(2) + cm.group(4)
+    href = re.search(r"""\bhref\s*=\s*["']([^"']*)["']""", attrs)
+    if not href or href.group(1) != FLOOR_MAILTO:
+        return False, (f"visitor-floor: data-floor=\"contact\" href is "
+                       f"{href.group(1) if href else None!r}, must be {FLOOR_MAILTO!r}")
+    contact_text = inner_text(cm)
+    if contact_text != FLOOR_EMAIL:
+        return False, (f"visitor-floor: data-floor=\"contact\" visible text is {contact_text!r}, "
+                       f"must be {FLOOR_EMAIL!r}")
+    return True, f"name/role/contact present once each; role {len(role_text)} chars"
+
+
 # ── The contract registry: INVARIANTS.md ←→ enforcement ───────────
 # One row per statically checkable invariant. INV-2 (self-intro wording),
 # INV-9 (legibility in context), and INV-13 (scene as full instrument within
@@ -491,6 +550,7 @@ CHECKS = [
     ("INV-11", "no-commercial-surface", check_no_commercial_surface),
     ("INV-12", "no-autoplay", check_no_autoplay),
     ("INV-12", "audio-behind-gesture", check_audio_behind_gesture),
+    ("INV-17", "visitor-floor", check_visitor_floor),
 ]
 
 

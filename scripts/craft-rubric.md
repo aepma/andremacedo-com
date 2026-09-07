@@ -1,4 +1,4 @@
-<!-- rubric_version: 1 -->
+<!-- rubric_version: 2 -->
 # Craft Rubric — andremacedo.com
 
 The standard the **adversarial craft judge** (`scripts/craft-judge.py`) holds a
@@ -55,6 +55,13 @@ templated generator would not make.
    safe default system sans that every AI generation reaches for?
 8. **color** — One dominant accent governed by a named harmony, used with
    restraint? Or a rainbow of equal-weight hues / the default purple-blue gradient?
+9. **stranger_test** — From the screenshot alone, can a first-time visitor say
+   who this is, what he does, and how to contact him within the first viewport?
+   Name, one line on what Andre does, and a visible email address must all be
+   legible without scrolling or interacting. This axis is a FLOOR: any
+   generation scoring under 7 here is a FAILED verdict regardless of every
+   other axis and regardless of the overall score (rubric_version 2,
+   2026-09-06: andremacedo.com is a business surface).
 
 ## SLOP DEFINITION (cardinal failure states)
 The visual equivalent of generic AI prose. If the rendered page exhibits any of
@@ -79,7 +86,7 @@ The judge returns JSON only:
 {
   "axes": { "type_scale": 0-10, "spacing_system": 0-10, "focal_hierarchy": 0-10,
             "restraint": 0-10, "hero": 0-10, "composition": 0-10,
-            "type_craft": 0-10, "color": 0-10 },
+            "type_craft": 0-10, "color": 0-10, "stranger_test": 0-10 },
   "overall": 0-10,                // honest aggregate, weighted toward hero + composition
   "is_slop": true|false,         // true if ANY cardinal slop state is present
   "findings": [ "specific, concrete: what is generic/safe/template-grade and where" ],
@@ -91,7 +98,9 @@ The judge returns JSON only:
 ## Pass condition (enforced by the runner's verdict gate)
 CONJUNCTIVE across the two critics: a generation PASSES craft only if **BOTH**
 critics return `is_slop == false` **AND** `overall >=` threshold (current default
-7.0; ratchet upward only). Either critic flagging slop, or scoring below
+7.0; ratchet upward only). Additionally, the `stranger_test` axis is a floor:
+any critic scoring it under 7 is a FAILED verdict on its own, never overridden by
+the margin rule or by the other axes. Either critic flagging slop, or scoring below
 threshold, is a FAILED verdict: fail-closed, working tree reverted, previous
 deploy stays live — exactly like a contrast failure. A critic that cannot be
 obtained (proxy down, image missing, and — for critic B — its fallback also

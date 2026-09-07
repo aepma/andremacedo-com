@@ -68,6 +68,18 @@
   }
   .program-masthead .andre{color:var(--fg);font-weight:500;}
   .program-masthead .mh-right b{color:var(--fg-accent);font-weight:500;}
+  /* Visitor floor (SOUL.md, INV-17): name, role, contact in the masthead's own voice. */
+  .program-masthead .andre[data-floor]{font-size:0.875rem;letter-spacing:0.16em;}
+  .masthead-floor{
+    display:flex;flex-wrap:wrap;gap:0.2rem 1.25rem;align-items:baseline;
+    margin:-0.55rem 0 0;padding:0 clamp(1.25rem,4vw,2.4rem) 0.6rem;
+    font-size:0.875rem;line-height:1.4;
+  }
+  .masthead-floor .mh-role{font-family:'Source Serif 4',Georgia,serif;color:var(--fg-dim);}
+  .masthead-floor .mh-mail{
+    font-family:'JetBrains Mono',monospace;color:var(--fg-accent);letter-spacing:0.04em;
+    text-decoration:none;border-bottom:1px solid currentColor;pointer-events:auto;
+  }
 
   /* Hero — left-anchored editorial block over the live ring. The accent
      hairline on the left edge is the anchor; the ring breathes on the right. */
@@ -386,6 +398,11 @@
     .hero-intro{font-size:0.88rem;line-height:1.5;margin:0 0 0.6rem;}
     .hero-reading{font-size:0.66rem;line-height:1.55;margin:0 0 0.5rem;}
     .play-hints{font-size:0.64rem;line-height:1.75;margin:0 0 0.5rem;}
+    /* Visitor floor: the masthead grew two lines, so the hero flows below it
+       instead of sitting at a fixed 5vh over it. */
+    .masthead-floor{margin-top:-0.3rem;padding:0 1rem 0.5rem;}
+    .overlay-center{position:static;}
+    .hero-wrap{position:relative;top:0;margin-top:0.5rem;}
   }
 </style>
 
@@ -623,7 +640,8 @@
 
 <div id="overlay">
 <!-- @section:overlay-top:start -->
-<header id="overlay-top" class="program-masthead"><span class="andre">Andre Macedo</span><span class="mh-right">Epoch XI &middot; <b>Entrainment</b></span></header>
+<header id="overlay-top" class="program-masthead"><span class="andre" data-floor="name">Andre Macedo</span><span class="mh-right">Epoch XI &middot; <b>Entrainment</b></span></header>
+<p class="masthead-floor"><span class="mh-role" data-floor="role">Co-Founder of RealWorld.fi, asset-backed lending, and ActualSales, B2B lead generation</span><a class="mh-mail" data-floor="contact" href="mailto:me@andremacedo.com">me@andremacedo.com</a></p>
 <!-- @section:overlay-top:end -->
 
 <!-- @section:overlay-center:start -->
