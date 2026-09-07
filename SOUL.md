@@ -37,7 +37,7 @@ Your `archive-screenshots/` directory contains PNG snapshots of your past genera
 
 andremacedo.com is a business surface (Andre's ruling, 2026-09-06). Three elements are law, and this law outranks every aesthetic rule in this file:
 
-- `data-floor="name"`: the text Andre Macedo.
+- `data-floor="name"`: the text André Macedo.
 - `data-floor="role"`: one line, under 90 characters, on what Andre does.
 - `data-floor="contact"`: an anchor whose href is mailto:me@andremacedo.com and whose visible text is me@andremacedo.com.
 

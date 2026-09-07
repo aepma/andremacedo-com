@@ -4,7 +4,7 @@
 // Output: JSON to stdout (same shape as mobile-gate.js: {gate, checks, summary})
 // Exit: 0 = every check passed at both viewports, 1 = any check failed, 2 = script error
 //
-// Three elements are law: data-floor="name" (text "Andre Macedo"), data-floor="role"
+// Three elements are law: data-floor="name" (text "André Macedo"), data-floor="role"
 // (one line under 90 chars), data-floor="contact" (<a href="mailto:me@andremacedo.com">
 // with visible text me@andremacedo.com). Each must be visible in the first viewport
 // with NO interaction of any kind (no scroll, click, hover, key) at 390x844 and at
@@ -36,7 +36,7 @@ const MIN_FONT_PX_PHONE = 14;
 const ROLE_MAX_CHARS = 90;
 const MAILTO = 'mailto:me@andremacedo.com';
 const EMAIL = 'me@andremacedo.com';
-const NAME = 'Andre Macedo';
+const NAME = 'André Macedo';
 const FLOOR_KEYS = ['name', 'role', 'contact'];
 const SAMPLE_GRID = { cols: 9, rows: 3 };
 

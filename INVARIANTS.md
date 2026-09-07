@@ -53,7 +53,7 @@ substrate — overlay-center present, visible, non-empty — is enforced by INV-
 
 ## INV-3 — Andre's name visible
 
-**Rule:** The literal text "Andre Macedo" appears in the rendered page markup
+**Rule:** The literal text "André Macedo" appears in the rendered page markup
 (outside scripts, styles, and comments).
 
 **Why:** SOUL.md constraint: "Andre's name always visible." His name on the
@@ -329,7 +329,7 @@ is the maker's responsibility each run.
 **Rule:** `data-floor` is a reserved attribute. Its three values `name`,
 `role`, and `contact` each appear exactly once in the rendered markup (outside
 scripts, styles, and comments). The `name` element carries the text
-"Andre Macedo"; the `role` element carries one non-empty line under 90
+"André Macedo"; the `role` element carries one non-empty line under 90
 characters; the `contact` element is an `<a>` whose `href` is
 `mailto:me@andremacedo.com` and whose visible text is `me@andremacedo.com`.
 Each must be visible in the first viewport with no interaction, at 390x844 and

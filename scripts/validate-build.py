@@ -191,14 +191,24 @@ def check_hero_visibility(html, path):
 # ── INV-3: Andre's name visible ────────────────────────────────────
 
 
+NAME_TEXT = "Andr\u00e9 Macedo"   # André, acute accent (Andre's instruction 2026-09-07)
+NAME_TEXT_UNACCENTED = "Andre Macedo"
+
+
 def check_name_visible(html, path):
-    """INV-3: the literal text "Andre Macedo" appears in rendered markup
-    (outside scripts, styles, and comments)."""
-    if "Andre Macedo" in strip_nonrendered(html):
-        return True, ""
-    return False, ('name-visible: "Andre Macedo" not found in rendered markup '
-                   "(scripts/styles/comments excluded); SOUL.md requires the name "
-                   "always visible")
+    """INV-3: the literal text "André Macedo" appears in rendered markup
+    (outside scripts, styles, and comments). On a non-instrument page the
+    unaccented spelling "Andre Macedo" must NOT appear in rendered markup, so
+    the pre-2026-09-07 spelling cannot return."""
+    rendered = strip_nonrendered(html)
+    if NAME_TEXT not in rendered:
+        return False, (f'name-visible: "{NAME_TEXT}" not found in rendered markup '
+                       "(scripts/styles/comments excluded); SOUL.md requires the name "
+                       "always visible")
+    if not page_declares_instrument(html) and NAME_TEXT_UNACCENTED in rendered:
+        return False, (f'name-visible: unaccented "{NAME_TEXT_UNACCENTED}" found in rendered '
+                       f'markup on a non-instrument page; the name is spelled "{NAME_TEXT}"')
+    return True, ""
 
 
 # ── INV-4: single HTML file, no build step ─────────────────────────
@@ -527,7 +537,7 @@ FLOOR_EMAIL = "me@andremacedo.com"
 
 def check_visitor_floor(html, path):
     """INV-17: `data-floor` is reserved. name/role/contact appear exactly once
-    each in rendered markup; name says "Andre Macedo"; role is one non-empty
+    each in rendered markup; name says "André Macedo"; role is one non-empty
     line under 90 chars; contact is an <a href="mailto:me@andremacedo.com">
     whose visible text is the address. Runtime visibility, viewport, opacity,
     clipping, font size and pixel contrast are enforced by
@@ -556,8 +566,8 @@ def check_visitor_floor(html, path):
         return re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", raw)).strip()
 
     name_text = inner_text(found["name"][0])
-    if name_text != "Andre Macedo":
-        return False, f"visitor-floor: data-floor=\"name\" text is {name_text!r}, must be exactly 'Andre Macedo'"
+    if name_text != NAME_TEXT:
+        return False, f"visitor-floor: data-floor=\"name\" text is {name_text!r}, must be exactly {NAME_TEXT!r}"
     role_text = inner_text(found["role"][0])
     if not role_text or "\n" in role_text or len(role_text) >= FLOOR_ROLE_MAX_CHARS:
         return False, (f"visitor-floor: data-floor=\"role\" must be one non-empty line under "
