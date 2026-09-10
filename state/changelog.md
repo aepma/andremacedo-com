@@ -794,3 +794,6 @@ gen 242 weekly: deepen Epoch XI entrainment — the crowd admits a conductor (ta
 
 ## gen 243 (weekly, 2026-09-07)
 gen 243 weekly: the gold form grows an oil-film skin — thin-film iridescence on the liquid metal, folio indices below, favicon reminted in paper and gold
+
+## gen 244 (weekly, 2026-09-10)
+gen 244 weekly: the gold form keeps time — a Kuramoto crowd drives the surface and the oil-film iridescence, a live first-person r readout under the floor, sparkline refreshed

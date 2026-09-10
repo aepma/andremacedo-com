@@ -14,12 +14,17 @@
 <link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/three@0.185.1/build/three.module.min.js" crossorigin="anonymous">
 <script type="module" src="https://cdn.jsdelivr.net/npm/three@0.185.1/build/three.module.min.js" crossorigin="anonymous"></script>
 <style>
-  /* ── André Macedo, production page, 2026-09-07, contemporary layer.
+  /* ── André Macedo, production page, 2026-09-10, contemporary layer, gen 244.
      Paper, ink, one gold. Typography is the design: a modular scale of 1.333
      from a 17px base on phones and 19px on desktop, spacing on an 8px grid,
      one text column under 34em set left of centre. Over it, one spectacle: a
-     liquid-gold form rendered in WebGL, the floor on a glass panel, grain,
-     a warm bloom, restrained motion. ── */
+     liquid-gold form rendered in WebGL. This generation the metal keeps time:
+     twenty-eight coupled oscillators (Kuramoto) drive its surface — when the
+     crowd falls into step the churn calms into one shared breath and the
+     oil-film skin breaks into spectrum; when the coupling drops below
+     threshold the agreement dissolves back into noise. One oscillator refuses
+     to couple at all. A mono whisper under the floor reports the order
+     parameter r, so the synchrony is read as well as seen. ── */
   :root{
     --paper:#f5f2eb;
     --ink:#1c1a17;
@@ -46,7 +51,7 @@
 
   /* ── first screen ── */
   .screen{position:relative;isolation:isolate;display:grid;grid-template-columns:minmax(0,calc(34em + var(--u) * 8));align-content:center;
-    min-height:100vh;min-height:100svh;padding:calc(var(--u) * 12) var(--margin) calc(var(--u) * 8);row-gap:calc(var(--u) * 6);}
+    min-height:100vh;min-height:100svh;padding:calc(var(--u) * 12) var(--margin) calc(var(--u) * 8);row-gap:calc(var(--u) * 3);}
 
   /* the spectacle: one liquid-gold form, WebGL, behind everything on the first screen */
   .form{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none;contain:strict;}
@@ -69,20 +74,25 @@
     background:linear-gradient(135deg,rgba(255,110,70,.16),rgba(255,255,255,.4) 28%,rgba(90,150,255,.14) 68%,rgba(255,200,110,.2));
     -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;}
   @keyframes spec{to{opacity:1;}}
-  .hero h1{font-family:var(--serif);font-weight:400;font-size:var(--s5);line-height:1;
-    letter-spacing:-0.015em;margin:0 0 calc(var(--u) * 3);transform-origin:left bottom;animation:settle 900ms var(--ease) both;}
+  .hero h1{font-family:"Didot","Bodoni 72","Bodoni MT",var(--serif);font-weight:400;font-size:var(--s5);line-height:1;
+    letter-spacing:-0.02em;margin:0 0 calc(var(--u) * 3);transform-origin:left bottom;animation:settle 900ms var(--ease) both;}
   .hero .role{font-size:var(--s1);max-width:30em;margin:0 0 calc(var(--u) * 3);animation:rise 700ms var(--ease) 300ms both;}
   .hero .address{margin:0;font-family:var(--mono);font-size:var(--s1);letter-spacing:0.02em;animation:rise 700ms var(--ease) 450ms both;}
   .hero .address a{color:var(--gold-ink);text-decoration:none;}
   .hero .address a:hover{text-decoration:underline;text-decoration-thickness:1px;}
   .hero .rule{width:3em;height:1px;border:0;margin:calc(var(--u) * 3) 0 0;background:var(--gold);transform-origin:left;animation:rulein 900ms var(--ease) 700ms both;}
   /* kinetic type: the name settles (tracking and optical size), the lines below rise. No opacity on the floor: it is law at first paint. */
-  @keyframes settle{from{letter-spacing:.06em;transform:translateY(.1em) scale(1.035);}to{letter-spacing:-0.015em;transform:none;}}
+  @keyframes settle{from{letter-spacing:.06em;transform:translateY(.1em) scale(1.035);}to{letter-spacing:-0.02em;transform:none;}}
   @keyframes rise{from{transform:translateY(10px);}to{transform:none;}}
   @keyframes rulein{from{transform:scaleX(0);}to{transform:none;}}
 
+  /* the whisper: TELOS in first person, reporting the order parameter of its own crowd */
+  .pulse{position:relative;z-index:1;justify-self:start;margin:0;padding:3px 10px 4px;border-radius:8px;
+    background:var(--paper);color:var(--ink);max-width:44em;}
+  .pulse .r{color:var(--gold-ink);font-variant-numeric:tabular-nums;white-space:nowrap;}
+
   /* ── the one living element: gold spot, last 30 days ── */
-  .live{position:relative;z-index:1;margin:0;width:240px;max-width:100%;}
+  .live{position:relative;z-index:1;margin:calc(var(--u) * 3) 0 0;width:240px;max-width:100%;}
   .live svg{display:block;width:100%;height:auto;overflow:visible;}
   .live polyline{stroke:var(--gold);stroke-width:1;fill:none;stroke-linejoin:round;stroke-linecap:round;
     vector-effect:non-scaling-stroke;stroke-dasharray:600;stroke-dashoffset:600;animation:draw 1.6s ease-out 0.3s forwards;}
@@ -142,10 +152,12 @@
     .screen{grid-template-columns:minmax(0,calc(34em + var(--u) * 8)) minmax(0,1fr);column-gap:calc(var(--u) * 8);align-items:end;
       padding:calc(var(--u) * 12) var(--margin) calc(var(--u) * 12);}
     .hero h1{font-size:var(--s6);}
-    .live{position:absolute;right:var(--margin);bottom:calc(var(--u) * 7);width:288px;margin:0;}
+    .pulse{grid-column:2;align-self:end;max-width:26em;}
+    /* the sparkline anchors the left column as the card's footnote, not an orphan on the right */
+    .live{position:relative;right:auto;bottom:auto;width:288px;margin:calc(var(--u) * 4) 0 0;}
     .second{padding-top:calc(var(--u) * 6);}
-    .bloom{left:75%;top:40%;width:120vmin;height:120vmin;}
-    .form .still{left:75%;top:40%;width:min(48vw,80vh);}
+    .bloom{left:78%;top:36%;width:120vmin;height:120vmin;}
+    .form .still{left:78%;top:36%;width:min(54vw,86vh);}
   }
 </style>
 </head>
@@ -163,11 +175,12 @@
       <hr class="rule" aria-hidden="true">
     </header>
 <!-- @section:overlay-center:end -->
-    <figure class="live" id="swarmPanel" data-last="4431.100098" data-days="29" aria-label="Gold spot price in US dollars, one point per day over the last 30 days">
+    <p class="pulse mono" id="pulse">i am TELOS, the system that rebuilds this page each day — twenty-eight voices, <span class="r" id="pulseR">listening for a common beat</span></p>
+    <figure class="live" id="swarmPanel" data-last="4417.100098" data-days="29" aria-label="Gold spot price in US dollars, one point per day over the last 30 days">
       <svg viewBox="0 0 240 56" width="240" height="56" aria-hidden="true" focusable="false">
-        <polyline points="0.0,50.5 8.6,50.5 17.1,48.4 25.7,48.2 34.3,41.4 42.9,46.2 51.4,50.2 60.0,45.2 68.6,45.2 77.1,40.7 85.7,42.1 94.3,28.4 102.9,27.7 111.4,16.4 120.0,10.2 128.6,4.0 137.1,4.3 145.7,12.0 154.3,14.8 162.9,30.1 171.4,33.1 180.0,33.1 188.6,36.4 197.1,52.0 205.7,44.5 214.3,31.4 222.9,39.4 231.4,37.0 240.0,37.0"/>
+        <polyline points="0.0,50.5 8.6,50.5 17.1,48.4 25.7,48.2 34.3,41.4 42.9,46.2 51.4,50.2 60.0,45.2 68.6,45.2 77.1,40.7 85.7,42.1 94.3,28.4 102.9,27.7 111.4,16.4 120.0,10.2 128.6,4.0 137.1,4.3 145.7,12.0 154.3,14.8 162.9,30.1 171.4,33.1 180.0,33.1 188.6,36.4 197.1,52.0 205.7,44.5 214.3,31.4 222.9,39.4 231.4,37.0 240.0,38.4"/>
       </svg>
-      <figcaption class="mono">gold · 4,431 · 30d</figcaption>
+      <figcaption class="mono">gold · 4,417 · 30d</figcaption>
     </figure>
   </section>
 
@@ -194,7 +207,10 @@
 })();
 </script>
 <script>
-/* The contemporary layer: one liquid-gold form (three.js, pinned), the cursor halo, and the debug hooks.
+/* The contemporary layer: one liquid-gold form (three.js, pinned) whose surface is
+   driven by a Kuramoto crowd — twenty-eight coupled oscillators, one refusing — with
+   the order parameter r(t) calming the churn and deepening the oil-film iridescence as
+   agreement condenses. Plus the cursor halo and the debug hooks.
    Query parameters, inert unless present: perf=1 logs five seconds of frame timing to window.__amPerf;
    phase=worst freezes the form scaled up behind the glass at the phase a seven-point sweep measured as the lowest floor contrast, spin 0 and t 0 (spin= and t= override it);
    still=1 renders one high-quality frame for the static fallback; webgl=0 forces the fallback;
@@ -207,6 +223,7 @@
   if (q.get('motion') === '0') doc.classList.add('no-motion');
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var form = document.getElementById('form');
+  var pulseR = document.getElementById('pulseR');
   var status = { state: 'init', frames: 0, running: false, reason: '' };
   window.__amForm = status;
 
@@ -307,17 +324,20 @@
     scene.environment = pmrem.fromScene(env, 0.03).texture;
     pmrem.dispose();
 
-    var uT = { value: t0 }, uPtr = { value: new THREE.Vector3(0, 0, 1) }, uSwell = { value: 0 };
+    var uT = { value: t0 }, uPtr = { value: new THREE.Vector3(0, 0, 1) }, uSwell = { value: 0 }, uR = { value: 0.2 };
     /* liquid gold with an oil-film skin: physical thin-film iridescence, so the
        rim of the metal breaks into a faint holographic spectrum at grazing
-       angles — the colour lives in the light, never in a flat fill */
+       angles — the colour lives in the light, never in a flat fill. The film's
+       strength tracks r: when the crowd is in step, the metal sings. */
     var mat = new THREE.MeshPhysicalMaterial({ color: 0xd8ad4f, metalness: 1, roughness: 0.2, envMapIntensity: 1.0,
-      iridescence: 0.5, iridescenceIOR: 1.7, iridescenceThicknessRange: [140, 460] });
+      iridescence: 0.4, iridescenceIOR: 1.7, iridescenceThicknessRange: [140, 460] });
     mat.onBeforeCompile = function(s){
-      s.uniforms.uT = uT; s.uniforms.uPtr = uPtr; s.uniforms.uSwell = uSwell;
-      s.vertexShader = 'uniform float uT;uniform vec3 uPtr;uniform float uSwell;\n' + NOISE +
-        '\nvec3 disp(vec3 n){float d=0.14*snoise(n*0.95+vec3(0.0,uT*0.09,uT*0.06))+0.035*snoise(n*2.4-vec3(uT*0.07,0.0,uT*0.1));' +
-        'float sw=smoothstep(0.3,1.0,dot(n,uPtr))*uSwell*0.16;return n*(1.0+d+sw);}\n' + s.vertexShader;
+      s.uniforms.uT = uT; s.uniforms.uPtr = uPtr; s.uniforms.uSwell = uSwell; s.uniforms.uR = uR;
+      s.vertexShader = 'uniform float uT;uniform vec3 uPtr;uniform float uSwell;uniform float uR;\n' + NOISE +
+        '\nvec3 disp(vec3 n){float churn=1.0-0.42*uR;' +
+        'float d=churn*(0.115*snoise(n*0.85+vec3(uT*0.03,uT*0.08,uT*0.055))+0.028*snoise(n*2.2-vec3(uT*0.06,uT*0.025,uT*0.09)));' +
+        'float breath=uR*0.075*sin(uT*0.55+n.y*2.1+n.x*1.3);' +
+        'float sw=smoothstep(0.3,1.0,dot(n,uPtr))*uSwell*0.16;return n*(1.0+d+breath+sw);}\n' + s.vertexShader;
       s.vertexShader = s.vertexShader
         .replace('#include <beginnormal_vertex>',
           'vec3 pN=normalize(position);vec3 tA=normalize(cross(pN,abs(pN.y)<0.99?vec3(0.0,1.0,0.0):vec3(1.0,0.0,0.0)));vec3 tB=cross(pN,tA);' +
@@ -328,6 +348,25 @@
     var mesh = new THREE.Mesh(new THREE.IcosahedronGeometry(1, 56), mat);
     var group = new THREE.Group(); group.add(mesh); scene.add(group);
     group.rotation.set(0.25, spin0, 0);
+
+    /* entrainment: twenty-eight Kuramoto oscillators, mean-field coupled, one
+       refusing to couple at all. K(t) drifts slowly across the threshold, so
+       agreement condenses out of noise and dissolves again on about a
+       forty-second tide. The order parameter r drives the surface. */
+    var ON = 28, oth = new Float32Array(ON), oom = new Float32Array(ON), oseed = 1234567;
+    function orand(){ oseed = (oseed * 1103515245 + 12345) & 0x7fffffff; return oseed / 0x7fffffff; }
+    for (var oi = 0; oi < ON; oi++){ oom[oi] = 1.0 + (orand() - 0.5) * 0.7; oth[oi] = orand() * 6.2831853; }
+    oom[0] = 2.9; /* the defector keeps its own time */
+    function entrain(dt, t){
+      var K = 1.35 + 1.05 * Math.sin(t * 0.16) + 0.25 * Math.sin(t * 0.043 + 1.7);
+      var cx = 0, cy = 0, i;
+      for (i = 1; i < ON; i++){ cx += Math.cos(oth[i]); cy += Math.sin(oth[i]); }
+      cx /= (ON - 1); cy /= (ON - 1);
+      var r = Math.sqrt(cx * cx + cy * cy), psi = Math.atan2(cy, cx);
+      for (i = 1; i < ON; i++){ oth[i] += dt * (oom[i] + K * r * Math.sin(psi - oth[i])); }
+      oth[0] += dt * oom[0];
+      uR.value += (r - uR.value) * Math.min(1, dt * 1.5);
+    }
 
     var W = 0, H = 0, halfH = Math.tan(camera.fov * Math.PI / 360) * camera.position.z, halfW = halfH;
     var target = { x: 0, y: 0, s: 1 };
@@ -346,9 +385,10 @@
       } else if (still) {
         target.x = 0; target.y = 0; target.s = 1.15;
       } else if (desktop) {
-        target.s = Math.min(1.05, halfH * 0.6);
+        /* the organism bleeds off the top-right corner — cropped by the viewport, not framed by it */
+        target.s = Math.min(1.18, halfH * 0.68);
         var hr2 = document.querySelector('.hero').getBoundingClientRect();
-        target.x = Math.min((hr2.right / W * 2 - 1) * halfW + target.s * 0.62, halfW - target.s * 0.95); target.y = 0.2 * halfH;
+        target.x = Math.min((hr2.right / W * 2 - 1) * halfW + target.s * 0.62, halfW - target.s * 0.42); target.y = 0.3 * halfH;
       } else {
         target.x = 0; target.y = 0.26 * halfH; target.s = Math.min(1.0, halfW * 1.15);
       }
@@ -393,6 +433,8 @@
       var dt = Math.min(0.05, (now - last) / 1000); last = now;
       if (!frozen) {
         uT.value += dt;
+        entrain(dt, uT.value);
+        mat.iridescence = 0.28 + 0.55 * uR.value;
         var ty = ptr.on ? ptr.x * 0.35 : 0, tx = 0.25 + (ptr.on ? -ptr.y * 0.22 : 0);
         tilt.x += (tx - tilt.x) * 0.04; tilt.y += (ty - tilt.y) * 0.04;
         group.rotation.set(tilt.x, tilt.y + uT.value * 0.08, 0);
@@ -401,6 +443,12 @@
           world.set(ptr.x * halfW, ptr.y * halfH, 0.9).sub(group.position).normalize();
           inv.copy(group.quaternion).invert();
           uPtr.value.copy(world.applyQuaternion(inv));
+        }
+        if (pulseR && status.frames % 12 === 0) {
+          var rv = uR.value;
+          pulseR.textContent = rv > 0.72 ? 'in step, one refusing · r ' + rv.toFixed(2)
+            : rv > 0.45 ? 'finding a common beat · r ' + rv.toFixed(2)
+            : 'keeping their own times · r ' + rv.toFixed(2);
         }
       }
       var a = performance.now();

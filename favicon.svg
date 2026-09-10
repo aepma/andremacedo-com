@@ -5,13 +5,20 @@
       <stop offset="0.45" stop-color="#c99f45"/>
       <stop offset="1" stop-color="#8a6c2c"/>
     </radialGradient>
+    <linearGradient id="film" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#7fa3d8"/>
+      <stop offset="0.5" stop-color="#9d7fd8"/>
+      <stop offset="1" stop-color="#d88a7f"/>
+    </linearGradient>
   </defs>
   <rect width="64" height="64" rx="14" fill="#f5f2eb"/>
-  <!-- one drop of liquid gold, mid-swell; a faint oil-film rim at the lower edge -->
-  <path d="M32 10 C42 10 52 19 52 32 C52 45 43 54 32 54 C20 54 12 44 12 32 C12 21 22 10 32 10 Z"
+  <!-- entrainment, gen 244: two drops of liquid gold mid-swell, phase-locked,
+       the larger wearing its oil-film rim where the crowd has fallen into step -->
+  <path d="M30 14 C39 14 47 22 47 33 C47 44 39 51 30 51 C20 51 13 43 13 33 C13 23 21 14 30 14 Z"
         fill="url(#g)"/>
-  <path d="M17 42 C22 49 30 52 38 50" fill="none" stroke="#7fa3d8" stroke-width="2"
-        stroke-linecap="round" opacity="0.45"/>
-  <path d="M24 20 C27 16.5 32 15 36 16.5" fill="none" stroke="#fbf3dd" stroke-width="3"
+  <circle cx="49" cy="44" r="6.5" fill="url(#g)"/>
+  <path d="M17 41 C22 47 29 50 36 48" fill="none" stroke="url(#film)" stroke-width="2"
+        stroke-linecap="round" opacity="0.6"/>
+  <path d="M22 22 C25 18.5 30 17.5 34 19" fill="none" stroke="#fbf3dd" stroke-width="3"
         stroke-linecap="round" opacity="0.85"/>
 </svg>
