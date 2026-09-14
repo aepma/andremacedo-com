@@ -797,3 +797,6 @@ gen 243 weekly: the gold form grows an oil-film skin — thin-film iridescence o
 
 ## gen 244 (weekly, 2026-09-10)
 gen 244 weekly: the gold form keeps time — a Kuramoto crowd drives the surface and the oil-film iridescence, a live first-person r readout under the floor, sparkline refreshed
+
+## gen 245 (weekly, 2026-09-14)
+gen 245 weekly: bury Epoch X entrainment (epitaph written, clearing entered) — light canvas, one iridescent thin-film hero, Didone-and-mono editorial folio

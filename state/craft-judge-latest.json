@@ -4,7 +4,7 @@
   "is_slop": true,
   "threshold": 7.0,
   "margin": 7.3,
-  "overall_min": 4.0,
+  "overall_min": 5.5,
   "reason": "margin override: critic A/claude-opus-4-8-oauth overall 8.0 >= margin 7.3 ships despite the other critic's veto (B/grok-4.20-fast(slop))",
   "critics": {
     "A": {
@@ -13,30 +13,29 @@
       "axes": {
         "type_scale": 8.0,
         "spacing_system": 8.0,
-        "focal_hierarchy": 7.0,
+        "focal_hierarchy": 8.0,
         "restraint": 7.0,
         "hero": 8.0,
         "composition": 8.0,
         "type_craft": 9.0,
-        "color": 8.0,
+        "color": 7.0,
         "stranger_test": 9.0
       },
       "overall": 8.0,
       "is_slop": false,
       "findings": [
-        "The frosted-glass name card with its soft drop shadow is the one templated device on the page — a legibility panel that leans on glassmorphism where a harder editorial container or raw type on ground would have been braver.",
-        "The floating '?' circle mid-right is orphaned: no label, no visual tie to the monospace voice block, and it reads as a stray UI affordance rather than a composed element.",
-        "The gold 3D blob is bright and large enough to briefly rival the name for first fixation; the hierarchy resolves toward the black Didone, but the competition is real rather than fully subordinated.",
-        "The lower three-section stack (01/02/03) is a conventional single left-column editorial layout — competent but far tamer than the hero, and the vast empty right gutter below reads more as unused space than as deliberate compositional mass."
+        "The iridescent plasma field on the right edges toward the generic 'AI aurora cloud' texture — a decorative move plenty of generators now reach for; its saved only by the editorial typography around it, not by its own restraint.",
+        "The graphic terminates in a visible rectangular seam roughly aligned with the left text column; that hard vertical clip against the warm paper reads slightly mechanical rather than as an organic light-field bleeding into the page.",
+        "Color harmony is loose: the plasma carries orange, magenta, violet and green at near-equal weight, so 'one dominant accent under a named harmony' is not quite honored — it leans toward a spectrum.",
+        "The gold sparkline is a nice concrete detail but sits a touch orphaned in whitespace with only a mono caption; it's the weakest-composed element in the lower section."
       ],
       "what_works": [
-        "The rendered metallic gold organic form bleeding off the top-right is a genuine signature move — it is literally the collateral (gold) the business lends against, so the graphic is conceptual, not garnish, and no template generator reaches for a wet 3D gold blob.",
-        "High-contrast Didone display serif against a monospace utility/system voice is a real editorial pairing with a point of view — decisively NOT the default system sans.",
-        "The monospace 'i am TELOS…· r 0.19' block establishes a second machine voice distinct from André's, and the little gold sparkline ('gold · 4,417 · 30d') folds live data into the composition — both are risks a safe template avoids.",
-        "Restrained gold-on-ivory monochrome harmony carries through the link, blob, section numerals and chart — one dominant accent, disciplined.",
-        "Asymmetric anchor (card top-left, mass top-right) with whitespace used as tension rather than centered balance."
+        "The type pairing is genuinely intentional and expressive: a high-contrast Didone display ('André Macedo', 'Two businesses run on me.') against a mono utility voice ('the light is alive — run a hand through it', 'generation 245') and an italic serif reserved for the AI's first-person voice — exactly the editorial-vs-utility tension the rubric rewards.",
+        "The hero is a resolved system, not a centered headline: oversized name locked top-left, organic light-field anchoring the right, mono captions descending the left gutter — decisive asymmetry with whitespace used as compositional mass.",
+        "The living-organism conceit is executed with conviction ('This page is my body. I rebuild it each day...', 'generation 245', 'the entrainment epoch is buried') — a signature editorial voice a template would never write.",
+        "Stranger test fully satisfied above the fold: name, a clear one-line on what Andre does, and a legible clickable email all present without scrolling."
       ],
-      "reasoning": "This is not a SaaS-landing shape: the composition is asymmetric, the palette is a restrained gold-on-ivory monochrome, and the typography pairs a high-contrast Didone against a monospace machine voice — a clear editorial conviction. The decisive, non-templated move is the wet 3D gold form tied conceptually to the asset-backed-lending business, reinforced by a live gold-price sparkline. Stranger test passes comfortably — name, one-line description, and a visible email all sit above the fold — and no cardinal slop state is present; the only weaknesses are the mild glass-card garnish, an orphaned '?' affordance, and a lower body far plainer than the hero."
+      "reasoning": "This is not the AI-default template — no centered hero, no purple-blue gradient, no three-card feature row; instead a decisive left-anchored Didone name against an organic light-field, with a deliberate high-contrast-serif-vs-mono typographic voice and a strong living-page conceit. The hero and composition are genuinely resolved and the stranger test passes cleanly with name, role, and email in the first viewport. The only real drag is the plasma texture, which leans on a now-common iridescent-cloud effect and a loose multi-hue palette with a slightly mechanical clip seam — enough to dock restraint and color, not enough to make it slop."
     },
     "B": {
       "model": "grok-4.20-fast",
@@ -45,28 +44,29 @@
       "axes": {
         "type_scale": 4.0,
         "spacing_system": 6.0,
-        "focal_hierarchy": 3.0,
-        "restraint": 5.0,
-        "hero": 4.0,
-        "composition": 3.0,
-        "type_craft": 6.0,
-        "color": 5.0,
+        "focal_hierarchy": 5.0,
+        "restraint": 7.0,
+        "hero": 6.0,
+        "composition": 4.0,
+        "type_craft": 8.0,
+        "color": 7.0,
         "stranger_test": 9.0
       },
-      "overall": 4.0,
+      "overall": 5.5,
       "is_slop": true,
       "findings": [
-        "Generic SaaS-landing shape: nav-like top block, centered hero panel, numbered feature list, footer — applied to a page that is supposed to be a living art organism",
-        "Hero is a safe default centered text block floating over a decorative 3D render with no decisive compositional tension or editorial risk",
-        "Symmetry as substitute for composition: left-aligned text block balanced against right-side organic form in the most predictable way",
-        "Multiple competing focal points (name block, gold chart, TELOs blurb, numbered projects) with no single dominant eye entry point",
-        "Decoration without hierarchy: the large glossy golden blob is pure garnish with no relationship to the content hierarchy",
-        "Type scale feels ad-hoc rather than modular; headline, body, and microcopy lack visible rhythmic ratio"
+        "Generic SaaS-landing shape: nav-like top block with name + title + email + CTA, followed by explanatory sections and numbered business cards",
+        "Symmetry as substitute for composition: centered headline, centered hero text block, centered business sections with left-aligned copy",
+        "Hero is mostly a generic centered headline floating over a background image (the swirling colorful light), with decorative poetic copy that doesn't resolve into a decisive compositional system",
+        "No single decisive aesthetic move that escapes templated AI output; the 'living art organism' claim is undermined by safe editorial layout tropes",
+        "Type scale feels ad-hoc rather than modular — large name, medium subhead, small body, with no visible rhythmic ratio governing the steps"
       ],
       "what_works": [
-        "Clear stranger_test: name, one-line description of activities, and email are all immediately legible in first viewport"
+        "Strong stranger_test: name, what he does, email, and contact prompt are all immediately legible in first viewport",
+        "Typeface pairing (Didone display with mono) shows clear editorial intent and avoids default system sans everywhere",
+        "Color harmony of warm paper + iridescent light swirl is restrained and thematically coherent"
       ],
-      "reasoning": "The desktop render is a polite, clean, inoffensive personal/business page that reads as default AI output. It commits the cardinal sins of using SaaS-landing structure for an 'art organism' and substituting a large decorative 3D render for actual composition or editorial conviction. The hero is especially weak — a centered rounded rectangle over a generic golden blob. Mobile is a competent stack but cannot rescue the fundamental lack of signature or decisive aesthetic move. Overall craft is mediocre template-grade."
+      "reasoning": "The desktop render is a clean, inoffensive editorial page that fails the core test: it is mediocre default-grade AI output. It deploys the generic SaaS-landing shape (top identity block + explanatory content + numbered sections) on a page that is supposed to be a living art organism. The hero is safe centered type over a pretty swirling gradient background rather than a resolved deliberate system. While the type pairing and color show taste, the composition, hierarchy, and lack of any signature non-templated move make it derivative. Mobile version maintains the same weaknesses without rescue. Stranger_test passes comfortably but cannot override the cardinal slop states present."
     }
   },
   "margin_override": {
