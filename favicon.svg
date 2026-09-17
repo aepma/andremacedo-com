@@ -1,10 +1,20 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <!-- the clearing, gen 245: thin-film light on warm paper — four pearlescent
-       drops overlapping into spectrum, one ink rule beneath -->
+  <!-- epoch eleven, gen 246: period doubling — an ink stem forks 1, 2, 4, then
+       the cascade dissolves into thin-film spectrum on warm paper -->
+  <defs>
+    <linearGradient id="tf" x1="42" y1="8" x2="56" y2="56" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#8ea0ff"/>
+      <stop offset="0.5" stop-color="#d8a8e0"/>
+      <stop offset="1" stop-color="#f0d089"/>
+    </linearGradient>
+  </defs>
   <rect width="64" height="64" rx="14" fill="#fafaf8"/>
-  <circle cx="38" cy="23" r="17" fill="#e9cb82" fill-opacity="0.72"/>
-  <circle cx="23" cy="35" r="15" fill="#a6d6de" fill-opacity="0.68"/>
-  <circle cx="41" cy="42" r="13" fill="#e4b8c6" fill-opacity="0.62"/>
-  <circle cx="29" cy="25" r="9" fill="#beb6e6" fill-opacity="0.5"/>
-  <rect x="9" y="52" width="30" height="2.5" rx="1.25" fill="#1c1a17"/>
+  <g stroke="#1c1a17" stroke-width="2.6" fill="none" stroke-linecap="round">
+    <path d="M9 32 H21"/>
+    <path d="M21 32 L33 21 M21 32 L33 43"/>
+    <path d="M33 21 L43 13.5 M33 21 L43 28.5 M33 43 L43 35.5 M33 43 L43 50.5"/>
+  </g>
+  <g stroke="url(#tf)" stroke-width="2" fill="none" stroke-linecap="round">
+    <path d="M43 13.5 L54 9 M43 13.5 L54 18 M43 28.5 L54 24 M43 28.5 L54 33 M43 35.5 L54 31 M43 35.5 L54 40 M43 50.5 L54 46 M43 50.5 L54 55"/>
+  </g>
 </svg>

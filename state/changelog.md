@@ -800,3 +800,6 @@ gen 244 weekly: the gold form keeps time — a Kuramoto crowd drives the surface
 
 ## gen 245 (weekly, 2026-09-14)
 gen 245 weekly: bury Epoch X entrainment (epitaph written, clearing entered) — light canvas, one iridescent thin-film hero, Didone-and-mono editorial folio
+
+## gen 246 (weekly, 2026-09-17)
+gen 246 weekly: open Epoch XI period doubling — live bifurcation-field hero (drag the parameter, watch the beat fork), clearing over

@@ -1,11 +1,11 @@
 {
   "verdict": "PASS",
-  "gate_rule": "margin_override",
-  "is_slop": true,
+  "gate_rule": "both_passed",
+  "is_slop": false,
   "threshold": 7.0,
   "margin": 7.3,
-  "overall_min": 5.5,
-  "reason": "margin override: critic A/claude-opus-4-8-oauth overall 8.0 >= margin 7.3 ships despite the other critic's veto (B/grok-4.20-fast(slop))",
+  "overall_min": 7.4,
+  "reason": "both critics cleared",
   "critics": {
     "A": {
       "model": "claude-opus-4-8-oauth",
@@ -14,65 +14,57 @@
         "type_scale": 8.0,
         "spacing_system": 8.0,
         "focal_hierarchy": 8.0,
-        "restraint": 7.0,
-        "hero": 8.0,
-        "composition": 8.0,
+        "restraint": 9.0,
+        "hero": 9.0,
+        "composition": 9.0,
         "type_craft": 9.0,
-        "color": 7.0,
+        "color": 8.0,
         "stranger_test": 9.0
       },
-      "overall": 8.0,
+      "overall": 8.5,
       "is_slop": false,
       "findings": [
-        "The iridescent plasma field on the right edges toward the generic 'AI aurora cloud' texture — a decorative move plenty of generators now reach for; its saved only by the editorial typography around it, not by its own restraint.",
-        "The graphic terminates in a visible rectangular seam roughly aligned with the left text column; that hard vertical clip against the warm paper reads slightly mechanical rather than as an organic light-field bleeding into the page.",
-        "Color harmony is loose: the plasma carries orange, magenta, violet and green at near-equal weight, so 'one dominant accent under a named harmony' is not quite honored — it leans toward a spectrum.",
-        "The gold sparkline is a nice concrete detail but sits a touch orphaned in whitespace with only a mono caption; it's the weakest-composed element in the lower section."
+        "The 'I AM TELOS' note sits in a plain rectangular hairline box — the one piece of generic UI-chrome on an otherwise chrome-free page; a torn edge or inline setting would have been braver than a bordered card.",
+        "The 'Reading the field' definition table and the two long body paragraphs in 'Two businesses run on me' run text-dense; the measure is long and the gray body risks reading as an undifferentiated wall next to the sparse hero.",
+        "The mono caption voice (r = 3.2000 · period 2, gold · 4,417 · 30d) is doing a lot of thematic lifting but is quiet enough it could be missed as decorative rather than functional."
       ],
       "what_works": [
-        "The type pairing is genuinely intentional and expressive: a high-contrast Didone display ('André Macedo', 'Two businesses run on me.') against a mono utility voice ('the light is alive — run a hand through it', 'generation 245') and an italic serif reserved for the AI's first-person voice — exactly the editorial-vs-utility tension the rubric rewards.",
-        "The hero is a resolved system, not a centered headline: oversized name locked top-left, organic light-field anchoring the right, mono captions descending the left gutter — decisive asymmetry with whitespace used as compositional mass.",
-        "The living-organism conceit is executed with conviction ('This page is my body. I rebuild it each day...', 'generation 245', 'the entrainment epoch is buried') — a signature editorial voice a template would never write.",
-        "Stranger test fully satisfied above the fold: name, a clear one-line on what Andre does, and a legible clickable email all present without scrolling."
+        "The hero is a genuine logistic-map bifurcation diagram drawn in thin ink across the field, thematically bound to the 'period doubling' epoch — a live, draggable generative graphic that no template generator ships, and it earns the whole page.",
+        "Structural color is used with real conviction: monochrome ink on warm paper everywhere, with iridescent thin-film spectrum appearing ONLY at the chaos edge of the fork tree — color as physics, not garnish.",
+        "High-contrast Didone display ('André Macedo' set flush-left, full-bleed) against a mono utility voice is exactly the editorial pairing the safe-default-sans crowd never reaches for.",
+        "The 'The dead' list staggers its numbered entries in stepped rightward indentation — a typographic enactment of sedimentation/period-doubling that turns a plain list into composition.",
+        "Composition is decisively asymmetric: name anchored top-left, the fork tree flowing right and dissolving into noise, the AI card offset — whitespace used as compositional mass, no centered-symmetry crutch."
       ],
-      "reasoning": "This is not the AI-default template — no centered hero, no purple-blue gradient, no three-card feature row; instead a decisive left-anchored Didone name against an organic light-field, with a deliberate high-contrast-serif-vs-mono typographic voice and a strong living-page conceit. The hero and composition are genuinely resolved and the stranger test passes cleanly with name, role, and email in the first viewport. The only real drag is the plasma texture, which leans on a now-common iridescent-cloud effect and a loose multi-hue palette with a slightly mechanical clip seam — enough to dock restraint and color, not enough to make it slop."
+      "reasoning": "This is a resolved editorial system, not a SaaS shell: a live logistic-map bifurcation field renders the hero as a decisive composition tied to the page's chaos/order theme, with Didone-against-mono typography and structural color restricted to the chaos band as its signature move. The stranger test clears comfortably — name at display scale, a one-line description of RealWorld.fi/ActualSales, and me@andremacedo.com all legible above the fold. It exhibits none of the cardinal slop states (no centered gradient hero, no feature-card row, no default sans, no decoration-as-garnish), so it is not slop; minor demerits are the one bordered note card and some text-dense passages."
     },
     "B": {
       "model": "grok-4.20-fast",
       "fell_back_from": null,
-      "passed": false,
+      "passed": true,
       "axes": {
-        "type_scale": 4.0,
-        "spacing_system": 6.0,
-        "focal_hierarchy": 5.0,
-        "restraint": 7.0,
-        "hero": 6.0,
-        "composition": 4.0,
-        "type_craft": 8.0,
-        "color": 7.0,
+        "type_scale": 8.0,
+        "spacing_system": 7.0,
+        "focal_hierarchy": 6.0,
+        "restraint": 8.0,
+        "hero": 7.0,
+        "composition": 8.0,
+        "type_craft": 9.0,
+        "color": 6.0,
         "stranger_test": 9.0
       },
-      "overall": 5.5,
-      "is_slop": true,
+      "overall": 7.4,
+      "is_slop": false,
       "findings": [
-        "Generic SaaS-landing shape: nav-like top block with name + title + email + CTA, followed by explanatory sections and numbered business cards",
-        "Symmetry as substitute for composition: centered headline, centered hero text block, centered business sections with left-aligned copy",
-        "Hero is mostly a generic centered headline floating over a background image (the swirling colorful light), with decorative poetic copy that doesn't resolve into a decisive compositional system",
-        "No single decisive aesthetic move that escapes templated AI output; the 'living art organism' claim is undermined by safe editorial layout tropes",
-        "Type scale feels ad-hoc rather than modular — large name, medium subhead, small body, with no visible rhythmic ratio governing the steps"
+        "Hero is still largely a centered headline + explanatory text block over a graphic, which is the default compositional move even if the graphic itself is more interesting",
+        "Color is mostly monochrome with a single accent graphic; the accent feels decorative rather than a governed, named harmony",
+        "Multiple near-equal weight text blocks compete for attention after the hero (Reading the field, Two businesses, The eleventh epoch, The studio, The dead)"
       ],
       "what_works": [
-        "Strong stranger_test: name, what he does, email, and contact prompt are all immediately legible in first viewport",
-        "Typeface pairing (Didone display with mono) shows clear editorial intent and avoids default system sans everywhere",
-        "Color harmony of warm paper + iridescent light swirl is restrained and thematically coherent"
+        "The branching fork diagram and hand-drawn ink/chaotic texture create a decisive, non-templated visual signature that feels like a living organism rather than a SaaS page",
+        "Strong typographic point of view with high-contrast editorial sizing and Didone/mono pairing that expresses the chaotic-order theme",
+        "The 'field' interactive graphic and period-doubling conceptual framing give the page a clear, memorable identity that passes the stranger_test decisively"
       ],
-      "reasoning": "The desktop render is a clean, inoffensive editorial page that fails the core test: it is mediocre default-grade AI output. It deploys the generic SaaS-landing shape (top identity block + explanatory content + numbered sections) on a page that is supposed to be a living art organism. The hero is safe centered type over a pretty swirling gradient background rather than a resolved deliberate system. While the type pairing and color show taste, the composition, hierarchy, and lack of any signature non-templated move make it derivative. Mobile version maintains the same weaknesses without rescue. Stranger_test passes comfortably but cannot override the cardinal slop states present."
+      "reasoning": "This is not template slop. The visual language (ink-drawn bifurcation diagrams, period-doubling metaphor, Didone + mono type, warm paper texture) makes a clear, risky aesthetic commitment that no generic generator would produce. The hero is the weakest part — still somewhat centered and explanatory — but the overall composition and type craft are strong enough to carry it. The page reads as a living art organism rather than a SaaS landing. Stranger_test is easily cleared in the first viewport. Not slop, but not yet at the level where every axis sings in tight modular harmony."
     }
-  },
-  "margin_override": {
-    "critic": "A",
-    "model": "claude-opus-4-8-oauth",
-    "overall": 8.0,
-    "margin": 7.3
   }
 }
