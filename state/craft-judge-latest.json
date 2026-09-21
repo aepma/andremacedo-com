@@ -4,7 +4,7 @@
   "is_slop": false,
   "threshold": 7.0,
   "margin": 7.3,
-  "overall_min": 7.4,
+  "overall_min": 8.0,
   "reason": "both critics cleared",
   "critics": {
     "A": {
@@ -16,26 +16,26 @@
         "focal_hierarchy": 8.0,
         "restraint": 9.0,
         "hero": 9.0,
-        "composition": 9.0,
+        "composition": 8.0,
         "type_craft": 9.0,
         "color": 8.0,
         "stranger_test": 9.0
       },
-      "overall": 8.5,
+      "overall": 8.4,
       "is_slop": false,
       "findings": [
-        "The 'I AM TELOS' note sits in a plain rectangular hairline box — the one piece of generic UI-chrome on an otherwise chrome-free page; a torn edge or inline setting would have been braver than a bordered card.",
-        "The 'Reading the field' definition table and the two long body paragraphs in 'Two businesses run on me' run text-dense; the measure is long and the gray body risks reading as an undifferentiated wall next to the sparse hero.",
-        "The mono caption voice (r = 3.2000 · period 2, gold · 4,417 · 30d) is doing a lot of thematic lifting but is quiet enough it could be missed as decorative rather than functional."
+        "The lower two-thirds settle into a repeating rhythm — small transitional-serif paragraph + tiny mono caption + hairline rule — that risks monotony across 'Two businesses', 'The eleventh epoch', and 'The studio'; the composition stops evolving after the hero.",
+        "The interactive instruction line ('the field is live — drag across it... type \"fork\" to jump the next split — keys 1–7...') is a dense single mono run that reads like a debug string rather than a composed caption.",
+        "The '?' affordance floated at right of the field divider is a generic help-bubble convention that slightly undercuts the otherwise bespoke instrument-panel voice."
       ],
       "what_works": [
-        "The hero is a genuine logistic-map bifurcation diagram drawn in thin ink across the field, thematically bound to the 'period doubling' epoch — a live, draggable generative graphic that no template generator ships, and it earns the whole page.",
-        "Structural color is used with real conviction: monochrome ink on warm paper everywhere, with iridescent thin-film spectrum appearing ONLY at the chaos edge of the fork tree — color as physics, not garnish.",
-        "High-contrast Didone display ('André Macedo' set flush-left, full-bleed) against a mono utility voice is exactly the editorial pairing the safe-default-sans crowd never reaches for.",
-        "The 'The dead' list staggers its numbered entries in stepped rightward indentation — a typographic enactment of sedimentation/period-doubling that turns a plain list into composition.",
-        "Composition is decisively asymmetric: name anchored top-left, the fork tree flowing right and dissolving into noise, the AI card offset — whitespace used as compositional mass, no centered-symmetry crutch."
+        "The logistic-map bifurcation diagram fanning left-to-right in thin ink lines, resolving into an iridescent red/pink chaos zone, is a genuine generative subject that a template generator would never attempt — and it is literally the page's content (period doubling), not garnish.",
+        "The hero pairs a high-contrast Didone display of 'André Macedo' against a mono utility voice and an italic serif 'TELOS' aside — a real editorial pairing with a point of view, anchored off-axis top-left with the diagram as counterweight rather than a centered headline.",
+        "'The dead' section staircases each retired concept in progressively deeper indents, making the layout itself perform the period-doubling cascade — a decisive, self-referential compositional move.",
+        "Color is held to near-monochrome ink on warm paper with a single earned accent (the iridescent chaos region), demonstrating restraint over decoration.",
+        "Stranger test is fully satisfied above the fold: name at display scale, a concrete one-line role (Co-Founder of RealWorld.fi / ActualSales), and a visible email — all legible without scrolling."
       ],
-      "reasoning": "This is a resolved editorial system, not a SaaS shell: a live logistic-map bifurcation field renders the hero as a decisive composition tied to the page's chaos/order theme, with Didone-against-mono typography and structural color restricted to the chaos band as its signature move. The stranger test clears comfortably — name at display scale, a one-line description of RealWorld.fi/ActualSales, and me@andremacedo.com all legible above the fold. It exhibits none of the cardinal slop states (no centered gradient hero, no feature-card row, no default sans, no decoration-as-garnish), so it is not slop; minor demerits are the one bordered note card and some text-dense passages."
+      "reasoning": "This is not a SaaS-landing shape: the hero is an asymmetric, ink-on-paper composition built around a real logistic-map bifurcation diagram, set in a high-contrast Didone against a mono voice, with a single restrained iridescent accent. The decisive moves — the generative chaos field and the staircased 'dead' cascade that enacts period-doubling — are things a templated generator would not produce. It weakens in its lower half where the paragraph-plus-caption rhythm repeats and stops composing, but the hero (weighted heaviest) and typographic conviction clearly clear the bar, and name/role/email are all present in the first viewport."
     },
     "B": {
       "model": "grok-4.20-fast",
@@ -46,25 +46,26 @@
         "spacing_system": 7.0,
         "focal_hierarchy": 6.0,
         "restraint": 8.0,
-        "hero": 7.0,
+        "hero": 9.0,
         "composition": 8.0,
         "type_craft": 9.0,
-        "color": 6.0,
+        "color": 7.0,
         "stranger_test": 9.0
       },
-      "overall": 7.4,
+      "overall": 8.0,
       "is_slop": false,
       "findings": [
-        "Hero is still largely a centered headline + explanatory text block over a graphic, which is the default compositional move even if the graphic itself is more interesting",
-        "Color is mostly monochrome with a single accent graphic; the accent feels decorative rather than a governed, named harmony",
-        "Multiple near-equal weight text blocks compete for attention after the hero (Reading the field, Two businesses, The eleventh epoch, The studio, The dead)"
+        "Hero graphic is a literal fork diagram that feels illustrative rather than decisively editorial",
+        "The dense vertical scroll of explanatory text blocks creates a somewhat conventional long-form editorial rhythm despite the custom framing"
       ],
       "what_works": [
-        "The branching fork diagram and hand-drawn ink/chaotic texture create a decisive, non-templated visual signature that feels like a living organism rather than a SaaS page",
-        "Strong typographic point of view with high-contrast editorial sizing and Didone/mono pairing that expresses the chaotic-order theme",
-        "The 'field' interactive graphic and period-doubling conceptual framing give the page a clear, memorable identity that passes the stranger_test decisively"
+        "The large bifurcating line drawing that merges with the hero typography is a strong, signature visual move that a templated generator would not produce",
+        "Excellent typographic pairing of high-contrast Didone display with crisp mono utility voice",
+        "The 'I AM TELOS' personal-AI framing and live parameter field create genuine strangeness and ownership",
+        "The page successfully rejects SaaS-landing shapes and feels like a living document/art organism",
+        "Restrained warm-paper texture and sparse color use feel intentional and editorial"
       ],
-      "reasoning": "This is not template slop. The visual language (ink-drawn bifurcation diagrams, period-doubling metaphor, Didone + mono type, warm paper texture) makes a clear, risky aesthetic commitment that no generic generator would produce. The hero is the weakest part — still somewhat centered and explanatory — but the overall composition and type craft are strong enough to carry it. The page reads as a living art organism rather than a SaaS landing. Stranger_test is easily cleared in the first viewport. Not slop, but not yet at the level where every axis sings in tight modular harmony."
+      "reasoning": "This is a confident, non-template execution. The hero is resolved as a deliberate system: the massive bifurcating line drawing is a decisive aesthetic move that fuses with the name and Telos text, creating a memorable, non-generic focal point. Type craft is excellent (Didone + mono), restraint is high, and stranger_test is satisfied immediately. Minor deductions for the slightly conventional density of the long-form sections below the fold and the fact that the fork diagram, while strong, still reads a touch literal. Overall a clear non-slop generation that earns its living-art-organism claim."
     }
   }
 }

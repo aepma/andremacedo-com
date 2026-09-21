@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>128 · Cobweb — andremacedo.com</title>
+<meta name="description" content="Experiment 128: the logistic map lived step by step. One r, one seed, and the cobweb staircases between the curve and the diagonal — settling on one beat, then two, then four, then weather. Drag the parameter and watch the walk change its mind.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<style>
+  :root{--bg:#fafaf8;--fg:#1c1a17;--dim:#5d584f;--accent:#1c1a17;--hair:rgba(28,26,23,.18);}
+  html,body{margin:0;height:100%;background:var(--bg);overflow:hidden;}
+  canvas{position:fixed;inset:0;width:100%;height:100%;display:block;touch-action:none;cursor:crosshair;}
+  #info{
+    position:fixed;top:1.1rem;left:1.1rem;max-width:23rem;opacity:0.88;z-index:5;
+    font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:0.7rem;line-height:1.7;
+    color:var(--fg);pointer-events:none;
+    text-shadow:0 0 8px rgba(0,0,0,0.8),0 0 20px rgba(0,0,0,0.5);
+  }
+  #info h1{
+    font-family:'Didot','Bodoni 72','Bodoni MT',Georgia,serif;font-weight:400;font-size:1.8rem;
+    margin:0 0 0.4rem;color:var(--fg);
+    text-shadow:0 0 8px rgba(0,0,0,0.8),0 0 20px rgba(0,0,0,0.5);
+  }
+  #info b{color:var(--accent);}
+  #back{
+    position:fixed;top:1.1rem;right:1.1rem;z-index:6;
+    font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:0.7rem;letter-spacing:0.1em;
+    color:var(--fg);text-decoration:none;border-bottom:1px solid var(--accent);
+    padding-bottom:2px;opacity:0.88;
+    text-shadow:0 0 8px rgba(0,0,0,0.8),0 0 20px rgba(0,0,0,0.5);
+  }
+  #back:hover{color:var(--accent);}
+  #back:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+  #ui{
+    position:fixed;left:1.1rem;right:1.1rem;bottom:1rem;z-index:5;
+    font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:0.7rem;line-height:1.7;
+    color:var(--fg);opacity:0.92;
+    text-shadow:0 0 8px rgba(0,0,0,0.8),0 0 20px rgba(0,0,0,0.5);
+  }
+  #ui b{color:var(--accent);}
+  #rSlide{
+    -webkit-appearance:none;appearance:none;width:min(26rem,72vw);height:2px;
+    background:var(--hair);outline:none;vertical-align:middle;margin-left:0.8rem;cursor:ew-resize;
+  }
+  #rSlide::-webkit-slider-thumb{
+    -webkit-appearance:none;appearance:none;width:14px;height:14px;border-radius:50%;
+    background:var(--fg);border:2px solid var(--bg);
+  }
+  #rSlide::-moz-range-thumb{width:12px;height:12px;border-radius:50%;background:var(--fg);border:2px solid var(--bg);}
+  #rSlide:focus-visible{outline:2px solid var(--accent);outline-offset:4px;}
+  @media(max-width:600px){
+    #info{max-width:calc(100vw - 5.5rem);font-size:0.62rem;}
+    #info h1{font-size:1.3rem;}
+    #ui{font-size:0.62rem;bottom:0.8rem;max-width:calc(100vw - 2.2rem);}
+    #rSlide{width:52vw;}
+  }
+</style>
+</head>
+<body>
+<canvas id="c" aria-label="A cobweb diagram of the logistic map — a staircase walking between the curve and the diagonal, settling into one, two, or four beats, or never settling at all"></canvas>
+<a id="back" href="/">&larr; andremacedo.com</a>
+<div id="info">
+  <h1>Cobweb</h1>
+  <p>One r, lived step by step. Each iterate bounces from the curve to the
+  diagonal and back; the walk settles on one value, then a two-beat, a
+  four-beat — and past the edge it never repeats, drawn in thin-film light.</p>
+  <p>Slide <b>r</b> or drag across the field · tap to reseed · keys <b>1–7</b> visit the landmarks</p>
+</div>
+<div id="ui">
+  <b id="rVal">r = 2.9000 · one beat</b><input id="rSlide" type="range" min="2.5" max="4" step="0.0005" value="2.9" aria-label="growth parameter r">
+</div>
+<script>
+(function(){
+  'use strict';
+  var cv=document.getElementById('c');
+  var ctx=cv.getContext('2d');
+  var rVal=document.getElementById('rVal');
+  var slide=document.getElementById('rSlide');
+  var reduced=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var W=0,H=0,dpr=1;
+  var r=2.9,x0=0.5,EDGE=3.569945672;
+  var path=[],step=0,anim=null;
+  var LANDMARKS=[3.0,3.4495,3.5441,3.5644,3.5699,3.8284,4.0];
+  var P={}; /* plot rect, computed on resize */
+  function px(v){return P.x+P.s*v;}
+  function py(v){return P.y+P.s*(1-v);}
+  function f(x){return r*x*(1-x);}
+  function regime(){
+    var x=0.5,i,p;
+    for(i=0;i<500;i++){x=f(x);}
+    var s=[];
+    for(i=0;i<48;i++){x=f(x);s.push(x);}
+    for(p=1;p<=8;p++){
+      var ok=true;
+      for(i=0;i<24;i++){
+        if(Math.abs(s[47-i]-s[47-i-p])>2e-4){ok=false;break;}
+      }
+      if(ok){return p;}
+    }
+    return 99;
+  }
+  function name(b){
+    if(b===1){return 'one beat';}
+    if(b===99){return 'weather — the walk never repeats';}
+    return 'a '+b+'-beat';
+  }
+  function label(){
+    rVal.textContent='r = '+r.toFixed(4)+' · '+name(regime());
+  }
+  function reseed(x){
+    x0=Math.min(0.999,Math.max(0.001,x));
+    path=[[x0,0]];
+    var v=x0,i;
+    var N=reduced?400:220;
+    for(i=0;i<N;i++){
+      var y=f(v);
+      path.push([v,y]);   /* vertical to the curve */
+      path.push([y,y]);   /* horizontal to the diagonal */
+      v=y;
+    }
+    step=0;
+    if(reduced){step=path.length-1;draw();}
+    else if(!anim){anim=requestAnimationFrame(march);}
+  }
+  function drawPlot(){
+    var i;
+    /* frame */
+    ctx.strokeStyle='rgba(28,26,23,0.35)';ctx.lineWidth=1;
+    ctx.strokeRect(P.x,P.y,P.s,P.s);
+    /* diagonal */
+    ctx.strokeStyle='rgba(28,26,23,0.5)';
+    ctx.beginPath();ctx.moveTo(px(0),py(0));ctx.lineTo(px(1),py(1));ctx.stroke();
+    /* the curve y = r x (1-x) */
+    ctx.strokeStyle='rgba(28,26,23,0.9)';ctx.lineWidth=1.4;
+    ctx.beginPath();
+    for(i=0;i<=200;i++){
+      var x=i/200,y=r*x*(1-x);
+      if(i===0){ctx.moveTo(px(x),py(y));}else{ctx.lineTo(px(x),py(y));}
+    }
+    ctx.stroke();
+    /* r marker on the frame */
+    ctx.fillStyle='rgba(93,88,79,1)';
+    ctx.font='11px ui-monospace,Menlo,monospace';
+    ctx.textAlign='left';
+    ctx.fillText('y = r·x·(1−x)',P.x+8,P.y+18);
+  }
+  function drawPath(){
+    var chaos=r>EDGE;
+    var i,a,b;
+    ctx.lineWidth=1;
+    for(i=1;i<=step&&i<path.length;i++){
+      a=path[i-1];b=path[i];
+      if(chaos){
+        var hue=(195+150*b[1]+36*Math.sin(i*0.05))%360;
+        ctx.strokeStyle='hsla('+hue+',70%,52%,0.55)';
+      }else{
+        /* fade the early transient, keep the settled walk strong */
+        var t=i/path.length;
+        ctx.strokeStyle='rgba(28,26,23,'+(0.12+0.6*t*t).toFixed(3)+')';
+      }
+      ctx.beginPath();ctx.moveTo(px(a[0]),py(a[1]));ctx.lineTo(px(b[0]),py(b[1]));ctx.stroke();
+    }
+    /* the current point */
+    if(step>0&&step<path.length){
+      var c=path[step];
+      ctx.fillStyle=chaos?'hsla(280,70%,50%,0.9)':'#1c1a17';
+      ctx.beginPath();ctx.arc(px(c[0]),py(c[1]),3,0,6.2832);ctx.fill();
+    }
+  }
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    drawPlot();
+    drawPath();
+  }
+  function march(){
+    step=Math.min(path.length-1,step+3);
+    draw();
+    if(step<path.length-1){anim=requestAnimationFrame(march);}
+    else{anim=null;}
+  }
+  function resize(){
+    dpr=Math.min(2,window.devicePixelRatio||1);
+    W=window.innerWidth;H=window.innerHeight;
+    cv.width=W*dpr;cv.height=H*dpr;
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    var s=Math.min(W,H)*0.62;
+    P={x:(W-s)/2,y:(H-s)/2-s*0.04,s:s};
+    if(H<560){P.y=(H-s)/2+s*0.02;}
+    draw();
+  }
+  function setR(v){
+    r=Math.min(4,Math.max(2.5,v));
+    slide.value=r;
+    label();reseed(x0);
+  }
+  slide.addEventListener('input',function(){setR(parseFloat(slide.value));});
+  var dragging=false;
+  cv.addEventListener('pointerdown',function(e){
+    dragging=true;
+    /* tap inside the plot reseeds x0; drag anywhere else moves r */
+    var rect=cv.getBoundingClientRect();
+    var mx=e.clientX-rect.left,my=e.clientY-rect.top;
+    if(mx>P.x&&mx<P.x+P.s&&my>P.y&&my<P.y+P.s){
+      reseed((mx-P.x)/P.s);
+    }else{
+      setR(2.5+1.5*Math.min(1,Math.max(0,(e.clientX)/W)));
+    }
+  });
+  window.addEventListener('pointermove',function(e){
+    if(dragging){setR(2.5+1.5*Math.min(1,Math.max(0,(e.clientX)/W)));}
+  });
+  window.addEventListener('pointerup',function(){dragging=false;});
+  document.addEventListener('keydown',function(e){
+    if(e.metaKey||e.ctrlKey||e.altKey){return;}
+    var n=parseInt(e.key,10);
+    if(n>=1&&n<=LANDMARKS.length){setR(LANDMARKS[n-1]);}
+  });
+  resize();label();reseed(0.5);
+  window.addEventListener('resize',function(){resize();draw();});
+})();
+</script>
+</body>
+</html>

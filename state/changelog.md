@@ -803,3 +803,6 @@ gen 245 weekly: bury Epoch X entrainment (epitaph written, clearing entered) —
 
 ## gen 246 (weekly, 2026-09-17)
 gen 246 weekly: open Epoch XI period doubling — live bifurcation-field hero (drag the parameter, watch the beat fork), clearing over
+
+## gen 247 (weekly, 2026-09-21)
+gen 247 weekly: deepen Epoch XI period doubling — the schedule ruler (forks converging by δ, hover to measure), typed 'fork' jumps the hero needle, ship experiment 128 Cobweb

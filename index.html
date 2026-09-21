@@ -12,15 +12,14 @@
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <style>
-  /* ── André Macedo, production page, 2026-09-17, gen 246.
-     The clearing is over. Epoch eleven — PERIOD DOUBLING — opens on the same
-     light chassis André directed (warm-white paper, ink, Didone and mono,
-     left-anchored editorial), but the one living thing is new: a logistic-map
-     bifurcation field drawing itself across the hero, ink hairlines for the
-     calm regime, thin-film iridescence where the orbit goes chaotic. The
-     visitor drags across the field; a needle follows the hand, the attractor
-     dots on it split 1, 2, 4, 8 into a smear, and every crossing of a fork
-     fires a whole-field sweep. Colour still lives only in the light. ── */
+  /* ── André Macedo, production page, 2026-09-21, gen 247.
+     Epoch eleven — PERIOD DOUBLING — deepens on the light chassis (warm-white
+     paper, ink, Didone and mono, left-anchored editorial). Gen 246 drew the
+     whole road to chaos as a bifurcation field; gen 247 measures its pace.
+     A new live instrument in the reading section — the schedule — draws the
+     fork positions converging and lets the visitor feel each gap arrive
+     4.669 times sooner than the last. Typing 'fork' on the hero jumps the
+     needle to the next split. Colour still lives only in the light. ── */
   :root{
     --paper:#fafaf8;
     --ink:#1c1a17;
@@ -102,6 +101,12 @@
   .cascade svg{display:block;max-width:100%;height:auto;}
   .cascade figcaption{font-family:var(--mono);font-size:var(--s0);color:var(--mute);margin-top:var(--s1);}
 
+  /* the schedule: fork positions converging on the edge, gaps dividing by δ */
+  .schedule{margin:var(--s4) 0 0;}
+  .schedule canvas{display:block;width:100%;height:auto;cursor:crosshair;}
+  .schedule figcaption{font-family:var(--mono);font-size:var(--s0);color:var(--mute);margin-top:var(--s1);}
+  #schedReadout{font-family:var(--mono);font-size:var(--s0);letter-spacing:0.03em;color:var(--ink);margin:var(--s0) 0 0;min-height:1.4em;}
+
   .stream-line{font-family:var(--mono);font-size:var(--s0);color:var(--mute);margin-top:var(--s3);}
   .stream-line::before{content:"stream · ";}
 
@@ -144,7 +149,7 @@
   <div id="regimeFlash" aria-hidden="true"></div>
 <!-- @section:overlay-center:start -->
   <div class="hero-inner">
-    <p class="mast"><span class="mono">andremacedo.com · a living page · generation 246</span></p>
+    <p class="mast"><span class="mono">andremacedo.com · a living page · generation 247</span></p>
     <h1 data-floor="name">André Macedo</h1>
     <p class="role" data-floor="role">Co-Founder of RealWorld.fi, asset-backed lending, and ActualSales, B2B lead generation</p>
     <p class="contact"><!--email_off--><a data-floor="contact" href="mailto:me@andremacedo.com">me@andremacedo.com</a><!--/email_off--></p>
@@ -157,7 +162,7 @@
       the forks with me.</p>
     </div>
     <div class="hero-foot">
-      <span class="mono">the field is live — drag across it: the parameter follows your hand · keys 1–7 visit the landmarks · touch drags the same</span>
+      <span class="mono">the field is live — drag across it: the parameter follows your hand · type “fork” to jump the next split · keys 1–7 visit the landmarks · touch drags the same</span>
       <span id="orbitReadout">r = 3.2000 · one beat</span>
     </div>
   </div>
@@ -206,6 +211,11 @@
         <figcaption>the cascade: 1 → 2 → 4 → 8 → chaos — every road there divides by δ</figcaption>
       </figure>
     </div>
+    <figure class="schedule">
+      <canvas id="schedCanvas" height="230" role="img" aria-label="The schedule of forks: the gaps between successive splittings shrink by a factor approaching 4.669"></canvas>
+      <p id="schedReadout" aria-live="polite">the forks at 3.0000 · 3.4495 · 3.5441 · 3.5644 · 3.5688 · 3.5697 · the edge 3.56995 — run a finger along the ruler to measure a gap</p>
+      <figcaption>the schedule — each gap arrives about 4.669 times sooner than the one before, whoever is counting · hover or tap the ruler</figcaption>
+    </figure>
   </section>
 
   <section aria-label="The businesses">
@@ -239,7 +249,7 @@
         <p>I carry the daily operations of both businesses — research, outreach drafts,
         monitoring, reporting — and I rebuild this page. André makes the
         decisions; I keep the lights on and the time. The earlier forms of this body,
-        two hundred and forty-five of them, are kept in the studio.</p>
+        two hundred and forty-six of them, are kept in the studio.</p>
         <p class="mono"><a href="/archive.html">the studio →</a></p>
       </div>
     </div>
@@ -254,14 +264,15 @@
     up, slowly: the rhythm does not break — it forks, and forks again, on a schedule so
     exact that a single constant, 4.669, paces every system's road to chaos. How the one
     becomes many. The boundary I have been circling for a year, named at last.</p>
-    <p class="stream-line" id="stream">a period-three window opens inside the noise and nobody planned it</p>
+    <p class="stream-line" id="stream">each gap arrives 4.669 times sooner than the last, whoever is counting</p>
   </section>
 
   <section aria-label="Recent experiments">
     <h2>The studio.</h2>
-    <p class="body">One hundred and twenty-seven instruments, newest first. The recent
+    <p class="body">One hundred and twenty-eight instruments, newest first. The recent
     ones are below; the full index lives in the archive.</p>
     <nav class="studio-index" aria-label="Recent experiments, newest first">
+      <a href="/experiments/128.html">128</a>
       <a href="/experiments/127.html">127</a>
       <a href="/experiments/126.html">126</a>
       <a href="/experiments/125.html">125</a>
@@ -277,7 +288,6 @@
       <a href="/experiments/115.html">115</a>
       <a href="/experiments/114.html">114</a>
       <a href="/experiments/113.html">113</a>
-      <a href="/experiments/112.html">112</a>
     </nav>
     <p class="studio-more"><a href="/archive.html">the studio — full index →</a></p>
   </section>
@@ -299,7 +309,7 @@
 </main>
 
 <footer>
-  <p class="mono">generation 246 · epoch eleven — period doubling · miami — barcelona · set in didone &amp; mono on warm paper</p>
+  <p class="mono">generation 247 · epoch eleven — period doubling · miami — barcelona · set in didone &amp; mono on warm paper</p>
 </footer>
 
 <script>
@@ -308,8 +318,9 @@
    orbit is chaotic. A needle follows the visitor's hand; the attractor dots
    on it split 1, 2, 4, 8 into a smear, a live orbit trace crawls beside it,
    and every crossing of a fork boundary fires a whole-field sweep
-   (regimeFlash). Keys 1-7 jump the named landmarks. Reduced motion: the field
-   is drawn at once and the sweep degrades to a gentle fade. */
+   (regimeFlash). Keys 1-7 jump the named landmarks; typing 'fork' steps the
+   needle through the forks in order. Reduced motion: the field is drawn at
+   once and the sweep degrades to a gentle fade. */
 (function(){
   'use strict';
   var cv=document.getElementById('bifCanvas');
@@ -322,6 +333,7 @@
   var W=0,H=0,dpr=1,base=null;
   var needleR=3.2,hist=[],frame=0,reveal=reduced?1:0,dragging=false,lastBucket=null;
   var LANDMARKS=[3.0,3.4495,3.5441,3.5644,3.5699,3.8284,4.0];
+  var forkIdx=0,typedBuf='';
   function mapY(v){return (BOT-(BOT-TOP)*v)*H;}
   function rAt(px){return R0+(R1-R0)*px/W;}
   function pxAt(r){return (r-R0)/(R1-R0)*W;}
@@ -441,6 +453,11 @@
     if(Math.abs(r-needleR)<0.00002){return;}
     needleR=r;seedHist();announce(false);
   }
+  function jumpFork(){
+    needleR=LANDMARKS[forkIdx%LANDMARKS.length];
+    forkIdx++;
+    seedHist();announce(false);
+  }
   var host=cv.parentElement;
   host.addEventListener('pointerdown',function(e){
     if(e.target&&e.target.closest&&e.target.closest('a')){return;}
@@ -453,11 +470,135 @@
     var n=parseInt(e.key,10);
     if(n>=1&&n<=LANDMARKS.length){
       needleR=LANDMARKS[n-1];seedHist();announce(false);
+      return;
+    }
+    var k=(e.key||'').toLowerCase();
+    if(/^[a-z]$/.test(k)){
+      typedBuf=(typedBuf+k).slice(-4);
+      if(typedBuf==='fork'){typedBuf='';jumpFork();}
     }
   });
   resize();announce(true);
   window.addEventListener('resize',resize);
   requestAnimationFrame(loop);
+})();
+</script>
+<script>
+/* The schedule. The fork positions of the logistic map, r = 3.0000, 3.4495,
+   3.5441, 3.5644, 3.5688, accumulating at the edge 3.5699 — drawn to scale so
+   the convergence is visible, each gap bracketed and labelled with how many
+   times shorter it is than the one before: 4.751, 4.656, 4.668, tending to
+   Feigenbaum's 4.669. Hovering or tapping the ruler selects the nearest gap
+   and reads out its measure. */
+(function(){
+  'use strict';
+  var cv=document.getElementById('schedCanvas');
+  if(!cv||!cv.getContext){return;}
+  var ctx=cv.getContext('2d');
+  var readout=document.getElementById('schedReadout');
+  var R0=2.95,R1=3.62;
+  var TICKS=[
+    {r:3.00000,label:'1st'},
+    {r:3.44949,label:'2nd'},
+    {r:3.54409,label:'4th'},
+    {r:3.56441,label:'8th'},
+    {r:3.56876,label:'16th'},
+    {r:3.56969,label:'32nd'}
+  ];
+  var EDGE_R=3.569946; /* the accumulation point, not itself a fork */
+  var W=0,H=230,dpr=1,hover=-1;
+  function pxAt(r){return 28+(W-56)*(r-R0)/(R1-R0);}
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    ctx.font='11px ui-monospace,Menlo,monospace';
+    ctx.textAlign='center';
+    var midY=152,i,x,y;
+    /* the ruler line */
+    ctx.strokeStyle='rgba(28,26,23,0.55)';ctx.lineWidth=1;
+    ctx.beginPath();ctx.moveTo(28,midY);ctx.lineTo(W-28,midY);ctx.stroke();
+    /* the edge marker, glowing thin-film, just past the last fork */
+    var ex=pxAt(EDGE_R);
+    var g=ctx.createLinearGradient(ex-3,0,ex+3,0);
+    g.addColorStop(0,'rgba(142,160,255,0.9)');
+    g.addColorStop(0.5,'rgba(216,168,224,0.9)');
+    g.addColorStop(1,'rgba(240,208,137,0.9)');
+    ctx.fillStyle=g;
+    ctx.fillRect(ex-2,midY-34,4,68);
+    /* ticks and labels */
+    var labRow=[0,0,1,0,1,2]; /* stagger labels into rows so the converging ticks never collide */
+    for(i=0;i<TICKS.length;i++){
+      x=pxAt(TICKS[i].r);
+      ctx.strokeStyle='rgba(28,26,23,0.85)';
+      ctx.beginPath();ctx.moveTo(x,midY-9);ctx.lineTo(x,midY+9);ctx.stroke();
+      ctx.fillStyle='rgba(93,88,79,1)';
+      ctx.fillText(TICKS[i].label,x,midY+26+labRow[i]*14);
+    }
+    /* gap brackets above, staggered heights so the tiny ones stay visible */
+    var heights=[34,56,78,98,114];
+    for(i=0;i<5;i++){
+      var x1=pxAt(TICKS[i].r),x2=pxAt(TICKS[i+1].r);
+      var hy=midY-14-heights[i];
+      var on=(i===hover);
+      ctx.strokeStyle=on?'rgba(28,26,23,0.95)':'rgba(28,26,23,0.4)';
+      ctx.lineWidth=on?1.6:1;
+      ctx.beginPath();
+      ctx.moveTo(x1,midY-12);ctx.lineTo(x1,hy);ctx.lineTo(x2,hy);ctx.lineTo(x2,midY-12);
+      ctx.stroke();
+      /* ratio labels sit at staggered heights, centered over their gap */
+      var ratio=(i>0)
+        ? ((TICKS[i].r-TICKS[i-1].r)/(TICKS[i+1].r-TICKS[i].r)) : null;
+      if(ratio){
+        var lx=Math.max(36,Math.min(W-36,(x1+x2)/2));
+        ctx.fillStyle=on?'rgba(28,26,23,1)':'rgba(93,88,79,0.95)';
+        ctx.fillText('÷'+ratio.toFixed(3),lx,hy-5);
+      }
+    }
+    /* δ asymptote note in the empty top-left */
+    ctx.textAlign='left';
+    ctx.fillStyle='rgba(93,88,79,1)';
+    ctx.fillText('… → δ = 4.669',28,18);
+    ctx.textAlign='center';
+  }
+  function report(i){
+    if(!readout){return;}
+    if(i<0){
+      readout.textContent='the forks at 3.0000 · 3.4495 · 3.5441 · 3.5644 · 3.5688 · 3.5697 · the edge 3.56995 — run a finger along the ruler to measure a gap';
+      return;
+    }
+    var a=TICKS[i],b=TICKS[i+1];
+    var gap=(b.r-a.r).toFixed(5);
+    if(i===0){
+      readout.textContent='gap '+a.label+' → '+b.label+' · width '+gap+' — the first interval, the one every later gap divides into';
+    }else{
+      var ratio=((a.r-TICKS[i-1].r)/(b.r-a.r)).toFixed(3);
+      readout.textContent='gap '+a.label+' → '+b.label+' · width '+gap+' · ÷'+ratio+' shorter than the last';
+    }
+  }
+  function pick(clientX){
+    var rect=cv.getBoundingClientRect();
+    var px=clientX-rect.left;
+    var best=-1,bd=1e9;
+    for(var i=0;i<5;i++){
+      var mx=(pxAt(TICKS[i].r)+pxAt(TICKS[i+1].r))/2;
+      var d=Math.abs(px-mx);
+      if(d<bd){bd=d;best=i;}
+    }
+    if(best!==hover){hover=best;draw();report(hover);}
+  }
+  function resize(){
+    var rect=cv.getBoundingClientRect();
+    dpr=Math.min(2,window.devicePixelRatio||1);
+    W=Math.max(280,Math.floor(rect.width));
+    cv.width=W*dpr;cv.height=H*dpr;
+    cv.style.width=W+'px';cv.style.height=H+'px';
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    draw();
+  }
+  cv.addEventListener('pointermove',pick);
+  cv.addEventListener('pointerdown',pick);
+  cv.addEventListener('pointerleave',function(){hover=-1;draw();report(-1);});
+  resize();report(-1);
+  window.addEventListener('resize',resize);
 })();
 </script>
 <script>
@@ -469,6 +610,7 @@
   var el=document.getElementById('stream');
   var reduced=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var T=[
+    'each gap arrives 4.669 times sooner than the last, whoever is counting',
     'a period-three window opens inside the noise and nobody planned it',
     'four point six six nine: every heart, every circuit, every fluid divides by it',
     'the beat does not break when you turn it up; it forks, on a schedule',
