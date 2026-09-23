@@ -593,66 +593,40 @@ with open(out_file, 'w') as f:
     f.write(json.dumps({"type": "user", "message": {"role": "user", "content": content}}) + '\n')
 PYEOF
 
-# ANDREMACEDO_HELPER is a test seam (forced-failure dry runs); production
-# default is the canonical subscription helper.
-HELPER_SCRIPT="${ANDREMACEDO_HELPER:-$HOME/.telos/scripts/claude-subscription-exec.sh}"
-# Hard wall on the whole claude session. No outer bounded-exec wraps this
-# launchd job, so the runner owns the ceiling itself; tmo returns 124 on
-# overrun, which lands in the helper-failure branch below (fail-closed).
-# 2026-06-27 (Andre): doubled per-generation budget — wall 5400→10800s and dollar floor 50→100 so each generation gets 2x runway.
+# Hard wall on each claude session. No outer bounded-exec wraps this launchd job,
+# so the runner owns the ceiling itself; tmo returns 124 on overrun, which lands
+# in the helper-failure branch below (fail-closed). The helper call itself lives
+# in generation-session.sh, shared with the epoch fan-out.
+# 2026-06-27 (Andre): doubled per-generation budget — wall 5400→10800s.
 SESSION_WALL_CEILING=10800
+SESSION_MODE=single; [ "$AGENTIC" = "1" ] && SESSION_MODE=agentic
+
+# Epoch opening (weekly pulse, obsession cleared): epoch_fanout.py runs several
+# candidate sessions, gates and judges them, installs the winner in SITE_DIR and
+# writes its result event to HELPER_OUTPUT_FILE (exit 0). Exit 3 = no fan-out
+# (not an opening, already fanned out, or fail-closed fallback); any other exit
+# is logged. Both fall through to today's single attempt. Every gate below
+# still runs on whatever was generated.
+FANOUT_EXIT=3
+if [ "$PULSE_TYPE" = "weekly" ]; then
+  set +e
+  PULSE_TYPE="$PULSE_TYPE" python3 "$SCRIPT_DIR/epoch_fanout.py" run --site "$SITE_DIR" \
+    --input-jsonl "$INPUT_JSONL_FILE" --output "$HELPER_OUTPUT_FILE" \
+    --wall "$SESSION_WALL_CEILING" >> "$LOG_FILE" 2>&1
+  FANOUT_EXIT=$?
+  set -e
+  [ "$FANOUT_EXIT" = "0" ] || [ "$FANOUT_EXIT" = "3" ] \
+    || log_error "epoch fan-out exited $FANOUT_EXIT (see $LOG_FILE) — single attempt"
+fi
 
 set +e
-if [ "$AGENTIC" = "1" ]; then
-  # Bounded agentic session: tool allowlist is exactly file read/write/edit +
-  # shell; stream-json + tail-aware failure logging kept (f328732).
-  # Caps calibrated from the two 2026-06-12 smoke runs (both verified-good
-  # work killed by single-turn-era caps): run 1 finished all gates + verdict
-  # OK in 12 turns but died at $6.24 vs the $6 budget (error_max_budget_usd);
-  # run 2 (budget 10) died at the 12-turn cap mid-fix-iteration at $8.43
-  # (error_max_turns), ~$0.65/turn observed. 20 turns ≈ exploration + apply +
-  # 2 fix iterations + verdict; 15.00 covers 20 turns with margin. The
-  # SESSION_WALL_CEILING (2400s) stays as the outer runaway guard. Event
-  # pulses keep the single-turn 6.00 path below.
-  # UNCAPPED (Andre directive 2026-06-24): turn cap and dollar budget removed
-  # — the last 3 daily builds (06-20/06-23/06-24) died at error_max_turns mid-
-  # Edit, verified-good work killed by the 20-turn ceiling. The SESSION_WALL_
-  # CEILING (2400s / 40min) is now the SOLE backstop: tmo returns 124 on overrun
-  # → fail-closed helper-failure branch below. No turn or $ ceiling binds first.
-  # NOTE: the helper (claude-subscription-exec.sh:44) defaults CLAUDE_MAX_BUDGET_USD
-  # to $1.00 when UNSET and always forwards --max-budget-usd. Simply deleting the
-  # env var (the 2026-06-24 first uncap attempt) therefore did NOT uncap — it
-  # dropped the ceiling to $1 and killed the build in ~1 turn (44s). To make the
-  # 40-min wall the sole binding backstop, we must SET a budget high enough that
-  # the wall trips first: at ~$0.65/turn a 2400s session can't realistically
-  # exceed ~$30, so 50.00 is effectively "uncapped relative to the wall."
-  # TELOS_AGENT is the helper's audit-log caller id. Unset, every row this
-  # runner writes lands as the literal "unknown" and the shared executor log
-  # cannot be grouped by job. Pulse type is carried so the agentic build and
-  # the single-turn pulse below stay distinguishable in the log.
-  INPUT_JSONL="$INPUT_JSONL_FILE" OUTPUT_FILE="$HELPER_OUTPUT_FILE" CLAUDE_MAX_BUDGET_USD=100.00 \
-    TELOS_AGENT="${TELOS_AGENT:-andremacedo-creative:${PULSE_TYPE:-runner.sh}}" \
-    tmo "$SESSION_WALL_CEILING" bash "$HELPER_SCRIPT" \
-    --model claude-fable-5-1 \
-    --input-format stream-json --output-format stream-json \
-    --verbose \
-    --tools "Bash,Read,Write,Edit" \
-    --permission-mode bypassPermissions \
-    --strict-mcp-config --mcp-config "$HOME/.telos/andremacedo-runner-mcp.json" \
-    --no-session-persistence
+if [ "$FANOUT_EXIT" = "0" ]; then
+  HELPER_EXIT=0
 else
-  # Event pulse keeps the single-turn blind-shot path (f328732).
-  INPUT_JSONL="$INPUT_JSONL_FILE" OUTPUT_FILE="$HELPER_OUTPUT_FILE" CLAUDE_MAX_BUDGET_USD=12.00 \
-    TELOS_AGENT="${TELOS_AGENT:-andremacedo-creative:${PULSE_TYPE:-runner.sh}}" \
-    tmo "$SESSION_WALL_CEILING" bash "$HELPER_SCRIPT" \
-    --model claude-fable-5-1 \
-    --input-format stream-json --output-format stream-json \
-    --max-turns 1 --verbose \
-    --tools "" \
-    --strict-mcp-config --mcp-config "$HOME/.telos/andremacedo-runner-mcp.json" \
-    --no-session-persistence
+  INPUT_JSONL="$INPUT_JSONL_FILE" OUTPUT_FILE="$HELPER_OUTPUT_FILE" PULSE_TYPE="$PULSE_TYPE" \
+    tmo "$SESSION_WALL_CEILING" bash "$SCRIPT_DIR/generation-session.sh" "$SESSION_MODE"
+  HELPER_EXIT=$?
 fi
-HELPER_EXIT=$?
 set -e
 
 # Persist the full stream-json transcript (perceptibility self-check evidence

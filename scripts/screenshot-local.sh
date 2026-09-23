@@ -12,16 +12,24 @@
 #   /tmp/andremacedo-self-desktop.jpg  (1440px viewport, full page, width 1200, JPEG q80)
 #   /tmp/andremacedo-self-mobile.jpg   (390px viewport, 2x scale, width 1200, JPEG q80)
 # Exit: 0 only if BOTH captures succeeded. Non-zero otherwise (fail-closed).
+#
+# Optional overrides, used by epoch_fanout.py to render each candidate tree into
+# its own directory with the trusted copy of this script. Unset = the paths
+# above, which the in-session gate chain and the Kimi cage grant depend on.
+#   ANDREMACEDO_RENDER_DIR     site tree to serve (default: this script's repo)
+#   ANDREMACEDO_SELF_SHOT_DIR  directory for the four image files (default: /tmp)
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-SITE_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
+SITE_DIR="$(cd "${ANDREMACEDO_RENDER_DIR:-$SCRIPT_DIR/..}" && pwd)"
 VENV="$HOME/.telos/playwright-venv/bin/python3"
+SHOT_DIR="${ANDREMACEDO_SELF_SHOT_DIR:-/tmp}"
+[ -d "$SHOT_DIR" ] || { echo "ERROR: screenshot dir missing: $SHOT_DIR" >&2; exit 1; }
 
-DESKTOP_OUT="/tmp/andremacedo-self-desktop.jpg"
-MOBILE_OUT="/tmp/andremacedo-self-mobile.jpg"
-DESKTOP_RAW="/tmp/andremacedo-self-desktop-raw.png"
-MOBILE_RAW="/tmp/andremacedo-self-mobile-raw.png"
+DESKTOP_OUT="$SHOT_DIR/andremacedo-self-desktop.jpg"
+MOBILE_OUT="$SHOT_DIR/andremacedo-self-mobile.jpg"
+DESKTOP_RAW="$SHOT_DIR/andremacedo-self-desktop-raw.png"
+MOBILE_RAW="$SHOT_DIR/andremacedo-self-mobile-raw.png"
 HEIGHT_CEILING=12000
 
 # Stale outputs must never pass as this run's evidence.

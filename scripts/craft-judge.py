@@ -125,6 +125,7 @@ CRITIC_B_FALLBACK = CRITIC_B_FALLBACK_CANDIDATES[0]
 MODEL_LIST_TIMEOUT = 10.0
 HERE = os.path.dirname(os.path.abspath(__file__))
 DEFAULT_RUBRIC = os.path.join(HERE, "craft-rubric.md")
+DEFAULT_TONE_RUBRIC = os.path.join(HERE, "tone-rubric.md")
 
 AXES = ["type_scale", "spacing_system", "focal_hierarchy", "restraint",
         "hero", "composition", "type_craft", "color", "stranger_test"]
@@ -134,6 +135,11 @@ AXES = ["type_scale", "spacing_system", "focal_hierarchy", "restraint",
 # axes, the overall, or the margin rule. andremacedo.com is a business surface.
 STRANGER_AXIS = "stranger_test"
 STRANGER_FLOOR = 7.0
+
+# Optional tenth axis (--tone), scored against scripts/tone-rubric.md. It is used
+# to rank candidate epoch openings (epoch_fanout.py) and is reported beside the
+# craft scores; it never enters overall and never changes the gate rule.
+TONE_AXIS = "tone"
 
 SYSTEM = (
     "You are an adversarial design-engineering critic with fresh eyes and zero "
@@ -239,7 +245,14 @@ def b64_data_url(path):
     return f"data:{mime};base64," + base64.b64encode(raw).decode("ascii")
 
 
-def build_user_content(rubric, desktop, mobile):
+def build_user_content(rubric, desktop, mobile, tone_rubric=None):
+    tone_text = ""
+    if tone_rubric is not None:
+        tone_text = (
+            "\n\nALSO score the tenth axis `tone` against the TONE RUBRIC below and "
+            "report it as axes.tone. `tone` must NOT enter `overall`, which stays the "
+            "craft overall over the 9 craft axes.\n\n===== TONE RUBRIC =====\n"
+            + tone_rubric + "\n===== END TONE RUBRIC =====")
     parts = [{
         "type": "text",
         "text": (
@@ -253,8 +266,8 @@ def build_user_content(rubric, desktop, mobile):
             "EXACTLY matching the output contract — keys: axes (the 9 named axes), "
             "overall (number), is_slop (boolean), findings (array of specific "
             "strings), what_works (array, may be empty), reasoning (string).\n\n"
-            "===== RUBRIC =====\n" + rubric + "\n===== END RUBRIC =====\n\n"
-            "DESKTOP render follows:"
+            "===== RUBRIC =====\n" + rubric + "\n===== END RUBRIC ====="
+            + tone_text + "\n\nDESKTOP render follows:"
         ),
     }]
     parts.append({"type": "image_url", "image_url": {"url": b64_data_url(desktop)}})
@@ -312,10 +325,14 @@ def extract_json(text):
     raise ValueError("unbalanced JSON in model output")
 
 
-def normalize(v):
+def normalize(v, tone=False):
     axes = {a: float(v.get("axes", {}).get(a, 0) or 0) for a in AXES}
     overall = v.get("overall")
     overall = float(overall) if overall is not None else round(sum(axes.values()) / len(axes), 2)
+    if tone:
+        # Added after overall is derived, so a missing overall never averages tone
+        # in. A missing tone normalizes to 0: an unscored axis is not a pass.
+        axes[TONE_AXIS] = float(v.get("axes", {}).get(TONE_AXIS, 0) or 0)
     return {
         "axes": axes,
         "overall": overall,
@@ -326,9 +343,17 @@ def normalize(v):
     }
 
 
-def judge_one(url, model, content, timeout, retries):
+def judge_one(url, model, content, timeout, retries, tone=False):
     """Run a single critic; returns a normalized verdict or raises."""
-    return normalize(extract_json(call_proxy(url, model, SYSTEM, content, timeout, retries)))
+    return normalize(extract_json(call_proxy(url, model, SYSTEM, content, timeout, retries)),
+                     tone=tone)
+
+
+def combined_score(v):
+    """Per-critic craft+tone score used to rank fan-out candidates: the mean of
+    the craft overall and the tone axis. Asserts tone was requested and scored."""
+    assert TONE_AXIS in v["axes"], "combined score needs a --tone verdict"
+    return round((float(v["overall"]) + float(v["axes"][TONE_AXIS])) / 2.0, 3)
 
 
 def stranger_floor_failed(v):
@@ -415,6 +440,10 @@ def build_parser():
                          "stdout, the arithmetic to stderr, and exit")
     ap.add_argument("--json-out")
     ap.add_argument("--quiet", action="store_true")
+    ap.add_argument("--tone", action="store_true",
+                    help="also score the tone axis (see --tone-rubric); reported per "
+                         "critic with a craft+tone combined score, gate rule unchanged")
+    ap.add_argument("--tone-rubric", default=DEFAULT_TONE_RUBRIC)
     return ap
 
 
@@ -460,8 +489,15 @@ def main():
         rubric = open(args.rubric, encoding="utf-8").read()
     except Exception as e:
         emit({"verdict": "ERROR", "is_slop": True, "error": f"rubric unreadable: {e}"}, 2)
+    tone_rubric = None
+    if args.tone:
+        try:
+            tone_rubric = open(args.tone_rubric, encoding="utf-8").read()
+        except Exception as e:
+            emit({"verdict": "ERROR", "is_slop": True,
+                  "error": f"tone rubric unreadable: {e}"}, 2)
 
-    content = build_user_content(rubric, args.desktop, args.mobile)
+    content = build_user_content(rubric, args.desktop, args.mobile, tone_rubric)
 
     # Resolve every critic against the proxy's LIVE model list before spending a
     # single call. A retired id used to surface as an exception inside the critic
@@ -530,7 +566,8 @@ def main():
 
     # Critic A — no fallback; if it cannot be obtained, we cannot verify craft.
     def run_critic_a():
-        return judge_one(args.url, args.critic_a, content, args.timeout_a, args.retries)
+        return judge_one(args.url, args.critic_a, content, args.timeout_a, args.retries,
+                         tone=args.tone)
 
     # Critic B — grok; fall back to another family ONLY if grok is slow/flaky.
     # The fallback runs INSIDE this worker so the pair stays bounded by one path.
@@ -539,7 +576,8 @@ def main():
     # flakiness signal — rather than an id that never existed.
     def run_critic_b():
         try:
-            v = judge_one(args.url, args.critic_b, content, args.timeout_b, args.retries)
+            v = judge_one(args.url, args.critic_b, content, args.timeout_b, args.retries,
+                          tone=args.tone)
             return v, args.critic_b, None
         except Exception as e_b:  # noqa: BLE001
             if not args.critic_b_fallback:
@@ -547,7 +585,7 @@ def main():
                                    "no live fallback model to try") from e_b
             try:
                 v = judge_one(args.url, args.critic_b_fallback, content,
-                              args.timeout_a, args.retries)
+                              args.timeout_a, args.retries, tone=args.tone)
                 return v, args.critic_b_fallback, f"{args.critic_b} ({e_b})"
             except Exception as e_fb:  # noqa: BLE001
                 raise RuntimeError(
@@ -630,6 +668,14 @@ def main():
                   "passed": b_pass, **b},
         },
     }
+    if args.tone:
+        # Ranking inputs for epoch_fanout.py. Reported only; the gate above is
+        # decided exactly as without --tone.
+        for label, v in (("A", a), ("B", b)):
+            verdict["critics"][label]["combined"] = combined_score(v)
+        verdict["tone_axis"] = True
+        verdict["combined_min"] = min(verdict["critics"]["A"]["combined"],
+                                      verdict["critics"]["B"]["combined"])
     if critic_b_degraded:
         # A verdict reached without the designed second family is still a verdict,
         # but it must never read as the designed configuration having passed.

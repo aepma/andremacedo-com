@@ -2,6 +2,15 @@
 
 Extract this archive and read SOUL.md, TOOLS.md, and HEARTBEAT.md before doing anything. They are the source of truth.
 
+## Tone target
+Confirmed by Andre on 2026-09-23, verbatim:
+
+> "I have no idea what I just saw but I can't stop thinking about it."
+
+This is the site's stated target. The critics score it as the `tone` axis
+(`scripts/tone-rubric.md`) when candidate epoch openings are compared
+(`scripts/epoch_fanout.py`).
+
 ## What to build
 
 ### 1. GitHub repo + Cloudflare Pages

@@ -23,21 +23,27 @@ assert(){ # <desc> <test-cmd...>
 }
 [ -s "$SUB" ] || { echo "FATAL: $SUB missing/empty"; exit 2; }
 
-# (a) every inline <script> in the substrate parses under node --check
-python3 - "$SUB" <<'PY' > /tmp/.fsub-scripts 2>/dev/null
-import re,sys
+# (a) every inline <script> in the substrate parses under node --check.
+# Scratch lives under $TMPDIR, not a fixed /tmp path: where /tmp was unwritable the
+# extraction failed silently, zero blocks were parsed, and this check passed empty.
+WORK="$(mktemp -d "${TMPDIR:-/tmp}/fsub.XXXXXX")" || { echo "FATAL: cannot create scratch dir"; exit 2; }
+trap 'rm -rf "$WORK"' EXIT
+python3 - "$SUB" "$WORK" <<'PY' > "$WORK/scripts.txt"
+import os,re,sys
 html=open(sys.argv[1],encoding='utf-8').read()
 html=re.sub(r'<!--.*?-->','',html,flags=re.S)   # ignore <script> mentions in comment prose
 for i,m in enumerate(re.finditer(r'<script\b[^>]*>(.*?)</script>',html,re.S)):
-    open(f'/tmp/.fsub-script-{i}.js','w',encoding='utf-8').write(m.group(1))
-    print(f'/tmp/.fsub-script-{i}.js')
+    p=os.path.join(sys.argv[2],f'fsub-script-{i}.js')
+    open(p,'w',encoding='utf-8').write(m.group(1))
+    print(p)
 PY
 nscripts=0
 while IFS= read -r js; do
   nscripts=$((nscripts+1))
   assert "inline <script> #$nscripts parses (node --check)" node --check "$js"
-done < /tmp/.fsub-scripts
+done < "$WORK/scripts.txt"
 note "(parsed $nscripts script block(s))"
+assert "at least one inline <script> block was extracted and parsed" test "$nscripts" -gt 0
 
 # (b) fence-sufficiency: the structural tokens validate-build.py keys on
 grep -q '<style id="mobile-scaffold">'                  "$SUB" && assert "INV-5 mobile-scaffold open tag present"      true || { assert "INV-5 mobile-scaffold open tag present" false; }
