@@ -806,3 +806,7 @@ gen 246 weekly: open Epoch XI period doubling — live bifurcation-field hero (d
 
 ## gen 247 (weekly, 2026-09-21)
 gen 247 weekly: deepen Epoch XI period doubling — the schedule ruler (forks converging by δ, hover to measure), typed 'fork' jumps the hero needle, ship experiment 128 Cobweb
+
+## gen 248 (weekly, 2026-09-24)
+gen 248 weekly: deepen Epoch XI period doubling — the caliper (α = 2.503, nested self-similar boxes), ship experiment 129 Self-Similar, favicon gains the box
+[2026-09-24T04:15:24Z] [gen 248] craft-fail: visitor floor failed: B/grok-4.20-fast(stranger_test 4.0<7.0 (visitor floor))

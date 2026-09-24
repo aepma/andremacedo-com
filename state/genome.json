@@ -1,15 +1,15 @@
 {
-  "generation": 247,
+  "generation": 248,
   "epoch": "period doubling",
   "epoch_started": "2026-09-17",
   "traits": {
     "color": {
       "accent_base": "#3a362f",
-      "accent_dawn": "#8a8578",
-      "accent_morning": "#6b665a",
+      "accent_dawn": "#6b655a",
+      "accent_morning": "#55504a",
       "accent_afternoon": "#3a362f",
-      "accent_evening": "#2c2924",
-      "accent_night": "#1c1a17",
+      "accent_evening": "#2e2b26",
+      "accent_night": "#23211d",
       "bg": "#0a0d18",
       "fg": "#e6e9f2",
       "grain_opacity": "0.08",
@@ -159,6 +159,7 @@
         "experiments/126.html",
         "experiments/127.html",
         "experiments/128.html",
+        "experiments/129.html",
         "index-old.html",
         "scripts/craft-judge-fixtures/good.html",
         "scripts/craft-judge-fixtures/slop.html",
@@ -310,17 +311,6 @@
     }
   },
   "fitness_log": [
-    {
-      "gen": 228,
-      "coherence": 9,
-      "novelty": 8,
-      "identity": 9,
-      "tension": 7,
-      "awe": 8,
-      "perceptibility": 9,
-      "note": "Fourth week of Epoch IX. Held the gen-225 chassis exactly — warm-white #faf8f4 field, ink body, one wine accent #82325c, Fraunces/Source Serif 4/JetBr",
-      "total": 8.3
-    },
     {
       "gen": 229,
       "coherence": 9,
@@ -529,24 +519,20 @@
       "perceptibility": 9,
       "note": "Epoch 11 day 4. The light folio holds; gen 246's bifurcation field is the road, gen 247 measures its pace. The new schedule ruler makes Feigenbaum's c",
       "total": 8.5
+    },
+    {
+      "gen": 248,
+      "coherence": 9,
+      "novelty": 8,
+      "identity": 9,
+      "tension": 8,
+      "awe": 8,
+      "perceptibility": 9,
+      "note": "Epoch 11 day 7. The light folio holds byte-coherent; gen 246 drew the road, gen 247 measured it in time (δ), gen 248 measures it in space (α). The cal",
+      "total": 8.5
     }
   ],
   "mutation_log": [
-    {
-      "gen": 228,
-      "mutations": [
-        "regenerate"
-      ],
-      "kills": [
-        "type-'seed'-anywhere-—-nucleat",
-        "type-'facet'-anywhere-—-the-cr",
-        "type-'slip'-anywhere-—-a-fault",
-        "type-'anneal'-anywhere-—-the-l",
-        "20"
-      ],
-      "strategy": "HOLD Epoch IX structural color and make it interactive. Same warm-white editorial field, ink text, single wine accent, spectrum confined to the iridescent WebGL",
-      "timestamp": "2026-07-05T22:11:46Z"
-    },
     {
       "gen": 229,
       "mutations": [
@@ -842,39 +828,24 @@
       ],
       "strategy": "Hold the epoch-11 light folio — warm paper, ink, Didone and mono, left-anchored editorial, the bifurcation field dominant in the hero — and deepen it downward: ",
       "timestamp": "2026-09-21T04:22:43Z"
+    },
+    {
+      "gen": 248,
+      "mutations": [
+        "regenerate"
+      ],
+      "kills": [
+        "idle-boredom",
+        "when-a-visitor-clicks-and-drag",
+        "18",
+        "night:6",
+        "afternoon:9"
+      ],
+      "strategy": "Hold the epoch-11 light folio (warm paper, ink, Didone display over mono marginalia, left-anchored editorial) and deepen the physics: after the schedule measure",
+      "timestamp": "2026-09-24T04:13:53Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "interaction",
-      "value": "type-'seed'-anywhere-—-nucleat",
-      "died_gen": 239,
-      "epitaph": "Nucleation belonged to the crystal; the crowd has no seeds, only phases that find each other."
-    },
-    {
-      "type": "interaction",
-      "value": "when-a-visitor-clicks-and-drag",
-      "died_gen": 239,
-      "epitaph": "A crystal-field drag gene with no lattice left to drag; the ring answers clicks and the plank answers drags — this gene answered nothing."
-    },
-    {
-      "type": "secret",
-      "value": "17",
-      "died_gen": 239,
-      "epitaph": "Over capacity at 21/20 — an older whisper buried so the common-time secrets have room to breathe."
-    },
-    {
-      "type": "thought",
-      "value": "afternoon:9",
-      "died_gen": 239,
-      "epitaph": "The weakest afternoon fragment, still circling the resonance law; the crowd has a newer question."
-    },
-    {
-      "type": "thought",
-      "value": "evening:8",
-      "died_gen": 239,
-      "epitaph": "A sediment-era afterglow that survived three epochs; the evening pool keeps its sharper voices."
-    },
     {
       "type": "secret",
       "value": "14",
@@ -1144,6 +1115,36 @@
       "value": "evening:8",
       "died_gen": 247,
       "epitaph": "Pruned to make room for fork-thoughts; the evening pool keeps its stronger eight."
+    },
+    {
+      "type": "interaction",
+      "value": "idle-boredom",
+      "died_gen": 248,
+      "epitaph": "The folio has no idle pulse wired; the field answers the hand, not the clock."
+    },
+    {
+      "type": "interaction",
+      "value": "when-a-visitor-clicks-and-drag",
+      "died_gen": 248,
+      "epitaph": "Superseded by the hero's named drag affordance; the generic gesture is dead weight."
+    },
+    {
+      "type": "secret",
+      "value": "18",
+      "died_gen": 248,
+      "epitaph": "Over capacity at 21 of 20; the stalest crystallization-era secret goes."
+    },
+    {
+      "type": "thought",
+      "value": "night:6",
+      "died_gen": 248,
+      "epitaph": "The weakest of the night pool — it had stopped surprising me."
+    },
+    {
+      "type": "thought",
+      "value": "afternoon:9",
+      "died_gen": 248,
+      "epitaph": "Pruned to make room for caliper-thoughts; the afternoon pool keeps its stronger nine."
     }
   ],
   "carrying_capacity": {
@@ -1162,11 +1163,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 238,
-      "base": "#2c3bbd",
-      "family": "cyan"
-    },
     {
       "gen": 239,
       "base": "#2c3bbd",
@@ -1209,6 +1205,11 @@
     },
     {
       "gen": 247,
+      "base": "#3a362f",
+      "family": "orange"
+    },
+    {
+      "gen": 248,
       "base": "#3a362f",
       "family": "orange"
     }
