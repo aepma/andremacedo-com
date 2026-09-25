@@ -282,13 +282,32 @@ if [ "$PULSE_TYPE" = "daily" ]; then
   # shared agent log. The full transcript still lands in $LOG_FILE exactly as
   # before; the difference is that on failure the tail is also available to
   # log_command_failure, so build-errors.log names the cause by itself.
+  #
+  # One connectivity blip to Cloudflare used to fail the whole day: on
+  # 2026-09-24T14:00Z wrangler gave up with "fetch failed", launchd then held
+  # exit=1 for 24h and the fleet escalated it to Andre as needing a human. A Pages
+  # deploy of the same directory is idempotent, so network-class failures get a
+  # bounded retry with backoff; anything else (file size, auth, config) fails at
+  # once so a real fault is not masked.
   DAILY_DEPLOY_CMD=(npx wrangler pages deploy "$SITE_DIR" --project-name="andremacedo-com" --branch="main" --commit-dirty=true)
+  DAILY_DEPLOY_ATTEMPTS="${DAILY_DEPLOY_ATTEMPTS:-3}"
+  DAILY_DEPLOY_BACKOFF_S="${DAILY_DEPLOY_BACKOFF_S:-60}"
   DEPLOY_OUTPUT_FILE=$(mktemp "${TMPDIR:-/tmp}/andremacedo-daily-deploy.XXXXXX")
-  daily_deploy_rc=0
-  "${DAILY_DEPLOY_CMD[@]}" >"$DEPLOY_OUTPUT_FILE" 2>&1 || daily_deploy_rc=$?
-  cat "$DEPLOY_OUTPUT_FILE" >> "$LOG_FILE" 2>/dev/null || true
+  daily_deploy_attempt=1
+  while :; do
+    daily_deploy_rc=0
+    "${DAILY_DEPLOY_CMD[@]}" >"$DEPLOY_OUTPUT_FILE" 2>&1 || daily_deploy_rc=$?
+    cat "$DEPLOY_OUTPUT_FILE" >> "$LOG_FILE" 2>/dev/null || true
+    [ "$daily_deploy_rc" -eq 0 ] && break
+    [ "$daily_deploy_attempt" -lt "$DAILY_DEPLOY_ATTEMPTS" ] || break
+    grep -qiE 'fetch failed|connectivity issue|ECONNRESET|ETIMEDOUT|ENOTFOUND|EAI_AGAIN|socket hang up' \
+      "$DEPLOY_OUTPUT_FILE" || break
+    log "WARN: daily deploy attempt $daily_deploy_attempt/$DAILY_DEPLOY_ATTEMPTS hit a network error; retrying in $((DAILY_DEPLOY_BACKOFF_S * daily_deploy_attempt))s"
+    sleep $((DAILY_DEPLOY_BACKOFF_S * daily_deploy_attempt))
+    daily_deploy_attempt=$((daily_deploy_attempt + 1))
+  done
   if [ "$daily_deploy_rc" -ne 0 ]; then
-    log_command_failure "daily wrangler deploy failed" \
+    log_command_failure "daily wrangler deploy failed (attempt $daily_deploy_attempt/$DAILY_DEPLOY_ATTEMPTS)" \
       "$daily_deploy_rc" "${DAILY_DEPLOY_CMD[*]}" "$DEPLOY_OUTPUT_FILE"
     rm -f "$DEPLOY_OUTPUT_FILE"
     record_failure
