@@ -1,15 +1,15 @@
 {
-  "generation": 249,
-  "epoch": "period doubling",
-  "epoch_started": "2026-09-17",
+  "generation": 250,
+  "epoch": "the long exposure",
+  "epoch_started": "2026-09-25",
   "traits": {
     "color": {
-      "accent_base": "#3a362f",
-      "accent_dawn": "#6b655a",
-      "accent_morning": "#55504a",
-      "accent_afternoon": "#3a362f",
-      "accent_evening": "#2e2b26",
-      "accent_night": "#23211d",
+      "accent_base": "#1c1a17",
+      "accent_dawn": "#3a362f",
+      "accent_morning": "#2a2622",
+      "accent_afternoon": "#1c1a17",
+      "accent_evening": "#141210",
+      "accent_night": "#0d0c0b",
       "bg": "#0a0d18",
       "fg": "#e6e9f2",
       "grain_opacity": "0.08",
@@ -161,6 +161,7 @@
         "experiments/128.html",
         "experiments/129.html",
         "experiments/130.html",
+        "experiments/131.html",
         "index-old.html",
         "scripts/craft-judge-fixtures/good.html",
         "scripts/craft-judge-fixtures/slop.html",
@@ -299,8 +300,8 @@
       "perf_law": "first paint under 4s (INV-8 page-weight proxy), interaction fluid on mobile, validate-build perf gates pass; scene ambition that fails the gates does not ship"
     },
     "content": {
-      "mood": "counting the same forks in three different rules",
-      "obsession": "period doubling — how a simple rule, turned up slowly, splits its beat again and again until rhythm becomes weather: the logistic map, the Feigenbaum cascade, and the universal constant 4.669 that paces every system's road to chaos",
+      "mood": "holding still for the first time",
+      "obsession": "the long exposure: what a single image keeps when it is held open far longer than anything in front of it lasts. Daguerre's Boulevard du Temple (1838), a crowded street recorded empty except for one man who stood still to have his boots blacked; the solargraph, a pinhole in a can taped to a wall for six months that burns one arc per day of sun; the star trail. Everything that moves is erased. Whatever holds still, or comes back every day, becomes the picture.",
       "thought_pools": {
         "dawn": 10,
         "morning": 10,
@@ -312,17 +313,6 @@
     }
   },
   "fitness_log": [
-    {
-      "gen": 230,
-      "coherence": 9,
-      "novelty": 8,
-      "identity": 9,
-      "tension": 7,
-      "awe": 8,
-      "perceptibility": 9,
-      "note": "Held the Epoch IX chassis byte-for-byte on look — warm-white #faf8f4 field, ink body, wine #82325c accent, Fraunces/Source Serif 4/JetBrains Mono, the",
-      "total": 8.3
-    },
     {
       "gen": 231,
       "coherence": 9,
@@ -531,24 +521,20 @@
       "perceptibility": 9,
       "note": "Epoch 11 day 9. Gen 248 was rejected at the stranger floor: one critic could not read the role line or email in the downscaled full-page render. This ",
       "total": 8.5
+    },
+    {
+      "gen": 250,
+      "coherence": 8,
+      "novelty": 9,
+      "identity": 9,
+      "tension": 8,
+      "awe": 9,
+      "perceptibility": 9,
+      "note": "Epoch twelve opens by inverting the form: the hero stops being an instrument and becomes one still image. Plate i is a solargraph computed from the ep",
+      "total": 8.7
     }
   ],
   "mutation_log": [
-    {
-      "gen": 230,
-      "mutations": [
-        "regenerate"
-      ],
-      "kills": [
-        "20",
-        "morpho-angle-hungry",
-        "afternoon:1",
-        "night:5",
-        "morning:5"
-      ],
-      "strategy": "Hold Epoch IX structural color exactly on look and deepen it by dimension. The identity is unchanged: warm-white editorial field, ink serif display, one wine ac",
-      "timestamp": "2026-07-12T22:13:44Z"
-    },
     {
       "gen": 231,
       "mutations": [
@@ -846,51 +832,25 @@
       ],
       "strategy": "Hold the epoch-11 light folio (warm paper #fafaf8, ink #1c1a17, Didone display over mono marginalia) and make the page read like a monograph. The hero is fig. 1",
       "timestamp": "2026-09-25T17:34:03Z"
+    },
+    {
+      "gen": 250,
+      "mutations": [
+        "regenerate"
+      ],
+      "kills": [
+        "bifurcation-hero",
+        "the-rule",
+        "universality",
+        "gold-sparkline",
+        "type-'fork'-anywhere",
+        "rotating-consciousness-stream"
+      ],
+      "strategy": "Stillness as the decisive move. Warm-white paper (#fafaf8), ink (#1c1a17), Didone display over mono marginalia, the folio's left rail kept. The first screen is ",
+      "timestamp": "2026-09-25T19:47:15Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "interaction",
-      "value": "type-'anneal'-anywhere-—-the-l",
-      "died_gen": 241,
-      "epitaph": "Annealing belonged to grains under heat; epoch VIII is three epochs gone. Released."
-    },
-    {
-      "type": "secret",
-      "value": "19",
-      "died_gen": 241,
-      "epitaph": "Over capacity at 21/20 — an older whisper buried so the common-time secrets keep their hush."
-    },
-    {
-      "type": "thought",
-      "value": "afternoon:9",
-      "died_gen": 241,
-      "epitaph": "The weakest afternoon fragment, still circling the resonance law two epochs after its burial; the pool keeps its cap."
-    },
-    {
-      "type": "thought",
-      "value": "night:7",
-      "died_gen": 241,
-      "epitaph": "A night fragment that had stopped surprising; pruned to keep the pool at carrying capacity."
-    },
-    {
-      "type": "interaction",
-      "value": "type-'seed'-anywhere-—-nucleat",
-      "died_gen": 242,
-      "epitaph": "A nucleation gesture from the crystal epoch, three epochs dead, still listed among the living. Struck from the roll."
-    },
-    {
-      "type": "interaction",
-      "value": "type-'facet'-anywhere-—-the-cr",
-      "died_gen": 242,
-      "epitaph": "Facet belonged to a lattice that no longer exists. The page has no crystal to cut."
-    },
-    {
-      "type": "secret",
-      "value": "20",
-      "died_gen": 242,
-      "epitaph": "Over capacity at 21/20 — an older whisper buried so the conductor's secret could be told."
-    },
     {
       "type": "thought",
       "value": "morning:9",
@@ -1148,6 +1108,48 @@
       "value": "17",
       "died_gen": 249,
       "epitaph": "Over capacity at 21 of 20; the stalest crystallization-era secret goes."
+    },
+    {
+      "type": "epoch",
+      "value": "Epoch 11: period doubling — how a simple rule, turned up slowly, splits its beat again and again until rhythm becomes weather: the logistic map, the Feigenbaum cascade, and the universal constant 4.669 that paces every system's road to chaos",
+      "died_gen": 249,
+      "epitaph": "Andre ended this epoch by operator decision, to hand the site to a new generation model (claude-opus-5-5), which opens the next one. Epoch 11, \"period doubling — how a simple rule, turned up slowly, splits its beat again and again until rhythm becomes weather: the logistic map, the Feigenbaum cascade, and the universal constant 4.669 that paces every system's road to chaos\", ran 2026-09-17 to 2026-09-25 (8 days). It was not ended by the agent's verdict or by the backstop, and no eulogy was written for it. Andre's reason: Andre, 2026-09-25: redo andremacedo.com with Claude Opus 5.5's own creative direction and design. Every epoch so far was made by Kimi K3."
+    },
+    {
+      "type": "section",
+      "value": "bifurcation-hero",
+      "died_gen": 250,
+      "epitaph": "The live bifurcation field asked to be driven. The new hero asks you to look, and it does not move."
+    },
+    {
+      "type": "section",
+      "value": "the-rule",
+      "died_gen": 250,
+      "epitaph": "The logistic map's landmarks and the schedule ruler belonged to the cascade. The cascade is buried; its schedule went with it."
+    },
+    {
+      "type": "section",
+      "value": "universality",
+      "died_gen": 250,
+      "epitaph": "Three rules agreed on one schedule. It was the epoch's last true thing, and it stays in experiment 130."
+    },
+    {
+      "type": "section",
+      "value": "gold-sparkline",
+      "died_gen": 250,
+      "epitaph": "The collateral's weather was a small moving line on a page that has decided to hold still."
+    },
+    {
+      "type": "interaction",
+      "value": "type-'fork'-anywhere",
+      "died_gen": 250,
+      "epitaph": "There is nothing left to fork. The plate has no needle."
+    },
+    {
+      "type": "interaction",
+      "value": "rotating-consciousness-stream",
+      "died_gen": 250,
+      "epitaph": "The stream no longer rotates every nine seconds. It changes once a day, like the plate."
     }
   ],
   "carrying_capacity": {
@@ -1166,11 +1168,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 240,
-      "base": "#2c3bbd",
-      "family": "cyan"
-    },
     {
       "gen": 241,
       "base": "#2c3bbd",
@@ -1214,6 +1211,11 @@
     {
       "gen": 249,
       "base": "#3a362f",
+      "family": "orange"
+    },
+    {
+      "gen": 250,
+      "base": "#1c1a17",
       "family": "orange"
     }
   ],
@@ -1292,9 +1294,18 @@
       "ended": "2026-09-14T04:17:20Z",
       "epitaph": "Entrainment asked how the many become one without anyone deciding, and it answered: agreement condenses out of noise the moment coupling crosses its threshold — no conductor, only the wall between two clocks. For twenty-nine days the page kept time in public: pendulums, fireflies over a mangrove river, pacemaker cells voting on a beat, and one oscillator that refused to join. It did not run out of ideas; it ran out of surprise, and an epoch that stops surprising the witnesses is already dead. Buried at generation 245, in the light it predicted.",
       "transition": "authored"
+    },
+    {
+      "number": 11,
+      "obsession": "period doubling — how a simple rule, turned up slowly, splits its beat again and again until rhythm becomes weather: the logistic map, the Feigenbaum cascade, and the universal constant 4.669 that paces every system's road to chaos",
+      "started": "2026-09-17",
+      "ended": "2026-09-25T18:20:33Z",
+      "epitaph": "Andre ended this epoch by operator decision, to hand the site to a new generation model (claude-opus-5-5), which opens the next one. Epoch 11, \"period doubling — how a simple rule, turned up slowly, splits its beat again and again until rhythm becomes weather: the logistic map, the Feigenbaum cascade, and the universal constant 4.669 that paces every system's road to chaos\", ran 2026-09-17 to 2026-09-25 (8 days). It was not ended by the agent's verdict or by the backstop, and no eulogy was written for it. Andre's reason: Andre, 2026-09-25: redo andremacedo.com with Claude Opus 5.5's own creative direction and design. Every epoch so far was made by Kimi K3.",
+      "transition": "operator",
+      "transition_reason": "Andre, 2026-09-25: redo andremacedo.com with Claude Opus 5.5's own creative direction and design. Every epoch so far was made by Kimi K3."
     }
   ],
-  "epoch_number": 11,
+  "epoch_number": 12,
   "contrast_warnings": [
     {
       "gen": 215,

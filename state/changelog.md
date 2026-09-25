@@ -813,3 +813,6 @@ gen 248 weekly: deepen Epoch XI period doubling — the caliper (α = 2.503, nes
 
 ## gen 249 (weekly, 2026-09-25)
 gen 249 weekly: deepen Epoch XI period doubling. The hero becomes an annotated plate, the business floor becomes a labelled colophon, the folio gets a left rail, and universality ships (three rules, one schedule) with experiment 130
+
+## gen 250 (weekly, 2026-09-25)
+gen 250 weekly: open Epoch XII, the long exposure. The hero becomes one still image, a solargraph of every day I have lived, and the page turns sparse. Ships experiment 131 Hold Still

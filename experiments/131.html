@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>131 — Hold Still · andremacedo.com</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<style>
+  html,body{margin:0;height:100%;background:#12100e;color:#f4f1ea;overflow:hidden;
+    font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;}
+  #plate{position:fixed;inset:0;width:100%;height:100%;display:block;touch-action:none;cursor:crosshair;
+    image-rendering:auto;}
+  #street{position:fixed;right:16px;bottom:52px;width:min(28vw,220px);aspect-ratio:16 / 9;border:1px solid rgba(244,241,234,.35);
+    pointer-events:none;z-index:2;}
+  #info{position:fixed;top:14px;left:16px;max-width:44ch;opacity:0.86;font-size:14px;line-height:1.55;z-index:3;pointer-events:none;
+    text-shadow:0 0 8px rgba(0,0,0,0.8),0 0 20px rgba(0,0,0,0.5);}
+  #info h1{font-family:"Didot","Bodoni 72","Bodoni MT",serif;font-weight:400;font-size:24px;margin:0 0 4px;}
+  #info p{margin:0 0 6px;}
+  #ui{position:fixed;left:16px;right:16px;bottom:16px;z-index:3;font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:12px;
+    display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;pointer-events:none;
+    text-shadow:0 0 8px rgba(0,0,0,0.8),0 0 20px rgba(0,0,0,0.5);}
+  #back{position:fixed;top:14px;right:16px;z-index:4;font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:12px;color:#f4f1ea;
+    text-shadow:0 0 8px rgba(0,0,0,0.8),0 0 20px rgba(0,0,0,0.5);}
+  #back:focus-visible{outline:2px solid #f4f1ea;outline-offset:3px;}
+  .lab{position:fixed;right:16px;bottom:calc(52px + min(28vw,220px) * 0.5625 + 6px);z-index:3;font-family:ui-monospace,"SF Mono",Menlo,monospace;
+    font-size:11px;color:#f4f1ea;opacity:.8;pointer-events:none;text-shadow:0 0 8px rgba(0,0,0,0.8),0 0 20px rgba(0,0,0,0.5);}
+  @media (max-width:600px){#info{max-width:calc(100vw - 110px);font-size:13px;}#street{width:40vw;bottom:64px;}
+    .lab{bottom:calc(64px + 40vw * 0.5625 + 6px);}}
+</style>
+</head>
+<body>
+<canvas id="plate" aria-label="A long-exposure plate of a busy street. Press and hold to stand in it."></canvas>
+<canvas id="street" aria-hidden="true"></canvas>
+<span class="lab">the street, as it is</span>
+<div id="info">
+  <h1>131 · Hold Still</h1>
+  <p>In 1838 Daguerre held a plate open for minutes on the Boulevard du Temple. The street was full and came out empty, except for one man who stood still to have his boots blacked. This plate needs about seven seconds; the crowd in the small window never stops.</p>
+  <p>Press and hold anywhere to stand in the street. Move and you vanish. Hold still and the plate keeps you.</p>
+</div>
+<a id="back" href="/">← andremacedo.com</a>
+<div id="ui"><span id="held">not in the street</span><span>exposure ≈ 7 s · the boot-black's customer is lower left</span></div>
+<script>
+(function(){
+  'use strict';
+  var out=document.getElementById('plate'), mini=document.getElementById('street');
+  var W=320, H=180;
+  var frame=document.createElement('canvas'); frame.width=W; frame.height=H;
+  var fx=frame.getContext('2d', {willReadFrequently:true}), ox, mx=mini.getContext('2d');
+  out.width=W; out.height=H; mini.width=W; mini.height=H; ox=out.getContext('2d');
+  var acc=new Float32Array(W*H), img=ox.createImageData(W,H);
+  var reduced=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var speedK=reduced?0.45:1;
+  function rng(seed){var s=seed>>>0;return function(){s=(s+0x6D2B79F5)>>>0;var t=s;t=Math.imul(t^(t>>>15),t|1);t^=t+Math.imul(t^(t>>>7),t|61);return((t^(t>>>14))>>>0)/4294967296;};}
+  var r=rng(1838), walkers=[], i;
+  for(i=0;i<46;i++){var y=0.62+r()*0.3;walkers.push({x:r()*W,y:y*H,v:(r()<0.5?-1:1)*(10+r()*22)*(0.6+y),s:0.6+y*0.9,cart:r()<0.12});}
+  var facade=[];
+  for(i=0;i<9;i++){facade.push({x:i*W/9+4,w:W/9-8,h:H*(0.36+r()*0.18)});}
+  var visitor=null, still=0, last=performance.now(), heldEl=document.getElementById('held');
+  function figure(ctx,x,y,s,a){ctx.fillStyle='rgba(255,246,228,'+a+')';ctx.beginPath();ctx.ellipse(x,y-9*s,2.2*s,6*s,0,0,6.283);ctx.fill();ctx.beginPath();ctx.arc(x,y-17*s,2*s,0,6.283);ctx.fill();}
+  function scene(dt){
+    fx.fillStyle='#000'; fx.fillRect(0,0,W,H);
+    fx.fillStyle='rgba(190,180,165,1)';
+    for(var k=0;k<facade.length;k++){var f=facade[k];fx.globalAlpha=0.55;fx.fillRect(f.x,H*0.6-f.h,f.w,f.h);
+      fx.globalAlpha=1;fx.fillStyle='rgba(20,18,16,1)';for(var wy=H*0.6-f.h+6;wy<H*0.56;wy+=10){for(var wx=f.x+4;wx<f.x+f.w-4;wx+=9){fx.fillRect(wx,wy,4,6);}}fx.fillStyle='rgba(190,180,165,1)';}
+    fx.globalAlpha=0.35; fx.fillRect(0,H*0.6,W,H*0.4); fx.globalAlpha=1;
+    figure(fx,W*0.16,H*0.9,1.25,0.95);
+    fx.fillStyle='rgba(255,246,228,0.95)'; fx.beginPath(); fx.ellipse(W*0.16+9,H*0.9-5,5,4,0,0,6.283); fx.fill();
+    for(var j=0;j<walkers.length;j++){var w=walkers[j];w.x+=w.v*dt*speedK;if(w.x<-20){w.x=W+20;}if(w.x>W+20){w.x=-20;}
+      if(w.cart){fx.fillStyle='rgba(255,246,228,0.9)';fx.fillRect(w.x-10*w.s,w.y-12*w.s,20*w.s,10*w.s);}else{figure(fx,w.x,w.y,w.s,0.9);}}
+    if(visitor){figure(fx,visitor.x,visitor.y,1.5,1);}
+  }
+  function tick(now){
+    var dt=Math.min(0.05,(now-last)/1000); last=now;
+    scene(dt);
+    mx.drawImage(frame,0,0);
+    var src=fx.getImageData(0,0,W,H).data, D=img.data, a=1-Math.exp(-dt/7);
+    for(var p=0,q=0;p<acc.length;p++,q+=4){
+      var l=(src[q]*0.3+src[q+1]*0.59+src[q+2]*0.11)/255;
+      acc[p]+=(l-acc[p])*a;
+      var v=Math.pow(acc[p],0.8);
+      D[q]=18+v*232; D[q+1]=16+v*222; D[q+2]=14+v*200; D[q+3]=255;
+    }
+    ox.putImageData(img,0,0);
+    if(visitor){still+=dt;heldEl.textContent='holding still · '+still.toFixed(1)+' s'+(still>7?' · kept':'');}
+    requestAnimationFrame(tick);
+  }
+  function pos(e){var b=out.getBoundingClientRect();return{x:(e.clientX-b.left)/b.width*W,y:(e.clientY-b.top)/b.height*H};}
+  out.addEventListener('pointerdown',function(e){out.setPointerCapture(e.pointerId);visitor=pos(e);still=0;});
+  out.addEventListener('pointermove',function(e){if(!visitor){return;}var p=pos(e);if(Math.abs(p.x-visitor.x)+Math.abs(p.y-visitor.y)>1.5){still=0;}visitor=p;});
+  function up(){visitor=null;still=0;heldEl.textContent='not in the street';}
+  out.addEventListener('pointerup',up); out.addEventListener('pointercancel',up);
+  requestAnimationFrame(tick);
+})();
+</script>
+</body>
+</html>

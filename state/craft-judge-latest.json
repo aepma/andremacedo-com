@@ -5,7 +5,7 @@
   "threshold": 7.0,
   "margin": 7.3,
   "overall_min": 5.0,
-  "reason": "margin override: critic A/claude-opus-4-8-oauth overall 8.2 >= margin 7.3 ships despite the other critic's veto (B/grok-4.20-fast(slop))",
+  "reason": "margin override: critic A/claude-opus-4-8-oauth overall 8.0 >= margin 7.3 ships despite the other critic's veto (B/grok-4.20-fast(slop))",
   "critics": {
     "A": {
       "model": "claude-opus-4-8-oauth",
@@ -13,30 +13,30 @@
       "axes": {
         "type_scale": 8.0,
         "spacing_system": 8.0,
-        "focal_hierarchy": 8.0,
+        "focal_hierarchy": 7.0,
         "restraint": 8.0,
-        "hero": 9.0,
+        "hero": 8.0,
         "composition": 8.0,
         "type_craft": 9.0,
         "color": 7.0,
-        "stranger_test": 9.0
+        "stranger_test": 8.0
       },
-      "overall": 8.2,
+      "overall": 8.0,
       "is_slop": false,
       "findings": [
-        "The cool pink/purple/blue spray inside the bifurcation diagrams (§3 logistic/Ricker/sine, hero right edge) skirts uncomfortably close to the AI-default cool-gradient palette when scanned quickly; it survives only because it is clearly plotted chaos-region data rather than garnish.",
-        "The lineage table at the foot (§5, metallurgy → period doubling) collapses into a dense wall of near-uniform small mono rows — hierarchy flattens there and the tiny right-edge bar glyphs read as noise more than signal.",
-        "The boxed 'I AM TELOS' manifesto top-right competes with the display name for the first fixation in the hero, slightly splitting the single focal point.",
-        "Body copy runs quite small and long across several sections (§2 rule text, §3 intro), leaning on the reader's patience rather than on visual pacing."
+        "Color is essentially monochrome ink-on-warm-cream with the only chroma coming from the sepia long-exposure photo; there is no governed accent hue, so across the long scroll the lower sections risk reading as tonally flat/safe.",
+        "The hero has mild dual-focus tension: the large Didone 'André Macedo' and the bright arc-of-light photograph both grab attention at near-equal weight before the name resolves as primary.",
+        "The '§4 — the studio' register (mono numeric grid of 131 instruments) leans on expected almanac/ledger convention and is the lowest-energy passage — competent but the least surprising block on the page.",
+        "Section-heading treatment repeats the same left-column big-serif / right-column body pattern four times; by the third repeat the rhythm is predictable rather than escalating."
       ],
       "what_works": [
-        "The hero is a genuine signature: a massive Didone 'André Macedo' set against a live logistic-map bifurcation diagram spanning the full width, annotated with real fork values (3.0000 first fork, 3.4495 second fork, the edge, 3.8284 period three) — this is composition-as-argument, not a centered headline on a background.",
-        "High-contrast Didone serif against a mono utility voice, with italic inflections ('field.', 'one schedule.', 'ten of them dead.') — an expressive, editorial pairing no template generator defaults to.",
-        "Color and imagery are content, not decoration: every diagram is the chaos-theory subject rendered, so restraint and meaning coincide.",
-        "Warm-paper ground, hairline rules, roman-numeral section indices and §-marked labels build a coherent print-editorial system with asymmetric left-anchored headings.",
-        "Stranger test passes decisively — name, 'Co-founder of RealWorld.fi and ActualSales', and me@andremacedo.com are all legible above the fold."
+        "High-contrast Didone display serif set against a small-caps mono utility voice (DOES / WRITE / '§1 — the plate') is a genuine editorial pairing no templated generator defaults to.",
+        "The hero is a resolved system, not a centered headline: name left, long-exposure 'plate i · 24 iii 2026 · 186 arcs' photograph right, margin labels, and the italic 'I AM TELOS' personal-AI note — type, image and caption argue a single conceptual frame (the page as an open exposure).",
+        "Asymmetric two-column composition with labels living in the left margin uses whitespace as compositional mass rather than centered symmetry.",
+        "Real restraint: warm paper, black ink, hairline rules as structure — zero gradients, glows, or glassmorphism used as garnish.",
+        "Expressive italic accents ('is gone.', 'the long exposure') carry editorial conviction and a legible authorial voice."
       ],
-      "reasoning": "This is emphatically not the centered-hero/gradient/three-card template: it is a chaos-theory editorial organism whose hero fuses a Didone display name with a live, annotated bifurcation diagram, carried through five sections by a consistent serif/mono system on warm paper. The decisive, risky move — treating the logistic map as both subject and visual grammar — is exactly the kind of conviction the rubric rewards, and the identity trio (name, role, email) is fully resolved above the fold. It loses a little for the data-viz color reading cool-generic on a fast scan and for the dense lineage table flattening hierarchy near the bottom, but nothing here is template-grade or inoffensively empty."
+      "reasoning": "This is a deliberate daily-rebuilt almanac/broadsheet, not a SaaS template: it dodges every cardinal slop state with a Didone-versus-mono voice, asymmetric margin-labelled columns, and a hero that fuses concept (open exposure), image, and type rather than floating a centered tagline over a gradient. The stranger test passes cleanly — name, 'Co-founder of RealWorld.fi and ActualSales', and me@andremacedo.com are all legible above the fold. It is held back only by an almost entirely monochrome palette with no governed accent and by lower-section ledger conventions that coast on almanac cliché, but the editorial conviction and typographic point of view clear the bar."
     },
     "B": {
       "model": "grok-4.20-fast",
@@ -46,34 +46,34 @@
         "type_scale": 4.0,
         "spacing_system": 6.0,
         "focal_hierarchy": 3.0,
-        "restraint": 5.0,
+        "restraint": 7.0,
         "hero": 4.0,
         "composition": 5.0,
-        "type_craft": 7.0,
-        "color": 6.0,
-        "stranger_test": 8.0
+        "type_craft": 6.0,
+        "color": 8.0,
+        "stranger_test": 9.0
       },
       "overall": 5.0,
       "is_slop": true,
       "findings": [
-        "Generic SaaS-landing shape: long vertical scroll with section headers, feature-like blocks (RealWorld.fi, ActualSales, etc.), numbered list at bottom, and footer metadata — applied to what is supposed to be a living art organism",
-        "No single decisive aesthetic move: the page is a dense, typographic essay with illustrative charts and a faint map texture, but nothing that a templated generator wouldn't produce; safe editorial long-form layout",
-        "Symmetry and centered alignment dominate the composition, with most text blocks and diagrams sitting in a predictable single-column rhythm rather than using whitespace with intentional tension or asymmetry",
-        "Hero is a generic centered name + subtitle + contact line floating above a faint topographic/map texture with no resolved system-level relationship between type, space, and graphic",
-        "Multiple competing focal points across the scroll (name at top, logistic map, mathematical formula, three colored bifurcation diagrams, 'Universality' section, numbered lineage list) with no clear single hierarchy per viewport",
-        "Ad-hoc type scale with inconsistent heading weights and sizes that do not follow a visible modular ratio"
+        "Generic centered hero with large name + bio block + image is default AI layout shape",
+        "No single decisive aesthetic move; the long-exposure photography conceit and 'living AI' metaphor are executed in safe, templated editorial fashion",
+        "Multiple competing focal points (name, hero image, 'Everything that moved is gone' heading, business list, lineage table) with no clear hierarchy",
+        "Symmetrical, centered columns and blocks used as substitute for intentional composition throughout",
+        "Type scale feels ad-hoc rather than modular (dramatic jumps between display, section headings, body, and the dense register/table without clear ratio)",
+        "Safe, inoffensive editorial design that could be generated by any high-end design system or AI template for a 'thoughtful creative professional' site"
       ],
       "what_works": [
-        "Intentional pairing of serif display with mono/utility text creates some typographic point of view",
-        "The bifurcation diagrams and logistic map provide concrete visual artifacts that feel native to the conceptual content rather than stock imagery"
+        "Strong monochrome + warm paper tone color restraint with the long-exposure arc image as a genuine visual signature",
+        "Clear stranger_test delivery of name, roles, and contact in first viewport"
       ],
-      "reasoning": "This is a dense, conceptually ambitious editorial scroll that attempts to fuse business card, generative systems essay, and personal manifesto. However, it reads as default-grade AI long-form design: safe serif+mono typography, predictable vertical rhythm, centered blocks, and a faint map texture that never becomes a decisive compositional move. The 'living art organism' promise is undermined by SaaS-landing DNA (sectioned content blocks, numbered list, footer metadata). Hero lacks resolution as a system. Multiple elements compete for attention without hierarchy. While the diagrams and type pairing show care, the overall execution is generic, safe, and template-grade rather than exhibiting risk or signature craft. Stranger test passes but every other axis is mediocre."
+      "reasoning": "This is high-production but fundamentally mediocre AI-generated editorial slop. While it avoids the purple-gradient SaaS template and has a coherent conceptual frame (long exposure / living archive), the desktop render shows default-grade centered symmetry, competing headings, and no risky or signature compositional move that a templated generator wouldn't produce. The 'living art organism' brief is rendered as a clean, restrained but ultimately generic long-form personal site. Restraint and color are the strongest axes; hierarchy, hero resolution, and decisive craft are weak. Stranger test passes but cannot rescue the overall verdict."
     }
   },
   "margin_override": {
     "critic": "A",
     "model": "claude-opus-4-8-oauth",
-    "overall": 8.2,
+    "overall": 8.0,
     "margin": 7.3
   }
 }
