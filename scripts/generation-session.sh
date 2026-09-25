@@ -7,20 +7,29 @@
 # this in tmo; epoch_fanout.py uses a subprocess timeout on its own process group)
 # and the cwd, which the agentic session inherits as its repo.
 #
-# Usage: generation-session.sh agentic|single
+# Usage: generation-session.sh agentic|single|model
 # Env in : INPUT_JSONL  stream-json user message (image blocks + prompt text)
 #          OUTPUT_FILE  where the helper writes its stream-json output
 # Env opt: ANDREMACEDO_HELPER  executor helper (test seam; production sets it in
 #                              ~/.telos/andremacedo-executor.env)
 #          TELOS_AGENT         audit-log caller id
 #          PULSE_TYPE          carried into the default TELOS_AGENT
-# Exit   : the helper's exit code; 2 on a usage error.
+# Exit   : the helper's exit code; 2 on a usage error. `model` prints the
+#          generation model id and exits 0 without calling the helper.
 set -euo pipefail
+
+# The generation model, defined here and nowhere else in the engine. Both modes
+# below request it, so the runner's single attempt, its agentic session and
+# every epoch_fanout.py candidate run on it; runner.sh reads it through `model`
+# to label its session record, so the label cannot disagree with the request.
+# Andre, 2026-09-25: Claude Opus 5.5.
+GENERATION_MODEL="claude-opus-5-5"
 
 MODE="${1:-}"
 case "$MODE" in
   agentic|single) ;;
-  *) echo "Usage: $0 agentic|single" >&2; exit 2 ;;
+  model) printf '%s\n' "$GENERATION_MODEL"; exit 0 ;;
+  *) echo "Usage: $0 agentic|single|model" >&2; exit 2 ;;
 esac
 [ -n "${INPUT_JSONL:-}" ] && [ -s "$INPUT_JSONL" ] || { echo "generation-session: INPUT_JSONL missing or empty" >&2; exit 2; }
 [ -n "${OUTPUT_FILE:-}" ] || { echo "generation-session: OUTPUT_FILE required" >&2; exit 2; }
@@ -55,7 +64,7 @@ if [ "$MODE" = "agentic" ]; then
   # wall trips first.
   # 2026-06-27 (Andre): doubled per-generation budget — dollar floor 50→100.
   CLAUDE_MAX_BUDGET_USD=100.00 exec bash "$HELPER_SCRIPT" \
-    --model claude-fable-5-1 \
+    --model "$GENERATION_MODEL" \
     --input-format stream-json --output-format stream-json \
     --verbose \
     --tools "Bash,Read,Write,Edit" \
@@ -66,7 +75,7 @@ fi
 
 # Event pulse keeps the single-turn blind-shot path (f328732).
 CLAUDE_MAX_BUDGET_USD=12.00 exec bash "$HELPER_SCRIPT" \
-  --model claude-fable-5-1 \
+  --model "$GENERATION_MODEL" \
   --input-format stream-json --output-format stream-json \
   --max-turns 1 --verbose \
   --tools "" \

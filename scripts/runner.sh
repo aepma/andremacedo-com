@@ -619,6 +619,9 @@ PYEOF
 # 2026-06-27 (Andre): doubled per-generation budget — wall 5400→10800s.
 SESSION_WALL_CEILING=10800
 SESSION_MODE=single; [ "$AGENTIC" = "1" ] && SESSION_MODE=agentic
+# The model is defined once, in generation-session.sh; the session record reads it.
+GENERATION_MODEL="$(bash "$SCRIPT_DIR/generation-session.sh" model)"
+[ -n "$GENERATION_MODEL" ] || { log_error "generation-session.sh printed no model"; exit 1; }
 
 # Epoch opening (weekly pulse, obsession cleared): epoch_fanout.py runs several
 # candidate sessions, gates and judges them, installs the winner in SITE_DIR and
@@ -765,13 +768,13 @@ SESSIONS_DIR="$HOME/.telos/agents/andremacedo-creative/sessions"
 mkdir -p "$SESSIONS_DIR"
 SESSION_FILE="$SESSIONS_DIR/$(date -u +%Y-%m-%d).jsonl"
 EPOCH_MS=$(python3 -c 'import time; print(int(time.time()*1000))')
-python3 - "$EPOCH_MS" "$INPUT_TOKENS" "$OUTPUT_TOKENS" "$TOTAL_TOKENS" <<'PYEOF' >> "$SESSION_FILE"
+python3 - "$EPOCH_MS" "$INPUT_TOKENS" "$OUTPUT_TOKENS" "$TOTAL_TOKENS" "$GENERATION_MODEL" <<'PYEOF' >> "$SESSION_FILE"
 import json, sys
 entry = {
     'type': 'message',
     'message': {
         'role': 'assistant',
-        'model': 'claude-fable-5-1',
+        'model': sys.argv[5],
         'timestamp': int(sys.argv[1]),
         'usage': {
             'input': int(sys.argv[2]),
