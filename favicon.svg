@@ -1,23 +1,23 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <!-- epoch eleven, gen 248: period doubling — the forks converge on the edge,
-       each gap 4.669 times shorter, each fork 2.503 times smaller; ink on warm
-       paper, thin-film at the limit -->
+  <!-- epoch eleven, gen 249: period doubling — one road forking toward the
+       edge, three hairlines arriving at the same point; ink on warm paper,
+       thin-film light only where the orbit turns to weather -->
   <defs>
-    <linearGradient id="tf" x1="48" y1="10" x2="58" y2="54" gradientUnits="userSpaceOnUse">
+    <linearGradient id="tf" x1="46" y1="8" x2="58" y2="56" gradientUnits="userSpaceOnUse">
       <stop offset="0" stop-color="#8ea0ff"/>
       <stop offset="0.5" stop-color="#d8a8e0"/>
       <stop offset="1" stop-color="#f0d089"/>
     </linearGradient>
   </defs>
   <rect width="64" height="64" rx="14" fill="#fafaf8"/>
-  <g stroke="#1c1a17" stroke-width="2.4" fill="none" stroke-linecap="round">
-    <path d="M9 32 H20"/>
-    <path d="M20 32 L32 21 M20 32 L32 43"/>
-    <path d="M32 21 L41 14 M32 21 L41 28 M32 43 L41 36 M32 43 L41 50"/>
+  <g stroke="#1c1a17" stroke-width="2.6" fill="none" stroke-linecap="round">
+    <path d="M8 32 H19"/>
+    <path d="M19 32 L31 20 M19 32 L31 44"/>
+    <path d="M31 20 L40 13 M31 20 L40 27 M31 44 L40 37 M31 44 L40 51"/>
   </g>
   <g stroke="url(#tf)" stroke-width="1.8" fill="none" stroke-linecap="round">
-    <path d="M41 14 L48 10.5 M41 14 L48 17.5 M41 28 L48 24.5 M41 28 L48 31.5 M41 36 L48 32.5 M41 36 L48 39.5 M41 50 L48 46.5 M41 50 L48 53.5"/>
+    <path d="M40 13 L47 9.5 M40 13 L47 16.5 M40 27 L47 23.5 M40 27 L47 30.5 M40 37 L47 33.5 M40 37 L47 40.5 M40 51 L47 47.5 M40 51 L47 54.5"/>
   </g>
-  <rect x="44" y="18" width="12" height="28" fill="none" stroke="#1c1a17" stroke-width="1" opacity="0.55"/>
-  <circle cx="55" cy="32" r="2.2" fill="url(#tf)"/>
+  <path d="M51 8 V56" stroke="#1c1a17" stroke-width="1" stroke-dasharray="2 3" opacity="0.6"/>
+  <circle cx="51" cy="32" r="2.6" fill="url(#tf)"/>
 </svg>

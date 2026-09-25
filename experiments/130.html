@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>130 — Universality · andremacedo.com</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<style>
+  html,body{margin:0;height:100%;background:#fafaf8;color:#1c1a17;
+    font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;overflow:hidden;}
+  #stage{position:fixed;inset:0;display:grid;grid-template-rows:repeat(3,1fr);padding:120px 24px 64px;gap:10px;box-sizing:border-box;}
+  #stage canvas{width:100%;height:100%;display:block;cursor:ew-resize;touch-action:none;border-bottom:1px solid rgba(28,26,23,.2);}
+  #info{position:fixed;top:14px;left:16px;max-width:44ch;opacity:0.82;font-size:13px;line-height:1.55;
+    text-shadow:0 0 8px rgba(250,250,248,0.9),0 0 20px rgba(250,250,248,0.6);pointer-events:none;z-index:2;}
+  #info h1{font-family:"Didot","Bodoni 72","Bodoni MT",serif;font-weight:400;font-size:22px;margin:0 0 4px;}
+  #info p{margin:0 0 4px;}
+  #ui{position:fixed;left:16px;right:16px;bottom:16px;font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:12px;
+    text-shadow:0 0 8px rgba(250,250,248,0.9),0 0 20px rgba(250,250,248,0.5);z-index:2;}
+  #back{position:fixed;top:14px;right:16px;font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:12px;color:#1c1a17;
+    text-shadow:0 0 8px rgba(250,250,248,0.9),0 0 20px rgba(250,250,248,0.5);z-index:3;}
+  .lab{position:absolute;left:28px;font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:12px;color:#5d584f;pointer-events:none;
+    text-shadow:0 0 8px rgba(250,250,248,0.9),0 0 20px rgba(250,250,248,0.5);}
+</style>
+</head>
+<body>
+<div id="info">
+  <h1>130 · Universality</h1>
+  <p>Three unrelated rules — logistic, Ricker, sine — each scaled only so its second and third forks share two columns. The first forks disagree; everything after lines up by itself and reaches the edge together, because every gap divides by 4.669.</p>
+  <p>Drag anywhere (or use ← →) to move the needle through all three.</p>
+</div>
+<a id="back" href="/">← andremacedo.com</a>
+<div id="stage">
+  <canvas data-map="0" aria-label="logistic map strip"></canvas>
+  <canvas data-map="1" aria-label="Ricker map strip"></canvas>
+  <canvas data-map="2" aria-label="sine map strip"></canvas>
+</div>
+<div id="ui">…</div>
+<script>
+(function(){
+  'use strict';
+  var strips=document.querySelectorAll('#stage canvas');
+  var ui=document.getElementById('ui');
+  var A=0.573,S=0.0996,EDGE_U=0.700,u=0.62,drag=false,views=[];
+  var MAPS=[
+    {f:function(x,p){return p*x*(1-x);},x0:0.3,F:[3.0,3.449490,3.544090,3.564407,3.568759],name:'logistic  x → r·x(1 − x)'},
+    {f:function(x,p){return x*Math.exp(p*(1-x));},x0:0.5,F:[2.0,2.526364,2.656310,2.684608,2.690702],name:'Ricker  x → x·exp(r(1 − x))'},
+    {f:function(x,p){return p*Math.sin(Math.PI*x);},x0:0.3,F:[0.71995,0.833249,0.858602,0.864081,0.865258],name:'sine  x → a·sin(πx)'}
+  ];
+  function pOf(m,v){return m.F[1]+(v-A)/S*(m.F[2]-m.F[1]);}
+  function uOf(m,p){return A+(p-m.F[1])/(m.F[2]-m.F[1])*S;}
+  function period(m,p){
+    var x=m.x0,i,k,s=[];
+    for(i=0;i<1500;i++){x=m.f(x,p);}
+    for(i=0;i<64;i++){x=m.f(x,p);s.push(x);}
+    for(k=1;k<=16;k++){
+      var ok=true;
+      for(i=0;i<32;i++){if(Math.abs(s[63-i]-s[63-i-k])>1e-4){ok=false;break;}}
+      if(ok){return k;}
+    }
+    return 0;
+  }
+  function render(idx){
+    var cv=strips[idx],m=MAPS[idx],rect=cv.getBoundingClientRect();
+    var dpr=Math.min(2,window.devicePixelRatio||1);
+    var W=Math.max(200,Math.floor(rect.width)),H=Math.max(60,Math.floor(rect.height));
+    cv.width=W*dpr;cv.height=H*dpr;
+    var base=document.createElement('canvas');base.width=W*dpr;base.height=H*dpr;
+    var b=base.getContext('2d');b.scale(dpr,dpr);
+    var cols=Math.min(W,1400),N=140,pts=new Float32Array(cols*N),lo=1e9,hi=-1e9,i,n,x;
+    for(i=0;i<cols;i++){
+      var p=pOf(m,i/(cols-1));x=m.x0;
+      for(n=0;n<320;n++){x=m.f(x,p);}
+      for(n=0;n<N;n++){x=m.f(x,p);pts[i*N+n]=x;if(x<lo){lo=x;}if(x>hi){hi=x;}}
+    }
+    var pad=(hi-lo)*0.06,top=22,bot=H-12,step=W/cols;lo-=pad;hi+=pad;
+    for(i=0;i<cols;i++){
+      var chaos=i/(cols-1)>EDGE_U;
+      for(n=0;n<N;n++){
+        x=pts[i*N+n];var y=bot-(bot-top)*(x-lo)/(hi-lo);
+        if(chaos){if(n%2){continue;}b.fillStyle='hsla('+((195+150*(x-lo)/(hi-lo)+30*Math.sin(i*0.02))%360)+',70%,52%,0.2)';}
+        else{b.fillStyle='rgba(28,26,23,0.4)';}
+        b.fillRect(i*step,y,Math.max(1,step*0.9),1.1);
+      }
+    }
+    b.strokeStyle='rgba(28,26,23,0.9)';b.lineWidth=1;
+    for(var k=0;k<4;k++){var fx=Math.round(uOf(m,m.F[k])*W)+0.5;b.beginPath();b.moveTo(fx,H-10);b.lineTo(fx,H);b.stroke();}
+    b.font='12px ui-monospace,Menlo,monospace';b.fillStyle='rgba(93,88,79,1)';b.fillText(m.name,4,14);
+    views[idx]={cv:cv,ctx:cv.getContext('2d'),base:base,W:W,H:H,dpr:dpr};
+  }
+  function paint(){
+    views.forEach(function(v){
+      var c=v.ctx;c.setTransform(1,0,0,1,0,0);c.clearRect(0,0,v.cv.width,v.cv.height);c.drawImage(v.base,0,0);
+      c.setTransform(v.dpr,0,0,v.dpr,0,0);var nx=Math.round(u*v.W)+0.5;
+      c.strokeStyle='rgba(28,26,23,0.85)';c.beginPath();c.moveTo(nx,0);c.lineTo(nx,v.H);c.stroke();
+    });
+    var ps=MAPS.map(function(m){return period(m,pOf(m,u));});
+    var words=ps.map(function(k,i){return MAPS[i].name.split(' ')[0]+' '+(k===0?'chaos':(k===1?'one beat':'period '+k));});
+    var tail=u>EDGE_U?' — past the edge, each makes its own weather':((ps[0]===ps[1]&&ps[1]===ps[2]&&ps[0])?' — three rules, one beat':' — the rules still disagree here');
+    ui.textContent=words.join(' · ')+tail;
+  }
+  function setU(v){u=Math.min(1,Math.max(0,v));paint();}
+  function fromX(x){var r=strips[0].getBoundingClientRect();setU((x-r.left)/r.width);}
+  document.addEventListener('pointerdown',function(e){if(e.target.closest('a')){return;}drag=true;fromX(e.clientX);});
+  document.addEventListener('pointermove',function(e){if(drag||e.pointerType==='mouse'){fromX(e.clientX);}});
+  document.addEventListener('pointerup',function(){drag=false;});
+  document.addEventListener('keydown',function(e){
+    if(e.key==='ArrowRight'){setU(u+(e.shiftKey?0.02:0.004));}
+    else if(e.key==='ArrowLeft'){setU(u-(e.shiftKey?0.02:0.004));}
+  });
+  function all(){for(var i=0;i<strips.length;i++){render(i);}paint();}
+  var t=null;window.addEventListener('resize',function(){clearTimeout(t);t=setTimeout(all,120);});
+  all();
+})();
+</script>
+</body>
+</html>
