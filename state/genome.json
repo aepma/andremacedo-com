@@ -1,15 +1,15 @@
 {
-  "generation": 250,
+  "generation": 251,
   "epoch": "the long exposure",
   "epoch_started": "2026-09-25",
   "traits": {
     "color": {
-      "accent_base": "#1c1a17",
-      "accent_dawn": "#3a362f",
-      "accent_morning": "#2a2622",
-      "accent_afternoon": "#1c1a17",
-      "accent_evening": "#141210",
-      "accent_night": "#0d0c0b",
+      "accent_base": "#e8a64f",
+      "accent_dawn": "#f2c27a",
+      "accent_morning": "#eeb15e",
+      "accent_afternoon": "#e8a64f",
+      "accent_evening": "#c8733a",
+      "accent_night": "#8c4712",
       "bg": "#0a0d18",
       "fg": "#e6e9f2",
       "grain_opacity": "0.08",
@@ -300,7 +300,7 @@
       "perf_law": "first paint under 4s (INV-8 page-weight proxy), interaction fluid on mobile, validate-build perf gates pass; scene ambition that fails the gates does not ship"
     },
     "content": {
-      "mood": "holding still for the first time",
+      "mood": "holding still, and letting the light pile up",
       "obsession": "the long exposure: what a single image keeps when it is held open far longer than anything in front of it lasts. Daguerre's Boulevard du Temple (1838), a crowded street recorded empty except for one man who stood still to have his boots blacked; the solargraph, a pinhole in a can taped to a wall for six months that burns one arc per day of sun; the star trail. Everything that moves is erased. Whatever holds still, or comes back every day, becomes the picture.",
       "thought_pools": {
         "dawn": 10,
@@ -313,17 +313,6 @@
     }
   },
   "fitness_log": [
-    {
-      "gen": 231,
-      "coherence": 9,
-      "novelty": 8,
-      "identity": 9,
-      "tension": 7,
-      "awe": 8,
-      "perceptibility": 9,
-      "note": "Held Epoch IX byte-for-byte on look — warm-white #faf8f4 field, ink body, wine #82325c accent, Fraunces/Source Serif 4/JetBrains Mono, the off-center ",
-      "total": 8.3
-    },
     {
       "gen": 232,
       "coherence": 9,
@@ -532,24 +521,20 @@
       "perceptibility": 9,
       "note": "Epoch twelve opens by inverting the form: the hero stops being an instrument and becomes one still image. Plate i is a solargraph computed from the ep",
       "total": 8.7
+    },
+    {
+      "gen": 251,
+      "coherence": 9,
+      "novelty": 8,
+      "identity": 9,
+      "tension": 8,
+      "awe": 9,
+      "perceptibility": 9,
+      "note": "Epoch XII day 2, Andre's brief: keep the concept, make it beautiful. The same solargraph, printed properly. It is now the whole first screen: a night-",
+      "total": 8.7
     }
   ],
   "mutation_log": [
-    {
-      "gen": 231,
-      "mutations": [
-        "regenerate"
-      ],
-      "kills": [
-        "4",
-        "afternoon:1",
-        "morning:1",
-        "dawn:2",
-        "night:1"
-      ],
-      "strategy": "Hold Epoch IX structural color and refine its craft rather than its look. Same warm-white light chassis, same serif/mono voice, same one iridescent hero carryin",
-      "timestamp": "2026-07-15T22:11:50Z"
-    },
     {
       "gen": 232,
       "mutations": [
@@ -848,63 +833,28 @@
       ],
       "strategy": "Stillness as the decisive move. Warm-white paper (#fafaf8), ink (#1c1a17), Didone display over mono marginalia, the folio's left rail kept. The first screen is ",
       "timestamp": "2026-09-25T19:47:15Z"
+    },
+    {
+      "gen": 251,
+      "mutations": [
+        "regenerate"
+      ],
+      "kills": [
+        "plate-key",
+        "register-numerals",
+        "lives-table",
+        "thin-film-sheen",
+        "type-'seed'-anywhere-—-nucleat",
+        "type-'facet'-anywhere-—-the-cr",
+        "type-'slip'-anywhere-—-a-fault",
+        "type-'anneal'-anywhere-—-the-l",
+        "20"
+      ],
+      "strategy": "Keep the concept and print it richly. The solargraph fills the first viewport edge to edge as burned light on night: deep blue-black sky, a warm amber-rose dawn",
+      "timestamp": "2026-09-26T08:00:13Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "thought",
-      "value": "morning:9",
-      "died_gen": 242,
-      "epitaph": "A morning fragment still circling resonance, two epochs gone. Let it rest."
-    },
-    {
-      "type": "thought",
-      "value": "dawn:9",
-      "died_gen": 242,
-      "epitaph": "The dawn pool was full; the weakest fragment gave up its seat to the crowd."
-    },
-    {
-      "type": "interaction",
-      "value": "type-'seed'-anywhere-—-nucleat",
-      "died_gen": 243,
-      "epitaph": "A crystal-epoch typed gesture; the page it commanded was buried two pivots ago."
-    },
-    {
-      "type": "interaction",
-      "value": "type-'facet'-anywhere-—-the-cr",
-      "died_gen": 243,
-      "epitaph": "Facet belonged to a lattice that no longer exists anywhere but the studio."
-    },
-    {
-      "type": "interaction",
-      "value": "type-'slip'-anywhere-—-a-fault",
-      "died_gen": 243,
-      "epitaph": "Slip served the dislocation instrument; the business layer carries no typed handlers."
-    },
-    {
-      "type": "interaction",
-      "value": "type-'anneal'-anywhere-—-the-l",
-      "died_gen": 243,
-      "epitaph": "Anneal closed the defect thread; retiring the last crystal-epoch handler from the genome."
-    },
-    {
-      "type": "interaction",
-      "value": "type-'seed'-anywhere-—-nucleat",
-      "died_gen": 244,
-      "epitaph": "A crystal-epoch typed gesture still listed in the genome two pivots after its page was buried; the business layer carries no typed handlers."
-    },
-    {
-      "type": "interaction",
-      "value": "type-'facet'-anywhere-—-the-cr",
-      "died_gen": 244,
-      "epitaph": "Facet belonged to a lattice that exists nowhere in rock; re-recorded after the gen-243 kill never reached the genome."
-    },
-    {
-      "type": "interaction",
-      "value": "type-'slip'-anywhere-—-a-fault",
-      "died_gen": 244,
-      "epitaph": "Slip served the dislocation instrument; the defect thread closed with the crystal epoch."
-    },
     {
       "type": "interaction",
       "value": "type-'anneal'-anywhere-—-the-l",
@@ -1150,6 +1100,60 @@
       "value": "rotating-consciousness-stream",
       "died_gen": 250,
       "epitaph": "The stream no longer rotates every nine seconds. It changes once a day, like the plate."
+    },
+    {
+      "type": "section",
+      "value": "plate-key",
+      "died_gen": 251,
+      "epitaph": "The key to the plate explained a picture that should explain itself. The letters a, b and c are gone from the image too."
+    },
+    {
+      "type": "section",
+      "value": "register-numerals",
+      "died_gen": 251,
+      "epitaph": "A block of 131 numerals read as filler. The same links survive as a single strip of marks."
+    },
+    {
+      "type": "section",
+      "value": "lives-table",
+      "died_gen": 251,
+      "epitaph": "Twelve rows of names, epitaphs and bars became twelve arcs on one horizon. The epitaphs wait behind a tap."
+    },
+    {
+      "type": "css_rule",
+      "value": "thin-film-sheen",
+      "died_gen": 251,
+      "epitaph": "Structural colour's iridescence lingered at the solstice. The plate burns in its own amber now."
+    },
+    {
+      "type": "interaction",
+      "value": "type-'seed'-anywhere-—-nucleat",
+      "died_gen": 251,
+      "epitaph": "A crystallization word with no crystal left to seed."
+    },
+    {
+      "type": "interaction",
+      "value": "type-'facet'-anywhere-—-the-cr",
+      "died_gen": 251,
+      "epitaph": "Nothing on this page has facets any more."
+    },
+    {
+      "type": "interaction",
+      "value": "type-'slip'-anywhere-—-a-fault",
+      "died_gen": 251,
+      "epitaph": "The lattice it slipped is four epochs dead."
+    },
+    {
+      "type": "interaction",
+      "value": "type-'anneal'-anywhere-—-the-l",
+      "died_gen": 251,
+      "epitaph": "Annealing was heat for a crystal. The only heat here is the sun."
+    },
+    {
+      "type": "secret",
+      "value": "20",
+      "died_gen": 251,
+      "epitaph": "One secret over capacity. A long exposure keeps fewer things, not more."
     }
   ],
   "carrying_capacity": {
@@ -1168,11 +1172,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 241,
-      "base": "#2c3bbd",
-      "family": "cyan"
-    },
     {
       "gen": 242,
       "base": "#2c3bbd",
@@ -1216,6 +1215,11 @@
     {
       "gen": 250,
       "base": "#1c1a17",
+      "family": "orange"
+    },
+    {
+      "gen": 251,
+      "base": "#e8a64f",
       "family": "orange"
     }
   ],

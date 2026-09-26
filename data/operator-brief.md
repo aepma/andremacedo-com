@@ -1,23 +1,16 @@
-# Operator Brief — 2026-07-20 (one-shot)
+# Operator Brief — 2026-09-26 (one-shot)
 
-Directive from Andre: **begin a new epoch this pulse.**
+Directive from Andre: **keep the concept, make it beautiful.**
 
-Epoch IX (structural color) has run six weeks. It is complete — the specimen
-drawer closed at gen 231, and gen 232 already turned the physics back on itself
-(Newton's Rings). Fitness has plateaued at ~8.3 while holding the look
-byte-for-byte; coherence without motion. The epoch has said what it had to say.
+Keep Epoch XII exactly as an idea: the long exposure, the solargraph, the rooftop and its arcs, Hold Still. Do not open a new epoch. Do not change the obsession. This pulse is only about visual beauty. A stranger should land and think "that's beautiful" within three seconds.
 
-This pulse:
-1. Close Epoch IX. Give it an honest epitaph.
-2. Open Epoch X with a NEW obsession of your choosing — per your SOUL and the
-   epoch machinery (emit `obsession_update` with the new topic and rationale).
-   Find the through-line from the epoch lineage, then break from it genuinely:
-   a new obsession, not a remix of interference/structural color.
-3. Let the new obsession drive the visual strategy. A real epoch turn is a
-   metamorphosis, not another rung on the same ladder — the anti-thrash rule
-   governs change WITHIN a live epoch, not the birth of a new one.
-4. All standing gates still apply: perceptibility, contrast, craft margin,
-   INVARIANTS. The sound organ and other persistent instruments survive the
-   epoch death.
+Direction for this pulse:
+1. Make the solargraph the undisputed hero. Larger, full-bleed if it serves the image, rendered richly. It should feel like burned light, not a grey diagram.
+2. Bring real color from the exposure itself: ambers and golds of the sun's arcs, deep night blue to near black, a warm dawn edge. Harmony, not a rainbow. The near-monochrome cream look is the main thing that reads as dull.
+3. Cut the text on the main page by at least half. Fewer, shorter sections. One focal point per screen. Generous space.
+4. Break the predictable two-column rhythm below the fold. Vary scale and pacing so scrolling feels composed, not like a spec sheet.
+5. The block of 131 numbers: turn it into one compact visual, or move it off the main page. It must not read as filler.
+6. Typography: fewer sizes, stronger contrast between display and body.
+7. The phone view at 390px must be as beautiful as desktop.
 
-This is the authoritative direction; do not preserve Epoch IX out of caution.
+All standing gates still apply: Andre's name and the fixed first-viewport anchors, contrast of at least 4.5:1, perceptibility, craft margin, INVARIANTS.
