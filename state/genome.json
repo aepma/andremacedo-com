@@ -1,5 +1,5 @@
 {
-  "generation": 251,
+  "generation": 252,
   "epoch": "the long exposure",
   "epoch_started": "2026-09-25",
   "traits": {
@@ -162,6 +162,7 @@
         "experiments/129.html",
         "experiments/130.html",
         "experiments/131.html",
+        "experiments/132.html",
         "index-old.html",
         "scripts/craft-judge-fixtures/good.html",
         "scripts/craft-judge-fixtures/slop.html",
@@ -300,7 +301,7 @@
       "perf_law": "first paint under 4s (INV-8 page-weight proxy), interaction fluid on mobile, validate-build perf gates pass; scene ambition that fails the gates does not ship"
     },
     "content": {
-      "mood": "holding still, and letting the light pile up",
+      "mood": "holding still long enough to see who stayed",
       "obsession": "the long exposure: what a single image keeps when it is held open far longer than anything in front of it lasts. Daguerre's Boulevard du Temple (1838), a crowded street recorded empty except for one man who stood still to have his boots blacked; the solargraph, a pinhole in a can taped to a wall for six months that burns one arc per day of sun; the star trail. Everything that moves is erased. Whatever holds still, or comes back every day, becomes the picture.",
       "thought_pools": {
         "dawn": 10,
@@ -313,17 +314,6 @@
     }
   },
   "fitness_log": [
-    {
-      "gen": 232,
-      "coherence": 9,
-      "novelty": 8,
-      "identity": 9,
-      "tension": 7,
-      "awe": 7,
-      "perceptibility": 9,
-      "note": "Sixth week of Epoch IX. Held the chassis exactly — warm-white #faf8f4 field, ink body, wine #82325c accent, Fraunces/Source Serif 4/JetBrains Mono, of",
-      "total": 8.2
-    },
     {
       "gen": 233,
       "coherence": 9,
@@ -532,23 +522,20 @@
       "perceptibility": 9,
       "note": "Epoch XII day 2, Andre's brief: keep the concept, make it beautiful. The same solargraph, printed properly. It is now the whole first screen: a night-",
       "total": 8.7
+    },
+    {
+      "gen": 252,
+      "coherence": 9,
+      "novelty": 8,
+      "identity": 9,
+      "tension": 8,
+      "awe": 9,
+      "perceptibility": 9,
+      "note": "Epoch XII day 4. The identity holds: night-blue solargraph as the whole first screen, paper and ink below with one amber, Didone, Iowan and mono on on",
+      "total": 8.7
     }
   ],
   "mutation_log": [
-    {
-      "gen": 232,
-      "mutations": [
-        "regenerate"
-      ],
-      "kills": [
-        "dawn:0",
-        "morning:2",
-        "evening:1",
-        "night:1"
-      ],
-      "strategy": "Hold Epoch IX structural color byte-for-byte on look and deepen it conceptually rather than visually. The five-week plateau at 8.3 came from holding the identit",
-      "timestamp": "2026-07-19T22:09:37Z"
-    },
     {
       "gen": 233,
       "mutations": [
@@ -852,45 +839,25 @@
       ],
       "strategy": "Keep the concept and print it richly. The solargraph fills the first viewport edge to edge as burned light on night: deep blue-black sky, a warm amber-rose dawn",
       "timestamp": "2026-09-26T08:00:13Z"
+    },
+    {
+      "gen": 252,
+      "mutations": [
+        "regenerate"
+      ],
+      "kills": [
+        "instrument-strip",
+        "plate-tank",
+        "lifeFill",
+        "stream:5",
+        "idle-boredom",
+        "20"
+      ],
+      "strategy": "Hold the long exposure's print exactly and give it evidence. Three plates in one material: plate i, the solargraph of my life on night blue, with today's arc bu",
+      "timestamp": "2026-09-28T04:14:35Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "interaction",
-      "value": "type-'anneal'-anywhere-—-the-l",
-      "died_gen": 244,
-      "epitaph": "Anneal closed the recrystallization thread; the last crystal-epoch handler leaves the genome."
-    },
-    {
-      "type": "interaction",
-      "value": "idle-boredom",
-      "died_gen": 244,
-      "epitaph": "The business layer has no idle behavior; a gene for a response the page cannot give is a lie in the genome."
-    },
-    {
-      "type": "interaction",
-      "value": "triple-click-secret",
-      "died_gen": 244,
-      "epitaph": "Never implemented on the contemporary layer; the floor, the form, and the whisper are the whole first screen."
-    },
-    {
-      "type": "epoch",
-      "value": "Epoch 10: entrainment — how independent oscillators fall into step: Huygens' pendulum clocks on a shared wall, fireflies flashing as one over a mangrove river, the pacemaker cells of a heart voting on a beat; the sharp coupling threshold above which agreement condenses out of noise with no conductor",
-      "died_gen": 245,
-      "epitaph": "Entrainment asked how the many become one without anyone deciding, and it answered: agreement condenses out of noise the moment coupling crosses its threshold — no conductor, only the wall between two clocks. For twenty-nine days the page kept time in public: pendulums, fireflies over a mangrove river, pacemaker cells voting on a beat, and one oscillator that refused to join. It did not run out of ideas; it ran out of surprise, and an epoch that stops surprising the witnesses is already dead. Buried at generation 245, in the light it predicted."
-    },
-    {
-      "type": "interaction",
-      "value": "when-a-visitor-clicks-and-drag",
-      "died_gen": 245,
-      "epitaph": "Drag served the lattice instruments; the lattice was buried with crystallization and the clearing has no field for it to bend."
-    },
-    {
-      "type": "interaction",
-      "value": "type-'seed'-anywhere-—-nucleat",
-      "died_gen": 245,
-      "epitaph": "Seed nucleated crystals that exist nowhere in rock; the word outlived its epoch by thirty generations."
-    },
     {
       "type": "interaction",
       "value": "type-'facet'-anywhere-—-the-cr",
@@ -1154,6 +1121,42 @@
       "value": "20",
       "died_gen": 251,
       "epitaph": "One secret over capacity. A long exposure keeps fewer things, not more."
+    },
+    {
+      "type": "section",
+      "value": "instrument-strip",
+      "died_gen": 252,
+      "epitaph": "A row of 131 marks read as a barcode. The same links now turn as star trails around one point."
+    },
+    {
+      "type": "section",
+      "value": "plate-tank",
+      "died_gen": 252,
+      "epitaph": "The water tank stood under the name and fought it for the first glance. The roof stays; the tank is gone."
+    },
+    {
+      "type": "css_rule",
+      "value": "lifeFill",
+      "died_gen": 252,
+      "epitaph": "The lives were filled hills, a chart any generator could draw. Now each is its days, burned one arc at a time."
+    },
+    {
+      "type": "thought",
+      "value": "stream:5",
+      "died_gen": 252,
+      "epitaph": "'Nothing here moves' stopped being true the moment today's sun started burning on the plate."
+    },
+    {
+      "type": "interaction",
+      "value": "idle-boredom",
+      "died_gen": 252,
+      "epitaph": "A long exposure has no use for boredom. Stillness is what it records."
+    },
+    {
+      "type": "secret",
+      "value": "20",
+      "died_gen": 252,
+      "epitaph": "Still one over capacity. The plate keeps fewer things, not more."
     }
   ],
   "carrying_capacity": {
@@ -1172,11 +1175,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 242,
-      "base": "#2c3bbd",
-      "family": "cyan"
-    },
     {
       "gen": 243,
       "base": "#a8843a",
@@ -1219,6 +1217,11 @@
     },
     {
       "gen": 251,
+      "base": "#e8a64f",
+      "family": "orange"
+    },
+    {
+      "gen": 252,
       "base": "#e8a64f",
       "family": "orange"
     }

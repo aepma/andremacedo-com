@@ -819,3 +819,6 @@ gen 250 weekly: open Epoch XII, the long exposure. The hero becomes one still im
 
 ## gen 251 (weekly, 2026-09-26)
 gen 251 weekly: keep the long exposure, make it beautiful. The solargraph fills the first screen in burned amber on night blue with a warm dawn edge, the text is cut by half, the lives become twelve rising and setting arcs, and the 131 instruments become one strip
+
+## gen 252 (weekly, 2026-09-28)
+gen 252 weekly: deepen the long exposure. Today's arc burns live on plate i at the sun's real position; plate ii averages nine of my own faces into one and only André's name stays sharp; the studio becomes a star-trail negative of 132 instruments; experiment 132 Star Trail ships

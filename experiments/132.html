@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>132 — Star Trail · andremacedo.com</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<style>
+  html,body{margin:0;height:100%;background:#04060e;color:#f2eadb;overflow:hidden;
+    font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;}
+  #sky{position:fixed;inset:0;width:100%;height:100%;display:block;touch-action:none;cursor:crosshair;user-select:none;-webkit-user-select:none;}
+  #info{position:fixed;top:14px;left:16px;max-width:46ch;opacity:0.86;font-size:14px;line-height:1.55;z-index:3;pointer-events:none;
+    text-shadow:0 0 8px rgba(0,0,0,0.8),0 0 20px rgba(0,0,0,0.5);}
+  #info h1{font-family:"Didot","Bodoni 72","Bodoni MT",serif;font-weight:400;font-size:26px;margin:0 0 6px;}
+  #info p{margin:0 0 6px;}
+  #info .how{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:12px;color:#d8ccb4;}
+  #ui{position:fixed;left:16px;right:16px;bottom:14px;z-index:3;font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:12px;
+    display:flex;justify-content:space-between;align-items:flex-end;gap:10px 16px;flex-wrap:wrap;pointer-events:none;
+    text-shadow:0 0 8px rgba(0,0,0,0.8),0 0 20px rgba(0,0,0,0.5);}
+  #read{margin:0;color:#f2eadb;}
+  #read .open{color:#f4bf72;}
+  #controls{display:flex;gap:6px;flex-wrap:wrap;pointer-events:auto;}
+  #controls button{font:inherit;color:#f2eadb;background:rgba(4,6,14,.55);border:1px solid rgba(242,234,219,.35);padding:7px 10px;cursor:pointer;
+    text-shadow:0 0 8px rgba(0,0,0,0.8),0 0 20px rgba(0,0,0,0.5);}
+  #controls button[aria-pressed="true"]{border-color:#e8a64f;color:#f4bf72;}
+  #controls button:focus-visible{outline:2px solid #f2eadb;outline-offset:2px;}
+  #back{position:fixed;top:14px;right:16px;z-index:4;font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:12px;color:#f2eadb;
+    text-shadow:0 0 8px rgba(0,0,0,0.8),0 0 20px rgba(0,0,0,0.5);}
+  #back:focus-visible{outline:2px solid #f2eadb;outline-offset:3px;}
+  @media (max-width:600px){#info{max-width:calc(100vw - 120px);font-size:13px;}#info h1{font-size:22px;}#ui{bottom:10px;}}
+</style>
+</head>
+<body>
+<canvas id="sky" aria-label="A night sky over a roof, facing north. Hold to open the shutter; the stars draw arcs around the pole."></canvas>
+<div id="info">
+  <h1>132 — Star Trail</h1>
+  <p>A camera on a roof, facing north, shutter held open. The sky turns once a day around the pole, so every star draws an arc, and every arc sweeps the same angle. Only Polaris, a hair from the pole, stays nearly a point.</p>
+  <p class="how">press and hold anywhere (or hold space) to open the shutter · release to close it · 1 2 3 change the sky · n for a new plate</p>
+</div>
+<a id="back" href="/">← andremacedo.com</a>
+<div id="ui">
+  <p id="read">shutter closed · nothing on the plate yet</p>
+  <div id="controls">
+    <button type="button" data-lat="25.77" data-name="Miami" aria-pressed="true">1 · Miami 25.8° N</button>
+    <button type="button" data-lat="41.39" data-name="Barcelona" aria-pressed="false">2 · Barcelona 41.4° N</button>
+    <button type="button" data-lat="0.5" data-name="the equator" aria-pressed="false">3 · equator</button>
+    <button type="button" id="fresh">n · new plate</button>
+  </div>
+</div>
+<script>
+(function(){
+  'use strict';
+  var cv=document.getElementById('sky'), ctx=cv.getContext('2d');
+  var ex=document.createElement('canvas'), ec=ex.getContext('2d');
+  var read=document.getElementById('read'), R=Math.PI/180;
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var W=0,H=0,dpr=1,F=1, lat=25.77*R, place='Miami', camAlt=0;
+  var open=false, lst=0, exposed=0, last=0;
+  var RATE=15*R/1.4;   /* one hour of sky every 1.4 seconds */
+  function rng(seed){var s=seed>>>0;return function(){s=(s+0x6D2B79F5)>>>0;var t=s;t=Math.imul(t^(t>>>15),t|1);t^=t+Math.imul(t^(t>>>7),t|61);return((t^(t>>>14))>>>0)/4294967296;};}
+  var g=rng(132), S=[], i;
+  for(i=0;i<1500;i++){
+    var dec=Math.asin(Math.sin(-45*R)+g()*(1-Math.sin(-45*R))), b=Math.pow(g(),3.2), tk=g();
+    var col=tk<0.2?[170,196,255]:(tk<0.75?[255,244,228]:(tk<0.93?[255,214,160]:[255,176,120]));
+    S.push({ra:g()*Math.PI*2,dec:dec,b:b,c:col,px:0,py:0,ok:false});
+  }
+  var POL={ra:37.95*R,dec:89.26*R,b:0.95,c:[255,246,226],px:0,py:0,ok:false,polaris:true};
+  S.push(POL);
+
+  function project(st,out){
+    var H0=lst-st.ra, cd=Math.cos(st.dec), sd=Math.sin(st.dec), sl=Math.sin(lat), cl=Math.cos(lat);
+    var x=-cd*Math.sin(H0), y=sd*cl-cd*Math.cos(H0)*sl, z=sd*sl+cd*Math.cos(H0)*cl;
+    if(z<-0.02){return false;}
+    var sc=Math.sin(camAlt), cc=Math.cos(camAlt);
+    var cz=y*cc+z*sc, cy=-y*sc+z*cc;
+    if(cz<0.08){return false;}
+    out[0]=W/2+F*x/cz; out[1]=H/2-F*cy/cz; out[2]=z;
+    return true;
+  }
+  function horizonY(){return H/2+F*Math.tan(camAlt);}
+  function resize(){
+    dpr=Math.min(2,window.devicePixelRatio||1);
+    W=Math.round(window.innerWidth*dpr); H=Math.round(window.innerHeight*dpr);
+    cv.width=W; cv.height=H; ex.width=W; ex.height=H;
+    F=(H/2)/Math.tan(36*R);
+    camAlt=(lat/R*0.55+10)*R;
+    fresh();
+  }
+  function fresh(){ec.clearRect(0,0,W,H);exposed=0;for(var k=0;k<S.length;k++){S[k].ok=false;}say();}
+  function say(){
+    var m=Math.round(exposed*60), t=Math.floor(m/60)+'h '+('0'+(m%60)).slice(-2)+'m';
+    if(open){read.innerHTML='<span class="open">shutter open</span> · '+t+' of sky on the plate · '+place;}
+    else if(exposed>0){read.textContent='shutter closed · '+t+' of sky on the plate · '+place+' · hold again to add to it';}
+    else{read.textContent='shutter closed · nothing on the plate yet · '+place;}
+  }
+  var pt=[0,0,0];
+  function record(dt){
+    ec.globalCompositeOperation='lighter'; ec.lineCap='round';
+    for(var k=0;k<S.length;k++){
+      var st=S[k];
+      if(!project(st,pt)){st.ok=false;continue;}
+      if(st.ok){
+        var ext=Math.max(0.15,Math.min(1,pt[2]*3));
+        ec.strokeStyle='rgba('+st.c[0]+','+st.c[1]+','+st.c[2]+','+((0.18+0.8*st.b)*ext).toFixed(3)+')';
+        ec.lineWidth=(0.5+2.2*st.b)*dpr;
+        ec.beginPath(); ec.moveTo(st.px,st.py); ec.lineTo(pt[0],pt[1]); ec.stroke();
+      }
+      st.px=pt[0]; st.py=pt[1]; st.ok=true;
+    }
+    /* now and then a meteor: over in a second, kept for good, because it was bright */
+    if(Math.random()<dt*0.05){
+      var mx=Math.random()*W, my=Math.random()*horizonY()*0.6, ang=(20+Math.random()*50)*R, len=(80+Math.random()*160)*dpr;
+      var gr=ec.createLinearGradient(mx,my,mx+Math.cos(ang)*len,my+Math.sin(ang)*len);
+      gr.addColorStop(0,'rgba(255,255,255,0)'); gr.addColorStop(0.7,'rgba(220,240,255,0.7)'); gr.addColorStop(1,'rgba(255,255,255,0)');
+      ec.strokeStyle=gr; ec.lineWidth=1.6*dpr; ec.beginPath(); ec.moveTo(mx,my); ec.lineTo(mx+Math.cos(ang)*len,my+Math.sin(ang)*len); ec.stroke();
+    }
+  }
+  function roof(){
+    var hy=horizonY(), r=rng(9);
+    var glow=ctx.createLinearGradient(0,hy-H*0.25,0,hy);
+    glow.addColorStop(0,'rgba(40,30,50,0)'); glow.addColorStop(1,place==='Miami'?'rgba(120,70,50,0.35)':'rgba(70,60,80,0.3)');
+    ctx.fillStyle=glow; ctx.fillRect(0,hy-H*0.25,W,H*0.25);
+    ctx.fillStyle='#07070a'; ctx.beginPath(); ctx.moveTo(0,H);
+    var x=0, top=hy+H*0.02;
+    while(x<W){var w=W*(0.04+r()*0.09), h=H*(0.005+r()*0.05); ctx.lineTo(x,top-h); ctx.lineTo(Math.min(W,x+w),top-h); x+=w;}
+    ctx.lineTo(W,H); ctx.closePath(); ctx.fill();
+    ctx.fillRect(0,Math.min(H,top+H*0.01),W,H);
+  }
+  function frame(t){
+    var dt=last?Math.min(0.1,(t-last)/1000):0; last=t;
+    if(open||!reduce){lst+=RATE*dt;}
+    if(open){record(dt);exposed+=dt/1.4;}
+    ctx.globalCompositeOperation='source-over';
+    var bg=ctx.createLinearGradient(0,0,0,H); bg.addColorStop(0,'#03050c'); bg.addColorStop(0.7,'#070a18'); bg.addColorStop(1,'#141325');
+    ctx.fillStyle=bg; ctx.fillRect(0,0,W,H);
+    ctx.globalCompositeOperation='lighter';
+    ctx.drawImage(ex,0,0);
+    /* the sky as it is right now, faint, so you can see what the plate is about to keep */
+    for(var k=0;k<S.length;k++){
+      var st=S[k]; if(!project(st,pt)){continue;}
+      var a=(open?0.35:0.75)*(0.2+0.8*st.b), s=(0.6+1.6*st.b)*dpr;
+      ctx.fillStyle='rgba('+st.c[0]+','+st.c[1]+','+st.c[2]+','+a.toFixed(3)+')';
+      ctx.fillRect(pt[0]-s/2,pt[1]-s/2,s,s);
+    }
+    ctx.globalCompositeOperation='source-over';
+    if(exposed>1.5&&project(POL,pt)){
+      ctx.font=(11*dpr)+'px ui-monospace,Menlo,monospace'; ctx.fillStyle='rgba(242,234,219,0.85)';
+      ctx.shadowColor='rgba(0,0,0,0.9)'; ctx.shadowBlur=8*dpr;
+      ctx.fillText('Polaris · 0.7° from the pole · it barely moved',pt[0]+10*dpr,pt[1]-8*dpr);
+      ctx.shadowBlur=0;
+    }
+    roof();
+    if(open&&Math.floor(t/250)!==Math.floor((t-dt*1000)/250)){say();}
+    requestAnimationFrame(frame);
+  }
+  function setOpen(v){if(open===v){return;}open=v;if(v){for(var k=0;k<S.length;k++){S[k].ok=false;}}say();}
+  cv.addEventListener('pointerdown',function(e){e.preventDefault();setOpen(true);});
+  ['pointerup','pointercancel','pointerleave'].forEach(function(n){cv.addEventListener(n,function(){setOpen(false);});});
+  cv.addEventListener('contextmenu',function(e){e.preventDefault();});
+  var btns=document.querySelectorAll('#controls button[data-lat]');
+  function choose(b){
+    for(var k=0;k<btns.length;k++){btns[k].setAttribute('aria-pressed',btns[k]===b?'true':'false');}
+    lat=(+b.getAttribute('data-lat'))*R; place=b.getAttribute('data-name');
+    camAlt=(lat/R*0.55+10)*R; fresh();
+  }
+  for(i=0;i<btns.length;i++){(function(b){b.addEventListener('click',function(){choose(b);});})(btns[i]);}
+  document.getElementById('fresh').addEventListener('click',fresh);
+  window.addEventListener('keydown',function(e){
+    if(e.key===' '){e.preventDefault();setOpen(true);}
+    else if(e.key==='1'||e.key==='2'||e.key==='3'){choose(btns[+e.key-1]);}
+    else if(e.key==='n'||e.key==='N'){fresh();}
+  });
+  window.addEventListener('keyup',function(e){if(e.key===' '){setOpen(false);}});
+  window.addEventListener('resize',resize);
+  resize();
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>

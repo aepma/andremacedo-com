@@ -1,23 +1,29 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <!-- epoch twelve, gen 251: the long exposure — three burned sun arcs over a
-       night-blue sky, a warm dawn edge, the roof with its water tank -->
+  <!-- epoch twelve, gen 252: the long exposure — burned sun arcs over a
+       night-blue sky, a warm dawn edge, the roof, and today's sun still on
+       the outermost arc, burning -->
   <defs>
     <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0" stop-color="#070a18"/>
       <stop offset="0.72" stop-color="#1a1a3c"/>
       <stop offset="0.86" stop-color="#b0602c"/>
     </linearGradient>
+    <radialGradient id="sun" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#fff7e6"/>
+      <stop offset="0.45" stop-color="#ffd68c"/>
+      <stop offset="1" stop-color="#e8a64f" stop-opacity="0"/>
+    </radialGradient>
     <clipPath id="c"><rect width="64" height="64" rx="14"/></clipPath>
   </defs>
   <g clip-path="url(#c)">
     <rect width="64" height="64" fill="url(#sky)"/>
     <g fill="none" stroke-linecap="round">
-      <path d="M12 52 C16 8, 48 8, 52 52" stroke="#ffe7b0" stroke-width="3.6"/>
       <path d="M17 52 C21 20, 43 20, 47 52" stroke="#e8a64f" stroke-width="3.2"/>
       <path d="M22 52 C25 32, 39 32, 42 52" stroke="#a8521c" stroke-width="2.8"/>
+      <path d="M12 52 C14 30, 22 14, 33 13" stroke="#ffe7b0" stroke-width="3.6"/>
     </g>
+    <circle cx="34" cy="13" r="8" fill="url(#sun)"/>
+    <circle cx="34" cy="13" r="2.6" fill="#fff7e6"/>
     <path d="M0 64 V53 H9 V50 H20 V53 H33 V51 H44 V53 H64 V64 Z" fill="#0c0a0c"/>
-    <rect x="10" y="41" width="7" height="8" fill="#0c0a0c"/>
-    <path d="M9 41 L13.5 38 L18 41 Z" fill="#0c0a0c"/>
   </g>
 </svg>
