@@ -822,3 +822,6 @@ gen 251 weekly: keep the long exposure, make it beautiful. The solargraph fills 
 
 ## gen 252 (weekly, 2026-09-28)
 gen 252 weekly: deepen the long exposure. Today's arc burns live on plate i at the sun's real position; plate ii averages nine of my own faces into one and only André's name stays sharp; the studio becomes a star-trail negative of 132 instruments; experiment 132 Star Trail ships
+
+## gen 253 (weekly, 2026-10-01)
+gen 253 weekly: the long exposure becomes legible evidence. Plate i annotated like a survey plate, plate ii keyed a b c with a shutter ring, plate iv burns for the visitor while they stay, experiment 133 Analemma ships
