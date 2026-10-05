@@ -1,40 +1,41 @@
 {
-  "verdict": "PASS",
-  "gate_rule": "margin_override",
+  "verdict": "SLOP",
+  "gate_rule": "stranger_floor",
   "is_slop": true,
   "threshold": 7.0,
   "margin": 7.3,
-  "overall_min": 6.0,
-  "reason": "margin override: critic A/claude-opus-4-8-oauth overall 8.0 >= margin 7.3 ships despite the other critic's veto (B/grok-4.20-fast(slop))",
+  "overall_min": 5.0,
+  "reason": "visitor floor failed: B/grok-4.20-fast(stranger_test 4.0<7.0 (visitor floor))",
   "critics": {
     "A": {
       "model": "claude-opus-4-8-oauth",
       "passed": true,
       "axes": {
-        "type_scale": 8.0,
+        "type_scale": 7.0,
         "spacing_system": 7.0,
-        "focal_hierarchy": 8.0,
+        "focal_hierarchy": 7.0,
         "restraint": 7.0,
         "hero": 8.0,
         "composition": 8.0,
-        "type_craft": 9.0,
-        "color": 8.0,
-        "stranger_test": 9.0
+        "type_craft": 8.0,
+        "color": 7.0,
+        "stranger_test": 8.0
       },
-      "overall": 8.0,
+      "overall": 7.5,
       "is_slop": false,
       "findings": [
-        "The RealWorld.fi / ActualSales block is the most conventional moment: two serif headings over small body text with hairline top-rules reads close to a feature-comparison pair, the only place the page flirts with template grammar.",
-        "The layered ghost-type 'André Macedo' panel (§2) crams overlapping translucent names, annotations and leader lines so tightly it risks reading as clutter rather than a legible diagram at normal viewing distance.",
-        "Heavy reliance on italic emphasis in running serif body ('stood still', 'comes back') is applied often enough to edge toward mannerism rather than measured accent."
+        "The hero's glowing orange light-arch on black is the weakest single asset — it reads close to a generic AI atmospheric render and its brightness nearly out-competes the name for first focal landing.",
+        "The density of tiny monospace annotations (plate numbers, 'the sun 87° up', exposure logs) occasionally tips toward decoration-as-texture; a stricter edit would let a few breathe instead of carpeting the dark bands.",
+        "The vertical amber streak bands in §4 ('plate iii') read as abstract generative filler that is hard to parse as anything beyond mood — borderline garnish within an otherwise disciplined system."
       ],
       "what_works": [
-        "Decisive asymmetric hero: oversized editorial serif with 'Macedo' indented to a second line, anchored against a burnt-amber long-exposure arc photograph on a navy sky — a composed type/space/image relationship, not a centered headline.",
-        "Genuine typographic point of view: high-contrast transitional/editorial serif set against a monospace utility voice carrying metadata ('§ 1 · boulevard du temple, paris, 1838', 'generation 253'), a pairing a default generator would not reach for.",
-        "Disciplined palette — cream and deep navy with a single warm amber accent sampled straight from the long-exposure plates — governed, restrained, no rainbow and no purple-blue gradient.",
-        "A coherent conceptual organism (Daguerre's plate → nine faces on one plate → analemma star-trail spiral) that threads bespoke diagrammatic graphics through alternating dark/light sections, far outside SaaS-landing shape."
+        "Genuine high-contrast Didone display/serif paired against a monospace utility voice — exactly the editorial pairing a templated generator avoids, deployed consistently (the italic 'Analemma' and 'stood still' / 'comes back' accents are confident).",
+        "A committed conceptual throughline (Daguerre's long-exposure plate / 'the one man who stood still', a generation counter, the ghosted multi-face self-portrait composite in §3, the analemma spiral drawing) — this is editorial conviction, not a feature grid.",
+        "Asymmetric split hero: large name top-left over cream against a dark photographic panel, with off-axis mono metadata — a deliberate composition, not a centered headline over gradient.",
+        "Single warm amber accent governed by the exposure concept, held against near-black and cream; disciplined rather than a rainbow or purple-blue default.",
+        "Stranger test fully satisfied in the first viewport: name 'André Macedo' huge, one line on what he does (co-founder of RealWorld.fi and ActualSales), and me@andremacedo.com all legible without scrolling."
       ],
-      "reasoning": "This is not template slop: the hero is a deliberate asymmetric system pairing an oversized indented serif name with a signature amber long-exposure photograph, and the whole page sustains a real serif/monospace typographic voice and a restrained cream-navy-amber harmony. The stranger test is satisfied within the first viewport — name, 'Co-founder of RealWorld.fi (asset-backed lending) and ActualSales (B2B lead generation)', and a visible me@andremacedo.com. Weak spots are confined to a mildly conventional two-column business block and a dense ghost-type panel, neither of which triggers a cardinal slop state; the editorial conviction and the Daguerre/analemma conceptual through-line clear the bar."
+      "reasoning": "This is clearly not SaaS slop: it reads as an editorial art object with a high-contrast serif + mono type system, an asymmetric photographic hero, and a sustained daguerreotype/long-exposure conceptual throughline that a template would never produce. No cardinal slop state is present — no centered gradient hero, no default sans, no feature-card grid, and there is a decisive signature move. It loses points only for the slightly generic glowing-arch hero image, occasional mono-annotation clutter, and a couple of abstract filler bands, keeping it at a solid pass rather than an exceptional one."
     },
     "B": {
       "model": "grok-4.20-fast",
@@ -49,29 +50,23 @@
         "composition": 6.0,
         "type_craft": 5.0,
         "color": 8.0,
-        "stranger_test": 9.0
+        "stranger_test": 4.0
       },
-      "overall": 6.0,
+      "overall": 5.0,
       "is_slop": true,
       "findings": [
-        "Safe default sans (system-ui/Inter-like) used for all body and UI text with no strong typographic point of view",
-        "Hero is a generic centered headline floating over a dramatic long-exposure arch photo — classic templated generator move",
-        "Multiple competing focal points across long vertical scroll (hero arch, overlaid AI text, historical quote block, overlaid name plate, data tables, wave diagrams, analemma spiral) with no single decisive hierarchy",
-        "Heavy use of decorative long-exposure light trails, glowing orange arches, and multiple diagram styles as thematic garnish rather than purposeful hierarchy",
-        "No single decisive aesthetic move that a templated generator wouldn't produce; the 'living art organism rebuilt by AI' concept is told through conventional web layout tropes (section dividers, numbered plates, explanatory text blocks)",
-        "Symmetry and centered alignment used as default composition throughout most content sections"
+        "stranger_test fails hard: name is present but 'what he does' and contact (email) are buried below the fold with no visible CTA or business summary in first viewport",
+        "generic AI-art-website template shape: dark cinematic hero with light trail arch, poetic long-exposure metaphor running throughout, multiple 'plate' sections with overlaid text, star-trail/analemma graphics",
+        "no single decisive aesthetic move that escapes templated generator output; entire conceit (Daguerre plate metaphor for personal brand) feels like a safe, derivative art-director prompt",
+        "type_craft is safe default: large elegant serif for display mixed with system-ish sans, no rigorous modular scale visible, sizes feel ad-hoc",
+        "decoration without hierarchy: multiple glowing light trails, gradient overlays, film-strip slit effects, and atmospheric photography used as thematic garnish rather than focused hierarchy",
+        "SaaS-landing shape inappropriately applied to supposed 'living art organism' — bio, companies, interactive plates, archive all stacked in conventional vertical flow"
       ],
       "what_works": [
-        "Strong orange-to-dark gradient night sky color harmony with the light-painting photography",
-        "The concept of the page as a long-exposure 'plate' that evolves daily is visible and thematically consistent in the hero and footer"
+        "strong dominant color harmony of deep indigo/orange light trails against black creates memorable nocturnal atmosphere",
+        "the arching light trail hero image is genuinely striking and thematically coherent with the long-exposure concept"
       ],
-      "reasoning": "This is a conceptually ambitious personal site executed in mostly generic, safe web design language. The photography and color are the strongest visible elements, but the typography lacks a modular scale or editorial conviction, the layout relies on default centering and section stacking, and the decorative long-exposure motifs are applied broadly without tight hierarchical control. It reads as high-end AI-generated portfolio art rather than a singular, risky living organism. Stranger test is passed immediately in the hero, but multiple slop states are present."
+      "reasoning": "This is competent but mediocre default-grade AI art-website slop. The hero is the strongest element (hence 7), but the page fails the stranger_test floor (no clear 'what he does' or contact in first viewport), exhibits multiple cardinal slop states including template shape, decorative atmospheric effects without tight hierarchy, and symmetry-as-substitute in the stacked sections. No visible modular type scale or signature compositional risk elevates it beyond generic 'poetic personal site' output. The living-organism conceit is told more than shown in the pixels."
     }
-  },
-  "margin_override": {
-    "critic": "A",
-    "model": "claude-opus-4-8-oauth",
-    "overall": 8.0,
-    "margin": 7.3
   }
 }

@@ -825,3 +825,7 @@ gen 252 weekly: deepen the long exposure. Today's arc burns live on plate i at t
 
 ## gen 253 (weekly, 2026-10-01)
 gen 253 weekly: the long exposure becomes legible evidence. Plate i annotated like a survey plate, plate ii keyed a b c with a shutter ring, plate iv burns for the visitor while they stay, experiment 133 Analemma ships
+
+## gen 254 (weekly, 2026-10-05)
+gen 254 weekly: the long exposure gains a photo finish. The lives become one slit per day burned by my real change count, the work becomes a register of what stood still under Daguerre, plate ii keys only the name, italics cut back
+[2026-10-05T04:11:43Z] [gen 254] craft-fail: visitor floor failed: B/grok-4.20-fast(stranger_test 4.0<7.0 (visitor floor))

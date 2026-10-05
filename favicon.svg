@@ -1,31 +1,28 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <!-- epoch twelve, gen 253: the long exposure, plate iv — nested burned
-       arcs over a night-blue sky, today's arc still burning with the sun at
-       its tip, the roof that never moved, and one survey tick under it -->
+  <!-- epoch twelve, gen 254: the long exposure. Nested burned arcs over a
+       night-blue sky, the roof that never moved, and the photo-finish slit:
+       one bright line standing through all of it -->
   <defs>
     <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0" stop-color="#05070f"/>
-      <stop offset="0.7" stop-color="#151a3a"/>
-      <stop offset="0.84" stop-color="#a8582a"/>
+      <stop offset="0.72" stop-color="#141a3a"/>
+      <stop offset="0.86" stop-color="#9c5228"/>
     </linearGradient>
-    <radialGradient id="sun" cx="0.5" cy="0.5" r="0.5">
-      <stop offset="0" stop-color="#fff7e6"/>
-      <stop offset="0.45" stop-color="#ffd68c"/>
-      <stop offset="1" stop-color="#e8a64f" stop-opacity="0"/>
-    </radialGradient>
+    <linearGradient id="slit" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffd68c" stop-opacity="0"/>
+      <stop offset="0.5" stop-color="#fff3dc"/>
+      <stop offset="1" stop-color="#e8a64f" stop-opacity="0.2"/>
+    </linearGradient>
     <clipPath id="c"><rect width="64" height="64" rx="14"/></clipPath>
   </defs>
   <g clip-path="url(#c)">
     <rect width="64" height="64" fill="url(#sky)"/>
     <g fill="none" stroke-linecap="round">
-      <path d="M9 53 C12 14, 52 14, 55 53" stroke="#f2c27a" stroke-width="3"/>
-      <path d="M15 53 C18 26, 46 26, 49 53" stroke="#c8733a" stroke-width="2.6"/>
-      <path d="M21 53 C23 36, 41 36, 43 53" stroke="#8c4712" stroke-width="2.4"/>
-      <path d="M26 53 C27 44, 31 42, 36 41" stroke="#fff1d2" stroke-width="2.6"/>
+      <path d="M8 54 C11 13, 53 13, 56 54" stroke="#f2c27a" stroke-width="3"/>
+      <path d="M15 54 C18 26, 46 26, 49 54" stroke="#c8733a" stroke-width="2.6"/>
+      <path d="M22 54 C24 37, 40 37, 42 54" stroke="#8c4712" stroke-width="2.4"/>
     </g>
-    <circle cx="36.5" cy="41" r="7" fill="url(#sun)"/>
-    <circle cx="36.5" cy="41" r="2.4" fill="#fff7e6"/>
-    <path d="M0 64 V54 H11 V51 H22 V54 H34 V52 H46 V54 H64 V64 Z" fill="#0b090c"/>
-    <path d="M32 56.5 V60" stroke="#d6cbb6" stroke-width="1.6" stroke-linecap="round"/>
+    <rect x="40.5" y="6" width="3.4" height="48" fill="url(#slit)"/>
+    <path d="M0 64 V55 H12 V52 H23 V55 H35 V53 H47 V55 H64 V64 Z" fill="#0b090c"/>
   </g>
 </svg>
