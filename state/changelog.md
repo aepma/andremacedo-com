@@ -829,3 +829,6 @@ gen 253 weekly: the long exposure becomes legible evidence. Plate i annotated li
 ## gen 254 (weekly, 2026-10-05)
 gen 254 weekly: the long exposure gains a photo finish. The lives become one slit per day burned by my real change count, the work becomes a register of what stood still under Daguerre, plate ii keys only the name, italics cut back
 [2026-10-05T04:11:43Z] [gen 254] craft-fail: visitor floor failed: B/grok-4.20-fast(stranger_test 4.0<7.0 (visitor floor))
+
+## gen 255 (weekly, 2026-10-08)
+gen 255 weekly: the long exposure, fixed. The business floor becomes plate i's title, the page is 41% shorter, the work is a register of what stood still, and the twelve lives become bands of the studio's star trail, the 41 instruments made between lives dotted

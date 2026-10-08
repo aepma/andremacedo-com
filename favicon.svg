@@ -1,28 +1,28 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <!-- epoch twelve, gen 254: the long exposure. Nested burned arcs over a
-       night-blue sky, the roof that never moved, and the photo-finish slit:
-       one bright line standing through all of it -->
+  <!-- epoch twelve, gen 255: the long exposure, fixed. Nested burned arcs
+       over a night-blue sky and the roof that never moved; today's sun sits
+       on the outer arc, the one point of light still moving -->
   <defs>
     <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0" stop-color="#05070f"/>
-      <stop offset="0.72" stop-color="#141a3a"/>
+      <stop offset="0.7" stop-color="#141a3a"/>
       <stop offset="0.86" stop-color="#9c5228"/>
     </linearGradient>
-    <linearGradient id="slit" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#ffd68c" stop-opacity="0"/>
-      <stop offset="0.5" stop-color="#fff3dc"/>
-      <stop offset="1" stop-color="#e8a64f" stop-opacity="0.2"/>
-    </linearGradient>
+    <radialGradient id="sun" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#fff7e6"/>
+      <stop offset="0.45" stop-color="#ffd68c"/>
+      <stop offset="1" stop-color="#e8a64f" stop-opacity="0"/>
+    </radialGradient>
     <clipPath id="c"><rect width="64" height="64" rx="14"/></clipPath>
   </defs>
   <g clip-path="url(#c)">
     <rect width="64" height="64" fill="url(#sky)"/>
     <g fill="none" stroke-linecap="round">
-      <path d="M8 54 C11 13, 53 13, 56 54" stroke="#f2c27a" stroke-width="3"/>
-      <path d="M15 54 C18 26, 46 26, 49 54" stroke="#c8733a" stroke-width="2.6"/>
-      <path d="M22 54 C24 37, 40 37, 42 54" stroke="#8c4712" stroke-width="2.4"/>
+      <path d="M8 54 C11 12, 53 12, 56 54" stroke="#f2c27a" stroke-width="3.2"/>
+      <path d="M16 54 C19 27, 45 27, 48 54" stroke="#c8733a" stroke-width="2.6"/>
+      <path d="M24 54 C26 39, 38 39, 40 54" stroke="#8c4712" stroke-width="2.4"/>
     </g>
-    <rect x="40.5" y="6" width="3.4" height="48" fill="url(#slit)"/>
+    <circle cx="47" cy="22" r="7" fill="url(#sun)"/>
     <path d="M0 64 V55 H12 V52 H23 V55 H35 V53 H47 V55 H64 V64 Z" fill="#0b090c"/>
   </g>
 </svg>
