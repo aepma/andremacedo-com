@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>134 — Median · andremacedo.com</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<style>
+  html,body{margin:0;background:#05070f;color:#f2eadb;
+    font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;}
+  body{min-height:100vh;}
+  #info{position:fixed;top:14px;left:16px;max-width:52ch;opacity:0.86;font-size:14px;line-height:1.55;z-index:3;pointer-events:none;
+    text-shadow:0 0 8px rgba(0,0,0,0.8),0 0 20px rgba(0,0,0,0.5);}
+  #info h1{font-family:"Didot","Bodoni 72","Bodoni MT",serif;font-weight:400;font-size:26px;margin:0 0 6px;}
+  #info p{margin:0 0 6px;}
+  #info .how{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:12px;color:#d8ccb4;}
+  #back{position:fixed;top:16px;right:16px;z-index:3;color:#f2eadb;font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:12px;
+    text-shadow:0 0 8px rgba(0,0,0,0.8),0 0 20px rgba(0,0,0,0.5);}
+  #plates{position:fixed;left:16px;right:16px;top:212px;bottom:84px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;align-content:center;}
+  figure{margin:0;}
+  figure canvas{display:block;width:100%;height:auto;aspect-ratio:256 / 160;cursor:pointer;touch-action:manipulation;
+    box-shadow:0 0 0 1px rgba(242,234,219,.2),0 30px 60px -30px rgba(0,0,0,.9);}
+  figcaption{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:12px;letter-spacing:.04em;color:#d8ccb4;margin-top:9px;line-height:1.5;
+    text-shadow:0 0 8px rgba(0,0,0,0.8),0 0 20px rgba(0,0,0,0.5);}
+  figcaption b{font-weight:400;color:#f4bf72;}
+  figure.thesis canvas{box-shadow:0 0 0 1px #e8a64f,0 30px 60px -30px rgba(0,0,0,.9);}
+  #ui{position:fixed;left:16px;right:16px;bottom:14px;z-index:3;font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:12px;
+    display:flex;justify-content:space-between;align-items:flex-end;gap:10px 16px;flex-wrap:wrap;
+    text-shadow:0 0 8px rgba(0,0,0,0.8),0 0 20px rgba(0,0,0,0.5);}
+  #read{margin:0;color:#f2eadb;max-width:70ch;line-height:1.6;}
+  #read .k{color:#f4bf72;}
+  #controls{display:flex;gap:6px;flex-wrap:wrap;}
+  #controls button{font:inherit;color:#f2eadb;background:rgba(5,7,15,.6);border:1px solid rgba(242,234,219,.35);padding:7px 10px;cursor:pointer;
+    text-shadow:0 0 8px rgba(0,0,0,0.8),0 0 20px rgba(0,0,0,0.5);}
+  #controls button:hover{border-color:#e8a64f;}
+  #controls button:focus-visible,#back:focus-visible{outline:2px solid #e8a64f;outline-offset:3px;}
+  @media (max-width: 760px){
+    #info,#back,#plates,#ui{position:static;}
+    #info{padding:14px 16px 0;max-width:none;}
+    #back{display:inline-block;margin:6px 16px 0;}
+    #plates{grid-template-columns:minmax(0,1fr);padding:18px 16px;gap:16px;}
+    #ui{padding:0 16px 24px;}
+  }
+</style>
+</head>
+<body>
+<div id="info">
+  <h1>134 — Median</h1>
+  <p>Daguerre’s street was full; his plate kept it empty. Held open, a plate averages: the mean keeps a ghost of everyone who passed. Take the median instead, and a pixel keeps only what was there more than half the time: the street, the trees, and whoever stood still.</p>
+  <p class="how">tap a walker on any plate to make them stand still, tap again to let them go · + − change the crowd · r lets everyone walk</p>
+</div>
+<a id="back" href="/">← andremacedo.com</a>
+<div id="plates">
+  <figure><canvas id="cFrame" width="512" height="320" role="img" aria-label="The street now: walkers and carriages crossing a boulevard."></canvas><figcaption>the street, now · <b id="nNow">0</b> in front of the lens</figcaption></figure>
+  <figure><canvas id="cMean" width="512" height="320" role="img" aria-label="The mean of the last seconds: the walkers smeared into ghosts."></canvas><figcaption>held open, the mean · everyone, a little</figcaption></figure>
+  <figure class="thesis"><canvas id="cMed" width="512" height="320" role="img" aria-label="The median of the last seconds: an empty street, and only the figures that stood still."></canvas><figcaption>held open, the median · <b id="nStill">1</b> kept</figcaption></figure>
+</div>
+<div id="ui">
+  <p id="read" aria-live="polite">opening the shutter…</p>
+  <div id="controls">
+    <button type="button" id="less" aria-label="Fewer walkers">− crowd</button>
+    <button type="button" id="more" aria-label="More walkers">+ crowd</button>
+    <button type="button" id="free" aria-label="Let everyone walk">r · let everyone walk</button>
+  </div>
+</div>
+<script>
+/* Median. A small boulevard is drawn at 256 by 160, in silver, every frame.
+   The mean is a running exposure of six seconds. The median keeps the last
+   twenty-five frames, one every 400 ms, and sorts each pixel's history: what
+   was in front of a pixel for more than half of those ten seconds is what the
+   median shows. Walkers and carriages never are. A figure that stops is. */
+(function(){
+  'use strict';
+  var W=256, H=160, K=25, STEP=400, TAU=6;
+  var off=document.createElement('canvas'); off.width=W; off.height=H;
+  var o=off.getContext('2d',{willReadFrequently:true});
+  var bg=document.createElement('canvas'); bg.width=W; bg.height=H;
+  var cF=document.getElementById('cFrame'), cM=document.getElementById('cMean'), cD=document.getElementById('cMed');
+  var tone=document.createElement('canvas'); tone.width=W; tone.height=H;
+  var tc=tone.getContext('2d'), timg=tc.createImageData(W,H);
+  function rng(seed){var s=seed>>>0;return function(){s=(s+0x6D2B79F5)>>>0;var t=s;t=Math.imul(t^(t>>>15),t|1);t^=t+Math.imul(t^(t>>>7),t|61);return((t^(t>>>14))>>>0)/4294967296;};}
+  function g(v){v=Math.max(0,Math.min(255,v|0));return 'rgb('+v+','+v+','+v+')';}
+
+  /* the boulevard: an overexposed sky, facades, a pavement, trees, the road */
+  (function(){
+    var b=bg.getContext('2d'), r=rng(1838), x=0, i;
+    var sk=b.createLinearGradient(0,0,0,40); sk.addColorStop(0,g(236)); sk.addColorStop(1,g(222));
+    b.fillStyle=sk; b.fillRect(0,0,W,H);
+    while(x<W){
+      var w=26+r()*34, top=10+r()*18, sh=150+r()*40;
+      b.fillStyle=g(sh); b.fillRect(x,top,w+1,94-top);
+      b.fillStyle=g(sh-30); b.fillRect(x,top,w+1,2);
+      for(var fy=top+6;fy<84;fy+=9){for(var fx=x+3;fx<x+w-4;fx+=7){b.fillStyle=g(sh-70-r()*25);b.fillRect(fx,fy,3,5);}}
+      b.fillStyle=g(sh-45); b.fillRect(x,86,w+1,8);
+      x+=w;
+    }
+    var pv=b.createLinearGradient(0,94,0,114); pv.addColorStop(0,g(188)); pv.addColorStop(1,g(176));
+    b.fillStyle=pv; b.fillRect(0,94,W,20);
+    b.fillStyle=g(120); b.fillRect(0,114,W,2);
+    var rd=b.createLinearGradient(0,116,0,H); rd.addColorStop(0,g(150)); rd.addColorStop(1,g(128));
+    b.fillStyle=rd; b.fillRect(0,116,W,H-116);
+    for(i=0;i<7;i++){
+      var tx=18+i*38+r()*8;
+      b.fillStyle=g(78); b.fillRect(tx,70,2,32);
+      b.fillStyle=g(96+r()*20); b.beginPath(); b.ellipse(tx+1,58,12+r()*4,16+r()*4,0,0,Math.PI*2); b.fill();
+    }
+  })();
+
+  var people=[], crowd=34, r=rng(42);
+  function walker(x,still){
+    var road=r()<0.18;
+    return {road:road,x:x==null?r()*W:x,y:road?122+r()*30:98+r()*14,v:(road?28+r()*30:6+r()*9)*(r()<0.5?-1:1),
+      ph:r()*6,shade:40+r()*90,still:!!still,keep:false};
+  }
+  function fill(){while(people.length<crowd){people.push(walker());}}
+  /* the man at the boot-black's, and the boot-black, who moved */
+  var man={road:false,x:70,y:110,v:0,ph:0,shade:34,still:true,keep:true,man:true};
+  var boy={road:false,x:76,y:111,v:0,ph:0,shade:70,still:true,keep:true,boy:true};
+  people.push(man,boy); fill();
+
+  function draw(p,t){
+    var s=p.road?1.25:0.62+0.5*(p.y-96)/16;
+    o.fillStyle=g(p.shade);
+    if(p.road){
+      var L=30*s, hgt=13*s, dx=p.v<0?-1:1;
+      o.fillRect(p.x-L/2,p.y-hgt-5,L,hgt);
+      o.fillRect(p.x+dx*L/2,p.y-hgt+1,dx*8*s,3*s);
+      o.fillStyle=g(p.shade-25);
+      o.beginPath(); o.arc(p.x-L*0.3,p.y-3,4*s,0,Math.PI*2); o.arc(p.x+L*0.3,p.y-3,4*s,0,Math.PI*2); o.fill();
+      return;
+    }
+    var h=16*s, sw=p.still?0:Math.sin(t*7+p.ph)*2.2*s, x=p.x, y=p.y;
+    if(p.boy){
+      var j=Math.sin(t*3.1)*1.3;
+      o.fillRect(x-2*s+j,y-h*0.55,4*s,h*0.4); o.beginPath(); o.arc(x+j,y-h*0.62,1.9*s,0,Math.PI*2); o.fill();
+      return;
+    }
+    o.fillRect(x-1.2*s+sw*0.5,y-h*0.42,1.1*s,h*0.42); o.fillRect(x+0.2*s-sw*0.5,y-h*0.42,1.1*s,h*0.42);
+    o.fillRect(x-2*s,y-h*0.86,4*s,h*0.46);
+    o.beginPath(); o.arc(x,y-h*0.92,1.7*s,0,Math.PI*2); o.fill();
+    o.fillRect(x-1.3*s,y-h*1.18,2.6*s,h*0.22);
+  }
+
+  var mean=new Float32Array(W*H), ring=[], med=new Uint8Array(W*H), tmp=new Int32Array(K), first=true;
+  function toCanvas(src,cv){
+    var d=timg.data;
+    for(var i=0,j=0;i<W*H;i++,j+=4){var v=src[i];d[j]=v;d[j+1]=v*0.955+3;d[j+2]=v*0.86+9;d[j+3]=255;}
+    tc.putImageData(timg,0,0);
+    var c=cv.getContext('2d'); c.imageSmoothingEnabled=true; c.drawImage(tone,0,0,cv.width,cv.height);
+  }
+  function median(){
+    var n=ring.length, m=n>>1, i, a, b, k, v;
+    for(i=0;i<W*H;i++){
+      for(a=0;a<n;a++){
+        v=ring[a][i]; b=a-1;
+        while(b>=0&&tmp[b]>v){tmp[b+1]=tmp[b];b--;}
+        tmp[b+1]=v;
+      }
+      med[i]=tmp[m];
+    }
+  }
+  var last=performance.now(), lastS=0, T0=last, gray=new Uint8Array(W*H);
+  function frame(now){
+    var dt=Math.min(0.1,(now-last)/1000); last=now;
+    var t=(now-T0)/1000;
+    o.drawImage(bg,0,0);
+    var vis=0, i;
+    for(i=0;i<people.length;i++){
+      var p=people[i];
+      if(!p.still){
+        p.x+=p.v*dt;
+        if(p.x<-24||p.x>W+24){
+          if(people.length>crowd+2&&!p.keep){people.splice(i,1);i--;continue;}
+          var nw=walker(p.v>0?-20:W+20); nw.v=Math.abs(nw.v)*(p.v>0?1:-1); people[i]=nw; p=nw;
+        }
+      }
+      if(p.x>-4&&p.x<W+4){vis++;}
+    }
+    people.sort(function(a,b){return a.y-b.y;});
+    for(i=0;i<people.length;i++){draw(people[i],t);}
+    var d=o.getImageData(0,0,W,H).data;
+    for(i=0;i<W*H;i++){gray[i]=d[i*4];}
+    var a=first?1:Math.min(1,dt/TAU);
+    for(i=0;i<W*H;i++){mean[i]+=(gray[i]-mean[i])*a;}
+    if(first||now-lastS>=STEP){
+      lastS=now; first=false;
+      ring.push(gray.slice()); if(ring.length>K){ring.shift();}
+      median(); toCanvas(med,cD); say(vis);
+    }
+    toCanvas(gray,cF); toCanvas(mean,cM);
+    document.getElementById('nNow').textContent=String(vis);
+    requestAnimationFrame(frame);
+  }
+  var rd=document.getElementById('read');
+  function say(vis){
+    var still=people.filter(function(p){return p.still&&!p.boy;}).length, held=(ring.length*STEP/1000).toFixed(1);
+    document.getElementById('nStill').textContent=String(still);
+    rd.innerHTML='<span class="k">'+ring.length+' of '+K+' frames held · '+held+' s</span> · '+(people.length-2)+' passers-by · the median keeps the street and '+
+      (still===0?'no one: everyone moved':(still===1?'one figure who stood still':still+' figures who stood still'))+'. The boot-black kept working, so he is only half there.';
+  }
+  function hit(ev){
+    var b=ev.currentTarget.getBoundingClientRect(), x=(ev.clientX-b.left)/b.width*W, y=(ev.clientY-b.top)/b.height*H, best=null, bd=14;
+    for(var i=0;i<people.length;i++){
+      var p=people[i]; if(p.boy){continue;}
+      var dx=p.x-x, dy=(p.y-(p.road?9:7))-y, dd=Math.sqrt(dx*dx+dy*dy);
+      if(dd<bd){bd=dd;best=p;}
+    }
+    if(best){best.still=!best.still;}
+  }
+  [cF,cM,cD].forEach(function(c){c.addEventListener('click',hit);});
+  function release(){people.forEach(function(p){if(!p.boy){p.still=false;if(p.man){p.v=7;}}});}
+  document.getElementById('free').addEventListener('click',release);
+  document.getElementById('more').addEventListener('click',function(){crowd=Math.min(90,crowd+10);fill();});
+  document.getElementById('less').addEventListener('click',function(){crowd=Math.max(4,crowd-10);});
+  window.addEventListener('keydown',function(e){
+    if(e.key==='r'){release();}
+    else if(e.key==='+'||e.key==='='){crowd=Math.min(90,crowd+10);fill();}
+    else if(e.key==='-'){crowd=Math.max(4,crowd-10);}
+  });
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>

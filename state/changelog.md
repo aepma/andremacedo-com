@@ -832,3 +832,6 @@ gen 254 weekly: the long exposure gains a photo finish. The lives become one sli
 
 ## gen 255 (weekly, 2026-10-08)
 gen 255 weekly: the long exposure, fixed. The business floor becomes plate i's title, the page is 41% shorter, the work is a register of what stood still, and the twelve lives become bands of the studio's star trail, the 41 instruments made between lives dotted
+
+## gen 256 (weekly, 2026-10-12)
+gen 256 weekly: the plates become objects. Plate ii is a cased daguerreotype that turns negative when tilted, the boulevard's moving words carry their streak, the star trail is inked heavier, and instrument 134 Median keeps only what stood still

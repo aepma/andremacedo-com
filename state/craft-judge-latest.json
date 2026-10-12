@@ -12,60 +12,60 @@
       "passed": true,
       "axes": {
         "type_scale": 8.0,
-        "spacing_system": 7.0,
+        "spacing_system": 8.0,
         "focal_hierarchy": 8.0,
         "restraint": 8.0,
-        "hero": 9.0,
+        "hero": 8.0,
         "composition": 8.0,
         "type_craft": 9.0,
         "color": 8.0,
-        "stranger_test": 8.0
+        "stranger_test": 9.0
       },
       "overall": 8.0,
       "is_slop": false,
       "findings": [
-        "The § 3 'plate ii' panel — the ghosted/overlaid 'André Macedo' image — reads as a low-contrast muddy smudge rather than a resolved composition; it is the weakest, least legible block on the page.",
-        "Several mid-page sections (between § 2 and § 3, around the company ledger) carry very large empty right-hand gutters that drift toward plain emptiness rather than held compositional tension.",
-        "The analemma spiral graphic in § 4 is rendered so faint and thin that it barely holds its half of the viewport against the surrounding whitespace."
+        "The §4 star-trail spiral is the weakest element — a concentric circular scribble reads close to default generative-art filler, and only the adjacent 'star trail' label rescues it from decoration-without-purpose.",
+        "The 'plate ii' image (§3, 'the name, on all nine') is muddy and low-legibility; it depends almost entirely on its caption to communicate, so as pure pixels it underperforms the rest of the page.",
+        "The final dark section repeats the hero's dark-field + Didone + amber formula rather than evolving it, so the close feels like a reprise instead of a new compositional statement."
       ],
       "what_works": [
-        "Hero is a decisive signature, not a template: a massive high-contrast Didone 'André Macedo' anchored top-left, paired with a long-exposure amber light-arc photograph on the right and mono 'instrument reading' metadata scattered like margin telemetry — nothing centered, nothing generic.",
-        "Genuinely intentional type pairing: editorial Didone serif (with amber italic accent words like 'stood still' / 'comes back') played against a mono utility voice for section markers and annotations — exactly the expressive contrast the safe system-sans default never reaches.",
-        "Disciplined warm-monochrome palette: dark navy-black ground, cream text, a single amber accent sourced from the light trail and reused sparingly in italics and the analemma — restraint, not rainbow.",
-        "The numbered company ledger (01 RealWorld.fi / 02 ActualSales) with mono category tags and right-set descriptions is a real editorial grid move, and the numeric 'exposure · faces on one plate' table reads as a considered data artifact.",
-        "Strong conceptual throughline (daguerreotype long-exposure / plate-rebuild metaphor) carried through copy, section numbering and graphics gives the page editorial conviction a generator wouldn't invent."
+        "Decisive type system: a genuine high-contrast Didone display (André / Macedo at enormous scale) set against a lowercase monospace utility voice for section markers (§1 · boulevard du temple, paris, 1838) — exactly the editorial-serif-vs-mono pairing a template generator avoids.",
+        "The entire page is built on one committed conceptual frame — Daguerre's long-exposure, the arc-of-sun light trail, 'nine faces on one plate', 'generation 256' — carried through graphics, numbering and copy, not pasted on. That is a real signature.",
+        "Asymmetric hero: name anchored top-left over black, amber light-trail arc pushed right with off-axis mono annotations floating in the field — tension and compositional mass, not centered symmetry.",
+        "Restrained three-value palette (near-black, cream, single amber accent) held consistently; italic emphasis ('stood still', 'comes back') used sparingly as the only decorative flourish.",
+        "Stranger test is fully satisfied in the first viewport: name, two-company one-liner, and a visible 'write me@andremacedo.com' all legible without scrolling."
       ],
-      "reasoning": "This is clearly not SaaS slop: the above-the-fold is an asymmetric, top-left-anchored Didone hero over a long-exposure light photograph with mono marginalia, driven by a single warm amber accent and a real editorial type system — none of the cardinal slop states (centered gradient template, default sans, uniform decoration, symmetry-as-composition, feature-grid shape) are present. The stranger test clears the floor comfortably: 'André Macedo', a one-line description of his two companies, and the visible 'me@andremacedo.com' all sit in the first viewport. Points are held back only by a few airy, under-composed mid-page gutters and the muddy § 3 ghost-image panel, but the hero and type craft are strong enough to carry an honest 8."
+      "reasoning": "This is unmistakably not a SaaS template — no centered hero, no gradient, no three-card row; instead a dark editorial masthead with a high-contrast Didone against a monospace margin voice and a single amber accent, all organized by an extended Daguerre long-exposure conceit that drives graphics, numbering and copy. The hero is a resolved asymmetric system rather than a floating headline, type_craft and the conceptual through-line are the decisive signature moves, and the stranger test clears its floor with name, role and email above the fold. Minor softness in the generative star-trail and the muddy plate image keeps it from a higher score, but nothing triggers a cardinal slop state."
     },
     "B": {
       "model": "grok-4.20-fast",
       "fell_back_from": null,
       "passed": false,
       "axes": {
-        "type_scale": 6.0,
-        "spacing_system": 7.0,
+        "type_scale": 4.0,
+        "spacing_system": 6.0,
         "focal_hierarchy": 5.0,
-        "restraint": 6.0,
-        "hero": 4.0,
-        "composition": 5.0,
-        "type_craft": 7.0,
+        "restraint": 4.0,
+        "hero": 7.0,
+        "composition": 6.0,
+        "type_craft": 5.0,
         "color": 8.0,
         "stranger_test": 9.0
       },
       "overall": 6.0,
       "is_slop": true,
       "findings": [
-        "Generic SaaS-landing shape applied to a living art organism: top nav-like header with logo/bio, sequential numbered sections with feature-like blocks (01 RealWorld.fi, 02 ActualSales), grid-like data tables, and footer stats",
-        "Hero is a generic centered headline floating over a background long-exposure light trail image with no decisive compositional system or tension",
-        "Symmetry as substitute for composition throughout: centered text blocks, evenly balanced left/right content in sections 3 and 4, predictable vertical stacking",
-        "Multiple competing focal points per viewport (name + light arch, quote blocks, company entries, analemma diagram, bottom interactive plate) with no single clear hierarchy",
-        "Safe default editorial layout rhythms and typographic treatments that feel templated despite the long-exposure metaphor"
+        "Generic SaaS-landing shape applied to supposed living art organism: top nav-like header with bio, hero image, sequential numbered sections with body text, feature-like company cards (01 RealWorld.fi, 02 ActualSales), stats table, circular graphic, and dark footer",
+        "Safe default sans used throughout with no strong typographic point of view; even the large 'André Macedo' and 'Median' treatments feel templated rather than expressive",
+        "Multiple competing focal points across long vertical scroll (hero light trail, historical quote, company blocks, daguerreotype plate image, concentric circle diagram, bottom Miami arc) instead of singular hierarchy",
+        "Decoration without hierarchy: light trail long exposure, multiple concentric circle diagrams, faux-plate framing, and overlaid text effects applied as thematic garnish rather than purposeful editorial moves",
+        "No single decisive aesthetic move that escapes templated generator output; the 'AI rebuilds daily / daguerreotype metaphor' concept is illustrated literally with expected long-exposure trails and plate imagery a prompt would produce"
       ],
       "what_works": [
-        "Cohesive dark-to-light color harmony built around the light trail photography and orange accents",
-        "Strong stranger_test: name, role, companies, and email are immediately legible in the first viewport"
+        "Strong color harmony in hero with warm orange light trails against deep indigo night sky creates memorable atmospheric entry",
+        "Clear stranger_test passage with prominent name, role, email, and contactability in first viewport"
       ],
-      "reasoning": "The page attempts an artistic long-exposure/Daguerreotype metaphor but executes it through a conventional, predictable vertical editorial/SaaS-shaped layout with centered symmetry and sequential sections. The hero lacks a decisive compositional move, focal hierarchy is muddled, and the overall form feels like a templated generator output dressed in thematic imagery and copy. While color, type pairing, and clarity of identity are competent, nothing rises above mediocre default-grade craft on the desktop render. Mobile maintains the same structural weaknesses."
+      "reasoning": "The desktop render is a long-form editorial page that successfully communicates identity and metaphor but falls into generic AI-generated territory. While the hero light-trail image and color use are effective, the overall layout follows predictable vertical sections with numbered blocks, company descriptions, data tables, and illustrative graphics that lack a unique compositional signature. Typography is competent but unadventurous system defaults without a modular scale or expressive pairing. The 'living art organism rebuilt daily' premise is rendered through literal, expected visual tropes (light trails, plates, concentric circles) rather than a decisive, non-templated aesthetic move. This meets several cardinal slop states, particularly the generic SaaS-landing shape misapplied to an art organism and absence of singular conviction."
     }
   },
   "margin_override": {
