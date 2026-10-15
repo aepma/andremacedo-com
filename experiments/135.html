@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>135 — Light Painting · andremacedo.com</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<style>
+  html,body{margin:0;height:100%;background:#05070f;color:#f2eadb;overflow:hidden;
+    font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;}
+  #plate{position:fixed;inset:0;width:100%;height:100%;display:block;cursor:crosshair;touch-action:none;}
+  #info{position:fixed;top:14px;left:16px;max-width:50ch;opacity:0.86;font-size:14px;line-height:1.55;z-index:3;pointer-events:none;
+    text-shadow:0 0 8px rgba(0,0,0,0.8),0 0 20px rgba(0,0,0,0.5);}
+  #info h1{font-family:"Didot","Bodoni 72","Bodoni MT",serif;font-weight:400;font-size:26px;margin:0 0 6px;}
+  #info p{margin:0 0 6px;}
+  #info .how{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:12px;color:#d8ccb4;}
+  #back{position:fixed;top:16px;right:16px;z-index:3;color:#f2eadb;font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:12px;
+    text-shadow:0 0 8px rgba(0,0,0,0.8),0 0 20px rgba(0,0,0,0.5);}
+  #ui{position:fixed;left:16px;right:16px;bottom:14px;z-index:3;font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:12px;
+    display:flex;justify-content:space-between;align-items:flex-end;gap:10px 16px;flex-wrap:wrap;pointer-events:none;
+    text-shadow:0 0 8px rgba(0,0,0,0.8),0 0 20px rgba(0,0,0,0.5);}
+  #read{margin:0;color:#f2eadb;max-width:64ch;line-height:1.6;}
+  #read .k{color:#f4bf72;}
+  #right{display:flex;align-items:flex-end;gap:12px;pointer-events:auto;}
+  #fixed{display:flex;gap:8px;}
+  #fixed canvas{display:block;width:96px;height:60px;box-shadow:0 0 0 1px rgba(242,234,219,.3);}
+  #again{font:inherit;color:#f2eadb;background:rgba(5,7,15,.6);border:1px solid rgba(242,234,219,.35);padding:7px 10px;cursor:pointer;
+    text-shadow:0 0 8px rgba(0,0,0,0.8),0 0 20px rgba(0,0,0,0.5);}
+  #again:hover{border-color:#e8a64f;}
+  #again:focus-visible,#back:focus-visible{outline:2px solid #e8a64f;outline-offset:3px;}
+  @media (max-width: 760px){
+    #info{right:16px;max-width:none;font-size:13px;}
+    #info h1{font-size:22px;}
+    #fixed canvas{width:56px;height:35px;}
+    #fixed canvas:nth-child(n+3){display:none;}
+  }
+</style>
+</head>
+<body>
+<canvas id="plate" role="img" aria-label="A dark plate held open. Where the lantern is carried, light burns in amber; where it stays longest, the plate burns white."></canvas>
+<div id="info">
+  <h1>135 — Light Painting</h1>
+  <p>A plate held open in the dark, and you hold the only lantern. Light burns in proportion to how long it stays: sweep fast and you leave a breath, hold still and you burn a hole. After thirty seconds the plate is fixed and kept below.</p>
+  <p class="how">press and drag to carry the lantern · hold still to burn · space or “new plate” opens the shutter again</p>
+</div>
+<a id="back" href="/">← andremacedo.com</a>
+<div id="ui">
+  <p id="read" aria-live="polite"><span class="k">shutter open</span> · 30s · the plate is still dark</p>
+  <div id="right"><div id="fixed" aria-label="Fixed plates"></div><button id="again" type="button">new plate</button></div>
+</div>
+<script>
+(function(){
+  'use strict';
+  var cv=document.getElementById('plate'), ctx=cv.getContext('2d'), read=document.getElementById('read'), fixedEl=document.getElementById('fixed');
+  var EXPO=30, calm=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var W=0,H=0,dpr=1,lw=0,lh=0,E=null,low=null,lctx=null,img=null,opened=0,fixed=false,down=false,px=0,py=0,last=0,dirty=true;
+  var RAMP=[[0,70,22,12],[0.28,150,56,20],[0.52,222,118,40],[0.74,246,178,82],[0.9,255,224,158],[1,255,246,226]];
+  function ramp(L,o){for(var k=1;k<RAMP.length;k++){if(L<=RAMP[k][0]){var a=RAMP[k-1],b=RAMP[k],t=(L-a[0])/(b[0]-a[0]);o[0]=a[1]+(b[1]-a[1])*t;o[1]=a[2]+(b[2]-a[2])*t;o[2]=a[3]+(b[3]-a[3])*t;return;}}o[0]=255;o[1]=246;o[2]=226;}
+  function size(){
+    dpr=Math.min(2,window.devicePixelRatio||1); W=window.innerWidth; H=window.innerHeight;
+    cv.width=Math.round(W*dpr); cv.height=Math.round(H*dpr);
+    var sc=Math.sqrt(260000/(W*H)); sc=Math.min(0.5,sc);
+    lw=Math.max(80,Math.round(W*sc)); lh=Math.max(60,Math.round(H*sc));
+    low=document.createElement('canvas'); low.width=lw; low.height=lh; lctx=low.getContext('2d');
+    img=lctx.createImageData(lw,lh); E=new Float32Array(lw*lh); dirty=true;
+  }
+  function open(){if(E){E.fill(0);}opened=performance.now();fixed=false;dirty=true;}
+  function burn(x,y,w){
+    var gx=x/W*lw, gy=y/H*lh, rr=Math.max(2.2,lw/150), R2=Math.ceil(rr*3);
+    var x0=Math.max(0,Math.floor(gx-R2)), x1=Math.min(lw-1,Math.ceil(gx+R2)), y0=Math.max(0,Math.floor(gy-R2)), y1=Math.min(lh-1,Math.ceil(gy+R2));
+    for(var j=y0;j<=y1;j++){for(var i=x0;i<=x1;i++){var dx=i-gx,dy=j-gy;E[j*lw+i]+=w*Math.exp(-(dx*dx+dy*dy)/(2*rr*rr));}}
+  }
+  function render(){
+    var D=img.data, col=[0,0,0];
+    for(var y=0;y<lh;y++){
+      var t=y/lh, br=6+6*t, bg=9+4*t, bb=22+12*t;
+      for(var x=0;x<lw;x++){
+        var o=y*lw+x, L=1-Math.exp(-E[o]*0.55), al=Math.min(1,L*2.4), o4=o*4;
+        ramp(L,col);
+        D[o4]=br+(col[0]-br)*al; D[o4+1]=bg+(col[1]-bg)*al; D[o4+2]=bb+(col[2]-bb)*al; D[o4+3]=255;
+      }
+    }
+    lctx.putImageData(img,0,0);
+  }
+  function stats(){
+    var mx=0, lit=0;
+    for(var i=0;i<E.length;i++){if(E[i]>mx){mx=E[i];}if(E[i]>0.05){lit++;}}
+    return {max:mx, dark:Math.round(100*(1-lit/E.length))};
+  }
+  function frame(now){
+    var dt=Math.min(0.05,(now-(last||now))/1000); last=now;
+    var left=Math.max(0,EXPO-(now-opened)/1000);
+    if(!fixed&&down){burn(px,py,dt*1.6);dirty=true;}
+    if(!fixed&&left<=0){fix();}
+    if(dirty){render();dirty=false;}
+    ctx.setTransform(dpr,0,0,dpr,0,0); ctx.imageSmoothingEnabled=true; ctx.drawImage(low,0,0,W,H);
+    if(!fixed&&down){
+      var fl=calm?1:(0.85+0.15*Math.sin(now/70)*Math.sin(now/37));
+      var g=ctx.createRadialGradient(px,py,0,px,py,26);
+      g.addColorStop(0,'rgba(255,246,226,'+(0.9*fl)+')'); g.addColorStop(0.3,'rgba(246,178,82,'+(0.35*fl)+')'); g.addColorStop(1,'rgba(232,166,79,0)');
+      ctx.fillStyle=g; ctx.beginPath(); ctx.arc(px,py,26,0,Math.PI*2); ctx.fill();
+    }
+    if(!fixed&&Math.floor(now/250)!==Math.floor((now-dt*1000)/250)){
+      var st=stats();
+      read.innerHTML='<span class="k">shutter open</span> · '+Math.ceil(left)+'s left · '+(st.max<0.05?'the plate is still dark':'the brightest point has held '+st.max.toFixed(1)+'s of light');
+    }
+    requestAnimationFrame(frame);
+  }
+  function fix(){
+    fixed=true; down=false;
+    var st=stats(), th=document.createElement('canvas'); th.width=lw; th.height=lh;
+    th.getContext('2d').drawImage(low,0,0); th.setAttribute('role','img'); th.setAttribute('aria-label','A fixed plate');
+    fixedEl.insertBefore(th,fixedEl.firstChild);
+    while(fixedEl.children.length>4){fixedEl.removeChild(fixedEl.lastChild);}
+    read.innerHTML='<span class="k">fixed</span> · '+(st.max<0.05?'nothing stayed long enough to burn':'the brightest point held '+st.max.toFixed(1)+'s of light · '+st.dark+'% of the plate never saw it')+' · open a new plate when you are ready';
+  }
+  function at(ev){px=ev.clientX;py=ev.clientY;}
+  cv.addEventListener('pointerdown',function(ev){if(fixed){open();}down=true;at(ev);try{cv.setPointerCapture(ev.pointerId);}catch(e){}});
+  cv.addEventListener('pointermove',function(ev){at(ev);});
+  ['pointerup','pointercancel'].forEach(function(t){cv.addEventListener(t,function(){down=false;});});
+  document.getElementById('again').addEventListener('click',open);
+  window.addEventListener('keydown',function(ev){if(ev.key===' '){ev.preventDefault();open();}});
+  var rt=0; window.addEventListener('resize',function(){clearTimeout(rt);rt=setTimeout(function(){size();open();},200);});
+  size(); open(); requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>

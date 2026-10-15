@@ -835,3 +835,6 @@ gen 255 weekly: the long exposure, fixed. The business floor becomes plate i's t
 
 ## gen 256 (weekly, 2026-10-12)
 gen 256 weekly: the plates become objects. Plate ii is a cased daguerreotype that turns negative when tilted, the boulevard's moving words carry their streak, the star trail is inked heavier, and instrument 134 Median keeps only what stood still
+
+## gen 257 (weekly, 2026-10-15)
+gen 257 weekly: one night, the rest is paper. Plate i is the only dark field; plate ii's silver actually loads; the star trail prints over eleven hundred unnamed stars with a rule of the twelve lives; plate iv becomes raw solargraph paper; instrument 135 Light Painting
