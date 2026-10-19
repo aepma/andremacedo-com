@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>136 — Unfixed · andremacedo.com</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<style>
+  html,body{margin:0;height:100%;background:#0d0b09;color:#f2eadb;overflow:hidden;
+    font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;}
+  #room{position:fixed;inset:0;width:100%;height:100%;display:block;touch-action:none;cursor:grab;}
+  #room.hand{cursor:grabbing;}
+  #info{position:fixed;top:14px;left:16px;max-width:52ch;opacity:0.86;font-size:14px;line-height:1.55;z-index:3;pointer-events:none;
+    text-shadow:0 0 8px rgba(0,0,0,0.8),0 0 20px rgba(0,0,0,0.5);}
+  #info h1{font-family:"Didot","Bodoni 72","Bodoni MT",serif;font-weight:400;font-size:26px;margin:0 0 6px;}
+  #info p{margin:0 0 6px;}
+  #info .how{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:12px;color:#d8ccb4;}
+  #back{position:fixed;top:16px;right:16px;z-index:3;color:#f2eadb;font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:12px;
+    text-shadow:0 0 8px rgba(0,0,0,0.8),0 0 20px rgba(0,0,0,0.5);}
+  #ui{position:fixed;left:16px;right:16px;bottom:14px;z-index:3;font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:12px;
+    display:flex;justify-content:space-between;align-items:flex-end;gap:10px 16px;flex-wrap:wrap;pointer-events:none;
+    text-shadow:0 0 8px rgba(0,0,0,0.8),0 0 20px rgba(0,0,0,0.5);}
+  #read{margin:0;color:#f2eadb;max-width:64ch;line-height:1.6;}
+  #read .k{color:#f4bf72;}
+  #right{display:flex;align-items:flex-end;gap:12px;pointer-events:auto;}
+  #kept{display:flex;gap:8px;}
+  #kept canvas{display:block;width:80px;height:60px;box-shadow:0 0 0 1px rgba(242,234,219,.3);}
+  #ui button{font:inherit;color:#f2eadb;background:rgba(13,11,9,.6);border:1px solid rgba(242,234,219,.35);padding:7px 10px;cursor:pointer;
+    text-shadow:0 0 8px rgba(0,0,0,0.8),0 0 20px rgba(0,0,0,0.5);}
+  #ui button:hover{border-color:#e8a64f;}
+  #ui button:disabled{opacity:.45;cursor:default;}
+  #ui button:focus-visible,#back:focus-visible{outline:2px solid #e8a64f;outline-offset:3px;}
+  @media (max-width: 760px){
+    #info{right:16px;max-width:none;font-size:13px;}
+    #info h1{font-size:22px;}
+    #kept canvas{width:48px;height:36px;}
+    #kept canvas:nth-child(n+3){display:none;}
+  }
+</style>
+</head>
+<body>
+<canvas id="room" role="img" aria-label="A salted-paper print of a Paris boulevard, unfixed. While it is in the light its whites darken towards brown, and the street, the trees and the one man at the boot-black's slowly go under. A hand held over it keeps the paper beneath pale."></canvas>
+<div id="info">
+  <h1>136 — Unfixed</h1>
+  <p>The first photographs could not stop. Their silver stayed sensitive, so every look in daylight kept printing them, until the picture was one even brown. Herschel's hypo, in 1839, made the first print that could be looked at and keep. This one is not fixed yet. Looking at it is using it up.</p>
+  <p class="how">press and hold to shade it with your hand · F or “fix it” to keep it as it is now · space or “new print” to start again</p>
+</div>
+<a id="back" href="/">← andremacedo.com</a>
+<div id="ui">
+  <p id="read" aria-live="polite"><span class="k">unfixed</span> · 0:00 in the light · nothing lost yet</p>
+  <div id="right"><div id="kept" aria-label="Fixed prints"></div><button id="fix" type="button">fix it</button><button id="again" type="button">new print</button></div>
+</div>
+<script>
+(function(){
+  'use strict';
+  var cv=document.getElementById('room'), ctx=cv.getContext('2d'), read=document.getElementById('read'), kept=document.getElementById('kept');
+  var fixBtn=document.getElementById('fix'), again=document.getElementById('again');
+  var LW=360, LH=270, N=LW*LH, TAU=24;
+  var P=new Float32Array(N), X=new Float32Array(N), SH=new Float32Array(N);
+  var low=document.createElement('canvas'); low.width=LW; low.height=LH;
+  var lctx=low.getContext('2d'), img=lctx.createImageData(LW,LH);
+  var W=0,H=0,dpr=1,box={x:0,y:0,w:0,h:0},t=0,fixed=false,down=false,hx=-1,hy=-1,last=0,seed=1;
+  function rng(s0){var s=s0>>>0;return function(){s=(s+0x6D2B79F5)>>>0;var q=s;q=Math.imul(q^(q>>>15),q|1);q^=q+Math.imul(q^(q>>>7),q|61);return((q^(q>>>14))>>>0)/4294967296;};}
+  /* the scene is drawn in grey and read back as density: 0 is bare paper, 1 is full silver */
+  function compose(){
+    var c=document.createElement('canvas'); c.width=LW; c.height=LH;
+    var s=c.getContext('2d'), r=rng(seed*7919+11);
+    function g(v){var k=Math.round(255*(1-v));return 'rgb('+k+','+k+','+k+')';}
+    var sky=s.createLinearGradient(0,0,0,LH*0.42); sky.addColorStop(0,g(0.2)); sky.addColorStop(1,g(0.05));
+    s.fillStyle=sky; s.fillRect(0,0,LW,LH);
+    var hz=LH*0.42;
+    /* the left terrace, tall, receding to the right */
+    s.fillStyle=g(0.58); s.beginPath(); s.moveTo(0,LH*0.08); s.lineTo(LW*0.62,hz-LH*0.13); s.lineTo(LW*0.62,hz+LH*0.02); s.lineTo(0,LH*0.74); s.closePath(); s.fill();
+    s.fillStyle=g(0.78); s.beginPath(); s.moveTo(0,LH*0.08); s.lineTo(LW*0.62,hz-LH*0.13); s.lineTo(LW*0.62,hz-LH*0.16); s.lineTo(0,LH*0.0); s.closePath(); s.fill();
+    for(var row=0;row<6;row++){
+      for(var col=0;col<14;col++){
+        var u=col/14, x=u*LW*0.6+4, top=LH*0.08+(hz-LH*0.13-LH*0.08)*u, bot=LH*0.74+(hz+LH*0.02-LH*0.74)*u, hgt=bot-top;
+        var y=top+hgt*(0.08+row*0.14), w=Math.max(1.5,10*(1-u*0.8)), h=Math.max(2,hgt*0.07);
+        s.fillStyle=g(0.84+r()*0.1); s.fillRect(x,y,w,h);
+      }
+    }
+    /* chimneys on the mansards */
+    for(var k=0;k<9;k++){var u2=0.04+k*0.07, cx=u2*LW, cy=LH*0.08*(1-u2/0.62)+(hz-LH*0.16)*(u2/0.62)*1.0;s.fillStyle=g(0.85);s.fillRect(cx,cy-8*(1-u2),3*(1-u2*0.7)+1,8*(1-u2));}
+    /* the far side, low, and the vanishing street */
+    s.fillStyle=g(0.46); s.beginPath(); s.moveTo(LW*0.62,hz-LH*0.05); s.lineTo(LW,hz-LH*0.11); s.lineTo(LW,hz+LH*0.06); s.lineTo(LW*0.62,hz+LH*0.03); s.closePath(); s.fill();
+    /* the boulevard: empty, because everything on it was moving */
+    s.fillStyle=g(0.16); s.beginPath(); s.moveTo(0,LH*0.74); s.lineTo(LW*0.62,hz+LH*0.02); s.lineTo(LW,hz+LH*0.06); s.lineTo(LW,LH); s.lineTo(0,LH); s.closePath(); s.fill();
+    s.strokeStyle=g(0.4); s.lineWidth=1; s.beginPath(); s.moveTo(0,LH*0.8); s.lineTo(LW*0.64,hz+LH*0.04); s.stroke();
+    /* a row of trees along the pavement */
+    for(var tr=0;tr<11;tr++){
+      var uu=tr/11, tx=LW*0.03+uu*LW*0.58, ty=LH*0.7+(hz-LH*0.7)*uu, rr=16*(1-uu*0.75);
+      for(var b=0;b<7;b++){s.fillStyle=g(0.62+r()*0.25);s.beginPath();s.arc(tx+(r()-0.5)*rr*1.4,ty-rr*1.3+(r()-0.5)*rr,rr*(0.5+r()*0.5),0,Math.PI*2);s.fill();}
+      s.fillStyle=g(0.8); s.fillRect(tx-0.8,ty-rr*0.6,1.6,rr*0.8);
+    }
+    /* the one who stood still, one foot on the boot-black's box, and the boot-black bent at his shoe */
+    var mx=LW*0.21, my=LH*0.86;
+    s.fillStyle=g(0.95); s.fillRect(mx,my-15,2.4,15); s.beginPath(); s.arc(mx+1.2,my-17,2,0,Math.PI*2); s.fill();
+    s.fillRect(mx+2,my-7,4,1.6); s.fillRect(mx+5,my-7,1.4,4);
+    s.fillStyle=g(0.7); s.fillRect(mx+4,my-3,5,3);
+    s.fillStyle=g(0.88); s.beginPath(); s.ellipse(mx+10,my-5,3.4,4.4,0.5,0,Math.PI*2); s.fill();
+    var d=s.getImageData(0,0,LW,LH).data, gr=rng(seed*31+5);
+    for(var i=0;i<N;i++){var v=1-d[i*4]/255;v+= (gr()-0.5)*0.05;P[i]=Math.max(0,Math.min(1,v));X[i]=0;}
+  }
+  function size(){
+    dpr=Math.min(2,window.devicePixelRatio||1); W=window.innerWidth; H=window.innerHeight;
+    cv.width=Math.round(W*dpr); cv.height=Math.round(H*dpr);
+    var mw=W*(W<760?0.92:0.62), mh=H*(W<760?0.5:0.6), bw=Math.min(mw,mh*4/3), bh=bw*0.75;
+    box={x:(W-bw)/2,y:(W<760?H*0.46:H*0.53)-bh/2,w:bw,h:bh};
+  }
+  function shade(){
+    SH.fill(0);
+    if(!down||hx<0){return;}
+    var gx=(hx-box.x)/box.w*LW, gy=(hy-box.y)/box.h*LH, R=LW*0.13, R2=R*R*2.2;
+    var x0=Math.max(0,Math.floor(gx-R*1.6)), x1=Math.min(LW-1,Math.ceil(gx+R*1.6)), y0=Math.max(0,Math.floor(gy-R*1.6)), y1=Math.min(LH-1,Math.ceil(gy+R*1.6));
+    for(var y=y0;y<=y1;y++){for(var x=x0;x<=x1;x++){var dx=x-gx,dy=y-gy,q=(dx*dx+dy*dy)/R2;if(q<1.5){SH[y*LW+x]=Math.min(1,Math.exp(-q*q*1.6)*1.15);}}}
+  }
+  function paint(){
+    var D=img.data;
+    for(var i=0;i<N;i++){
+      var dn=1-(1-P[i])*Math.exp(-X[i]/TAU), e=Math.pow(dn,0.9), o=i*4;
+      D[o]=241+(48-241)*e; D[o+1]=232+(30-232)*e; D[o+2]=213+(18-213)*e; D[o+3]=255;
+    }
+    lctx.putImageData(img,0,0);
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    ctx.fillStyle='#0d0b09'; ctx.fillRect(0,0,W,H);
+    ctx.fillStyle='rgba(0,0,0,0.5)'; ctx.fillRect(box.x+6,box.y+10,box.w,box.h);
+    ctx.imageSmoothingEnabled=true; ctx.drawImage(low,box.x,box.y,box.w,box.h);
+    ctx.strokeStyle='rgba(242,234,219,0.18)'; ctx.lineWidth=1; ctx.strokeRect(box.x-0.5,box.y-0.5,box.w+1,box.h+1);
+    if(down&&hx>=0&&!fixed){ctx.fillStyle='rgba(13,11,9,0.16)';ctx.beginPath();ctx.arc(hx,hy,box.w*0.13,0,Math.PI*2);ctx.fill();}
+  }
+  function lost(){var a=0,m=0;for(var i=0;i<N;i+=7){if(P[i]<0.3){a+=1-Math.exp(-X[i]/TAU);m++;}}return m?a/m:0;}
+  function clock(s){s=Math.floor(s);return Math.floor(s/60)+':'+('0'+(s%60)).slice(-2);}
+  function say(){
+    var l=Math.round(lost()*100);
+    if(fixed){read.innerHTML='<span class="k">fixed</span> · at '+clock(t)+' in the light · '+(l<5?'kept almost whole':l+'% of its whites already gone')+' · it stays as it is now';return;}
+    read.innerHTML='<span class="k">unfixed</span> · '+clock(t)+' in the light · '+(l<2?'nothing lost yet':(l>92?'the street has gone under; only the darkest things still show':'the whites are '+l+'% gone'))+(down?' · your hand is keeping a patch':'');
+  }
+  function frame(now){
+    var dt=Math.min(0.1,(now-(last||now))/1000); last=now;
+    if(!fixed&&!document.hidden){
+      t+=dt; shade();
+      for(var i=0;i<N;i++){X[i]+=dt*(1-SH[i]);}
+    }
+    paint(); say();
+    requestAnimationFrame(frame);
+  }
+  function fix(){
+    if(fixed){return;}
+    fixed=true; fixBtn.disabled=true;
+    var th=document.createElement('canvas'); th.width=160; th.height=120; th.getContext('2d').drawImage(low,0,0,160,120);
+    th.title='fixed at '+clock(t); kept.insertBefore(th,kept.firstChild);
+    while(kept.children.length>4){kept.removeChild(kept.lastChild);}
+  }
+  function fresh(){seed++;compose();t=0;fixed=false;fixBtn.disabled=false;}
+  function pt(ev){hx=ev.clientX;hy=ev.clientY;}
+  cv.addEventListener('pointerdown',function(ev){down=true;pt(ev);cv.classList.add('hand');try{cv.setPointerCapture(ev.pointerId);}catch(e){}});
+  cv.addEventListener('pointermove',function(ev){if(down){pt(ev);}});
+  ['pointerup','pointercancel'].forEach(function(n){cv.addEventListener(n,function(){down=false;hx=-1;cv.classList.remove('hand');});});
+  fixBtn.addEventListener('click',fix);
+  again.addEventListener('click',fresh);
+  window.addEventListener('keydown',function(ev){
+    if(ev.key==='f'||ev.key==='F'){fix();}
+    else if(ev.key===' '){ev.preventDefault();fresh();}
+  });
+  window.addEventListener('resize',size);
+  size(); compose(); requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>

@@ -1,24 +1,23 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <!-- epoch twelve, gen 257: one night, the rest is paper. Three burned arcs
-       on the only dark field, the roof that never moved, and under it the
-       strip of paper every other plate is printed on -->
+  <!-- epoch twelve, gen 258: fixed. Three burned arcs on the only dark field,
+       the roof that never moved, and under it the paper, where the same sun
+       has printed itself in sepia and been fixed so it can be looked at -->
   <defs>
     <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0" stop-color="#05070f"/>
-      <stop offset="0.66" stop-color="#141a3a"/>
-      <stop offset="0.82" stop-color="#9c5228"/>
+      <stop offset="0.62" stop-color="#141a3a"/>
+      <stop offset="0.8" stop-color="#9c5228"/>
     </linearGradient>
     <clipPath id="c"><rect width="64" height="64" rx="14"/></clipPath>
   </defs>
   <g clip-path="url(#c)">
     <rect width="64" height="64" fill="url(#sky)"/>
     <g fill="none" stroke-linecap="round">
-      <path d="M7 48 C10 5, 54 5, 57 48" stroke="#f2c27a" stroke-width="3.6"/>
-      <path d="M15 48 C18 19, 46 19, 49 48" stroke="#e8a64f" stroke-width="2.8"/>
-      <path d="M23 48 C25 32, 39 32, 41 48" stroke="#c8733a" stroke-width="2.2"/>
+      <path d="M7 43 C10 3, 54 3, 57 43" stroke="#f2c27a" stroke-width="3.6"/>
+      <path d="M16 43 C19 17, 45 17, 48 43" stroke="#e8a64f" stroke-width="2.8"/>
     </g>
-    <path d="M0 56 V49 H13 V46 H24 V49 H36 V47 H48 V49 H64 V56 Z" fill="#0b090c"/>
-    <rect y="56" width="64" height="8" fill="#f2eadb"/>
-    <rect y="56" width="64" height="1.2" fill="#8c4712"/>
+    <path d="M0 50 V44 H13 V41 H24 V44 H36 V42 H48 V44 H64 V50 Z" fill="#0b090c"/>
+    <rect y="50" width="64" height="14" fill="#f2eadb"/>
+    <path d="M14 63 C17 51, 47 51, 50 63" fill="none" stroke="#8c4712" stroke-width="2.6" stroke-linecap="round"/>
   </g>
 </svg>

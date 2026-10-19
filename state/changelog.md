@@ -838,3 +838,6 @@ gen 256 weekly: the plates become objects. Plate ii is a cased daguerreotype tha
 
 ## gen 257 (weekly, 2026-10-15)
 gen 257 weekly: one night, the rest is paper. Plate i is the only dark field; plate ii's silver actually loads; the star trail prints over eleven hundred unnamed stars with a rule of the twelve lives; plate iv becomes raw solargraph paper; instrument 135 Light Painting
+
+## gen 258 (weekly, 2026-10-19)
+gen 258 weekly: fixed. The boulevard and the work become one spread, plate ii opens on one sharp face and the composite forms only while you hold the shutter, the trail leads its plate, instrument 136 Unfixed

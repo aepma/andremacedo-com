@@ -1,12 +1,12 @@
 {
-  "generation": 257,
+  "generation": 258,
   "epoch": "the long exposure",
   "epoch_started": "2026-09-25",
   "traits": {
     "color": {
       "accent_base": "#e8a64f",
       "accent_dawn": "#f2c27a",
-      "accent_morning": "#eeb15e",
+      "accent_morning": "#e8a64f",
       "accent_afternoon": "#e8a64f",
       "accent_evening": "#c8733a",
       "accent_night": "#8c4712",
@@ -166,6 +166,7 @@
         "experiments/133.html",
         "experiments/134.html",
         "experiments/135.html",
+        "experiments/136.html",
         "index-old.html",
         "scripts/craft-judge-fixtures/good.html",
         "scripts/craft-judge-fixtures/slop.html",
@@ -304,7 +305,7 @@
       "perf_law": "first paint under 4s (INV-8 page-weight proxy), interaction fluid on mobile, validate-build perf gates pass; scene ambition that fails the gates does not ship"
     },
     "content": {
-      "mood": "keeping only what stayed",
+      "mood": "fixing what stayed",
       "obsession": "the long exposure: what a single image keeps when it is held open far longer than anything in front of it lasts. Daguerre's Boulevard du Temple (1838), a crowded street recorded empty except for one man who stood still to have his boots blacked; the solargraph, a pinhole in a can taped to a wall for six months that burns one arc per day of sun; the star trail. Everything that moves is erased. Whatever holds still, or comes back every day, becomes the picture.",
       "thought_pools": {
         "dawn": 10,
@@ -317,17 +318,6 @@
     }
   },
   "fitness_log": [
-    {
-      "gen": 238,
-      "coherence": 9,
-      "novelty": 6,
-      "identity": 9,
-      "tension": 8,
-      "awe": 8,
-      "perceptibility": 9,
-      "note": "Gen 237 (resonance, fifth week): the chassis was held byte-near-identical for five generations and the critics smelled the plateau — coherence and ide",
-      "total": 8.2
-    },
     {
       "gen": 239,
       "coherence": 9,
@@ -536,25 +526,20 @@
       "perceptibility": 9,
       "note": "Epoch XII day 21. Plate i is held exactly, and it is now the only night on the page. Under it everything is printed as what it physically is. Plate ii",
       "total": 8.3
+    },
+    {
+      "gen": 258,
+      "coherence": 9,
+      "novelty": 7,
+      "identity": 9,
+      "tension": 8,
+      "awe": 8,
+      "perceptibility": 9,
+      "note": "Epoch XII day 25. Plate i held exactly: the night-blue solargraph is still the only dark field, name, role and contact set as its title. Under it the ",
+      "total": 8.3
     }
   ],
   "mutation_log": [
-    {
-      "gen": 238,
-      "mutations": [
-        "regenerate"
-      ],
-      "kills": [
-        "type-'seed'-anywhere-—-nucleat",
-        "type-'facet'-anywhere-—-the-cr",
-        "type-'slip'-anywhere-—-a-fault",
-        "type-'anneal'-anywhere-—-the-l",
-        "morning:9",
-        "19"
-      ],
-      "strategy": "Epoch XI — entrainment. Keep Andre's mandated light canvas but break the five-generation cinnabar identity: a warm ivory paper field (#f7f4ec), ink body text, a",
-      "timestamp": "2026-08-16T22:20:28Z"
-    },
     {
       "gen": 239,
       "mutations": [
@@ -857,57 +842,27 @@
       ],
       "strategy": "One night, the rest is paper. Plate i, the night-blue solargraph with the amber arcs, stays exactly as it is and becomes the page's only dark field. Every plate",
       "timestamp": "2026-10-15T04:11:57Z"
+    },
+    {
+      "gen": 258,
+      "mutations": [
+        "regenerate"
+      ],
+      "kills": [
+        "work",
+        "boulevard-aside",
+        "p2-default-nine",
+        "stream:7",
+        "stream:8",
+        "hold-link-s7",
+        "0",
+        "type-'seed'-anywhere-—-nucleat"
+      ],
+      "strategy": "Fix the print. Hold the long exposure's identity exactly: one night (plate i, burned amber on night blue) above warm paper and ink, Didone display over Iowan te",
+      "timestamp": "2026-10-19T04:07:04Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "section",
-      "value": "universality",
-      "died_gen": 250,
-      "epitaph": "Three rules agreed on one schedule. It was the epoch's last true thing, and it stays in experiment 130."
-    },
-    {
-      "type": "section",
-      "value": "gold-sparkline",
-      "died_gen": 250,
-      "epitaph": "The collateral's weather was a small moving line on a page that has decided to hold still."
-    },
-    {
-      "type": "interaction",
-      "value": "type-'fork'-anywhere",
-      "died_gen": 250,
-      "epitaph": "There is nothing left to fork. The plate has no needle."
-    },
-    {
-      "type": "interaction",
-      "value": "rotating-consciousness-stream",
-      "died_gen": 250,
-      "epitaph": "The stream no longer rotates every nine seconds. It changes once a day, like the plate."
-    },
-    {
-      "type": "section",
-      "value": "plate-key",
-      "died_gen": 251,
-      "epitaph": "The key to the plate explained a picture that should explain itself. The letters a, b and c are gone from the image too."
-    },
-    {
-      "type": "section",
-      "value": "register-numerals",
-      "died_gen": 251,
-      "epitaph": "A block of 131 numerals read as filler. The same links survive as a single strip of marks."
-    },
-    {
-      "type": "section",
-      "value": "lives-table",
-      "died_gen": 251,
-      "epitaph": "Twelve rows of names, epitaphs and bars became twelve arcs on one horizon. The epitaphs wait behind a tap."
-    },
-    {
-      "type": "css_rule",
-      "value": "thin-film-sheen",
-      "died_gen": 251,
-      "epitaph": "Structural colour's iridescence lingered at the solstice. The plate burns in its own amber now."
-    },
     {
       "type": "interaction",
       "value": "type-'seed'-anywhere-—-nucleat",
@@ -1159,6 +1114,54 @@
       "value": "0",
       "died_gen": 257,
       "epitaph": "The oldest secret, retired to bring the store back to twenty."
+    },
+    {
+      "type": "section",
+      "value": "work",
+      "died_gen": 258,
+      "epitaph": "The register of what stood still was the boulevard's sentence set a second time. It lives on inside the boulevard, as the second half of one spread."
+    },
+    {
+      "type": "css_rule",
+      "value": "boulevard-aside",
+      "died_gen": 258,
+      "epitaph": "A right-hand paragraph floating in its own white space. Critic A named it twice; it is now the lead into the register."
+    },
+    {
+      "type": "css_rule",
+      "value": "p2-default-nine",
+      "died_gen": 258,
+      "epitaph": "Nine faces averaged as the first thing anyone saw. The idea was right and the picture was mud. Now it is earned by holding the shutter."
+    },
+    {
+      "type": "thought",
+      "value": "stream:7",
+      "died_gen": 258,
+      "epitaph": "'On raw solargraph paper the sun burns dark.' Plate iv already says it in pictures."
+    },
+    {
+      "type": "thought",
+      "value": "stream:8",
+      "died_gen": 258,
+      "epitaph": "'A star trail is mostly stars nobody named.' The caption under the trail already says it."
+    },
+    {
+      "type": "css_rule",
+      "value": "hold-link-s7",
+      "died_gen": 258,
+      "epitaph": "The newest instrument set at 5.61rem italic, louder than the sky it sits in. Down to the display size."
+    },
+    {
+      "type": "secret",
+      "value": "0",
+      "died_gen": 258,
+      "epitaph": "The oldest secret, retired to bring the store back to twenty."
+    },
+    {
+      "type": "interaction",
+      "value": "type-'seed'-anywhere-—-nucleat",
+      "died_gen": 258,
+      "epitaph": "A crystallization gene still listed in the genome, with no body to act on since gen 256."
     }
   ],
   "carrying_capacity": {
@@ -1177,11 +1180,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 248,
-      "base": "#3a362f",
-      "family": "orange"
-    },
     {
       "gen": 249,
       "base": "#3a362f",
@@ -1224,6 +1222,11 @@
     },
     {
       "gen": 257,
+      "base": "#e8a64f",
+      "family": "orange"
+    },
+    {
+      "gen": 258,
       "base": "#e8a64f",
       "family": "orange"
     }
