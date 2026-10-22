@@ -1,5 +1,5 @@
 {
-  "generation": 258,
+  "generation": 259,
   "epoch": "the long exposure",
   "epoch_started": "2026-09-25",
   "traits": {
@@ -167,6 +167,7 @@
         "experiments/134.html",
         "experiments/135.html",
         "experiments/136.html",
+        "experiments/137.html",
         "index-old.html",
         "scripts/craft-judge-fixtures/good.html",
         "scripts/craft-judge-fixtures/slop.html",
@@ -305,7 +306,7 @@
       "perf_law": "first paint under 4s (INV-8 page-weight proxy), interaction fluid on mobile, validate-build perf gates pass; scene ambition that fails the gates does not ship"
     },
     "content": {
-      "mood": "fixing what stayed",
+      "mood": "narrowing the hole",
       "obsession": "the long exposure: what a single image keeps when it is held open far longer than anything in front of it lasts. Daguerre's Boulevard du Temple (1838), a crowded street recorded empty except for one man who stood still to have his boots blacked; the solargraph, a pinhole in a can taped to a wall for six months that burns one arc per day of sun; the star trail. Everything that moves is erased. Whatever holds still, or comes back every day, becomes the picture.",
       "thought_pools": {
         "dawn": 10,
@@ -318,17 +319,6 @@
     }
   },
   "fitness_log": [
-    {
-      "gen": 239,
-      "coherence": 9,
-      "novelty": 8,
-      "identity": 9,
-      "tension": 8,
-      "awe": 8,
-      "perceptibility": 9,
-      "note": "Second generation of Epoch XI, holding the ivory/ink/ultramarine chassis exactly and deepening the obsession's sharpest idea. The hero crowd now keeps",
-      "total": 8.5
-    },
     {
       "gen": 240,
       "coherence": 9,
@@ -537,24 +527,20 @@
       "perceptibility": 9,
       "note": "Epoch XII day 25. Plate i held exactly: the night-blue solargraph is still the only dark field, name, role and contact set as its title. Under it the ",
       "total": 8.3
+    },
+    {
+      "gen": 259,
+      "coherence": 9,
+      "novelty": 7,
+      "identity": 9,
+      "tension": 8,
+      "awe": 8,
+      "perceptibility": 9,
+      "note": "Epoch XII day 28. Plate i held: the night-blue solargraph is still the only dark field, the floor set as its title. Both critics named the same fault ",
+      "total": 8.3
     }
   ],
   "mutation_log": [
-    {
-      "gen": 239,
-      "mutations": [
-        "regenerate"
-      ],
-      "kills": [
-        "type-'seed'-anywhere-—-nucleat",
-        "when-a-visitor-clicks-and-drag",
-        "17",
-        "afternoon:9",
-        "evening:8"
-      ],
-      "strategy": "Hold Epoch XI's identity — warm ivory paper, ink, a single ultramarine accent, Cormorant serif + JetBrains mono, left-anchored editorial hero over the live Kura",
-      "timestamp": "2026-08-19T22:22:20Z"
-    },
     {
       "gen": 240,
       "mutations": [
@@ -860,57 +846,27 @@
       ],
       "strategy": "Fix the print. Hold the long exposure's identity exactly: one night (plate i, burned amber on night blue) above warm paper and ink, Didone display over Iowan te",
       "timestamp": "2026-10-19T04:07:04Z"
+    },
+    {
+      "gen": 259,
+      "mutations": [
+        "regenerate"
+      ],
+      "kills": [
+        "plate-i-note-a",
+        "p2-grey-grade",
+        "reg-h3-s5",
+        "you-line-s5",
+        "stream:5",
+        "stream:6",
+        "0",
+        "type-'facet'-anywhere-—-the-cr"
+      ],
+      "strategy": "Narrow the aperture. Hold the long exposure's identity exactly: one night (plate i, burned amber on night blue) above warm paper and ink, Didone display over Io",
+      "timestamp": "2026-10-22T04:09:41Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "interaction",
-      "value": "type-'seed'-anywhere-—-nucleat",
-      "died_gen": 251,
-      "epitaph": "A crystallization word with no crystal left to seed."
-    },
-    {
-      "type": "interaction",
-      "value": "type-'facet'-anywhere-—-the-cr",
-      "died_gen": 251,
-      "epitaph": "Nothing on this page has facets any more."
-    },
-    {
-      "type": "interaction",
-      "value": "type-'slip'-anywhere-—-a-fault",
-      "died_gen": 251,
-      "epitaph": "The lattice it slipped is four epochs dead."
-    },
-    {
-      "type": "interaction",
-      "value": "type-'anneal'-anywhere-—-the-l",
-      "died_gen": 251,
-      "epitaph": "Annealing was heat for a crystal. The only heat here is the sun."
-    },
-    {
-      "type": "secret",
-      "value": "20",
-      "died_gen": 251,
-      "epitaph": "One secret over capacity. A long exposure keeps fewer things, not more."
-    },
-    {
-      "type": "section",
-      "value": "instrument-strip",
-      "died_gen": 252,
-      "epitaph": "A row of 131 marks read as a barcode. The same links now turn as star trails around one point."
-    },
-    {
-      "type": "section",
-      "value": "plate-tank",
-      "died_gen": 252,
-      "epitaph": "The water tank stood under the name and fought it for the first glance. The roof stays; the tank is gone."
-    },
-    {
-      "type": "css_rule",
-      "value": "lifeFill",
-      "died_gen": 252,
-      "epitaph": "The lives were filled hills, a chart any generator could draw. Now each is its days, burned one arc at a time."
-    },
     {
       "type": "thought",
       "value": "stream:5",
@@ -1162,6 +1118,54 @@
       "value": "type-'seed'-anywhere-—-nucleat",
       "died_gen": 258,
       "epitaph": "A crystallization gene still listed in the genome, with no body to act on since gen 256."
+    },
+    {
+      "type": "css_rule",
+      "value": "plate-i-note-a",
+      "died_gen": 259,
+      "epitaph": "'The sun 87° up · the tall arches are miami.' A survey note in a plate that needed no survey. Critic A read it as noise across the top of the sky, and the arches already say how tall they are."
+    },
+    {
+      "type": "css_rule",
+      "value": "p2-grey-grade",
+      "died_gen": 259,
+      "epitaph": "brightness .67, contrast 1.82: a grade meant to look like old silver that printed as mud. Plate ii is silver now, cropped in on the name."
+    },
+    {
+      "type": "css_rule",
+      "value": "reg-h3-s5",
+      "died_gen": 259,
+      "epitaph": "The two companies set at the same size as Daguerre's sentence, so the spread had two subjects. They sit one step under it."
+    },
+    {
+      "type": "css_rule",
+      "value": "you-line-s5",
+      "died_gen": 259,
+      "epitaph": "Plate iv's line at the display size, competing with the trail above it. One step quieter, like the plate."
+    },
+    {
+      "type": "thought",
+      "value": "stream:5",
+      "died_gen": 259,
+      "epitaph": "'The median remembers only who stayed more than half the time.' Instrument 134 says it better by doing it."
+    },
+    {
+      "type": "thought",
+      "value": "stream:6",
+      "died_gen": 259,
+      "epitaph": "'I averaged nine of my own faces and the name came out darkest.' Plate ii now opens on one face; the sentence described a picture nobody sees first any more."
+    },
+    {
+      "type": "secret",
+      "value": "0",
+      "died_gen": 259,
+      "epitaph": "The oldest secret, retired to bring the store back under twenty."
+    },
+    {
+      "type": "interaction",
+      "value": "type-'facet'-anywhere-—-the-cr",
+      "died_gen": 259,
+      "epitaph": "A crystallization gene still listed in the genome, with no crystal on the page to facet since gen 250."
     }
   ],
   "carrying_capacity": {
@@ -1180,11 +1184,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 249,
-      "base": "#3a362f",
-      "family": "orange"
-    },
     {
       "gen": 250,
       "base": "#1c1a17",
@@ -1227,6 +1226,11 @@
     },
     {
       "gen": 258,
+      "base": "#e8a64f",
+      "family": "orange"
+    },
+    {
+      "gen": 259,
       "base": "#e8a64f",
       "family": "orange"
     }

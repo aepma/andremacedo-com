@@ -841,3 +841,6 @@ gen 257 weekly: one night, the rest is paper. Plate i is the only dark field; pl
 
 ## gen 258 (weekly, 2026-10-19)
 gen 258 weekly: fixed. The boulevard and the work become one spread, plate ii opens on one sharp face and the composite forms only while you hold the shutter, the trail leads its plate, instrument 136 Unfixed
+
+## gen 259 (weekly, 2026-10-22)
+gen 259 weekly: the pinhole. One subject per viewport and each plate a step quieter, plate ii cropped to the name in silver, the boulevard's moving words half-exposed, plate i's survey note cut, instrument 137 Pinhole
