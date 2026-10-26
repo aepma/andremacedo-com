@@ -1,24 +1,22 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <!-- epoch twelve, gen 259: the pinhole. One hole in a dark can; through it
-       the sun's arcs burn over the roof that never moved, and the paper under
-       them keeps the same arc in ember -->
+  <!-- epoch twelve, gen 260: fixed. Plate i taken out of the can and washed:
+       the night with its burned arcs, set in a margin of paper, and no sun
+       left on it, because a fixed plate no longer takes the light -->
   <defs>
     <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0" stop-color="#05070f"/>
-      <stop offset="0.62" stop-color="#141a3a"/>
-      <stop offset="0.8" stop-color="#9c5228"/>
+      <stop offset="0.68" stop-color="#141a3a"/>
+      <stop offset="0.86" stop-color="#7a4120"/>
     </linearGradient>
-    <clipPath id="c"><rect width="64" height="64" rx="14"/></clipPath>
+    <clipPath id="p"><rect x="7" y="7" width="50" height="50" rx="3"/></clipPath>
   </defs>
-  <g clip-path="url(#c)">
-    <rect width="64" height="64" fill="url(#sky)"/>
+  <rect width="64" height="64" rx="12" fill="#f2eadb"/>
+  <g clip-path="url(#p)">
+    <rect x="7" y="7" width="50" height="50" fill="url(#sky)"/>
     <g fill="none" stroke-linecap="round">
-      <path d="M7 43 C10 6, 54 6, 57 43" stroke="#f2c27a" stroke-width="3.6"/>
-      <path d="M17 43 C20 20, 44 20, 47 43" stroke="#e8a64f" stroke-width="2.6"/>
+      <path d="M11 46 C13 11, 51 11, 53 46" stroke="#f2c27a" stroke-width="3.4"/>
+      <path d="M20 46 C22 25, 42 25, 44 46" stroke="#e8a64f" stroke-width="2.6"/>
     </g>
-    <circle cx="32" cy="31" r="3.2" fill="#fff6e4"/>
-    <path d="M0 50 V44 H13 V41 H24 V44 H36 V42 H48 V44 H64 V50 Z" fill="#0b090c"/>
-    <rect y="50" width="64" height="14" fill="#f2eadb"/>
-    <path d="M14 63 C17 51, 47 51, 50 63" fill="none" stroke="#8c4712" stroke-width="2.6" stroke-linecap="round"/>
+    <path d="M7 57 V46 H17 V43 H27 V46 H38 V44 H48 V46 H57 V57 Z" fill="#0b090c"/>
   </g>
 </svg>

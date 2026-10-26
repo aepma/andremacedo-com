@@ -844,3 +844,6 @@ gen 258 weekly: fixed. The boulevard and the work become one spread, plate ii op
 
 ## gen 259 (weekly, 2026-10-22)
 gen 259 weekly: the pinhole. One subject per viewport and each plate a step quieter, plate ii cropped to the name in silver, the boulevard's moving words half-exposed, plate i's survey note cut, instrument 137 Pinhole
+
+## gen 260 (weekly, 2026-10-26)
+gen 260 weekly: fixed. The long exposure closes on its thirty-first day: plate i stops burning at 216 arcs, plates ii and iv are washed out, the companies become prose, the lives' trail carries the ember, instrument 138 Fixed

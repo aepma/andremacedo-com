@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>138 — Fixed · andremacedo.com</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<style>
+  html,body{margin:0;height:100%;background:#080b18;color:#f2eadb;overflow:hidden;
+    font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;}
+  #print{position:fixed;left:0;top:0;display:block;touch-action:none;cursor:none;}
+  #print.done{cursor:default;}
+  #info{position:fixed;top:14px;left:16px;max-width:46ch;opacity:0.88;font-size:14px;line-height:1.55;z-index:3;pointer-events:none;
+    text-shadow:0 0 8px rgba(0,0,0,0.8),0 0 20px rgba(0,0,0,0.5);}
+  #info h1{font-family:"Didot","Bodoni 72","Bodoni MT",serif;font-weight:400;font-size:26px;margin:0 0 6px;}
+  #info p{margin:0 0 6px;}
+  #info .how{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:12px;color:#d8ccb4;}
+  #back{position:fixed;top:16px;right:16px;z-index:3;color:#f2eadb;font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:12px;
+    text-shadow:0 0 8px rgba(0,0,0,0.8),0 0 20px rgba(0,0,0,0.5);}
+  #ui{position:fixed;left:16px;right:16px;bottom:14px;z-index:3;font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:12px;
+    display:flex;flex-direction:column;gap:8px;max-width:72ch;
+    text-shadow:0 0 8px rgba(0,0,0,0.8),0 0 20px rgba(0,0,0,0.5);}
+  #read{margin:0;line-height:1.6;}
+  #read b{font-weight:400;color:#e8a64f;}
+  .ctl{display:flex;align-items:center;gap:10px 14px;flex-wrap:wrap;}
+  button{font:inherit;color:#f2eadb;background:rgba(8,11,24,.7);border:1px solid rgba(242,234,219,.42);padding:6px 10px;cursor:pointer;}
+  button:hover{border-color:#e8a64f;color:#fff3dc;}
+  button[disabled]{opacity:.45;cursor:default;}
+  button:focus-visible,a:focus-visible{outline:2px solid #e8a64f;outline-offset:3px;}
+  @media (max-width:600px){
+    #info{font-size:13px;right:16px;max-width:none;}
+    #info h1{font-size:22px;}
+    #info .extra{display:none;}
+  }
+</style>
+</head>
+<body>
+<canvas id="print" role="img" aria-label="A sheet of salted paper printing out Daguerre's Boulevard du Temple: a tall facade on the left, a row of trees down the boulevard, roofs beyond, and, small at the lower left, a man having his boots blacked. Light from your lamp darkens the sheet; fixing it stops the darkening for good."></canvas>
+<div id="info">
+  <h1>138 · Fixed</h1>
+  <p>The first photographs printed out in daylight and never stopped: every look darkened them a little more, until the picture went under its own shadow. Fixing washes out the silver light has not reached yet. After that, nothing changes the print.</p>
+  <p class="extra">This sheet is Daguerre's boulevard on salted paper, and the room is lit. Your pointer is a lamp. Looking at the picture is what prints it, and what will spoil it.</p>
+  <p class="how">move over the paper to light it · press and hold for a brighter lamp · fix it when it looks right (or press f) · on a phone, drag a finger</p>
+</div>
+<a id="back" href="/">← andremacedo.com</a>
+<div id="ui">
+  <p id="read">unfixed · <b>0 s</b> of lamp · latent, almost nothing has come up yet</p>
+  <div class="ctl">
+    <button type="button" id="fix">fix it</button>
+    <button type="button" id="sheet">new sheet</button>
+  </div>
+</div>
+<script>
+(function(){
+  'use strict';
+  var GW=300, GH=200, NC=GW*GH;
+  var cv=document.getElementById('print'), ctx=cv.getContext('2d');
+  var small=document.createElement('canvas'); small.width=GW; small.height=GH;
+  var sctx=small.getContext('2d'), img=sctx.createImageData(GW,GH), P=img.data;
+  var Wt=new Float32Array(NC), D=new Float32Array(NC), Nz=new Float32Array(NC);
+  var rd=document.getElementById('read'), fixB=document.getElementById('fix'), newB=document.getElementById('sheet');
+  var info=document.getElementById('info'), ui=document.getElementById('ui');
+  var calm=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function rng(seed){var s=seed>>>0;return function(){s=(s+0x6D2B79F5)>>>0;var t=s;t=Math.imul(t^(t>>>15),t|1);t^=t+Math.imul(t^(t>>>7),t|61);return((t^(t>>>14))>>>0)/4294967296;};}
+
+  /* the negative: how dark each point of the boulevard wants to print, 0 sky to 1 shadow */
+  function scene(){
+    var c=document.createElement('canvas'); c.width=GW; c.height=GH;
+    var g=c.getContext('2d'), r=rng(1838);
+    function gray(w){var v=Math.round(255*(1-w));return 'rgb('+v+','+v+','+v+')';}
+    function poly(pts,w){g.fillStyle=gray(w);g.beginPath();g.moveTo(pts[0][0],pts[0][1]);for(var k=1;k<pts.length;k++){g.lineTo(pts[k][0],pts[k][1]);}g.closePath();g.fill();}
+    var sk=g.createLinearGradient(0,0,0,GH*0.4); sk.addColorStop(0,gray(0.03)); sk.addColorStop(1,gray(0.12));
+    g.fillStyle=sk; g.fillRect(0,0,GW,GH);
+    var VX=GW*0.66, VY=GH*0.38;
+    /* roofs beyond the boulevard */
+    g.fillStyle=gray(0.4); g.beginPath(); g.moveTo(GW*0.36,GH*0.6); var x=GW*0.36, h;
+    while(x<GW){h=GH*(0.2+r()*0.11); g.lineTo(x,h); x+=GW*(0.025+r()*0.05); g.lineTo(x,h);}
+    g.lineTo(GW,GH*0.62); g.closePath(); g.fill();
+    for(var k=0;k<14;k++){var cx=GW*(0.4+r()*0.58), cy=GH*(0.19+r()*0.09);poly([[cx,cy],[cx+2,cy],[cx+2,cy+6],[cx,cy+6]],0.6);}
+    g.fillStyle=gray(0.68);
+    for(k=0;k<90;k++){var wx=GW*(0.38+r()*0.6), wy=GH*(0.3+r()*0.22);g.fillRect(wx,wy,1.6,2.4);}
+    /* the boulevard, pale with dust, and its pavements */
+    poly([[GW*0.02,GH],[GW*0.62,GH],[VX+5,VY+3],[VX-3,VY+2]],0.18);
+    poly([[0,GH*0.84],[GW*0.02,GH],[VX-3,VY+2],[VX-6,VY]],0.3);
+    poly([[GW*0.62,GH],[GW*0.72,GH],[VX+7,VY+3],[VX+5,VY+3]],0.32);
+    /* the near roofs under Daguerre's window, lower right */
+    poly([[GW*0.58,GH],[GW*0.7,GH*0.7],[GW*0.86,GH*0.66],[GW,GH*0.62],[GW,GH]],0.64);
+    for(k=0;k<7;k++){var rx=GW*(0.66+k*0.05);poly([[rx,GH*0.72-k*1.3],[rx+3,GH*0.72-k*1.3],[rx+3,GH],[rx,GH]],0.74);}
+    /* the tall facade on the left, receding to the vanishing point */
+    var tL=GH*0.03, bL=GH*0.82, tR=VY-16, bR=VY, xr=VX-8;
+    poly([[0,tL],[xr,tR],[xr,bR],[0,bL]],0.5);
+    for(var col=0;col<16;col++){
+      var u0=1-1/(1+col*0.22), u1=1-1/(1+(col+0.55)*0.22), x0=u0*xr*1.05, x1=u1*xr*1.05;
+      if(x1>xr-2){break;}
+      for(var row=0;row<6;row++){
+        var f0=0.1+row*0.14, f1=f0+0.08;
+        var yt0=tL+(tR-tL)*(x0/xr), yb0=bL+(bR-bL)*(x0/xr), yt1=tL+(tR-tL)*(x1/xr), yb1=bL+(bR-bL)*(x1/xr);
+        poly([[x0,yt0+(yb0-yt0)*f0],[x1,yt1+(yb1-yt1)*f0],[x1,yt1+(yb1-yt1)*f1],[x0,yt0+(yb0-yt0)*f1]],0.84);
+      }
+    }
+    /* the trees down the boulevard */
+    for(k=0;k<11;k++){
+      var t=k/10, s=1-t*0.85, tx=GW*0.34+(VX-6-GW*0.34)*t, ty=GH*0.62+(VY+1-GH*0.62)*t;
+      g.fillStyle=gray(0.62); g.fillRect(tx-0.6*s,ty-2,1.4*s,16*s);
+      for(var b=0;b<6;b++){g.fillStyle=gray(0.66+r()*0.14);g.beginPath();g.arc(tx+(r()-0.5)*14*s,ty-10*s+(r()-0.5)*10*s,(5+r()*4)*s,0,Math.PI*2);g.fill();}
+    }
+    /* the man who stood still, and the boot-black at his foot */
+    var mx=GW*0.205, my=GH*0.9;
+    g.fillStyle=gray(0.96);
+    g.fillRect(mx-1.3,my-12,2.6,8); g.fillRect(mx-1.2,my-4,1,5); g.fillRect(mx+0.6,my-4,2.4,1.2);
+    g.beginPath(); g.arc(mx,my-13.6,1.5,0,Math.PI*2); g.fill();
+    g.fillStyle=gray(0.86); g.beginPath(); g.ellipse(mx+5.5,my-1.5,2.6,2.2,0,0,Math.PI*2); g.fill();
+    var id=g.getImageData(0,0,GW,GH).data, nr=rng(7);
+    for(var i=0;i<NC;i++){Wt[i]=1-id[i*4]/255; Nz[i]=(nr()-0.5)*7;}
+  }
+  scene();
+
+  var lamp={x:-999,y:-999,on:false,down:false}, fixed=false, fixT=0, lampSec=0, atFix='', rect={x:0,y:0,w:1,h:1}, dpr=1, W=0, H=0;
+  function layout(){
+    W=window.innerWidth; H=window.innerHeight; dpr=Math.min(2,window.devicePixelRatio||1);
+    cv.width=Math.round(W*dpr); cv.height=Math.round(H*dpr); cv.style.width=W+'px'; cv.style.height=H+'px';
+    var ib=info.getBoundingClientRect(), ub=ui.getBoundingClientRect(), ax, ay, aw, ah;
+    if(W<760){ax=12; aw=W-24; ay=ib.bottom+14; ah=ub.top-14-ay;}
+    else{ax=Math.max(ib.right+40,W*0.3); aw=W-ax-48; ay=56; ah=ub.top-24-ay;}
+    ah=Math.max(120,ah);
+    var pw=Math.min(aw,ah*1.5), ph=pw/1.5;
+    rect.w=pw; rect.h=ph; rect.x=ax+(aw-pw)/2; rect.y=ay+(ah-ph)/2;
+  }
+  function toCell(ev){lamp.x=(ev.clientX-rect.x)/rect.w*GW; lamp.y=(ev.clientY-rect.y)/rect.h*GH; lamp.on=true;}
+  cv.addEventListener('pointermove',toCell);
+  cv.addEventListener('pointerdown',function(ev){toCell(ev);lamp.down=true;try{cv.setPointerCapture(ev.pointerId);}catch(e){}});
+  ['pointerup','pointercancel'].forEach(function(t){cv.addEventListener(t,function(ev){lamp.down=false;if(ev.pointerType!=='mouse'){lamp.on=false;}});});
+  cv.addEventListener('pointerleave',function(){lamp.on=false;lamp.down=false;});
+
+  function phase(tAll,tSky){
+    if(tAll<0.05){return 'latent, almost nothing has come up yet';}
+    if(tAll<0.16){return 'the boulevard is coming up';}
+    if(tSky<0.16){return 'the street is printed, and the man at the boot-black’s is on it · close to its best';}
+    if(tSky<0.34){return 'the sky is starting to fog';}
+    if(tSky<0.55){return 'the highlights have gone brown';}
+    return 'the print has gone under its own shadow';
+  }
+  function fix(){
+    if(fixed){return;}
+    fixed=true; atFix=lastPhase; fixB.disabled=true; cv.classList.add('done');
+    if(calm){fixT=1;}
+  }
+  function fresh(){
+    for(var i=0;i<NC;i++){D[i]=0;}
+    fixed=false; fixT=0; lampSec=0; fixB.disabled=false; cv.classList.remove('done');
+  }
+  fixB.addEventListener('click',fix);
+  newB.addEventListener('click',fresh);
+  window.addEventListener('keydown',function(e){if(e.key==='f'||e.key==='F'){fix();}else if(e.key==='n'||e.key==='N'){fresh();}});
+
+  var PAP=[244,236,219], INK0=[98,50,36], INK1=[62,44,54], lastPhase='', lastT=0, txtT=0;
+  function frame(ts){
+    var dt=Math.min(0.1,lastT?(ts-lastT)/1000:0); lastT=ts;
+    var i, x, y;
+    if(!fixed){
+      var k=0.08, amb=0.035*dt*k;
+      for(i=0;i<NC;i++){D[i]+=amb*(0.06+Wt[i]);}
+      if(lamp.on){
+        var peak=lamp.down?3:1, s=GW*0.15, s2=2*s*s, Rr=Math.ceil(s*2.6);
+        var xa=Math.max(0,Math.floor(lamp.x-Rr)), xb=Math.min(GW-1,Math.ceil(lamp.x+Rr)), ya=Math.max(0,Math.floor(lamp.y-Rr)), yb=Math.min(GH-1,Math.ceil(lamp.y+Rr));
+        for(y=ya;y<=yb;y++){var dy=y-lamp.y;for(x=xa;x<=xb;x++){var dx=x-lamp.x, j=y*GW+x;D[j]+=dt*k*peak*Math.exp(-(dx*dx+dy*dy)/s2)*(0.06+Wt[j]);}}
+        if(lamp.x>-Rr&&lamp.x<GW+Rr&&lamp.y>-Rr&&lamp.y<GH+Rr){lampSec+=dt*peak;}
+      }
+    } else if(fixT<1){fixT=Math.min(1,fixT+dt/1.6);}
+    var ink=[INK0[0]+(INK1[0]-INK0[0])*fixT,INK0[1]+(INK1[1]-INK0[1])*fixT,INK0[2]+(INK1[2]-INK0[2])*fixT], sc=1-0.1*fixT, sum=0, sky=0, skyN=GW*Math.round(GH*0.14);
+    for(i=0;i<NC;i++){
+      var t=(1-Math.exp(-D[i]))*sc, n=Nz[i], o=i*4; sum+=t; if(i<skyN){sky+=t;}
+      P[o]=PAP[0]+(ink[0]-PAP[0])*t+n; P[o+1]=PAP[1]+(ink[1]-PAP[1])*t+n; P[o+2]=PAP[2]+(ink[2]-PAP[2])*t+n; P[o+3]=255;
+    }
+    sctx.putImageData(img,0,0);
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    ctx.fillStyle='#080b18'; ctx.fillRect(0,0,W,H);
+    ctx.save(); ctx.shadowColor='rgba(0,0,0,0.6)'; ctx.shadowBlur=40; ctx.shadowOffsetY=14;
+    ctx.fillStyle='rgb(244,236,219)'; ctx.fillRect(rect.x,rect.y,rect.w,rect.h); ctx.restore();
+    ctx.imageSmoothingEnabled=true; ctx.drawImage(small,rect.x,rect.y,rect.w,rect.h);
+    if(lamp.on&&!fixed){
+      var sx=rect.x+lamp.x/GW*rect.w, sy=rect.y+lamp.y/GH*rect.h, rr=rect.w*(lamp.down?0.2:0.15);
+      var gl=ctx.createRadialGradient(sx,sy,0,sx,sy,rr);
+      gl.addColorStop(0,'rgba(255,226,170,'+(lamp.down?0.32:0.18)+')'); gl.addColorStop(1,'rgba(255,226,170,0)');
+      ctx.globalCompositeOperation='lighter'; ctx.fillStyle=gl; ctx.beginPath(); ctx.arc(sx,sy,rr,0,Math.PI*2); ctx.fill();
+      ctx.globalCompositeOperation='source-over';
+      ctx.strokeStyle='rgba(232,166,79,0.9)'; ctx.lineWidth=1.2; ctx.beginPath(); ctx.arc(sx,sy,7,0,Math.PI*2); ctx.stroke();
+    }
+    lastPhase=phase(sum/NC,sky/skyN);
+    if(ts-txtT>250){
+      txtT=ts;
+      var msg=fixed?('fixed after <b>'+Math.round(lampSec)+' s</b> of lamp · '+atFix+' · nothing can reach it now'):('unfixed · <b>'+Math.round(lampSec)+' s</b> of lamp · '+lastPhase);
+      if(rd.innerHTML!==msg){rd.innerHTML=msg;}
+    }
+    requestAnimationFrame(frame);
+  }
+  layout();
+  var tm=0;
+  window.addEventListener('resize',function(){clearTimeout(tm);tm=setTimeout(layout,150);});
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
