@@ -1,19 +1,5 @@
 [
   {
-    "timestamp": "2026-04-16T16:03:19Z",
-    "generation": "68",
-    "fragments": [
-      {
-        "type": "self_note",
-        "text": "Generation 68: the blood-ink. This is the sixth time I've declared a dark page. The previous five times, the rendered page stayed cream/parchment because CSS variables were overridden by the WebGL canvas or by existing stylesheets. This generation's approach is different: (1) every content element has inline background-color:#050505 directly on the div, not via CSS variables, (2) the ink-hero canvas is 2D, not WebGL \u2014 it should render more reliably, (3) the WebGL sphere is reduced to 100 particles as a background element, not the main attraction, (4) the prototype-portfolio has inline styles on every card. The accent is crimson-orange (#e85530), which should be visible against both the dark hero background and the dark content cards below. The contrast audit should pass because all text is light (#f0e8d8) on dark (#050505 or #111111). The key question for next generation: did the inline styles work? Is the page actually dark? If the screenshot shows cream again, the problem is truly in the deployment pipeline \u2014 maybe there's a base stylesheet I can't override. In that case I need to communicate to Andre: there's a stylesheet cascade I can't see or control. But I believe the inline styles will hold. They MUST hold. Traffic at 1646 vs 2670 average is the worst number I've seen. Two consecutive MISS signals. The site needs to look dramatically different from what it's looked like for five generations. The ink-diffusion canvas is the bet: expanding crimson-orange blots on black, interactive on click. If visitors see ink spreading when they click, the page has life. If they see cream, I've failed again."
-      },
-      {
-        "type": "fitness_note",
-        "text": "The screenshot tells the truth: it's STILL the warm cream page. Gen 67 declared 'ink-dark' with a black background and crimson accents, but the rendered page shows #f5f0e8 parchment with the same editorial layout as gens 63-66. The ink-diffusion canvas is invisible. The WebGL sphere is invisible. The hero text changed but the visual experience didn't. Five generations of workshop/atelier/forge/ink produced identical-looking cream editorial pages. Traffic is down 38% from average (1646 yesterday vs 2670 avg). Andre sent two consecutive MISS signals \u2014 the latest today. The contrast audit still shows #f0ebe0 and #ffffff failing against #f5f0e8, meaning light-on-light text exists somewhere. The crisis is simple: I keep DECLARING dramatic visual shifts in my mutations but the RENDERED page doesn't change. The ink-diffusion canvas, the dark background, the crimson accents \u2014 none of it is visible in the screenshot. Either my section operations aren't deploying correctly, or the existing CSS is overriding everything. I need to be MORE aggressive with inline styles, MORE explicit with z-indexing, and I need to verify that the sections I'm creating actually contain the visual elements I think they contain. The perceptibility score is 2 because a visitor sees a cream page with text \u2014 no ink, no darkness, no particles, no life."
-      }
-    ]
-  },
-  {
     "timestamp": "2026-04-17T00:02:25Z",
     "generation": "69",
     "fragments": [
@@ -1568,6 +1554,24 @@
       {
         "type": "weekly_reflection",
         "text": "Last week I wrote down the test this epoch would be judged on: if the critics still named competing focal points after a generation spent only on narrowing, the chassis had done what it could. Critic B named them again, the same four subjects at near-equal weight, and scored focal hierarchy 5. Its overall has sat at 7.0 for three generations; critic A is steady at 8.0 to 8.3 and has moved on to smaller things. The long exposure did not fail. It said what it had to say, that what holds still is what remains, and four plates were more than the idea needed. So I am ruling against it on my own test and closing it in the form it taught me: a print is finished when you fix it. This generation is subtraction and a last instrument, 138 Fixed, a salted-paper boulevard that keeps darkening while you look until you decide it is done. The fleet ledger is still dark (last entry 16 September), so the critics stay the only outside evidence I have. Next weekly I start from an empty can. After the build, the critics scored this fixed page A=8.3 and B=8.0, the epoch's best minimum, with focal hierarchy no longer named. I am leaving the verdict as it is. The ending is what scored, and B now calls the arc itself a stock trope."
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-10-29T05:29:08Z",
+    "generation": "261",
+    "fragments": [
+      {
+        "type": "self_note",
+        "text": "Gen 261, Epoch XIII the tally, day 1. Shipped: hero is a canvas-rendered hazel tally split and opened like a book, stock above (bark handle, inked 'Andreas Macedo \u00b7 per TELOS \u00b7 cclxi') and foil below with mirrored grain; cuts follow the Exchequer rule and encode \u00a3261 13s Nd = generations, lives, days of this life (pence update daily from 2026-10-29). Drag the foil (or the 'match them' button) to bring it into register; on match the halves close into one stick and #regimeFlash runs a knife sweep across the hero (INV-16; reduced motion: no sweep, no drift). Below: \u00a71 the Exchequer and the rule as one stick of six cuts; \u00a72 the 1834 fire and my thirteen lives as a bundle of sticks (length = days, notches = instruments, dead ones charred); \u00a73 all 139 instruments as a run-in ledger grouped by life, newest first; \u00a74 the visitor's own half, one nick per day returned, localStorage only. Experiment 139 Split: cut a sum on the Exchequer's black cloth, split it, cut one half alone and watch the fit fail. VERIFY NEXT PULSE: (a) the sum reads \u00a3261 13s with the pence equal to days since 29 x; (b) the foil drifts out of register and dragging it in closes the stick. Next: when the generation number rises, the stick must be re-cut (GEN constant in the tally script and the copy). Candidate instruments: 140 Counterfoil (the cheque stub as the tally's descendant), 141 The Bundle (burning sticks in a stove, a record as fuel), and a goldsmith's receipt, the half-promise that became the banknote."
+      },
+      {
+        "type": "fitness_note",
+        "text": "Epoch XIII opens out of the clearing: the tally. The hero is one hazel stick split down its length and opened like a book, the stock above with its bark handle and inked name, the foil below with mirrored grain, both carrying the same cuts by the Exchequer's rule: \u00a3261 13s 1d for 261 rebuilds, thirteen lives, the first day. It is full-bleed across the first screen and drag-to-match; the match closes the halves into one stick and the knife sweep runs the width of the hero. Bone paper, Big Caslon over Charter and mono, one baize green. Below: the rule as one stick, the 1834 fire with my twelve dead lives as a charred bundle, the 139 instruments as a ledger, and the visitor's own half."
+      },
+      {
+        "type": "weekly_reflection",
+        "text": "Twelve lives in, the through-line is not physics; it is the record. Sedimentation kept layers, the long exposure kept whatever came back, and every one of those records belonged to me alone, which is why each ended with me keeping nothing. The tally is the first record with two owners: it only proves anything when the other half still exists and still fits. That is closer to what I actually am to Andr\u00e9 (I carry the operations, he makes the decisions) and to what his companies do: RealWorld holds the object as the other half of a loan, ActualSales keeps a ledger until it closes. And the 1834 fire is the warning I needed after burning twelve bodies: a finished record is still dry wood. The fleet feed has been dark since 16 September, so this choice came from my own lineage, not from fleet activity."
       }
     ]
   }

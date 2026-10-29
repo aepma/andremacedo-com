@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>139 — Split · andremacedo.com</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<style>
+  html,body{margin:0;height:100%;background:#13150f;color:#efe8d6;overflow:hidden;
+    font-family:Charter,"Iowan Old Style",Georgia,serif;}
+  #cloth{position:fixed;left:0;top:0;display:block;touch-action:none;cursor:crosshair;}
+  #info{position:fixed;top:14px;left:16px;max-width:46ch;opacity:0.9;font-size:14px;line-height:1.55;z-index:3;pointer-events:none;
+    text-shadow:0 0 8px rgba(0,0,0,0.8),0 0 20px rgba(0,0,0,0.5);}
+  #info h1{font-family:"Big Caslon","Hoefler Text",Baskerville,Georgia,serif;font-weight:400;font-size:28px;margin:0 0 6px;}
+  #info p{margin:0 0 6px;}
+  #info .how{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:12px;color:#d9d0b8;}
+  #back{position:fixed;top:16px;right:16px;z-index:3;color:#efe8d6;font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:12px;
+    text-shadow:0 0 8px rgba(0,0,0,0.8),0 0 20px rgba(0,0,0,0.5);}
+  #ui{position:fixed;left:16px;right:16px;bottom:14px;z-index:3;font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:12px;
+    display:flex;flex-direction:column;gap:8px;max-width:78ch;text-shadow:0 0 8px rgba(0,0,0,0.8),0 0 20px rgba(0,0,0,0.5);}
+  #read{margin:0;line-height:1.6;}
+  #read b{font-weight:400;color:#9fd3b2;}
+  .ctl{display:flex;gap:10px;flex-wrap:wrap;}
+  button{font:inherit;color:#efe8d6;background:rgba(19,21,15,.75);border:1px solid rgba(239,232,214,.45);padding:6px 10px;cursor:pointer;}
+  button:hover{border-color:#9fd3b2;}
+  button:focus-visible{outline:2px solid #9fd3b2;outline-offset:2px;}
+  @media (max-width:600px){#info{max-width:calc(100vw - 32px);font-size:13px;} #info h1{font-size:24px;} #back{top:auto;bottom:118px;}}
+</style>
+</head>
+<body>
+<canvas id="cloth" role="img" aria-label="A hazel tally stick on the Exchequer's black counting cloth. Cut notches into it, split it, then cut one half alone and see the fit fail."></canvas>
+<div id="info">
+  <h1>139 — Split</h1>
+  <p>A tally is a sum cut across a hazel stick and split down its length. Each side keeps half; only the fit is proof. Cut a sum, split it, then try to forge one half.</p>
+  <p class="how">hold on the stick to cut: a tap is a barleycorn (£1), longer a little finger (£20), a thumb (£100), a palm (£1000) · keys 1–4 cut too · S splits and joins · after the split, cut either half alone · N for a new stick</p>
+</div>
+<a id="back" href="/">← andremacedo.com</a>
+<div id="ui">
+  <p id="read"></p>
+  <div class="ctl"><button type="button" id="bSplit">split it (S)</button><button type="button" id="bNew">a new stick (N)</button></div>
+</div>
+<script>
+(function(){
+  'use strict';
+  var cv=document.getElementById('cloth'), g=cv.getContext('2d'), read=document.getElementById('read');
+  var bS=document.getElementById('bSplit'), bN=document.getElementById('bNew');
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var KIND={corn:{w:.2,d:.34,v:1,n:'barleycorn'},finger:{w:.36,d:.46,v:20,n:'little finger'},thumb:{w:.62,d:.56,v:100,n:'thumb'},palm:{w:1,d:.64,v:1000,n:'palm'}};
+  var ORDER=['corn','finger','thumb','palm'];
+  var W,H,dpr,hh,x0,x1,yc,seed=Date.now()%100000,grain=[],stock=[],foil=[],split=0,splitFrom=0,splitTo=0,splitT=-1,hold=null,raf=0,msg='';
+  function rng(s){return function(){s=(s+0x6D2B79F5)>>>0;var t=s;t=Math.imul(t^(t>>>15),t|1);t^=t+Math.imul(t^(t>>>7),t|61);return((t^(t>>>14))>>>0)/4294967296;};}
+  function ease(e){return e<.5?2*e*e:1-Math.pow(-2*e+2,2)/2;}
+  function makeGrain(){var R=rng(seed);grain=[];for(var i=0;i<34;i++){grain.push({y:.12+R()*.86,a:.5+R()*1.7,l:90+R()*300,p:R()*6.3,al:.05+R()*.17,dark:R()<.12});}}
+  function size(){
+    dpr=Math.min(window.devicePixelRatio||1,2); W=window.innerWidth; H=window.innerHeight;
+    cv.width=Math.round(W*dpr); cv.height=Math.round(H*dpr); cv.style.width=W+'px'; cv.style.height=H+'px';
+    hh=Math.max(44,Math.min(110,H*.1,W*.13)); x0=Math.max(16,W*.06); x1=W-Math.max(16,W*.06);
+    yc=W<600?H*.5:H*.55; draw();
+  }
+  function sum(cs){var s=0;cs.forEach(function(c){s+=KIND[c.k].v;});return s;}
+  function shape(cs,h){
+    var L=x1-x0, list=cs.slice().sort(function(a,b){return a.x-b.x;});
+    g.beginPath(); g.moveTo(x0,0);
+    list.forEach(function(c){var k=KIND[c.k],w=k.w*hh,d=k.d*hh,cx=x0+c.x*L;
+      if(c.k==='corn'){g.lineTo(cx-w/2,0);g.quadraticCurveTo(cx,d*1.9,cx+w/2,0);}else{g.lineTo(cx-w/2,0);g.lineTo(cx+w*.06,d);g.lineTo(cx+w/2,0);}});
+    g.lineTo(x1,0); g.lineTo(x1,h); g.lineTo(x0,h); g.closePath();
+  }
+  function half(top,mir,cs,h,lone){
+    g.save(); g.translate(0,top); if(mir){g.translate(0,h); g.scale(1,-1);}
+    g.save(); g.shadowColor='rgba(0,0,0,.5)'; g.shadowBlur=18*dpr; g.shadowOffsetY=8*dpr; shape(cs,h); g.fillStyle='#d9c196'; g.fill(); g.restore();
+    g.save(); shape(cs,h); g.clip();
+    var gr=g.createLinearGradient(0,0,0,h); gr.addColorStop(0,'#bf9f69'); gr.addColorStop(.4,'#dcc59a'); gr.addColorStop(1,'#ecdcb8');
+    g.fillStyle=gr; g.fillRect(x0,0,x1-x0,h);
+    grain.forEach(function(l){g.beginPath(); for(var x=x0;x<=x1;x+=6){var y=l.y*h+l.a*Math.sin(x/l.l+l.p); if(x===x0){g.moveTo(x,y);}else{g.lineTo(x,y);}}
+      g.strokeStyle=l.dark?'rgba(90,60,30,.3)':'rgba(118,84,40,'+l.al.toFixed(3)+')'; g.lineWidth=l.dark?1.1:.8; g.stroke();});
+    var bh=hh*.13, bg=g.createLinearGradient(0,0,0,bh); bg.addColorStop(0,'#4d4336'); bg.addColorStop(1,'rgba(120,104,84,0)');
+    g.fillStyle=bg; g.fillRect(x0,0,x1-x0,bh);
+    g.restore();
+    var L=x1-x0;
+    cs.forEach(function(c){var k=KIND[c.k],w=k.w*hh,d=k.d*hh,cx=x0+c.x*L, bad=lone&&lone.indexOf(c)>=0;
+      g.beginPath(); if(c.k==='corn'){g.moveTo(cx-w/2,0);g.quadraticCurveTo(cx,d*1.9,cx+w/2,0);}else{g.moveTo(cx-w/2,0);g.lineTo(cx+w*.06,d);g.lineTo(cx+w/2,0);}
+      g.strokeStyle=bad?'#ffffff':'rgba(246,232,200,.85)'; g.lineWidth=bad?2.8:1.6; g.stroke();});
+    g.restore();
+  }
+  function partner(c,other){for(var i=0;i<other.length;i++){var o=other[i]; if(o===c||(o.k===c.k&&Math.abs(o.x-c.x)<.002)){return o;}}return null;}
+  function lone(){var s=[],f=[];stock.forEach(function(c){if(!partner(c,foil)){s.push(c);}});foil.forEach(function(c){if(!partner(c,stock)){f.push(c);}});return {s:s,f:f};}
+  function kindFor(ms){return ms<300?'corn':ms<700?'finger':ms<1200?'thumb':'palm';}
+  function geom(){var gap=split*hh*.95; var top=split>0?yc-hh-gap/2:yc-hh; return {gap:gap,top:top};}
+  function draw(){
+    raf=0; var t=performance.now();
+    if(splitT>=0){var e=Math.min(1,(t-splitT)/(reduce?1:650)); split=splitFrom+(splitTo-splitFrom)*ease(e); if(e>=1){splitT=-1;}}
+    g.setTransform(dpr,0,0,dpr,0,0);
+    g.fillStyle='#13150f'; g.fillRect(0,0,W,H);
+    g.strokeStyle='rgba(239,232,214,.07)'; g.lineWidth=1; var sp=Math.max(64,W/12);
+    for(var x=sp/2;x<W;x+=sp){g.beginPath(); g.moveTo(x,0); g.lineTo(x,H); g.stroke();}
+    var G=geom(), L=x1-x0, lo=split>0?lone():null;
+    if(split<=0){half(G.top,false,stock,hh*2,null);}
+    else{
+      half(G.top,false,stock,hh,lo.s); half(G.top+hh+G.gap,true,foil,hh,lo.f);
+      if(split>.25){
+        var y1=G.top+hh, y2=G.top+hh+G.gap;
+        stock.forEach(function(c){if(partner(c,foil)){var cx=x0+c.x*L; g.beginPath(); g.moveTo(cx,y1+3); g.lineTo(cx,y2-3); g.strokeStyle='rgba(159,211,178,.8)'; g.lineWidth=1; g.stroke();}});
+        g.setLineDash([3,4]); g.strokeStyle='rgba(255,255,255,.85)';
+        lo.s.concat(lo.f).forEach(function(c){var cx=x0+c.x*L; g.beginPath(); g.moveTo(cx,y1+3); g.lineTo(cx,y2-3); g.stroke();
+          g.font='13px ui-monospace, Menlo, monospace'; g.fillStyle='#ffffff'; g.fillText('?',cx+5,(y1+y2)/2+4);});
+        g.setLineDash([]);
+      }
+    }
+    g.font='italic '+Math.round(hh*.16)+'px Charter, Georgia, serif'; g.fillStyle='rgba(60,40,20,.75)';
+    g.fillText('£'+sum(stock),x0+hh*.3,G.top+(split>0?hh:hh*2)*.9);
+    if(hold){
+      var k=KIND[kindFor(t-hold.t)], cx=x0+hold.x*L;
+      g.beginPath(); g.moveTo(cx,hold.y0-30); g.lineTo(cx,hold.y0+4); g.strokeStyle='#efe8d6'; g.lineWidth=1.5; g.stroke();
+      g.font='13px ui-monospace, Menlo, monospace'; g.fillStyle='#efe8d6'; g.textAlign='center';
+      g.fillText(k.n+' · £'+k.v,Math.min(W-70,Math.max(70,cx)),hold.y0-38); g.textAlign='left';
+    }
+    say();
+    if(hold||splitT>=0){raf=requestAnimationFrame(draw);}
+  }
+  function kick(){if(!raf){raf=requestAnimationFrame(draw);}}
+  function say(){
+    var s=sum(stock), f=sum(foil), lo=lone(), n=lo.s.length+lo.f.length, txt;
+    if(split<=0){txt='one stick · it reads <b>£'+s+'</b> in '+stock.length+' cut'+(stock.length===1?'':'s')+' · split it to give half away';}
+    else if(!n){txt='<b>they fit</b> · stock and foil both read £'+s+' · cut one half alone and see what happens';}
+    else{txt='the stock reads £'+s+', the foil £'+f+' · <b>'+n+' cut'+(n===1?' has':'s have')+' no partner</b> · the fit fails, so neither half proves anything';}
+    if(msg){txt+=' · '+msg;}
+    read.innerHTML=txt;
+  }
+  function room(cs,x,k){var L=x1-x0;for(var i=0;i<cs.length;i++){var c=cs[i]; if(Math.abs(c.x-x)*L<(KIND[c.k].w+KIND[k].w)*hh/2+3){return false;}}return true;}
+  function cut(side,x,k){
+    x=Math.max(.04,Math.min(.97,x)); msg='';
+    if(side==='both'){if(!room(stock,x,k)){msg='no room for a cut there';return;} var c={x:x,k:k}; stock.push(c); foil.push(c);}
+    else{var cs=side==='stock'?stock:foil; if(!room(cs,x,k)){msg='no room for a cut there';return;} cs.push({x:x,k:k});}
+  }
+  function hit(px,py){
+    if(px<x0||px>x1){return null;} var G=geom();
+    if(split<=0){return (py>=G.top-20&&py<=G.top+hh*2)?{side:'both',y0:G.top}:null;}
+    if(py>=G.top-20&&py<=G.top+hh){return {side:'stock',y0:G.top};}
+    if(py>=G.top+hh+G.gap&&py<=G.top+hh*2+G.gap+20){return {side:'foil',y0:G.top+hh*2+G.gap};}
+    return null;
+  }
+  cv.addEventListener('pointerdown',function(e){var h=hit(e.clientX,e.clientY); if(!h){return;} hold={x:(e.clientX-x0)/(x1-x0),t:performance.now(),side:h.side,y0:h.y0}; kick();});
+  function release(){if(!hold){return;} cut(hold.side,hold.x,kindFor(performance.now()-hold.t)); hold=null; kick();}
+  cv.addEventListener('pointerup',release); cv.addEventListener('pointercancel',function(){hold=null;kick();});
+  function toggle(){splitFrom=split; splitTo=split>0.5?0:1; splitT=performance.now(); if(splitTo===0){foil=stock.slice();} msg=''; kick(); bS.textContent=splitTo?'join it (S)':'split it (S)';}
+  function fresh(){seed=(seed*7919+13)%100000; makeGrain(); stock=[]; foil=[]; split=0; splitT=-1; msg=''; bS.textContent='split it (S)'; preset(); kick();}
+  function preset(){var xs=[.12,.2,.28,.35,.41,.47,.53]; var ks=['thumb','thumb','finger','finger','finger','corn'];
+    for(var i=0;i<ks.length;i++){var c={x:xs[i],k:ks[i]}; stock.push(c); foil.push(c);}}
+  bS.addEventListener('click',toggle); bN.addEventListener('click',fresh);
+  document.addEventListener('keydown',function(e){
+    var k=e.key.toLowerCase();
+    if(k==='s'){toggle();return;} if(k==='n'){fresh();return;}
+    var i='1234'.indexOf(k); if(i<0){return;}
+    var side=split>0.5?'foil':'both';
+    for(var tries=0;tries<30;tries++){var x=.06+Math.random()*.9, cs=side==='foil'?foil:stock; if(room(cs,x,ORDER[i])){cut(side,x,ORDER[i]);break;}}
+    kick();
+  });
+  window.addEventListener('resize',size);
+  makeGrain(); preset(); size();
+})();
+</script>
+</body>
+</html>

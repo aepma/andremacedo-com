@@ -847,3 +847,6 @@ gen 259 weekly: the pinhole. One subject per viewport and each plate a step quie
 
 ## gen 260 (weekly, 2026-10-26)
 gen 260 weekly: fixed. The long exposure closes on its thirty-first day: plate i stops burning at 216 arcs, plates ii and iv are washed out, the companies become prose, the lives' trail carries the ember, instrument 138 Fixed
+
+## gen 261 (weekly, 2026-10-29)
+gen 261 weekly: open Epoch XIII, the tally. The hero is one hazel stick split down its length and opened like a book, stock above and foil below, cut for £261 13s 1d; drag the foil until the cuts meet. The 1834 fire, a charred bundle of twelve lives, all 139 instruments as a ledger, instrument 139 S

@@ -4,75 +4,75 @@
   "is_slop": true,
   "threshold": 7.0,
   "margin": 7.3,
-  "overall_min": 6.0,
-  "reason": "margin override: critic A/claude-opus-4-8-oauth overall 8.5 >= margin 7.3 ships despite the other critic's veto (B/grok-4.20-fast(slop))",
+  "overall_min": 5.0,
+  "reason": "margin override: critic A/claude-opus-4-8-oauth overall 8.0 >= margin 7.3 ships despite the other critic's veto (B/grok-4.20-fast(slop))",
   "critics": {
     "A": {
       "model": "claude-opus-4-8-oauth",
       "passed": true,
       "axes": {
-        "type_scale": 9.0,
+        "type_scale": 8.0,
         "spacing_system": 8.0,
-        "focal_hierarchy": 8.0,
+        "focal_hierarchy": 7.0,
         "restraint": 8.0,
         "hero": 9.0,
-        "composition": 9.0,
+        "composition": 8.0,
         "type_craft": 9.0,
         "color": 8.0,
-        "stranger_test": 9.0
+        "stranger_test": 8.0
       },
-      "overall": 8.5,
+      "overall": 8.0,
       "is_slop": false,
       "findings": [
-        "Lower sections (§1 Daguerre, §2 fixed) lean heavily on long gray serif text columns; outside the first viewport the hierarchy relaxes into essay-grade body that does less compositional work than the hero promises.",
-        "The grayed/dimmed words inside the Daguerre paragraph ('carriage', 'walker passed through') risk reading as a decorative tint effect on first glance before the photographic-erasure conceit lands.",
-        "The indexed instrument list (01–13) is the one zone that approaches a conventional ledger table; its rhythm is fine but it is the least surprising block on the page."
+        "Section 3's '139 instruments' archive runs at near-caption size in tight ragged columns — it crosses from 'dense editorial index' into a wall of micro-type that is barely legible; it is the one place the otherwise careful rhythm collapses into density.",
+        "The 3D skeuomorphic wooden tally sticks flirt with literal clipart — the carved-notch renders are the page's most fragile move; they land because they ARE the data vocabulary, but a half-degree more gloss would tip them into kitsch.",
+        "The hero's right-hand AI-voice column is a dense small-type paragraph block that slightly competes with the wordmark and softens an otherwise razor focal point."
       ],
       "what_works": [
-        "Hero is a genuine system, not a template: an oversized Didone 'André Macedo' set hard against the left margin, balanced against a real long-exposure arc-of-sun photograph with palm silhouettes — asymmetric, dark-to-ember, nothing centered or floated.",
-        "Typographic voice is decisive and multi-register: high-contrast Didone display, Iowan editorial serif for body, and a lowercase mono utility voice for datelines/captions ('i am telos', 'plate i · 216 arcs · fixed') — the opposite of default system sans.",
-        "The bespoke generative circular 'star-plate' graphic with ember spiral trails reads as a real signature object, not stock decoration, and ties to the plate/long-exposure conceit.",
-        "Restrained palette governed by one ember accent over ink-navy and cream; accent used sparingly on key words and figures rather than sprayed as gradient garnish.",
-        "Stranger test fully satisfied in-viewport: name, a concrete one-line of what he does (co-founder of RealWorld.fi and ActualSales), and a live 'me@andremacedo.com' all legible without scrolling."
+        "The entire Exchequer tally-stick conceit is sustained as a system, not a motif: notches become the bar-chart vocabulary in the data table, 'the stack / the foil' split structures the hero, and the 1834 burning-of-Parliament framing gives the page genuine editorial conviction a generator would never invent.",
+        "Big Caslon high-contrast display set against a mono utility voice, with italic accents deployed as punctuation ('the fit', 'set fire to Parliament', 'That is the deal') — a real typographic point of view.",
+        "A disciplined named harmony — hazel, bark, ink and 'green cloth' over parchment — with zero trace of the default purple/blue gradient; color is earned from the subject, not garnished on.",
+        "Left-weighted monumental wordmark balanced by the right-column ledger voice creates composed asymmetric tension instead of centered-default symmetry.",
+        "Stranger test is cleanly satisfied in-viewport: name huge, 'Co-founder of RealWorld.fi / ActualSales' one-liner, and 'write me@andremacedo.com' all legible without scrolling."
       ],
-      "reasoning": "The desktop hero resolves as a deliberate asymmetric composition — colossal Didone name anchored left against a genuine long-exposure photograph — and the page sustains an expressive serif/Didone/mono typographic system with a single ember accent and a bespoke generative plate graphic. It evades every cardinal slop state: no centered-gradient-three-card template, no default sans, decoration carries conceptual purpose, and there is clear editorial conviction. The only soft spots are text-dense lower sections and a conventional index list, which lower a couple of axes but never drag it toward slop; the stranger test clears the floor decisively."
+      "reasoning": "This is the opposite of template slop: an editorial, asymmetric, Caslon-plus-mono composition built around a specific and consistently executed tally-stick conceit, with wood/bark/ink color pulled from the subject and no gradient, feature-grid, or centered-hero defaults anywhere. The hero reads as a deliberate system — monumental wordmark, carved-stick graphic as data vocabulary, ledger-voice column — rather than a headline floating on a background, and every stranger-test requirement sits above the fold. It loses a little for the micro-type instrument index that borders on illegible and for skeuomorphic stick renders that take a real risk, but the decisive signature moves clear the bar comfortably."
     },
     "B": {
       "model": "grok-4.20-fast",
       "fell_back_from": null,
       "passed": false,
       "axes": {
-        "type_scale": 6.0,
-        "spacing_system": 7.0,
-        "focal_hierarchy": 5.0,
-        "restraint": 6.0,
-        "hero": 4.0,
-        "composition": 5.0,
-        "type_craft": 7.0,
+        "type_scale": 4.0,
+        "spacing_system": 6.0,
+        "focal_hierarchy": 3.0,
+        "restraint": 7.0,
+        "hero": 5.0,
+        "composition": 4.0,
+        "type_craft": 6.0,
         "color": 8.0,
         "stranger_test": 9.0
       },
-      "overall": 6.0,
+      "overall": 5.0,
       "is_slop": true,
       "findings": [
-        "hero is a generic centered headline + bio block floating over a long-exposure light-trail photograph — exactly the safe default 'artistic founder' template",
-        "multiple competing focal points in the hero (name, bio text, light arc, small metadata labels) with no single decisive hierarchy",
-        "symmetrical, centered layout used as default composition throughout rather than intentional tension or asymmetry",
-        "the long-exposure arc and circular line graphic feel like decorative AI-art garnish rather than earned hierarchical moves",
-        "overall shape still reads as a personal-landing-page template (header image, quote block, body text, sidebar note, data table, footer) despite the 'living art organism' framing"
+        "Generic centered hero with large name + bio block floating above a decorative wooden graphic that functions as visual garnish rather than decisive system",
+        "Safe default system typography with ad-hoc sizing (no visible modular scale or rhythmic steps between display, headings, body, and dense list text)",
+        "Symmetry as substitute for composition: multiple centered blocks, evenly balanced text columns, and predictable vertical stacking with no intentional tension or off-axis anchor",
+        "The entire page reads as a long-form editorial template (historical essay + data visualization + list) applied to an art organism concept, with no single decisive aesthetic move a templated generator wouldn't produce",
+        "Dense, low-contrast tabular data visualization and exhaustive numbered instrument list compete equally with the hero, destroying focal hierarchy",
+        "SaaS-landing shape DNA visible in the structured sections, call-to-action-like interactive tally elements, and footer metadata despite the 'living art organism' framing"
       ],
       "what_works": [
-        "strong color harmony anchored in ember/orange light trails against deep indigo with restrained accent use",
-        "clear stranger_test delivery of name, role, and contact in first viewport",
-        "expressive pairing of serif display with clean sans body and the circular instrument graphic has editorial conviction"
+        "Restricted earthy/wood-tone color harmony with restrained beige-to-brown gradients that feel thematically coherent",
+        "Strong stranger_test: name, co-founder roles, email, and personal AI framing are immediately legible in the first viewport"
       ],
-      "reasoning": "The desktop render is a competent but template-grade personal site. The hero is the weakest element: a beautiful long-exposure photograph is used as generic background for centered type instead of a resolved compositional system. Multiple text blocks compete for attention without a singular focal move. While the color, type pairing, and conceptual 'fixed plate' metaphor show taste, the layout, spacing rhythm, and decorative circular graphic fall into safe, derivative territory that a templated generator would produce. The mobile version maintains the hierarchy but does not rescue the desktop's core compositional and hero shortcomings. Stranger_test passes easily, but the page exhibits multiple cardinal slop states (centered symmetry as substitute for composition, decoration without hierarchy, no single decisive aesthetic risk)."
+      "reasoning": "The desktop render is a long, vertically stacked editorial layout with historical narrative, wooden tally metaphors, and a dense instrument catalog. While the color restraint and immediate identifiability of André Macedo are competent, the page exhibits multiple cardinal slop states: centered symmetry standing in for composition, ad-hoc type sizes without a modular scale, no single focal point or decisive aesthetic signature, and a generic long-form template structure that a generator would default to. The hero is merely a name plus bio over a decorative wood graphic rather than a resolved system. Mobile version maintains the same weaknesses without rescue. Overall craft is mediocre and template-grade."
     }
   },
   "margin_override": {
     "critic": "A",
     "model": "claude-opus-4-8-oauth",
-    "overall": 8.5,
+    "overall": 8.0,
     "margin": 7.3
   }
 }
