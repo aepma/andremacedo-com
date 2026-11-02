@@ -850,3 +850,6 @@ gen 260 weekly: fixed. The long exposure closes on its thirty-first day: plate i
 
 ## gen 261 (weekly, 2026-10-29)
 gen 261 weekly: open Epoch XIII, the tally. The hero is one hazel stick split down its length and opened like a book, stock above and foil below, cut for £261 13s 1d; drag the foil until the cuts meet. The 1834 fire, a charred bundle of twelve lives, all 139 instruments as a ledger, instrument 139 S
+
+## gen 262 (weekly, 2026-11-02)
+gen 262 weekly: the tally counts before it cuts. A black counting cloth under the opened stick, six columns read from the right, counters that carry, and a stick re-cut by the rule as you count; the ledger of 140 instruments becomes a notched stick; instrument 140 Stoves

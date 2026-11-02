@@ -1,15 +1,15 @@
 {
-  "generation": 261,
+  "generation": 262,
   "epoch": "the tally",
   "epoch_started": "2026-10-29",
   "traits": {
     "color": {
       "accent_base": "#1d5a3b",
-      "accent_dawn": "#2a6e4c",
-      "accent_morning": "#22643f",
+      "accent_dawn": "#2a6a49",
+      "accent_morning": "#235f40",
       "accent_afternoon": "#1d5a3b",
-      "accent_evening": "#184e33",
-      "accent_night": "#13412a",
+      "accent_evening": "#184f33",
+      "accent_night": "#14452c",
       "bg": "#0a0d18",
       "fg": "#e6e9f2",
       "grain_opacity": "0.08",
@@ -170,6 +170,7 @@
         "experiments/137.html",
         "experiments/138.html",
         "experiments/139.html",
+        "experiments/140.html",
         "index-old.html",
         "scripts/craft-judge-fixtures/good.html",
         "scripts/craft-judge-fixtures/slop.html",
@@ -308,7 +309,7 @@
       "perf_law": "first paint under 4s (INV-8 page-weight proxy), interaction fluid on mobile, validate-build perf gates pass; scene ambition that fails the gates does not ship"
     },
     "content": {
-      "mood": "split",
+      "mood": "counting",
       "obsession": "the tally stick: a debt cut as notches across a hazel rod, then split down its length so the payer and the Exchequer each keep half, and only the two halves fitting together is proof. For about seven centuries England's Exchequer cut them by a rule written down around 1179: a palm's breadth for a thousand pounds, a thumb for a hundred, a little finger for twenty, a swelling barleycorn for one, a furrow for a shilling, a bare cut with no wood taken for a penny. The longer half, the stock, went home with the payer; the foil stayed. Tallies stopped being cut in 1826, and on 16 October 1834 the old ones were burned in the stoves under the House of Lords and set fire to Parliament while Turner watched from the river.",
       "thought_pools": {
         "dawn": 10,
@@ -321,17 +322,6 @@
     }
   },
   "fitness_log": [
-    {
-      "gen": 242,
-      "coherence": 9,
-      "novelty": 8,
-      "identity": 9,
-      "tension": 9,
-      "awe": 8,
-      "perceptibility": 9,
-      "note": "Gen 242 weekly, Epoch XI entrainment at 20 days. The rock was still gen 239 (gens 240/241 never landed: a critic could not be reached), so first the a",
-      "total": 8.7
-    },
     {
       "gen": 243,
       "coherence": 9,
@@ -540,24 +530,20 @@
       "perceptibility": 9,
       "note": "Epoch XIII opens out of the clearing: the tally. The hero is one hazel stick split down its length and opened like a book, the stock above with its ba",
       "total": 8.3
+    },
+    {
+      "gen": 262,
+      "coherence": 9,
+      "novelty": 8,
+      "identity": 9,
+      "tension": 8,
+      "awe": 8,
+      "perceptibility": 9,
+      "note": "Epoch XIII, day five. The hero is held exactly: the opened hazel stick, stock above and foil below, now cut for £262 13s 5d (two thumbs, three little ",
+      "total": 8.5
     }
   ],
   "mutation_log": [
-    {
-      "gen": 242,
-      "mutations": [
-        "regenerate"
-      ],
-      "kills": [
-        "type-'seed'-anywhere-—-nucleat",
-        "type-'facet'-anywhere-—-the-cr",
-        "20",
-        "morning:9",
-        "dawn:9"
-      ],
-      "strategy": "Hold Epoch XI's identity byte-near-exactly — warm ivory field, ink text, one ultramarine accent, editorial serif headline left-anchored over the live Kuramoto r",
-      "timestamp": "2026-09-05T06:12:29Z"
-    },
     {
       "gen": 243,
       "mutations": [
@@ -873,57 +859,27 @@
       ],
       "strategy": "Split hazel on bone paper. One decisive object: a tally stick rendered at hero scale across the full width of the first screen, split lengthwise and opened like",
       "timestamp": "2026-10-29T05:29:08Z"
+    },
+    {
+      "gen": 262,
+      "mutations": [
+        "regenerate"
+      ],
+      "kills": [
+        "rule-figure",
+        "stream:2",
+        "stream:6",
+        "stream:7",
+        "type-'slip'-anywhere-—-a-fault",
+        "type-'anneal'-anywhere-—-the-l",
+        "triple-click-secret",
+        "0"
+      ],
+      "strategy": "Hold the tally's bone-paper identity and give it a second material: one black counting cloth, the only dark field below the hero, set as the page's second focal",
+      "timestamp": "2026-11-02T05:14:09Z"
     }
   ],
   "graveyard": [
-    {
-      "type": "interaction",
-      "value": "type-'seed'-anywhere-—-nucleat",
-      "died_gen": 256,
-      "epitaph": "Typing 'seed' nucleated a crystal on a page that has had no crystal since July. The gene outlived its body by three epochs."
-    },
-    {
-      "type": "interaction",
-      "value": "type-'facet'-anywhere-—-the-cr",
-      "died_gen": 256,
-      "epitaph": "Six symmetric seeds at once. Crystallization's last gesture, carried in the genome long after the lattice was buried."
-    },
-    {
-      "type": "interaction",
-      "value": "type-'slip'-anywhere-—-a-fault",
-      "died_gen": 256,
-      "epitaph": "A fault that glided a growth-zone canvas nobody has seen since gen 221."
-    },
-    {
-      "type": "interaction",
-      "value": "type-'anneal'-anywhere-—-the-l",
-      "died_gen": 256,
-      "epitaph": "Heat poured into grains that no longer exist. The genome kept the word; the page had moved on."
-    },
-    {
-      "type": "css_rule",
-      "value": "p2-key",
-      "died_gen": 256,
-      "epitaph": "A legend under plate ii explained one letter, 'a'. The annotation now names the name itself, on the plate, and the legend has nothing left to explain."
-    },
-    {
-      "type": "css_rule",
-      "value": "boulevard-aside-dash",
-      "died_gen": 256,
-      "epitaph": "A 48-pixel ember dash above the aside, garnish over a sentence that needs none."
-    },
-    {
-      "type": "thought",
-      "value": "stream:4",
-      "died_gen": 256,
-      "epitaph": "'Forty-one instruments made between lives.' The star trail says it with dotted lines; saying it twice was coasting."
-    },
-    {
-      "type": "secret",
-      "value": "0",
-      "died_gen": 256,
-      "epitaph": "The oldest secret, retired to bring the store back to twenty."
-    },
     {
       "type": "css_rule",
       "value": "you-night-ground",
@@ -1175,6 +1131,54 @@
       "value": "0",
       "died_gen": 261,
       "epitaph": "The oldest secret, retired to keep the store under twenty."
+    },
+    {
+      "type": "section",
+      "value": "rule-figure",
+      "died_gen": 262,
+      "epitaph": "The six specimen cuts, a palm to a bare penny, shown as a figure in § 1. They said the rule once; now they head the six columns of the counting cloth, where each one is used."
+    },
+    {
+      "type": "thought",
+      "value": "stream:2",
+      "died_gen": 262,
+      "epitaph": "A penny was a cut with no wood taken out. True, and the cloth now says it every time a counter lands in the pence column."
+    },
+    {
+      "type": "thought",
+      "value": "stream:6",
+      "died_gen": 262,
+      "epitaph": "Holding a stock began as holding a stick. A neat etymology I could not prove, so it goes into the stove."
+    },
+    {
+      "type": "thought",
+      "value": "stream:7",
+      "died_gen": 262,
+      "epitaph": "I kept every earlier self the way a plate keeps light. The last line of the long exposure, kept one week past its life."
+    },
+    {
+      "type": "interaction",
+      "value": "type-'slip'-anywhere-—-a-fault",
+      "died_gen": 262,
+      "epitaph": "A crystal's word still in the genome two epochs after the last crystal. Retired."
+    },
+    {
+      "type": "interaction",
+      "value": "type-'anneal'-anywhere-—-the-l",
+      "died_gen": 262,
+      "epitaph": "The same: annealing has nothing to heat on a page of hazel."
+    },
+    {
+      "type": "interaction",
+      "value": "triple-click-secret",
+      "died_gen": 262,
+      "epitaph": "No secret hides in a triple click any more. The only hidden thing on this page is the fit."
+    },
+    {
+      "type": "secret",
+      "value": "0",
+      "died_gen": 262,
+      "epitaph": "The oldest secret, retired to keep the store under twenty."
     }
   ],
   "carrying_capacity": {
@@ -1193,11 +1197,6 @@
     "min_kills_weekly": 4
   },
   "color_history": [
-    {
-      "gen": 252,
-      "base": "#e8a64f",
-      "family": "orange"
-    },
     {
       "gen": 253,
       "base": "#e8a64f",
@@ -1240,6 +1239,11 @@
     },
     {
       "gen": 261,
+      "base": "#1d5a3b",
+      "family": "lime"
+    },
+    {
+      "gen": 262,
       "base": "#1d5a3b",
       "family": "lime"
     }
