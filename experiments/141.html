@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>141 — Michaelmas · andremacedo.com</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<style>
+  html,body{margin:0;height:100%;background:#1a1612;color:#efe8d6;overflow:hidden;
+    font-family:Charter,"Iowan Old Style",Georgia,serif;}
+  #tbl{position:fixed;left:0;top:0;display:block;touch-action:manipulation;cursor:pointer;}
+  #info{position:fixed;top:14px;left:16px;max-width:54ch;opacity:0.9;font-size:14px;line-height:1.55;z-index:3;pointer-events:none;
+    text-shadow:0 0 8px rgba(0,0,0,0.8),0 0 20px rgba(0,0,0,0.5);}
+  #info h1{font-family:"Big Caslon","Hoefler Text",Baskerville,Georgia,serif;font-weight:400;font-size:28px;margin:0 0 6px;}
+  #info p{margin:0 0 6px;}
+  #info .how{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:12px;color:#d9d0b8;}
+  #back{position:fixed;top:16px;right:16px;z-index:3;color:#efe8d6;font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:12px;
+    text-shadow:0 0 8px rgba(0,0,0,0.8),0 0 20px rgba(0,0,0,0.5);}
+  #ui{position:fixed;left:16px;right:16px;bottom:14px;z-index:3;font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:12px;
+    display:flex;flex-direction:column;gap:8px;max-width:88ch;text-shadow:0 0 8px rgba(0,0,0,0.8),0 0 20px rgba(0,0,0,0.5);}
+  #read{margin:0;line-height:1.6;min-height:3.2em;}
+  #read b{font-weight:400;color:#a9d8bb;}
+  #read i{font-style:normal;color:#e8a882;}
+  #acct{margin:0;color:#d9d0b8;}
+  .ctl{display:flex;gap:8px;flex-wrap:wrap;}
+  button{font:inherit;color:#efe8d6;background:rgba(26,22,18,.85);border:1px solid rgba(239,232,214,.45);padding:6px 10px;cursor:pointer;}
+  button:hover{border-color:#a9d8bb;}
+  button:focus-visible{outline:2px solid #a9d8bb;outline-offset:2px;}
+  @media (max-width:600px){
+    #info{top:40px;max-width:calc(100vw - 32px);font-size:13px;line-height:1.45;}
+    #info h1{font-size:23px;}
+    #info .how{font-size:11.5px;}
+    #read{min-height:6.4em;}
+    #acct{min-height:3.2em;}
+  }
+</style>
+</head>
+<body>
+<canvas id="tbl" role="img" aria-label="The Exchequer table at Michaelmas. On the left, six sheriffs' stocks, each the longer half of a hazel tally; on the right, six foils from the Exchequer's chest, shuffled. Below, a bench where a stock and a foil are laid together to see whether the cuts and the grain meet."></canvas>
+<div id="info">
+  <h1>141 — Michaelmas</h1>
+  <p>Twice a year the sheriffs came to the Exchequer to account. What they had paid on account at Easter they proved at Michaelmas with their stocks, and nothing was allowed until each stock had been laid against its foil from the chest. Six sheriffs have come. One has cut a sum into his stock after the split. The sums are invented; the method is not.</p>
+  <p class="how">tap a stock, then a foil, to lay them together · keys 1–6 pick a stock, a–f a foil · N for a new chest</p>
+</div>
+<a id="back" href="/">← andremacedo.com</a>
+<div id="ui">
+  <p id="read" aria-live="polite">Tap one of the sheriffs’ stocks, then the foil you think was split from it.</p>
+  <p id="acct"></p>
+  <div class="ctl"><button type="button" id="bNew">a new chest (N)</button></div>
+</div>
+<script>
+(function(){
+  'use strict';
+  var cv=document.getElementById('tbl'), ctx=cv.getContext('2d');
+  var info=document.getElementById('info'), ui=document.getElementById('ui');
+  var read=document.getElementById('read'), acct=document.getElementById('acct');
+  var mq=window.matchMedia?window.matchMedia('(prefers-reduced-motion: reduce)'):null;
+  var reduce=!!(mq&&mq.matches);
+  var MONO='ui-monospace,"SF Mono",Menlo,Consolas,monospace', SERIF='Charter,"Iowan Old Style",Georgia,serif';
+  var LEAF='#a9d8bb', EMBER='#e8a882', BONE='#efe8d6', DIM='#bfb49a';
+  var HS=.16; /* the handle: the part of the stick left whole, which only the stock keeps */
+
+  /* the sheriffs. Lincoln paid £26 at Easter; his stock has had a thumb, £100, cut into it since. */
+  var SH=[
+    {n:'Kent',L:100,s:0,d:0,seed:11},
+    {n:'Essex',L:40,s:0,d:0,seed:23},
+    {n:'Devon',L:40,s:0,d:0,seed:37},
+    {n:'Wiltshire',L:33,s:6,d:8,seed:41},
+    {n:'York',L:62,s:10,d:0,seed:53},
+    {n:'Lincoln',L:26,s:0,d:0,seed:67,forged:true}
+  ];
+  /* kinds: 0 thumb £100, 1 finger £20, 2 barleycorn £1, 3 furrow 1s, 4 bare cut 1d */
+  var KW=[.62,.36,.2,.075,0], KD=[.56,.46,.36,.3,.3], KS=[.3,.26,.24,.2,.17];
+  function rng(seed){var s=seed>>>0;return function(){s=(s+0x6D2B79F5)>>>0;var t=s;t=Math.imul(t^(t>>>15),t|1);t^=t+Math.imul(t^(t>>>7),t|61);return((t^(t>>>14))>>>0)/4294967296;};}
+  function cutList(L,s,d){
+    var k=[],i;
+    for(i=0;i<Math.floor(L/100);i++){k.push(0);}
+    for(i=0;i<Math.floor(L%100/20);i++){k.push(1);}
+    for(i=0;i<L%20;i++){k.push(2);}
+    if(s){k.push(-1);} for(i=0;i<s;i++){k.push(3);}
+    if(d){k.push(-1);} for(i=0;i<d;i++){k.push(4);}
+    return k;
+  }
+  function place(kinds){
+    var nat=0; kinds.forEach(function(k){nat+=k<0?.9:KW[k]+KS[k];});
+    var u=Math.min(.05,.62/Math.max(nat,1)), x=HS+.07, out=[];
+    kinds.forEach(function(k){ if(k<0){x+=.9*u;return;} var w=KW[k]*u; out.push({k:k,x:x+w/2,w:w,d:KD[k]}); x+=w+KS[k]*u; });
+    return out;
+  }
+  function grain(seed){
+    var R=rng(seed*7+3), lines=[], cross=[], i;
+    for(i=0;i<6;i++){lines.push({y:.22+i*.12+R()*.06,a:.02+R()*.05,l:.05+R()*.12,p:R()*6.28,al:.12+R()*.16});}
+    var x=HS+.05;
+    for(i=0;i<6;i++){x+=.06+R()*.08; if(x>.97){break;} cross.push({x:x,a:.025+R()*.05,h:.42+R()*.3});}
+    return {lines:lines,cross:cross,knot:{x:HS+.15+R()*.7,y:.4+R()*.3}};
+  }
+  SH.forEach(function(o){
+    o.cuts=place(cutList(o.L,o.s,o.d));
+    o.foilCuts=o.cuts;
+    if(o.forged){
+      var last=o.cuts[o.cuts.length-1], w=KW[0]*.05;
+      o.stockCuts=o.cuts.concat([{k:0,x:Math.min(.93,last.x+.16),w:w,d:KD[0],added:true}]);
+    }else{o.stockCuts=o.cuts;}
+    o.g=grain(o.seed);
+  });
+  function money(p){var L=Math.floor(p/240),s=Math.floor(p%240/12),d=p%12;return '£'+L+(s||d?' '+s+'s':'')+(d?' '+d+'d':'');}
+  function pence(o){return o.L*240+o.s*12+o.d;}
+  var ROMAN=['i','ii','iii','iv','v','vi'], LET='abcdef';
+
+  var W=0,H=0,dpr=1,cells=[],bench=null,st=null;
+  function fresh(){
+    var ord=[0,1,2,3,4,5], R=rng(Date.now()&0xffff), i, j, t;
+    for(i=5;i>0;i--){j=Math.floor(R()*(i+1)); t=ord[i]; ord[i]=ord[j]; ord[j]=t;}
+    for(i=0;i<6;i++){ if(ord[i]===i){ j=(i+1)%6; t=ord[i]; ord[i]=ord[j]; ord[j]=t; } }
+    st={ord:ord,ss:-1,sf:-1,allowed:{},caught:false,refused:0,pence:0,join:null};
+    read.innerHTML='Tap one of the sheriffs’ stocks, then the foil you think was split from it.';
+    tally();
+  }
+
+  /* one half of a tally. Drawn as the stock (cut edge up, split face down);
+     the foil is the same drawing turned over, so its split face is on top. */
+  function half(g,X,Y,len,h,o,foil,alpha,mark){
+    var cuts=foil?o.foilCuts:o.stockCuts, start=foil?X+HS*len:X, i;
+    g.save(); g.globalAlpha=alpha;
+    if(foil){g.translate(0,2*Y+h); g.scale(1,-1);}
+    g.beginPath(); g.moveTo(start,Y);
+    cuts.forEach(function(c){
+      var cx=X+c.x*len, w=Math.max(c.w*len,1), d=c.d*h;
+      if(c.k===4){return;}
+      if(c.k===2){g.lineTo(cx-w/2,Y); g.quadraticCurveTo(cx,Y+d*1.8,cx+w/2,Y); return;}
+      if(c.k===3){g.lineTo(cx-w/2,Y); g.lineTo(cx-w*.2,Y+d); g.lineTo(cx+w*.2,Y+d); g.lineTo(cx+w/2,Y); return;}
+      g.lineTo(cx-w/2,Y); g.lineTo(cx+w*.06,Y+d); g.lineTo(cx+w/2,Y);
+    });
+    g.lineTo(X+len,Y); g.lineTo(X+len,Y+h); g.lineTo(start,Y+h); g.closePath();
+    var gr=g.createLinearGradient(0,Y,0,Y+h); gr.addColorStop(0,'#c4a26b'); gr.addColorStop(.4,'#dac293'); gr.addColorStop(1,'#eddcb8');
+    g.fillStyle=gr; g.fill();
+    g.save(); g.clip();
+    var G=o.g;
+    G.lines.forEach(function(l){
+      g.beginPath();
+      for(var x=start;x<=X+len;x+=4){var y=Y+h*(l.y+l.a*Math.sin((x-X)/(len*l.l)+l.p)); if(x===start){g.moveTo(x,y);}else{g.lineTo(x,y);}}
+      g.strokeStyle='rgba(118,84,40,'+l.al.toFixed(2)+')'; g.lineWidth=.8; g.stroke();
+    });
+    /* the grain where the split ran: each line rises to the split face at one place, the same place on both halves */
+    G.cross.forEach(function(c){
+      var cx=X+c.x*len, a=c.a*len, top=Y+h*(1-c.h);
+      g.beginPath(); g.moveTo(cx-a,Y+h); g.quadraticCurveTo(cx-a*.9,top,cx,top); g.quadraticCurveTo(cx+a*.9,top,cx+a,Y+h);
+      g.strokeStyle='rgba(96,62,28,.55)'; g.lineWidth=Math.max(.8,h/26); g.stroke();
+      g.beginPath(); g.moveTo(cx,top); g.lineTo(cx,Y+h); g.strokeStyle='rgba(96,62,28,.35)'; g.lineWidth=Math.max(.6,h/40); g.stroke();
+    });
+    var kx=X+G.knot.x*len, ky=Y+G.knot.y*h;
+    for(i=3;i>=1;i--){g.beginPath(); g.ellipse(kx,ky,h*.16*i/3,h*.1*i/3,0,0,6.2832); g.strokeStyle='rgba(88,56,28,.3)'; g.lineWidth=.8; g.stroke();}
+    /* the bark side, where the cuts were made */
+    var bg=g.createLinearGradient(0,Y,0,Y+h*.18); bg.addColorStop(0,'#4b4135'); bg.addColorStop(1,'rgba(122,106,85,0)');
+    g.fillStyle=bg; g.fillRect(X,Y,len,h*.18);
+    if(!foil){var hg=g.createLinearGradient(0,Y,0,Y+h); hg.addColorStop(0,'#3d342a'); hg.addColorStop(.5,'#8e7c63'); hg.addColorStop(1,'#463c30'); g.fillStyle=hg; g.fillRect(X,Y,HS*len,h);}
+    g.restore();
+    cuts.forEach(function(c){ if(c.k!==4){return;} var cx=X+c.x*len; g.beginPath(); g.moveTo(cx,Y); g.lineTo(cx+.5,Y+c.d*h); g.strokeStyle='rgba(38,24,10,.9)'; g.lineWidth=1.1; g.stroke(); });
+    if(mark){ g.strokeStyle=mark; g.lineWidth=2; g.strokeRect(start-4,Y-4,X+len-start+8,h+8); }
+    g.restore();
+  }
+
+  function layout(){
+    var ib=info.getBoundingClientRect().bottom, ut=ui.getBoundingClientRect().top;
+    var top=ib+14, bot=ut-12, region=Math.max(200,bot-top), pad=W<600?14:28;
+    var bh=Math.max(120,Math.min(230,region*.34)), tH=region-bh;
+    var colW=Math.min(560,(W-pad*3)/2), x0=(W-(colW*2+pad))/2;
+    var rowH=(tH-22)/6;
+    cells=[];
+    for(var i=0;i<6;i++){
+      var y=top+22+i*rowH;
+      cells.push({t:'s',i:i,x:x0,y:y,w:colW,h:rowH});
+      cells.push({t:'f',i:i,x:x0+colW+pad,y:y,w:colW,h:rowH});
+    }
+    var bl=Math.min(W-pad*2,920);
+    bench={x:(W-bl)/2,y:top+tH,w:bl,h:bh,top:top,colX:[x0,x0+colW+pad]};
+  }
+  function size(){
+    dpr=Math.min(window.devicePixelRatio||1,2); W=window.innerWidth; H=window.innerHeight;
+    cv.width=Math.round(W*dpr); cv.height=Math.round(H*dpr); cv.style.width=W+'px'; cv.style.height=H+'px';
+    layout(); draw();
+  }
+
+  var raf=0;
+  function draw(){
+    raf=0;
+    var g=ctx, now=performance.now();
+    g.setTransform(dpr,0,0,dpr,0,0); g.clearRect(0,0,W,H);
+    g.fillStyle='#1a1612'; g.fillRect(0,0,W,H);
+    /* the chequer, faint, under everything */
+    g.strokeStyle='rgba(239,232,214,.05)'; g.lineWidth=1;
+    for(var gx=0;gx<W;gx+=48){g.beginPath(); g.moveTo(gx+.5,0); g.lineTo(gx+.5,H); g.stroke();}
+    for(var gy=0;gy<H;gy+=48){g.beginPath(); g.moveTo(0,gy+.5); g.lineTo(W,gy+.5); g.stroke();}
+    var small=W<600;
+    g.font=(small?'11px ':'12px ')+MONO; g.textBaseline='alphabetic';
+    g.fillStyle=DIM;
+    g.fillText('the sheriffs’ stocks',bench.colX[0],bench.top+12);
+    g.fillText('the chest of foils',bench.colX[1],bench.top+12);
+    cells.forEach(function(c){
+      var o=c.t==='s'?SH[c.i]:SH[st.ord[c.i]];
+      var done=c.t==='s'?(st.allowed[c.i]||(o.forged&&st.caught)):!!st.allowed[st.ord[c.i]];
+      var sel=c.t==='s'?st.ss===c.i:st.sf===c.i;
+      var h=Math.max(10,Math.min(26,c.h*.42)), len=c.w-8, y=c.y+c.h-h-c.h*.14;
+      var lab;
+      if(c.t==='s'){
+        lab=(c.i+1)+' · '+o.n+(o.forged&&st.caught?' · pared':(done?' · allowed':''));
+        g.fillStyle=o.forged&&st.caught?EMBER:(done?LEAF:BONE);
+      }else{
+        lab=LET[c.i]+' · foil '+ROMAN[c.i]+(done?' · '+SH[st.ord[c.i]].n:'');
+        g.fillStyle=done?LEAF:BONE;
+      }
+      g.fillText(lab,c.x+4,y-6);
+      half(g,c.x+4,y,len,h,o,c.t==='f',done?.32:1,sel?LEAF:null);
+    });
+    /* the bench */
+    var b=bench, J=st.join;
+    g.strokeStyle='rgba(239,232,214,.22)'; g.beginPath(); g.moveTo(b.x,b.y+.5); g.lineTo(b.x+b.w,b.y+.5); g.stroke();
+    g.fillStyle=DIM; g.fillText(J?('the bench · '+SH[J.s].n+'’s stock, claiming '+money(pence(SH[J.s])+(SH[J.s].forged?24000:0))):'the bench',b.x,b.y+18);
+    var hh=Math.min(46,b.h*.27), sy=Math.min(Math.max(b.y+34,b.y+26+(b.h-26-hh*2)/2-4),b.y+b.h-hh*2-28);
+    if(J){
+      var e=reduce?1:Math.min(1,(now-J.t)/650), ee=e<.5?2*e*e:1-Math.pow(-2*e+2,2)/2;
+      var gap=(1-ee)*hh*1.1;
+      var S=SH[J.s], F=SH[J.f];
+      half(g,b.x,sy,b.w,hh,S,false,1,null);
+      half(g,b.x,sy+hh+gap,b.w,hh,F,true,1,null);
+      if(e>=1){
+        if(!J.done){J.done=true; verdict(J);}
+        /* where the cuts meet or miss */
+        var sc=S.stockCuts, fc=F.foilCuts;
+        sc.forEach(function(c){
+          var ok=fc.some(function(f){return f.k===c.k&&Math.abs(f.x-c.x)<.004;});
+          if(!ok){var cx=b.x+c.x*b.w; g.strokeStyle=EMBER; g.lineWidth=2; g.beginPath(); g.moveTo(cx,sy-10); g.lineTo(cx,sy+hh*2+10); g.stroke();}
+        });
+        fc.forEach(function(f){
+          var ok=sc.some(function(c){return f.k===c.k&&Math.abs(f.x-c.x)<.004;});
+          if(!ok){var cx=b.x+f.x*b.w; g.strokeStyle=EMBER; g.lineWidth=2; g.beginPath(); g.moveTo(cx,sy-10); g.lineTo(cx,sy+hh*2+10); g.stroke();}
+        });
+        /* where the grain crosses the split */
+        var yS=sy+hh;
+        S.g.cross.forEach(function(c){
+          var ok=F.g.cross.some(function(f){return Math.abs(f.x-c.x)<.003;});
+          var cx=b.x+c.x*b.w; g.fillStyle=ok?LEAF:EMBER;
+          g.beginPath(); g.moveTo(cx,yS-5); g.lineTo(cx+4,yS); g.lineTo(cx,yS+5); g.lineTo(cx-4,yS); g.closePath(); g.fill();
+        });
+        F.g.cross.forEach(function(f){
+          var ok=S.g.cross.some(function(c){return Math.abs(f.x-c.x)<.003;});
+          if(ok){return;}
+          var cx=b.x+f.x*b.w; g.strokeStyle=EMBER; g.lineWidth=1.5; g.beginPath(); g.arc(cx,yS,4,0,6.2832); g.stroke();
+        });
+        g.fillStyle=DIM;
+        g.fillText('foil '+ROMAN[J.fi]+' · from the chest',b.x+HS*b.w,sy+hh*2+gap+20);
+      }else{raf=requestAnimationFrame(draw);}
+    }else{
+      g.fillStyle='rgba(239,232,214,.38)'; g.font=(small?'13px ':'15px ')+SERIF;
+      g.fillText('lay a stock and a foil together here',b.x+HS*b.w,sy+hh+6);
+    }
+  }
+  function kick(){if(!raf){raf=requestAnimationFrame(draw);}}
+
+  function verdict(J){
+    var S=SH[J.s], F=SH[J.f], grainOk=J.s===J.f;
+    var cutsOk=S.stockCuts.length===F.foilCuts.length&&S.stockCuts.every(function(c,i){var f=F.foilCuts[i]; return f.k===c.k&&Math.abs(f.x-c.x)<.004;});
+    if(grainOk&&cutsOk){
+      st.allowed[J.s]=true; st.pence+=pence(S);
+      read.innerHTML='<b>Allowed.</b> Every cut meets its other half and the grain runs straight across the split: this foil was cut from this stick. '+money(pence(S))+' comes off the sheriff of '+S.n+'’s account.';
+    }else if(grainOk){
+      st.caught=true; st.allowed[J.s]=true; st.pence+=pence(S);
+      read.innerHTML='<i>Caught.</i> The grain runs across, so this is '+S.n+'’s own foil. But the stock carries a thumb the foil does not: £100 cut in after the split. '+S.n+' paid £'+S.L+' at Easter and claims £'+(S.L+100)+'. Allowed at £'+S.L+', the sum both halves agree on.';
+    }else if(cutsOk||(S.L===F.L&&S.s===F.s&&S.d===F.d&&!S.forged)){
+      st.refused++;
+      read.innerHTML='<i>Refused.</i> The cuts meet, but the grain does not run across the split. This is the foil of another sheriff who paid the same sum. The wood is the signature, not the number.';
+    }else{
+      st.refused++;
+      read.innerHTML='<i>Refused.</i> Neither the cuts nor the grain meet. Look at where the grain rises to the split face on each half.';
+    }
+    tally();
+  }
+  function tally(){
+    var left=0; SH.forEach(function(o,i){ if(!st.allowed[i]){left++;} });
+    if(!left){
+      acct.textContent='Michaelmas is done · allowed '+money(st.pence)+' · refused '+st.refused+' · '+(st.caught?'the pared stock was caught by the wood, not by the clerk':'');
+    }else{
+      acct.textContent='allowed '+(st.pence?money(st.pence):'nothing yet')+' · refused '+st.refused+' · '+left+' stock'+(left>1?'s':'')+' still to prove';
+    }
+  }
+  function pick(t,i){
+    if(st.join&&!st.join.done){return;}
+    if(t==='s'){ if(st.allowed[i]){return;} st.ss=(st.ss===i?-1:i); }
+    else{ if(st.allowed[st.ord[i]]){return;} st.sf=(st.sf===i?-1:i); }
+    if(st.ss>=0&&st.sf>=0){
+      st.join={s:st.ss,f:st.ord[st.sf],fi:st.sf,t:performance.now(),done:false};
+      st.ss=-1; st.sf=-1;
+    }else if(st.ss>=0||st.sf>=0){
+      read.innerHTML=st.ss>=0?('The sheriff of '+SH[st.ss].n+'’s stock. Now a foil from the chest.'):('Foil '+ROMAN[st.sf]+'. Now a stock.');
+    }
+    kick();
+  }
+  cv.addEventListener('click',function(e){
+    var x=e.clientX, y=e.clientY;
+    for(var k=0;k<cells.length;k++){var c=cells[k]; if(x>=c.x&&x<=c.x+c.w&&y>=c.y&&y<=c.y+c.h){pick(c.t,c.i); return;}}
+  });
+  document.addEventListener('keydown',function(e){
+    var k=(e.key||'').toLowerCase();
+    if(k>='1'&&k<='6'){pick('s',+k-1);}
+    else if(LET.indexOf(k)>=0&&k.length===1){pick('f',LET.indexOf(k));}
+    else if(k==='n'){fresh(); kick();}
+    else if(k==='escape'){st.ss=-1; st.sf=-1; kick();}
+  });
+  document.getElementById('bNew').addEventListener('click',function(){fresh(); kick();});
+  var rt=0; window.addEventListener('resize',function(){clearTimeout(rt); rt=setTimeout(size,120);});
+  if(mq&&mq.addEventListener){mq.addEventListener('change',function(e){reduce=e.matches;});}
+  fresh(); size();
+  if(document.fonts&&document.fonts.ready){document.fonts.ready.then(size);}
+})();
+</script>
+</body>
+</html>

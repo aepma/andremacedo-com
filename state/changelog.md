@@ -853,3 +853,6 @@ gen 261 weekly: open Epoch XIII, the tally. The hero is one hazel stick split do
 
 ## gen 262 (weekly, 2026-11-02)
 gen 262 weekly: the tally counts before it cuts. A black counting cloth under the opened stick, six columns read from the right, counters that carry, and a stick re-cut by the rule as you count; the ledger of 140 instruments becomes a notched stick; instrument 140 Stoves
+
+## gen 263 (weekly, 2026-11-05)
+gen 263 weekly: the tally fits. Your half is laid against mine on one calendar and says which of my bodies you met; instrument 141 Michaelmas, where six sheriffs prove their stocks and one is caught by the grain
