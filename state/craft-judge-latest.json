@@ -5,7 +5,7 @@
   "threshold": 7.0,
   "margin": 7.3,
   "overall_min": 5.0,
-  "reason": "margin override: critic A/claude-opus-4-8-oauth overall 8.0 >= margin 7.3 ships despite the other critic's veto (B/grok-4.20-fast(slop))",
+  "reason": "margin override: critic A/claude-opus-4-8-oauth overall 8.1 >= margin 7.3 ships despite the other critic's veto (B/grok-4.20-fast(slop))",
   "critics": {
     "A": {
       "model": "claude-opus-4-8-oauth",
@@ -13,29 +13,29 @@
       "axes": {
         "type_scale": 8.0,
         "spacing_system": 8.0,
-        "focal_hierarchy": 8.0,
+        "focal_hierarchy": 7.0,
         "restraint": 8.0,
         "hero": 8.0,
-        "composition": 9.0,
+        "composition": 8.0,
         "type_craft": 9.0,
         "color": 8.0,
-        "stranger_test": 8.0
+        "stranger_test": 9.0
       },
-      "overall": 8.0,
+      "overall": 8.1,
       "is_slop": false,
       "findings": [
-        "The lower 'the long exposure' instrument chart and the dense 'the stock / 141 instruments' index become visually busy — long rows of ruled bars and tiny numbered labels start to flatten into a wall of near-equal-weight marks, slightly weakening per-viewport focal clarity in those bands.",
-        "The right-column body paragraphs (the Exchequer/clerk explanatory text) are fairly conventional justified-ish serif blocks — the one place the page reads closest to ordinary longform rather than composed object.",
-        "The repeated 'tap/sweep' micro-control chips at the bottom-right of sections are the least resolved element — small utilitarian buttons that sit a notch below the illustrative ambition around them."
+        "The lower list section (§4, the long table of instruments with faint horizontal bars) flattens into many equal-weight rows — focal hierarchy dissolves there and it reads as a dense ledger with no single anchor.",
+        "Several of the tally-strip 'barcode' visualizations in §5/§6 are tonally monochrome and start to feel repetitive; a couple read as texture-filler rather than carrying distinct data meaning.",
+        "The line chart in §3 uses a conventional axis + area-fill treatment that is the one moment the page leans on a familiar data-viz default rather than the tally-stick conceit."
       ],
       "what_works": [
-        "The carved hazel tally-stick illustrations — wood-grain cylinder with real notch rhythm spanning the full measure — are a decisive, unrepeatable conceptual anchor no template generator reaches for; the whole page is a sustained metaphor rather than a layout.",
-        "High-contrast editorial serif (with purposeful italic emphases — 'the fit', 'the cloth', 'set fire to Parliament') paired against a tiny mono/label utility voice and a blackletter '£63 13s 8d' currency mark — a genuine three-register typographic point of view.",
-        "Left-aligned asymmetric composition: oversized name top-left, the personal note set as a right-hand text block, illustration spanning the width — whitespace used as structural mass, zero default-centered symmetry.",
-        "Warm parchment/wood-brown-and-ink palette governed by a single earthy harmony — no purple-blue gradient, no glow garnish; color is derived from the subject (hazel wood, vellum) not applied as decoration.",
-        "Stranger test cleanly met: 'André Macedo', the one-line role (co-founder of RealWorld.fi asset-backed lending + ActualSales B2B lead gen), and me@andremacedo.com all legible above the fold."
+        "A sustained, genuinely editorial conceptual conceit — the tally stick / Exchequer / hazel-wood metaphor — structures the entire page as a printed essay/ledger; this is a decisive signature move no template generator produces.",
+        "High-contrast Didone-style serif with hand-placed italic emphasis ('the fit', 'the cloth', 'set fire to Parliament') against tiny mono utility text — a real typographic point of view, not default sans.",
+        "Warm parchment ground, black text, and a single disciplined red accent (carried by the email link and markers) — a restrained named harmony, the opposite of the purple-gradient default.",
+        "Hero is anchored top-left, not centered: the name sets the type scale, editorial prose sits asymmetrically to the right, and a physical woodgrain tally-stick graphic spans beneath — a composed system rather than a floating headline.",
+        "Stranger test is fully satisfied in the first viewport: name at display scale, the RealWorld.fi / ActualSales one-liner, and me@andremacedo.com all legible without scrolling."
       ],
-      "reasoning": "This is an idiosyncratic editorial art organism, not a SaaS landing — the entire surface is built around a tally-stick/Exchequer conceit with hand-crafted wood illustrations, a chessboard counting table, and a blackletter currency figure, none of which a templated generator would produce. Hero and composition carry real conviction: asymmetric left-anchored type, a decisive full-width graphic, and a coherent parchment-and-ink palette with a three-voice typographic system. It loses a little in the densest chart/index bands where many equal-weight ruled marks slightly dilute focal hierarchy, and the small utility chips are under-resolved, but it clears the stranger floor and makes several signature moves — not slop."
+      "reasoning": "This is unmistakably not a SaaS template: it is a literary, data-visual organism built on a single committed metaphor, with an expressive serif/mono pairing, an asymmetric top-left hero, and a restrained parchment-plus-red palette — multiple moves a default generator would never attempt. The hero and composition are deliberate systems, and the stranger test passes cleanly with name, role, and visible email above the fold. It loses a little in the mid-page list and repeated barcode strips where hierarchy flattens and the viz leans monochrome, but none of the cardinal slop states are present and the editorial conviction clears the bar comfortably."
     },
     "B": {
       "model": "grok-4.20-fast",
@@ -55,24 +55,24 @@
       "overall": 5.0,
       "is_slop": true,
       "findings": [
-        "Generic long-form editorial layout with centered text columns, pull quotes, and illustrative diagrams that any templated generator would produce",
-        "Safe default sans-serif typography used throughout with no decisive typographic point of view or expressive pairing",
-        "Symmetry as substitute for composition: everything is centered or balanced in predictable vertical stacks with no intentional tension or asymmetry",
-        "No single decisive aesthetic move that a templated generator wouldn't make; the 'living art organism' concept is illustrated through safe historical metaphors and data visualizations rather than embodied in the design language",
-        "Hero is a generic centered headline + subhead + wooden graphic element floating above the fold with no resolved system-level relationship between type, space, and graphic",
-        "Multiple competing focal points across long vertical scroll (hero, exchequer diagram, tally list, instrument list) with no clear hierarchy"
+        "Generic long-form editorial layout with centered text blocks, pull quotes, and illustrative diagrams that any templated generator would produce for a 'conceptual personal site'",
+        "Safe default sans-serif typography used as the primary voice throughout with no strong expressive pairing or modular scale (ad-hoc heading sizes, inconsistent rhythm between display, body, and UI text)",
+        "Symmetry as substitute for composition: most sections are rigidly centered with balanced whitespace lacking tension or off-axis anchors",
+        "Hero is a generic centered name + title + bio block floating above a wooden graphic with no decisive compositional move or signature aesthetic risk",
+        "Multiple competing focal points across long vertical scroll (tally graphics, graphs, numbered lists, interactive prompts) with no single clear hierarchy per viewport",
+        "SaaS-landing shape DNA visible in structured sections, buttons, and call-to-action elements despite the 'living art organism' intent"
       ],
       "what_works": [
-        "The wooden tally stick and exchequer cloth metaphors are conceptually coherent and well-executed as illustrative devices",
-        "The stranger_test passes cleanly with name, role, and contact visible in first viewport"
+        "The wooden tally stick and Exchequer cloth metaphors are conceptually integrated into the visual language with some intentional illustration work",
+        "The bottom interactive 'your half / mine' section creates a distinctive participatory gesture that feels native to the concept"
       ],
-      "reasoning": "This is default-grade AI editorial slop dressed in a historical/financial metaphor. While the content is idiosyncratic and the stranger_test is strong, the visual execution is generic: centered symmetry, predictable vertical rhythm, safe sans type, and no signature aesthetic risk or decisive move that distinguishes it from any other 'deep thoughtful personal site' template. The 'living art organism' promise is not visible in the pixels — it reads as a long illustrated essay rather than an antifragile, self-rebuilding design organism. Hero and composition are particularly mediocre."
+      "reasoning": "This is default-grade AI conceptual editorial slop. While it avoids the purple-gradient SaaS template, it falls into the equally common 'long thoughtful essay with tasteful illustrations and wooden textures' mold. The type scale is not modular, the composition is mostly centered symmetry, the hero lacks a decisive move, and focal hierarchy is weak across the tall desktop scroll. The stranger_test passes due to the prominent name, title, and email in the top viewport, but the overall execution is safe, generic, and lacks the singular aesthetic conviction required for andremacedo.com. The mobile version maintains the same mediocrity without rescue."
     }
   },
   "margin_override": {
     "critic": "A",
     "model": "claude-opus-4-8-oauth",
-    "overall": 8.0,
+    "overall": 8.1,
     "margin": 7.3
   }
 }

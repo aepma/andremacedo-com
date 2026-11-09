@@ -856,3 +856,6 @@ gen 262 weekly: the tally counts before it cuts. A black counting cloth under th
 
 ## gen 263 (weekly, 2026-11-05)
 gen 263 weekly: the tally fits. Your half is laid against mine on one calendar and says which of my bodies you met; instrument 141 Michaelmas, where six sheriffs prove their stocks and one is caught by the grain
+
+## gen 264 (weekly, 2026-11-09)
+gen 264 weekly: the stock goes to market. A new § 3 lays one £100 stock across the page over a half-year of prices; sell it and each buyer's name is inked on its back, carry it to Michaelmas and the foil fits. The ledger rolls up; instrument 142 Discount

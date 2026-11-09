@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>142 — Discount · andremacedo.com</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<style>
+  html,body{margin:0;height:100%;background:#1a1612;color:#efe8d6;overflow:hidden;
+    font-family:Charter,"Iowan Old Style",Georgia,serif;}
+  #cv{position:fixed;left:0;top:0;display:block;touch-action:none;cursor:pointer;}
+  #info{position:fixed;top:14px;left:16px;max-width:56ch;opacity:0.9;font-size:14px;line-height:1.55;z-index:3;pointer-events:none;
+    text-shadow:0 0 8px rgba(0,0,0,0.8),0 0 20px rgba(0,0,0,0.5);}
+  #info h1{font-family:"Big Caslon","Hoefler Text",Baskerville,Georgia,serif;font-weight:400;font-size:28px;margin:0 0 6px;}
+  #info p{margin:0 0 6px;}
+  #info .how{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:12px;color:#d9d0b8;}
+  #back{position:fixed;top:16px;right:16px;z-index:3;color:#efe8d6;font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:12px;
+    text-shadow:0 0 8px rgba(0,0,0,0.8),0 0 20px rgba(0,0,0,0.5);}
+  #ui{position:fixed;left:16px;right:16px;bottom:14px;z-index:3;font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:12px;
+    display:flex;flex-direction:column;gap:8px;max-width:88ch;text-shadow:0 0 8px rgba(0,0,0,0.8),0 0 20px rgba(0,0,0,0.5);}
+  #read{margin:0;line-height:1.6;min-height:3.2em;}
+  #read b{font-weight:400;color:#a9d8bb;}
+  #read i{font-style:normal;color:#e8a882;}
+  .ctl{display:flex;gap:8px;flex-wrap:wrap;}
+  button{font:inherit;color:#efe8d6;background:rgba(26,22,18,.85);border:1px solid rgba(239,232,214,.45);padding:6px 10px;cursor:pointer;}
+  button:hover{border-color:#a9d8bb;}
+  button:focus-visible{outline:2px solid #a9d8bb;outline-offset:2px;}
+  @media (max-width:600px){
+    #info{top:40px;max-width:calc(100vw - 32px);font-size:13px;line-height:1.45;}
+    #info h1{font-size:23px;}
+    #info .how{font-size:11.5px;}
+    #read{min-height:4.8em;}
+  }
+</style>
+</head>
+<body>
+<canvas id="cv" role="img" aria-label="A goldsmith's counter in London, 1695 to 1698. Eight hazel tally stocks, each drawn on a tax, lie in rows. The part of each stock a buyer would pay for is bare hazel; the discount is charred off its far end. Under them runs a line of quarters with what London believed the Crown would pay."></canvas>
+<div id="info">
+  <h1>142 — Discount</h1>
+  <p>In the 1690s a tally’s stock was worth its face only once the tax it was drawn on came in, so goldsmiths bought stocks below their face. How far below depended on the wait, and on whether anyone believed the Crown would pay. The stocks are invented; the trade is not.</p>
+  <p class="how">drag along the years at the bottom, or ← → · tap a stock to read it · P plays the years</p>
+</div>
+<a id="back" href="/">← andremacedo.com</a>
+<div id="ui">
+  <p id="read" aria-live="polite"></p>
+  <div class="ctl"><button type="button" id="bPrev">◂ a quarter back</button><button type="button" id="bNext">a quarter on ▸</button><button type="button" id="bPlay">play the years (P)</button></div>
+</div>
+<script>
+(function(){
+  'use strict';
+  var cv=document.getElementById('cv'), ctx=cv.getContext('2d');
+  var info=document.getElementById('info'), ui=document.getElementById('ui'), out=document.getElementById('read');
+  var MONO='ui-monospace,"SF Mono",Menlo,Consolas,monospace', SERIF='Charter,"Iowan Old Style",Georgia,serif';
+  var LEAF='#a9d8bb', EMBER='#e8a882', BONE='#efe8d6', DIM='#bfb49a', HAZEL='#dcc59b', BARK='#6c5d4b', CLOTH='#1a1612';
+  var QN=['Lady Day','Midsummer','Michaelmas','Christmas'], NQ=16;
+  function qname(q){return QN[q%4]+' '+(1695+Math.floor(q/4));}
+  /* what London believed the Crown would pay, by quarter: the coin called in through 1696, the Bank's offer in 1697 */
+  var C=[.9,.88,.85,.8,.58,.42,.37,.46,.6,.76,.84,.88,.9,.92,.93,.94];
+  var EV={4:'The old clipped coin is being called in, and there is almost no money in London.',8:'The Bank of England will take tallies at their face for four fifths of a new subscription to its stock.'};
+  var S=[
+    {tax:'land tax',face:500,due:5},
+    {tax:'excise on beer',face:100,due:2},
+    {tax:'salt duty',face:260,due:11},
+    {tax:'customs at London',face:340,due:7},
+    {tax:'poll tax',face:60,due:4},
+    {tax:'land tax',face:1200,due:9},
+    {tax:'excise on spirits',face:150,due:13},
+    {tax:'land tax',face:820,due:15}
+  ];
+  S.forEach(function(s,i){s.paid=s.due+(C[s.due]<.5?3:0);s.seed=i*37+11;});
+  function frac(s,q){
+    if(q>=s.paid){return 1;}
+    var w=(s.paid-q)/4;
+    return Math.max(.35,1-w*(.06+(1-C[q])*.3));
+  }
+  function lsd(p){var pd=Math.round(p*240),L=Math.floor(pd/240),r=pd-L*240,sh=Math.floor(r/12),d=r-sh*12;return '£'+L+(sh||d?' '+sh+'s':'')+(d?' '+d+'d':'');}
+  var WD=['no','one','two','three','four','five','six','seven','eight','nine','ten','eleven','twelve','thirteen','fourteen','fifteen','sixteen','seventeen','eighteen','nineteen'];
+  function cuts(face){
+    var u=[[1000,'palm','palms'],[100,'thumb','thumbs'],[20,'finger','fingers'],[1,'barleycorn','barleycorns']], r=face, parts=[];
+    u.forEach(function(x){var n=Math.floor(r/x[0]);r-=n*x[0];if(n){parts.push(WD[n]+' '+(n===1?x[1]:x[2]));}});
+    return parts.length>1?parts.slice(0,-1).join(', ')+' and '+parts[parts.length-1]:parts[0];
+  }
+  var q=0, sel=-1, timer=null, drag=false, W=0, H=0, rows=[], tl={x0:0,x1:0,y:0}, colR=0;
+
+  function layout(){
+    var top=info.getBoundingClientRect().bottom+18, uiTop=ui.getBoundingClientRect().top;
+    tl.y=uiTop-30; tl.x0=Math.max(20,W*.05); tl.x1=W-Math.max(20,W*.05);
+    var area=tl.y-74-top, rh=Math.max(32,Math.min(66,area/S.length));
+    colR=Math.min(W-20,20+Math.min(W-40,820));
+    var maxL=colR-20-(W>700?150:0);
+    rows=S.map(function(s,i){return {x:20,y:top+i*rh,h:rh,len:maxL*(.42+.58*Math.log(s.face/50)/Math.log(1300/50))};});
+  }
+  function fit(){
+    var dpr=Math.min(2,window.devicePixelRatio||1);
+    W=window.innerWidth; H=window.innerHeight;
+    cv.width=Math.round(W*dpr); cv.height=Math.round(H*dpr); cv.style.width=W+'px'; cv.style.height=H+'px';
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    layout(); draw();
+  }
+  function rnd(s){var x=Math.sin(s*12.9898)*43758.5453;return x-Math.floor(x);}
+
+  function notches(face,bx,by,bh){
+    var u=[[1000,15,.66],[100,10,.52],[20,6,.4],[1,3.4,.28]], r=face, x=bx;
+    ctx.fillStyle=CLOTH;
+    u.forEach(function(k){
+      var n=Math.floor(r/k[0]); r-=n*k[0];
+      for(var i=0;i<n;i++){
+        ctx.beginPath();
+        if(k[0]===1){ctx.moveTo(x,by-1);ctx.quadraticCurveTo(x+k[1]/2,by+bh*k[2]*1.7,x+k[1],by-1);}
+        else{ctx.moveTo(x,by-1);ctx.lineTo(x+k[1]/2,by+bh*k[2]);ctx.lineTo(x+k[1],by-1);}
+        ctx.closePath(); ctx.fill();
+        x+=k[1]+(k[0]===1?1.6:3);
+      }
+      if(n){x+=4;}
+    });
+  }
+
+  function stock(i){
+    var s=S[i], r=rows[i], f=frac(s,q), paid=q>=s.paid;
+    var small=W<520, fs=small?11:12;
+    var bx=r.x, by=r.y+fs+8, bh=Math.max(12,Math.min(20,r.h-fs-14)), len=r.len;
+    /* the label line */
+    ctx.font=fs+'px '+MONO; ctx.textBaseline='alphabetic';
+    ctx.fillStyle=i===sel?BONE:DIM; ctx.textAlign='left';
+    ctx.fillText(s.tax+' · £'+s.face,bx,r.y+fs);
+    ctx.textAlign='right';
+    ctx.fillStyle=paid?LEAF:(i===sel?BONE:DIM);
+    ctx.fillText(paid?'paid at its face':lsd(s.face*f).replace(/ \d+d$/,'')+' · '+Math.round((1-f)*100)+'% off',colR,r.y+fs);
+    /* the handle, the wood */
+    ctx.fillStyle=BARK; ctx.fillRect(bx,by,12,bh);
+    ctx.fillStyle=HAZEL; ctx.fillRect(bx+12,by,len-12,bh);
+    ctx.strokeStyle='rgba(108,93,75,.42)'; ctx.lineWidth=1;
+    for(var g=0;g<3;g++){
+      ctx.beginPath();
+      var gy=by+bh*(.3+g*.22);
+      for(var x=bx+12;x<=bx+len;x+=6){ctx.lineTo(x,gy+Math.sin(x*.035+s.seed+g)*1.3);}
+      ctx.stroke();
+    }
+    ctx.fillStyle='rgba(76,64,52,.55)'; ctx.fillRect(bx+12,by,len-12,2);
+    notches(s.face,bx+18,by,bh);
+    if(paid){
+      ctx.fillStyle=HAZEL; ctx.globalAlpha=.55; ctx.fillRect(bx+12,by+bh+3,len-12,3); ctx.globalAlpha=1;
+      ctx.fillStyle=LEAF; ctx.fillRect(bx+12,by+bh+1,len-12,1.6);
+    }else{
+      /* the discount, charred off the far end */
+      var cx=bx+12+(len-12)*f;
+      ctx.beginPath(); ctx.moveTo(bx+len,by);
+      var steps=8;
+      for(var k=0;k<=steps;k++){var yy=by+bh*k/steps; ctx.lineTo(cx+(rnd(s.seed+k)-.5)*5,yy);}
+      ctx.lineTo(bx+len,by+bh); ctx.closePath();
+      var gr=ctx.createLinearGradient(cx,0,bx+len,0); gr.addColorStop(0,'#3d2b1c'); gr.addColorStop(1,'#0f0c0a');
+      ctx.fillStyle=gr; ctx.fill();
+      ctx.strokeStyle=EMBER; ctx.lineWidth=1.4; ctx.beginPath();
+      for(k=0;k<=steps;k++){yy=by+bh*k/steps; var ex=cx+(rnd(s.seed+k)-.5)*5; if(k){ctx.lineTo(ex,yy);}else{ctx.moveTo(ex,yy);}}
+      ctx.stroke();
+    }
+    if(i===sel){ctx.strokeStyle=BONE;ctx.lineWidth=1;ctx.strokeRect(bx-3.5,by-3.5,len+7,bh+7);}
+  }
+
+  function timeline(){
+    var x0=tl.x0, x1=tl.x1, y=tl.y, small=W<520;
+    function X(i){return x0+(x1-x0)*i/(NQ-1);}
+    /* belief, as a thin line above the quarters */
+    ctx.strokeStyle=LEAF; ctx.lineWidth=1.4; ctx.globalAlpha=.85; ctx.beginPath();
+    for(var i=0;i<NQ;i++){var yy=y-8-30*(C[i]-.3)/.7; if(i){ctx.lineTo(X(i),yy);}else{ctx.moveTo(X(i),yy);}}
+    ctx.stroke(); ctx.globalAlpha=1;
+    ctx.font=(small?11:12)+'px '+MONO; ctx.fillStyle=DIM; ctx.textAlign='left';
+    ctx.fillText(small?'belief the Crown will pay':'what London believed the Crown would pay',x0,y-46);
+    ctx.strokeStyle='rgba(239,232,214,.4)'; ctx.lineWidth=1; ctx.beginPath(); ctx.moveTo(x0,y); ctx.lineTo(x1,y); ctx.stroke();
+    for(i=0;i<NQ;i++){
+      ctx.beginPath(); ctx.moveTo(X(i),y); ctx.lineTo(X(i),y+(i%4===0?7:4)); ctx.stroke();
+      if(i%4===0){ctx.fillStyle=DIM;ctx.textAlign='left';ctx.fillText(String(1695+i/4),X(i)+3,y+16);}
+      if(EV[i]){ctx.fillStyle=EMBER;ctx.beginPath();ctx.arc(X(i),y,3,0,Math.PI*2);ctx.fill();}
+    }
+    var mx=X(q);
+    ctx.fillStyle=BONE; ctx.beginPath(); ctx.moveTo(mx-6,y-4); ctx.lineTo(mx+6,y-4); ctx.lineTo(mx,y+3); ctx.closePath(); ctx.fill();
+    ctx.strokeStyle='rgba(239,232,214,.7)'; ctx.beginPath(); ctx.moveTo(mx,y-40); ctx.lineTo(mx,y-4); ctx.stroke();
+  }
+
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    ctx.fillStyle=CLOTH; ctx.fillRect(0,0,W,H);
+    ctx.strokeStyle='rgba(239,232,214,.045)'; ctx.lineWidth=1;
+    for(var x=0;x<W;x+=48){ctx.beginPath();ctx.moveTo(x+.5,0);ctx.lineTo(x+.5,H);ctx.stroke();}
+    for(var y=0;y<H;y+=48){ctx.beginPath();ctx.moveTo(0,y+.5);ctx.lineTo(W,y+.5);ctx.stroke();}
+    for(var i=0;i<S.length;i++){stock(i);}
+    timeline();
+    say();
+  }
+
+  function say(){
+    var face=0, val=0, nPaid=0;
+    S.forEach(function(s){var f=frac(s,q);face+=s.face;val+=s.face*f;if(q>=s.paid){nPaid++;}});
+    if(sel>=0){
+      var s=S[sel], f=frac(s,q), late=s.paid>s.due;
+      var t='<b>'+s.tax+', £'+s.face+'</b>, cut as '+cuts(s.face)+', due at '+qname(s.due)+(late?', and paid only at '+qname(s.paid)+', because the tax came in late':'')+'. ';
+      t+=q>=s.paid?'At '+qname(q)+' it has been laid against its foil at the Exchequer and paid in full.'
+        :'At '+qname(q)+' a goldsmith would give <b>'+lsd(s.face*f)+'</b> for it, <i>'+Math.round((1-f)*100)+'% below its face</i>, for waiting '+WD[Math.min(19,s.paid-q)]+' quarter'+(s.paid-q===1?'':'s')+'.';
+      out.innerHTML=t;
+    }else{
+      out.innerHTML='<b>'+qname(q)+'.</b> '+(EV[q]?EV[q]+' ':'')+'On the counter, £'+face+' cut in hazel; a goldsmith would give <b>'+lsd(val)+'</b> for the lot, <i>'+Math.round((1-val/face)*100)+'% below</i>. '+(nPaid?WD[nPaid].charAt(0).toUpperCase()+WD[nPaid].slice(1):'None')+' of eight paid so far.';
+    }
+  }
+
+  function setQ(n){q=Math.max(0,Math.min(NQ-1,n));draw();}
+  function qAt(x){return Math.round((x-tl.x0)/(tl.x1-tl.x0)*(NQ-1));}
+  function stop(){if(timer){clearInterval(timer);timer=null;}}
+  function play(){
+    if(timer){stop();return;}
+    if(q>=NQ-1){q=0;}
+    timer=setInterval(function(){if(q>=NQ-1){stop();return;}setQ(q+1);},650);
+  }
+  cv.addEventListener('pointerdown',function(e){
+    if(e.clientY>tl.y-56){drag=true;stop();setQ(qAt(e.clientX));return;}
+    for(var i=0;i<rows.length;i++){
+      var r=rows[i];
+      if(e.clientY>=r.y&&e.clientY<r.y+r.h&&e.clientX<colR+10){sel=sel===i?-1:i;draw();return;}
+    }
+    sel=-1; draw();
+  });
+  window.addEventListener('pointermove',function(e){if(drag){setQ(qAt(e.clientX));}});
+  window.addEventListener('pointerup',function(){drag=false;});
+  window.addEventListener('keydown',function(e){
+    if(e.key==='ArrowRight'){stop();setQ(q+1);}
+    else if(e.key==='ArrowLeft'){stop();setQ(q-1);}
+    else if(e.key==='p'||e.key==='P'){play();}
+    else if(e.key==='Escape'){sel=-1;draw();}
+    else if(/^[1-8]$/.test(e.key)){sel=+e.key-1;draw();}
+  });
+  document.getElementById('bPrev').addEventListener('click',function(){stop();setQ(q-1);});
+  document.getElementById('bNext').addEventListener('click',function(){stop();setQ(q+1);});
+  document.getElementById('bPlay').addEventListener('click',play);
+  window.addEventListener('resize',fit);
+  fit();
+})();
+</script>
+</body>
+</html>
