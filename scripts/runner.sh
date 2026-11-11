@@ -160,6 +160,10 @@ log_command_failure() {
   log_error "$label | exit=$rc | cmd=$cmd | output_tail: $tail_txt"
 }
 
+# Every Cloudflare Pages deploy goes through pages_deploy (bounded network retry).
+# shellcheck source=pages-deploy.sh
+. "$SCRIPT_DIR/pages-deploy.sh"
+
 # Consecutive-failure counter — launchd retries via the next scheduled run.
 # After $FAILURE_THRESHOLD consecutive failures, send one Telegram and reset.
 read_failure_count() {
@@ -278,42 +282,12 @@ if [ "$PULSE_TYPE" = "daily" ]; then
     exit 1
   fi
   warn_oversized_deploy_files
-  # Capture the deploy's own output instead of piping it straight into the
-  # shared agent log. The full transcript still lands in $LOG_FILE exactly as
-  # before; the difference is that on failure the tail is also available to
-  # log_command_failure, so build-errors.log names the cause by itself.
-  #
-  # One connectivity blip to Cloudflare used to fail the whole day: on
-  # 2026-09-24T14:00Z wrangler gave up with "fetch failed", launchd then held
-  # exit=1 for 24h and the fleet escalated it to Andre as needing a human. A Pages
-  # deploy of the same directory is idempotent, so network-class failures get a
-  # bounded retry with backoff; anything else (file size, auth, config) fails at
-  # once so a real fault is not masked.
-  DAILY_DEPLOY_CMD=(npx wrangler pages deploy "$SITE_DIR" --project-name="andremacedo-com" --branch="main" --commit-dirty=true)
-  DAILY_DEPLOY_ATTEMPTS="${DAILY_DEPLOY_ATTEMPTS:-3}"
-  DAILY_DEPLOY_BACKOFF_S="${DAILY_DEPLOY_BACKOFF_S:-60}"
-  DEPLOY_OUTPUT_FILE=$(mktemp "${TMPDIR:-/tmp}/andremacedo-daily-deploy.XXXXXX")
-  daily_deploy_attempt=1
-  while :; do
-    daily_deploy_rc=0
-    "${DAILY_DEPLOY_CMD[@]}" >"$DEPLOY_OUTPUT_FILE" 2>&1 || daily_deploy_rc=$?
-    cat "$DEPLOY_OUTPUT_FILE" >> "$LOG_FILE" 2>/dev/null || true
-    [ "$daily_deploy_rc" -eq 0 ] && break
-    [ "$daily_deploy_attempt" -lt "$DAILY_DEPLOY_ATTEMPTS" ] || break
-    grep -qiE 'fetch failed|connectivity issue|ECONNRESET|ETIMEDOUT|ENOTFOUND|EAI_AGAIN|socket hang up' \
-      "$DEPLOY_OUTPUT_FILE" || break
-    log "WARN: daily deploy attempt $daily_deploy_attempt/$DAILY_DEPLOY_ATTEMPTS hit a network error; retrying in $((DAILY_DEPLOY_BACKOFF_S * daily_deploy_attempt))s"
-    sleep $((DAILY_DEPLOY_BACKOFF_S * daily_deploy_attempt))
-    daily_deploy_attempt=$((daily_deploy_attempt + 1))
-  done
-  if [ "$daily_deploy_rc" -ne 0 ]; then
-    log_command_failure "daily wrangler deploy failed (attempt $daily_deploy_attempt/$DAILY_DEPLOY_ATTEMPTS)" \
-      "$daily_deploy_rc" "${DAILY_DEPLOY_CMD[*]}" "$DEPLOY_OUTPUT_FILE"
-    rm -f "$DEPLOY_OUTPUT_FILE"
+  # pages_deploy keeps the full transcript in $LOG_FILE, retries network-class
+  # failures, and names the cause in build-errors.log (scripts/pages-deploy.sh).
+  if ! pages_deploy daily; then
     record_failure
     exit 1
   fi
-  rm -f "$DEPLOY_OUTPUT_FILE"
   tmo 30 git -C "$SITE_DIR" push origin HEAD 2>/dev/null || log "WARN: daily git push failed/timed out (non-fatal)"
   log "daily pulse complete (data refreshed + deployed; no LLM spend)"
   record_success
@@ -1351,8 +1325,7 @@ log "Deploying to Cloudflare Pages..."
 
 export CLOUDFLARE_ACCOUNT_ID="98a1dcdbeec2aa3aac24e49c22c652d2"
 purge_local_caches
-if ! npx wrangler pages deploy "$SITE_DIR" --project-name="andremacedo-com" --branch="main" --commit-dirty=true 2>&1 | tee -a "$LOG_FILE" "$BUILD_LOG"; then
-  log_error "wrangler deploy failed"
+if ! pages_deploy "$PULSE_TYPE" "$BUILD_LOG"; then
   record_failure
   exit 1
 fi
