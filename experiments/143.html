@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>143 — Quietus · andremacedo.com</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<style>
+  html,body{margin:0;height:100%;background:#1a1612;color:#efe8d6;overflow:hidden;
+    font-family:Charter,"Iowan Old Style",Georgia,serif;}
+  #cv{position:fixed;left:0;top:0;display:block;touch-action:none;cursor:pointer;}
+  #info{position:fixed;top:14px;left:16px;max-width:60ch;opacity:0.9;font-size:14px;line-height:1.55;z-index:3;pointer-events:none;
+    text-shadow:0 0 8px rgba(0,0,0,0.8),0 0 20px rgba(0,0,0,0.5);}
+  #info h1{font-family:"Big Caslon","Hoefler Text",Baskerville,Georgia,serif;font-weight:400;font-size:28px;margin:0 0 6px;}
+  #info p{margin:0 0 6px;}
+  #info .how{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:12px;color:#d9d0b8;}
+  #back{position:fixed;top:16px;right:16px;z-index:3;color:#efe8d6;font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:12px;
+    text-shadow:0 0 8px rgba(0,0,0,0.8),0 0 20px rgba(0,0,0,0.5);}
+  #ui{position:fixed;left:16px;right:16px;bottom:14px;z-index:3;font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:12px;
+    display:flex;flex-direction:column;gap:8px;max-width:88ch;text-shadow:0 0 8px rgba(0,0,0,0.8),0 0 20px rgba(0,0,0,0.5);}
+  #read{margin:0;line-height:1.6;min-height:3.2em;}
+  #read b{font-weight:400;color:#a9d8bb;}
+  .ctl{display:flex;gap:8px;flex-wrap:wrap;}
+  button{font:inherit;color:#efe8d6;background:rgba(26,22,18,.85);border:1px solid rgba(239,232,214,.45);padding:6px 10px;cursor:pointer;}
+  button:hover{border-color:#a9d8bb;}
+  button:focus-visible{outline:2px solid #a9d8bb;outline-offset:2px;}
+  @media (max-width:600px){
+    #info{top:40px;max-width:calc(100vw - 32px);font-size:13px;line-height:1.45;}
+    #info h1{font-size:23px;}
+    #info .how{font-size:11.5px;}
+    #read{min-height:4.8em;}
+  }
+</style>
+</head>
+<body>
+<canvas id="cv" role="img" aria-label="A sheriff's account at the Exchequer. On the left, a parchment roll with the charge he owes. On the right, six hazel tally stocks he has brought, each cut for a sum. Laid against the Exchequer's foil, a stock that fits is written on the roll as paid into the treasury; one stock does not fit."></canvas>
+<div id="info">
+  <h1>143 — Quietus</h1>
+  <p>Twice a year a sheriff rendered his account at the Exchequer. Each stock he brought was laid against the foil the Exchequer had kept; if the cuts met, the clerk wrote it on the Pipe Roll as paid. When nothing was left owing, the line closed with <i>et quietus est</i>: and he is quit. The sums are invented; the form is not.</p>
+  <p class="how">tap a stock, or press 1 to 6, to lay it against its foil · R renders the account again</p>
+</div>
+<a id="back" href="/">← andremacedo.com</a>
+<div id="ui">
+  <p id="read" aria-live="polite"></p>
+  <div class="ctl" id="ctl"></div>
+</div>
+<script>
+(function(){
+  'use strict';
+  var cv=document.getElementById('cv'), ctx=cv.getContext('2d');
+  var info=document.getElementById('info'), ui=document.getElementById('ui'), out=document.getElementById('read'), ctl=document.getElementById('ctl');
+  var MONO='ui-monospace,"SF Mono",Menlo,Consolas,monospace', SERIF='Charter,"Iowan Old Style",Georgia,serif', DISP='"Hoefler Text","Big Caslon",Baskerville,Georgia,serif';
+  var LEAF='#a9d8bb', BONE='#efe8d6', HAZEL='#dcc59b', BARK='#6c5d4b', VELLUM='#e8e0cb', INK='#16140f', MUTE='#565247', BAIZE='#1d5a3b';
+  var mq=window.matchMedia?window.matchMedia('(prefers-reduced-motion: reduce)'):null;
+  var FARM=80;
+  /* show: the sum cut on the stock; foil: the sum cut on the Exchequer's half */
+  var S=[{show:20,foil:20},{show:15,foil:15},{show:25,foil:20},{show:25,foil:25},{show:12,foil:12},{show:8,foil:8}];
+  var st, lines, W=0, H=0, dpr=1, L={}, anim=null, raf=0;
+  function reset(){st=S.map(function(){return {state:'held'};}); lines=[]; anim=null; say('The sheriff owes the farm of the county, <b>£'+FARM+'</b>. Six stocks are in his bag. Lay them against the Exchequer’s foils one at a time.'); draw();}
+  function owed(){var b=FARM; lines.forEach(function(l){b-=l.v;}); return b;}
+  function say(h){out.innerHTML=h;}
+  function cutsFor(v){var c=[],i; for(i=0;i<Math.floor(v/20);i++){c.push('f');} for(i=0;i<v%20;i++){c.push('b');} return c;}
+  function layout(){
+    var ib=info.getBoundingClientRect().bottom+14, ub=H-ui.getBoundingClientRect().height-24, narrow=W<720;
+    if(narrow){
+      var mid=ib+(ub-ib)*.44;
+      L={mx:16,my:ib,mw:W-32,mh:mid-ib-10,sx:16,sy:mid+4,sw:W-32,sh:ub-mid-4,narrow:true};
+    }else{
+      L={mx:16,my:ib,mw:W*.5-24,mh:ub-ib,sx:W*.55,sy:ib,sw:W*.45-24,sh:ub-ib,narrow:false};
+    }
+    L.row=Math.min(L.narrow?46:74,L.sh/S.length);
+  }
+  function stick(x,y,w,h,v,alpha){
+    ctx.globalAlpha=alpha;
+    ctx.fillStyle=HAZEL; ctx.fillRect(x,y,w,h);
+    ctx.fillStyle=BARK; ctx.fillRect(x,y,Math.min(28,w*.12),h); ctx.fillRect(x,y,w,2.5);
+    var c=cutsFor(v), x0=x+Math.min(28,w*.12)+8, u=Math.min(12,(w-x0+x-8)/(c.length*.9+1)), cx=x0;
+    ctx.fillStyle='#1a1612';
+    c.forEach(function(k){
+      ctx.beginPath();
+      if(k==='f'){ctx.moveTo(cx,y-1);ctx.lineTo(cx+u*.8,y+h*.5);ctx.lineTo(cx+u*1.6,y-1);cx+=u*2;}
+      else{ctx.moveTo(cx,y-1);ctx.quadraticCurveTo(cx+u*.3,y+h*.55,cx+u*.6,y-1);cx+=u*.9;}
+      ctx.closePath(); ctx.fill();
+    });
+    ctx.globalAlpha=1;
+  }
+  function membrane(){
+    var x=L.mx, y=L.my, w=L.mw, h=L.mh, p=L.narrow?12:22;
+    ctx.fillStyle=VELLUM; ctx.fillRect(x,y,w,h);
+    ctx.strokeStyle='rgba(22,20,15,.45)'; ctx.setLineDash([4,4]); ctx.beginPath(); ctx.moveTo(x,y+6); ctx.lineTo(x+w,y+6); ctx.stroke(); ctx.setLineDash([]);
+    ctx.strokeStyle='rgba(108,93,75,.5)'; ctx.beginPath(); ctx.moveTo(x+p-6,y); ctx.lineTo(x+p-6,y+h); ctx.stroke();
+    var fs=L.narrow?14:18, gy=y+p+fs, b=owed();
+    ctx.textBaseline='alphabetic'; ctx.fillStyle=INK; ctx.font='italic '+fs+'px '+DISP;
+    ctx.fillText('Vicecomes reddit compotum de firma comitatus.',x+p,gy,w-2*p);
+    ctx.font=(L.narrow?11:12)+'px '+MONO; ctx.fillStyle=MUTE; gy+=L.narrow?17:22;
+    ctx.fillText('the sheriff renders account of the farm of the county · £'+FARM,x+p,gy,w-2*p);
+    gy+=L.narrow?10:16;
+    lines.forEach(function(l){
+      gy+=L.narrow?20:28; ctx.fillStyle=INK; ctx.font='italic '+fs+'px '+DISP;
+      ctx.fillText('In thesauro liberavit £'+l.v+'.',x+p,gy,w-2*p);
+      ctx.font=(L.narrow?11:12)+'px '+MONO; ctx.fillStyle=MUTE; ctx.textAlign='right';
+      ctx.fillText('stock '+(l.i+1),x+w-p,gy); ctx.textAlign='left';
+    });
+    var big=L.narrow?24:Math.min(52,w*.085);
+    gy=Math.max(gy+big+18,y+h-p-(L.narrow?16:24));
+    if(gy>y+h-p){gy=y+h-p;}
+    ctx.font=(b?'':'italic ')+big+'px '+DISP; ctx.fillStyle=b?INK:BAIZE;
+    ctx.fillText(b?'Et debet £'+b+'.':'Et quietus est.',x+p,gy,w-2*p);
+  }
+  function stocks(now){
+    var rw=L.sw, rh=L.row, sh=Math.max(12,Math.min(26,rh*.34));
+    for(var i=0;i<S.length;i++){
+      var s=st[i], y=L.sy+i*rh, sy=y+rh*.36;
+      ctx.font=(L.narrow?11:12)+'px '+MONO; ctx.textBaseline='alphabetic';
+      ctx.fillStyle=s.state==='held'?BONE:(s.state==='allowed'?LEAF:'#c9bfa6');
+      var tag=(i+1)+' · cut for £'+S[i].show+(s.state==='allowed'?' · allowed':s.state==='refused'?' · refused: the foil does not answer it':'');
+      ctx.fillText(tag,L.sx,sy-6,rw);
+      stick(L.sx,sy,rw,sh,S[i].show,s.state==='held'?1:.55);
+      var f=0;
+      if(anim&&anim.i===i){var e=Math.min(1,(now-anim.t)/(mq&&mq.matches?1:700)); f=e<.5?2*e*e:1-Math.pow(-2*e+2,2)/2;}
+      if(s.state!=='held'||(anim&&anim.i===i)){
+        var off=(1-(anim&&anim.i===i?f:1))*rw*.5, fy=sy+sh+1;
+        ctx.save(); ctx.beginPath(); ctx.rect(L.sx,fy-2,rw,sh+4); ctx.clip();
+        ctx.translate(L.sx+off+rw,fy+sh); ctx.scale(-1,-1);
+        stick(0,0,rw,sh,S[i].foil,.9);
+        ctx.restore();
+        if(s.state==='allowed'){ctx.fillStyle=LEAF; ctx.fillRect(L.sx+28,fy-1,rw-28,2);}
+        if(s.state==='refused'){ctx.strokeStyle='#c9bfa6'; ctx.setLineDash([3,3]); ctx.strokeRect(L.sx+.5,sy+.5,rw-1,sh*2); ctx.setLineDash([]);}
+      }
+    }
+  }
+  function draw(now){
+    raf=0; now=now||performance.now();
+    ctx.setTransform(dpr,0,0,dpr,0,0); ctx.clearRect(0,0,W,H);
+    layout(); membrane(); stocks(now);
+    if(anim){
+      if(now-anim.t>=(mq&&mq.matches?1:700)){var a=anim; anim=null; settle(a.i);}
+      else{raf=requestAnimationFrame(draw);}
+    }
+  }
+  function settle(i){
+    var s=st[i], fit=S[i].show===S[i].foil, b;
+    if(fit){s.state='allowed'; lines.push({v:S[i].show,i:i}); b=owed();
+      say(b?'Stock '+(i+1)+' meets its foil. The clerk writes <i>in thesauro liberavit £'+S[i].show+'</i>: delivered into the treasury. <b>Et debet £'+b+'</b>, and he still owes.':'Stock '+(i+1)+' meets its foil, and nothing is left owing. The clerk closes the line: <b>et quietus est</b>. And he is quit.');
+    }else{s.state='refused';
+      say('Stock '+(i+1)+' says £'+S[i].show+', but the Exchequer’s foil was cut for £'+S[i].foil+'. Five barleycorns were added to his half after the split, and they meet only bare wood. The clerk will not allow it.');}
+    draw();
+  }
+  function present(i){
+    if(anim||!st[i]||st[i].state!=='held'){return;}
+    if(!owed()){say('He is already quit. Nothing more is owed on this roll.'); return;}
+    anim={i:i,t:performance.now()}; draw();
+  }
+  function hit(e){
+    var x=e.clientX, y=e.clientY;
+    if(x<L.sx||x>L.sx+L.sw){return -1;}
+    var i=Math.floor((y-L.sy)/L.row); return i>=0&&i<S.length?i:-1;
+  }
+  cv.addEventListener('click',function(e){var i=hit(e); if(i>=0){present(i);}});
+  window.addEventListener('keydown',function(e){
+    var n=parseInt(e.key,10); if(n>=1&&n<=S.length){present(n-1);}
+    else if(e.key==='r'||e.key==='R'){reset();}
+  });
+  S.forEach(function(s,i){var b=document.createElement('button'); b.type='button'; b.textContent='lay stock '+(i+1); b.addEventListener('click',function(){present(i);}); ctl.appendChild(b);});
+  var rb=document.createElement('button'); rb.type='button'; rb.textContent='render again (R)'; rb.addEventListener('click',reset); ctl.appendChild(rb);
+  function fit(){dpr=Math.min(2,window.devicePixelRatio||1); W=window.innerWidth; H=window.innerHeight; cv.width=Math.round(W*dpr); cv.height=Math.round(H*dpr); cv.style.width=W+'px'; cv.style.height=H+'px'; draw();}
+  window.addEventListener('resize',fit);
+  fit(); reset();
+})();
+</script>
+</body>
+</html>

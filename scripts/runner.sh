@@ -296,17 +296,6 @@ if [ "$PULSE_TYPE" = "daily" ]; then
 fi
 
 # ── Pre-flight (weekly + event only) ───────────────────────────────
-if ! ~/.local/bin/claude auth status 2>/dev/null | python3 -c '
-import json, sys
-d = json.loads(sys.stdin.read())
-sub_ok = (d.get("subscriptionType") == "max") or (d.get("authMethod") == "oauth_token")
-sys.exit(0 if (sub_ok and d.get("loggedIn") is True and d.get("apiProvider") == "firstParty") else 1)
-'; then
-  log_error "subscription auth precondition failed"
-  record_failure
-  exit 1
-fi
-
 if [ ! -f "$STATE_FILE" ]; then
   log "ERROR: agent-state.json not found"
   exit 1

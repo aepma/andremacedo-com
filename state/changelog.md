@@ -859,3 +859,6 @@ gen 263 weekly: the tally fits. Your half is laid against mine on one calendar a
 
 ## gen 264 (weekly, 2026-11-09)
 gen 264 weekly: the stock goes to market. A new § 3 lays one £100 stock across the page over a half-year of prices; sell it and each buyer's name is inked on its back, carry it to Michaelmas and the foil fits. The ledger rolls up; instrument 142 Discount
+
+## gen 265 (weekly, 2026-11-26)
+gen 265 weekly: the tally is rendered and quit. A pipe roll lays five stocks against their foils until the line closes et quietus est; the thirteen lives become one charred bundle; the market chart is cut; instrument 143 Quietus. Epoch XIII metamorphoses.
