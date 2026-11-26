@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>144 · Tie a Number · André Macedo</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<style>
+  html,body{margin:0;height:100%;background:#14110f;color:#efe8dc;overflow:hidden}
+  canvas{display:block;width:100vw;height:100vh;touch-action:none}
+  #info,#back,#controls{position:fixed;font-family:ui-monospace,"SF Mono",Menlo,monospace;text-shadow:0 0 8px rgba(0,0,0,0.8),0 0 20px rgba(0,0,0,0.5)}
+  #info{top:20px;left:20px;max-width:24rem;opacity:.86;font-size:13px;line-height:1.55}
+  #info h1{font-family:Didot,"Bodoni 72",Georgia,serif;font-weight:400;font-size:30px;line-height:1.05;margin:0 0 10px;color:#fbfaf6}
+  #info p{margin:0 0 8px}
+  #info b{color:#f0a3ae;font-weight:400}
+  #back{bottom:18px;left:20px;font-size:13px}
+  #back a{color:#efe8dc}
+  #controls{bottom:18px;right:20px;font-size:13px;text-align:right}
+  #controls button{background:none;border:0;border-bottom:1px solid #efe8dc;color:#efe8dc;font:inherit;cursor:pointer;padding:0;margin-left:14px}
+  @media (max-width:600px){#info{font-size:12px;max-width:calc(100vw - 40px)}#info h1{font-size:24px}}
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div id="info">
+  <h1>144 · Tie a Number</h1>
+  <p>A khipu string holds a number in knots. Near the top, one knot per hundred. Lower, one per ten. At the bottom, a long knot: its turns are the ones. A row with nothing tied is zero.</p>
+  <p><b>The red string on top always holds the total.</b> It ties itself.</p>
+  <p>Tap a row on any string to tie one more there. Nine wraps back to zero. Keys 1 to 5 pick a string, then type a number.</p>
+</div>
+<div id="back"><a href="/">← back to André Macedo</a></div>
+<div id="controls"><span id="sum">total 0</span><button id="clear" type="button">untie all (c)</button></div>
+<script>
+(function(){
+  'use strict';
+  var c=document.getElementById('c'), x=c.getContext('2d'), W, H, D;
+  var vals=[0,0,0,0,0], sel=-1, typed='';
+  function size(){ D=Math.min(2,devicePixelRatio||1); W=innerWidth; H=innerHeight; c.width=W*D; c.height=H*D; draw(); }
+  function geo(){
+    var mob=W<600, top=mob?H*0.42:H*0.3, left=mob?W*0.12:W*0.36, right=mob?W*0.88:W*0.86;
+    var len=Math.min(H*0.5, H-top-70), xs=[];
+    for(var i=0;i<5;i++) xs.push(left+(i+0.5)*(right-left)/6);
+    return {top:top,left:left,right:right,len:len,xs:xs,tx:left+5.5*(right-left)/6,w:mob?6:8};
+  }
+  function rows(g){ return [g.len*0.16,g.len*0.38,g.len*0.6]; }
+  function cord(cx,y0,len,v,w,col,kc,up){
+    var s=up?-1:1, R=[len*0.16,len*0.38,len*0.6], h=Math.floor(v/100)%10, t=Math.floor(v/10)%10, o=v%10, j;
+    x.strokeStyle=col; x.lineWidth=w; x.lineCap='round';
+    x.beginPath(); x.moveTo(cx,y0); x.lineTo(cx,y0+s*len); x.stroke();
+    x.strokeStyle='rgba(20,17,15,.35)'; x.lineWidth=1;
+    for(var p=w;p<len-w;p+=w*0.95){ x.beginPath(); x.moveTo(cx-w*0.4,y0+s*p+w*0.3); x.lineTo(cx+w*0.4,y0+s*p-w*0.3); x.stroke(); }
+    function k(p){ x.fillStyle=kc; x.beginPath(); x.ellipse(cx,y0+s*p,w*1.08,w*0.8,0,0,6.3); x.fill(); }
+    for(j=0;j<h;j++) k(R[0]+(j-(h-1)/2)*w*1.6);
+    for(j=0;j<t;j++) k(R[1]+(j-(t-1)/2)*w*1.6);
+    if(o===1){ k(R[2]); k(R[2]+w*1.1); }
+    else for(j=0;j<o;j++){ x.fillStyle=kc; x.beginPath(); x.ellipse(cx,y0+s*(R[2]+j*w*0.66),w*0.98,w*0.44,-0.3,0,6.3); x.fill(); }
+  }
+  function draw(){
+    x.setTransform(D,0,0,D,0,0); x.fillStyle='#14110f'; x.fillRect(0,0,W,H);
+    var g=geo(), sum=vals.reduce(function(a,b){return a+b;},0);
+    x.strokeStyle='#d9cfbf'; x.lineWidth=g.w*0.9; x.beginPath(); x.moveTo(g.left-20,g.top); x.lineTo(g.right+20,g.top); x.stroke();
+    var R=rows(g);
+    x.font='12px ui-monospace, Menlo, monospace'; x.fillStyle='rgba(239,232,220,.55)'; x.textAlign='right';
+    ['hundreds','tens','ones'].forEach(function(n,i){ x.fillText(n, g.xs[0]-g.w*3, g.top+R[i]+4); });
+    for(var i=0;i<5;i++){
+      cord(g.xs[i], g.top, g.len, vals[i], g.w, i===sel?'#fbfaf6':'#b8ad9c', '#efe8dc', false);
+      x.textAlign='center'; x.font=(W<600?20:28)+'px Didot, "Bodoni 72", Georgia, serif'; x.fillStyle=i===sel?'#fbfaf6':'#d9cfbf';
+      x.fillText(String(vals[i]), g.xs[i], g.top+g.len+38);
+    }
+    cord(g.tx, g.top, Math.min(g.top-30, g.len*0.8), sum%1000, g.w, '#c4243e', '#f0a3ae', true);
+    x.textAlign='left'; x.fillStyle='#f0a3ae'; x.font=(W<600?24:34)+'px Didot, "Bodoni 72", Georgia, serif';
+    x.fillText(String(sum), g.tx+g.w*2.5, g.top-12);
+    document.getElementById('sum').textContent='total '+sum+(sum>999?' (the top string shows the last three digits)':'');
+  }
+  function tap(px,py){
+    var g=geo(), R=rows(g), best=-1, bd=40;
+    for(var i=0;i<5;i++){ var d=Math.abs(px-g.xs[i]); if(d<bd){bd=d;best=i;} }
+    if(best<0) return;
+    sel=best; var dy=py-g.top, r=-1, rd=1e9;
+    for(var k=0;k<3;k++){ var dd=Math.abs(dy-R[k]); if(dd<rd){rd=dd;r=k;} }
+    if(dy<0||dy>g.len) { draw(); return; }
+    var v=vals[best], place=[100,10,1][r], digit=Math.floor(v/place)%10;
+    vals[best]=v-digit*place+((digit+1)%10)*place; typed=''; draw();
+  }
+  c.addEventListener('pointerdown',function(e){ tap(e.clientX,e.clientY); });
+  addEventListener('keydown',function(e){
+    if(e.key==='c'||e.key==='C'){ vals=[0,0,0,0,0]; sel=-1; typed=''; draw(); return; }
+    if(sel<0 && /^[1-5]$/.test(e.key)){ sel=+e.key-1; typed=''; draw(); return; }
+    if(sel>=0 && /^[0-9]$/.test(e.key)){ typed=(typed+e.key).slice(-3); vals[sel]=+typed; draw(); return; }
+    if(sel>=0 && (e.key==='Enter'||e.key==='Escape')){ sel=-1; typed=''; draw(); }
+  });
+  document.getElementById('clear').addEventListener('click',function(){ vals=[0,0,0,0,0]; sel=-1; draw(); });
+  addEventListener('resize',size); size();
+  vals=[29,8,31,28,0]; draw();
+})();
+</script>
+</body>
+</html>

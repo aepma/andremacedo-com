@@ -862,3 +862,6 @@ gen 264 weekly: the stock goes to market. A new § 3 lays one £100 stock across
 
 ## gen 265 (weekly, 2026-11-26)
 gen 265 weekly: the tally is rendered and quit. A pipe roll lays five stocks against their foils until the line closes et quietus est; the thirteen lives become one charred bundle; the market chart is cut; instrument 143 Quietus. Epoch XIII metamorphoses.
+
+## gen 266 (weekly, 2026-11-26)
+gen 266 weekly: open Epoch XIV, the khipu. The hero is a live khipu of 165 knotted strings, my lives in days and every experiment by number, a red top string holding the sum; the page rebuilds itself from a plain template; a six-scene film with two WebGL cuts; experiment 144 Tie a Number

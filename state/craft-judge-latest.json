@@ -4,8 +4,8 @@
   "is_slop": true,
   "threshold": 7.0,
   "margin": 7.3,
-  "overall_min": 5.0,
-  "reason": "margin override: critic A/claude-opus-4-8-oauth overall 8.3 >= margin 7.3 ships despite the other critic's veto (B/grok-4.20-fast(slop))",
+  "overall_min": 6.0,
+  "reason": "margin override: critic A/claude-opus-4-8-oauth overall 8.2 >= margin 7.3 ships despite the other critic's veto (B/grok-4.20-fast(slop))",
   "critics": {
     "A": {
       "model": "claude-opus-4-8-oauth",
@@ -13,29 +13,31 @@
       "axes": {
         "type_scale": 8.0,
         "spacing_system": 8.0,
-        "focal_hierarchy": 8.0,
-        "restraint": 8.0,
+        "focal_hierarchy": 7.0,
+        "restraint": 9.0,
         "hero": 8.0,
-        "composition": 9.0,
+        "composition": 8.0,
         "type_craft": 9.0,
         "color": 8.0,
-        "stranger_test": 9.0
+        "stranger_test": 8.0
       },
-      "overall": 8.3,
+      "overall": 8.2,
       "is_slop": false,
       "findings": [
-        "Several mono margin annotations (top-right AI note, the per-section captions in the gutters) render so small they read as grey texture more than legible text — they flirt with being decoration rather than content.",
-        "The horizontal wood-grain tally-bar graphic recurs in nearly every section; by the third and fourth repetition it edges toward sameyness and leans on the same trick to carry transitions.",
-        "The mid-page data tables (thousands/hundreds/scores/pounds/shillings/pence ledger, the November account log) are dense enough to momentarily flatten the otherwise strong focal hierarchy within those viewports."
+        "The top band of hanging khipu strings is so dense it momentarily competes with the André Macedo name block for first fixation — the eye catches the string-field texture before the display serif, softening the hero's intended focal order.",
+        "The corner registration brackets around the '247' scene lean on a familiar 'film frame' trope; the idea is strong but the execution of the markers themselves is a touch generic.",
+        "Mono instruction lines ('point at any string to read it · tap it on a phone', 'next cut: the unravel') pile up a fair amount of small utility text, slightly diluting the otherwise ruthless restraint.",
+        "'next cut: the unravel' plus the ← → arrow prompt flirts with deck/prev-next navigation language, though it is framed as film cuts rather than slides and avoids true slideshow shape."
       ],
       "what_works": [
-        "The carved tally-stick as a full-bleed generative motif — wood grain, notch marks, the £165 15s 2d denominations — is a genuine signature move no template generator would reach for; it binds the exchequer conceit to the actual pixels.",
-        "High-contrast editorial serif with italicized phrase accents ('the fit', 'the cloth', 'et quietus est', 'xxix dies') set against a tiny monospace marginal voice is a deliberate, expressive pairing, not the default system sans.",
-        "Warm vellum/tan/charcoal palette with zero gradients, glows, or glassmorphism — a named earthy harmony held with real restraint.",
-        "Asymmetric manuscript layout: left-aligned display name, prose column, and a persistent mono marginalia rail create intentional off-axis tension instead of centered symmetry.",
-        "Stranger test fully satisfied in the first viewport — 'André Macedo', the one-line role (RealWorld.fi / ActualSales), and the underlined me@andremacedo.com are all legible without scrolling."
+        "The khipu rendered as actual knotted strings drawn in code — hanging cords, counted knots, a red anchor thread — is a decisive, unrepeatable signature move no templated generator would reach for.",
+        "The 247 panel is a real explainer/data-visualization: a vertical cord with grouped knots mapped to 200/40/7, teaching how to read it, carrying genuine editorial conviction.",
+        "Typography pairing is exactly the high-contrast editorial serif (Didot) against a mono utility voice, with a serif body between — intentional and expressive, not default sans.",
+        "Monochrome cream-and-black with a single crimson thread as the only accent, used sparingly on anchors and knot markers — restrained, named harmony, zero gradient garnish.",
+        "Asymmetric layout uses whitespace as compositional mass: text anchored left, strings cascading across the right and top, off-axis red anchor top-right.",
+        "The page reads as a directed passage — 'a short film, drawn in code', 'stop the film', 'next cut' — the plain default state is fully gone and each section composes as a frame."
       ],
-      "reasoning": "This is an editorial, manuscript-grade page built on an extended medieval-exchequer tally-stick metaphor, with a high-contrast serif/mono pairing, a warm vellum palette, and asymmetric marginalia — none of which a SaaS-template generator would produce. The hero is a deliberate system (left-aligned name, AI marginal note, carved tally graphic) rather than a centered headline over a gradient, and the stranger test passes cleanly with name, role, and visible email above the fold. It is docked slightly for sub-legible gutter annotations and the repeated tally-bar graphic verging on a one-trick rhythm, but it clears the bar and shows clear editorial conviction."
+      "reasoning": "This is distinctly above template grade: the khipu-drawn-in-code conceit, the knot-counting 247 explainer, and the Didot/Iowan/mono pairing against a single red thread are visible, deliberate aesthetic moves a generic generator would never produce. The stranger test clears the floor — name, 'Co-founder of RealWorld.fi (loans against valuables) and ActualSales', and me@andremacedo.com are all legible in the first viewport, with khipu and TELOS explained in plain words. Minor demerits for the dense string field briefly fighting the name for focus and some familiar film-frame markers, but no cardinal slop state is present and the composition and type craft carry real conviction."
     },
     "B": {
       "model": "grok-4.20-fast",
@@ -44,35 +46,37 @@
       "axes": {
         "type_scale": 4.0,
         "spacing_system": 6.0,
-        "focal_hierarchy": 3.0,
-        "restraint": 5.0,
-        "hero": 4.0,
+        "focal_hierarchy": 7.0,
+        "restraint": 8.0,
+        "hero": 6.0,
         "composition": 5.0,
-        "type_craft": 7.0,
-        "color": 6.0,
-        "stranger_test": 9.0
+        "type_craft": 5.0,
+        "color": 4.0,
+        "stranger_test": 8.0
       },
-      "overall": 5.0,
+      "overall": 6.0,
       "is_slop": true,
       "findings": [
-        "generic AI-longform editorial template with dense justified text blocks, historical illustration graphics, and faux parchment sections that any templated generator would output for a 'conceptual personal site'",
-        "no single decisive aesthetic move; the entire page is a safe, inoffensive blend of woodcut/tally-stick metaphors and modern web typography without editorial risk or signature conviction",
-        "symmetry and centered alignment used as default composition throughout (especially in the hero and section dividers), standing in for actual tension or asymmetry",
-        "multiple competing focal points with no clear hierarchy: massive serif headlines, wood texture graphics, interactive tally diagrams, and dense body copy all fight for attention in every viewport",
-        "decoration without strong hierarchy: wood textures, ruled lines, parchment backgrounds, and notched tally bars applied as thematic garnish rather than purposeful compositional anchors",
-        "SaaS-landing shape DNA visible despite the art-organism intent: sequential long-scroll sections with consistent header hierarchy, call-to-action style interactive elements, and footer metadata"
+        "Safe default sans (system-ui/Inter-like) used throughout with no decisive typographic point of view",
+        "Hero is a generic centered headline + bio block floating beside a large illustrative graphic with no decisive compositional tension",
+        "Symmetry and centered alignment used as default layout substitute rather than intentional asymmetric composition",
+        "No single decisive aesthetic move that a templated generator wouldn't produce; the khipu conceit is conceptually strong but rendered in safe, illustrative, default-grade web design language",
+        "Thin strings at top read as decorative garnish rather than a tightly integrated system (some visual clutter without clear hierarchy)",
+        "Overall shape still feels like a thoughtful but template-grade portfolio/landing organism rather than a singular living art piece"
       ],
       "what_works": [
-        "strong stranger_test with clear name, role, contact, and conceptual framing in the first viewport",
-        "intentional type pairing of high-contrast editorial serif with supporting mono and historical display faces creates some voice"
+        "The khipu metaphor is executed with visible craft in the string/knot illustrations and explanatory microcopy",
+        "Strong stranger_test clarity: name, role, email, and contact method are immediately legible in first viewport",
+        "Effective use of the red accent thread as a recurring visual motif tying sections together",
+        "Restraint in color and effects; no gratuitous gradients, glows or shadows"
       ],
-      "reasoning": "The desktop render is a dense, thematically-cohesive but visually generic longform editorial page. While it avoids the purple-gradient SaaS template, it falls into the equally common 'AI conceptual art/history project' template with its wood textures, tally metaphors, parchment sections, and wall-of-text structure. Type craft and stranger_test are the only areas with visible intentionality. Everything else — hierarchy, composition, restraint, hero — is mediocre default-grade execution that a templated generator would produce for this brief. The mobile version maintains the craft but does not rescue the fundamental lack of a decisive, non-derivative aesthetic move. This is safe, inoffensive AI slop."
+      "reasoning": "The desktop render shows a conceptually ambitious living page built around the Inca khipu system, with strong plain-language clarity and visible craft in the illustrative strings. However it fails to escape default-grade AI/web design tropes: safe sans typography with no modular scale or expressive pairing, centered/symmetrical composition used as a crutch, and a hero that is merely a large graphic next to text rather than a singular decisive aesthetic statement. The cinematic rebuild aspect is present but the finished state still reads as a clean portfolio page rather than a transformative living art organism. Multiple cardinal slop states are triggered."
     }
   },
   "margin_override": {
     "critic": "A",
     "model": "claude-opus-4-8-oauth",
-    "overall": 8.3,
+    "overall": 8.2,
     "margin": 7.3
   }
 }
