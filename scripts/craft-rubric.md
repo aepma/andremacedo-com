@@ -1,4 +1,4 @@
-<!-- rubric_version: 2 -->
+<!-- rubric_version: 3 -->
 # Craft Rubric — andremacedo.com
 
 The standard the **adversarial craft judge** (`scripts/craft-judge.py`) holds a
@@ -58,10 +58,27 @@ templated generator would not make.
 9. **stranger_test** — From the screenshot alone, can a first-time visitor say
    who this is, what he does, and how to contact him within the first viewport?
    Name, one line on what Andre does, and a visible email address must all be
-   legible without scrolling or interacting. This axis is a FLOOR: any
+   legible without scrolling or interacting. It also tests plain language
+   (SOUL.md, Plain language, rubric_version 3): every visible line must be
+   clear to a smart stranger on the first read, in short sentences and
+   everyday words, with any historical or technical reference explained in
+   plain words where it appears and little body text on screen. Dense prose,
+   jargon, Latin, insider names or an unexplained reference anywhere on the
+   page caps this axis at 6. This axis is a FLOOR: any
    generation scoring under 7 here is a FAILED verdict regardless of every
    other axis and regardless of the overall score (rubric_version 2,
    2026-09-06: andremacedo.com is a business surface).
+10. **cinematic** — The cinematic organ (SOUL.md, rubric_version 3). The
+   screenshot is taken after the opening rebuild should have landed. Score
+   whether the page reads as the finished living state of a directed passage:
+   the plain default state fully gone (any visible leftover of it, a half-edited
+   layout, or a frame stuck mid-transition is a 0–3), the current scene composed
+   as a deliberate frame of a sequence rather than a static page, and any
+   visible transition seam, navigation cue, or scene marker carrying intent
+   instead of a stock fade, dot pager, or carousel arrow. A page with no sign of
+   a directed passage at all scores under 4. A stock slideshow or deck shape
+   (title slide, bullets, page numbers, prev/next buttons) is slop. Weigh this
+   axis into `overall`; it never lowers the stranger_test floor.
 
 ## SLOP DEFINITION (cardinal failure states)
 The visual equivalent of generic AI prose. If the rendered page exhibits any of
@@ -77,6 +94,10 @@ the offender:
   wouldn't have produced; no risk, no signature, no editorial conviction.
 - **Symmetry as a substitute for composition**: everything centered and balanced
   because that's the safe default, not because the composition demanded it.
+- **The stuck default**: the screenshot still shows the plain pre-rebuild
+  state, or a layout frozen half-way through its own edit (rubric_version 3).
+- **The slide deck**: title slide, bullet list, page numbers or prev/next
+  buttons standing in for a directed passage (rubric_version 3).
 - **Generic SaaS-landing shape**: nav + centered tagline + CTA + feature grid +
   footer, applied to a page that is supposed to be a living art organism.
 
@@ -86,7 +107,8 @@ The judge returns JSON only:
 {
   "axes": { "type_scale": 0-10, "spacing_system": 0-10, "focal_hierarchy": 0-10,
             "restraint": 0-10, "hero": 0-10, "composition": 0-10,
-            "type_craft": 0-10, "color": 0-10, "stranger_test": 0-10 },
+            "type_craft": 0-10, "color": 0-10, "stranger_test": 0-10,
+            "cinematic": 0-10 },
   "overall": 0-10,                // honest aggregate, weighted toward hero + composition
   "is_slop": true|false,         // true if ANY cardinal slop state is present
   "findings": [ "specific, concrete: what is generic/safe/template-grade and where" ],
