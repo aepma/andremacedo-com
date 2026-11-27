@@ -1,4 +1,4 @@
-<!-- rubric_version: 3 -->
+<!-- rubric_version: 4 -->
 # Craft Rubric — andremacedo.com
 
 The standard the **adversarial craft judge** (`scripts/craft-judge.py`) holds a
@@ -51,8 +51,11 @@ templated generator would not make.
    tension (asymmetry, an off-axis anchor, a considered grid), or is the layout
    default-centered symmetry standing in for composition?
 7. **type_craft** — Is the typeface choice and pairing intentional and expressive
-   (e.g. high-contrast editorial serif against a mono utility voice), or is it the
-   safe default system sans that every AI generation reaches for?
+   (e.g. a wide grotesk at an extreme weight against a mono utility voice), or is
+   it the safe default system sans that every AI generation reaches for? Type is
+   sans-serif or monospace only (SOUL.md, Sans-serif only, rubric_version 4): any
+   serif or slab-serif face visible anywhere on the page, display type included,
+   scores this axis 0–2 and is slop.
 8. **color** — One dominant accent governed by a named harmony, used with
    restraint? Or a rainbow of equal-weight hues / the default purple-blue gradient?
 9. **stranger_test** — From the screenshot alone, can a first-time visitor say
@@ -98,6 +101,15 @@ the offender:
   state, or a layout frozen half-way through its own edit (rubric_version 3).
 - **The slide deck**: title slide, bullet list, page numbers or prev/next
   buttons standing in for a directed passage (rubric_version 3).
+- **The default AI design** (rubric_version 4, Andre's ruling 2026-11-26: the
+  page "looks very Claude coded"): the look a model reaches for when it has no
+  idea of its own. Any ONE of these visible on the page is slop: a serif or
+  slab-serif face anywhere, display type included; an editorial serif headline;
+  a cream, beige or parchment background; italic flourishes used as
+  decoration; numbered section marks (§, 01, I., No. 3) used as ornament;
+  small-caps or letter-spaced metadata lines (dates, issue numbers, kickers);
+  terracotta, rust or burnt-orange accents; essay-style prose about history.
+  Name the offender in `findings`.
 - **Generic SaaS-landing shape**: nav + centered tagline + CTA + feature grid +
   footer, applied to a page that is supposed to be a living art organism.
 

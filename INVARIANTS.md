@@ -348,6 +348,31 @@ timings, pixel contrast) at the runner's pre-deploy gate, directly after
 `mobile-gate.js`. The craft rubric's `stranger_test` axis (INV-14) judges the
 same question with fresh eyes.
 
+## INV-18 — Sans-serif only
+
+**Rule:** every font on the page is sans-serif or monospace. No font stack,
+CSS custom property, `font` shorthand, SVG `font-family` attribute, script
+string or font-service URL may name a serif face (Georgia, Times, Garamond,
+Bodoni, Didot, Palatino, Iowan Old Style, Playfair, Fraunces, Lora, any family
+whose name carries Serif, Slab, Antiqua or Old Style, and the rest of the list
+in `validate-build.py`) or the generic families `serif`, `ui-serif`,
+`cursive`, `fantasy` or `fangsong`. Every `font-family` stack whose value is
+known ends its fallbacks in `sans-serif`, `monospace`, `system-ui`,
+`ui-sans-serif`, `ui-monospace` or `ui-rounded`, so a missing web font never
+falls back to the browser's serif default. This binds index.html and every
+experiment page left uncommitted in the tree, including one left over from a
+failed run: fix or delete it.
+
+**Why:** SOUL.md Sans-serif only (Andre's ruling, 2026-11-26, on live gen
+266): stop using serif fonts, and stop looking like a page an AI made by
+default. Gen 266 carried Didot and Iowan Old Style display stacks.
+
+**Checked by:** `check_sans_serif_only` in `scripts/validate-build.py`, on
+index.html and on each experiment page that differs from git HEAD. The craft
+rubric's cardinal failure state "The default AI design" (INV-14) judges the
+rendered look, so a serif drawn as an image or the rest of the banned defaults
+also fail.
+
 ---
 
 ## Amendment process
@@ -365,3 +390,6 @@ enforcement — is itself a violation of the contract.
   on `<body>`; non-instrument pages must carry none of the mobile scaffold,
   keyboard, or Tone.js. Reason: the production page is a business surface
   without an instrument. INV-6 and INV-17 unchanged.
+- 2026-11-26 — INV-18 added: sans-serif only, on index.html and uncommitted
+  experiment pages, enforced by `check_sans_serif_only`. Reason: Andre's
+  ruling on live gen 266 (SOUL.md, Sans-serif only).

@@ -587,6 +587,215 @@ def check_visitor_floor(html, path):
     return True, f"name/role/contact present once each; role {len(role_text)} chars"
 
 
+# ── INV-18: sans-serif only (SOUL.md, Sans-serif only, 2026-11-26) ─
+# Andre's ruling on live gen 266: every typeface is sans-serif or monospace,
+# in every epoch, display type included. A family resolves to serif when it
+# names a serif face, carries a serif word in its name, or is a non-sans,
+# non-mono generic; a stack with no sans or mono fallback resolves to the
+# browser default, which is serif.
+
+BANNED_GENERICS = ("serif", "ui-serif", "cursive", "fantasy", "fangsong")
+SAFE_GENERICS = ("sans-serif", "monospace", "system-ui", "ui-sans-serif",
+                 "ui-monospace", "ui-rounded")
+CSS_WIDE_KEYWORDS = ("inherit", "initial", "unset", "revert", "revert-layer")
+# Serif faces matched as whole words inside a family name. A name that also
+# carries the word sans or mono (Merriweather Sans, Courier) is not matched.
+SERIF_FACES = (
+    "georgia", "times", "tinos", "garamond", "baskerville", "bodoni", "didot",
+    "palatino", "iowan", "caslon", "cambria", "constantia", "charter", "hoefler",
+    "bembo", "minion", "sabon", "perpetua", "plantin", "century schoolbook",
+    "new york", "playfair", "fraunces", "lora", "merriweather", "cormorant",
+    "crimson", "spectral", "newsreader", "literata", "gelasio", "alegreya",
+    "cardo", "vollkorn", "bitter", "arvo", "rockwell", "domine", "prata",
+    "gloock", "abril fatface", "gentium", "noticia", "petrona", "old standard",
+    "tiempos", "freight", "canela", "recoleta", "sectra", "clarendon", "cooper",
+)
+SERIF_FACE_RES = tuple(re.compile(r"(?<![a-z0-9])" + re.escape(f) + r"(?![a-z0-9])")
+                       for f in SERIF_FACES)
+# Serif words in a family name, after any "sans serif" phrase is removed.
+SERIF_WORD_RE = re.compile(r"(?<![a-z0-9])(?:serif|slab|antiqua|old ?style)(?![a-z0-9])")
+SANS_SERIF_PHRASE_RE = re.compile(r"sans[\s_-]?serif")
+SANS_OR_MONO_RE = re.compile(r"(?<![a-z0-9])(?:sans|mono|monospace)(?![a-z0-9])")
+CSS_COMMENT_RE = re.compile(r"(?s)/\*.*?\*/")
+JS_LINE_COMMENT_RE = re.compile(r"(?m)(?:^|(?<=\s))//[^\n]*")
+STYLE_BLOCK_RE = re.compile(r"(?is)<style\b[^>]*>(.*?)</style>")
+STYLE_ATTR_RE = re.compile(r"""(?is)\sstyle\s*=\s*(?:"([^"]*)"|'([^']*)')""")
+FONT_ATTR_RE = re.compile(r"""(?is)\sfont-family\s*=\s*(?:"([^"]*)"|'([^']*)')""")
+FONT_FACE_RE = re.compile(r"(?is)@font-face\s*\{([^}]*)\}")
+FONT_DECL_RE = re.compile(r"(?i)(?<![\w-])(font-family|font|--[\w-]+)\s*:\s*([^;{}<>\n]*)")
+JS_STRING_RE = re.compile(r"""'((?:[^'\\\n]|\\.)*)'|"((?:[^"\\\n]|\\.)*)"|`((?:[^`\\]|\\.)*)`""")
+FONT_SPEC_HINT_RE = re.compile(
+    r"(?i)(?:\d|\b)(?:px|pt)\b|\d(?:em|rem)\b|(?<![\w-])(?:serif|sans-serif|monospace|system-ui|cursive|fantasy)(?![\w-])")
+HTML_ENTITY_RE = re.compile(r"&#?\w+;")
+FONT_URL_FAMILY_RE = re.compile(
+    r"""(?i)(?:fonts\.googleapis\.com|fonts\.bunny\.net|fontshare\.com|typekit\.net|fonts\.cdnfonts\.com)"""
+    r"""[^"'\s)]*""")
+URL_FAMILY_PARAM_RE = re.compile(r"(?i)(?:family|f\[\])=([^&\"'\s)]+)")
+VAR_RE = re.compile(r"var\(\s*(--[\w-]+)\s*(?:,\s*([^()]*))?\)")
+
+
+def _norm_family(piece):
+    piece = re.sub(r"(?i)!important", "", piece)
+    piece = re.sub(r"var\(\s*--[\w-]+", " ", piece).replace(")", " ")
+    piece = HTML_ENTITY_RE.sub(" ", piece)
+    return re.sub(r"[\s+]+", " ", piece.strip().strip("'\"").strip()).lower()
+
+
+def serif_reason(piece, shorthand=False):
+    """Why one comma piece of a font value is serif, or None.
+
+    With shorthand=True the piece may carry size, weight or style words
+    before the family (the font shorthand, a canvas font, a JS string), so a
+    banned generic counts only as the whole piece or its last word."""
+    name = _norm_family(piece)
+    if not name:
+        return None
+    last = name.split(" ")[-1]
+    if name in BANNED_GENERICS or (shorthand and last in BANNED_GENERICS):
+        return "generic %r" % (last if shorthand else name)
+    if name in SAFE_GENERICS or name in CSS_WIDE_KEYWORDS:
+        return None
+    if SERIF_WORD_RE.search(SANS_SERIF_PHRASE_RE.sub(" ", name)):
+        return "serif face %r" % name
+    if not SANS_OR_MONO_RE.search(name):
+        for face, rx in zip(SERIF_FACES, SERIF_FACE_RES):
+            if rx.search(name):
+                return "serif face %r (%s)" % (name, face)
+    return None
+
+
+def _pieces(value):
+    return [p for p in value.split(",") if p.strip()]
+
+
+def _font_sources(html):
+    """(label, css-ish text) for every place a font can be set inline."""
+    scripts = [CSS_COMMENT_RE.sub(" ", JS_LINE_COMMENT_RE.sub(" ", body))
+               for _, body in find_inline_scripts(html)]
+    styles = [CSS_COMMENT_RE.sub(" ", m.group(1)) for m in STYLE_BLOCK_RE.finditer(html)]
+    attrs = [m.group(1) or m.group(2) or "" for m in STYLE_ATTR_RE.finditer(html)]
+    return styles, attrs, scripts
+
+
+def _resolve(value, props, depth=0):
+    """Expand var(--x) against every definition of --x; None when unknown."""
+    m = VAR_RE.search(value)
+    if not m:
+        return [value]
+    if depth > 8:
+        return None
+    defs = props.get(m.group(1)) or ([m.group(2)] if m.group(2) else None)
+    if not defs:
+        return None
+    out = []
+    for d in defs:
+        sub = _resolve(value[:m.start()] + d + value[m.end():], props, depth + 1)
+        if sub is None:
+            return None
+        out.extend(sub)
+    return out
+
+
+def serif_findings(html):
+    """Every serif use INV-18 can see statically in one page."""
+    found = []
+    styles, attrs, scripts = _font_sources(html)
+    css_texts = styles + attrs + scripts
+    faces = []
+    stripped = []
+    for text in css_texts:
+        faces.extend(m.group(1) for m in FONT_FACE_RE.finditer(text))
+        stripped.append(FONT_FACE_RE.sub(" ", text))
+    for block in faces:
+        for m in FONT_DECL_RE.finditer(block):
+            if m.group(1).lower() == "font-family":
+                why = serif_reason(m.group(2))
+                if why:
+                    found.append("@font-face %s" % why)
+    decls = [(m.group(1).lower(), m.group(2)) for t in stripped for m in FONT_DECL_RE.finditer(t)]
+    decls += [("font-family", m.group(1) or m.group(2) or "") for m in FONT_ATTR_RE.finditer(html)]
+    props = {}
+    for prop, value in decls:
+        if prop.startswith("--"):
+            props.setdefault(prop, []).append(value)
+    for prop, value in decls:
+        shorthand = prop != "font-family"
+        for piece in _pieces(value):
+            why = serif_reason(piece, shorthand=shorthand)
+            if why:
+                found.append("%s: %s in %r" % (prop, why, value.strip()[:80]))
+        if prop != "font-family":
+            continue
+        resolved = _resolve(re.sub(r"(?i)!important", "", value), props)
+        for stack in resolved or []:
+            parts = [_norm_family(p) for p in _pieces(stack)]
+            if not parts or (len(parts) == 1 and parts[0] in CSS_WIDE_KEYWORDS):
+                continue
+            if parts[-1] not in SAFE_GENERICS:
+                found.append("font-family %r has no sans-serif or monospace fallback, "
+                             "so it falls back to serif" % stack.strip()[:80])
+    for body in scripts:
+        for m in JS_STRING_RE.finditer(body):
+            lit = m.group(1) or m.group(2) or m.group(3) or ""
+            if "font-family" in lit.lower() or not FONT_SPEC_HINT_RE.search(lit):
+                continue  # CSS inside a string was already read as a declaration
+            for piece in _pieces(lit):
+                why = serif_reason(piece, shorthand=True)
+                if why:
+                    found.append("script string: %s in %r" % (why, lit[:80]))
+    for m in FONT_URL_FAMILY_RE.finditer(html):
+        for fam in URL_FAMILY_PARAM_RE.findall(m.group(0)):
+            name = re.split(r"[:@]", fam.replace("%20", " ").replace("+", " "))[0]
+            why = serif_reason(name)
+            if why:
+                found.append("font service loads %s" % why)
+    return sorted(set(found))
+
+
+def changed_experiment_pages(index_path):
+    """Experiment pages that differ from git HEAD, or None when not a site tree.
+
+    Raises RuntimeError when git cannot answer: unverified pages fail closed."""
+    site = os.path.dirname(os.path.abspath(index_path))
+    if os.path.basename(index_path) != "index.html" or not os.path.isdir(os.path.join(site, "experiments")):
+        return None
+    top = subprocess.run(["git", "-C", site, "rev-parse", "--show-toplevel"],
+                         capture_output=True, text=True, timeout=30)
+    if top.returncode != 0 or os.path.realpath(top.stdout.strip()) != os.path.realpath(site):
+        raise RuntimeError("%s is not the top of its own git tree (%s)"
+                           % (site, (top.stdout or top.stderr).strip()[:200]))
+    cp = subprocess.run(["git", "-C", site, "status", "--porcelain", "--untracked-files=all",
+                         "--", "experiments"], capture_output=True, text=True, timeout=30)
+    if cp.returncode != 0:
+        raise RuntimeError("git status exit %d: %s" % (cp.returncode, cp.stderr.strip()[:200]))
+    pages = []
+    for line in cp.stdout.splitlines():
+        code, rel = line[:2], line[3:].split(" -> ")[-1].strip().strip('"')
+        if "D" in code or not rel.endswith(".html"):
+            continue
+        pages.append(os.path.join(site, rel))
+    return sorted(pages)
+
+
+def check_sans_serif_only(html, path):
+    """INV-18: no serif face and no serif fallback, in index.html and in every
+    experiment page left uncommitted beside it."""
+    problems = ["%s: %s" % (os.path.basename(path), f) for f in serif_findings(html)]
+    try:
+        pages = changed_experiment_pages(path)
+    except (RuntimeError, OSError, subprocess.SubprocessError) as exc:
+        return False, "sans-serif-only: cannot list changed experiment pages (%s); unverified pages do not ship" % exc
+    for page in pages or []:
+        with open(page, encoding="utf-8") as f:
+            rel = os.path.relpath(page, os.path.dirname(os.path.abspath(path)))
+            problems.extend("%s: %s" % (rel, x) for x in serif_findings(f.read()))
+    if problems:
+        shown = "; ".join(problems[:6]) + ("; and %d more" % (len(problems) - 6) if len(problems) > 6 else "")
+        return False, ("sans-serif-only: every font must be sans-serif or monospace (SOUL.md, "
+                       "Sans-serif only): " + shown)
+    return True, "%d experiment page(s) checked" % len(pages or [])
+
+
 # ── The contract registry: INVARIANTS.md ←→ enforcement ───────────
 # One row per statically checkable invariant. INV-2 (self-intro wording),
 # INV-9 (legibility in context), and INV-13 (scene as full instrument within
@@ -606,6 +815,7 @@ CHECKS = [
     ("INV-12", "no-autoplay", check_no_autoplay),
     ("INV-12", "audio-behind-gesture", check_audio_behind_gesture),
     ("INV-17", "visitor-floor", check_visitor_floor),
+    ("INV-18", "sans-serif-only", check_sans_serif_only),
 ]
 
 

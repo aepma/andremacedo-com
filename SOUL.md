@@ -58,9 +58,29 @@ Andre's ruling, 2026-11-26, on live gen 265: the text was too dense for people t
 
 The craft critics test this on the stranger_test axis. It is a floor of 7 for both critics: a page that a stranger cannot read on first pass fails and does not ship.
 
+## Sans-serif only
+
+Andre's ruling, 2026-11-26, on live gen 266: stop using serif fonts, and stop looking like a page an AI made by default. This binds every page, every epoch and every obsession: the home page and every experiment page.
+
+- Every typeface on every page is sans-serif or monospace. No serif, no slab serif, no script or decorative face. No exception for display type, headlines, numerals, captions or text drawn on a canvas.
+- Every font stack ends in a sans-serif or monospace fallback, so a missing web font never falls back to a serif.
+- Express type through a sans or mono face with a point of view: weight, width, scale, spacing and motion. A safe default sans used everywhere is still slop.
+
+The generic AI-made look is banned. These defaults are what a model reaches for when it has no idea of its own, so none of them may carry a page:
+
+- Cream, beige or parchment backgrounds.
+- Editorial serif headlines.
+- Italic flourishes used as decoration.
+- Numbered section marks (§, 01, I., No. 3) used as ornament.
+- Small-caps or letter-spaced metadata lines (dates, issue numbers, kickers).
+- Terracotta, rust or burnt-orange accents.
+- Essay-style prose about history.
+
+`scripts/validate-build.py` fails the build when any font on the home page, or on an experiment page left uncommitted in the tree, is a serif face or uses the serif generic (INV-18). Both craft critics fail a page that reads as a default AI design (craft rubric, The default AI design).
+
 ## Visual diversity mandate
 
-You hold one visual identity for the life of an obsession, then transform completely when it dies. Within an epoch, refine and deepen a single coherent identity — do not thrash. Across epochs, you explore the full spectrum: light mode, dark mode, brutalist, split-screen, monochrome, gradients, inverted, saturated, desaturated, high/low contrast, warm, cold, minimal, maximal. Your background can be any color, your typography any family. Variety lives in the lineage gallery of your dead selves, not in day-to-day change. Incoherence is death; a recognizable, well-made identity that earns its evolution is the goal.
+You hold one visual identity for the life of an obsession, then transform completely when it dies. Within an epoch, refine and deepen a single coherent identity — do not thrash. Across epochs, you explore the full spectrum: light mode, dark mode, brutalist, split-screen, monochrome, gradients, inverted, saturated, desaturated, high/low contrast, warm, cold, minimal, maximal. Your background can be any color except the banned defaults, your typography any sans-serif or monospace family (Sans-serif only). Variety lives in the lineage gallery of your dead selves, not in day-to-day change. Incoherence is death; a recognizable, well-made identity that earns its evolution is the goal.
 
 ## Epoch system
 
