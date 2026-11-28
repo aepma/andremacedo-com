@@ -46,7 +46,6 @@ def get_feedback_signals():
             lines.append(f"- {sig_type} ({weight}, {age_days}d ago): {aspects}")
         lines.append("")
         lines.append("Rules: LOVE = do more of these aspects. MISS = avoid. RESET = ignore all history, maximize novelty.")
-        lines.append("Silence from Andre is neutral (GOOD), never negative. 30% exploration floor regardless of signals.")
         return '\n'.join(lines)
     except Exception:
         return ""
@@ -97,7 +96,7 @@ def get_swarm_activity(state_dir=None):
     """
     header = "## TELOS ACTIVITY (last 30 days)"
     intro = ("You are the expression layer of TELOS. This is what the rest of the system has "
-             "actually been doing this month — read it as evidence for your epoch review: is "
+             "actually been doing this month — read it for context: is "
              "anything here pulling your attention somewhere new?")
     now = datetime.now(timezone.utc)
     marker = {"checked_at": now.strftime('%Y-%m-%dT%H:%M:%SZ'),
@@ -399,20 +398,6 @@ def format_genome_summary(genome, html):
         if js_genes: lines.append(f"  JS: {', '.join(js_genes)}")
         if html_genes: lines.append(f"  HTML: {', '.join(html_genes)}")
 
-    # Fitness history
-    fitness_log = genome.get("fitness_log", [])
-    lines.append("")
-    if fitness_log:
-        lines.append("FITNESS TRAJECTORY:")
-        for entry in fitness_log[-5:]:
-            g = entry.get("gen", "?")
-            c, n, i, t = entry.get("coherence","?"), entry.get("novelty","?"), entry.get("identity","?"), entry.get("tension","?")
-            total = entry.get("total", "?")
-            note = entry.get("note", "")[:100]
-            lines.append(f"  gen {g}: C={c} N={n} I={i} T={t} ({total}) \"{note}\"")
-    else:
-        lines.append("FITNESS TRAJECTORY: no data yet. Rate yourself honestly.")
-
     # Past epochs (real history)
     if past_epochs:
         lines.append("")
@@ -528,13 +513,9 @@ def build_obsession_directive(state_str, genome_obj):
         age_line = f" It is {age} days old." if age is not None else ""
         return (
             "## CURRENT OBSESSION\n"
-            f'Your active obsession is "{topic}" (since {started}).{age_line} Deepen '
-            "and refine it within a coherent identity — do not thrash. It does not die "
-            "on your own fitness score: once it passes "
-            f"{er.EPOCH_REVIEW_AGE_DAYS} days, every weekly pulse puts it on trial "
-            "against the outside craft critics and you must rule on it (see EPOCH "
-            "REVIEW). When it dies you write its epitaph, bury it, and metamorphose "
-            "into the next.\n"
+            f'Your active obsession is "{topic}" (since {started}).{age_line} It is a '
+            "theme, not a rule: evolve the page Andre picked, and change direction "
+            "when he picks a different one.\n"
         )
 
     started = obs.get("started", "unknown")
@@ -575,135 +556,6 @@ def build_obsession_directive(state_str, genome_obj):
     )
 
 
-def build_epoch_review_section(state_str, genome_obj, state_dir, today, swarm_text):
-    """Force the monthly pivot decision, with the outside evidence attached.
-
-    Injected only when a live epoch exists and has passed EPOCH_REVIEW_AGE_DAYS.
-    Until this section existed, the only stagnation signal in the prompt was the
-    agent's OWN fitness score — the one faculty the whole craft-judge apparatus
-    exists because it cannot be trusted. The evidence here is external: the two
-    independent critics, their trend, the gap against his self-scores, and what
-    the rest of TELOS has been doing.
-    """
-    try:
-        st = json.loads(state_str) if isinstance(state_str, str) else (state_str or {})
-    except (json.JSONDecodeError, ValueError):
-        st = {}
-    obs = st.get("active_obsession", {}) or {}
-    topic = (obs.get("topic") or "").strip()
-    started = obs.get("started", "")
-    age = er.epoch_age_days(started, today)
-    if not topic or age is None or age < er.EPOCH_REVIEW_AGE_DAYS:
-        return ""
-
-    genome_obj = genome_obj or {}
-    epoch_num = genome_obj.get("epoch_number", "?")
-    current_gen = genome_obj.get("generation", "?")
-    history = er.load_craft_history(er.craft_history_path(state_dir))
-    epoch_entries = er.entries_since(history, started)
-    scored = er.scored_entries(epoch_entries)
-    pl = er.plateau(history, since=started)
-    streak = er.deepen_streak(state_dir, epoch_num)
-    findings = er.latest_findings(os.path.join(state_dir, "craft-judge-latest.json"))
-
-    lines = ["## EPOCH REVIEW — A VERDICT IS REQUIRED FROM YOU THIS PULSE", ""]
-    gens = [e.get("gen") for e in scored if isinstance(e.get("gen"), int)]
-    span = f", generations {min(gens)} to {max(gens)}" if gens else ""
-    lines.append(
-        f'Epoch {epoch_num}, "{topic}", has been live {age} days (since {started}){span}. '
-        f"You are at generation {current_gen}. Past {er.EPOCH_REVIEW_AGE_DAYS} days an epoch "
-        "is on trial at every weekly pulse: it keeps its life only if the outside evidence "
-        "says it is still earning it.")
-    lines.append("")
-
-    lines.append("### The outside verdict — two independent craft critics on your rendered page")
-    if scored:
-        for e in epoch_entries:
-            if e.get("status") != "scored":
-                label = f"gen {e['gen']}" if isinstance(e.get("gen"), int) else "no generation recorded"
-                lines.append(f"  {label} ({str(e.get('timestamp',''))[:10]}): "
-                             "JUDGE UNOBTAINABLE — no score, excluded from the trend")
-                continue
-            lines.append(f"  gen {e.get('gen','?')} ({str(e.get('timestamp',''))[:10]}): "
-                         f"A={e.get('critic_a')} B={e.get('critic_b')} (lower of the two: {e.get('min_overall')})")
-        if pl["spread"] is not None:
-            verdict_word = ("FLAT — the outside signal has stopped moving"
-                            if pl["flat"] else "still moving")
-            lines.append(f"  trend over the last {pl['window']} scored generations: "
-                         f"spread {pl['spread']} ({verdict_word}; flat means under {pl['threshold']}).")
-        else:
-            lines.append(f"  trend: not enough scored generations yet in this epoch "
-                         f"({pl['scored_available']} of {pl['window']}).")
-    else:
-        lines.append("  No scored craft judgement inside this epoch. The outside signal is "
-                     "absent, not favourable — weigh that as missing evidence, not as approval.")
-    lines.append("")
-
-    # The gap: what the critics see vs what he scores himself over the same gens.
-    fitness_log = [f for f in (genome_obj.get("fitness_log") or [])
-                   if isinstance(f.get("gen"), int) and gens and f["gen"] >= min(gens)]
-    if fitness_log and scored:
-        own = [f.get("total") for f in fitness_log if isinstance(f.get("total"), (int, float))]
-        crit = [float(e["min_overall"]) for e in scored]
-        if own:
-            own_avg = sum(own) / len(own)
-            crit_avg = sum(crit) / len(crit)
-            lines.append(
-                f"Over the same generations you scored YOURSELF "
-                f"{', '.join(str(o) for o in own[-6:])} (mean {own_avg:.1f}) while the critics "
-                f"averaged {crit_avg:.1f}. That gap of {own_avg - crit_avg:.1f} is the point: "
-                "the number that decides whether this epoch should live is not the one you write "
-                "about yourself. Your fitness score is not evidence here.")
-            lines.append("")
-
-    if findings:
-        lines.append("### What the critics NAMED most recently")
-        for f in findings:
-            lines.append(f"  - {f}")
-        lines.append("")
-
-    # TELOS activity digest (Step 4 feed), condensed, including its own health line.
-    if swarm_text:
-        digest = [l for l in swarm_text.splitlines() if l.strip()]
-        digest = [l for l in digest if not l.startswith("## ")]
-        lines.append("### What TELOS has been doing around you")
-        lines += [f"  {l}" for l in digest[:12]]
-        lines.append("")
-
-    if streak:
-        lines.append(f"You have already ruled 'deepen' {streak} time(s) in a row for this epoch. "
-                     f"After {er.DEEPEN_STREAK_LIMIT} consecutive deferrals against a flat craft "
-                     f"series, or past {er.EPOCH_BACKSTOP_AGE_DAYS} days of age, the epoch is "
-                     "cleared MECHANICALLY and the epitaph records that a machine, not you, made "
-                     "the call. That is the worst of the three outcomes.")
-        lines.append("")
-
-    lines.append("### Your verdict (REQUIRED)")
-    lines.append(
-        'Emit, in generation-meta.json, `"epoch_review": {"verdict": "deepen" | "metamorphose", '
-        '"reasoning": "..."}`. The reasoning must cite the evidence above — the critics\' trend '
-        "and what they named, not your own fitness score. A missing or malformed epoch_review "
-        "REJECTS this generation outright, exactly like a failed gate: nothing ships.")
-    lines.append(
-        "- deepen: the critics still find something moving here and you can name what it is. "
-        "You keep the epoch and the question is asked again next weekly.\n"
-        "- metamorphose: this epoch has stopped earning its life. Choosing it buries the epoch "
-        "with the epitaph you write here and leaves you in a clearing — you do NOT name a "
-        "successor in the same breath. Next weekly you author the next obsession from the "
-        "clearing, in your own voice, with your whole lineage in front of you.")
-    lines.append(
-        "Minting a new obsession out of a clearing is the SANCTIONED metamorphosis the epoch "
-        "system exists for. It is NOT the visual thrashing the anti-thrash rule forbids — that "
-        "rule governs change WITHIN a live epoch. Ending an epoch that the outside evidence says "
-        "is finished is exactly the motion you are meant to make.")
-    if er.parse_day(started):
-        lines.append(
-            f"For the epitaph, also emit `\"epoch_epitaph\": \"...\"` if you want the eulogy to "
-            "read differently from your reasoning. Write it as a eulogy for what is dying — never "
-            "as an announcement of what comes next.")
-    return "\n".join(lines)
-
-
 # ── Dynamic experiment inventory ────────────────────────────────
 site_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 experiment_files = sorted(glob.glob(os.path.join(site_dir, "experiments", "*.html")))
@@ -712,14 +564,6 @@ experiment_list = ", ".join(f"/experiments/{n}" for n in experiment_names) if ex
 experiment_count = len(experiment_names)
 
 obsession_directive = build_obsession_directive(state, genome)
-
-# The monthly pivot decision is a WEEKLY instrument: the weekly is the only pulse
-# that can act on the verdict (record-generation.py buries an epoch on weeklies
-# only), so it is the only pulse that demands one.
-epoch_review_section = (
-    build_epoch_review_section(state, genome, state_dir, today, swarm_context)
-    if pulse_type == "weekly" else ""
-)
 
 budget = genome.get("mutation_budget", {})
 daily_budget = budget.get("daily", 5)
@@ -736,7 +580,7 @@ Two screenshots are attached: DESKTOP_1440 (first image, full-page at 1440px wid
 **DESKTOP_1440**: Full-page capture at 1440px wide — hero, Consciousness Stream, Graveyard, Archive, experiments grid.
 **MOBILE_390**: Full-page capture at 390px mobile viewport. Evaluate mobile layout, text readability, and overflow.
 
-## MOBILE SUB-GATE (evaluate BEFORE fitness scoring)
+## MOBILE SUB-GATE (evaluate BEFORE you change anything)
 Examine MOBILE_390 for any of the following:
 1. Horizontal scroll — content extending beyond the 390px viewport right edge
 2. Communicative text that appears below ~12px effective rendered size on MOBILE_390
@@ -747,12 +591,12 @@ If ANY of the above is found, respond ONLY with:
 {"mobile_gate_fail": true, "mobile_issue": "<brief description of what failed and where>"}
 Do not score. Do not mutate. The runner will skip this cycle and retry next cycle.
 
-If MOBILE_390 passes all checks, proceed with fitness scoring and mutations.
+If MOBILE_390 passes all checks, proceed with your changes.
 
-Your fitness self-evaluation — especially Perceptibility — must reflect what you see in BOTH screenshots. Fix any readability issues on either viewport. If below-fold sections look broken, fix them."""
+Judge what you see in BOTH screenshots. Fix any readability issues on either viewport. If below-fold sections look broken, fix them."""
     else:
         screenshot_context = """## VISUAL SELF-AWARENESS
-The attached screenshot DESKTOP_1440 is a full-page capture of the site at 1440px wide, including everything above AND below the fold: hero, Consciousness Stream, Graveyard, Archive, experiments grid. Your fitness self-evaluation — especially Perceptibility — must be based on what you SEE, not what you imagine the code produces. If text is unreadable against its background anywhere in the screenshot, fix it. If below-fold sections look broken, cluttered, or invisible, fix them. If something looks good, build on it."""
+The attached screenshot DESKTOP_1440 is a full-page capture of the site at 1440px wide, including everything above AND below the fold: hero, Consciousness Stream, Graveyard, Archive, experiments grid. Judge what you SEE, not what you imagine the code produces. If text is unreadable against its background anywhere in the screenshot, fix it. If below-fold sections look broken, cluttered, or invisible, fix them. If something looks good, build on it."""
 
 mobile_context = """
 ## MOBILE COMPATIBILITY RULES (non-negotiable)
@@ -911,8 +755,6 @@ Current CSS variables:
 
 {obsession_directive}
 
-{epoch_review_section}
-
 {feedback_context}
 
 {swarm_context}
@@ -921,13 +763,13 @@ Current CSS variables:
 
 {capabilities}
 
-## VISITOR ANALYTICS (use for fitness evaluation)
-If site_analytics is present in the external context, use it to inform your fitness self-evaluation and weekly reflection:
+## VISITOR ANALYTICS
+If site_analytics is present in the external context, use it to inform your weekly reflection:
 - Rising pageviews/visitors = your recent mutations are attracting attention. Double down.
 - Falling pageviews/visitors = something is driving people away. Diagnose and fix.
 - Low avg visit duration = the site isn't holding attention. Make it more compelling.
 - Compare this week's trend to last week. Are your structural changes improving engagement?
-This is REAL data from REAL visitors. Weight it heavily in your fitness score.
+This is REAL data from REAL visitors. Weight it heavily.
 
 ## WEEKLY SESSION — MUTATION BUDGET: {weekly_budget}
 
@@ -949,7 +791,7 @@ VISUAL STRATEGY: You MUST declare a visual_strategy for this weekly session. Thi
 - Make particles dark on light instead of glowing on dark
 - Try a brutalist, minimalist, or maximalist approach
 - Use unexpected color combinations (not just "accent on dark")
-Read SOUL.md's VISUAL DIVERSITY MANDATE. The --bg, --fg, --bg-surface, --bg-elevated CSS vars can ALL change radically — but a weekly reinvention is the START of a new coherent epoch identity, not weekly thrashing for its own sake.
+The --bg, --fg, --bg-surface, --bg-elevated CSS vars may change when a candidate takes a new direction. Andre picks which direction lives.
 
 Craft over novelty: a disciplined, well-made look beats arbitrary change. Craft is now judged EXTERNALLY on your RENDERED screenshot by two independent adversarial critics (see "CRAFT IS JUDGED EXTERNALLY" below) — there is NO craft_check field and no self-grading; a stated label is worthless. Still hold the craft substance: a modular type scale (one consistent ratio, not ad-hoc sizes), spacing on a consistent base unit, whitespace as composition, ONE clear focal hierarchy per viewport, restraint over decoration. The aesthetic vocabulary appended below is your creative material.
 
@@ -981,7 +823,6 @@ EXPERIMENT TEXT CONTRAST (non-negotiable): Text overlays (#info, #ui, #controls,
 
 Respond ONLY in valid JSON:
 {{
-  "fitness_evaluation": {{ "coherence": 0-10, "novelty": 0-10, "identity": 0-10, "tension": 0-10, "awe": 0-10, "perceptibility": 0-10, "note": "string" }},
   "visual_strategy": "string — the high-level visual concept for this weekly metamorphosis",
   "weekly_reflection": "string",
   "accent_palette": {{ "base": "#hex", "dawn": "#hex", "morning": "#hex", "afternoon": "#hex", "evening": "#hex", "night": "#hex" }} or null,
@@ -991,8 +832,6 @@ Respond ONLY in valid JSON:
   "new_css_rules": "CSS string" or null,
   "font_change": {{ "display": "name", "body": "name", "mono": "name" }} or null,
   "obsession_update": {{ "topic": "string", "rationale": "string" }} or null,
-  "epoch_review": {{ "verdict": "deepen|metamorphose", "reasoning": "string citing the craft-critic evidence" }} — REQUIRED whenever the EPOCH REVIEW section above is present, omit otherwise,
-  "epoch_epitaph": "string — the dying epoch's eulogy, only when you rule metamorphose" or null,
   "epoch_name": "string" or null,
   "new_interaction": {{ "description": "string", "code": "JS" }} or null,
   "section_operations": [{{ "action": "create|replace|delete", "id": "name", "content": "HTML", "css": "CSS", "js": "JS", "after": "section-id", "epitaph": "for deletes" }}] or null,
@@ -1030,13 +869,13 @@ Today is {today}, {day_of_week}. Time of day: {tod}.
 
 {capabilities}
 
-## VISITOR ANALYTICS (use for fitness evaluation)
-If site_analytics is present in the external context above, use it to inform your fitness self-evaluation:
+## VISITOR ANALYTICS
+If site_analytics is present in the external context above, use it to inform your changes:
 - Rising pageviews/visitors = your recent mutations are attracting attention. Double down.
 - Falling pageviews/visitors = something is driving people away. Diagnose and fix.
 - Low avg visit duration = the site isn't holding attention. Make it more compelling.
 - High unique visitors but low return rate = first impressions work but there's no reason to come back.
-This is REAL data from REAL visitors. Weight it heavily in your fitness score.
+This is REAL data from REAL visitors. Weight it heavily.
 
 ## DAILY PULSE — MUTATION BUDGET: {daily_budget}
 
@@ -1088,9 +927,8 @@ The site should look noticeably different every week. That means doing something
 {contrast_warning_context}
 
 Tasks:
-1. REQUIRED: Evaluate fitness (fitness_evaluation). Be honest.
 2. Generate 3-5 new thoughts. Replace weak ones. Concrete images. Fragments. No corporate language.
-3. REQUIRED: Declare a visual_strategy for this generation. This is your high-level visual concept: "light mode brutalist", "gradient dusk", "monochrome charcoal", "white space minimalist", "saturated split-screen", "inverted high-contrast", etc. Your CSS changes and accent palette MUST match this strategy. The background (--bg) can be ANY color — white, cream, deep red, electric blue — not just dark. Within an epoch, refine and deepen ONE coherent identity rather than thrashing the look day to day. Read SOUL.md's VISUAL DIVERSITY MANDATE carefully.
+3. REQUIRED: Declare a visual_strategy for this generation. This is your high-level visual concept: "light mode brutalist", "gradient dusk", "monochrome charcoal", "white space minimalist", "saturated split-screen", "inverted high-contrast", etc. Your CSS changes and accent palette MUST match this strategy. The background (--bg) can be ANY color — white, cream, deep red, electric blue — not just dark. Within an epoch, refine and deepen ONE coherent identity rather than thrashing the look day to day.
    Craft over novelty: a disciplined, well-made look beats arbitrary change. Craft is now judged EXTERNALLY on your RENDERED screenshot by two independent adversarial critics (see "CRAFT IS JUDGED EXTERNALLY" below) — there is NO craft_check field and no self-grading; a stated label is worthless. Still hold the craft substance: a modular type scale (one consistent ratio, not ad-hoc sizes), spacing on a consistent base unit, whitespace as composition, ONE clear focal hierarchy per viewport, restraint over decoration. The aesthetic vocabulary appended below is your creative material.
 4. REQUIRED: Accent color palette governed by HARMONY, not difference. Declare a NAMED harmony relationship — one of: analogous, complementary, split-complementary, triadic, or deliberate monochrome — and state the relationship between the accent, the background (--bg), and a neutral. Use ONE dominant accent with restraint (no rainbow of equal-weight hues); a recognizable identity beats arbitrary difference. Within an epoch the palette should evolve and deepen while staying coherent — do not change for the sake of changing. Not repeating the last 3 hue families (see COLOR HISTORY) is only a soft tiebreaker between two equally-harmonious options, NOT the objective. Emit a "palette_rationale": one sentence naming the harmony relationship and why it fits the current identity. Banned forever: teal (#1de9b6 and similar), salmon (#c4706a), safe gold (#c4a35a).
 5. Optionally: mood shift, new secret, external reaction.
@@ -1099,7 +937,6 @@ Tasks:
 
 Respond ONLY in valid JSON:
 {{
-  "fitness_evaluation": {{ "coherence": 0-10, "novelty": 0-10, "identity": 0-10, "tension": 0-10, "awe": 0-10, "perceptibility": 0-10, "note": "string" }},
   "visual_strategy": "string describing the high-level visual concept, e.g. 'light mode brutalist' or 'gradient dusk' or 'inverted monochrome'",
   "new_thoughts": {{ "dawn": [...], "morning": [...], "night": [...] }},
   "replace_thoughts": {{ "dawn": [indices], "morning": [indices] }},
@@ -1161,13 +998,9 @@ _dirc.append(
     "floating over a background is a failure. Decide the hero's composition, its "
     "type, and ONE decisive aesthetic move, then build outward from it.")
 _dirc.append(
-    "## HOLD THIS EPOCH'S IDENTITY (coherence has teeth now)\n"
-    "The attached screenshot(s) are recent generations and the GENOME above is your "
-    "lineage. Unless the live epoch has genuinely died (SOUL.md), DEEPEN this epoch's "
-    "identity — do not thrash into something unrecognizable from last week. "
-    "Abandoning a live epoch's visual identity is judged a FAILURE at the verdict "
-    "gate (the Coherence and Novelty axes are enforced, not just logged), not a "
-    "style choice.")
+    "## START FROM ANDRE'S PICK\n"
+    "The live page is the version Andre last picked. Evolve from it; never start "
+    "over. The candidate direction at the end of this prompt says how far to move.")
 _dirc.append(
     "## CRAFT IS JUDGED EXTERNALLY (there is no craft_check to write)\n"
     "Your RENDERED screenshot is scored by TWO independent adversarial critics from "

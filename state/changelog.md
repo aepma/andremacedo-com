@@ -868,3 +868,6 @@ gen 266 weekly: open Epoch XIV, the khipu. The hero is a live khipu of 165 knott
 
 ## gen 267 (weekly, 2026-11-27)
 gen 267 weekly: the khipu re-cut in sans. Name in a tall condensed face on archival grey, no italics, no kickers; the record counts its own days live, today's red string gets its first knot; the string you read is echoed as a huge numeral behind the fringe; my thoughts become unread strings you unti
+
+## gen 268 (weekly, 2026-11-28)
+A walk through a city drawn in black ink on pink: down a street to a lit door, into a vault where a watch becomes a loan, out to a thousand windows where 12 light up, up to the workshop where TELOS redraws the page, and back to the front door to write to Andre.

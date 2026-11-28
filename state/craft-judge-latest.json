@@ -5,74 +5,77 @@
   "threshold": 7.0,
   "margin": 7.3,
   "overall_min": 5.0,
-  "reason": "margin override: critic A/claude-opus-4-8-oauth overall 7.5 >= margin 7.3 ships despite the other critic's veto (B/grok-4.20-fast(slop))",
+  "reason": "margin override: critic A/claude-opus-4-8-oauth overall 8.3 >= margin 7.3 ships despite the other critic's veto (B/grok-4.20-fast(slop))",
   "critics": {
     "A": {
       "model": "claude-opus-4-8-oauth",
       "passed": true,
       "axes": {
-        "type_scale": 7.0,
-        "spacing_system": 7.0,
+        "type_scale": 8.0,
+        "spacing_system": 8.0,
         "focal_hierarchy": 7.0,
         "restraint": 8.0,
-        "hero": 8.0,
+        "hero": 9.0,
         "composition": 8.0,
         "type_craft": 8.0,
-        "color": 7.0,
-        "stranger_test": 8.0
+        "color": 9.0,
+        "stranger_test": 9.0
       },
-      "overall": 7.5,
+      "overall": 8.3,
       "is_slop": false,
       "findings": [
-        "The utility voice leans on many letter-spaced lowercase mono metadata lines ('version 267 · this page rebuilt itself in 2.4 seconds', 'point at any string to read it · tap it on a phone', 'string 3 of 7 · 14 knots, untied') — this is a coherent mono register, but it flirts with the kicker/metadata-line pattern and is close to overused across every band.",
-        "The faded pink '248' in the hero sits at low contrast and competes faintly with the name; it reads as decoration more than a second focal point and slightly dilutes the single-landing-spot ideal.",
-        "The warm off-white ground is borderline — if it drifts any further toward cream/parchment it would trip the default-AI slop clause; here it reads as a cool-neutral paper grey, but it's the one risk on the page.",
-        "Lower bands ('One hundred and forty-four things I made', 'Each visit ties a knot') revert to a more conventional left-aligned heading + body + small-string-graphic rhythm, less daring than the hero."
+        "The two black chevron/arrow product tags ('RealWorld.fi', 'ActualSales') are the most conventional element on the page — a familiar speech-flag callout shape that leans toward UI-sticker idiom and slightly undercuts the hand-drawn world around them.",
+        "Mild focal competition: the huge black 'André Macedo' lockup top-left and the bright white vanishing-point doorway both bid hard for first fixation; the eye resolves it, but it is not a single uncontested focal point.",
+        "The top-right scene rail (Street/Vault/Windows/Workshop/Door) rides close to a progress-pager convention; it is saved only because the nodes are named scenes rather than anonymous dots.",
+        "The 'Entrepreneur. Co-founder...' line is a touch flat/corporate in voice relative to the audacity of the visual — the words do less work than the pixels."
       ],
       "what_works": [
-        "The hero is a genuine system, not a centered headline: a khipu of knotted strings drawn in code spans the top as compositional mass, the heavy DIN-Condensed name anchors bottom-left, and a single red string plus a muted number resolve the asymmetry — a decisive move no template generator defaults to.",
-        "Type pairing is intentional and expressive: a bold condensed grotesque display against an Avenir body and a mono utility voice — exactly the wide-grotesk-vs-mono move the rubric rewards, sans/mono throughout with no serif anywhere.",
-        "Restrained monochrome palette governed by one crimson accent that doubles as the live 'red string' running through the diagrams; color carries meaning rather than garnish.",
-        "The film framing ('stop the film / next cut: the unravel', 'a short film, drawn in code… press ← → to move it', 'string 3 of 7') treats the page as a directed passage of composed frames rather than a static deck, satisfying the cinematic organ without stock pagers.",
-        "Stranger test is cleanly met in-viewport: name, a plain-language line on what Andre does, and a legible email, with the khipu reference explained in everyday words."
+        "A committed, risky monochrome: shocking magenta with black line art and a single white doorway as the only high-key note — the antithesis of the default purple-blue gradient, and a genuine signature.",
+        "Code-drawn one-point-perspective city street vanishing to a glowing door: a decisive, non-templated hero composition with real spatial depth, not a headline floating on a background.",
+        "Asymmetric anchoring — identity top-left, scene rail top-right, product flags lower-left — using the empty pink road as compositional mass with directional pull toward the vanishing point.",
+        "Grotesk display at extreme weight against a monospace utility voice (nav, footer instructions) — a clear, intentional type point of view with no serif anywhere.",
+        "Stranger test fully satisfied in the first viewport: name, one-line what-he-does, visible email, and a plain-language explanation of the weekly-AI-rebuild twist.",
+        "The named 'walk' (Street → Door) reads as scene one of a directed passage rather than a static page, satisfying the cinematic brief without resorting to a deck or carousel."
       ],
-      "reasoning": "This is not SaaS-shaped and not default-grade: the above-the-fold khipu rendered in code, anchored by a heavy condensed grotesque against a mono utility voice and a single red string accent, is a committed, asymmetric composition a templated generator would not produce. Plain-language framing clears the stranger floor and the sans/mono-only discipline holds with no serif, no gradient, no feature-card grid. It loses points for a low-contrast secondary number, a borderline-warm ground, and lower bands that relax into more conventional heading+body rhythm, but no cardinal slop state is clearly present."
+      "reasoning": "The pixels show a hot-pink, code-drawn perspective street walking toward a white doorway, with identity, tagline, email and the AI-rebuild premise all legible above the fold — a decisive, high-conviction composition no templated generator would reach for. Type pairs a heavy grotesk with a mono utility voice, color is a single governed magenta accent, and the named scene rail frames it as a directed passage rather than a slide deck. It sits essentially at the level of Andre's chosen target, so it clears the bar comfortably; the only soft spots are the conventional chevron product tags and a slight dual pull between the name lockup and the vanishing-point door."
     },
     "B": {
       "model": "grok-4.20-fast",
       "fell_back_from": null,
       "passed": false,
       "axes": {
-        "type_scale": 4.0,
-        "spacing_system": 6.0,
+        "type_scale": 3.0,
+        "spacing_system": 4.0,
         "focal_hierarchy": 5.0,
-        "restraint": 7.0,
+        "restraint": 6.0,
         "hero": 4.0,
-        "composition": 5.0,
-        "type_craft": 8.0,
-        "color": 6.0,
+        "composition": 3.0,
+        "type_craft": 4.0,
+        "color": 5.0,
         "stranger_test": 8.0
       },
       "overall": 5.0,
       "is_slop": true,
       "findings": [
-        "The top hero is a generic centered bio block (name + title + paragraph) floating under a decorative string graphic — classic safe default layout shape that a templated generator would produce.",
-        "Multiple competing focal points at equal visual weight (top khipu graphic, giant 248, explanatory text blocks, bottom strings) with no single decisive eye anchor.",
-        "The large pink 248 is a derivative decorative number treatment that feels like default AI flourish rather than intentional system.",
-        "The overall layout is a series of stacked explanatory sections with illustrations, reading as a conventional long-form web article rather than a decisive living art organism or directed cinematic passage.",
-        "No single decisive aesthetic move that a templated generator would not make; the khipu metaphor, while conceptually interesting, is executed in a safe, illustrative, explanatory manner."
+        "Generic AI-default isometric pink line-art city street illustration used as hero background — derivative template-grade visual trope",
+        "Safe default sans-serif typography with no intentional pairing, extreme weight, or expressive point of view",
+        "Symmetry-as-substitute-for-composition: centered name + bio block top-left, two arrow CTAs stacked left, navigation dots top-right, all floating over the street scene without decisive tension or off-axis anchor",
+        "The default AI design: uniform hot-pink monochrome color field with black line art, no named harmony or restraint beyond one accent",
+        "Hero is generic centered branding over a stock isometric illustration rather than a deliberate system or decisive compositional move",
+        "No single decisive aesthetic move a templated generator wouldn't produce; the 'AI rebuilds weekly' twist is mentioned but not visually expressed with risk or signature",
+        "Mobile version is near-identical vertical crop of desktop with no meaningful responsive recomposition"
       ],
       "what_works": [
-        "Monochromatic string illustrations with red accent are restrained and thematically consistent.",
-        "The interactive 'point at any string' mechanic and visitor knot counter show clear conceptual follow-through visible in the desktop render."
+        "Visible email address and plain-language one-liners in first viewport satisfy core stranger_test requirements",
+        "The directed 'walk on' street perspective with progress bar (Street → Vault → ... → Door) creates a coherent cinematic passage that references the target form"
       ],
-      "reasoning": "This is a conceptually strong page about khipu as personal data/body that executes in a mostly generic, explanatory web design format. The hero is not resolved as a deliberate system but as a standard bio + decorative header. Type is clean mono/sans with decent pairing but the scale is not clearly modular. Composition relies on centered symmetry and even stacking rather than tension or asymmetry. While it avoids many cardinal sins (no serif, no gradients, no SaaS shape), it fails the 'no single decisive move' test and reads as a well-crafted but template-grade illustrated essay rather than the antifragile living art organism the rubric demands. Stranger test passes clearly in the first viewport. Overall a mediocre execution that doesn't clear the bar for this specific site."
+      "reasoning": "The desktop render is a competent but mediocre isometric pink street scene that feels like default-grade AI output. It hits stranger_test because name, title, email, and product one-liners are immediately legible. However it fails on type_scale (ad-hoc sizes), composition (safe left-aligned blocks over perspective road), hero (generic illustration with no decisive move), and type_craft (bland sans). Multiple cardinal slop states are present: safe default sans, symmetry-as-composition, generic AI design (monochrome pink line art), and no signature move that escapes template generators. The cinematic walk-on conceit is the only real lift, but not enough to overcome the derivative visual language when judged against the references. Overall a 5."
     }
   },
   "margin_override": {
     "critic": "A",
     "model": "claude-opus-4-8-oauth",
-    "overall": 7.5,
+    "overall": 8.3,
     "margin": 7.3
   }
 }

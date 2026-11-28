@@ -264,6 +264,21 @@ warn_oversized_deploy_files() {
   fi
 }
 
+# ── Archive page: archive.html from the real records ────────────────
+# Andre's order 2026-11-27: the page the live site links as "earlier versions"
+# had not been written since 2026-08-25. build_archive.py rebuilds it on every
+# pulse from git history, archive-screenshots/manifest.json and experiments/,
+# with one web-sized picture per shipped version (a version about to deploy
+# without a picture gets one, rendered from the working tree). A failure keeps
+# the previous archive.html and never blocks a deploy of the page itself.
+rebuild_archive_page() {
+  if python3 "$SCRIPT_DIR/build_archive.py" --site "$SITE_DIR" --shoot >> "$LOG_FILE" 2>&1; then
+    log "archive page rebuilt"
+  else
+    log_error "build_archive.py failed; archive.html left as it was (see $LOG_FILE)"
+  fi
+}
+
 # ── Direction C: DAILY is the cheap, zero-LLM path ─────────────────
 # Refresh external data + sensorium, commit, deploy. The page's client-side
 # time-of-day rotation provides the visible daily change. No claude session and
@@ -273,6 +288,9 @@ warn_oversized_deploy_files() {
 if [ "$PULSE_TYPE" = "daily" ]; then
   log "daily cheap pulse (zero-LLM: refresh data + deploy)"
   bash "$SCRIPT_DIR/refresh.sh" >> "$LOG_FILE" 2>&1 || log "WARN: refresh.sh failed; deploying with prior data"
+  # Andre picks (2026-11-27): expire unanswered offers, queue a pick that waits.
+  python3 "$SCRIPT_DIR/site_pick.py" daily >> "$LOG_FILE" 2>&1 || log_error "site_pick.py daily failed (see $LOG_FILE)"
+  rebuild_archive_page
   cd "$SITE_DIR"
   git add -A
   git commit -m "agent: daily data refresh | pulse: daily" >> "$LOG_FILE" 2>&1 || log "daily: nothing to commit"
@@ -466,13 +484,9 @@ MANDATED SEQUENCE — every step is an assertion gate; do not skip or reorder:
    Andre's name visible, and the first-person self-introduction present and
    legible above the fold (INV-1/2/3).
 3. Write your generation record to $SITE_DIR/state/generation-meta.json with the
-   Write tool — raw JSON, the metadata schema specified above (fitness_evaluation,
-   visual_strategy, accent_palette, palette_rationale, mood, kills, self_note,
+   Write tool — raw JSON, the metadata schema specified above (visual_strategy, accent_palette, palette_rationale, mood, kills, self_note,
    summary; plus epoch_name/obsession_update if the epoch changes; weekly also
-   weekly_reflection). If the EPOCH REVIEW section is present in this prompt, the
-   record MUST also carry epoch_review {verdict, reasoning} — a missing or
-   malformed one rejects the generation, exactly like a failed gate, and nothing
-   ships. This is your RECORD of the generation, NOT an apply-this-
+   weekly_reflection). This is your RECORD of the generation, NOT an apply-this-
    diff — your visual changes are already in the index.html you wrote.
 4. Validate + render + run the DETERMINISTIC gates in ONE Bash call so each halts
    the chain (these are the SAME gates the runner re-runs after you — pass them here):
@@ -586,33 +600,24 @@ SESSION_MODE=single; [ "$AGENTIC" = "1" ] && SESSION_MODE=agentic
 GENERATION_MODEL="$(bash "$SCRIPT_DIR/generation-session.sh" model)"
 [ -n "$GENERATION_MODEL" ] || { log_error "generation-session.sh printed no model"; exit 1; }
 
-# Epoch opening (weekly pulse, obsession cleared): epoch_fanout.py runs several
-# candidate sessions, gates and judges them, installs the winner in SITE_DIR and
-# writes its result event to HELPER_OUTPUT_FILE (exit 0). Exit 3 = no fan-out
-# (not an opening, already fanned out, or fail-closed fallback); any other exit
-# is logged. Both fall through to today's single attempt. Every gate below
-# still runs on whatever was generated.
-FANOUT_EXIT=3
-if [ "$PULSE_TYPE" = "weekly" ]; then
-  set +e
-  PULSE_TYPE="$PULSE_TYPE" python3 "$SCRIPT_DIR/epoch_fanout.py" run --site "$SITE_DIR" \
-    --input-jsonl "$INPUT_JSONL_FILE" --output "$HELPER_OUTPUT_FILE" \
-    --wall "$SESSION_WALL_CEILING" >> "$LOG_FILE" 2>&1
-  FANOUT_EXIT=$?
-  set -e
-  [ "$FANOUT_EXIT" = "0" ] || [ "$FANOUT_EXIT" = "3" ] \
-    || log_error "epoch fan-out exited $FANOUT_EXIT (see $LOG_FILE) — single attempt"
-fi
-
+# Andre picks (order 2026-11-27): only a candidate he picked deploys. epoch_fanout.py
+# installs a waiting pick into SITE_DIR and writes its result event (exit 0), and
+# every gate below then runs on it. Otherwise it builds three candidates and sends
+# Andre one pick message, or finds nothing to do (exit 4). Any other exit is a
+# crash. Nothing but exit 0 reaches a deploy: the live page stays as it is.
 set +e
-if [ "$FANOUT_EXIT" = "0" ]; then
-  HELPER_EXIT=0
-else
-  INPUT_JSONL="$INPUT_JSONL_FILE" OUTPUT_FILE="$HELPER_OUTPUT_FILE" PULSE_TYPE="$PULSE_TYPE" \
-    tmo "$SESSION_WALL_CEILING" bash "$SCRIPT_DIR/generation-session.sh" "$SESSION_MODE"
-  HELPER_EXIT=$?
-fi
+PULSE_TYPE="$PULSE_TYPE" python3 "$SCRIPT_DIR/epoch_fanout.py" run --site "$SITE_DIR" \
+  --input-jsonl "$INPUT_JSONL_FILE" --output "$HELPER_OUTPUT_FILE" \
+  --wall "$SESSION_WALL_CEILING" >> "$LOG_FILE" 2>&1
+FANOUT_EXIT=$?
 set -e
+if [ "$FANOUT_EXIT" != "0" ]; then
+  [ "$FANOUT_EXIT" = "4" ] || log_error "epoch_fanout.py exited $FANOUT_EXIT (see $LOG_FILE); no deploy"
+  log "$PULSE_TYPE: no picked version to install (exit $FANOUT_EXIT); the live page stays"
+  DEPLOY_SUCCEEDED=1
+  exit 0
+fi
+HELPER_EXIT=0
 
 # Persist the full stream-json transcript (perceptibility self-check evidence
 # lives here); keep the last 14 so logs/ stays bounded.
@@ -1230,6 +1235,11 @@ PYEOF
     exit 0
   fi
 fi
+
+# ── Archive page (Andre's order 2026-11-27) ────────────────────────
+# archive.html is rebuilt from the real records before the commit, so the page
+# deployed below lists this version, with its picture, as the live one.
+rebuild_archive_page
 
 # ── Git commit (for history) ──────────────────────────────────────
 git add -A

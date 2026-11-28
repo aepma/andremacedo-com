@@ -126,6 +126,11 @@ MODEL_LIST_TIMEOUT = 10.0
 HERE = os.path.dirname(os.path.abspath(__file__))
 DEFAULT_RUBRIC = os.path.join(HERE, "craft-rubric.md")
 DEFAULT_TONE_RUBRIC = os.path.join(HERE, "tone-rubric.md")
+# Andre's order of 2026-11-27: examples replace rules. references/ holds notes and
+# screenshots of sites he likes and every version he picked; both critics get them
+# as the target. A missing folder is an error, never a silent rubric-only verdict.
+DEFAULT_REFERENCES = os.path.join(os.path.dirname(HERE), "references")
+MAX_REFERENCE_IMAGES = 4
 
 AXES = ["type_scale", "spacing_system", "focal_hierarchy", "restraint",
         "hero", "composition", "type_craft", "color", "stranger_test"]
@@ -245,7 +250,36 @@ def b64_data_url(path):
     return f"data:{mime};base64," + base64.b64encode(raw).decode("ascii")
 
 
-def build_user_content(rubric, desktop, mobile, tone_rubric=None):
+def load_references(ref_dir):
+    """(notes text, [(label, image path)]) from references/. Raises when the folder
+    or its README is missing. Images: the newest pick (desktop, mobile), then the
+    liked-site screenshots, at most MAX_REFERENCE_IMAGES."""
+    readme = os.path.join(ref_dir, "README.md")
+    if not os.path.isfile(readme):
+        raise FileNotFoundError(f"references README missing: {readme}")
+    notes = []
+    for name in sorted(os.listdir(ref_dir)):
+        if name.endswith(".md"):
+            with open(os.path.join(ref_dir, name), encoding="utf-8") as f:
+                notes.append(f"--- {name} ---\n" + f.read().strip())
+    images = []
+    picks = os.path.join(ref_dir, "picks", "picks.jsonl")
+    if os.path.isfile(picks):
+        with open(picks, encoding="utf-8") as f:
+            rows = [json.loads(l) for l in f if l.strip()]
+        if rows:
+            last = rows[-1]
+            for kind in ("desktop", "mobile"):
+                path = os.path.join(ref_dir, "picks", last.get(kind) or "")
+                if os.path.isfile(path):
+                    images.append((f"Andre's latest pick ({kind})", path))
+    for name in sorted(os.listdir(ref_dir)):
+        if name.lower().endswith((".jpg", ".jpeg", ".png")):
+            images.append((f"liked site {name}", os.path.join(ref_dir, name)))
+    return "\n\n".join(notes), images[:MAX_REFERENCE_IMAGES]
+
+
+def build_user_content(rubric, desktop, mobile, tone_rubric=None, references=None):
     tone_text = ""
     if tone_rubric is not None:
         tone_text = (
@@ -257,8 +291,11 @@ def build_user_content(rubric, desktop, mobile, tone_rubric=None):
         "type": "text",
         "text": (
             "Judge this andremacedo.com generation against the rubric below. "
-            "andremacedo.com is a living art organism that an AI rebuilds — it is "
-            "NOT a SaaS landing page; SaaS-landing shapes are slop here. Primary "
+            "andremacedo.com is Andre Macedo's personal site. Its job: within 10 "
+            "seconds a stranger understands who Andre is and what he does, and wants "
+            "to contact him. The AI that rebuilds it every week is the twist, not the "
+            "subject. It is NOT a SaaS landing page; SaaS-landing shapes are slop "
+            "here. Primary "
             "judgment is the DESKTOP render. If a mobile render follows, confirm "
             "the craft holds responsively (do not let mobile alone rescue a weak "
             "desktop).\n\nScore every axis 0-10, be stingy, and set is_slop=true "
@@ -274,6 +311,17 @@ def build_user_content(rubric, desktop, mobile, tone_rubric=None):
     if mobile and os.path.isfile(mobile):
         parts.append({"type": "text", "text": "MOBILE render follows:"})
         parts.append({"type": "image_url", "image_url": {"url": b64_data_url(mobile)}})
+    if references is not None:
+        notes, images = references
+        parts.append({"type": "text", "text": (
+            "\n===== REFERENCES (the target) =====\nAndre chose these as the target: "
+            "sites he likes and the versions he picked. Score every axis against them: "
+            "a page below their craft scores lower, whatever the rubric alone would "
+            "give. Credit learned technique; a page that copies a reference's code, "
+            "text or look outright is slop.\n\n" + notes + "\n===== END REFERENCES =====")})
+        for label, path in images:
+            parts.append({"type": "text", "text": f"REFERENCE image: {label}"})
+            parts.append({"type": "image_url", "image_url": {"url": b64_data_url(path)}})
     return parts
 
 
@@ -444,6 +492,8 @@ def build_parser():
                     help="also score the tone axis (see --tone-rubric); reported per "
                          "critic with a craft+tone combined score, gate rule unchanged")
     ap.add_argument("--tone-rubric", default=DEFAULT_TONE_RUBRIC)
+    ap.add_argument("--references", default=DEFAULT_REFERENCES,
+                    help="references folder sent to both critics as the target")
     return ap
 
 
@@ -497,7 +547,11 @@ def main():
             emit({"verdict": "ERROR", "is_slop": True,
                   "error": f"tone rubric unreadable: {e}"}, 2)
 
-    content = build_user_content(rubric, args.desktop, args.mobile, tone_rubric)
+    try:
+        references = load_references(args.references)
+    except (OSError, ValueError) as e:
+        emit({"verdict": "ERROR", "is_slop": True, "error": f"references unreadable: {e}"}, 2)
+    content = build_user_content(rubric, args.desktop, args.mobile, tone_rubric, references)
 
     # Resolve every critic against the proxy's LIVE model list before spending a
     # single call. A retired id used to surface as an exception inside the critic

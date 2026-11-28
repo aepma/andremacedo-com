@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Fixture test for epoch-operator-clear.py and the fan-out trigger it opens.
+"""Fixture test for epoch-operator-clear.py and the clearing it leaves.
 
 No model calls and no process listing: the runner check goes through
 stub-pgrep.sh. Each case runs the command on a scratch site holding a copy of
@@ -7,7 +7,7 @@ this repo's state files; when that state is already a clearing, the copy is
 given a live obsession first, as test_orchestration.py does.
 
 Cases:
-  1. Before: the fan-out trigger is false on a live epoch.
+  1. Before: a live epoch has no clearing.
   2. Refusals write nothing: missing, blank and over-long reason; a runner.sh
      going; a process check that cannot answer. The check targets this site's
      runner path with its dots escaped.
@@ -17,8 +17,9 @@ Cases:
      reason; one review-log entry with verdict operator_clear and the reason;
      the transition file has kind operator; genome epoch/epoch_started and the
      generation counter are untouched; exactly those four files changed.
-  4. After: the fan-out trigger is true for opening epoch-(N+1):clearing-<today>,
-     false for a daily pulse, and false once that opening is in the ledger.
+  4. After: the clearing is epoch-(N+1):clearing-<today>. Since 2026-11-27 every
+     weekly run builds candidates for Andre to pick, so a clearing no longer
+     triggers a fan-out of its own.
   5. A second clear refuses (no live epoch, exit 3) and writes nothing.
 Fail-closed: exit 1 if ANY assertion fails.
 """
@@ -98,8 +99,7 @@ def main():
                                capture_output=True, text=True, check=True).stdout.strip()
 
         # ── case 1: before ─────────────────────────────────────────
-        ok, reason, _ = ep.should_fanout(site, "weekly")
-        check("case1: trigger false on the live epoch", not ok and "live" in reason, reason)
+        check("case1: no clearing on the live epoch", ep.opening_key(site) is None)
 
         # ── case 2: refusals write nothing ─────────────────────────
         before = snapshot(site)
@@ -166,17 +166,9 @@ def main():
               and tr.get("topic") == topic and tr.get("reason") == REASON, str(tr)[:300])
 
         # ── case 4: after ──────────────────────────────────────────
-        ok, reason, key = ep.should_fanout(site, "weekly")
-        check("case4: trigger true on the state the operator command produced",
-              ok and key == f"epoch-{n + 1}:clearing-{today}", f"{ok} {reason}")
-        ok_d, reason_d, _ = ep.should_fanout(site, "daily")
-        check("case4: daily pulse still does not fan out", not ok_d, reason_d)
-        ledger_site = os.path.join(root, "ledger-site")
-        shutil.copytree(site, ledger_site)
-        ep.append_ledger(ledger_site, {"opening_key": key, "event": "started"})
-        ok_l, reason_l, _ = ep.should_fanout(ledger_site, "weekly")
-        check("case4: cost bound holds: once fanned out, the opening does not fan out again",
-              not ok_l and "already fanned out" in reason_l, reason_l)
+        key = ep.opening_key(site)
+        check("case4: the operator command leaves clearing epoch-(N+1):clearing-<today>",
+              key == f"epoch-{n + 1}:clearing-{today}", str(key))
 
         # ── case 5: second clear ───────────────────────────────────
         before2 = snapshot(site)

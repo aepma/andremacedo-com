@@ -347,15 +347,15 @@ def check_mobile_interaction_invariants(html, path):
     return True, ""
 
 
-# ── INV-6: WebGL swarm panel present and alive ─────────────────────
+# ── INV-6: WebGL swarm panel, when present, is alive ───────────────
 
 
 def check_swarm_panel(html, path):
-    """INV-6: an element with id="swarmPanel" exists AND is referenced from
-    inline JS (the static proxy for "alive" — a dead unreferenced div fails)."""
+    """INV-6: the swarm panel is optional (SOUL.md, The form, 2026-11-27). When an
+    element with id="swarmPanel" exists it must be referenced from inline JS
+    (the static proxy for "alive" — a dead unreferenced div fails)."""
     if not re.search(r"""<\w+\b[^>]*\bid\s*=\s*["']swarmPanel["']""", html):
-        return False, ('swarm-panel: no element with id="swarmPanel"; the WebGL swarm '
-                       "panel is the nervous system and persists across generations")
+        return True, ""
     for _, body in find_inline_scripts(html):
         if "swarmPanel" in body:
             return True, ""

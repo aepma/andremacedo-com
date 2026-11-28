@@ -112,14 +112,15 @@ structural mobile invariants before deploy; its `MOBILE_INTERACTIVITY` check
 runs only on an instrument page and reports `skipped` (never `pass`) on any
 other page.
 
-## INV-6 — WebGL swarm panel present and alive
+## INV-6 — WebGL swarm panel, when present, is alive
 
-**Rule:** The element `id="swarmPanel"` exists in the markup AND is referenced
-from inline JavaScript (so it is driven, not a dead div). The swarm panel
-persists across generations.
+**Rule:** The swarm panel is optional. A page may leave out every swarm block.
+When an element `id="swarmPanel"` exists in the markup, it must be referenced
+from inline JavaScript (so it is driven, not a dead div).
 
-**Why:** SOUL.md constraint: "The WebGL swarm panel (#swarmPanel) is your
-nervous system. It persists across generations."
+**Why:** SOUL.md, The form (Andre's ruling, 2026-11-27): the home page is one
+full-screen directed piece, and the swarm panel is optional in it. A dead panel
+is still a defect.
 
 **Checked by:** `check_swarm_panel` (static; "alive" is proxied by a JS
 reference — actual render liveness is prompt-level).
@@ -393,3 +394,6 @@ enforcement — is itself a violation of the contract.
 - 2026-11-26 — INV-18 added: sans-serif only, on index.html and uncommitted
   experiment pages, enforced by `check_sans_serif_only`. Reason: Andre's
   ruling on live gen 266 (SOUL.md, Sans-serif only).
+- 2026-11-27 — INV-6 made optional: a page without `#swarmPanel` passes; a
+  page with one must still drive it. Reason: Andre's ruling on the directed
+  piece (SOUL.md, The form).
